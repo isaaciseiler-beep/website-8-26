@@ -164,7 +164,10 @@
   }
 
   .dark .home-work-opening,
-  .dark .home-photo-section-fallback {
+  .dark .home-photo-section,
+  .dark .home-photo-section-fallback,
+  .dark .home-photo-hero,
+  .dark .home-photo-hero-copy {
     background: #0a0a0a;
   }
 
