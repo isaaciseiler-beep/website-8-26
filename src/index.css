@@ -2365,7 +2365,7 @@
   .about-lede-bio p {
     font-size: 13px;
     line-height: 1.6;
-    color: rgba(10, 10, 10, 0.54);
+    color: hsl(var(--foreground) / 0.54);
   }
 
 
@@ -2425,7 +2425,7 @@
     flex-direction: column;
     overflow: hidden;
     border-radius: 26px;
-    background: rgba(255, 255, 255, 0.82);
+    background: hsl(var(--background) / 0.82);
     box-shadow: 0 22px 60px rgba(0, 0, 0, 0.18);
     backdrop-filter: blur(20px) saturate(1.3);
     -webkit-backdrop-filter: blur(20px) saturate(1.3);
@@ -2440,7 +2440,7 @@
     font-size: 9px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(10, 10, 10, 0.42);
+    color: hsl(var(--foreground) / 0.42);
   }
 
   .ai-dock-messages {
@@ -2453,7 +2453,7 @@
   .ai-dock-empty {
     font-size: 13px;
     line-height: 1.55;
-    color: rgba(10, 10, 10, 0.5);
+    color: hsl(var(--foreground) / 0.5);
   }
 
   .ai-dock-empty a {
@@ -2466,15 +2466,15 @@
     white-space: pre-line;
     font-size: 13.5px;
     line-height: 1.55;
-    color: rgba(10, 10, 10, 0.82);
+    color: hsl(var(--foreground) / 0.82);
   }
 
   .ai-dock-bubble--user {
     justify-self: end;
     padding: 9px 14px;
     border-radius: 18px;
-    background: rgba(10, 10, 10, 0.92);
-    color: #fff;
+    background: hsl(var(--foreground) / 0.94);
+    color: hsl(var(--background));
   }
 
   .ai-dock-typing {
@@ -2488,7 +2488,7 @@
     width: 5px;
     height: 5px;
     border-radius: 999px;
-    background: rgba(10, 10, 10, 0.5);
+    background: hsl(var(--foreground) / 0.5);
   }
 
   .ai-dock-form {
@@ -2503,12 +2503,12 @@
     flex: 1;
     background: transparent;
     font-size: 14px;
-    color: #0a0a0a;
+    color: hsl(var(--foreground));
     outline: none;
   }
 
   .ai-dock-form input::placeholder {
-    color: rgba(10, 10, 10, 0.38);
+    color: hsl(var(--foreground) / 0.38);
   }
 
   @media (max-width: 820px) {
