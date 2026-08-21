@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { newsItems } from "@/lib/siteContent";
 
 const INITIAL_COUNT = 6;
@@ -38,8 +38,8 @@ const NewsSection = () => {
                   <img src={item.logoUrl} alt={item.logoAlt} className="news-compact-logo" loading="lazy" />
                 </div>
                 <div className="work-library-card-bottom">
+                  <ArrowRight aria-hidden="true" className="work-library-card-arrow" />
                   <h3>{item.title}</h3>
-                  <ArrowUpRight aria-hidden="true" />
                 </div>
               </motion.a>
             ))}

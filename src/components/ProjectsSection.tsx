@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projectItems, type ProjectItem } from "@/lib/siteContent";
 
@@ -91,8 +91,8 @@ const ProjectsSection = () => {
                 />
                 <div className="work-library-scrim" />
                 <div className="work-library-card-bottom">
+                  <ArrowRight aria-hidden="true" className="work-library-card-arrow" />
                   <h3>{project.title}</h3>
-                  <ArrowUpRight aria-hidden="true" />
                 </div>
               </Link>
             </motion.div>
