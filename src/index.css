@@ -2334,10 +2334,11 @@
   }
 
   .about-lede-bio p {
-    font-size: 13px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.55;
     color: hsl(var(--foreground) / 0.54);
   }
+
 
 
   .news-compact-logo-row {
