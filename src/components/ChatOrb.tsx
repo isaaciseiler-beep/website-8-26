@@ -168,11 +168,12 @@ const ChatOrb = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.36, ease: EASE }}
         aria-expanded={open}
-        aria-label={open ? "Close Isaac AI" : "Ask Isaac AI"}
+        aria-label={open ? "Close AI" : "Ask AI"}
       >
         <Sparkles aria-hidden="true" />
-        <span>{open ? "Close" : "Ask Isaac AI"}</span>
+        <span>{open ? "Close" : "Ask AI"}</span>
       </motion.button>
+
     </div>
   );
 };
