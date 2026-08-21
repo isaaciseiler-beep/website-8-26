@@ -99,7 +99,7 @@ const ChatOrb = () => {
             exit={{ opacity: 0, y: 12, scale: 0.97 }}
             transition={{ duration: 0.36, ease: EASE }}
             role="dialog"
-            aria-label="Isaac AI"
+            aria-label="Ask AI"
           >
             <div className="ai-dock-panel-head">
               <span>Ask AI</span>
