@@ -31,7 +31,7 @@ const ThemeSwitch = () => {
   return (
     <div
       ref={switchRef}
-      className="theme-switch site-corner relative grid h-10 w-[132px] grid-cols-2 overflow-hidden bg-foreground/10 p-1 shadow-[inset_0_0_0_1px_hsl(var(--foreground)/0.07)]"
+      className="theme-switch relative rounded-full grid h-10 w-[132px] grid-cols-2 overflow-hidden bg-foreground/10 p-1 shadow-[inset_0_0_0_1px_hsl(var(--foreground)/0.07)]"
       role="radiogroup"
       aria-label="Appearance"
       onPointerDown={(event) => {
@@ -45,7 +45,7 @@ const ThemeSwitch = () => {
     >
       <motion.span
         aria-hidden="true"
-        className="theme-switch-thumb site-corner absolute bottom-1 top-1 bg-primary shadow-[0_10px_26px_hsl(var(--foreground)/0.16)]"
+        className="theme-switch-thumb rounded-full absolute bottom-1 top-1 bg-primary shadow-[0_10px_26px_hsl(var(--foreground)/0.16)]"
         initial={false}
         animate={{ x: `${activeIndex * 100}%` }}
         transition={{ duration: 0.42, ease: EASE_TEXT }}
@@ -346,7 +346,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                 <div className="flex w-fit gap-2">
                   <button
                     onClick={() => { window.location.href = CONTACT_MAILTO; }}
-                    className="site-corner flex h-10 w-10 items-center justify-center bg-foreground/10 text-foreground transition-colors duration-300 hover:bg-foreground/20"
+                    className="pill-button pill-button--icon flex h-10 w-10 items-center justify-center"
                     aria-label="Contact"
                   >
                     <Mail className="w-4 h-4" />
@@ -355,7 +355,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                     <button
                       key={link.id}
                       onClick={() => handleSocialClick(link.href)}
-                      className="site-corner sidebar-social-button flex h-10 w-10 items-center justify-center bg-foreground/10 text-foreground transition-colors duration-300 hover:bg-foreground/20"
+                      className="pill-button pill-button--icon sidebar-social-button flex h-10 w-10 items-center justify-center"
                       aria-label={link.label}
                     >
                       {link.icon}
