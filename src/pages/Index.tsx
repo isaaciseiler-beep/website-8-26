@@ -10,7 +10,7 @@ const AboutSection = lazy(() => import("@/components/AboutSection"));
 const NewsSection = lazy(() => import("@/components/NewsSection"));
 const PhotoSection = lazy(() => import("@/components/PhotoSection"));
 const InspirationBoard = lazy(() => import("@/components/InspirationBoard"));
-const IsaacAISection = lazy(() => import("@/components/IsaacAISection"));
+
 const Footer = lazy(() => import("@/components/Footer"));
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];

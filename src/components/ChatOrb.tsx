@@ -1,63 +1,182 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Sparkles } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { scrollToPageSection } from "@/lib/scroll";
+import { ArrowUp, Sparkles, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import { CONTACT_EMAIL } from "@/lib/site";
+import {
+  CHAT_LIMIT_MESSAGE,
+  askSiteAssistant,
+  countUserMessages,
+  MAX_CHAT_USER_MESSAGES,
+  type ChatRequestMessage,
+} from "@/lib/chatClient";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+interface ChatMessage extends ChatRequestMessage {
+  id: string;
+}
+
+const createMessageId = () => `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
 const ChatOrb = () => {
-  const [visible, setVisible] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const listRef = useRef<HTMLDivElement | null>(null);
   const location = useLocation();
-  const navigate = useNavigate();
   const disabled = location.pathname === "/photos" || location.pathname === "/photos/map";
 
-  useEffect(() => {
-    const handleScroll = () => setVisible(window.scrollY > 24);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const userMessageCount = countUserMessages(messages);
+  const limitReached = messages.some(
+    (message) => message.role === "assistant" && message.content === CHAT_LIMIT_MESSAGE,
+  );
 
   useEffect(() => {
-    const handleSidebarState = (event: Event) => {
-      setSidebarOpen(Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open));
+    setOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (list) list.scrollTo({ top: list.scrollHeight, behavior: "smooth" });
+  }, [messages, isLoading, open]);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
     };
-    window.addEventListener("site-sidebar-state", handleSidebarState);
-    return () => window.removeEventListener("site-sidebar-state", handleSidebarState);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const handleClick = () => {
-    if (location.pathname === "/") {
-      scrollToPageSection("isaac-ai");
+  const ask = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const prompt = query.trim();
+    if (!prompt || isLoading || limitReached) return;
+
+    const next = [...messages, { id: createMessageId(), role: "user" as const, content: prompt }];
+    setMessages(next);
+    setQuery("");
+
+    if (userMessageCount >= MAX_CHAT_USER_MESSAGES) {
+      setMessages([...next, { id: createMessageId(), role: "assistant", content: CHAT_LIMIT_MESSAGE }]);
       return;
     }
-    navigate("/#isaac-ai");
+
+    setIsLoading(true);
+    try {
+      const data = await askSiteAssistant(next.map(({ role, content }) => ({ role, content })));
+      setMessages((current) => [
+        ...current,
+        { id: createMessageId(), role: "assistant", content: data.message || "" },
+      ]);
+    } catch (error) {
+      setMessages((current) => [
+        ...current,
+        {
+          id: createMessageId(),
+          role: "assistant",
+          content: error instanceof Error ? error.message : "The AI assistant is temporarily unavailable.",
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  if (disabled) return null;
+
   return (
-    <AnimatePresence>
-      {!disabled && (visible || sidebarOpen) ? (
-        <motion.button
-          type="button"
-          onClick={handleClick}
-          className="isaac-ai-pill fixed bottom-5 left-1/2 z-[58] flex items-center gap-2.5 rounded-full px-4 py-2.5 text-[11px] font-medium text-black"
-          style={{ x: "-50%" }}
-          initial={{ opacity: 0, y: 10, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 8, scale: 0.96 }}
-          transition={{ duration: 0.32, ease: EASE }}
-          whileHover={{ y: -2 }}
-          whileTap={{ scale: 0.98 }}
-          aria-label="Open Isaac AI"
-        >
-          <Sparkles className="h-3.5 w-3.5" strokeWidth={1.6} aria-hidden="true" />
-          <span>Ask Isaac AI</span>
-          <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.6} aria-hidden="true" />
-        </motion.button>
-      ) : null}
-    </AnimatePresence>
+    <div className="ai-dock">
+      <AnimatePresence initial={false}>
+        {open ? (
+          <motion.div
+            key="panel"
+            className="ai-dock-panel"
+            initial={{ opacity: 0, y: 16, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.97 }}
+            transition={{ duration: 0.36, ease: EASE }}
+            role="dialog"
+            aria-label="Isaac AI"
+          >
+            <div className="ai-dock-panel-head">
+              <span>Isaac AI</span>
+              <button type="button" className="pill-button pill-button--icon" onClick={() => setOpen(false)} aria-label="Close Isaac AI">
+                <X aria-hidden="true" />
+              </button>
+            </div>
+
+            <div ref={listRef} className="ai-dock-messages">
+              {messages.length === 0 && !isLoading ? (
+                <p className="ai-dock-empty">
+                  Ask about my research, writing, or work. Trained on a body of my work — a prototype, not me.
+                  Issues?{" "}
+                  <a href={`mailto:${CONTACT_EMAIL}?subject=Isaac%20AI%20output%20issue`}>Let me know</a>.
+                </p>
+              ) : null}
+
+              {messages.map((message) => (
+                <motion.div
+                  key={message.id}
+                  className={message.role === "user" ? "ai-dock-bubble ai-dock-bubble--user" : "ai-dock-bubble"}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, ease: EASE }}
+                >
+                  {message.content}
+                </motion.div>
+              ))}
+
+              {isLoading ? (
+                <div className="ai-dock-typing" aria-label="Loading answer">
+                  {[0, 1, 2].map((dot) => (
+                    <motion.span
+                      key={dot}
+                      animate={{ opacity: [0.25, 1, 0.25], y: [0, -3, 0] }}
+                      transition={{ duration: 1.1, repeat: Infinity, delay: dot * 0.14 }}
+                    />
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
+            <form className="ai-dock-form" onSubmit={ask}>
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder={limitReached ? "Message limit reached" : "Ask about my work"}
+                aria-label="Ask about my work"
+                disabled={limitReached}
+              />
+              <button
+                type="submit"
+                className="pill-button pill-button--solid pill-button--icon"
+                disabled={!query.trim() || isLoading || limitReached}
+                aria-label="Send"
+              >
+                <ArrowUp aria-hidden="true" />
+              </button>
+            </form>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
+      <motion.button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        className="pill-button pill-button--solid ai-dock-trigger"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.36, ease: EASE }}
+        aria-expanded={open}
+        aria-label={open ? "Close Isaac AI" : "Ask Isaac AI"}
+      >
+        <Sparkles aria-hidden="true" />
+        <span>{open ? "Close" : "Ask Isaac AI"}</span>
+      </motion.button>
+    </div>
   );
 };
 
