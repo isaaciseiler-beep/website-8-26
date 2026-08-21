@@ -102,20 +102,17 @@ const ChatOrb = () => {
             aria-label="Isaac AI"
           >
             <div className="ai-dock-panel-head">
-              <span>Isaac AI</span>
-              <button type="button" className="pill-button pill-button--icon" onClick={() => setOpen(false)} aria-label="Close Isaac AI">
+              <span>Ask AI</span>
+              <button type="button" className="pill-button pill-button--icon" onClick={() => setOpen(false)} aria-label="Close">
                 <X aria-hidden="true" />
               </button>
             </div>
 
             <div ref={listRef} className="ai-dock-messages">
               {messages.length === 0 && !isLoading ? (
-                <p className="ai-dock-empty">
-                  Ask about my research, writing, or work. Trained on a body of my work — a prototype, not me.
-                  Issues?{" "}
-                  <a href={`mailto:${CONTACT_EMAIL}?subject=Isaac%20AI%20output%20issue`}>Let me know</a>.
-                </p>
+                <p className="ai-dock-empty">Ask about my work, writing, or research.</p>
               ) : null}
+
 
               {messages.map((message) => (
                 <motion.div
