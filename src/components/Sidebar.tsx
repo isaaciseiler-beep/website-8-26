@@ -17,20 +17,10 @@ const themeOptions = [
 
 const ThemeSwitch = () => {
   const { theme, setTheme } = useTheme();
-  const switchRef = useRef<HTMLDivElement | null>(null);
   const activeIndex = Math.max(0, themeOptions.findIndex((opt) => opt.value === theme));
-
-  const setThemeFromPointer = (clientX: number) => {
-    const rect = switchRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
-    const index = Math.min(themeOptions.length - 1, Math.max(0, Math.floor(((clientX - rect.left) / rect.width) * themeOptions.length)));
-    setTheme(themeOptions[index].value);
-  };
 
   return (
     <div
-      ref={switchRef}
       className="theme-switch relative grid h-9 w-[112px] grid-cols-2 overflow-hidden rounded-full bg-foreground/[0.06] p-[3px]"
       role="radiogroup"
       aria-label="Appearance"
