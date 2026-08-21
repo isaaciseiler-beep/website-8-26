@@ -692,7 +692,7 @@ const BoardCard = ({ item, index, dragging, zIndex, onPointerDown, onPointerUp, 
     <motion.div
       className="absolute select-none"
       initial={glitchRevealInitial}
-      whileInView={glitchRevealVisible(index)}
+      whileInView={glitchRevealVisible()}
       viewport={{ once: true, margin: "-60px", amount: 0.22 }}
       style={{
         left: `${item.x}%`,

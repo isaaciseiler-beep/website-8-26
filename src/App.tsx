@@ -172,30 +172,10 @@ const AnimatedRoutes = () => {
 
 const ChatOrbGate = () => {
   const location = useLocation();
-  const [shouldLoad, setShouldLoad] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.scrollY > 10;
-  });
-
-  useEffect(() => {
-    if (location.pathname === "/experience/arcade" || location.pathname === "/strike-tracker") {
-      setShouldLoad(false);
-      return;
-    }
-
-    setShouldLoad(window.scrollY > 10);
-    if (window.scrollY > 10) return;
-
-    const load = () => setShouldLoad(true);
-    window.addEventListener("scroll", load, { once: true, passive: true });
-    return () => window.removeEventListener("scroll", load);
-  }, [location.pathname]);
 
   if (location.pathname === "/experience/arcade" || location.pathname === "/strike-tracker") {
     return null;
   }
-
-  if (!shouldLoad) return null;
 
   return (
     <Suspense fallback={null}>
