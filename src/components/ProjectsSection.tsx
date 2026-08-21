@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projectItems, type ProjectItem } from "@/lib/siteContent";
 
@@ -14,8 +14,11 @@ const filters: { label: string; value: ProjectFilter }[] = [
   { label: "Projects", value: "PROJECT" },
 ];
 
+const INITIAL_COUNT = 6;
+
 const ProjectsSection = () => {
   const [filter, setFilter] = useState<ProjectFilter>("ALL");
+  const [expanded, setExpanded] = useState(false);
 
   const projects = useMemo(() => {
     const matches = filter === "ALL"
@@ -23,6 +26,9 @@ const ProjectsSection = () => {
       : projectItems.filter((project) => project.source === filter);
     return matches.slice(0, 12);
   }, [filter]);
+
+  const collapsed = !expanded && projects.length > INITIAL_COUNT;
+  const visible = collapsed ? projects.slice(0, INITIAL_COUNT) : projects;
 
   return (
     <section className="work-library" aria-labelledby="work-library-title">
@@ -35,7 +41,10 @@ const ProjectsSection = () => {
             type="button"
             role="tab"
             aria-selected={filter === item.value}
-            onClick={() => setFilter(item.value)}
+            onClick={() => {
+              setFilter(item.value);
+              setExpanded(false);
+            }}
             className={`pill-button ${filter === item.value ? "is-active" : ""}`}
           >
             <span>{item.label}</span>
@@ -43,39 +52,55 @@ const ProjectsSection = () => {
         ))}
       </div>
 
-      <motion.div layout className="work-library-grid">
-        <AnimatePresence mode="popLayout" initial={false}>
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              layout
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.985 }}
-              transition={{ duration: 0.28, delay: Math.min(index * 0.025, 0.16) }}
-            >
-              <Link
-                to={`/projects/${project.id}`}
-                className="work-library-card group"
-                aria-label={`Read more about ${project.title}`}
+      <div className={`work-library-reveal ${collapsed ? "is-collapsed" : ""}`}>
+        <motion.div layout className="work-library-grid">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {visible.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1], delay: Math.min((index % INITIAL_COUNT) * 0.03, 0.15) }}
               >
-                <img
-                  src={project.image}
-                  alt=""
-                  loading={index < 4 ? "eager" : "lazy"}
-                  decoding="async"
-                  fetchpriority={index < 4 ? "high" : "low"}
-                />
-                <div className="work-library-scrim" />
-                <div className="work-library-card-bottom">
-                  <h3>{project.title}</h3>
-                  <ArrowUpRight aria-hidden="true" />
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+                <Link
+                  to={`/projects/${project.id}`}
+                  className="work-library-card group"
+                  aria-label={`Read more about ${project.title}`}
+                >
+                  <img
+                    src={project.image}
+                    alt=""
+                    loading={index < 3 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                  <div className="work-library-scrim" />
+                  <div className="work-library-card-bottom">
+                    <h3>{project.title}</h3>
+                    <ArrowUpRight aria-hidden="true" />
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+        {collapsed ? <div className="work-library-fade" aria-hidden="true" /> : null}
+      </div>
+
+      {projects.length > INITIAL_COUNT ? (
+        <div className="work-library-more">
+          <button
+            type="button"
+            className="pill-button"
+            onClick={() => setExpanded((value) => !value)}
+            aria-expanded={expanded}
+          >
+            <span>{expanded ? "View less" : "View more"}</span>
+            <ChevronDown aria-hidden="true" className={expanded ? "is-flipped" : ""} />
+          </button>
+        </div>
+      ) : null}
     </section>
   );
 };

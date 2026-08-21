@@ -99,23 +99,20 @@ const ChatOrb = () => {
             exit={{ opacity: 0, y: 12, scale: 0.97 }}
             transition={{ duration: 0.36, ease: EASE }}
             role="dialog"
-            aria-label="Isaac AI"
+            aria-label="Ask AI"
           >
             <div className="ai-dock-panel-head">
-              <span>Isaac AI</span>
-              <button type="button" className="pill-button pill-button--icon" onClick={() => setOpen(false)} aria-label="Close Isaac AI">
+              <span>Ask AI</span>
+              <button type="button" className="pill-button pill-button--icon" onClick={() => setOpen(false)} aria-label="Close">
                 <X aria-hidden="true" />
               </button>
             </div>
 
             <div ref={listRef} className="ai-dock-messages">
               {messages.length === 0 && !isLoading ? (
-                <p className="ai-dock-empty">
-                  Ask about my research, writing, or work. Trained on a body of my work — a prototype, not me.
-                  Issues?{" "}
-                  <a href={`mailto:${CONTACT_EMAIL}?subject=Isaac%20AI%20output%20issue`}>Let me know</a>.
-                </p>
+                <p className="ai-dock-empty">Ask about my work, writing, or research.</p>
               ) : null}
+
 
               {messages.map((message) => (
                 <motion.div
@@ -171,11 +168,12 @@ const ChatOrb = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.36, ease: EASE }}
         aria-expanded={open}
-        aria-label={open ? "Close Isaac AI" : "Ask Isaac AI"}
+        aria-label={open ? "Close AI" : "Ask AI"}
       >
         <Sparkles aria-hidden="true" />
-        <span>{open ? "Close" : "Ask Isaac AI"}</span>
+        <span>{open ? "Close" : "Ask AI"}</span>
       </motion.button>
+
     </div>
   );
 };
