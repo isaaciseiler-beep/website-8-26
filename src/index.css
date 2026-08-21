@@ -2022,93 +2022,109 @@
     width: 100%;
   }
 
-  .work-library-header,
-  .about-compact-heading,
-  .news-compact-heading {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 24px;
-  }
-
-  .work-library-header h1,
-  .about-compact-heading h2,
-  .news-compact-heading h2 {
-    margin: 0;
-    font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: clamp(3.25rem, 6vw, 6.25rem);
-    font-weight: 400;
-    line-height: 0.95;
-    letter-spacing: -0.065em;
-  }
-
-  .work-library-all-link,
-  .about-compact-links a {
+  /* Liquid pill buttons */
+  .pill-button {
+    position: relative;
+    isolation: isolate;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    width: max-content;
-    font-size: 12px;
+    overflow: hidden;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: rgba(10, 10, 10, 0.05);
+    color: rgba(10, 10, 10, 0.62);
+    font-size: 13px;
     font-weight: 500;
-    color: rgba(10, 10, 10, 0.56);
-    transition: color 180ms ease;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    transition: color 320ms ease, background-color 320ms ease,
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .work-library-all-link:hover,
-  .about-compact-links a:hover {
-    color: #0a0a0a;
+  .pill-button > span,
+  .pill-button > svg {
+    position: relative;
+    z-index: 1;
   }
 
-  .work-library-all-link svg,
-  .about-compact-links svg {
+  .pill-button > svg {
     width: 14px;
     height: 14px;
     stroke-width: 1.5;
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .work-library-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: clamp(20px, 3vw, 46px);
-    margin: clamp(34px, 5vw, 68px) 0 clamp(30px, 4vw, 54px);
-  }
-
-  .work-library-tabs button {
-    position: relative;
-    padding: 0 0 4px;
-    font-size: clamp(15px, 1.45vw, 22px);
-    font-weight: 400;
-    letter-spacing: -0.025em;
-    color: rgba(10, 10, 10, 0.38);
-    transition: color 180ms ease;
-  }
-
-  .work-library-tabs button::after {
+  .pill-button::before {
     content: "";
     position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 1px;
-    background: #0a0a0a;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    inset: -60% -20%;
+    z-index: 0;
+    border-radius: 999px;
+    background: radial-gradient(60% 100% at 50% 100%, rgba(10, 10, 10, 0.92), rgba(10, 10, 10, 0.6) 60%, transparent 78%);
+    transform: translateY(78%) scale(0.72);
+    opacity: 0;
+    transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1), opacity 420ms ease;
   }
 
-  .work-library-tabs button:hover,
-  .work-library-tabs button.is-active {
+  .pill-button:hover,
+  .pill-button:focus-visible {
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(10, 10, 10, 0.16);
+  }
+
+  .pill-button:hover::before,
+  .pill-button:focus-visible::before {
+    transform: translateY(0) scale(1.06);
+    opacity: 1;
+  }
+
+  .pill-button:hover > svg {
+    transform: translate(2px, -2px);
+  }
+
+  .pill-button:active {
+    transform: translateY(0) scale(0.975);
+  }
+
+  .pill-button.is-active {
+    background: rgba(10, 10, 10, 0.92);
+    color: #fff;
+  }
+
+  .pill-button.is-active::before {
+    opacity: 0;
+  }
+
+  .pill-button--solid {
+    background: rgba(10, 10, 10, 0.92);
+    color: #fff;
+  }
+
+  .pill-button--solid::before {
+    background: radial-gradient(60% 100% at 50% 100%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.55) 62%, transparent 80%);
+  }
+
+  .pill-button--solid:hover,
+  .pill-button--solid:focus-visible {
     color: #0a0a0a;
   }
 
-  .work-library-tabs button.is-active::after {
-    transform: scaleX(1);
+  .pill-button--icon {
+    padding: 8px;
+  }
+
+  .pill-button:disabled {
+    pointer-events: none;
+    opacity: 0.42;
   }
 
   .work-library-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
   }
 
   .work-library-card {
