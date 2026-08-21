@@ -2,8 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import SectionHeading from "@/components/SectionHeading";
-import PhotoPreview from "@/components/PhotoPreview";
 import { albums, coverFor } from "@/lib/photoAlbums";
 import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -15,13 +13,12 @@ const photos = albums.map((a, i) => ({
 }));
 
 const PhotoSection = () => {
-  const [previewIdx, setPreviewIdx] = useState<number | null>(null);
   const [hovering, setHovering] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const [hasAutoplayed, setHasAutoplayed] = useState(false);
   const [isCycling, setIsCycling] = useState(false);
   const [coversReady, setCoversReady] = useState(false);
-  const previewRef = useRef<HTMLDivElement | null>(null);
+  const previewRef = useRef<HTMLAnchorElement | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
@@ -83,7 +80,7 @@ const PhotoSection = () => {
       <div className="px-6 md:min-h-0 md:flex-1">
         <Link
           to="/photos"
-          ref={previewRef as never}
+          ref={previewRef}
           className="site-corner group relative block aspect-[4/5] h-auto min-h-0 w-full cursor-pointer overflow-hidden bg-foreground/[0.05] md:aspect-auto md:h-full"
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}
@@ -135,12 +132,6 @@ const PhotoSection = () => {
         </div>
       </div>
 
-      <PhotoPreview
-        images={photos.map(p => p.image)}
-        currentIndex={previewIdx}
-        onClose={() => setPreviewIdx(null)}
-        onNavigate={setPreviewIdx}
-      />
     </section>
   );
 };
