@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Mail, Moon, Sun } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -17,39 +17,21 @@ const themeOptions = [
 
 const ThemeSwitch = () => {
   const { theme, setTheme } = useTheme();
-  const switchRef = useRef<HTMLDivElement | null>(null);
   const activeIndex = Math.max(0, themeOptions.findIndex((opt) => opt.value === theme));
-
-  const setThemeFromPointer = (clientX: number) => {
-    const rect = switchRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
-    const index = Math.min(themeOptions.length - 1, Math.max(0, Math.floor(((clientX - rect.left) / rect.width) * themeOptions.length)));
-    setTheme(themeOptions[index].value);
-  };
 
   return (
     <div
-      ref={switchRef}
-      className="theme-switch relative rounded-full grid h-10 w-[132px] grid-cols-2 overflow-hidden bg-foreground/10 p-1 shadow-[inset_0_0_0_1px_hsl(var(--foreground)/0.07)]"
+      className="theme-switch relative grid h-9 w-[112px] grid-cols-2 overflow-hidden rounded-full bg-foreground/[0.06] p-[3px]"
       role="radiogroup"
       aria-label="Appearance"
-      onPointerDown={(event) => {
-        event.currentTarget.setPointerCapture(event.pointerId);
-        setThemeFromPointer(event.clientX);
-      }}
-      onPointerMove={(event) => {
-        if (event.buttons !== 1) return;
-        setThemeFromPointer(event.clientX);
-      }}
     >
       <motion.span
         aria-hidden="true"
-        className="theme-switch-thumb rounded-full absolute bottom-1 top-1 bg-primary shadow-[0_10px_26px_hsl(var(--foreground)/0.16)]"
+        className="absolute bottom-[3px] top-[3px] rounded-full bg-foreground/[0.92]"
         initial={false}
         animate={{ x: `${activeIndex * 100}%` }}
-        transition={{ duration: 0.42, ease: EASE_TEXT }}
-        style={{ left: 4, width: "calc((100% - 8px) / 2)" }}
+        transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.9 }}
+        style={{ left: 3, width: "calc((100% - 6px) / 2)" }}
       />
       {themeOptions.map((opt) => {
         const active = theme === opt.value;
@@ -60,12 +42,12 @@ const ThemeSwitch = () => {
             role="radio"
             onClick={() => setTheme(opt.value as Theme)}
             className={`relative z-10 flex items-center justify-center transition-colors duration-300 ${
-              active ? "text-primary-foreground" : "text-foreground/55 hover:text-foreground"
+              active ? "text-background" : "text-foreground/50 hover:text-foreground"
             }`}
             aria-label={opt.label}
             aria-checked={active}
           >
-            <opt.icon className="w-4 h-4" strokeWidth={1.65} />
+            <opt.icon className="w-[15px] h-[15px]" strokeWidth={1.6} />
           </button>
         );
       })}
@@ -337,20 +319,20 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
               }}
             >
               <div>
-                <p className="mono-text mb-3">Get in Touch</p>
-                <div className="flex w-fit gap-2">
+                <p className="sidebar-section-label">Get in Touch</p>
+                <div className="flex w-fit items-center gap-4">
                   <button
                     onClick={() => { window.location.href = CONTACT_MAILTO; }}
-                    className="pill-button pill-button--icon flex h-10 w-10 items-center justify-center"
+                    className="sidebar-icon-link"
                     aria-label="Contact"
                   >
-                    <Mail className="w-4 h-4" />
+                    <Mail className="w-[18px] h-[18px]" strokeWidth={1.5} />
                   </button>
                   {socialLinks.map((link) => (
                     <button
                       key={link.id}
                       onClick={() => handleSocialClick(link.href)}
-                      className="pill-button pill-button--icon sidebar-social-button flex h-10 w-10 items-center justify-center"
+                      className="sidebar-icon-link"
                       aria-label={link.label}
                     >
                       {link.icon}
@@ -359,7 +341,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                 </div>
               </div>
               <div className="shrink-0 md:mt-6">
-                <p className="mono-text mb-3">Appearance</p>
+                <p className="sidebar-section-label">Appearance</p>
                 <ThemeSwitch />
               </div>
             </motion.div>
