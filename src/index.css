@@ -2320,14 +2320,17 @@
   .about-lede-copy {
     grid-column: span 2;
     display: grid;
-    gap: 20px;
+    align-content: start;
+    gap: clamp(12px, 1.4vw, 20px);
     max-width: none;
+    max-height: calc((100% - 24px) / 3);
+    overflow: hidden;
     padding-left: clamp(12px, 2vw, 28px);
   }
 
   .about-lede-intro {
     text-align: left;
-    font-size: clamp(1.72rem, 2.85vw, 2.62rem);
+    font-size: clamp(1.1rem, 2.6vw, 2.62rem);
     font-weight: 400;
     line-height: 1.28;
     letter-spacing: -0.03em;
@@ -2341,7 +2344,7 @@
 
   .about-lede-bio p {
     text-align: left;
-    font-size: 15px;
+    font-size: clamp(10px, 1.25vw, 15px);
     line-height: 1.4;
     color: hsl(var(--foreground) / 0.54);
   }
@@ -2496,12 +2499,13 @@
     }
 
     .about-lede-body {
-      grid-template-columns: 140px minmax(0, 1fr);
+      grid-template-columns: 310px minmax(0, 1fr);
       gap: 26px;
     }
 
     .about-lede-copy {
       grid-column: auto;
+      max-height: 310px;
       padding-left: 0;
     }
   }
@@ -2534,8 +2538,16 @@
     }
 
     .about-lede-body {
-      grid-template-columns: 96px minmax(0, 1fr);
+      grid-template-columns: 220px minmax(0, 1fr);
       gap: 18px;
+    }
+
+    .about-lede-copy {
+      max-height: 220px;
+    }
+
+    .about-lede-bio {
+      gap: 8px;
     }
   }
 }
