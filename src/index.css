@@ -129,6 +129,57 @@
     color: #0a0a0a !important;
   }
 
+  .dark .home-photo-v2 {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 0 0% 10%;
+    --accent-foreground: 0 0% 98%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 0 0% 88%;
+    --highlight: 0 0% 8%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 16%;
+    background: #0a0a0a;
+    color: #fafafa;
+  }
+
+  .dark .home-photo-v2 .site-header-xray {
+    color: #fafafa !important;
+  }
+
+  .dark .home-work-opening,
+  .dark .home-photo-section-fallback {
+    background: #0a0a0a;
+  }
+
+  .dark .home-photo-v2 .homepage-cta,
+  .dark .home-photo-v2 .homepage-cta:hover,
+  .dark .home-photo-v2 .homepage-cta:focus-visible {
+    background: #0a0a0a !important;
+    color: #fafafa !important;
+  }
+
+  .dark .work-library-card {
+    background: #141414;
+  }
+
+
   .home-photo-hero {
     display: grid;
     grid-template-columns: minmax(0, 0.92fr) minmax(480px, 1.08fr);
@@ -2032,8 +2083,8 @@
     overflow: hidden;
     padding: 9px 18px;
     border-radius: 999px;
-    background: rgba(10, 10, 10, 0.05);
-    color: rgba(10, 10, 10, 0.62);
+    background: hsl(var(--foreground) / 0.05);
+    color: hsl(var(--foreground) / 0.62);
     font-size: 13px;
     font-weight: 500;
     letter-spacing: -0.01em;
@@ -2064,14 +2115,14 @@
     inset: 0;
     z-index: 0;
     border-radius: 999px;
-    background: rgba(10, 10, 10, 0.92);
+    background: hsl(var(--foreground) / 0.94);
     transform: translateX(-101%);
     transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .pill-button:hover,
   .pill-button:focus-visible {
-    color: #fff;
+    color: hsl(var(--background));
   }
 
   .pill-button:hover::before,
@@ -2084,8 +2135,8 @@
   }
 
   .pill-button.is-active {
-    background: rgba(10, 10, 10, 0.92);
-    color: #fff;
+    background: hsl(var(--foreground) / 0.94);
+    color: hsl(var(--background));
   }
 
   .pill-button.is-active::before {
@@ -2093,17 +2144,17 @@
   }
 
   .pill-button--solid {
-    background: rgba(10, 10, 10, 0.92);
-    color: #fff;
+    background: hsl(var(--foreground) / 0.94);
+    color: hsl(var(--background));
   }
 
   .pill-button--solid::before {
-    background: #fff;
+    background: hsl(var(--background));
   }
 
   .pill-button--solid:hover,
   .pill-button--solid:focus-visible {
-    color: #0a0a0a;
+    color: hsl(var(--foreground));
   }
 
   .pill-button--icon {
@@ -2158,10 +2209,6 @@
   .pill-tab-label {
     position: relative;
     z-index: 1;
-  }
-
-  .work-library-reveal {
-    position: relative;
   }
 
   .work-library-more {
