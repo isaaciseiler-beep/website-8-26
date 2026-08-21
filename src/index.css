@@ -2133,13 +2133,16 @@
 
   .work-library-tabs {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
     gap: 8px;
     margin: 0 0 clamp(20px, 3vw, 30px);
   }
 
   .pill-tab {
     position: relative;
+    justify-content: center;
     isolation: isolate;
     display: inline-flex;
     align-items: center;
@@ -2236,10 +2239,25 @@
     left: 16px;
     z-index: 1;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     align-items: end;
-    gap: 14px;
+    gap: 10px;
     color: #fff;
+  }
+
+  .work-library-card-arrow {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.4;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 280ms ease, transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .work-library-card:hover .work-library-card-arrow,
+  .work-library-card:focus-visible .work-library-card-arrow {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .work-library-card-bottom h3 {
@@ -2258,17 +2276,6 @@
 
 
 
-  .work-library-card-bottom svg {
-    width: 22px;
-    height: 22px;
-    stroke-width: 1.4;
-    transition: transform 180ms ease;
-  }
-
-  .work-library-card:hover .work-library-card-bottom svg,
-  .work-library-card:focus-visible .work-library-card-bottom svg {
-    transform: translate(2px, -2px);
-  }
 
   .about-lede,
   .news-compact,
@@ -2321,7 +2328,9 @@
   }
 
   .about-lede-intro {
-    font-size: clamp(1.15rem, 1.9vw, 1.75rem);
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: clamp(1.72rem, 2.85vw, 2.62rem);
     font-weight: 400;
     line-height: 1.28;
     letter-spacing: -0.03em;
@@ -2334,8 +2343,10 @@
   }
 
   .about-lede-bio p {
-    font-size: 17px;
-    line-height: 1.55;
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 25px;
+    line-height: 1.4;
     color: hsl(var(--foreground) / 0.54);
   }
 
