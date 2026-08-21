@@ -2133,8 +2133,8 @@
 
   .work-library-tabs {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     width: 100%;
     gap: 8px;
     margin: 0 0 clamp(20px, 3vw, 30px);
