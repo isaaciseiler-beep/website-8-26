@@ -117,8 +117,12 @@ export const scheduleImagePreloads = (
 
     if (index >= queue.length) return;
 
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(runBatch, { timeout: idleTimeout });
+    const idle = (window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+    }).requestIdleCallback;
+
+    if (idle) {
+      idle(runBatch, { timeout: idleTimeout });
     } else {
       window.setTimeout(runBatch, fallbackDelay);
     }
