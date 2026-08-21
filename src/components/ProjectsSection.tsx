@@ -21,17 +21,12 @@ const ProjectsSection = () => {
     const matches = filter === "ALL"
       ? projectItems
       : projectItems.filter((project) => project.source === filter);
-    return matches.slice(0, filter === "ALL" ? 9 : 12);
+    return matches.slice(0, 12);
   }, [filter]);
 
   return (
     <section className="work-library" aria-labelledby="work-library-title">
-      <div className="work-library-header">
-        <h1 id="work-library-title">Work</h1>
-        <Link to="/projects" className="work-library-all-link">
-          View all <ArrowUpRight aria-hidden="true" />
-        </Link>
-      </div>
+      <h2 id="work-library-title" className="sr-only">Work</h2>
 
       <div className="work-library-tabs" role="tablist" aria-label="Filter projects">
         {filters.map((item) => (
@@ -41,9 +36,9 @@ const ProjectsSection = () => {
             role="tab"
             aria-selected={filter === item.value}
             onClick={() => setFilter(item.value)}
-            className={filter === item.value ? "is-active" : ""}
+            className={`pill-button ${filter === item.value ? "is-active" : ""}`}
           >
-            {item.label}
+            <span>{item.label}</span>
           </button>
         ))}
       </div>
@@ -67,17 +62,13 @@ const ProjectsSection = () => {
                 <img
                   src={project.image}
                   alt=""
-                  loading={index < 3 ? "eager" : "lazy"}
+                  loading={index < 4 ? "eager" : "lazy"}
                   decoding="async"
-                  fetchpriority={index < 3 ? "high" : "low"}
+                  fetchpriority={index < 4 ? "high" : "low"}
                 />
                 <div className="work-library-scrim" />
-                <div className="work-library-card-top">
-                  <span>{project.source}</span>
-                  <span>{project.year}</span>
-                </div>
                 <div className="work-library-card-bottom">
-                  <h2>{project.title}</h2>
+                  <h3>{project.title}</h3>
                   <ArrowUpRight aria-hidden="true" />
                 </div>
               </Link>
