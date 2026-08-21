@@ -4,6 +4,7 @@ import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { newsItems } from "@/lib/siteContent";
 
 const INITIAL_COUNT = 6;
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const NewsSection = () => {
   const [expanded, setExpanded] = useState(false);
@@ -14,8 +15,7 @@ const NewsSection = () => {
     <section className="news-compact" aria-labelledby="news-compact-title">
       <h2 id="news-compact-title" className="sr-only">News</h2>
 
-      <div className={`work-library-reveal ${collapsed ? "is-collapsed" : ""}`}>
-        <motion.div layout className="work-library-grid">
+      <motion.div layout transition={{ duration: 0.45, ease: EASE }} className="work-library-grid">
           <AnimatePresence mode="popLayout" initial={false}>
             {visible.map((item, index) => (
               <motion.a
@@ -25,10 +25,10 @@ const NewsSection = () => {
                 target={item.href === "#" ? undefined : "_blank"}
                 rel={item.href === "#" ? undefined : "noopener noreferrer"}
                 className="work-library-card group"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1], delay: Math.min((index % INITIAL_COUNT) * 0.03, 0.15) }}
+                initial={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
+                transition={{ duration: 0.5, ease: EASE, delay: Math.min((index % INITIAL_COUNT) * 0.035, 0.18) }}
               >
                 {item.imageUrl ? (
                   <img src={item.imageUrl} alt="" loading="lazy" decoding="async" />
@@ -44,9 +44,7 @@ const NewsSection = () => {
               </motion.a>
             ))}
           </AnimatePresence>
-        </motion.div>
-        {collapsed ? <div className="work-library-fade" aria-hidden="true" /> : null}
-      </div>
+      </motion.div>
 
       {newsItems.length > INITIAL_COUNT ? (
         <div className="work-library-more">

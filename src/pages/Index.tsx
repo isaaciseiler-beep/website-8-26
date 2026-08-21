@@ -9,7 +9,6 @@ const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
 const NewsSection = lazy(() => import("@/components/NewsSection"));
 const PhotoSection = lazy(() => import("@/components/PhotoSection"));
-const InspirationBoard = lazy(() => import("@/components/InspirationBoard"));
 
 const Footer = lazy(() => import("@/components/Footer"));
 
@@ -76,7 +75,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="home-photo-v2 relative min-h-screen overflow-x-hidden bg-white text-black">
+    <div className="home-photo-v2 relative min-h-screen overflow-x-hidden bg-background text-foreground">
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}
@@ -105,8 +104,7 @@ const Index = () => {
             </div>
             <div id="projects" className="home-photo-section"><ProjectsSection /></div>
             <div id="news" className="home-photo-section"><NewsSection /></div>
-            <div id="photos" className="home-photo-section"><PhotoSection /></div>
-            <div id="inspiration" className="home-photo-section home-photo-section--wide home-photo-section--last"><InspirationBoard /></div>
+            <div id="photos" className="home-photo-section home-photo-section--last"><PhotoSection /></div>
             <Footer />
           </Suspense>
         </main>
