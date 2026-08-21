@@ -80,17 +80,14 @@ const PhotoSection = () => {
 
   return (
     <section className="flex h-auto min-h-0 flex-col pb-0 pt-0 md:h-[calc(100svh-9.75rem)] md:min-h-[420px]">
-      <div className="mb-5 flex shrink-0 items-end justify-between px-6 md:mb-6">
-        <SectionHeading className="mb-0">Photos</SectionHeading>
-      </div>
-
       <div className="px-6 md:min-h-0 md:flex-1">
-        <div
-          ref={previewRef}
-          className="site-corner group relative aspect-[4/5] h-auto min-h-0 w-full cursor-pointer overflow-hidden bg-foreground/[0.05] md:aspect-auto md:h-full"
+        <Link
+          to="/photos"
+          ref={previewRef as never}
+          className="site-corner group relative block aspect-[4/5] h-auto min-h-0 w-full cursor-pointer overflow-hidden bg-foreground/[0.05] md:aspect-auto md:h-full"
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}
-          onClick={() => setPreviewIdx(activeIdx)}
+          aria-label="View photo portfolio"
         >
           <img
             key={activePhoto.id}
@@ -106,8 +103,9 @@ const PhotoSection = () => {
             decoding="async"
             fetchpriority={activeIdx === 0 ? "high" : "auto"}
           />
-        </div>
+        </Link>
       </div>
+
 
       <div className="mt-5 shrink-0 px-6 md:mt-6">
         <div className="flex w-full gap-[3px] overflow-hidden site-corner">
