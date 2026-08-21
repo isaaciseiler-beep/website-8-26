@@ -2267,9 +2267,7 @@
     font-weight: 500;
     line-height: 1.02;
     letter-spacing: -0.04em;
-    text-align: justify;
-    text-align-last: justify;
-    text-justify: inter-word;
+    text-align: left;
     hyphens: none;
     text-wrap: wrap;
   }
@@ -2328,8 +2326,7 @@
   }
 
   .about-lede-intro {
-    text-align: justify;
-    text-justify: inter-word;
+    text-align: left;
     font-size: clamp(1.72rem, 2.85vw, 2.62rem);
     font-weight: 400;
     line-height: 1.28;
@@ -2343,9 +2340,8 @@
   }
 
   .about-lede-bio p {
-    text-align: justify;
-    text-justify: inter-word;
-    font-size: 25px;
+    text-align: left;
+    font-size: 15px;
     line-height: 1.4;
     color: hsl(var(--foreground) / 0.54);
   }
