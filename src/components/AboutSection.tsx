@@ -90,7 +90,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
             <p
               ref={introRef}
               className="about-lede-intro"
-              style={{ "font-size": "80px", color: "red" }}
+              style={{ fontSize: "80px", lineHeight: "100px", color: "red" }}
             >
               I&apos;m a strategist leading marketing and communications at Summation, working across
               artificial intelligence, public institutions, education, and everyday life.
