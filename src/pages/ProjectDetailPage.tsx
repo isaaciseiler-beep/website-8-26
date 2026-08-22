@@ -113,7 +113,7 @@ const ProjectDetailPage = () => {
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        <button onClick={() => navigate("/?section=projects")} className="font-mono text-xs uppercase tracking-widest">← Back to projects</button>
+        <button onClick={() => navigate("/?section=projects")} className="pill-back">← Back to work</button>
       </div>
     );
   }
@@ -149,7 +149,7 @@ const ProjectDetailPage = () => {
         >
           <button
       type="button"
-      onClick={handleBack}
+      onClick={() => navigate("/?section=projects")}
       className="pill-back mb-8"
     >
       <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />

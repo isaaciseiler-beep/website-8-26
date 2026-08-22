@@ -488,7 +488,7 @@ const AIStateGovernmentIndexPage = () => {
                 <div className="mx-auto max-w-7xl">
                   <button
       type="button"
-      onClick={handleBack}
+      onClick={() => navigate("/?section=projects")}
       className="pill-back "
     >
       <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
