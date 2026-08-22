@@ -103,9 +103,9 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
             role="dialog"
             aria-label="Search"
             className="site-sidebar-panel fixed inset-y-0 right-0 z-[85] isolate flex h-[100dvh] w-screen transform-gpu flex-col px-6 pb-0 pt-20 text-foreground will-change-transform md:w-[var(--site-panel-width)] md:py-20 md:pb-0"
-            initial={{ x: isMobile ? "100%" : 240 }}
+            initial={{ x: isMobile ? "100%" : 200 }}
             animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-            exit={{ x: isMobile ? "100%" : 240 }}
+            exit={{ x: isMobile ? "100%" : 200 }}
             transition={{ duration: 0.56, ease: EASE_TEXT }}
           >
             <div className="pointer-events-none absolute inset-x-0 top-20 z-10 h-12 bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,hsl(var(--background)/0.82)_34%,hsl(var(--background)/0)_100%)] md:top-20" />

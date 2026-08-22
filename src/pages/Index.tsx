@@ -108,12 +108,12 @@ const Index = () => {
 
       <motion.div
         animate={{
-          marginLeft: sidebarOpen && !isMobile ? 240 : 0,
-          marginRight: searchOpen && !isMobile ? 240 : 0,
+          marginLeft: sidebarOpen && !isMobile ? 200 : 0,
+          marginRight: searchOpen && !isMobile ? 200 : 0,
           width: sidebarOpen && !isMobile
-            ? "calc(100% - 240px)"
+            ? "calc(100% - 200px)"
             : searchOpen && !isMobile
-              ? "calc(100% - 240px)"
+              ? "calc(100% - 200px)"
               : "100%",
         }}
         transition={{ duration: 0.5, ease: EASE }}

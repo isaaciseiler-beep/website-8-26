@@ -36,7 +36,7 @@
     --ring: 88 24% 8%;
     --highlight: 68 100% 81%;
     --image-scrim: 88 24% 8%;
-    --site-panel-width: 240px;
+    --site-panel-width: 200px;
 
     --site-corner-radius: 8px;
     --radius: var(--site-corner-radius);
