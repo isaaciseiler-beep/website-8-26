@@ -450,48 +450,7 @@ export const projectItems: ProjectItem[] = [
     ],
   },
   {
-    id: "first-personal-website",
-    title: "First Personal Website",
-    source: "PROJECT",
-    year: "2023",
-    summary:
-      "My first personal portfolio, built by hand as a way to learn Git, frontend development, databases, and the logic of shipping software.",
-    image: projectImg.firstWebsite,
-    sections: [
-      {
-        heading: "Overview",
-        paragraphs: [
-          "This was my first personal website, built before I used Codex or Claude Code.",
-          "The goal was simplicity: a lightweight portfolio inspired by social media feeds, where the work could feel browsable instead of overproduced.",
-          "Building it taught me the fundamentals that still shape how I work: Git, code organization, deployment, databases, content modeling, and the tiny decisions that turn a static page into a living project.",
-        ],
-        media: [
-          {
-            type: "image",
-            src: projectImg.firstWebsitePreview,
-            alt: "Preview of Isaac Seiler's first personal website",
-            caption: "A preview of the original site interface, designed around simple scrolling, personal updates, and a social-media-inspired content rhythm.",
-          },
-        ],
-      },
-      {
-        heading: "What I Learned",
-        bullets: [
-          "How to use Git as a real project history rather than just a file backup system.",
-          "How frontend components, routing, styling, and content structure fit together.",
-          "How databases and dynamic content change the way a portfolio can be organized.",
-          "How simplicity can be a design constraint, especially when the priority is clarity and maintainability.",
-        ],
-      },
-      {
-        heading: "Project Links",
-        links: [
-          { label: "GitHub Repository", href: "https://github.com/isaaciseiler-beep/isaacwebsite-v2/tree/main" },
-        ],
-      },
-    ],
-  },
-  {
+
     id: "communications-consultancy-supporting-local-candidates",
     title: "Communications Consultancy and Supporting Local Candidates",
     source: "WORK",
