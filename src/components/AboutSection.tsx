@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import headshotUrl from "@/assets/headshot.jpg";
+import { profilePhotoUrl } from "@/lib/tileImages";
 
 interface AboutSectionProps {
   revealEnabled?: boolean;
@@ -20,7 +20,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
 
         <div className="about-lede-body">
           <div className="about-lede-photo">
-            <img src={headshotUrl} alt="Isaac Seiler" loading="eager" decoding="async" />
+            <img src={profilePhotoUrl} alt="Isaac Seiler" loading="eager" decoding="async" />
           </div>
 
           <div className="about-lede-copy">
