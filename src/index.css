@@ -3059,7 +3059,7 @@ html.theme-crossfade body * {
 }
 
 .article-subtitle {
-  max-width: 44rem;
+  max-width: 100%;
   font-size: clamp(1.02rem, 1.7vw, 1.22rem);
   line-height: 1.65;
   color: hsl(var(--foreground) / 0.58);
@@ -3081,7 +3081,7 @@ html.theme-crossfade body * {
 }
 
 .article-body {
-  max-width: 42rem;
+  max-width: 100%;
   display: grid;
   gap: 48px;
 }
@@ -3128,8 +3128,8 @@ body::-webkit-scrollbar,
 .reading-progress {
   position: fixed;
   inset: 0 0 auto;
-  z-index: 60;
-  height: 2px;
+  z-index: 200;
+  height: 3px;
   background: hsl(var(--foreground) / 0.08);
   pointer-events: none;
 }

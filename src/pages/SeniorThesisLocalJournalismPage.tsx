@@ -301,7 +301,7 @@ const SeniorThesisLocalJournalismPage = () => {
               </div>
             </div>
 
-            <div className="relative z-20 bg-background px-6 py-16">
+            <div className="relative z-20 bg-background px-6 py-10">
               <div className="content-measure">
                 <TextReveal>
                   <div className="space-y-6">
@@ -344,7 +344,7 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </section>
 
-          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+          <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
             <div className={`content-measure ${EDITORIAL_GRID}`}>
               <motion.div
                 initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
@@ -382,7 +382,7 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+          <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
             <div className={`content-measure ${EDITORIAL_GRID}`}>
               <motion.div
                 initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
@@ -428,7 +428,7 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+          <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
             <div className="content-measure">
               <div className={EDITORIAL_GRID}>
                 <motion.div
@@ -547,7 +547,7 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-6 py-16 text-foreground" scrollContainerRef={pageScrollRef}>
+          <RevealSection className="bg-background px-6 py-10 text-foreground" scrollContainerRef={pageScrollRef}>
             <div className="content-measure">
               <div className={EDITORIAL_GRID}>
                 <motion.div
@@ -592,7 +592,7 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+          <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
             <div className="content-measure">
               <motion.div
                 className="site-corner bg-card p-5 sm:p-6 lg:p-7"
