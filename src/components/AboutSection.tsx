@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { profilePhotoUrl } from "@/lib/tileImages";
 
@@ -7,6 +8,64 @@ interface AboutSectionProps {
 
 const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
   const reduceMotion = useReducedMotion();
+  const photoRef = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLParagraphElement>(null);
+  const fittingRef = useRef(false);
+
+  useLayoutEffect(() => {
+    const photo = photoRef.current;
+    const intro = introRef.current;
+    if (!photo || !intro) return;
+
+    const fitText = () => {
+      if (fittingRef.current) return;
+      fittingRef.current = true;
+
+      const targetHeight = photo.clientHeight * 0.5;
+      const introWidth = intro.parentElement?.clientWidth ?? intro.clientWidth;
+      if (!targetHeight || !introWidth) {
+        fittingRef.current = false;
+        return;
+      }
+
+      // Preserve any previously applied inline font size for measurement baseline
+      const previousSize = intro.style.fontSize;
+      intro.style.fontSize = "";
+      const baseStyle = window.getComputedStyle(intro);
+      const baseSize = parseFloat(baseStyle.fontSize) || 16;
+      const baseHeight = intro.getBoundingClientRect().height;
+
+      let bestSize = baseSize;
+      let low = 10;
+      let high = Math.max(180, (targetHeight / Math.max(baseHeight, 1)) * baseSize * 1.6);
+
+      for (let i = 0; i < 16; i++) {
+        const mid = (low + high) / 2;
+        intro.style.fontSize = `${mid}px`;
+        const height = intro.getBoundingClientRect().height;
+        if (height <= targetHeight) {
+          bestSize = mid;
+          low = mid;
+        } else {
+          high = mid;
+        }
+      }
+
+      intro.style.fontSize = `${bestSize}px`;
+      fittingRef.current = false;
+    };
+
+    const ro = new ResizeObserver(fitText);
+    ro.observe(photo);
+
+    const timer = window.setTimeout(fitText, 0);
+    document.fonts.ready.then(fitText);
+
+    return () => {
+      ro.disconnect();
+      window.clearTimeout(timer);
+    };
+  }, []);
 
   return (
     <section className="about-lede" aria-labelledby="about-lede-title">
@@ -19,12 +78,12 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
         <h1 id="about-lede-title" className="sr-only">Isaac Seiler</h1>
 
         <div className="about-lede-body">
-          <div className="about-lede-photo">
+          <div ref={photoRef} className="about-lede-photo">
             <img src={profilePhotoUrl} alt="Isaac Seiler" loading="eager" decoding="async" />
           </div>
 
           <div className="about-lede-copy">
-            <p className="about-lede-intro">
+            <p ref={introRef} className="about-lede-intro">
               I&apos;m a strategist leading marketing and communications at Summation, working across
               artificial intelligence, public institutions, education, and everyday life.
             </p>
@@ -36,4 +95,3 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
 };
 
 export default AboutSection;
-

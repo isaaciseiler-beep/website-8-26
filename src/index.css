@@ -2361,8 +2361,7 @@
     font-weight: 500;
     line-height: 1.02;
     letter-spacing: -0.04em;
-    text-align: justify;
-    text-align-last: left;
+    text-align: left;
     hyphens: none;
     text-wrap: wrap;
   }
@@ -2421,11 +2420,10 @@
   }
 
   .about-lede-intro {
-    text-align: justify;
-    text-align-last: left;
-    font-size: clamp(1.1rem, 2.6vw, 2.62rem);
+    text-align: left;
+    font-size: var(--bio-font-size, clamp(1.1rem, 2.6vw, 2.62rem));
     font-weight: 400;
-    line-height: 1.28;
+    line-height: 1;
     letter-spacing: -0.03em;
   }
 
