@@ -81,7 +81,7 @@ const ProjectsSection = () => {
                 <motion.span
                   layoutId="work-library-tab-pill"
                   className="pill-tab-indicator"
-                  transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.9 }}
+                  transition={{ type: "tween", duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                 />
               ) : null}
               <span className="pill-tab-label">{item.label}</span>

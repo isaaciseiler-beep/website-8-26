@@ -194,8 +194,8 @@ const ExperienceImage = ({
   className?: string;
   imageClassName?: string;
 }) => {
-  const rotX = useSpring(useMotionValue(0), { stiffness: 120, damping: 18, mass: 0.6 });
-  const rotY = useSpring(useMotionValue(0), { stiffness: 120, damping: 18, mass: 0.6 });
+  const rotX = useSpring(useMotionValue(0), { stiffness: 90, damping: 26, mass: 0.7 });
+  const rotY = useSpring(useMotionValue(0), { stiffness: 90, damping: 26, mass: 0.7 });
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
