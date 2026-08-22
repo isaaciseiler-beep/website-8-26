@@ -560,15 +560,6 @@ export const projectItems: ProjectItem[] = [
       },
     ],
   },
-  {
-    id: "political-reporting-at-washu-archived",
-    title: "Political Reporting at WashU",
-    source: "REPORTING",
-    year: "2024",
-    summary: "",
-    image: projectImg.reporting,
-    sections: [],
-  },
 
   {
     id: "boehringer-cares-foundation-rebrand-strategy-shift",
