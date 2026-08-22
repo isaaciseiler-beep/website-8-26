@@ -376,7 +376,9 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
               </div>
               <div className="shrink-0 md:mt-6">
                 <p className="sidebar-section-label">Appearance</p>
-                <ThemeSwitch />
+                <div className="flex justify-center">
+                  <ThemeSwitch />
+                </div>
               </div>
             </motion.div>
           )}
