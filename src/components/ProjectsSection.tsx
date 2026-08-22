@@ -16,23 +16,34 @@ const filters: { label: string; value: ProjectFilter }[] = [
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+type Entry =
+  | { kind: "project"; id: string; node: ProjectItem }
+  | { kind: "news"; id: string; node: (typeof newsItems)[number] };
+
 const ProjectsSection = () => {
   const [filter, setFilter] = useState<ProjectFilter>("ALL");
 
-  const projects = useMemo(() => {
-    if (filter === "NEWS") return [];
-    if (filter === "ALL") return projectItems;
+  const entries = useMemo<Entry[]>(() => {
+    const projectEntries: Entry[] = projectItems.map((project) => ({
+      kind: "project",
+      id: `project-${project.id}`,
+      node: project,
+    }));
+    const newsEntries: Entry[] = newsItems.map((item) => ({
+      kind: "news",
+      id: `news-${item.id}`,
+      node: item,
+    }));
+
+    if (filter === "NEWS") return newsEntries;
+    if (filter === "ALL") return [...projectEntries, ...newsEntries];
     if (filter === "WORK") {
-      return projectItems.filter((project) => project.source === "WORK" || project.source === "REPORTING");
+      return projectEntries.filter(
+        (entry) => entry.kind === "project" && (entry.node.source === "WORK" || entry.node.source === "REPORTING"),
+      );
     }
-    return projectItems.filter((project) => project.source === filter);
+    return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source === filter);
   }, [filter]);
-
-  const isNews = filter === "NEWS";
-  const visible = projects;
-  const visibleNews = newsItems;
-
-
 
   return (
     <section className="work-library" aria-labelledby="work-library-title">
@@ -67,19 +78,25 @@ const ProjectsSection = () => {
 
       <motion.div layout transition={{ duration: 0.45, ease: EASE }} className="work-library-rail">
         <AnimatePresence mode="popLayout" initial={false}>
-          {isNews
-            ? visibleNews.map((item, index) => (
+          {entries.map((entry, index) => {
+            const motionProps = {
+              layout: true as const,
+              initial: { opacity: 0, scale: 0.985, filter: "blur(6px)" },
+              animate: { opacity: 1, scale: 1, filter: "blur(0px)" },
+              exit: { opacity: 0, scale: 0.985, filter: "blur(6px)" },
+              transition: { duration: 0.5, ease: EASE, delay: Math.min(index * 0.035, 0.18) },
+            };
+
+            if (entry.kind === "news") {
+              const item = entry.node;
+              return (
                 <motion.a
-                  key={`news-${item.id}`}
-                  layout
+                  key={entry.id}
+                  {...motionProps}
                   href={item.href}
                   target={item.href === "#" ? undefined : "_blank"}
                   rel={item.href === "#" ? undefined : "noopener noreferrer"}
                   className="work-library-card group"
-                  initial={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
-                  transition={{ duration: 0.5, ease: EASE, delay: Math.min(index * 0.035, 0.18) }}
                 >
                   {item.imageUrl ? (
                     <img src={item.imageUrl} alt="" loading="lazy" decoding="async" />
@@ -93,39 +110,32 @@ const ProjectsSection = () => {
                     <h3>{item.title}</h3>
                   </div>
                 </motion.a>
-              ))
-            : visible.map((project, index) => (
-            <motion.div
-              key={project.id}
-              layout
-              initial={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
-              transition={{
-                duration: 0.5,
-                ease: EASE,
-                delay: Math.min(index * 0.035, 0.18),
-              }}
-            >
-              <Link
-                to={`/projects/${project.id}`}
-                className="work-library-card group"
-                aria-label={`Read more about ${project.title}`}
-              >
-                <img
-                  src={project.image}
-                  alt=""
-                  loading={index < 3 ? "eager" : "lazy"}
-                  decoding="async"
-                />
-                <div className="work-library-scrim" />
-                <div className="work-library-card-bottom">
-                  <ArrowRight aria-hidden="true" className="work-library-card-arrow" />
-                  <h3>{project.title}</h3>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+              );
+            }
+
+            const project = entry.node;
+            return (
+              <motion.div key={entry.id} {...motionProps}>
+                <Link
+                  to={`/projects/${project.id}`}
+                  className="work-library-card group"
+                  aria-label={`Read more about ${project.title}`}
+                >
+                  <img
+                    src={project.image}
+                    alt=""
+                    loading={index < 3 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                  <div className="work-library-scrim" />
+                  <div className="work-library-card-bottom">
+                    <ArrowRight aria-hidden="true" className="work-library-card-arrow" />
+                    <h3>{project.title}</h3>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </motion.div>
 
