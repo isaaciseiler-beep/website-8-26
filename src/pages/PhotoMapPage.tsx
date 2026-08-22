@@ -470,7 +470,7 @@ const PhotoMapPage = () => {
 
       <motion.main
         animate={{
-          x: sidebarOpen && !isMobile ? 200 : searchOpen ? 240 : searchOpen && !isMobile ? -240 : 0? 240 : searchOpen && !isMobile ? -240 : 0 !isMobile ? -200 : 0,
+          x: sidebarOpen && !isMobile ? 200 : searchOpen && !isMobile ? -200 : 0,
         }}
         transition={{ duration: 0.56, ease: EASE_TEXT }}
         className="relative h-[100svh] w-full overflow-hidden bg-background will-change-transform"
