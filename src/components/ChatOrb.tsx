@@ -29,6 +29,9 @@ const ChatOrb = () => {
   const location = useLocation();
   const disabled = location.pathname === "/photos" || location.pathname === "/photos/map";
 
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [photoVisible, setPhotoVisible] = useState(false);
+
   const userMessageCount = countUserMessages(messages);
   const limitReached = messages.some(
     (message) => message.role === "assistant" && message.content === CHAT_LIMIT_MESSAGE,
@@ -37,7 +40,23 @@ const ChatOrb = () => {
 
   useEffect(() => {
     setOpen(false);
+    setHasScrolled(window.scrollY > 40);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setHasScrolled(true);
+    if (window.scrollY > 40) setHasScrolled(true);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onPhoto = (event: Event) => {
+      setPhotoVisible(Boolean((event as CustomEvent).detail?.visible));
+    };
+    window.addEventListener("photo-section-visibility", onPhoto);
+    return () => window.removeEventListener("photo-section-visibility", onPhoto);
+  }, []);
 
   useEffect(() => {
     const list = listRef.current;
@@ -109,7 +128,7 @@ const ChatOrb = () => {
     }
   };
 
-  if (disabled) return null;
+  if (disabled || photoVisible || !hasScrolled) return null;
 
   return (
     <div className="ai-dock" ref={rootRef}>

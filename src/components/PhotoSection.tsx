@@ -106,6 +106,23 @@ const PhotoSection = () => {
     return () => clearTimeout(timer);
   }, [hovering, isCycling, isMobile, photos.length, prefersReducedMotion]);
 
+  useEffect(() => {
+    const el = previewRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        window.dispatchEvent(
+          new CustomEvent("photo-section-visibility", { detail: { visible: entry.isIntersecting } }),
+        );
+      },
+      { threshold: 0.05 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   if (!activePhoto) return null;
 
   return (
