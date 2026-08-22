@@ -34,7 +34,11 @@ const socialLinks = [
   },
 ];
 
-const Footer = () => {
+interface FooterProps {
+  overlay?: boolean;
+}
+
+const Footer = ({ overlay = false }: FooterProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -47,7 +51,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer id="footer" className="relative bg-background">
+    <footer id="footer" className={overlay ? "site-footer--overlay" : "relative bg-background"}>
       <div data-reveal className="work-library flex items-center justify-between gap-6 pt-12 pb-8 md:pt-16">
         <div
           className={`flex items-center gap-5 transition-opacity duration-300 ${
@@ -59,7 +63,7 @@ const Footer = () => {
               key={link.id}
               href={link.href}
               {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="text-foreground/50 hover:text-foreground transition-colors duration-200"
+              className={`transition-colors duration-200 ${overlay ? "text-white/80 hover:text-white" : "text-foreground/50 hover:text-foreground"}`}
               aria-label={link.label}
             >
               {link.icon}
@@ -67,7 +71,7 @@ const Footer = () => {
           ))}
         </div>
 
-        <p className="text-[13px] text-foreground/45">© 2026 Isaac Seiler</p>
+        <p className={`text-[13px] ${overlay ? "text-white/80" : "text-foreground/45"}`}>© 2026 Isaac Seiler</p>
       </div>
     </footer>
   );

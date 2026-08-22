@@ -307,6 +307,27 @@
     margin-bottom: 0;
   }
 
+  .home-photo-footer-stack {
+    position: relative;
+  }
+
+  .site-footer--overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 3;
+    background: transparent;
+    color: #fff;
+  }
+
+  .site-footer--overlay a,
+  .site-footer--overlay p {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .site-footer--overlay a:hover {
+    color: #fff;
+  }
+
   .home-photo-section-fallback {
     min-height: 60vh;
     background: #fff;
@@ -2301,7 +2322,8 @@
     font-weight: 500;
     line-height: 1.02;
     letter-spacing: -0.04em;
-    text-align: left;
+    text-align: justify;
+    text-align-last: left;
     hyphens: none;
     text-wrap: wrap;
   }
@@ -2346,7 +2368,7 @@
   }
 
   .about-lede-photo:hover img {
-    transform: scale(1.02);
+    transform: none;
   }
 
   .about-lede-copy {
@@ -2360,7 +2382,8 @@
   }
 
   .about-lede-intro {
-    text-align: left;
+    text-align: justify;
+    text-align-last: left;
     font-size: clamp(1.1rem, 2.6vw, 2.62rem);
     font-weight: 400;
     line-height: 1.28;
