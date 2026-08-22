@@ -98,7 +98,9 @@ export default async function handler(request: ApiRequest, response: ApiResponse
   }
 
   try {
-    const body = (await readJsonBody(request)) as { messages?: unknown };
+    const body = (await readJsonBody(request)) as { messages?: unknown; pageContext?: unknown };
+    const pageContext =
+      typeof body.pageContext === "string" ? body.pageContext.trim().slice(0, 6000) : "";
     const messages = normalizeMessages(body.messages);
     const userMessages = messages.filter((message) => message.role === "user");
     const latestMessage = userMessages[userMessages.length - 1];
@@ -125,6 +127,9 @@ export default async function handler(request: ApiRequest, response: ApiResponse
       : "No matching knowledge chunks were retrieved.";
 
     const guidance = getAssistantGuidance();
+    const pageInstructions = pageContext
+      ? `\n\nThe visitor is currently reading this page. Prioritize it when answering, and assume ambiguous questions ("this", "it", "this article") refer to it:\n${pageContext}`
+      : "";
 
     const openAiResponse = await fetch(OPENAI_RESPONSES_URL, {
       method: "POST",
@@ -134,7 +139,7 @@ export default async function handler(request: ApiRequest, response: ApiResponse
       },
       body: JSON.stringify({
         model: process.env.OPENAI_CHAT_MODEL || DEFAULT_MODEL,
-        instructions: buildInstructions(context, guidance),
+        instructions: buildInstructions(context, guidance) + pageInstructions,
         input: messages.slice(-8).map((message) => ({
           role: message.role,
           content: message.content,
