@@ -125,28 +125,28 @@ const ProjectsSection = () => {
               );
             }
 
-            const project = entry.node;
-            return (
-              <motion.div key={entry.id} {...motionProps}>
-                <Link
-                  to={`/projects/${project.id}`}
-                  className="work-library-card group"
-                  aria-label={`Read more about ${project.title}`}
-                >
-                  <img
-                    src={tileImageFor(index)}
-                    alt=""
-                    loading={index < 3 ? "eager" : "lazy"}
-                    decoding="async"
-                  />
-                  <div className="work-library-scrim" />
-                  <div className="work-library-card-bottom">
-                    <ArrowRight aria-hidden="true" className="work-library-card-arrow" />
-                    <h3>{project.title}</h3>
-                  </div>
-                </Link>
-              </motion.div>
-            );
+              const project = entry.node;
+              return (
+                <motion.div key={entry.id} {...motionProps}>
+                  <Link
+                    to={`/projects/${project.id}`}
+                    className="work-library-card group"
+                    aria-label={`Read more about ${project.title}`}
+                  >
+                    <img
+                      src={tileImageFor(index)}
+                      alt=""
+                      loading={index < 3 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
+                    <div className="work-library-scrim" />
+                    <ArrowUpRight aria-hidden="true" className="work-library-card-arrow" />
+                    <div className="work-library-card-bottom">
+                      <h3>{project.title}</h3>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
           })}
         </AnimatePresence>
       </motion.div>
