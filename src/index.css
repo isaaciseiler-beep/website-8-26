@@ -2909,3 +2909,15 @@ html.theme-crossfade body * {
 .skull .ai-dock-shell {
   border-radius: 0 !important;
 }
+
+.skull .home-work-opening,
+.skull .home-photo-section,
+.skull .work-library,
+.skull .about-lede,
+.skull .about-lede-inner,
+.skull #hero,
+.skull #about,
+.skull #projects,
+.skull #photos {
+  background: transparent !important;
+}
