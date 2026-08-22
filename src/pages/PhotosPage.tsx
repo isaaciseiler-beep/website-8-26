@@ -33,12 +33,21 @@ const featuredPhotos = {
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+const shuffleArray = <T,>(arr: T[]) => {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+};
+
 const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) => {
   const [hovering, setHovering] = useState(false);
   const [flashIdx, setFlashIdx] = useState(-1);
   const [decodedSrcs, setDecodedSrcs] = useState<Set<string>>(() => new Set([coverFor(album)]));
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const photos = useMemo(() => albumPhotos(album), [album]);
+  const photos = useMemo(() => shuffleArray(albumPhotos(album)), [album]);
   const readyHoverPhotos = photos.filter((src) => decodedSrcs.has(src));
   const photoCount = readyHoverPhotos.length;
 
