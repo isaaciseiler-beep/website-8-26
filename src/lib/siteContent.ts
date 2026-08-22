@@ -561,34 +561,15 @@ export const projectItems: ProjectItem[] = [
     ],
   },
   {
-    id: "political-reporting-at-washu",
+    id: "political-reporting-at-washu-archived",
     title: "Political Reporting at WashU",
     source: "REPORTING",
     year: "2024",
-    summary:
-      "Student political reporting at WashU focused on protest, campus governance, elections, and institutional accountability.",
+    summary: "",
     image: projectImg.reporting,
-    sections: [
-      {
-        heading: "Overview",
-        paragraphs: [
-          "As a student journalist, I covered politics and power on campus, reporting on issues where institutional authority, student activism, and national politics intersected.",
-          "My reporting focused on moments of controversy and transition, pairing on-the-ground student perspectives with analysis of how the university responded through policy, governance, and public messaging.",
-        ],
-      },
-      {
-        heading: "Selected Stories",
-        links: [
-          { label: "Suspended student protesters speak out", href: "https://www.studlife.com/news/2024/09/18/disorienting-suspended-student-protesters-speak-out" },
-          { label: "WashU ABS respond to racist text messages after election", href: "https://www.studlife.com/news/2024/12/04/washu-abs-respond-to-racist-text-messages-after-election-discuss-combating-hate" },
-          { label: "Panel on free speech, protest, and democracy", href: "https://www.studlife.com/news/2024/09/11/disagree-without-being-disagreeable-chancellor-martin-hosts-panel-on-free-speech-protest-and-democracy" },
-          { label: "Anxiety and hope among WashU students, staff, and faculty", href: "https://www.studlife.com/news/2024/04/30/its-getting-hotter-anxiety-and-hope-among-washu-students-staff-and-faculty" },
-          { label: "Students reflect on candidates and civic engagement", href: "https://www.studlife.com/news/2024/10/31/before-election-day-washu-students-reflect-on-candidates-and-civic-engagement-2" },
-          { label: "University forms naming review board", href: "https://www.studlife.com/news/2024/02/14/university-forms-naming-review-board" },
-        ],
-      },
-    ],
+    sections: [],
   },
+
   {
     id: "boehringer-cares-foundation-rebrand-strategy-shift",
     title: "Boehringer Cares Foundation Rebrand and Strategy Shift",
