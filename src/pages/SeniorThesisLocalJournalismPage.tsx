@@ -304,7 +304,7 @@ const SeniorThesisLocalJournalismPage = () => {
             <div className="relative z-20 bg-background px-6 py-16">
               <div className="content-measure">
                 <TextReveal>
-                  <div className="max-w-6xl space-y-6">
+                  <div className="space-y-6">
                     <motion.p
                       className="text-xl leading-relaxed text-foreground/78 sm:text-2xl"
                       initial={{ opacity: 0, y: 18 }}
