@@ -87,8 +87,9 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
 
           <div className="about-lede-copy">
             <p
+              ref={introRef}
               className="about-lede-intro"
-              style={{ fontSize: 80, lineHeight: "100px", color: "red" }}
+              style={{ lineHeight: "100px", color: "red" }}
             >
               I&apos;m a strategist leading marketing and communications at Summation, working across
               artificial intelligence, public institutions, education, and everyday life.
