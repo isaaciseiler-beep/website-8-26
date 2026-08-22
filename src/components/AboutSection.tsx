@@ -87,7 +87,6 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
 
           <div className="about-lede-copy">
             <p
-              ref={introRef}
               className="about-lede-intro"
               style={{ fontSize: 80, lineHeight: "100px", color: "red" }}
             >
