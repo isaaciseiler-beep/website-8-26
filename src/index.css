@@ -299,11 +299,6 @@
     background: #fff;
   }
 
-  .home-content-shell {
-    position: relative;
-    z-index: 50;
-  }
-
   .home-photo-section--wide {
     margin-block: clamp(5.25rem, 8vw, 8rem);
   }
@@ -2263,13 +2258,14 @@
 
   .work-library-rail {
     position: relative;
-    z-index: 50;
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(2, auto);
     /* Bleed past the content frame so the next card peeks in from the right. */
+    width: calc(100% + 48px);
+    margin-left: -24px;
     margin-right: -24px;
-    grid-auto-columns: calc((100% - 72px) / 3);
+    grid-auto-columns: calc((100% - 120px) / 3);
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -2278,15 +2274,6 @@
     -ms-overflow-style: none;
     padding-bottom: 4px;
   }
-
-  /* When the sidebar is open, let the rail bleed over it so cards scroll on top. */
-  body[data-sidebar="open"] .work-library-rail {
-    width: calc(100% + 200px);
-    margin-left: -200px;
-    padding-left: 200px;
-    scroll-padding-left: 200px;
-  }
-
 
   .work-library-rail::-webkit-scrollbar {
     display: none;
@@ -2642,7 +2629,7 @@
     }
 
     .work-library-rail {
-      grid-auto-columns: calc((100% - 60px) / 2);
+      grid-auto-columns: calc((100% - 108px) / 2);
     }
 
     .about-lede-body {
@@ -2683,8 +2670,10 @@
     }
 
     .work-library-rail {
+      width: calc(100% + 32px);
+      margin-left: -16px;
       margin-right: -16px;
-      grid-auto-columns: calc((100% - 48px) / 2);
+      grid-auto-columns: calc((100% - 80px) / 2);
     }
 
     .work-library-card-bottom h3 {
