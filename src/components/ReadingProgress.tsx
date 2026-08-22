@@ -20,9 +20,21 @@ const ReadingProgress = () => {
   }, []);
 
   return (
-    <div className="reading-progress" aria-hidden="true">
-      <span style={{ transform: `scaleX(${progress / 100})` }} />
-    </div>
+    <>
+      <div className="reading-progress" aria-hidden="true">
+        <span style={{ transform: `scaleX(${progress / 100})` }} />
+      </div>
+      <div
+        className="reading-progress-readout"
+        data-visible={progress > 1 ? "true" : "false"}
+        aria-hidden="true"
+      >
+        <span className="reading-progress-track">
+          <span style={{ transform: `scaleX(${progress / 100})` }} />
+        </span>
+        <span className="reading-progress-value">{Math.round(progress)}% read</span>
+      </div>
+    </>
   );
 };
 

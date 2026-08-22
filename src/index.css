@@ -3142,3 +3142,52 @@ body::-webkit-scrollbar,
   background: hsl(var(--foreground) / 0.72);
   transition: transform 0.12s linear;
 }
+
+.reading-progress-readout {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reading-progress-readout[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reading-progress-track {
+  display: block;
+  width: 56px;
+  height: 2px;
+  background: hsl(var(--foreground) / 0.16);
+  overflow: hidden;
+}
+
+.reading-progress-track > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  background: hsl(var(--foreground) / 0.8);
+  transition: transform 0.12s linear;
+}
+
+.reading-progress-value {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: hsl(var(--foreground) / 0.55);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 767px) {
+  .reading-progress-readout {
+    display: none;
+  }
+}
