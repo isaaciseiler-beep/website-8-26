@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Sidebar, { sitemapItems } from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -24,6 +25,7 @@ const Index = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const isMobile = useIsMobile();
+  const location = useLocation();
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);
@@ -34,6 +36,26 @@ const Index = () => {
     setSidebarOpen(false);
     setSearchOpen(true);
   };
+
+  useEffect(() => {
+    const section = new URLSearchParams(location.search).get("section");
+    if (!section) return;
+    const scroll = () => {
+      const el = document.getElementById(section);
+      if (!el) return false;
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - HEADER_SCROLL_OFFSET });
+      return true;
+    };
+    if (scroll()) return;
+    const timer = window.setInterval(() => {
+      if (scroll()) window.clearInterval(timer);
+    }, 120);
+    const stop = window.setTimeout(() => window.clearInterval(timer), 3000);
+    return () => {
+      window.clearInterval(timer);
+      window.clearTimeout(stop);
+    };
+  }, [location.search]);
 
   useEffect(() => {
     let frame = 0;

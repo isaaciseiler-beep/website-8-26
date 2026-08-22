@@ -113,7 +113,7 @@ const ProjectDetailPage = () => {
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        <button onClick={() => navigate("/projects")} className="font-mono text-xs uppercase tracking-widest">← Back to projects</button>
+        <button onClick={() => navigate("/?section=projects")} className="pill-back">← Back to work</button>
       </div>
     );
   }
@@ -148,23 +148,13 @@ const ProjectDetailPage = () => {
           transition={{ duration: 0.6, ease: EASE_TEXT, delay: 0.1 }}
         >
           <button
-            onClick={() => navigate("/projects")}
-            className="back-projects-button group relative mb-8 inline-flex items-center justify-center overflow-hidden rounded-full bg-foreground px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] cursor-pointer"
-          >
-            <span
-              className="absolute inset-0 origin-right scale-x-0 bg-primary/90 transition-transform duration-700 group-hover:scale-x-100"
-              style={{ transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
-            />
-            <span className="back-projects-button-label relative z-10 flex items-center transition-colors duration-500">
-              <span
-                className="inline-flex max-w-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:max-w-[1.5rem] group-hover:opacity-100"
-                style={{ transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
-              >
-                <ArrowLeft className="w-3 h-3 mr-1.5 shrink-0" strokeWidth={1.5} />
-              </span>
-              All Projects
-            </span>
-          </button>
+      type="button"
+      onClick={() => navigate("/?section=projects")}
+      className="pill-back mb-8"
+    >
+      <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
+      <span>Back to work</span>
+    </button>
 
           <div className="mb-3 flex items-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-foreground/50">{project.year}</span>
