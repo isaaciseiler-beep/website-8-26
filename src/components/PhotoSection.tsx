@@ -75,6 +75,19 @@ const PhotoSection = () => {
     };
   }, [coversReady, hasAutoplayed, isPreviewInView, prefersReducedMotion]);
 
+  // Hover flip-through: cycles covers while the pointer rests on the preview.
+  useEffect(() => {
+    if (prefersReducedMotion || isMobile || !hovering || isCycling) return;
+
+    const interval = setInterval(() => {
+      setActiveIdx((current) => (current + 1) % photos.length);
+    }, 320);
+
+    return () => clearInterval(interval);
+  }, [hovering, isCycling, isMobile, prefersReducedMotion]);
+
+
+
   return (
     <section className="flex h-auto min-h-0 flex-col pb-0 pt-0 md:h-[calc(100svh-9.75rem)] md:min-h-[420px]">
       <div className="px-6 md:min-h-0 md:flex-1">
