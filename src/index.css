@@ -2673,7 +2673,7 @@
     }
 
     .about-lede-body {
-      grid-template-columns: 220px minmax(0, 1fr);
+      grid-template-columns: calc((100% - 32px) / 2) minmax(0, 1fr);
       gap: 18px;
     }
 
