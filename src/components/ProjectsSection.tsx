@@ -49,7 +49,6 @@ const ProjectsSection = () => {
               aria-selected={active}
               onClick={() => {
                 setFilter(item.value);
-                setExpanded(false);
               }}
               className={`pill-tab ${active ? "is-active" : ""}`}
             >
@@ -66,7 +65,7 @@ const ProjectsSection = () => {
         })}
       </div>
 
-      <motion.div layout transition={{ duration: 0.45, ease: EASE }} className="work-library-grid">
+      <motion.div layout transition={{ duration: 0.45, ease: EASE }} className="work-library-rail">
         <AnimatePresence mode="popLayout" initial={false}>
           {isNews
             ? visibleNews.map((item, index) => (
@@ -80,7 +79,7 @@ const ProjectsSection = () => {
                   initial={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   exit={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
-                  transition={{ duration: 0.5, ease: EASE, delay: Math.min((index % INITIAL_COUNT) * 0.035, 0.18) }}
+                  transition={{ duration: 0.5, ease: EASE, delay: Math.min(index * 0.035, 0.18) }}
                 >
                   {item.imageUrl ? (
                     <img src={item.imageUrl} alt="" loading="lazy" decoding="async" />
@@ -105,7 +104,7 @@ const ProjectsSection = () => {
               transition={{
                 duration: 0.5,
                 ease: EASE,
-                delay: Math.min((index % INITIAL_COUNT) * 0.035, 0.18),
+                delay: Math.min(index * 0.035, 0.18),
               }}
             >
               <Link
@@ -130,20 +129,6 @@ const ProjectsSection = () => {
         </AnimatePresence>
       </motion.div>
 
-      {total > INITIAL_COUNT ? (
-
-        <div className="work-library-more">
-          <button
-            type="button"
-            className="pill-button"
-            onClick={() => setExpanded((value) => !value)}
-            aria-expanded={expanded}
-          >
-            <span>{expanded ? "View less" : "View more"}</span>
-            <ChevronDown aria-hidden="true" className={expanded ? "is-flipped" : ""} />
-          </button>
-        </div>
-      ) : null}
     </section>
   );
 };
