@@ -30,10 +30,9 @@ const ThemeSwitch = () => {
   useEffect(() => {
     if (dragging) return;
     const controls = animate(x, activeIndex * STEP, {
-      type: "spring",
-      stiffness: 420,
-      damping: 38,
-      mass: 0.9,
+      type: "tween",
+      duration: 0.42,
+      ease: [0.22, 1, 0.36, 1],
     });
     return () => controls.stop();
   }, [activeIndex, dragging, x]);
