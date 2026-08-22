@@ -55,14 +55,6 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     url: "/projects/stl-immigrant-refugee-support-grant-process",
   },
   {
-    id: "ai-educator-workshop",
-    title: "Education Conference Presentation on AI Applications",
-    source: "Project",
-    content:
-      "A 2025 educator-facing AI literacy presentation translating AI concepts into classroom and planning applications. Isaac framed AI as practical support for planning, differentiation, feedback, and student exploration while keeping teacher judgment central.",
-    url: "/projects/ai-literacy-workshop-for-educators",
-  },
-  {
     id: "ev-analysis",
     title: "Electric Vehicle Charging Access Analysis",
     source: "Project",
@@ -85,14 +77,6 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     content:
       "A 2025 six-session educator lab with OpenAI/ChatGPT for Education support. Isaac founded and led the Fulbright Taiwan ChatGPT Lab, bringing Fulbright educators together to explore practical, responsible uses of ChatGPT in education. He facilitated six sessions, designed curriculum, and produced nine lightweight educator use cases summarized in a published ChatGPT for Education post.",
     url: "/projects/fulbright-focus-group-sponsored-by-openai",
-  },
-  {
-    id: "political-reporting",
-    title: "Political Reporting at WashU",
-    source: "Project",
-    content:
-      "Student political reporting focused on protest, campus governance, elections, and institutional accountability. Isaac covered politics and power on campus, including suspended student protesters, racist text messages after the 2024 election, free speech and protest, climate anxiety, civic engagement, and university governance.",
-    url: "/projects/political-reporting-at-washu",
   },
   {
     id: "boehringer-rebrand",
@@ -119,14 +103,6 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     url: "/projects/exclusive-interview-with-high-visibility-congressperson",
   },
   {
-    id: "sustainable-development",
-    title: "Sustainable Development and Health Access Report",
-    source: "Project",
-    content:
-      "A 2024 project at Boehringer Ingelheim focused on health access policy, sustainable development strategy, communications, and operations. Isaac helped shape the narrative around health access, authored an internal report, and supported operations around the Sustainable Development Excellence program.",
-    url: "/projects/sustainable-development-health-access-report",
-  },
-  {
     id: "news-openai-educator-lab",
     title: "Conducted OpenAI-supported Education Focus Group",
     source: "News",
@@ -151,75 +127,11 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     url: "/#news",
   },
   {
-    id: "news-washu-truman",
-    title: "Won 2024 Truman Scholarship",
-    source: "News",
-    content:
-      "A Washington University news item about Isaac winning the 2024 Truman Scholarship, tied to public service, civil liberties, and academic recognition.",
-    url: "/#news",
-  },
-  {
-    id: "news-openai-100-chats",
-    title: "Contributed to 100 Chats Project with the ChatGPT Lab",
-    source: "News",
-    content:
-      "An OpenAI/ChatGPT news item about Isaac contributing to the 100 Chats project as part of ChatGPT Lab, showing practical student uses of ChatGPT.",
-    url: "/#news",
-  },
-  {
     id: "news-rhodes-finalist",
     title: "Named 2024 Rhodes Scholarship Finalist",
     source: "News",
     content:
       "A Washington University news item about Isaac being named a 2024 Rhodes Scholarship finalist, relevant to academic distinction and public-interest work.",
-    url: "/#news",
-  },
-  {
-    id: "news-fulbright-taiwan",
-    title: "Won Fulbright Award to Taiwan",
-    source: "News",
-    content:
-      "A Washington University news item about Isaac earning a Fulbright award to Taiwan, relevant to education, cross-cultural work, and AI literacy programming.",
-    url: "/#news",
-  },
-  {
-    id: "news-openai-study-mode",
-    title: "Study Mode Spotlight on ChatGPT's Instagram",
-    source: "News",
-    content:
-      "An OpenAI social news item spotlighting Isaac in connection with Study Mode and student learning use cases.",
-    url: "/#news",
-  },
-  {
-    id: "news-openai-pulse",
-    title: "Testimonial Featured in ChatGPT Pulse Launch",
-    source: "News",
-    content:
-      "An OpenAI news item featuring Isaac's testimonial in the ChatGPT Pulse launch, relevant to proactive AI, planning workflows, and user feedback.",
-    url: "/#news",
-  },
-  {
-    id: "news-openai-browser-feedback",
-    title: "Shared Early Browser Product Feedback with OpenAI",
-    source: "News",
-    content:
-      "A site news item about Isaac sharing early browser product feedback with OpenAI. Keep wording careful and public.",
-    url: "/#news",
-  },
-  {
-    id: "news-photo-award",
-    title: "Won Award for Best College Newspaper Photography",
-    source: "News",
-    content:
-      "A Missouri College Media Awards news item about Isaac's student newspaper photography recognition.",
-    url: "/#news",
-  },
-  {
-    id: "news-washu-profile",
-    title: "University Profile",
-    source: "News",
-    content:
-      "A Washington University profile of Isaac covering his public-service interests, academic path, and recognitions.",
     url: "/#news",
   },
 ];
@@ -332,7 +244,23 @@ export const getAssistantGuidance = () => {
 
 export const retrieveKnowledge = (query: string, limit = 5): RetrievedChunk[] => {
   const queryTerms = tokenize(query);
-  if (!queryTerms.length) return [];
+  if (!queryTerms.length) return [  {
+    id: "openai-product-testing",
+    title: "OpenAI Product Testing and Feedback",
+    source: "Project",
+    content:
+      "Early product testing and feedback across ChatGPT products as a member of OpenAI's ChatGPT Lab, including the 100 Chats Project, a testimonial featured in the ChatGPT Pulse launch, a Study Mode spotlight on ChatGPT's Instagram, and early browser product feedback. Keep wording careful and public.",
+    url: "/projects/openai-product-testing-and-feedback",
+  },
+  {
+    id: "blog-fulbright-award",
+    title: "Won Fulbright Award to Taiwan",
+    source: "Blog",
+    content:
+      "A blog post about Isaac earning a Fulbright award to Taiwan, relevant to education, cross-cultural work, and AI literacy programming. The post is not yet written.",
+    url: "/projects/fulbright-award-to-taiwan",
+  },
+];
 
   return getKnowledgeChunks()
     .map((chunk) => {

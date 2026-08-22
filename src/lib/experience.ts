@@ -10,6 +10,7 @@ export interface ExperienceEntry {
   focus: string[];
   projectIds: string[];
   newsIds: number[];
+
 }
 
 export const experienceIntro = {
@@ -36,8 +37,8 @@ export const experienceEntries: ExperienceEntry[] = [
       "Alongside the AI education work, I coach elementary school soccer and published a Substack with OpenAI highlighting nine high-impact education use cases for ChatGPT.",
     ],
     focus: ["AI enablement", "user education", "community comms", "curriculum design"],
-    projectIds: ["fulbright-focus-group-sponsored-by-openai", "ai-literacy-workshop-for-educators"],
-    newsIds: [1, 7],
+    projectIds: ["fulbright-focus-group-sponsored-by-openai"],
+    newsIds: [1],
   },
   {
     id: "csg-ai-index",
@@ -70,7 +71,7 @@ export const experienceEntries: ExperienceEntry[] = [
     ],
     focus: ["product feedback", "GTM insight", "AI education", "user behavior", "early testing"],
     projectIds: ["fulbright-focus-group-sponsored-by-openai"],
-    newsIds: [5, 9, 8],
+    newsIds: [],
   },
   {
     id: "washu-head-ta",
@@ -102,7 +103,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "I built a company-wide newsletter system with an 80% open rate, shipped dozens of major cross-functional communications assets, and redesigned internal messaging and UX around employee volunteering, helping increase annual participation by 25%.",
     ],
     focus: ["internal operations", "cross-functional execution", "systems design", "stakeholder communications"],
-    projectIds: ["boehringer-cares-foundation-rebrand-strategy-shift", "sustainable-development-health-access-report"],
+    projectIds: ["boehringer-cares-foundation-rebrand-strategy-shift"],
     newsIds: [],
   },
   {
@@ -118,8 +119,8 @@ export const experienceEntries: ExperienceEntry[] = [
       "I conducted 17 in-depth interviews with Australian journalists, editors, owners, and policy experts. The project explored journalism as a public good, platform incentives, economic decline, and the uncertainty surrounding generative AI.",
     ],
     focus: ["user research", "qualitative analysis", "platform strategy", "longform synthesis"],
-    projectIds: ["senior-thesis-local-journalism", "political-reporting-at-washu"],
-    newsIds: [12, 6, 11],
+    projectIds: ["senior-thesis-local-journalism"],
+    newsIds: [6],
   },
   {
     id: "isaac-seiler-strategies",
@@ -149,8 +150,8 @@ export const experienceEntries: ExperienceEntry[] = [
       "My reporting focused on campus politics, protest, elections, free speech, governance, and institutional accountability.",
     ],
     focus: ["reporting", "campus politics", "student journalism"],
-    projectIds: ["political-reporting-at-washu"],
-    newsIds: [11],
+    projectIds: [],
+    newsIds: [],
   },
   {
     id: "us-house",

@@ -99,7 +99,7 @@
     <priority>0.92</priority>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
-      <image:title>Fulbright Taiwan Educator Lab with OpenAI Support</image:title>
+      <image:title>OpenAI Educator Lab and Conference Presentations</image:title>
       <image:caption>Isaac Seiler founded and led the Fulbright Taiwan ChatGPT Lab, an OpenAI-supported educator lab focused on practical, responsible ChatGPT use cases in education.</image:caption>
     </image:image>
   </url>
@@ -112,17 +112,6 @@
       <image:loc>https://www.isaacseiler.xyz/project-images/aiindex.jpg</image:loc>
       <image:title>Artificial Intelligence in State Government Index</image:title>
       <image:caption>A public benchmark by Isaac Seiler measuring generative AI adoption, training, governance, pilots, transparency, and preparedness across U.S. states and territories.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/projects/ai-literacy-workshop-for-educators</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/ai-classroom.jpg</image:loc>
-      <image:title>Education Conference Presentation on AI Applications</image:title>
-      <image:caption>A conference-style educator workshop by Isaac Seiler translating AI, LLMs, prompt design, classroom use cases, and verification habits into practical teaching workflows.</image:caption>
     </image:image>
   </url>
   <url>
@@ -181,17 +170,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/political-reporting-at-washu</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/reporting.jpg</image:loc>
-      <image:title>Political Reporting at WashU</image:title>
-      <image:caption>Student political reporting at WashU focused on protest, campus governance, elections, and institutional accountability.</image:caption>
-    </image:image>
-  </url>
-  <url>
     <loc>https://www.isaacseiler.xyz/projects/2022-institute-for-nonprofit-news-index-survey</loc>
     <lastmod>2026-08-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -200,17 +178,6 @@
       <image:loc>https://www.isaacseiler.xyz/project-images/nonprofitnews.jpg</image:loc>
       <image:title>The 2022 Institute for Nonprofit News Index Survey</image:title>
       <image:caption>A large-scale nonprofit news research project involving data collection, survey synthesis, and direct stakeholder outreach.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/projects/sustainable-development-health-access-report</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/boehstrategy.jpg</image:loc>
-      <image:title>Sustainable Development and Health Access Report</image:title>
-      <image:caption>Strategy and communications work around health access policy at Boehringer Ingelheim, including an internal report and SDX partnership support.</image:caption>
     </image:image>
   </url>
   <url>
@@ -236,14 +203,14 @@
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/first-personal-website</loc>
+    <loc>https://www.isaacseiler.xyz/projects/openai-product-testing-and-feedback</loc>
     <lastmod>2026-08-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/firstwebsite.jpg</image:loc>
-      <image:title>First Personal Website</image:title>
-      <image:caption>Isaac Seiler&apos;s first hand-built personal portfolio project, created to learn Git, frontend development, content modeling, databases, and deployment.</image:caption>
+      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
+      <image:title>OpenAI Product Testing and Feedback</image:title>
+      <image:caption>Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.</image:caption>
     </image:image>
   </url>
 </urlset>

@@ -15,18 +15,19 @@ Isaac's work sits between AI, education, public institutions, journalism, commun
 
 ## Projects
 
-### Fulbright Taiwan Educator Lab with OpenAI Support
+### OpenAI Educator Lab and Conference Presentations
 
 URL: https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai
 Year: 2025
 Type: PROJECT
 Summary: Isaac Seiler founded and led the Fulbright Taiwan ChatGPT Lab, an OpenAI-supported educator lab focused on practical, responsible ChatGPT use cases in education.
-Keywords: Fulbright Taiwan Educator Lab with OpenAI Support, PROJECT, 2025, A six-session educator lab with OpenAI/ChatGPT for Education support, focused on practical and responsible uses of ChatGPT in education., ChatGPT Lab, OpenAI for Education, ChatGPT for Education, Fulbright Taiwan, Fulbright ChatGPT Lab, OpenAI education newsletter, AI in education, teacher AI training, 100 Chats Project, OpenAI, ChatGPT, Fulbright Taiwan, AI education, teacher training
+Keywords: OpenAI Educator Lab and Conference Presentations, PROJECT, 2025, A six-session educator lab with OpenAI/ChatGPT for Education support, plus conference presentations translating AI into practical classroom applications., ChatGPT Lab, OpenAI for Education, ChatGPT for Education, Fulbright Taiwan, Fulbright ChatGPT Lab, OpenAI education newsletter, AI in education, teacher AI training, 100 Chats Project, OpenAI, ChatGPT, Fulbright Taiwan, AI education, teacher training
 Primary image: https://www.isaacseiler.xyz/project-images/chatlab.jpg
 Links:
   - Substack Post: https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan
   - Fulbright Taiwan ChatGPT Lab Notion Page: https://notion.so/ChatGPT-Lab-x-Fulbright-Taiwan-261aaef174d680579138e8c1c658ab41
   - PowerPoint Introduction to the Lab: https://docs.google.com/presentation/d/1ZqOp_1KQte52BNBR5OBmOJThCufkNnBtVLBhNW_rkps/edit?slide=id.g38cd4d0aa4c_0_33#slide=id.g38cd4d0aa4c_0_33
+  - Conference Slide Deck: https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev/Artificial%20Intelligence%20in%20the%20Classroom.pdf
 
 ### Artificial Intelligence in State Government Index
 
@@ -41,18 +42,6 @@ Links:
   - Study Methodology and Background: https://docs.google.com/document/d/1jvnT2yJo47LchswQmj4DRZGEHYOoMGZB/edit
   - Recommendations to State Lawmakers: https://docs.google.com/document/d/1z1hLEEtHXN6JlZp3XSpEGSV2wMdmoTHD/edit
   - Executive Summary Presentation: https://docs.google.com/presentation/d/1jAaItGFd-F7s-wUSZRsxjfbmZnqmAT5V/edit?slide=id.p1#slide=id.p1
-
-### Education Conference Presentation on AI Applications
-
-URL: https://www.isaacseiler.xyz/projects/ai-literacy-workshop-for-educators
-Year: 2025
-Type: PROJECT
-Summary: A conference-style educator workshop by Isaac Seiler translating AI, LLMs, prompt design, classroom use cases, and verification habits into practical teaching workflows.
-Keywords: Education Conference Presentation on AI Applications, PROJECT, 2025, A conference-style educator presentation translating AI concepts into practical classroom and planning applications., AI literacy workshop, AI for educators, teacher AI training, ChatGPT classroom, LLM fundamentals, AI presentation, AI education, teacher training, large language models, classroom AI
-Primary image: https://www.isaacseiler.xyz/project-images/ai-classroom.jpg
-Links:
-  - Workshop Slide Deck: https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev/Artificial%20Intelligence%20in%20the%20Classroom.pdf
-  - Anthropic AI Fluency Foundations Course: https://lnkd.in/gnUB8D7M
 
 ### AI Platforms and Journalism Research
 
@@ -110,22 +99,6 @@ Primary image: https://www.isaacseiler.xyz/project-images/politicalconsult.jpg
 Links:
   - Allyson's Campaign Website: https://www.allysonfortustin.com/
 
-### Political Reporting at WashU
-
-URL: https://www.isaacseiler.xyz/projects/political-reporting-at-washu
-Year: 2024
-Type: REPORTING
-Summary: Student political reporting at WashU focused on protest, campus governance, elections, and institutional accountability.
-Keywords: Political Reporting at WashU, REPORTING, 2024, Student political reporting at WashU focused on protest, campus governance, elections, and institutional accountability., WashU political reporting, student journalism, campus politics, free speech, student protest reporting, journalism, campus politics, WashU, student media
-Primary image: https://www.isaacseiler.xyz/project-images/reporting.jpg
-Links:
-  - Suspended student protesters speak out: https://www.studlife.com/news/2024/09/18/disorienting-suspended-student-protesters-speak-out
-  - WashU ABS respond to racist text messages after election: https://www.studlife.com/news/2024/12/04/washu-abs-respond-to-racist-text-messages-after-election-discuss-combating-hate
-  - Panel on free speech, protest, and democracy: https://www.studlife.com/news/2024/09/11/disagree-without-being-disagreeable-chancellor-martin-hosts-panel-on-free-speech-protest-and-democracy
-  - Anxiety and hope among WashU students, staff, and faculty: https://www.studlife.com/news/2024/04/30/its-getting-hotter-anxiety-and-hope-among-washu-students-staff-and-faculty
-  - Students reflect on candidates and civic engagement: https://www.studlife.com/news/2024/10/31/before-election-day-washu-students-reflect-on-candidates-and-civic-engagement-2
-  - University forms naming review board: https://www.studlife.com/news/2024/02/14/university-forms-naming-review-board
-
 ### The 2022 Institute for Nonprofit News Index Survey
 
 URL: https://www.isaacseiler.xyz/projects/2022-institute-for-nonprofit-news-index-survey
@@ -136,18 +109,6 @@ Keywords: The 2022 Institute for Nonprofit News Index Survey, RESEARCH, 2022, A 
 Primary image: https://www.isaacseiler.xyz/project-images/nonprofitnews.jpg
 Links:
   - 2022 INN Index Report: https://inn.org/research/inn-index/inn-index-2022/about-the-index/
-
-### Sustainable Development and Health Access Report
-
-URL: https://www.isaacseiler.xyz/projects/sustainable-development-health-access-report
-Year: 2024
-Type: PROJECT
-Summary: Strategy and communications work around health access policy at Boehringer Ingelheim, including an internal report and SDX partnership support.
-Keywords: Sustainable Development and Health Access Report, PROJECT, 2024, Strategy and communications work around health access policy at Boehringer Ingelheim, including an internal report and SDX partnership support., health access report, sustainable development communications, Boehringer Ingelheim, SDX, corporate sustainability strategy, health access, sustainable development, communications strategy
-Primary image: https://www.isaacseiler.xyz/project-images/boehstrategy.jpg
-Links:
-  - SDX Brandon Hall Group Award Announcement: https://www.boehringer-ingelheim.com/us/about-us/sustainable-development/more-potential/boehringer-wins-10-brandon-hall-group-awards
-  - Boehringer's Sustainable Development Strategy: https://www.boehringer-ingelheim.com/us/about-us/sustainable-development
 
 ### Raised $20k for Local St. Louis Organizations
 
@@ -173,16 +134,18 @@ Links:
   - Rep. Meijer defends filibuster, merit-based immigration, vote for impeachment: https://calvinchimes.org/2021/04/08/rep-meijer-defends-filibuster-merit-based-immigration-vote-for-impeachment/
   - Rep. Meijer faces censures, primary challenge over impeachment vote: https://calvinchimes.org/2021/02/24/rep-meijer-faces-censures-primary-challenge-over-impeachment-vote/
 
-### First Personal Website
+### OpenAI Product Testing and Feedback
 
-URL: https://www.isaacseiler.xyz/projects/first-personal-website
-Year: 2023
+URL: https://www.isaacseiler.xyz/projects/openai-product-testing-and-feedback
+Year: 2025
 Type: PROJECT
-Summary: Isaac Seiler's first hand-built personal portfolio project, created to learn Git, frontend development, content modeling, databases, and deployment.
-Keywords: First Personal Website, PROJECT, 2023, My first personal portfolio, built by hand as a way to learn Git, frontend development, databases, and the logic of shipping software., Isaac Seiler first website, portfolio website, frontend development, personal website, Git learning project, web development, portfolio design, frontend development
-Primary image: https://www.isaacseiler.xyz/project-images/firstwebsite.jpg
+Summary: Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.
+Keywords: OpenAI Product Testing and Feedback, PROJECT, 2025, Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.
+Primary image: https://www.isaacseiler.xyz/project-images/chatlab.jpg
 Links:
-  - GitHub Repository: https://github.com/isaaciseiler-beep/isaacwebsite-v2/tree/main
+  - 100 Chats Project: https://chatgpt.com/100chats-project
+  - Introducing ChatGPT Pulse: https://openai.com/index/introducing-chatgpt-pulse/
+  - Study Mode Spotlight: https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/
 
 ## Priority Image Order
 

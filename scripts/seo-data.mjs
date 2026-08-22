@@ -304,20 +304,6 @@ export const projectSeo = {
     ],
     about: ["brand strategy", "foundation communications", "CSR", "UX"],
   },
-  "political-reporting-at-washu": {
-    image: {
-      url: projectCardImages.reporting,
-      alt: "Political Reporting at WashU project preview",
-    },
-    keywords: [
-      "WashU political reporting",
-      "student journalism",
-      "campus politics",
-      "free speech",
-      "student protest reporting",
-    ],
-    about: ["journalism", "campus politics", "WashU", "student media"],
-  },
   "communications-consultancy-supporting-local-candidates": {
     image: {
       url: projectCardImages.politicalConsult,
@@ -360,34 +346,6 @@ export const projectSeo = {
     ],
     about: ["political reporting", "Congress", "interview journalism"],
   },
-  "sustainable-development-health-access-report": {
-    image: {
-      url: projectCardImages.boehStrategy,
-      alt: "Sustainable Development and Health Access Report project preview",
-    },
-    keywords: [
-      "health access report",
-      "sustainable development communications",
-      "Boehringer Ingelheim",
-      "SDX",
-      "corporate sustainability strategy",
-    ],
-    about: ["health access", "sustainable development", "communications strategy"],
-  },
-  "ai-literacy-workshop-for-educators": {
-    title: "AI Literacy Workshop for Educators | Isaac Seiler",
-    description:
-      "A conference-style educator workshop by Isaac Seiler translating AI, LLMs, prompt design, classroom use cases, and verification habits into practical teaching workflows.",
-    keywords: [
-      "AI literacy workshop",
-      "AI for educators",
-      "teacher AI training",
-      "ChatGPT classroom",
-      "LLM fundamentals",
-      "AI presentation",
-    ],
-    about: ["AI education", "teacher training", "large language models", "classroom AI"],
-  },
   "stl-immigrant-refugee-support-grant-process": {
     title: "St. Louis Immigrant and Refugee Support Grant Process | Isaac Seiler",
     description:
@@ -400,19 +358,6 @@ export const projectSeo = {
       "student grantmaking",
     ],
     about: ["philanthropy", "St. Louis", "immigrant support", "nonprofits"],
-  },
-  "first-personal-website": {
-    title: "First Personal Website | Isaac Seiler",
-    description:
-      "Isaac Seiler's first hand-built personal portfolio project, created to learn Git, frontend development, content modeling, databases, and deployment.",
-    keywords: [
-      "Isaac Seiler first website",
-      "portfolio website",
-      "frontend development",
-      "personal website",
-      "Git learning project",
-    ],
-    about: ["web development", "portfolio design", "frontend development"],
   },
 };
 
@@ -476,18 +421,14 @@ export const priorityImages = [
 export const projectPriorityOrder = [
   "fulbright-focus-group-sponsored-by-openai",
   "artificial-intelligence-in-state-government-index",
-  "ai-literacy-workshop-for-educators",
   "senior-thesis-local-journalism",
   "congressional-office-setup-100-day-report",
   "electric-vehicle-access-analysis",
   "boehringer-cares-foundation-rebrand-strategy-shift",
   "communications-consultancy-supporting-local-candidates",
-  "political-reporting-at-washu",
   "2022-institute-for-nonprofit-news-index-survey",
-  "sustainable-development-health-access-report",
   "stl-immigrant-refugee-support-grant-process",
   "exclusive-interview-with-high-visibility-congressperson",
-  "first-personal-website",
 ];
 
 export const redirectTargets = [

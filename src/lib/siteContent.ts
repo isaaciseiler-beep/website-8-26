@@ -60,7 +60,7 @@ export interface ProjectMedia {
 export interface ProjectItem {
   id: string;
   title: string;
-  source: "RESEARCH" | "WORK" | "REPORTING" | "PROJECT";
+  source: "RESEARCH" | "WORK" | "REPORTING" | "PROJECT" | "BLOG";
   year: string;
   summary: string;
   image: string;
@@ -97,33 +97,6 @@ export const newsItems: NewsItem[] = [
     imageUrl: `${NEWS_IMG_BASE}/truman.png`,
   },
   {
-    id: 3,
-    source: "OpenAI",
-    title: "Shared Early Product Feedback with OpenAI",
-    href: "#",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/55.png`,
-  },
-  {
-    id: 4,
-    source: "Washington University in St. Louis",
-    title: "Won 2024 Truman Scholarship",
-    href: "https://source.washu.edu/2024/04/junior-seiler-awarded-truman-scholarship/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
-    logoAlt: "WashU",
-    imageUrl: `${NEWS_IMG_BASE}/trumanII.png`,
-  },
-  {
-    id: 5,
-    source: "OpenAI",
-    title: "Contributed to 100 Chats Project with the ChatGPT Lab",
-    href: "https://chatgpt.com/100chats-project",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/100chats.png`,
-  },
-  {
     id: 6,
     source: "Washington University in St. Louis",
     title: "Named 2024 Rhodes Scholarship Finalist",
@@ -131,60 +104,6 @@ export const newsItems: NewsItem[] = [
     logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
     logoAlt: "WashU",
     imageUrl: `${NEWS_IMG_BASE}/rhodes.png`,
-  },
-  {
-    id: 7,
-    source: "Washington University in St. Louis",
-    title: "Won Fulbright Award to Taiwan",
-    href: "https://source.wustl.edu/2025/06/several-alumni-earn-fulbright-awards/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/Fulbright.png",
-    logoAlt: "Fulbright",
-    imageUrl: `${NEWS_IMG_BASE}/taipei.png`,
-  },
-  {
-    id: 8,
-    source: "OpenAI",
-    title: "Study Mode Spotlight on ChatGPT's Instagram",
-    href: "https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/study.png`,
-  },
-  {
-    id: 9,
-    source: "OpenAI",
-    title: "Testimonial Featured in ChatGPT Pulse Launch",
-    href: "https://openai.com/index/introducing-chatgpt-pulse/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/pulse.png`,
-  },
-  {
-    id: 10,
-    source: "OpenAI",
-    title: "Shared Early Browser Product Feedback with OpenAI",
-    href: "#",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/atlas.png`,
-  },
-  {
-    id: 11,
-    source: "Missouri College Media Awards",
-    title: "Won Award for Best College Newspaper Photography",
-    href: "https://source.washu.edu/2025/05/student-life-wins-best-newspaper-honor-at-missouri-college-media-awards/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
-    logoAlt: "WashU",
-    imageUrl: `${NEWS_IMG_BASE}/washuII.png`,
-  },
-  {
-    id: 12,
-    source: "Washington University in St. Louis",
-    title: "University Profile",
-    href: "https://artsci.washu.edu/ampersand/isaac-seiler-setting-his-sights-high",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
-    logoAlt: "WashU",
-    imageUrl: `${NEWS_IMG_BASE}/washu.png`,
   },
 ];
 
@@ -337,58 +256,7 @@ export const projectItems: ProjectItem[] = [
       },
     ],
   },
-  {
-    id: "ai-literacy-workshop-for-educators",
-    title: "Education Conference Presentation on AI Applications",
-    source: "PROJECT",
-    year: "2025",
-    summary:
-      "A conference-style educator presentation translating AI concepts into practical classroom and planning applications.",
-    image: projectImg.aiClassroom,
-    sections: [
-      {
-        heading: "Overview",
-        paragraphs: [
-          "I developed and delivered an education conference presentation on how teachers can understand, evaluate, and responsibly apply artificial intelligence in classroom contexts.",
-          "The session started from educator skepticism rather than brushing past it. I framed AI as a set of systems that can support planning, differentiation, feedback, and student exploration when teachers understand the tradeoffs and keep professional judgment in the loop.",
-          "The presentation moved from fundamentals to practice: what AI is, how large language models work, why models can be useful and unreliable at the same time, and how educators can design classroom uses around clear learning goals instead of novelty.",
-        ],
-      },
-      {
-        heading: "Core Principles",
-        bullets: [
-          "Build enough technical literacy to understand what AI systems can do, where they fail, and why outputs need review.",
-          "Keep human judgment central: AI can support the work, but educators should own the instructional decisions.",
-          "Choose tools around learning outcomes rather than model hype, matching the modality and workflow to the task.",
-          "Verify anything students, colleagues, or families will rely on, especially factual claims and sensitive guidance.",
-          "Prompt with precision by defining the goal, audience, constraints, and context before asking for output.",
-        ],
-      },
-      {
-        heading: "Conference Slides",
-        paragraphs: [
-          "The deck translates the presentation into a visual sequence educators can revisit after the session. It introduces the conceptual foundations, gives concrete classroom and planning applications, and closes with practical habits for using AI without outsourcing teacher judgment.",
-        ],
-        media: [
-          {
-            type: "pdf",
-            src: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf`,
-            title: "Artificial Intelligence in the Classroom",
-          },
-        ],
-      },
-      {
-        heading: "Materials",
-        paragraphs: [
-          "The materials drew from my Fulbright Taiwan ChatGPT Lab work and from AI fluency training resources, especially the idea that responsible use starts with understanding systems well enough to use them deliberately.",
-        ],
-        links: [
-          { label: "Workshop Slide Deck", href: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf` },
-          { label: "Anthropic AI Fluency Foundations Course", href: "https://lnkd.in/gnUB8D7M" },
-        ],
-      },
-    ],
-  },
+
   {
     id: "electric-vehicle-access-analysis",
     title: "Electric Vehicle Charging Access Analysis",
@@ -450,48 +318,7 @@ export const projectItems: ProjectItem[] = [
     ],
   },
   {
-    id: "first-personal-website",
-    title: "First Personal Website",
-    source: "PROJECT",
-    year: "2023",
-    summary:
-      "My first personal portfolio, built by hand as a way to learn Git, frontend development, databases, and the logic of shipping software.",
-    image: projectImg.firstWebsite,
-    sections: [
-      {
-        heading: "Overview",
-        paragraphs: [
-          "This was my first personal website, built before I used Codex or Claude Code.",
-          "The goal was simplicity: a lightweight portfolio inspired by social media feeds, where the work could feel browsable instead of overproduced.",
-          "Building it taught me the fundamentals that still shape how I work: Git, code organization, deployment, databases, content modeling, and the tiny decisions that turn a static page into a living project.",
-        ],
-        media: [
-          {
-            type: "image",
-            src: projectImg.firstWebsitePreview,
-            alt: "Preview of Isaac Seiler's first personal website",
-            caption: "A preview of the original site interface, designed around simple scrolling, personal updates, and a social-media-inspired content rhythm.",
-          },
-        ],
-      },
-      {
-        heading: "What I Learned",
-        bullets: [
-          "How to use Git as a real project history rather than just a file backup system.",
-          "How frontend components, routing, styling, and content structure fit together.",
-          "How databases and dynamic content change the way a portfolio can be organized.",
-          "How simplicity can be a design constraint, especially when the priority is clarity and maintainability.",
-        ],
-      },
-      {
-        heading: "Project Links",
-        links: [
-          { label: "GitHub Repository", href: "https://github.com/isaaciseiler-beep/isaacwebsite-v2/tree/main" },
-        ],
-      },
-    ],
-  },
-  {
+
     id: "communications-consultancy-supporting-local-candidates",
     title: "Communications Consultancy and Supporting Local Candidates",
     source: "WORK",
@@ -527,11 +354,11 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "fulbright-focus-group-sponsored-by-openai",
-    title: "Fulbright Taiwan Educator Lab with OpenAI Support",
+    title: "OpenAI Educator Lab and Conference Presentations",
     source: "PROJECT",
     year: "2025",
     summary:
-      "A six-session educator lab with OpenAI/ChatGPT for Education support, focused on practical and responsible uses of ChatGPT in education.",
+      "A six-session educator lab with OpenAI/ChatGPT for Education support, plus conference presentations translating AI into practical classroom applications.",
     image: projectImg.chatLab,
     sections: [
       {
@@ -551,44 +378,39 @@ export const projectItems: ProjectItem[] = [
         ],
       },
       {
+        heading: "Conference Presentation",
+        paragraphs: [
+          "I also developed and delivered an education conference presentation on how teachers can understand, evaluate, and responsibly apply AI in classroom contexts.",
+          "The session moved from fundamentals to practice: what AI is, how large language models work, why models can be useful and unreliable at the same time, and how educators can design classroom uses around clear learning goals instead of novelty.",
+        ],
+        bullets: [
+          "Build enough technical literacy to understand what AI systems can do, where they fail, and why outputs need review.",
+          "Keep human judgment central: AI can support the work, but educators should own the instructional decisions.",
+          "Choose tools around learning outcomes rather than model hype.",
+          "Verify anything students, colleagues, or families will rely on.",
+          "Prompt with precision by defining the goal, audience, constraints, and context before asking for output.",
+        ],
+        media: [
+          {
+            type: "pdf",
+            src: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf`,
+            title: "Artificial Intelligence in the Classroom",
+          },
+        ],
+      },
+      {
         heading: "Final Products",
         links: [
           { label: "Substack Post", href: "https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan" },
           { label: "Fulbright Taiwan ChatGPT Lab Notion Page", href: "https://notion.so/ChatGPT-Lab-x-Fulbright-Taiwan-261aaef174d680579138e8c1c658ab41" },
           { label: "PowerPoint Introduction to the Lab", href: "https://docs.google.com/presentation/d/1ZqOp_1KQte52BNBR5OBmOJThCufkNnBtVLBhNW_rkps/edit?slide=id.g38cd4d0aa4c_0_33#slide=id.g38cd4d0aa4c_0_33" },
+          { label: "Conference Slide Deck", href: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf` },
         ],
       },
     ],
   },
-  {
-    id: "political-reporting-at-washu",
-    title: "Political Reporting at WashU",
-    source: "REPORTING",
-    year: "2024",
-    summary:
-      "Student political reporting at WashU focused on protest, campus governance, elections, and institutional accountability.",
-    image: projectImg.reporting,
-    sections: [
-      {
-        heading: "Overview",
-        paragraphs: [
-          "As a student journalist, I covered politics and power on campus, reporting on issues where institutional authority, student activism, and national politics intersected.",
-          "My reporting focused on moments of controversy and transition, pairing on-the-ground student perspectives with analysis of how the university responded through policy, governance, and public messaging.",
-        ],
-      },
-      {
-        heading: "Selected Stories",
-        links: [
-          { label: "Suspended student protesters speak out", href: "https://www.studlife.com/news/2024/09/18/disorienting-suspended-student-protesters-speak-out" },
-          { label: "WashU ABS respond to racist text messages after election", href: "https://www.studlife.com/news/2024/12/04/washu-abs-respond-to-racist-text-messages-after-election-discuss-combating-hate" },
-          { label: "Panel on free speech, protest, and democracy", href: "https://www.studlife.com/news/2024/09/11/disagree-without-being-disagreeable-chancellor-martin-hosts-panel-on-free-speech-protest-and-democracy" },
-          { label: "Anxiety and hope among WashU students, staff, and faculty", href: "https://www.studlife.com/news/2024/04/30/its-getting-hotter-anxiety-and-hope-among-washu-students-staff-and-faculty" },
-          { label: "Students reflect on candidates and civic engagement", href: "https://www.studlife.com/news/2024/10/31/before-election-day-washu-students-reflect-on-candidates-and-civic-engagement-2" },
-          { label: "University forms naming review board", href: "https://www.studlife.com/news/2024/02/14/university-forms-naming-review-board" },
-        ],
-      },
-    ],
-  },
+
+
   {
     id: "boehringer-cares-foundation-rebrand-strategy-shift",
     title: "Boehringer Cares Foundation Rebrand and Strategy Shift",
@@ -679,32 +501,52 @@ export const projectItems: ProjectItem[] = [
     ],
   },
   {
-    id: "sustainable-development-health-access-report",
-    title: "Sustainable Development and Health Access Report",
+    id: "openai-product-testing-and-feedback",
+    title: "OpenAI Product Testing and Feedback",
     source: "PROJECT",
-    year: "2024",
+    year: "2025",
     summary:
-      "Strategy and communications work around health access policy at Boehringer Ingelheim, including an internal report and SDX partnership support.",
-    image: projectImg.boehStrategy,
+      "Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.",
+    image: projectImg.chatLab,
     sections: [
       {
         heading: "Overview",
         paragraphs: [
-          "While working at Boehringer Ingelheim, part of my work was to shape the strategy and narrative around the company's health access policies.",
-          "My work sat at the intersection of research, communications, and operations: clarifying what the company stood for, how it communicated that stance, and how it operationalized those commitments.",
-          "At the end of my rotation with the sustainable development team, I authored an internal report summarizing the state of health access within the company and supported operations around the Sustainable Development Excellence program.",
+          "As a member of OpenAI's ChatGPT Lab, I test early products and share structured feedback with the teams building them.",
+          "That work spans pre-release product feedback, contributions to public projects, and testimonials featured in launch materials.",
         ],
       },
       {
-        heading: "More Information",
+        heading: "Contributions",
+        bullets: [
+          "Contributed to the 100 Chats Project with the ChatGPT Lab.",
+          "Shared early product feedback with OpenAI ahead of public releases.",
+          "Shared early feedback on OpenAI's browser product.",
+          "Testimonial featured in the ChatGPT Pulse launch.",
+          "Study Mode use case spotlighted on ChatGPT's Instagram.",
+        ],
+      },
+      {
+        heading: "References",
         links: [
-          { label: "SDX Brandon Hall Group Award Announcement", href: "https://www.boehringer-ingelheim.com/us/about-us/sustainable-development/more-potential/boehringer-wins-10-brandon-hall-group-awards" },
-          { label: "Boehringer's Sustainable Development Strategy", href: "https://www.boehringer-ingelheim.com/us/about-us/sustainable-development" },
+          { label: "100 Chats Project", href: "https://chatgpt.com/100chats-project" },
+          { label: "Introducing ChatGPT Pulse", href: "https://openai.com/index/introducing-chatgpt-pulse/" },
+          { label: "Study Mode Spotlight", href: "https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/" },
         ],
       },
     ],
   },
+  {
+    id: "fulbright-award-to-taiwan",
+    title: "Won Fulbright Award to Taiwan",
+    source: "BLOG",
+    year: "2025",
+    summary: "",
+    image: projectImg.chatLab,
+    sections: [],
+  },
 ];
+
 
 export const featuredProjectIds = [
   "artificial-intelligence-in-state-government-index",
