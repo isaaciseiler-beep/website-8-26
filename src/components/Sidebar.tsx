@@ -66,7 +66,6 @@ interface SitemapItem {
 export const sitemapItems: SitemapItem[] = [
   { id: "about", label: "About", scrollTo: "about" },
   { id: "projects", label: "Work", scrollTo: "projects" },
-  { id: "news", label: "News", scrollTo: "news" },
   { id: "photos", label: "Photos", scrollTo: "photos", children: [
     { id: "portfolio", label: "Portfolio", href: "/photos" },
     { id: "photo-map", label: "Photo Map", href: "/photos/map" },
