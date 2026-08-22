@@ -103,14 +103,6 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     url: "/projects/exclusive-interview-with-high-visibility-congressperson",
   },
   {
-    id: "sustainable-development",
-    title: "Sustainable Development and Health Access Report",
-    source: "Project",
-    content:
-      "A 2024 project at Boehringer Ingelheim focused on health access policy, sustainable development strategy, communications, and operations. Isaac helped shape the narrative around health access, authored an internal report, and supported operations around the Sustainable Development Excellence program.",
-    url: "/projects/sustainable-development-health-access-report",
-  },
-  {
     id: "news-openai-educator-lab",
     title: "Conducted OpenAI-supported Education Focus Group",
     source: "News",
