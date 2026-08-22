@@ -219,10 +219,6 @@ const PhotosPage = () => {
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
         >
           {!openAlbum && (
-            <FeaturedHero />
-          )}
-
-          {!openAlbum && (
             <div className="photos-shell mb-16">
               <div className="work-library-tabs" role="tablist" aria-label="Filter albums">
                 {continents.map((loc) => {
