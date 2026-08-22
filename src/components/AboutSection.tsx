@@ -34,6 +34,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
       const baseStyle = window.getComputedStyle(intro);
       const baseSize = parseFloat(baseStyle.fontSize) || 16;
       const baseHeight = intro.getBoundingClientRect().height;
+      console.log("fitText", { targetHeight, baseHeight, baseSize, introWidth });
 
       let bestSize = baseSize;
       let low = 10;
