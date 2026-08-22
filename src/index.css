@@ -1257,6 +1257,7 @@
     max-width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
+    overscroll-behavior: none;
     scrollbar-width: none;
     -ms-overflow-style: none;
     color-scheme: light;
@@ -1268,6 +1269,8 @@
     max-width: 100%;
     overflow-x: clip;
     overflow-y: visible;
+    overscroll-behavior-y: none;
+    background-color: hsl(var(--background));
     font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
     font-feature-settings: "ss01", "ss02";
     user-select: none;
@@ -1277,6 +1280,7 @@
       color 260ms ease;
   }
 
+
   input, textarea, [contenteditable="true"] {
     user-select: text;
     -webkit-user-select: text;
@@ -1285,7 +1289,10 @@
   #root {
     min-height: 100svh;
     overflow-x: clip;
+    background-color: hsl(var(--background));
+    overscroll-behavior-y: none;
   }
+
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
