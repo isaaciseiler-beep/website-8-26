@@ -2628,3 +2628,9 @@
     }
   }
 }
+
+/* Universal, slightly wider letter spacing across the site */
+html body,
+html body * {
+  letter-spacing: 0.012em !important;
+}
