@@ -53,7 +53,7 @@ const ResultCard = ({
         <img
           src={result.image}
           alt=""
-          className="h-full w-full object-cover grayscale transition-[filter] duration-700 ease-out group-hover:grayscale-0"
+          className="h-full w-full object-cover"
           loading="lazy"
         />
       ) : null}
