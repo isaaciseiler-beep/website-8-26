@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
 import headshotUrl from "@/assets/headshot.jpg";
-import { bioLines } from "@/lib/siteContent";
 
 interface AboutSectionProps {
   revealEnabled?: boolean;
@@ -29,9 +28,6 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
               I&apos;m a strategist leading marketing and communications at Summation, working across
               artificial intelligence, public institutions, education, and everyday life.
             </p>
-            <div className="about-lede-bio">
-              {bioLines.slice(1).map((line) => <p key={line}>{line}</p>)}
-            </div>
           </div>
         </div>
       </motion.div>
