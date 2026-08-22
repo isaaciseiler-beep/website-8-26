@@ -2679,7 +2679,7 @@ html body * {
 }
 
 .skull .pill-tab-indicator,
-.skull .ai-dock-trigger::before,
+.skull .ai-dock-shell::before,
 .skull .pill-button::before,
 .skull .pill-tab::before {
   background: #000080 !important;
@@ -2689,8 +2689,7 @@ html body * {
   color: #ffffff !important;
 }
 
-.skull .ai-dock-trigger,
-.skull .ai-dock-panel {
+.skull .ai-dock-shell {
   border: 2px outset #c0c0c0 !important;
   background: #c0c0c0 !important;
   color: #000080 !important;
