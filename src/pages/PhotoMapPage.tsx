@@ -451,7 +451,7 @@ const PhotoMapPage = () => {
           <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-foreground/40">Photo Map</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight">Mapbox token missing</h1>
           <p className="mt-3 text-sm leading-6 text-foreground/60">
-            Add `VITE_MAPBOX_ACCESS_TOKEN`, `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN`, or `VITE_MAPBOX_TOKEN` to enable the globe.
+            Add `NEXT_PUBLIC_MAPBOX_TOKEN`, `VITE_MAPBOX_ACCESS_TOKEN`, or `VITE_MAPBOX_TOKEN` to enable the globe.
           </p>
         </div>
       </main>

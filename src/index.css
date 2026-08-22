@@ -37,6 +37,8 @@
     --highlight: 68 100% 81%;
     --image-scrim: 88 24% 8%;
     --site-panel-width: 200px;
+    --bio-font-size: clamp(1.1rem, 2.6vw, 2.62rem);
+    --sidebar-nav-font-size: calc(var(--bio-font-size) * 0.8);
 
     --site-corner-radius: 8px;
     --radius: var(--site-corner-radius);
@@ -1455,7 +1457,7 @@
   }
 
   .sidebar-main-nav-item {
-    font-size: clamp(1.4rem, 2.08vw, 2.096rem);
+    font-size: var(--sidebar-nav-font-size);
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: -0.03em;
@@ -2435,7 +2437,7 @@
 
   .about-lede-intro {
     text-align: left;
-    font-size: var(--bio-font-size, clamp(1.1rem, 2.6vw, 2.62rem));
+    font-size: var(--bio-font-size);
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: -0.03em;

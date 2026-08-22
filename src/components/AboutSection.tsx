@@ -51,7 +51,8 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
         }
       }
 
-      intro.style.fontSize = `${bestSize}px`;
+      document.documentElement.style.setProperty("--bio-font-size", `${bestSize}px`);
+      intro.style.fontSize = "";
       fittingRef.current = false;
     };
 
@@ -66,6 +67,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
     return () => {
       ro.disconnect();
       window.clearTimeout(timer);
+      document.documentElement.style.removeProperty("--bio-font-size");
     };
   }, []);
 
