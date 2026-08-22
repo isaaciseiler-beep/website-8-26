@@ -30,7 +30,6 @@ const ChatOrb = () => {
   const disabled = location.pathname === "/photos" || location.pathname === "/photos/map";
 
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [photoVisible, setPhotoVisible] = useState(false);
 
   const userMessageCount = countUserMessages(messages);
   const limitReached = messages.some(
@@ -48,14 +47,6 @@ const ChatOrb = () => {
     if (window.scrollY > 80) setHasScrolled(true);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const onPhoto = (event: Event) => {
-      setPhotoVisible(Boolean((event as CustomEvent).detail?.visible));
-    };
-    window.addEventListener("photo-section-visibility", onPhoto);
-    return () => window.removeEventListener("photo-section-visibility", onPhoto);
   }, []);
 
   useEffect(() => {
@@ -130,7 +121,7 @@ const ChatOrb = () => {
 
   if (disabled) return null;
 
-  const visible = hasScrolled && !photoVisible;
+  const visible = hasScrolled;
 
   return (
     <motion.div
