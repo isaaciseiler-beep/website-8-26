@@ -201,7 +201,7 @@ const CredentialsPage = () => {
           >
             <Panel className="p-4 [@media(max-height:760px)]:p-3">
               <div>
-                <h1 className="pb-2 text-[2rem] font-semibold leading-[1.05] tracking-tight text-foreground [@media(max-height:760px)]:text-[1.55rem]">
+                <h1 className="pb-2 text-[2rem] font-semibold leading-[1.15] tracking-tight text-foreground [@media(max-height:760px)]:text-[1.55rem]">
                   I help new technology make sense to real people.
                 </h1>
                 <p className="mt-3 text-[12px] leading-snug text-foreground/64 [@media(max-height:760px)]:mt-2 [@media(max-height:760px)]:text-[10px]">
@@ -260,7 +260,7 @@ const CredentialsPage = () => {
           >
             <Panel className="grid min-h-0 grid-rows-[auto_minmax(0,1fr)_auto] gap-4 p-6 [@media(max-height:760px)]:gap-3 [@media(max-height:760px)]:p-5">
               <div>
-                <h1 className="max-w-3xl pb-2 text-[clamp(2.2rem,4.5vw,5rem)] font-semibold leading-[1.05] tracking-tight text-foreground [@media(max-height:760px)]:text-[clamp(2rem,4vw,4.35rem)]">
+                <h1 className="max-w-3xl pb-2 text-[clamp(2.2rem,4.5vw,5rem)] font-semibold leading-[1.15] tracking-tight text-foreground [@media(max-height:760px)]:text-[clamp(2rem,4vw,4.35rem)]">
                   I help new technology make sense to real people.
                 </h1>
 

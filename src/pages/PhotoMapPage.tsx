@@ -518,7 +518,7 @@ const PhotoMapPage = () => {
                       onClick={() => openEntry(activeEntry)}
                       aria-label={hasAlbum(activeEntry) ? `Open ${activeEntry.location} album` : `${activeEntry.location} album not available`}
                     >
-                      <h1 className="text-4xl font-semibold leading-[0.9] tracking-tight sm:text-5xl">{activeEntry.title}</h1>
+                      <h1 className="text-4xl font-semibold leading-[1] tracking-tight sm:text-5xl">{activeEntry.title}</h1>
                     </button>
 
                     <div className="grid grid-cols-[1fr_auto] gap-2">
