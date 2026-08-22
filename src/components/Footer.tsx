@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Mail } from "lucide-react";
 import { CONTACT_MAILTO, GITHUB_URL, LINKEDIN_URL } from "@/lib/site";
 
@@ -34,11 +35,25 @@ const socialLinks = [
 ];
 
 const Footer = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const onState = (event: Event) => {
+      const detail = (event as CustomEvent<{ open: boolean }>).detail;
+      setSidebarOpen(Boolean(detail?.open));
+    };
+    window.addEventListener("site-sidebar-state", onState as EventListener);
+    return () => window.removeEventListener("site-sidebar-state", onState as EventListener);
+  }, []);
+
   return (
-    <footer id="footer" className="relative overflow-hidden bg-background">
-      <div className="relative z-10 px-6 pt-12 pb-6 flex flex-col items-center md:pt-16">
-        {/* Social icons centered */}
-        <div className="flex items-center justify-center gap-5 mb-4">
+    <footer id="footer" className="relative bg-background">
+      <div className="work-library flex items-center justify-between gap-6 pt-12 pb-8 md:pt-16">
+        <div
+          className={`flex items-center gap-5 transition-opacity duration-300 ${
+            sidebarOpen ? "pointer-events-none opacity-0" : "opacity-100"
+          }`}
+        >
           {socialLinks.map((link) => (
             <a
               key={link.id}
@@ -52,12 +67,8 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Copyright centered */}
-        <p className="font-mono text-[10px] tracking-widest uppercase text-foreground/40">
-          © 2026 Isaac Seiler
-        </p>
+        <p className="text-[13px] text-foreground/45">© 2026 Isaac Seiler</p>
       </div>
-
     </footer>
   );
 };
