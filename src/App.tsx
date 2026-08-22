@@ -6,6 +6,8 @@ import Index from "./pages/Index.tsx";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import SkullChrome from "@/components/SkullChrome";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import RouteLoader from "@/components/RouteLoader";
+
 
 const isRecoverableChunkError = (error: unknown) => {
   const message = error instanceof Error ? error.message : String(error);
