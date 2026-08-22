@@ -3021,181 +3021,183 @@ html.theme-crossfade body * {
   animation: photo-crossfade 420ms ease-out both;
 }
 
-/* Fulbright sample blog post — New York Times style feature */
-.blog-post--fulbright {
-  max-width: 44rem;
-  font-family: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+/* Article / blog detail — modern product-release layout */
+.article-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 48px;
 }
 
-.blog-post--fulbright h1 {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
-  font-size: clamp(2.1rem, 5vw, 3.1rem);
-  margin-bottom: 1rem;
+@media (min-width: 1180px) {
+  .article-shell {
+    grid-template-columns: 208px minmax(0, 1fr);
+    gap: 64px;
+  }
 }
 
-/* Kicker (year line) */
-.blog-post--fulbright h1 + p {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.05rem, 1.9vw, 1.3rem);
+.article-toc {
+  display: none;
+}
+
+@media (min-width: 1180px) {
+  .article-toc {
+    display: block;
+    position: sticky;
+    top: 120px;
+    align-self: start;
+  }
+}
+
+.article-toc-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: hsl(var(--foreground) / 0.42);
+  margin-bottom: 14px;
+}
+
+.article-toc-list {
+  display: grid;
+  gap: 2px;
+}
+
+.article-toc-item {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 10px 7px 12px;
+  border-radius: 10px;
+  text-align: left;
+  font-size: 13px;
   line-height: 1.5;
-  color: hsl(var(--foreground) / 0.62);
-  margin-bottom: 1.5rem;
+  color: hsl(var(--foreground) / 0.5);
+  transition: color 0.25s ease, background 0.25s ease;
 }
 
-/* Byline rule under the standfirst */
-.blog-post--fulbright h1 + p::after {
-  content: "";
+.article-toc-item:hover {
+  color: hsl(var(--foreground) / 0.8);
+}
+
+.article-toc-item span:first-child {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: hsl(var(--foreground) / 0.35);
+  padding-top: 1px;
+}
+
+.article-toc-item.is-active {
+  color: hsl(var(--foreground));
+  background: hsl(var(--foreground) / 0.05);
+}
+
+.article-toc-progress {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid hsl(var(--foreground) / 0.1);
+}
+
+.article-toc-bar {
+  height: 2px;
+  width: 100%;
+  border-radius: 999px;
+  background: hsl(var(--foreground) / 0.1);
+  overflow: hidden;
+}
+
+.article-toc-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: hsl(var(--foreground) / 0.7);
+  transition: width 0.15s linear;
+}
+
+.article-toc-percent {
+  margin-top: 8px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: hsl(var(--foreground) / 0.42);
+  font-variant-numeric: tabular-nums;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: hsl(var(--foreground) / 0.5);
+  margin-bottom: 18px;
+}
+
+.article-meta span[data-dot] {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: hsl(var(--foreground) / 0.28);
+}
+
+.article-title {
+  font-size: clamp(2.1rem, 4.6vw, 3.3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin-bottom: 16px;
+}
+
+.article-subtitle {
+  max-width: 44rem;
+  font-size: clamp(1.02rem, 1.7vw, 1.22rem);
+  line-height: 1.65;
+  color: hsl(var(--foreground) / 0.58);
+  margin-bottom: 34px;
+}
+
+.article-hero {
+  overflow: hidden;
+  border-radius: 14px;
+  background: hsl(var(--foreground) / 0.04);
+  margin-bottom: 56px;
+}
+
+.article-hero img {
   display: block;
   width: 100%;
-  height: 1px;
-  background: hsl(var(--foreground) / 0.14);
-  margin-top: 1.75rem;
+  height: 100%;
+  object-fit: cover;
 }
 
-.blog-post--fulbright .nyt-byline {
-  font-family: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: hsl(var(--foreground) / 0.6);
-  margin-bottom: 2rem;
-}
-
-.blog-post--fulbright .nyt-byline span {
-  display: block;
-  text-transform: none;
-  letter-spacing: 0.02em;
-  font-size: 11px;
-  color: hsl(var(--foreground) / 0.42);
-  margin-top: 0.35rem;
-}
-
-.blog-post--fulbright figure,
-.blog-post--fulbright .site-corner {
-  border-radius: 0;
-}
-
-.blog-post--fulbright .nyt-caption {
-  font-family: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
-  font-size: 12px;
-  line-height: 1.6;
-  color: hsl(var(--foreground) / 0.5);
-  margin-top: 0.6rem;
-  margin-bottom: 3rem;
-}
-
-/* Body copy */
-.blog-post--fulbright section h2 {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-weight: 700;
-  font-size: clamp(1.15rem, 2vw, 1.4rem);
-  letter-spacing: -0.01em;
-  margin-bottom: 0.6rem;
-}
-
-.blog-post--fulbright section p,
-.blog-post--fulbright section li {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.18rem;
-  line-height: 1.75;
-  color: hsl(var(--foreground) / 0.88);
-}
-
-.blog-post--fulbright section p {
-  margin-bottom: 1.1rem;
-}
-
-/* Drop cap on the opening paragraph */
-.blog-post--fulbright section:nth-child(1) p:first-of-type::first-letter {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 3.6em;
-  float: left;
-  line-height: 0.82;
-  padding: 0.06em 0.1em 0 0;
-  font-weight: 700;
-}
-
-/* Pull quote */
-.blog-post--fulbright section:nth-child(3) {
-  padding: 1.75rem 0;
-  border-top: 1px solid hsl(var(--foreground) / 0.14);
-  border-bottom: 1px solid hsl(var(--foreground) / 0.14);
-}
-
-.blog-post--fulbright section:nth-child(3) h2 {
-  font-family: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: hsl(var(--foreground) / 0.5);
-  margin-bottom: 1rem;
-}
-
-.blog-post--fulbright section:nth-child(3) p {
-  font-size: clamp(1.35rem, 2.6vw, 1.7rem);
-  line-height: 1.45;
-  font-style: italic;
-  color: hsl(var(--foreground) / 0.92);
-}
-
-/* Lists read as editorial bullets */
-.blog-post--fulbright section ul {
+.article-body {
+  max-width: 42rem;
   display: grid;
-  gap: 0.5rem;
+  gap: 48px;
 }
 
-.blog-post--fulbright section li > span:first-child {
-  margin-top: 0.85rem;
-  background: hsl(var(--foreground) / 0.5);
+.article-body h2 {
+  font-size: clamp(1.25rem, 2.1vw, 1.55rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
 }
 
-/* Reading list as an index rail */
-.blog-post--fulbright section:nth-child(6) > div {
-  border-top: 1px solid hsl(var(--foreground) / 0.14);
+.article-body p,
+.article-body li {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: hsl(var(--foreground) / 0.72);
 }
 
-.blog-post--fulbright section:nth-child(6) a {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.05rem;
-  border-bottom: 1px solid hsl(var(--foreground) / 0.12);
-  padding: 0.9rem 0;
+.article-body p {
+  margin-bottom: 16px;
 }
 
-/* Colophon / editor's note */
-.blog-post--fulbright section:nth-child(7) {
-  border-top: 1px solid hsl(var(--foreground) / 0.14);
-  padding-top: 1.5rem;
+.article-body figure {
+  border-radius: 14px;
+  overflow: hidden;
 }
 
-.blog-post--fulbright section:nth-child(7) h2 {
-  font-family: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-weight: 500;
-  color: hsl(var(--foreground) / 0.5);
-}
-
-.blog-post--fulbright section:nth-child(7) p {
-  font-style: italic;
-  font-size: 1rem;
-  color: hsl(var(--foreground) / 0.6);
-}
-
-@media (max-width: 640px) {
-  .blog-post--fulbright section p,
-  .blog-post--fulbright section li {
-    font-size: 1.1rem;
-  }
-
-  .blog-post--fulbright section:nth-child(1) p:first-of-type::first-letter {
-    font-size: 3em;
-  }
-}
 
 
 /* No visible scroll progress indicator / scrollbars anywhere on the site. */
