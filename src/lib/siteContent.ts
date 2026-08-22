@@ -541,9 +541,69 @@ export const projectItems: ProjectItem[] = [
     title: "Won Fulbright Award to Taiwan",
     source: "BLOG",
     year: "2025",
-    summary: "",
+    summary:
+      "A sample blog post about leaving one life for another: notes, packing lists, and imaginary itineraries for a year that has not happened yet.",
     image: projectImg.chatLab,
-    sections: [],
+    sections: [
+      {
+        heading: "Dispatch, early",
+        paragraphs: [
+          "I keep thinking about the moment the plane leaves the runway and the city below shrinks into something I can fold and put in my pocket. Taiwan is still mostly a name on a map, a set of characters I cannot yet read, a humid promise made by people who have been there and come back changed.",
+          "This post is a placeholder for that future self. The one who knows which night market sells the best oyster omelet, which temple has the quietest courtyard, and which bus route to take when the rain comes in sideways off the Pacific.",
+        ],
+      },
+      {
+        heading: "What I am bringing",
+        bullets: [
+          "One pair of shoes that can survive a monsoon and a formal dinner.",
+          "A notebook with the first forty pages already filled and the rest deliberately empty.",
+          "A stubborn belief that language is learned through embarrassment.",
+          "A small photograph of Seattle in winter, for the days when green feels impossible.",
+          "Enough curiosity to fill the empty suitcase I am leaving behind.",
+        ],
+      },
+      {
+        heading: "What I hope to leave behind",
+        paragraphs: [
+          "The idea that productivity must look like motion. The habit of answering emails before I answer myself. The certainty that I already know what I am looking for.",
+          "I want to arrive in Taipei with fewer opinions and more questions. I want to be the person who asks the same thing three different ways because the first two attempts missed the point.",
+        ],
+      },
+      {
+        heading: "A loose itinerary",
+        bullets: [
+          "Months one through two: learn to order breakfast without pointing at the menu.",
+          "Months three through four: find a coffee shop where the owner remembers my order.",
+          "Months five through six: take a train to a city I cannot pronounce and stay longer than planned.",
+          "Months seven through eight: write something I am afraid to publish.",
+          "Months nine through twelve: understand, finally, that the plan was only ever a compass.",
+        ],
+      },
+      {
+        heading: "Field notes",
+        bullets: [
+          "The scooters move like schools of fish. Crosswalks are suggestions. Umbrellas are weapons.",
+          "Convenience stores here sell everything, including dignity at 3 a.m.",
+          "The mountains are never as far away as they look.",
+          "Silence, in another language, has a different weight.",
+        ],
+      },
+      {
+        heading: "Reading list",
+        links: [
+          { label: "The Tao of Travel — Pico Iyer", href: "https://www.penguinrandomhouse.com/books/176226/the-tao-of-travel-by-pico-iyer/" },
+          { label: "Taiwan: A New History — Murray A. Rubinstein", href: "https://www.amazon.com/Taiwan-History-Illuminating-History-Geography/dp/0765614958" },
+          { label: "The Argonauts — Maggie Nelson", href: "https://www.graywolfpress.org/books/the-argonauts" },
+          { label: "A sample of nothing in particular", href: "#" },
+        ],
+      },
+      {
+        heading: "Colophon",
+        paragraphs: [
+          "This post is a draft of a feeling. Every sentence is subject to revision by the person I will be in a year. If you are reading it after that, please send notes.",
+        ],
+      },
+    ],
   },
 ];
 

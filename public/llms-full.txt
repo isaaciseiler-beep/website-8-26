@@ -147,6 +147,20 @@ Links:
   - Introducing ChatGPT Pulse: https://openai.com/index/introducing-chatgpt-pulse/
   - Study Mode Spotlight: https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/
 
+### Won Fulbright Award to Taiwan
+
+URL: https://www.isaacseiler.xyz/projects/fulbright-award-to-taiwan
+Year: 2025
+Type: BLOG
+Summary: A sample blog post about leaving one life for another: notes, packing lists, and imaginary itineraries for a year that has not happened yet.
+Keywords: Won Fulbright Award to Taiwan, BLOG, 2025, A sample blog post about leaving one life for another: notes, packing lists, and imaginary itineraries for a year that has not happened yet.
+Primary image: https://www.isaacseiler.xyz/project-images/chatlab.jpg
+Links:
+  - The Tao of Travel — Pico Iyer: https://www.penguinrandomhouse.com/books/176226/the-tao-of-travel-by-pico-iyer/
+  - Taiwan: A New History — Murray A. Rubinstein: https://www.amazon.com/Taiwan-History-Illuminating-History-Geography/dp/0765614958
+  - The Argonauts — Maggie Nelson: https://www.graywolfpress.org/books/the-argonauts
+  - A sample of nothing in particular: #
+
 ## Priority Image Order
 
 1. Isaac Seiler
