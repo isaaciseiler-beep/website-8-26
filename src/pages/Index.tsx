@@ -116,7 +116,6 @@ const Index = () => {
       />
 
       <motion.div
-        className="home-content-shell"
         animate={{
           marginLeft: sidebarOpen && !isMobile ? 200 : 0,
           marginRight: searchOpen && !isMobile ? 200 : 0,
