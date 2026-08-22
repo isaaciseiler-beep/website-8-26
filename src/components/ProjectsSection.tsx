@@ -104,24 +104,24 @@ const ProjectsSection = () => {
             if (entry.kind === "news") {
               const item = entry.node;
               return (
-                <motion.a
-                  key={entry.id}
-                  {...motionProps}
-                  href={item.href}
-                  target={item.href === "#" ? undefined : "_blank"}
-                  rel={item.href === "#" ? undefined : "noopener noreferrer"}
-                  className="work-library-card group"
-                >
-                  <img src={tileImageFor(index)} alt="" loading="lazy" decoding="async" />
-                  <div className="work-library-scrim" />
-                  <div className="news-compact-logo-row">
-                    <img src={item.logoUrl} alt={item.logoAlt} className="news-compact-logo" loading="lazy" />
-                  </div>
-                  <div className="work-library-card-bottom">
-                    <ArrowRight aria-hidden="true" className="work-library-card-arrow" />
-                    <h3>{item.title}</h3>
-                  </div>
-                </motion.a>
+              <motion.a
+                key={entry.id}
+                {...motionProps}
+                href={item.href}
+                target={item.href === "#" ? undefined : "_blank"}
+                rel={item.href === "#" ? undefined : "noopener noreferrer"}
+                className="work-library-card group"
+              >
+                <img src={tileImageFor(index)} alt="" loading="lazy" decoding="async" />
+                <div className="work-library-scrim" />
+                <div className="news-compact-logo-row">
+                  <img src={item.logoUrl} alt={item.logoAlt} className="news-compact-logo" loading="lazy" />
+                </div>
+                <ArrowUpRight aria-hidden="true" className="work-library-card-arrow" />
+                <div className="work-library-card-bottom">
+                  <h3>{item.title}</h3>
+                </div>
+              </motion.a>
               );
             }
 
