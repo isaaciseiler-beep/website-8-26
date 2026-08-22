@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, RotateCcw } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { LngLatLike, Map as MapboxMap, Marker as MapboxMarker } from "mapbox-gl";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -420,19 +420,6 @@ const PhotoMapPage = () => {
     });
   }, [activeEntryId]);
 
-  const resetGlobe = () => {
-    const view = defaultMapView(isMobile);
-    mapRef.current?.easeTo({
-      center: view.center,
-      zoom: view.zoom,
-      pitch: view.pitch,
-      bearing: view.bearing,
-      duration: 900,
-      easing: (t) => 1 - Math.pow(1 - t, 4),
-      essential: true,
-    });
-  };
-
   const albumHref = (entry: PhotoMapEntry) =>
     entry.albumFolder ? `/photos?album=${encodeURIComponent(entry.albumFolder)}` : "/photos";
 
@@ -494,7 +481,7 @@ const PhotoMapPage = () => {
             </div>
           ) : null}
 
-          <section className="pointer-events-none absolute inset-x-0 bottom-0 right-0 z-[70] flex justify-end p-3 sm:inset-y-0 sm:left-auto sm:w-[382px] sm:p-4">
+          <section className="pointer-events-none absolute inset-x-0 bottom-0 right-0 z-[70] flex justify-end p-3 sm:bottom-0 sm:left-auto sm:top-14 sm:w-[382px] sm:p-4">
             <AnimatePresence mode="wait">
               {activeEntry ? (
                 <motion.article
@@ -518,10 +505,10 @@ const PhotoMapPage = () => {
                       onClick={() => openEntry(activeEntry)}
                       aria-label={hasAlbum(activeEntry) ? `Open ${activeEntry.location} album` : `${activeEntry.location} album not available`}
                     >
-                      <h1 className="text-4xl font-semibold leading-[1] tracking-tight sm:text-5xl">{activeEntry.title}</h1>
+                      <h1 className="text-4xl font-normal leading-[1] tracking-tight sm:text-5xl">{activeEntry.title}</h1>
                     </button>
 
-                    <div className="grid grid-cols-[1fr_auto] gap-2">
+                    <div className="w-full">
                       {hasAlbum(activeEntry) ? (
                         <Link
                           to={albumHref(activeEntry)}
@@ -537,14 +524,6 @@ const PhotoMapPage = () => {
                           <span className="relative z-10">Album not available</span>
                         </div>
                       )}
-                      <button
-                        type="button"
-                        onClick={resetGlobe}
-                        className="photo-map-panel-button photo-map-panel-icon-button group"
-                        aria-label="Reset map view"
-                      >
-                        <RotateCcw className="relative z-10 h-3.5 w-3.5" />
-                      </button>
                     </div>
                   </div>
                 </motion.article>
