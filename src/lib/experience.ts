@@ -36,7 +36,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "Alongside the AI education work, I coach elementary school soccer and published a Substack with OpenAI highlighting nine high-impact education use cases for ChatGPT.",
     ],
     focus: ["AI enablement", "user education", "community comms", "curriculum design"],
-    projectIds: ["fulbright-focus-group-sponsored-by-openai", "ai-literacy-workshop-for-educators"],
+    projectIds: ["fulbright-focus-group-sponsored-by-openai"],
     newsIds: [1, 7],
   },
   {
@@ -85,8 +85,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "The work combined classroom operations, student writing feedback, staff coordination, and practical thinking about how AI tools should be handled in undergraduate courses.",
     ],
     focus: ["teaching operations", "team management", "student feedback"],
-    projectIds: [],
-    newsIds: [],
+        newsIds: [],
   },
   {
     id: "boehringer-communications-strategy",
@@ -102,7 +101,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "I built a company-wide newsletter system with an 80% open rate, shipped dozens of major cross-functional communications assets, and redesigned internal messaging and UX around employee volunteering, helping increase annual participation by 25%.",
     ],
     focus: ["internal operations", "cross-functional execution", "systems design", "stakeholder communications"],
-    projectIds: ["boehringer-cares-foundation-rebrand-strategy-shift", "sustainable-development-health-access-report"],
+    projectIds: ["boehringer-cares-foundation-rebrand-strategy-shift"],
     newsIds: [],
   },
   {
@@ -118,7 +117,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "I conducted 17 in-depth interviews with Australian journalists, editors, owners, and policy experts. The project explored journalism as a public good, platform incentives, economic decline, and the uncertainty surrounding generative AI.",
     ],
     focus: ["user research", "qualitative analysis", "platform strategy", "longform synthesis"],
-    projectIds: ["senior-thesis-local-journalism", "political-reporting-at-washu"],
+    projectIds: ["senior-thesis-local-journalism"],
     newsIds: [12, 6, 11],
   },
   {
@@ -149,8 +148,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "My reporting focused on campus politics, protest, elections, free speech, governance, and institutional accountability.",
     ],
     focus: ["reporting", "campus politics", "student journalism"],
-    projectIds: ["political-reporting-at-washu"],
-    newsIds: [11],
+        newsIds: [11],
   },
   {
     id: "us-house",
@@ -182,8 +180,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "I helped run a cross-platform digital program generating 1M+ weekly impressions and $30k+ in organic fundraising. I also supported logistics for 100+ events with elected officials, cabinet secretaries, senators, and community leaders.",
     ],
     focus: ["digital strategy", "campaign operations", "audience growth", "event logistics"],
-    projectIds: [],
-    newsIds: [],
+        newsIds: [],
   },
   {
     id: "progressive-turnout-project",
@@ -197,8 +194,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "Topics included messaging, organizing, and digital mobilization.",
     ],
     focus: ["campaign strategy", "organizing", "digital mobilization"],
-    projectIds: [],
-    newsIds: [],
+        newsIds: [],
   },
   {
     id: "dccc-democracy-summer",
@@ -212,8 +208,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "Selected as a part of a nationwide cohort, I got access to training and support as I interned on a high profile congressional campaign.",
     ],
     focus: ["congressional politics", "campaign training", "field support"],
-    projectIds: [],
-    newsIds: [],
+        newsIds: [],
   },
   {
     id: "institute-for-nonprofit-news",

@@ -175,11 +175,6 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
     topics: ["philanthropy", "St. Louis", "public service", "grantmaking", "nonprofits"],
     tags: ["Philanthropy Lab", "WashU", "Casa de Salud", "IHELP", "Monarch Immigrant Services", "immigrant support"],
   },
-  "ai-literacy-workshop-for-educators": {
-    date: "2025",
-    topics: ["artificial intelligence", "education", "classroom", "teacher training", "conference presentation"],
-    tags: ["AI applications", "large language models", "ChatGPT", "educators", "presentation slides", "AI literacy"],
-  },
   "electric-vehicle-access-analysis": {
     date: "2024",
     topics: ["electric vehicles", "infrastructure", "geographic analysis", "transportation equity"],
@@ -195,11 +190,6 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
     topics: ["education", "OpenAI", "Fulbright", "ChatGPT Lab", "teacher training"],
     tags: ["Taiwan", "OpenAI for Education", "ChatGPT for Education", "ChatGPT Lab x Fulbright Taiwan", "focus group", "classroom use cases", "lesson planning", "educators", "Substack"],
   },
-  "political-reporting-at-washu": {
-    date: "2024",
-    topics: ["political reporting", "campus politics", "student journalism", "institutional accountability"],
-    tags: ["WashU", "Student Life", "protest", "free speech", "elections", "governance"],
-  },
   "boehringer-cares-foundation-rebrand-strategy-shift": {
     date: "2025",
     topics: ["brand strategy", "foundation communications", "UX", "employee engagement"],
@@ -214,11 +204,6 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
     date: "2021",
     topics: ["political reporting", "congress", "interview", "post-impeachment politics"],
     tags: ["Peter Meijer", "Calvin Chimes", "filibuster", "immigration", "primary challenge", "impeachment"],
-  },
-  "sustainable-development-health-access-report": {
-    date: "2024",
-    topics: ["health access", "sustainable development", "corporate strategy", "communications"],
-    tags: ["Boehringer Ingelheim", "SDX", "internal report", "operations", "policy narrative", "Brandon Hall"],
   },
 };
 
