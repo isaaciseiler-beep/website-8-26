@@ -338,57 +338,15 @@ export const projectItems: ProjectItem[] = [
     ],
   },
   {
-    id: "ai-literacy-workshop-for-educators",
-    title: "Education Conference Presentation on AI Applications",
+    id: "__removed__",
+    title: "",
     source: "PROJECT",
-    year: "2025",
-    summary:
-      "A conference-style educator presentation translating AI concepts into practical classroom and planning applications.",
-    image: projectImg.aiClassroom,
-    sections: [
-      {
-        heading: "Overview",
-        paragraphs: [
-          "I developed and delivered an education conference presentation on how teachers can understand, evaluate, and responsibly apply artificial intelligence in classroom contexts.",
-          "The session started from educator skepticism rather than brushing past it. I framed AI as a set of systems that can support planning, differentiation, feedback, and student exploration when teachers understand the tradeoffs and keep professional judgment in the loop.",
-          "The presentation moved from fundamentals to practice: what AI is, how large language models work, why models can be useful and unreliable at the same time, and how educators can design classroom uses around clear learning goals instead of novelty.",
-        ],
-      },
-      {
-        heading: "Core Principles",
-        bullets: [
-          "Build enough technical literacy to understand what AI systems can do, where they fail, and why outputs need review.",
-          "Keep human judgment central: AI can support the work, but educators should own the instructional decisions.",
-          "Choose tools around learning outcomes rather than model hype, matching the modality and workflow to the task.",
-          "Verify anything students, colleagues, or families will rely on, especially factual claims and sensitive guidance.",
-          "Prompt with precision by defining the goal, audience, constraints, and context before asking for output.",
-        ],
-      },
-      {
-        heading: "Conference Slides",
-        paragraphs: [
-          "The deck translates the presentation into a visual sequence educators can revisit after the session. It introduces the conceptual foundations, gives concrete classroom and planning applications, and closes with practical habits for using AI without outsourcing teacher judgment.",
-        ],
-        media: [
-          {
-            type: "pdf",
-            src: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf`,
-            title: "Artificial Intelligence in the Classroom",
-          },
-        ],
-      },
-      {
-        heading: "Materials",
-        paragraphs: [
-          "The materials drew from my Fulbright Taiwan ChatGPT Lab work and from AI fluency training resources, especially the idea that responsible use starts with understanding systems well enough to use them deliberately.",
-        ],
-        links: [
-          { label: "Workshop Slide Deck", href: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf` },
-          { label: "Anthropic AI Fluency Foundations Course", href: "https://lnkd.in/gnUB8D7M" },
-        ],
-      },
-    ],
+    year: "",
+    summary: "",
+    image: "",
+    sections: [],
   },
+
   {
     id: "electric-vehicle-access-analysis",
     title: "Electric Vehicle Charging Access Analysis",
