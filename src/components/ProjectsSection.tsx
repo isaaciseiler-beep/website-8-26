@@ -5,15 +5,22 @@ import { Link } from "react-router-dom";
 import { projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
 
-type ProjectFilter = "ALL" | "NEWS" | ProjectItem["source"];
+type ProjectFilter = "ALL" | "NEWS" | "AI" | ProjectItem["source"];
 
 const filters: { label: string; value: ProjectFilter }[] = [
   { label: "All", value: "ALL" },
+  { label: "AI", value: "AI" },
   { label: "Research", value: "RESEARCH" },
   { label: "Work", value: "WORK" },
   { label: "Projects", value: "PROJECT" },
   { label: "News", value: "NEWS" },
 ];
+
+const AI_SUBJECT_PATTERN =
+  /\b(ai|a\.i\.|artificial intelligence|chatgpt|openai|llm|machine learning|gpt|generative)\b/i;
+
+const isAiSubject = (...values: (string | undefined)[]) =>
+  values.some((value) => typeof value === "string" && AI_SUBJECT_PATTERN.test(value));
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
