@@ -2265,7 +2265,7 @@
     width: calc(100% + 24px);
     margin-left: 0;
     margin-right: -24px;
-    grid-auto-columns: calc((100% - 144px) / 3);
+    grid-auto-columns: calc((100% - 72px) / 3);
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -2629,7 +2629,7 @@
     }
 
     .work-library-rail {
-      grid-auto-columns: calc((100% - 108px) / 2);
+      grid-auto-columns: calc((100% - 60px) / 2);
     }
 
     .about-lede-body {
@@ -2673,7 +2673,7 @@
       width: calc(100% + 16px);
       margin-left: 0;
       margin-right: -16px;
-      grid-auto-columns: calc((100% - 96px) / 2);
+      grid-auto-columns: calc((100% - 48px) / 2);
     }
 
     .work-library-card-bottom h3 {
