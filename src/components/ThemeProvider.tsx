@@ -38,6 +38,20 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     return () => media.removeEventListener("change", updateSystemTheme);
   }, []);
 
+  const applyTheme = (next: Theme) => {
+    const root = document.documentElement;
+    root.classList.add("theme-crossfade");
+    window.setTimeout(() => root.classList.remove("theme-crossfade"), 700);
+    const start = (document as Document & {
+      startViewTransition?: (cb: () => void) => void;
+    }).startViewTransition;
+    if (typeof start === "function") {
+      start.call(document, () => setTheme(next));
+      return;
+    }
+    setTheme(next);
+  };
+
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, theme);
     const root = document.documentElement;
@@ -50,7 +64,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [theme, resolvedTheme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme: applyTheme }}>
       {children}
     </ThemeContext.Provider>
   );
