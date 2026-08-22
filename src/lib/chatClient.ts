@@ -29,12 +29,13 @@ export const countUserMessages = (messages: ChatRequestMessage[]) =>
 export const isChatLimitReached = (messages: ChatRequestMessage[]) =>
   countUserMessages(messages) >= MAX_CHAT_USER_MESSAGES;
 
-export const askSiteAssistant = async (messages: ChatRequestMessage[]) => {
+export const askSiteAssistant = async (messages: ChatRequestMessage[], pageContext?: string) => {
   const response = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ messages }),
+    body: JSON.stringify({ messages, pageContext }),
   });
+
 
   const text = await response.text();
   let data: ChatApiResponse = {};
