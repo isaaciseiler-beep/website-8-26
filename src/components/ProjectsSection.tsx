@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
 
@@ -10,31 +10,28 @@ const filters: { label: string; value: ProjectFilter }[] = [
   { label: "All", value: "ALL" },
   { label: "Research", value: "RESEARCH" },
   { label: "Work", value: "WORK" },
-  { label: "Reporting", value: "REPORTING" },
   { label: "Projects", value: "PROJECT" },
   { label: "News", value: "NEWS" },
 ];
 
-const INITIAL_COUNT = 6;
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const ProjectsSection = () => {
   const [filter, setFilter] = useState<ProjectFilter>("ALL");
-  const [expanded, setExpanded] = useState(false);
 
   const projects = useMemo(() => {
     if (filter === "NEWS") return [];
-    const matches = filter === "ALL"
-      ? projectItems
-      : projectItems.filter((project) => project.source === filter);
-    return matches.slice(0, 12);
+    if (filter === "ALL") return projectItems;
+    if (filter === "WORK") {
+      return projectItems.filter((project) => project.source === "WORK" || project.source === "REPORTING");
+    }
+    return projectItems.filter((project) => project.source === filter);
   }, [filter]);
 
   const isNews = filter === "NEWS";
-  const total = isNews ? newsItems.length : projects.length;
-  const collapsed = !expanded && total > INITIAL_COUNT;
-  const visible = collapsed ? projects.slice(0, INITIAL_COUNT) : projects;
-  const visibleNews = collapsed ? newsItems.slice(0, INITIAL_COUNT) : newsItems;
+  const visible = projects;
+  const visibleNews = newsItems;
+
 
 
   return (
