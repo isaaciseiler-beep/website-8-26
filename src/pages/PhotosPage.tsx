@@ -88,7 +88,7 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
             className="absolute inset-0 w-full h-full object-cover"
             style={{
               opacity: src === activeImage ? 1 : 0,
-              filter: hovering ? "grayscale(0%)" : "grayscale(100%)",
+              filter: "grayscale(0%)",
               transition: "opacity 150ms ease-out, filter 500ms ease-out",
             }}
             loading="lazy"
