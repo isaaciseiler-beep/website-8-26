@@ -55,10 +55,12 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
       fittingRef.current = false;
     };
 
-    const ro = new ResizeObserver(fitText);
+    const ro = new ResizeObserver(() => {
+      window.requestAnimationFrame(fitText);
+    });
     ro.observe(photo);
 
-    const timer = window.setTimeout(fitText, 0);
+    const timer = window.setTimeout(() => window.requestAnimationFrame(fitText), 0);
     document.fonts.ready.then(fitText);
 
     return () => {

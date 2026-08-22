@@ -113,7 +113,7 @@ const PhotoSection = () => {
       <Link
         to="/photos"
         ref={previewRef}
-        className="site-corner relative block h-full w-full cursor-pointer overflow-hidden bg-foreground/[0.05]"
+        className="relative block h-full w-full cursor-pointer overflow-hidden bg-foreground/[0.05]"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
         aria-label="View photo portfolio"

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
@@ -104,49 +104,49 @@ const ProjectsSection = () => {
             if (entry.kind === "news") {
               const item = entry.node;
               return (
-                <motion.a
-                  key={entry.id}
-                  {...motionProps}
-                  href={item.href}
-                  target={item.href === "#" ? undefined : "_blank"}
-                  rel={item.href === "#" ? undefined : "noopener noreferrer"}
-                  className="work-library-card group"
-                >
-                  <img src={tileImageFor(index)} alt="" loading="lazy" decoding="async" />
-                  <div className="work-library-scrim" />
-                  <div className="news-compact-logo-row">
-                    <img src={item.logoUrl} alt={item.logoAlt} className="news-compact-logo" loading="lazy" />
-                  </div>
-                  <div className="work-library-card-bottom">
-                    <ArrowRight aria-hidden="true" className="work-library-card-arrow" />
-                    <h3>{item.title}</h3>
-                  </div>
-                </motion.a>
+              <motion.a
+                key={entry.id}
+                {...motionProps}
+                href={item.href}
+                target={item.href === "#" ? undefined : "_blank"}
+                rel={item.href === "#" ? undefined : "noopener noreferrer"}
+                className="work-library-card group"
+              >
+                <img src={tileImageFor(index)} alt="" loading="lazy" decoding="async" />
+                <div className="work-library-scrim" />
+                <div className="news-compact-logo-row">
+                  <img src={item.logoUrl} alt={item.logoAlt} className="news-compact-logo" loading="lazy" />
+                </div>
+                <ArrowUpRight aria-hidden="true" className="work-library-card-arrow" />
+                <div className="work-library-card-bottom">
+                  <h3>{item.title}</h3>
+                </div>
+              </motion.a>
               );
             }
 
-            const project = entry.node;
-            return (
-              <motion.div key={entry.id} {...motionProps}>
-                <Link
-                  to={`/projects/${project.id}`}
-                  className="work-library-card group"
-                  aria-label={`Read more about ${project.title}`}
-                >
-                  <img
-                    src={tileImageFor(index)}
-                    alt=""
-                    loading={index < 3 ? "eager" : "lazy"}
-                    decoding="async"
-                  />
-                  <div className="work-library-scrim" />
-                  <div className="work-library-card-bottom">
-                    <ArrowRight aria-hidden="true" className="work-library-card-arrow" />
-                    <h3>{project.title}</h3>
-                  </div>
-                </Link>
-              </motion.div>
-            );
+              const project = entry.node;
+              return (
+                <motion.div key={entry.id} {...motionProps}>
+                  <Link
+                    to={`/projects/${project.id}`}
+                    className="work-library-card group"
+                    aria-label={`Read more about ${project.title}`}
+                  >
+                    <img
+                      src={tileImageFor(index)}
+                      alt=""
+                      loading={index < 3 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
+                    <div className="work-library-scrim" />
+                    <ArrowUpRight aria-hidden="true" className="work-library-card-arrow" />
+                    <div className="work-library-card-bottom">
+                      <h3>{project.title}</h3>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
           })}
         </AnimatePresence>
       </motion.div>
