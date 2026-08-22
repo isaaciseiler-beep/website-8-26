@@ -79,13 +79,9 @@ const Footer = ({ overlay = false }: FooterProps) => {
         data-reveal
         className={`work-library flex items-center justify-between gap-6 pt-12 pb-8 md:pt-16 ${
           overlay ? `site-footer-slide ${atBottom ? "is-in" : ""}` : ""
-        }`}
+        } ${sidebarOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
       >
-        <div
-          className={`site-footer-pill ${overlay ? "site-footer-pill--overlay" : ""} ${
-            sidebarOpen ? "pointer-events-none opacity-0" : "opacity-100"
-          }`}
-        >
+        <div className="flex items-center gap-5">
           {socialLinks.map((link) => (
             <a
               key={link.id}
@@ -97,9 +93,9 @@ const Footer = ({ overlay = false }: FooterProps) => {
               {link.icon}
             </a>
           ))}
-
-          <p className={`text-[13px] ${overlay ? "text-white/80" : "text-foreground/45"}`}>© 2026 Isaac Seiler</p>
         </div>
+
+        <p className={`text-[13px] ${overlay ? "text-white/80" : "text-foreground/45"}`}>© 2026 Isaac Seiler</p>
       </div>
     </footer>
   );
