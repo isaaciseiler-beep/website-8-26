@@ -158,7 +158,7 @@ const ProjectDetailPage = () => {
         transition={{ duration: 0.56, ease: EASE_TEXT }}
       >
         <motion.main
-          className="pt-28 pb-24 px-6 max-w-6xl mx-auto"
+          className="pt-28 pb-24 px-6 content-measure"
           initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.6, ease: EASE_TEXT, delay: 0.08 }}
