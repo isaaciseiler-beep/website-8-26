@@ -40,6 +40,7 @@ const ChatOrb = () => {
 
   useEffect(() => {
     setOpen(false);
+    setHasScrolled(window.scrollY > 40);
   }, [location.pathname]);
 
   useEffect(() => {
