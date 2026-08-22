@@ -2198,6 +2198,27 @@
     gap: 12px;
   }
 
+  .work-library-rail {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+  }
+
+  .work-library-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .work-library-rail > * {
+    flex: 0 0 calc((100% - 24px) / 3);
+    max-width: calc((100% - 24px) / 3);
+    scroll-snap-align: start;
+  }
+
 
   .work-library-card {
     position: relative;
@@ -2574,6 +2595,11 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .work-library-rail > * {
+      flex-basis: calc((100% - 12px) / 2);
+      max-width: calc((100% - 12px) / 2);
+    }
+
     .about-lede-body {
       grid-template-columns: 310px minmax(0, 1fr);
       gap: 26px;
@@ -2606,6 +2632,15 @@
     .work-library-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
+    }
+
+    .work-library-rail {
+      gap: 10px;
+    }
+
+    .work-library-rail > * {
+      flex-basis: calc((100% - 10px) / 2);
+      max-width: calc((100% - 10px) / 2);
     }
 
     .work-library-card-bottom h3 {
