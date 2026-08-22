@@ -1770,7 +1770,7 @@
   }
 
   .pill-button {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: inherit;
     @apply relative isolate overflow-hidden px-6 py-2 rounded-full bg-foreground text-background font-medium text-xs tracking-widest uppercase cursor-pointer;
     transition: color 0.3s ease;
   }
