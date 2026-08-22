@@ -84,31 +84,13 @@ class RouteErrorBoundary extends Component<
 const RouteFallback = () => {
   const location = useLocation();
 
-  if (location.pathname === "/fulbrightmap") {
-    return (
-      <main className="grid min-h-[100svh] place-items-center bg-neutral-950 p-5 text-center text-white">
-        <div>
-          <div className="mx-auto h-10 w-10 animate-pulse rounded-full bg-white/80 shadow-lg shadow-black/30" />
-          <div className="mt-4 text-lg font-semibold">Preparing the map</div>
-          <p className="mt-1 text-sm leading-5 text-white/65">Loading New Taipei and shared spots.</p>
-        </div>
-      </main>
-    );
+  if (location.pathname === "/fulbrightmap" || location.pathname === "/photos/map") {
+    return <RouteLoader tone="map" label="Preparing the map" detail="Loading New Taipei and shared spots." />;
   }
 
-  return (
-    <main className="grid min-h-[100svh] place-items-center bg-background p-5 text-center text-foreground">
-      <div>
-        <div className="mx-auto h-px w-24 overflow-hidden bg-foreground/10">
-          <div className="h-full w-1/2 animate-pulse bg-foreground/60" />
-        </div>
-        <div className="mt-4 font-mono text-[10px] uppercase tracking-[0.24em] text-foreground/45">
-          Loading page
-        </div>
-      </div>
-    </main>
-  );
+  return <RouteLoader />;
 };
+
 
 const RouteRenderErrorFallback = ({ isMap }: { isMap: boolean }) => (
   <main className={`grid min-h-[100svh] place-items-center p-5 text-center ${isMap ? "bg-neutral-950 text-white" : "bg-background text-foreground"}`}>
