@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { projectItems } from "@/lib/siteContent";
 import {
   CHAT_LIMIT_MESSAGE,
   askSiteAssistant,
@@ -27,6 +28,27 @@ const ChatOrb = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const location = useLocation();
+
+  const pageContext = (() => {
+    const match = location.pathname.match(/^\/projects\/(.+)$/);
+    if (!match) return null;
+    const project = projectItems.find((item) => item.id === match[1]);
+    if (!project) return null;
+    const body = project.sections
+      .map((section) => {
+        const parts = [section.heading];
+        if (section.paragraphs?.length) parts.push(section.paragraphs.join(" "));
+        if (section.bullets?.length) parts.push(section.bullets.map((bullet) => `- ${bullet}`).join("\n"));
+        return parts.join("\n");
+      })
+      .join("\n\n");
+    return {
+      label: project.source === "BLOG" ? "Ask about this article" : "Ask about this project",
+      placeholder: project.source === "BLOG" ? "Ask about this article" : "Ask about this project",
+      text: `Title: ${project.title}\nYear: ${project.year}\nSummary: ${project.summary}\n\n${body}`,
+    };
+  })();
+
   const disabled = location.pathname === "/photos" || location.pathname === "/photos/map";
 
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -100,7 +122,10 @@ const ChatOrb = () => {
 
     setIsLoading(true);
     try {
-      const data = await askSiteAssistant(next.map(({ role, content }) => ({ role, content })));
+      const data = await askSiteAssistant(
+        next.map(({ role, content }) => ({ role, content })),
+        pageContext?.text,
+      );
       setMessages((current) => [
         ...current,
         { id: createMessageId(), role: "assistant", content: data.message || "" },
@@ -139,7 +164,7 @@ const ChatOrb = () => {
       <motion.div
         className="ai-dock-shell"
         initial={false}
-        animate={{ width: open ? "min(92vw, 620px)" : 148 }}
+        animate={{ width: open ? "min(92vw, 620px)" : pageContext ? 210 : 148 }}
         transition={{ duration: 0.52, ease: EASE }}
       >
         <AnimatePresence initial={false}>
@@ -197,7 +222,7 @@ const ChatOrb = () => {
                   ref={inputRef}
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder={limitReached ? "Chat limit reached" : "Ask about my work"}
+                  placeholder={limitReached ? "Chat limit reached" : (pageContext?.placeholder ?? "Ask about my work")}
                   disabled={limitReached}
                   aria-label="Ask AI"
                 />
@@ -222,7 +247,7 @@ const ChatOrb = () => {
                 transition={{ duration: 0.22, ease: EASE }}
                 aria-expanded={false}
               >
-                Ask AI
+                {pageContext?.label ?? "Ask AI"}
               </motion.button>
             )}
           </AnimatePresence>
