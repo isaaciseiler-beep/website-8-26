@@ -69,6 +69,14 @@ export default {
         md: "var(--radius)",
         sm: "var(--radius)",
       },
+      lineHeight: {
+        none: "1.1",
+        tight: "1.35",
+        snug: "1.475",
+        normal: "1.6",
+        relaxed: "1.725",
+        loose: "2.1",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
