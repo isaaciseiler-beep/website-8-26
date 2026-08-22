@@ -217,7 +217,7 @@ const RevealSection = ({
 const BackButton = ({ onClick }: { onClick: () => void }) => (
   <button
       type="button"
-      onClick={() => navigate("/?section=projects")}
+      onClick={onClick}
       className="pill-back "
     >
       <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
