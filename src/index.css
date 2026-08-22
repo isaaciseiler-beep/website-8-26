@@ -299,6 +299,11 @@
     background: #fff;
   }
 
+  .home-content-shell {
+    position: relative;
+    z-index: 50;
+  }
+
   .home-photo-section--wide {
     margin-block: clamp(5.25rem, 8vw, 8rem);
   }
@@ -2276,6 +2281,7 @@
 
   /* When the sidebar is open, let the rail bleed over it so cards scroll on top. */
   body[data-sidebar="open"] .work-library-rail {
+    width: calc(100% + 200px);
     margin-left: -200px;
     padding-left: 200px;
     scroll-padding-left: 200px;
