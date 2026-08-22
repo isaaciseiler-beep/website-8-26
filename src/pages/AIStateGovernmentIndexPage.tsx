@@ -170,7 +170,6 @@ const RevealSection = ({
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    container: scrollContainerRef,
     offset: ["start end", "end start"],
   });
   const contentY = useTransform(scrollYProgress, [0, 1], [18, -18]);
@@ -441,7 +440,7 @@ const AIStateGovernmentIndexPage = () => {
     <div
       data-ai-index-page
       ref={pageScrollRef}
-      className="relative h-[100svh] overflow-y-auto overflow-x-hidden bg-background text-foreground"
+      className="relative min-h-[100svh] overflow-x-clip bg-background text-foreground"
     >
       <Sidebar
         open={sidebarOpen}
@@ -736,7 +735,7 @@ const AIStateGovernmentIndexPage = () => {
                     className="site-corner bg-card p-4"
                     initial={{ opacity: 0, x: -34, clipPath: "inset(0 100% 0 0)", filter: "blur(6px)" }}
                     whileInView={{ opacity: 1, x: 0, clipPath: "inset(0 0% 0 0)", filter: "blur(0px)" }}
-                    viewport={{ once: true, amount: 0.7, root: pageScrollRef }}
+                    viewport={{ once: true, amount: 0.7 }}
                     transition={{ duration: 0.72, ease: EASE_TEXT, delay: index * 0.05 }}
                   >
                     <div className="mb-3 flex items-center justify-between">
@@ -749,7 +748,7 @@ const AIStateGovernmentIndexPage = () => {
                         style={{ color: band.color }}
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.7, root: pageScrollRef }}
+                        viewport={{ once: true, amount: 0.7 }}
                         transition={{ duration: 0.5, ease: EASE_TEXT, delay: 0.16 + index * 0.05 }}
                       >
                         {band.count}
@@ -764,7 +763,7 @@ const AIStateGovernmentIndexPage = () => {
                             }}
                             initial={{ scaleX: 0 }}
                             whileInView={{ scaleX: 1 }}
-                            viewport={{ once: true, amount: 0.7, root: pageScrollRef }}
+                            viewport={{ once: true, amount: 0.7 }}
                             transition={{ duration: 0.78, ease: EASE_TEXT, delay: 0.18 + index * 0.05 }}
                           />
                         ) : null}

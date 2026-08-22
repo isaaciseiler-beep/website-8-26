@@ -96,7 +96,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="home-photo-v2 relative min-h-screen overflow-x-hidden bg-background text-foreground">
+    <div className="home-photo-v2 relative min-h-screen overflow-x-clip bg-background text-foreground">
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}

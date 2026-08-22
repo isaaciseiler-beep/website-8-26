@@ -187,7 +187,6 @@ const RevealSection = ({
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    container: scrollContainerRef,
     offset: ["start end", "end start"],
   });
   const contentY = useTransform(scrollYProgress, [0, 1], [18, -18]);
@@ -231,7 +230,7 @@ const SeniorThesisLocalJournalismPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const pageScrollRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress: pageScrollProgress } = useScroll({ container: pageScrollRef });
+  const { scrollYProgress: pageScrollProgress } = useScroll();
   const progressScaleX = useSpring(pageScrollProgress, {
     stiffness: 90,
     damping: 24,
@@ -256,7 +255,7 @@ const SeniorThesisLocalJournalismPage = () => {
     <div
       data-thesis-page
       ref={pageScrollRef}
-      className="relative h-[100svh] overflow-y-auto overflow-x-hidden bg-background text-foreground"
+      className="relative min-h-[100svh] overflow-x-clip bg-background text-foreground"
     >
       <Sidebar
         open={sidebarOpen}
