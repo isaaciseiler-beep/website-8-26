@@ -16,23 +16,56 @@ const themeOptions = [
   { value: "skull" as const, label: "Skull", icon: Skull },
 ];
 
+const SWITCH_WIDTH = 152;
+const SWITCH_PAD = 3;
+const STEP = (SWITCH_WIDTH - SWITCH_PAD * 2) / themeOptions.length;
+
 const ThemeSwitch = () => {
   const { theme, setTheme } = useTheme();
   const activeIndex = Math.max(0, themeOptions.findIndex((opt) => opt.value === theme));
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const x = useMotionValue(activeIndex * STEP);
+  const [dragging, setDragging] = useState(false);
+
+  useEffect(() => {
+    if (dragging) return;
+    const controls = animate(x, activeIndex * STEP, {
+      type: "spring",
+      stiffness: 420,
+      damping: 38,
+      mass: 0.9,
+    });
+    return () => controls.stop();
+  }, [activeIndex, dragging, x]);
+
+  const commitFromX = (value: number) => {
+    const index = Math.min(
+      themeOptions.length - 1,
+      Math.max(0, Math.round(value / STEP)),
+    );
+    setTheme(themeOptions[index].value as Theme);
+  };
 
   return (
     <div
+      ref={trackRef}
       className="theme-switch relative grid h-9 w-[152px] grid-cols-3 overflow-hidden rounded-full bg-foreground/[0.06] p-[3px]"
       role="radiogroup"
       aria-label="Appearance"
     >
       <motion.span
         aria-hidden="true"
-        className="absolute bottom-[3px] top-[3px] rounded-full bg-foreground/[0.92]"
-        initial={false}
-        animate={{ x: `${activeIndex * 100}%` }}
-        transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.9 }}
-        style={{ left: 3, width: "calc((100% - 6px) / 3)" }}
+        className="theme-switch-thumb absolute bottom-[3px] top-[3px] cursor-grab rounded-full bg-foreground/[0.92] active:cursor-grabbing"
+        style={{ left: SWITCH_PAD, width: STEP, x, touchAction: "none" }}
+        drag="x"
+        dragElastic={0.04}
+        dragMomentum={false}
+        dragConstraints={{ left: 0, right: STEP * (themeOptions.length - 1) }}
+        onDragStart={() => setDragging(true)}
+        onDragEnd={() => {
+          setDragging(false);
+          commitFromX(x.get());
+        }}
       />
       {themeOptions.map((opt) => {
         const active = theme === opt.value;
@@ -55,6 +88,7 @@ const ThemeSwitch = () => {
     </div>
   );
 };
+
 
 interface SitemapItem {
   id: string;
