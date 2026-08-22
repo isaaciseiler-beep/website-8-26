@@ -121,7 +121,7 @@ const ChatOrb = () => {
 
   if (disabled) return null;
 
-  const visible = hasScrolled && !photoVisible;
+  const visible = hasScrolled;
 
   return (
     <motion.div
