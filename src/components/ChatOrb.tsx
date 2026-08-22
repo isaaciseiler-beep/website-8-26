@@ -128,10 +128,23 @@ const ChatOrb = () => {
     }
   };
 
-  if (disabled || photoVisible || !hasScrolled) return null;
+  if (disabled) return null;
+
+  const visible = hasScrolled && !photoVisible;
 
   return (
-    <div className="ai-dock" ref={rootRef}>
+    <motion.div
+      className="ai-dock"
+      ref={rootRef}
+      initial={{ opacity: 0, filter: "blur(12px)", y: 8 }}
+      animate={{
+        opacity: visible ? 1 : 0,
+        filter: visible ? "blur(0px)" : "blur(12px)",
+        y: visible ? 0 : 8,
+        pointerEvents: visible ? "auto" : "none",
+      }}
+      transition={{ duration: 0.55, ease: EASE }}
+    >
       <motion.div
         className="ai-dock-shell"
         initial={false}
