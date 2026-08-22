@@ -127,7 +127,7 @@ const ChatOrb = () => {
     }
   };
 
-  if (disabled) return null;
+  if (disabled || photoVisible || !hasScrolled) return null;
 
   return (
     <div className="ai-dock" ref={rootRef}>
