@@ -1,5 +1,5 @@
 import { type ComponentType, type ReactNode, type RefObject, useEffect, useRef, useState } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left.js";
 import ArrowUpRight from "lucide-react/dist/esm/icons/arrow-up-right.js";
 import Bot from "lucide-react/dist/esm/icons/bot.js";
