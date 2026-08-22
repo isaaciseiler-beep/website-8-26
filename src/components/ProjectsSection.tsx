@@ -2,9 +2,9 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { projectItems, type ProjectItem } from "@/lib/siteContent";
+import { projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
 
-type ProjectFilter = "ALL" | ProjectItem["source"];
+type ProjectFilter = "ALL" | "NEWS" | ProjectItem["source"];
 
 const filters: { label: string; value: ProjectFilter }[] = [
   { label: "All", value: "ALL" },
@@ -12,6 +12,7 @@ const filters: { label: string; value: ProjectFilter }[] = [
   { label: "Work", value: "WORK" },
   { label: "Reporting", value: "REPORTING" },
   { label: "Projects", value: "PROJECT" },
+  { label: "News", value: "NEWS" },
 ];
 
 const INITIAL_COUNT = 6;
@@ -22,14 +23,19 @@ const ProjectsSection = () => {
   const [expanded, setExpanded] = useState(false);
 
   const projects = useMemo(() => {
+    if (filter === "NEWS") return [];
     const matches = filter === "ALL"
       ? projectItems
       : projectItems.filter((project) => project.source === filter);
     return matches.slice(0, 12);
   }, [filter]);
 
-  const collapsed = !expanded && projects.length > INITIAL_COUNT;
+  const isNews = filter === "NEWS";
+  const total = isNews ? newsItems.length : projects.length;
+  const collapsed = !expanded && total > INITIAL_COUNT;
   const visible = collapsed ? projects.slice(0, INITIAL_COUNT) : projects;
+  const visibleNews = collapsed ? newsItems.slice(0, INITIAL_COUNT) : newsItems;
+
 
   return (
     <section className="work-library" aria-labelledby="work-library-title">
