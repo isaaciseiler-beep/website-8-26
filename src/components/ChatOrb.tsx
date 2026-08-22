@@ -40,12 +40,12 @@ const ChatOrb = () => {
 
   useEffect(() => {
     setOpen(false);
-    setHasScrolled(window.scrollY > 40);
+    setHasScrolled(window.scrollY > 80);
   }, [location.pathname]);
 
   useEffect(() => {
-    const onScroll = () => setHasScrolled(true);
-    if (window.scrollY > 40) setHasScrolled(true);
+    const onScroll = () => setHasScrolled(window.scrollY > 80);
+    if (window.scrollY > 80) setHasScrolled(true);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
