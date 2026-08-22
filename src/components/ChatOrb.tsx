@@ -167,8 +167,8 @@ const ChatOrb = () => {
         onClick={() => setOpen((value) => !value)}
         className="ai-dock-trigger"
         initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: open ? 14 : 1, y: 0 }}
-        style={{ opacity: open ? 0 : 1, pointerEvents: open ? "none" : "auto" }}
+        animate={{ opacity: open ? 0 : 1, y: open ? 14 : 0 }}
+        style={{ pointerEvents: open ? "none" : "auto" }}
         transition={{ duration: 0.36, ease: EASE }}
         aria-expanded={open}
         aria-label="Ask AI"
