@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUp, Sparkles, X } from "lucide-react";
+import { ArrowUp, X } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { CONTACT_EMAIL } from "@/lib/site";
 import {
@@ -94,19 +94,21 @@ const ChatOrb = () => {
           <motion.div
             key="panel"
             className="ai-dock-panel"
-            initial={{ opacity: 0, y: 16, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.97 }}
-            transition={{ duration: 0.36, ease: EASE }}
+            initial={{ opacity: 0, y: "100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "100%" }}
+            transition={{ duration: 0.42, ease: EASE }}
             role="dialog"
             aria-label="Ask AI"
           >
-            <div className="ai-dock-panel-head">
-              <span>Ask AI</span>
-              <button type="button" className="pill-button pill-button--icon" onClick={() => setOpen(false)} aria-label="Close">
-                <X aria-hidden="true" />
-              </button>
-            </div>
+            <button
+              type="button"
+              className="ai-dock-close"
+              onClick={() => setOpen(false)}
+              aria-label="Close"
+            >
+              <X aria-hidden="true" />
+            </button>
 
             <div ref={listRef} className="ai-dock-messages">
               {messages.length === 0 && !isLoading ? (
@@ -149,7 +151,7 @@ const ChatOrb = () => {
               />
               <button
                 type="submit"
-                className="pill-button pill-button--solid pill-button--icon"
+                className="ai-dock-send"
                 disabled={!query.trim() || isLoading || limitReached}
                 aria-label="Send"
               >
@@ -163,15 +165,15 @@ const ChatOrb = () => {
       <motion.button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="pill-button pill-button--solid ai-dock-trigger"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
+        className="ai-dock-trigger"
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: open ? 14 : 1, y: 0 }}
+        style={{ opacity: open ? 0 : 1, pointerEvents: open ? "none" : "auto" }}
         transition={{ duration: 0.36, ease: EASE }}
         aria-expanded={open}
-        aria-label={open ? "Close AI" : "Ask AI"}
+        aria-label="Ask AI"
       >
-        <Sparkles aria-hidden="true" />
-        <span>{open ? "Close" : "Ask AI"}</span>
+        <span>Ask AI</span>
       </motion.button>
 
     </div>
