@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent, useMotionValue } from "framer-motion";
 import SectionHeading from "@/components/SectionHeading";
 import { featuredProjectIds, projectItems } from "@/lib/siteContent";
 
@@ -21,7 +21,7 @@ const FeaturedTile = ({
 }: {
   image: string;
   alt: string;
-  filter: ReturnType<typeof useTransform>;
+  filter: ReturnType<typeof useTransform> | ReturnType<typeof useMotionValue>;
   canHover: boolean;
   children: React.ReactNode;
   className?: string;
@@ -81,9 +81,9 @@ const FeaturedSection = () => {
     [BUFFER, BUFFER, 0, 0, 0, BUFFER, BUFFER]
   );
 
-  const topFilter = "grayscale(0%)";
-  const blFilter = "grayscale(0%)";
-  const brFilter = "grayscale(0%)";
+  const topFilter = useMotionValue("grayscale(0%)");
+  const blFilter = useMotionValue("grayscale(0%)");
+  const brFilter = useMotionValue("grayscale(0%)");
 
   if (isMobile) {
     return (
