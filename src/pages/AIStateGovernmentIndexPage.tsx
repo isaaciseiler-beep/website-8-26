@@ -487,24 +487,13 @@ const AIStateGovernmentIndexPage = () => {
               <div className="absolute inset-x-0 top-0 z-10 px-5 pt-28 sm:px-8">
                 <div className="mx-auto max-w-7xl">
                   <button
-                    type="button"
-                    onClick={() => navigate("/?section=projects")}
-                    className="back-projects-button group relative inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full bg-foreground px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-background"
-                  >
-                    <span
-                      className="absolute inset-0 origin-right scale-x-0 bg-primary/90 transition-transform duration-700 group-hover:scale-x-100"
-                      style={{ transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
-                    />
-                    <span className="back-projects-button-label relative z-10 flex items-center transition-colors duration-500">
-                      <span
-                        className="inline-flex max-w-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:max-w-[1.5rem] group-hover:opacity-100"
-                        style={{ transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
-                      >
-                        <ArrowLeft className="mr-1.5 h-3 w-3 shrink-0" strokeWidth={1.5} />
-                      </span>
-                      All Projects
-                    </span>
-                  </button>
+      type="button"
+      onClick={handleBack}
+      className="pill-back "
+    >
+      <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
+      <span>Back to work</span>
+    </button>
                 </div>
               </div>
               <motion.div
