@@ -124,8 +124,10 @@ const Index = () => {
               <div id="about"><AboutSection revealEnabled /></div>
             </div>
             <div id="projects" className="home-photo-section" data-reveal><ProjectsSection /></div>
-            <div id="photos" className="home-photo-section home-photo-section--last" data-reveal><PhotoSection /></div>
-            <Footer />
+            <div className="home-photo-footer-stack">
+              <div id="photos" className="home-photo-section home-photo-section--last" data-reveal><PhotoSection /></div>
+              <Footer overlay />
+            </div>
           </Suspense>
         </main>
       </motion.div>
