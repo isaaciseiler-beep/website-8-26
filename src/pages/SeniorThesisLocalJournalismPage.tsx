@@ -277,46 +277,26 @@ const SeniorThesisLocalJournalismPage = () => {
           transition={{ duration: 0.62, ease: EASE_TEXT, delay: 0.08 }}
         >
           <section className="relative bg-background">
-            <div className="sticky top-0 z-0 h-[82svh] min-h-[620px] overflow-hidden bg-[#10120f] text-white">
-              <motion.img
-                src={HERO_IMAGE}
-                alt=""
-                aria-hidden
-                className="absolute inset-0 h-full w-full object-cover object-center"
-                initial={{ scale: 1.04, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 1.2, ease: EASE_TEXT }}
-              />
-              <motion.div
-                aria-hidden
-                className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,10,8,0)_0%,rgba(8,10,8,0.22)_50%,rgba(8,10,8,0.84)_100%)]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, ease: EASE_TEXT, delay: 0.1 }}
-              />
+            <div className="px-5 pt-28 sm:px-8">
+              <div className="mx-auto max-w-7xl">
+                <BackButton onClick={() => navigate("/?section=projects")} />
 
-              <div className="absolute inset-x-0 top-0 z-10 px-5 pt-28 sm:px-8">
-                <div className="mx-auto max-w-7xl">
-                  <BackButton onClick={() => navigate("/?section=projects")} />
+                <div className="article-meta mt-10">
+                  <span>2025</span>
+                  <span data-dot aria-hidden="true" />
+                  <span>Research</span>
+                </div>
+
+                <h1 className="article-title">Holding the Line</h1>
+                <p className="article-subtitle">
+                  Local journalists&rsquo; experiences amidst economic crisis and digital transformation in
+                  Australia&rsquo;s news ecosystem.
+                </p>
+
+                <div className="article-hero aspect-[16/9]">
+                  <img src={HERO_IMAGE} alt="Newspaper display" loading="eager" decoding="async" />
                 </div>
               </div>
-
-              <motion.div
-                className="absolute inset-x-0 bottom-0 z-10 px-5 pb-10 sm:px-8 sm:pb-14"
-                initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.78, ease: EASE_TEXT, delay: 0.18 }}
-              >
-                <div className="mx-auto max-w-7xl">
-                  <h1 className="max-w-5xl text-5xl font-semibold leading-[1.05] tracking-normal sm:text-7xl lg:text-8xl">
-                    Holding the Line
-                  </h1>
-                  <p className="mt-6 max-w-5xl text-2xl font-semibold leading-tight tracking-normal text-white/90 sm:text-3xl lg:text-4xl">
-                    Local journalists' experiences amidst economic crisis and digital transformation in Australia's news
-                    ecosystem.
-                  </p>
-                </div>
-              </motion.div>
             </div>
 
             <div className="relative z-20 bg-background px-5 py-12 sm:px-8 lg:py-16">
