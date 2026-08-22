@@ -11,25 +11,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 const continents: ("All" | Continent)[] = ["All", "Asia", "Europe", "Oceania", "United States"];
 
-// Featured photos for the editorial layout above the grid — randomized on every load
-const allPhotos = albums.flatMap((album) => albumPhotos(album));
-const pickRandom = (count: number) => {
-  const pool = [...allPhotos];
-  const picked: string[] = [];
-  for (let i = 0; i < count && pool.length; i++) {
-    picked.push(...pool.splice(Math.floor(Math.random() * pool.length), 1));
-  }
-  return picked;
-};
-const [heroPhoto, pairLeftPhoto, pairRightPhoto, overlapPhoto, bottomPhoto] = pickRandom(5);
-const featuredPhotos = {
-  hero: heroPhoto,
-  pairLeft: pairLeftPhoto,
-  pairRight: pairRightPhoto,
-  overlap: overlapPhoto,
-  bottom: bottomPhoto,
-};
-
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
