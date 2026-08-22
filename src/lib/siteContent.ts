@@ -60,7 +60,7 @@ export interface ProjectMedia {
 export interface ProjectItem {
   id: string;
   title: string;
-  source: "RESEARCH" | "WORK" | "REPORTING" | "PROJECT";
+  source: "RESEARCH" | "WORK" | "REPORTING" | "PROJECT" | "BLOG";
   year: string;
   summary: string;
   image: string;
@@ -97,33 +97,6 @@ export const newsItems: NewsItem[] = [
     imageUrl: `${NEWS_IMG_BASE}/truman.png`,
   },
   {
-    id: 3,
-    source: "OpenAI",
-    title: "Shared Early Product Feedback with OpenAI",
-    href: "#",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/55.png`,
-  },
-  {
-    id: 4,
-    source: "Washington University in St. Louis",
-    title: "Won 2024 Truman Scholarship",
-    href: "https://source.washu.edu/2024/04/junior-seiler-awarded-truman-scholarship/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
-    logoAlt: "WashU",
-    imageUrl: `${NEWS_IMG_BASE}/trumanII.png`,
-  },
-  {
-    id: 5,
-    source: "OpenAI",
-    title: "Contributed to 100 Chats Project with the ChatGPT Lab",
-    href: "https://chatgpt.com/100chats-project",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/100chats.png`,
-  },
-  {
     id: 6,
     source: "Washington University in St. Louis",
     title: "Named 2024 Rhodes Scholarship Finalist",
@@ -131,60 +104,6 @@ export const newsItems: NewsItem[] = [
     logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
     logoAlt: "WashU",
     imageUrl: `${NEWS_IMG_BASE}/rhodes.png`,
-  },
-  {
-    id: 7,
-    source: "Washington University in St. Louis",
-    title: "Won Fulbright Award to Taiwan",
-    href: "https://source.wustl.edu/2025/06/several-alumni-earn-fulbright-awards/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/Fulbright.png",
-    logoAlt: "Fulbright",
-    imageUrl: `${NEWS_IMG_BASE}/taipei.png`,
-  },
-  {
-    id: 8,
-    source: "OpenAI",
-    title: "Study Mode Spotlight on ChatGPT's Instagram",
-    href: "https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/study.png`,
-  },
-  {
-    id: 9,
-    source: "OpenAI",
-    title: "Testimonial Featured in ChatGPT Pulse Launch",
-    href: "https://openai.com/index/introducing-chatgpt-pulse/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/pulse.png`,
-  },
-  {
-    id: 10,
-    source: "OpenAI",
-    title: "Shared Early Browser Product Feedback with OpenAI",
-    href: "#",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
-    imageUrl: `${NEWS_IMG_BASE}/atlas.png`,
-  },
-  {
-    id: 11,
-    source: "Missouri College Media Awards",
-    title: "Won Award for Best College Newspaper Photography",
-    href: "https://source.washu.edu/2025/05/student-life-wins-best-newspaper-honor-at-missouri-college-media-awards/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
-    logoAlt: "WashU",
-    imageUrl: `${NEWS_IMG_BASE}/washuII.png`,
-  },
-  {
-    id: 12,
-    source: "Washington University in St. Louis",
-    title: "University Profile",
-    href: "https://artsci.washu.edu/ampersand/isaac-seiler-setting-his-sights-high",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
-    logoAlt: "WashU",
-    imageUrl: `${NEWS_IMG_BASE}/washu.png`,
   },
 ];
 
