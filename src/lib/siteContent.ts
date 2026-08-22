@@ -486,11 +486,11 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "fulbright-focus-group-sponsored-by-openai",
-    title: "Fulbright Taiwan Educator Lab with OpenAI Support",
+    title: "OpenAI Educator Lab and Conference Presentations",
     source: "PROJECT",
     year: "2025",
     summary:
-      "A six-session educator lab with OpenAI/ChatGPT for Education support, focused on practical and responsible uses of ChatGPT in education.",
+      "A six-session educator lab with OpenAI/ChatGPT for Education support, plus conference presentations translating AI into practical classroom applications.",
     image: projectImg.chatLab,
     sections: [
       {
@@ -510,15 +510,38 @@ export const projectItems: ProjectItem[] = [
         ],
       },
       {
+        heading: "Conference Presentation",
+        paragraphs: [
+          "I also developed and delivered an education conference presentation on how teachers can understand, evaluate, and responsibly apply AI in classroom contexts.",
+          "The session moved from fundamentals to practice: what AI is, how large language models work, why models can be useful and unreliable at the same time, and how educators can design classroom uses around clear learning goals instead of novelty.",
+        ],
+        bullets: [
+          "Build enough technical literacy to understand what AI systems can do, where they fail, and why outputs need review.",
+          "Keep human judgment central: AI can support the work, but educators should own the instructional decisions.",
+          "Choose tools around learning outcomes rather than model hype.",
+          "Verify anything students, colleagues, or families will rely on.",
+          "Prompt with precision by defining the goal, audience, constraints, and context before asking for output.",
+        ],
+        media: [
+          {
+            type: "pdf",
+            src: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf`,
+            title: "Artificial Intelligence in the Classroom",
+          },
+        ],
+      },
+      {
         heading: "Final Products",
         links: [
           { label: "Substack Post", href: "https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan" },
           { label: "Fulbright Taiwan ChatGPT Lab Notion Page", href: "https://notion.so/ChatGPT-Lab-x-Fulbright-Taiwan-261aaef174d680579138e8c1c658ab41" },
           { label: "PowerPoint Introduction to the Lab", href: "https://docs.google.com/presentation/d/1ZqOp_1KQte52BNBR5OBmOJThCufkNnBtVLBhNW_rkps/edit?slide=id.g38cd4d0aa4c_0_33#slide=id.g38cd4d0aa4c_0_33" },
+          { label: "Conference Slide Deck", href: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf` },
         ],
       },
     ],
   },
+
 
   {
     id: "boehringer-cares-foundation-rebrand-strategy-shift",
