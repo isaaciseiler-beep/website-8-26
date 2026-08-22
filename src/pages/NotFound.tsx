@@ -42,7 +42,7 @@ const NotFound = () => {
           <span aria-hidden="true">(</span>
         </div>
 
-        <h1 className="max-w-[58rem] font-['Segoe_UI',Arial,sans-serif] text-[clamp(1.9rem,4.1vw,3.35rem)] font-light leading-[1.34] tracking-normal">
+        <h1 className="max-w-[58rem] font-['Segoe_UI',Arial,sans-serif] text-[clamp(1.9rem,4.1vw,3.35rem)] font-light leading-[1.44] tracking-normal">
           The page you are looking for doesn't seem to exist. I probably accidentally deleted it.
         </h1>
 

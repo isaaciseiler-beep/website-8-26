@@ -308,7 +308,7 @@ const SeniorThesisLocalJournalismPage = () => {
                 transition={{ duration: 0.78, ease: EASE_TEXT, delay: 0.18 }}
               >
                 <div className="mx-auto max-w-7xl">
-                  <h1 className="max-w-5xl text-5xl font-semibold leading-[0.95] tracking-normal sm:text-7xl lg:text-8xl">
+                  <h1 className="max-w-5xl text-5xl font-semibold leading-[1.05] tracking-normal sm:text-7xl lg:text-8xl">
                     Holding the Line
                   </h1>
                   <p className="mt-6 max-w-5xl text-2xl font-semibold leading-tight tracking-normal text-white/90 sm:text-3xl lg:text-4xl">

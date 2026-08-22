@@ -480,7 +480,7 @@ const ExhibitPanel = ({ exhibit, nearby }: { exhibit: ExperienceExhibit; nearby:
       <div className="absolute inset-0 bg-gradient-to-t from-[#06110d]/90 via-transparent to-transparent" />
       <div className="absolute bottom-3 left-3 right-3">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#d7ff4f]">{exhibit.period}</p>
-        <h2 className="mt-1 text-2xl leading-[0.96] tracking-tight text-[#f2f0e8]">{exhibit.organization}</h2>
+        <h2 className="mt-1 text-2xl leading-[1.06] tracking-tight text-[#f2f0e8]">{exhibit.organization}</h2>
       </div>
     </div>
 
@@ -774,7 +774,7 @@ const ExperienceGamePage = () => {
                 >
                   <div className="max-w-lg border border-[#d7ff4f]/36 bg-[#06110d]/88 p-5 text-center shadow-2xl shadow-black/40">
                     <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#d7ff4f]">Gallery booted</p>
-                    <h2 className="mt-3 text-4xl leading-[0.9] tracking-tight text-[#f2f0e8] sm:text-6xl">
+                    <h2 className="mt-3 text-4xl leading-[1] tracking-tight text-[#f2f0e8] sm:text-6xl">
                       Walk the resume.
                     </h2>
                     <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-white/68">
