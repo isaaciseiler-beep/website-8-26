@@ -188,7 +188,12 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
   "fulbright-focus-group-sponsored-by-openai": {
     date: "2025",
     topics: ["education", "OpenAI", "Fulbright", "ChatGPT Lab", "teacher training"],
-    tags: ["Taiwan", "OpenAI for Education", "ChatGPT for Education", "ChatGPT Lab x Fulbright Taiwan", "focus group", "classroom use cases", "lesson planning", "educators", "Substack"],
+    tags: ["Taiwan", "OpenAI for Education", "ChatGPT for Education", "ChatGPT Lab x Fulbright Taiwan", "20 educators", "19 institutions", "six counties", "classroom use cases", "lesson planning", "educators", "Substack", "conference workshop"],
+  },
+  "openai-product-testing-and-feedback": {
+    date: "2025-present",
+    topics: ["OpenAI", "ChatGPT Lab", "product testing", "go-to-market", "student experience"],
+    tags: ["100 Chats", "Study Mode", "Back to School", "ChatGPT Pulse", "ChatGPT Atlas", "Group Chats", "Hillary Bush", "early product feedback", "launch campaigns", "Instagram"],
   },
   "boehringer-cares-foundation-rebrand-strategy-shift": {
     date: "2025",

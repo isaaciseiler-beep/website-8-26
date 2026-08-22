@@ -12,7 +12,7 @@ Isaac Seiler is a Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab memb
 
 ## High-Priority Project Pages
 
-- [OpenAI Educator Lab and Conference Presentations](https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai): Isaac Seiler founded and led the Fulbright Taiwan ChatGPT Lab, an OpenAI-supported educator lab focused on practical, responsible ChatGPT use cases in education.
+- [The ChatGPT Lab I Built in Taiwan](https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai): Isaac Seiler founded and led the Fulbright Taiwan ChatGPT Lab, an OpenAI-supported educator lab focused on practical, responsible ChatGPT use cases in education.
 - [Artificial Intelligence in State Government Index](https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index): A public benchmark by Isaac Seiler measuring generative AI adoption, training, governance, pilots, transparency, and preparedness across U.S. states and territories.
 - [AI Platforms and Journalism Research](https://www.isaacseiler.xyz/projects/senior-thesis-local-journalism): Isaac Seiler's honors thesis analyzed AI, digital platforms, local journalism, democratic accountability, media policy, and newsroom labor through qualitative interviews.
 - [Congressional Office Setup and 100 Day Report](https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report): Isaac Seiler helped stand up a new congressional office and produced early systems, staffing, metrics, communications, and first-100-day reporting.
@@ -22,7 +22,7 @@ Isaac Seiler is a Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab memb
 - [The 2022 Institute for Nonprofit News Index Survey](https://www.isaacseiler.xyz/projects/2022-institute-for-nonprofit-news-index-survey): A large-scale nonprofit news research project involving data collection, survey synthesis, and direct stakeholder outreach.
 - [Raised $20k for Local St. Louis Organizations](https://www.isaacseiler.xyz/projects/stl-immigrant-refugee-support-grant-process): A student-led philanthropy process by Isaac Seiler's WashU team evaluating and supporting St. Louis immigrant and refugee-serving nonprofits.
 - [Exclusive Interview with High-Visibility Congressperson](https://www.isaacseiler.xyz/projects/exclusive-interview-with-high-visibility-congressperson): Early access-driven political reporting on then-Congressman Peter Meijer during a volatile post-impeachment period.
-- [OpenAI Product Testing and Feedback](https://www.isaacseiler.xyz/projects/openai-product-testing-and-feedback): Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.
+- [Helping Shape ChatGPT Before Launch](https://www.isaacseiler.xyz/projects/openai-product-testing-and-feedback): Inside my work with OpenAI's first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.
 - [Won Fulbright Award to Taiwan](https://www.isaacseiler.xyz/projects/fulbright-award-to-taiwan): A sample blog post about leaving one life for another: notes, packing lists, and imaginary itineraries for a year that has not happened yet.
 
 ## Key Topics

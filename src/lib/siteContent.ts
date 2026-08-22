@@ -1,5 +1,6 @@
 const PROJECT_IMG_BASE = "/project-images";
 const PROJECT_FILE_BASE = "https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev";
+const CHAT_LAB_ASSET_BASE = "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab";
 const projectImg = {
   aiClassroom: `${PROJECT_IMG_BASE}/ai-classroom.jpg`,
   aiIndex: `${PROJECT_IMG_BASE}/aiindex.jpg`,
@@ -45,11 +46,16 @@ export interface ProjectSection {
 }
 
 export interface ProjectMedia {
-  type: "image" | "carousel" | "pdf";
+  type: "image" | "carousel" | "gallery" | "video" | "pdf";
   src?: string;
   alt?: string;
   caption?: string;
   title?: string;
+  href?: string;
+  poster?: string;
+  fallbackPoster?: string;
+  placement?: "top" | "before-links" | "bottom";
+  layout?: "full" | "half-left" | "half-right" | "two-up" | "two-up-square" | "three-up";
   images?: {
     src: string;
     alt: string;
@@ -64,6 +70,7 @@ export interface ProjectItem {
   year: string;
   summary: string;
   image: string;
+  hideHero?: boolean;
   sections: ProjectSection[];
 }
 
@@ -354,41 +361,63 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "fulbright-focus-group-sponsored-by-openai",
-    title: "OpenAI Educator Lab and Conference Presentations",
+    title: "The ChatGPT Lab I Built in Taiwan",
     source: "PROJECT",
     year: "2025",
     summary:
-      "A six-session educator lab with OpenAI/ChatGPT for Education support, plus conference presentations translating AI into practical classroom applications.",
+      "I brought 20 Fulbright educators together for six weeks to test how ChatGPT could actually help in classrooms, then turned what we learned into workshops, public resources, and an OpenAI-published field guide.",
     image: projectImg.chatLab,
     sections: [
       {
-        heading: "Overview",
+        heading: "It started with a gap I could see",
         paragraphs: [
-          "I founded and led the Fulbright Taiwan ChatGPT Lab, an OpenAI-supported educator lab focused on practical classroom uses of ChatGPT.",
-          "The Lab brought together Fulbright educators to explore practical, responsible uses of ChatGPT in education. Over six structured sessions, I designed the curriculum, facilitated discussions, and guided participants toward concrete classroom use cases.",
-          "The Lab culminated in a published Substack with specific, lightweight use cases of ChatGPT that educators of all kinds can utilize in their daily workflows.",
+          "I started using ChatGPT in 2022 while working in congressional communications. By the time I arrived in Taiwan as a Fulbright educator, it had become a whole toolbox for me. But most people around me were still using it for one thing: summarizing a PDF.",
+          "That gap felt worth doing something about. With support from OpenAI's education team, I built the Fulbright Taiwan ChatGPT Lab: a place where educators could try the technology together, compare notes honestly, and find uses that made sense in a real classroom.",
         ],
       },
       {
-        heading: "Key Components of the Lab",
+        heading: "Building the room",
+        paragraphs: [
+          "The Lab brought together 20 Fulbright educators working at 19 institutions across six counties in Taiwan, with experience spanning every grade from elementary school through high school.",
+          "I designed and facilitated six weekly sessions. We moved from the basics of how large language models work into live experimentation, peer critique, and conversations about where AI was genuinely helpful—and where a teacher's judgment still mattered more.",
+        ],
         bullets: [
-          "Developed the Lab's structure with OpenAI/ChatGPT for Education support.",
-          "Independently facilitated six stakeholder sessions.",
-          "Produced nine specific uses of ChatGPT for educators, summarized in a Substack post authored by me.",
+          "Lesson planning that started with a clear learning goal instead of a flashy tool.",
+          "Language support for formal emails, sport-specific vocabulary, and cross-cultural misunderstandings.",
+          "Classroom games, discussion prompts, cultural comparisons, and visual materials for younger learners.",
+          "Everyday workflows that helped educators plan, communicate, travel, and live abroad.",
         ],
       },
       {
-        heading: "Conference Presentation",
+        heading: "What the testing taught us",
         paragraphs: [
-          "I also developed and delivered an education conference presentation on how teachers can understand, evaluate, and responsibly apply AI in classroom contexts.",
-          "The session moved from fundamentals to practice: what AI is, how large language models work, why models can be useful and unreliable at the same time, and how educators can design classroom uses around clear learning goals instead of novelty.",
+          "The strongest ideas were rarely the most complicated. ChatGPT was useful when it gave an educator a better starting point, translated context they were struggling to explain, or made a lesson easier to adapt for a particular group of students.",
+          "It also failed in revealing ways. A polished answer could still miss cultural nuance, overstuff a lesson, or sound more certain than it should. The Lab worked because people could put those failures on the table and improve the workflow together.",
+        ],
+      },
+      {
+        heading: "Turning the sessions into something public",
+        paragraphs: [
+          "I did not want the useful parts to disappear when the six weeks ended. I worked with participants to turn what we had learned into a practical collection of chats for educators, then wrote the story for OpenAI's education newsletter.",
+          "The result was less a list of AI tricks than a field guide: concrete examples, built by educators, that another teacher could pick up and adapt without needing to become an AI expert first.",
+        ],
+        links: [
+          { label: "Read the OpenAI field guide", href: "https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan" },
+          { label: "Explore the Lab workspace", href: "https://notion.so/ChatGPT-Lab-x-Fulbright-Taiwan-261aaef174d680579138e8c1c658ab41" },
+          { label: "See the Lab introduction", href: "https://docs.google.com/presentation/d/1ZqOp_1KQte52BNBR5OBmOJThCufkNnBtVLBhNW_rkps/edit?slide=id.g38cd4d0aa4c_0_33#slide=id.g38cd4d0aa4c_0_33" },
+        ],
+      },
+      {
+        heading: "From a small lab to a bigger classroom",
+        paragraphs: [
+          "The Lab also became the foundation for a workshop I delivered at an international education conference with more than 250 attendees. I wanted educators to leave with enough technical literacy to ask better questions—not a sales pitch for any one model.",
+          "We talked about why a system can be useful and unreliable at the same time, how to verify outputs, and why the learning goal has to come before the tool. That remains the throughline of the project for me: responsible AI adoption is ultimately a human practice.",
         ],
         bullets: [
-          "Build enough technical literacy to understand what AI systems can do, where they fail, and why outputs need review.",
-          "Keep human judgment central: AI can support the work, but educators should own the instructional decisions.",
-          "Choose tools around learning outcomes rather than model hype.",
-          "Verify anything students, colleagues, or families will rely on.",
-          "Prompt with precision by defining the goal, audience, constraints, and context before asking for output.",
+          "Understand what the system is doing well enough to recognize its limits.",
+          "Keep teachers in charge of instructional decisions.",
+          "Choose a tool because it serves a learning outcome, not because it is new.",
+          "Verify anything a student, colleague, or family will rely on.",
         ],
         media: [
           {
@@ -399,12 +428,13 @@ export const projectItems: ProjectItem[] = [
         ],
       },
       {
-        heading: "Final Products",
+        heading: "What stayed with me",
+        paragraphs: [
+          "The best part of the Lab was not proving that ChatGPT belonged in every classroom. It was giving educators enough room to decide where it belonged in theirs.",
+          "Good adoption looks less like a mandate and more like a group of people sharing what worked, naming what did not, and leaving with sharper judgment than they arrived with. That is the kind of room I want to keep building.",
+        ],
         links: [
-          { label: "Substack Post", href: "https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan" },
-          { label: "Fulbright Taiwan ChatGPT Lab Notion Page", href: "https://notion.so/ChatGPT-Lab-x-Fulbright-Taiwan-261aaef174d680579138e8c1c658ab41" },
-          { label: "PowerPoint Introduction to the Lab", href: "https://docs.google.com/presentation/d/1ZqOp_1KQte52BNBR5OBmOJThCufkNnBtVLBhNW_rkps/edit?slide=id.g38cd4d0aa4c_0_33#slide=id.g38cd4d0aa4c_0_33" },
-          { label: "Conference Slide Deck", href: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf` },
+          { label: "View the conference deck", href: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf` },
         ],
       },
     ],
@@ -502,36 +532,175 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "openai-product-testing-and-feedback",
-    title: "OpenAI Product Testing and Feedback",
+    title: "Helping Shape ChatGPT Before Launch",
     source: "PROJECT",
-    year: "2025",
+    year: "2025–Present",
     summary:
-      "Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.",
+      "Inside my work with OpenAI's first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.",
     image: projectImg.chatLab,
+    hideHero: true,
     sections: [
       {
-        heading: "Overview",
+        heading: "A seat close to the product",
         paragraphs: [
-          "As a member of OpenAI's ChatGPT Lab, I test early products and share structured feedback with the teams building them.",
-          "That work spans pre-release product feedback, contributions to public projects, and testimonials featured in launch materials.",
+          "In spring 2025, I joined the first cohort of OpenAI's ChatGPT Lab. I came in as a student, researcher, and very heavy ChatGPT user—not as an engineer. My job was to notice what felt useful, what broke down, and what would make a new product make sense to people like me.",
+          "The work moved between product diaries, feedback sessions, launch campaigns, and public stories. I also had the chance to work with Hillary Bush and other OpenAI leaders, bringing a student and early-career perspective into product and go-to-market conversations.",
+          "What follows is the product-by-product version: what I tested, what I pushed on, and what eventually made it into the world.",
         ],
       },
       {
-        heading: "Contributions",
+        heading: "100 Chats: turning behavior into a book",
+        paragraphs: [
+          "The first big project asked a deceptively simple question: what are college students actually using ChatGPT for? Together, the Lab built a collection of 100 real workflows—less a prompt library than a snapshot of how students were learning, creating, researching, and getting unstuck.",
+          "My contributions came from the places I was already using ChatGPT: research, writing, policy, and the small technical problems that can derail a day. I helped turn those examples into a public book and story that other students could recognize themselves in.",
+        ],
         bullets: [
-          "Contributed to the 100 Chats Project with the ChatGPT Lab.",
-          "Shared early product feedback with OpenAI ahead of public releases.",
-          "Shared early feedback on OpenAI's browser product.",
-          "Testimonial featured in the ChatGPT Pulse launch.",
-          "Study Mode use case spotlighted on ChatGPT's Instagram.",
+          "Explaining a complex news-media bargaining policy from ten different angles.",
+          "Generating stronger academic titles and a clean first-pass abstract.",
+          "Making sense of a statistical correlation in my electric-vehicle research.",
+          "Turning an opaque error message into a practical next step.",
+        ],
+        links: [
+          { label: "Explore the 100 Chats Project", href: "https://chatgpt.com/100chats-project" },
+          { label: "Read 100 ways college students use ChatGPT", href: "https://edunewsletter.openai.com/p/100-ways-college-students-are-using" },
+        ],
+        media: [
+          {
+            type: "image",
+            layout: "full",
+            placement: "top",
+            src: `${CHAT_LAB_ASSET_BASE}/chatgpt-100-chats-cover.png`,
+            alt: "Cover artwork for the ChatGPT 100 Chats project",
+          },
+          {
+            type: "image",
+            layout: "full",
+            placement: "before-links",
+            src: `${CHAT_LAB_ASSET_BASE}/chatgpt-100-chats-chat-4.png`,
+            alt: "One of Isaac's contributed chats in the 100 Chats project",
+          },
         ],
       },
       {
-        heading: "References",
+        heading: "Study Mode: making ChatGPT teach, not answer",
+        paragraphs: [
+          "Study Mode was the clearest test of a tension I had felt as both a student and teaching assistant: an answer can be correct and still short-circuit the learning.",
+          "I used the early experience to think through graduate school and a five-year career plan. I liked that it made me supply the substance instead of pretending the model knew what I wanted. My biggest push was about the ending: good Socratic questions still need to help a user land the plane.",
+          "When Study Mode launched, OpenAI highlighted my use case in its student storytelling. It was satisfying to see a product move toward the kind of critical engagement I had wanted from it in testing.",
+        ],
         links: [
-          { label: "100 Chats Project", href: "https://chatgpt.com/100chats-project" },
-          { label: "Introducing ChatGPT Pulse", href: "https://openai.com/index/introducing-chatgpt-pulse/" },
-          { label: "Study Mode Spotlight", href: "https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/" },
+          { label: "Explore Study Mode at OpenAI", href: "https://openai.com/index/chatgpt-study-mode/" },
+          { label: "Watch the ChatGPT Instagram feature", href: "https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/" },
+          { label: "Read my launch reflection", href: "https://www.linkedin.com/posts/isaacseiler_this-is-a-game-changer-for-studentsand-learners-activity-7356073209227603973-IpU6" },
+        ],
+        media: [
+          {
+            type: "image",
+            src: `${CHAT_LAB_ASSET_BASE}/OpenAI_StudyMode_Flow_7-29-2508576550.png`,
+            alt: "OpenAI Study Mode product flow",
+            layout: "full",
+            placement: "top",
+          },
+        ],
+      },
+      {
+        heading: "Back to School: translating a product into campus life",
+        paragraphs: [
+          "The Back-to-School work was separate from Study Mode. This was not about changing how the product reasoned; it was about making the broader campaign feel like it understood what students were actually trying to do.",
+          "I reviewed campaign concepts and prompt cards, pushed for more career and professional-development examples, and contributed a real prompt about finding a policy internship in Washington, D.C. I also gave feedback on how physical campus activations could feel participatory instead of promotional.",
+          "That distinction mattered to me. A strong education product and a strong student campaign solve different problems, even when they launch in the same season.",
+        ],
+        links: [
+          { label: "Explore OpenAI for Education", href: "https://openai.com/education/" },
+        ],
+        media: [
+          {
+            type: "image",
+            src: `${CHAT_LAB_ASSET_BASE}/backtoschool.avif`,
+            alt: "ChatGPT Back-to-School campaign creative",
+            layout: "full",
+            placement: "top",
+          },
+        ],
+      },
+      {
+        heading: "Pulse: when ChatGPT starts the conversation",
+        paragraphs: [
+          "Pulse flipped the usual interaction: instead of opening ChatGPT with a question, I woke up to personalized research waiting for me. Over several days, I tested how that felt in ordinary life—news, career planning, creative work, travel, and the logistics of moving to Taiwan.",
+          "The moments of real personalization felt like magic. My feedback focused on making those moments easier to find and trust: a more visible home for Pulse, compact cards, clearer sources, better preference controls, and fewer canned acknowledgements.",
+          "OpenAI's launch story featured my experience using calendar context to catch an unused day of PTO and turn it into a plan. That small example captured the promise for me: proactive AI should help me act, not just give me more to scroll.",
+        ],
+        links: [
+          { label: "Meet ChatGPT Pulse", href: "https://openai.com/index/introducing-chatgpt-pulse/" },
+        ],
+        media: [
+          {
+            type: "gallery",
+            layout: "two-up-square",
+            placement: "top",
+            images: [
+              { src: `${CHAT_LAB_ASSET_BASE}/pulse1.webp`, alt: "ChatGPT Pulse personalized update" },
+              { src: `${CHAT_LAB_ASSET_BASE}/pulse3.webp`, alt: "ChatGPT Pulse mobile experience" },
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Atlas: rethinking the browser",
+        paragraphs: [
+          "For OpenAI's browser work, I tested a basic premise: what changes when the assistant understands the page you are already on? I used early builds for travel research, translating Mandarin-language pages, comparing options, and turning scattered findings into an itinerary or map.",
+          "I kept coming back to the seam between browsing and chatting. I wanted fewer moments where the two felt like separate products, more control over the model doing the work, and recommendations that looked useful rather than ad-like.",
+          "The most convincing experiences were not grand. They were the minutes saved moving between a page, a question, and a decision.",
+        ],
+        links: [
+          { label: "Meet ChatGPT Atlas", href: "https://openai.com/index/introducing-chatgpt-atlas/" },
+        ],
+        media: [
+          {
+            type: "video",
+            placement: "top",
+            title: "Introducing ChatGPT Atlas",
+            href: "https://openai.com/index/introducing-chatgpt-atlas/?video=1129227761",
+            poster: `${CHAT_LAB_ASSET_BASE}/atlas.webp`,
+            fallbackPoster: "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          },
+          {
+            type: "image",
+            src: `${CHAT_LAB_ASSET_BASE}/atlas.webp`,
+            alt: "ChatGPT Atlas browser experience",
+            layout: "half-right",
+          },
+        ],
+      },
+      {
+        heading: "Group Chats: learning when AI should speak",
+        paragraphs: [
+          "The early messaging concept started with a question I could not immediately answer: why would I direct-message someone inside ChatGPT? The more interesting version emerged when several people and the assistant shared one room.",
+          "I tested the experience as a group facilitator and pushed on the assistant's social judgment. It often participated too little or sounded too canned. I wanted people to be able to tune how active it was—to make ChatGPT a useful collaborator without letting it take over the conversation.",
+          "That work reinforced something I saw across every product: intelligence is only part of the design problem. Timing, restraint, and a clear role matter just as much.",
+        ],
+        links: [
+          { label: "Explore group chats in ChatGPT", href: "https://openai.com/index/group-chats-in-chatgpt/" },
+        ],
+        media: [
+          {
+            type: "video",
+            placement: "top",
+            title: "Introducing group chats in ChatGPT",
+            href: "https://openai.com/index/group-chats-in-chatgpt/?video=1138973380",
+            poster: `${CHAT_LAB_ASSET_BASE}/Group_Chat__Blog__1920x1080__2_.webp`,
+          },
+        ],
+      },
+      {
+        heading: "What I learned from the Lab",
+        paragraphs: [
+          "Before the Lab, I thought product feedback mostly meant finding bugs or asking for features. I learned that the more valuable work is often translation: connecting what a team built to the messy way a person is actually trying to learn, plan, or make a decision.",
+          "The products were different, but my questions stayed consistent. Does this make the user more capable? Is the source of the answer visible? Does the interface help someone understand what to do next? And does the launch story match the real experience?",
+          "That is the work I want to keep doing—somewhere between the people building the technology and the people deciding whether it belongs in their lives.",
+        ],
+        links: [
+          { label: "Read my one-year ChatGPT Lab reflection", href: "https://www.linkedin.com/posts/isaacseiler_its-been-a-year-since-i-interviewed-for-activity-7432119878079340544-qPPf" },
         ],
       },
     ],

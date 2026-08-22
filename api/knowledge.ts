@@ -72,10 +72,10 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
   },
   {
     id: "fulbright-chatgpt-lab",
-    title: "Fulbright Taiwan Educator Lab with OpenAI Support",
+    title: "The ChatGPT Lab I Built in Taiwan",
     source: "Project",
     content:
-      "A 2025 six-session educator lab with OpenAI/ChatGPT for Education support. Isaac founded and led the Fulbright Taiwan ChatGPT Lab, bringing Fulbright educators together to explore practical, responsible uses of ChatGPT in education. He facilitated six sessions, designed curriculum, and produced nine lightweight educator use cases summarized in a published ChatGPT for Education post.",
+      "A 2025 six-session educator lab with OpenAI education support. Isaac founded and led the Fulbright Taiwan ChatGPT Lab for 20 educators working across 19 institutions, six counties, and all 12 grade levels. He designed and facilitated the curriculum, helped participants test practical and responsible classroom workflows, wrote an OpenAI-published field guide, and turned the work into a workshop for an international education conference with more than 250 attendees.",
     url: "/projects/fulbright-focus-group-sponsored-by-openai",
   },
   {
@@ -136,10 +136,10 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
   },
   {
     id: "openai-product-testing",
-    title: "OpenAI Product Testing and Feedback",
+    title: "Helping Shape ChatGPT Before Launch",
     source: "Project",
     content:
-      "Early product testing and feedback across ChatGPT products as a member of OpenAI's ChatGPT Lab, including the 100 Chats Project, a testimonial featured in the ChatGPT Pulse launch, a Study Mode spotlight on ChatGPT's Instagram, and early browser product feedback. Keep wording careful and public.",
+      "As a member of the first ChatGPT Lab cohort, Isaac tested products before launch and translated real student behavior into product and go-to-market feedback. His work includes the 100 Chats book, Study Mode testing and a ChatGPT Instagram feature, a distinct Back-to-School campaign, a testimonial in the ChatGPT Pulse launch, early ChatGPT Atlas browser feedback, and testing the collaboration model that became Group Chats. He also worked with Hillary Bush and other OpenAI leaders through the Lab.",
     url: "/projects/openai-product-testing-and-feedback",
   },
   {

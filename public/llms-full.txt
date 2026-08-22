@@ -15,19 +15,19 @@ Isaac's work sits between AI, education, public institutions, journalism, commun
 
 ## Projects
 
-### OpenAI Educator Lab and Conference Presentations
+### The ChatGPT Lab I Built in Taiwan
 
 URL: https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai
 Year: 2025
 Type: PROJECT
 Summary: Isaac Seiler founded and led the Fulbright Taiwan ChatGPT Lab, an OpenAI-supported educator lab focused on practical, responsible ChatGPT use cases in education.
-Keywords: OpenAI Educator Lab and Conference Presentations, PROJECT, 2025, A six-session educator lab with OpenAI/ChatGPT for Education support, plus conference presentations translating AI into practical classroom applications., ChatGPT Lab, OpenAI for Education, ChatGPT for Education, Fulbright Taiwan, Fulbright ChatGPT Lab, OpenAI education newsletter, AI in education, teacher AI training, 100 Chats Project, OpenAI, ChatGPT, Fulbright Taiwan, AI education, teacher training
+Keywords: The ChatGPT Lab I Built in Taiwan, PROJECT, 2025, I brought 20 Fulbright educators together for six weeks to test how ChatGPT could actually help in classrooms, then turned what we learned into workshops, public resources, and an OpenAI-published field guide., ChatGPT Lab, OpenAI for Education, ChatGPT for Education, Fulbright Taiwan, Fulbright ChatGPT Lab, OpenAI education newsletter, AI in education, teacher AI training, 100 Chats Project, OpenAI, ChatGPT, Fulbright Taiwan, AI education, teacher training
 Primary image: https://www.isaacseiler.xyz/project-images/chatlab.jpg
 Links:
-  - Substack Post: https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan
-  - Fulbright Taiwan ChatGPT Lab Notion Page: https://notion.so/ChatGPT-Lab-x-Fulbright-Taiwan-261aaef174d680579138e8c1c658ab41
-  - PowerPoint Introduction to the Lab: https://docs.google.com/presentation/d/1ZqOp_1KQte52BNBR5OBmOJThCufkNnBtVLBhNW_rkps/edit?slide=id.g38cd4d0aa4c_0_33#slide=id.g38cd4d0aa4c_0_33
-  - Conference Slide Deck: https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev/Artificial%20Intelligence%20in%20the%20Classroom.pdf
+  - Read the OpenAI field guide: https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan
+  - Explore the Lab workspace: https://notion.so/ChatGPT-Lab-x-Fulbright-Taiwan-261aaef174d680579138e8c1c658ab41
+  - See the Lab introduction: https://docs.google.com/presentation/d/1ZqOp_1KQte52BNBR5OBmOJThCufkNnBtVLBhNW_rkps/edit?slide=id.g38cd4d0aa4c_0_33#slide=id.g38cd4d0aa4c_0_33
+  - View the conference deck: https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev/Artificial%20Intelligence%20in%20the%20Classroom.pdf
 
 ### Artificial Intelligence in State Government Index
 
@@ -134,18 +134,25 @@ Links:
   - Rep. Meijer defends filibuster, merit-based immigration, vote for impeachment: https://calvinchimes.org/2021/04/08/rep-meijer-defends-filibuster-merit-based-immigration-vote-for-impeachment/
   - Rep. Meijer faces censures, primary challenge over impeachment vote: https://calvinchimes.org/2021/02/24/rep-meijer-faces-censures-primary-challenge-over-impeachment-vote/
 
-### OpenAI Product Testing and Feedback
+### Helping Shape ChatGPT Before Launch
 
 URL: https://www.isaacseiler.xyz/projects/openai-product-testing-and-feedback
-Year: 2025
+Year: 2025–Present
 Type: PROJECT
-Summary: Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.
-Keywords: OpenAI Product Testing and Feedback, PROJECT, 2025, Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.
+Summary: Inside my work with OpenAI's first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.
+Keywords: Helping Shape ChatGPT Before Launch, PROJECT, 2025–Present, Inside my work with OpenAI's first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.
 Primary image: https://www.isaacseiler.xyz/project-images/chatlab.jpg
 Links:
-  - 100 Chats Project: https://chatgpt.com/100chats-project
-  - Introducing ChatGPT Pulse: https://openai.com/index/introducing-chatgpt-pulse/
-  - Study Mode Spotlight: https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/
+  - Explore the 100 Chats Project: https://chatgpt.com/100chats-project
+  - Read 100 ways college students use ChatGPT: https://edunewsletter.openai.com/p/100-ways-college-students-are-using
+  - Explore Study Mode at OpenAI: https://openai.com/index/chatgpt-study-mode/
+  - Watch the ChatGPT Instagram feature: https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/
+  - Read my launch reflection: https://www.linkedin.com/posts/isaacseiler_this-is-a-game-changer-for-studentsand-learners-activity-7356073209227603973-IpU6
+  - Explore OpenAI for Education: https://openai.com/education/
+  - Meet ChatGPT Pulse: https://openai.com/index/introducing-chatgpt-pulse/
+  - Meet ChatGPT Atlas: https://openai.com/index/introducing-chatgpt-atlas/
+  - Explore group chats in ChatGPT: https://openai.com/index/group-chats-in-chatgpt/
+  - Read my one-year ChatGPT Lab reflection: https://www.linkedin.com/posts/isaacseiler_its-been-a-year-since-i-interviewed-for-activity-7432119878079340544-qPPf
 
 ### Won Fulbright Award to Taiwan
 

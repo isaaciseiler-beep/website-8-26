@@ -262,7 +262,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                       >
                         <button
                           onClick={() => handleItemClick(item)}
-                          className={`text-left py-1.5 text-[28px] font-medium leading-none transition-colors duration-300 origin-left md:text-sm md:leading-normal ${
+                          className={`sidebar-main-nav-item origin-left py-1.5 text-left transition-colors duration-300 ${
                             active ? "text-foreground" : "text-foreground/30 hover:text-foreground/60"
                           }`}
                         >
@@ -276,13 +276,13 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                             aria-label={`${expanded ? "Collapse" : "Expand"} ${item.label} links`}
                             aria-expanded={expanded}
                             aria-controls={`sidebar-${item.id}-children`}
-                            className={`site-corner flex h-7 w-7 items-center justify-center transition-colors duration-300 md:h-5 md:w-5 ${
+                            className={`sidebar-main-nav-item site-corner flex h-[0.9em] w-[0.9em] items-center justify-center transition-colors duration-300 ${
                               active ? "text-foreground" : "text-foreground/30 hover:text-foreground/60"
                             }`}
                             animate={{ rotate: expanded ? 90 : 0 }}
                             transition={{ duration: 0.42, ease: EASE_TEXT }}
                           >
-                            <ChevronRight className="h-4 w-4 md:h-3.5 md:w-3.5" strokeWidth={1.65} />
+                            <ChevronRight className="h-[0.5625em] w-[0.5625em]" strokeWidth={1.65} />
                           </motion.button>
                         ) : null}
                       </motion.div>
@@ -307,7 +307,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                                   exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
                                   transition={{ duration: 0.34, ease: EASE }}
                                   onClick={() => handleChildClick(child)}
-                                  className={`block py-1.5 pl-6 text-left text-[28px] font-medium leading-none transition-colors duration-300 origin-left md:pl-4 md:text-sm md:leading-normal ${
+                                  className={`sidebar-main-nav-item block origin-left py-1.5 pl-6 text-left transition-colors duration-300 md:pl-4 ${
                                     childActive ? "text-foreground" : "text-foreground/30 hover:text-foreground/60"
                                   }`}
                                 >

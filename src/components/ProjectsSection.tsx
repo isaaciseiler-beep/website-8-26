@@ -22,6 +22,14 @@ const isAiSubject = (...values: (string | undefined)[]) =>
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+const HIDDEN_PROJECT_IDS = new Set([
+  "communications-consultancy-supporting-local-candidates",
+  "2022-institute-for-nonprofit-news-index-survey",
+  "exclusive-interview-with-high-visibility-congressperson",
+  "fulbright-award-to-taiwan",
+]);
+const HIDDEN_NEWS_IDS = new Set([2, 6]);
+
 type Entry =
   | { kind: "project"; id: string; node: ProjectItem }
   | { kind: "news"; id: string; node: (typeof newsItems)[number] };
@@ -30,16 +38,20 @@ const ProjectsSection = () => {
   const [filter, setFilter] = useState<ProjectFilter>("ALL");
 
   const entries = useMemo<Entry[]>(() => {
-    const projectEntries: Entry[] = projectItems.map((project) => ({
-      kind: "project",
-      id: `project-${project.id}`,
-      node: project,
-    }));
-    const newsEntries: Entry[] = newsItems.map((item) => ({
-      kind: "news",
-      id: `news-${item.id}`,
-      node: item,
-    }));
+    const projectEntries: Entry[] = projectItems
+      .filter((project) => !HIDDEN_PROJECT_IDS.has(project.id))
+      .map((project) => ({
+        kind: "project",
+        id: `project-${project.id}`,
+        node: project,
+      }));
+    const newsEntries: Entry[] = newsItems
+      .filter((item) => !HIDDEN_NEWS_IDS.has(item.id))
+      .map((item) => ({
+        kind: "news",
+        id: `news-${item.id}`,
+        node: item,
+      }));
 
     if (filter === "BLOG") {
       return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source === "BLOG");

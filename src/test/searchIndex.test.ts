@@ -16,7 +16,7 @@ describe("search index", () => {
   });
 
   it("finds education work without exact title terms", () => {
-    expect(titlesFor("classroom teaching with chatgpt", "projects")).toContain("Fulbright Taiwan Educator Lab with OpenAI Support");
+    expect(titlesFor("classroom teaching with chatgpt", "projects")).toContain("The ChatGPT Lab I Built in Taiwan");
   });
 
   it("groups photo album matches separately", () => {

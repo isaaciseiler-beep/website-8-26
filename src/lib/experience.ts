@@ -65,12 +65,12 @@ export const experienceEntries: ExperienceEntry[] = [
     period: "Mar 2025-Present",
     image: "/experience/oai.jpg",
     paragraphs: [
-      "I'm part of the first cohort of OpenAI's ChatGPT Lab, where I test new ChatGPT products and share structured feedback with product and go-to-market teams.",
-      "I co-authored a book featuring 100 uses for ChatGPT, with a focus on practical workflows and real user behavior.",
-      "I also informed deployment of major marketing campaigns and product launches, including Pulse and Atlas.",
+      "I'm part of the first cohort of OpenAI's ChatGPT Lab, where I test products before launch and share structured feedback with product and go-to-market teams.",
+      "I contributed to the 100 Chats book and tested Study Mode, Pulse, Atlas, and Group Chats, with my work appearing in public launch stories and student campaigns.",
+      "I also worked with Hillary Bush and other OpenAI leaders to bring a student and early-career perspective into product and go-to-market conversations.",
     ],
     focus: ["product feedback", "GTM insight", "AI education", "user behavior", "early testing"],
-    projectIds: ["fulbright-focus-group-sponsored-by-openai"],
+    projectIds: ["openai-product-testing-and-feedback", "fulbright-focus-group-sponsored-by-openai"],
     newsIds: [],
   },
   {

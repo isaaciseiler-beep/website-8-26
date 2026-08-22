@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Play } from "lucide-react";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -32,6 +32,48 @@ const sourceLabel: Record<string, string> = {
 };
 
 const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
+  if (media.type === "video" && media.href) {
+    return (
+      <figure className="project-video my-7">
+        <a
+          href={media.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative block aspect-video overflow-hidden bg-[#111] text-white"
+          aria-label={`Play ${media.title ?? "official product video"}`}
+        >
+          {media.poster && (
+            <img
+              src={media.poster}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.015]"
+              loading="lazy"
+              decoding="async"
+              onError={(event) => {
+                if (media.fallbackPoster && event.currentTarget.src !== media.fallbackPoster) {
+                  event.currentTarget.src = media.fallbackPoster;
+                  return;
+                }
+                event.currentTarget.style.display = "none";
+              }}
+            />
+          )}
+          <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent" />
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/40 bg-black/25 backdrop-blur-sm transition-transform duration-300 group-hover:scale-105">
+              <Play className="ml-1 h-6 w-6 fill-current" aria-hidden="true" />
+            </span>
+          </span>
+          <span className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-6 p-5 sm:p-7">
+            <span className="block text-lg font-medium sm:text-xl">{media.title}</span>
+            <ArrowUpRight className="h-5 w-5 shrink-0 text-white/70" aria-hidden="true" />
+          </span>
+        </a>
+        {media.caption && <figcaption>{media.caption}</figcaption>}
+      </figure>
+    );
+  }
+
   if (media.type === "pdf" && media.src) {
     return (
       <figure className="my-6 overflow-hidden bg-foreground/[0.02]">
@@ -78,15 +120,50 @@ const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
     );
   }
 
-  if (media.type === "image" && media.src) {
+  if (media.type === "gallery" && media.images?.length) {
+    const columns = media.layout === "three-up" ? "sm:grid-cols-3" : "sm:grid-cols-2";
+    const square = media.layout === "three-up" || media.layout === "two-up-square";
+
     return (
-      <figure className="my-6 overflow-hidden bg-foreground/[0.02]">
+      <div className={`project-media-grid my-7 grid grid-cols-1 gap-3 ${columns}`}>
+        {media.images.map((image) => (
+          <figure key={image.src} className="overflow-hidden bg-foreground/[0.025]">
+            <img
+              src={image.src}
+              alt={image.alt}
+              className={`${square ? "aspect-square object-cover" : "aspect-video object-contain"} h-auto w-full`}
+              loading="lazy"
+              decoding="async"
+              onError={(event) => {
+                event.currentTarget.closest("figure")?.classList.add("hidden");
+              }}
+            />
+            {image.caption && <figcaption>{image.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    );
+  }
+
+  if (media.type === "image" && media.src) {
+    const layoutClass =
+      media.layout === "half-left"
+        ? "project-media-half project-media-half-left"
+        : media.layout === "half-right"
+          ? "project-media-half project-media-half-right"
+          : "";
+
+    return (
+      <figure className={`my-6 overflow-hidden bg-foreground/[0.02] ${layoutClass}`}>
         <img
           src={media.src}
           alt={media.alt ?? ""}
           className="h-auto w-full"
           loading="lazy"
           decoding="async"
+          onError={(event) => {
+            event.currentTarget.closest("figure")?.classList.add("hidden");
+          }}
         />
         {media.caption && (
           <figcaption className="px-1 py-3 text-xs leading-relaxed text-foreground/50">
@@ -177,20 +254,51 @@ const ProjectDetailPage = () => {
               <h1 className="article-title">{project.title}</h1>
               <p className="article-subtitle">{project.summary}</p>
 
-              <div className="article-hero aspect-[16/9]">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  loading="eager"
-                  decoding="async"
-                  fetchpriority="high"
-                />
-              </div>
+              {!project.hideHero && (
+                <div className="article-hero aspect-[16/9]">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="eager"
+                    decoding="async"
+                    fetchpriority="high"
+                  />
+                </div>
+              )}
 
               <div ref={bodyRef} className="article-body">
-                {project.sections.map((section) => (
-                  <section key={section.heading} id={slugify(section.heading)}>
+                {project.sections.map((section) => {
+                  const topMedia = section.media?.filter((media) => media.placement === "top") ?? [];
+                  const wrapMedia =
+                    section.media?.filter(
+                      (media) => media.layout === "half-left" || media.layout === "half-right",
+                    ) ?? [];
+                  const beforeLinksMedia =
+                    section.media?.filter((media) => media.placement === "before-links") ?? [];
+                  const bottomMedia =
+                    section.media?.filter(
+                      (media) =>
+                        media.placement !== "top" &&
+                        media.placement !== "before-links" &&
+                        media.layout !== "half-left" &&
+                        media.layout !== "half-right",
+                    ) ?? [];
+
+                  return (
+                  <section key={section.heading} id={slugify(section.heading)} className="article-section">
                     <h2>{section.heading}</h2>
+                    {topMedia.map((media) => (
+                      <ProjectMediaBlock
+                        key={media.src ?? media.href ?? media.images?.map((image) => image.src).join("|")}
+                        media={media}
+                      />
+                    ))}
+                    {wrapMedia.map((media) => (
+                      <ProjectMediaBlock
+                        key={media.src ?? media.href ?? media.images?.map((image) => image.src).join("|")}
+                        media={media}
+                      />
+                    ))}
                     {section.paragraphs?.map((p) => (
                       <p key={p}>{p}</p>
                     ))}
@@ -204,6 +312,12 @@ const ProjectDetailPage = () => {
                         ))}
                       </ul>
                     )}
+                    {beforeLinksMedia.map((media) => (
+                      <ProjectMediaBlock
+                        key={media.src ?? media.href ?? media.images?.map((image) => image.src).join("|")}
+                        media={media}
+                      />
+                    ))}
                     {section.links && (
                       <div className="space-y-2 mt-2">
                         {section.links.map((link) => (
@@ -220,14 +334,15 @@ const ProjectDetailPage = () => {
                         ))}
                       </div>
                     )}
-                    {section.media?.map((media) => (
+                    {bottomMedia.map((media) => (
                       <ProjectMediaBlock
-                        key={media.src ?? media.images?.map((image) => image.src).join("|")}
+                        key={media.src ?? media.href ?? media.images?.map((image) => image.src).join("|")}
                         media={media}
                       />
                     ))}
                   </section>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>

@@ -97,7 +97,10 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
               </a>
               , helping tell the story of how AI is changing the way people work. My background spans government and large enterprise, including senior roles at the U.S. House and published work with OpenAI.
               <br /><br />
-              Based in Seattle, WA.
+              <span className="about-location">
+                Based in Seattle, WA
+                <span className="about-location-dot" aria-hidden="true" />
+              </span>
             </p>
           </div>
         </div>

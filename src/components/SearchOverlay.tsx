@@ -235,9 +235,9 @@ const SearchTrigger = ({
         <button
           type="button"
           onClick={handleOpen}
-          className={`group flex w-fit items-center gap-2 py-1.5 text-left text-[28px] font-medium leading-none text-foreground/30 transition-colors duration-300 hover:text-foreground/60 md:text-sm md:leading-normal ${className ?? ""}`}
+          className={`sidebar-main-nav-item group flex w-fit items-center gap-2 py-1.5 text-left text-foreground/30 transition-colors duration-300 hover:text-foreground/60 ${className ?? ""}`}
         >
-          <Search className="h-5 w-5 md:h-3.5 md:w-3.5" strokeWidth={1.5} />
+          <Search className="h-[0.52em] w-[0.52em]" strokeWidth={1.5} />
           <span>Search</span>
         </button>
       ) : (

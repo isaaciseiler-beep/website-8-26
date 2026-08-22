@@ -1,5 +1,5 @@
 import { type ReactNode, type RefObject, useEffect, useMemo, useRef, useState } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useInView, useScroll, useTransform } from "framer-motion";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -44,6 +44,8 @@ const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const HERO_IMAGE = "https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev/utahstatecap.avif";
 const LAST_UPDATED_LABEL = "Last updated August 2025";
 
+const WORK_CARD_COLORS = ["#87718d", "#91869a", "#827a96", "#77758c", "#7a819b", "#74809a"] as const;
+
 const regionOrder: AiIndexRegion[] = ["East", "South", "Midwest", "West"];
 const partyOrder: AiIndexParty[] = ["D", "R"];
 const partyLabels: Record<AiIndexParty, string> = {
@@ -52,19 +54,19 @@ const partyLabels: Record<AiIndexParty, string> = {
 };
 
 const criterionCategoryColor: Record<string, string> = {
-  "GenAI Adoption": "hsl(var(--foreground))",
-  "Government Infrastructure": "hsl(var(--muted-foreground))",
-  "Employee Policy": "hsl(342 25% 34%)",
+  "GenAI Adoption": WORK_CARD_COLORS[0],
+  "Government Infrastructure": WORK_CARD_COLORS[2],
+  "Employee Policy": WORK_CARD_COLORS[4],
 };
 
 const scoreBands = [
-  { label: "Excellent", min: 80, max: 100, color: "hsl(var(--foreground))" },
-  { label: "Above average", min: 60, max: 79.999, color: "hsl(var(--muted-foreground))" },
-  { label: "Average", min: 40, max: 59.999, color: "hsl(47 42% 38%)" },
-  { label: "Below average", min: 20, max: 39.999, color: "hsl(16 42% 42%)" },
-  { label: "Poor", min: 0, max: 19.999, color: "hsl(342 25% 34%)" },
+  { label: "Excellent", min: 80, max: 100, color: WORK_CARD_COLORS[0] },
+  { label: "Above average", min: 60, max: 79.999, color: WORK_CARD_COLORS[1] },
+  { label: "Average", min: 40, max: 59.999, color: WORK_CARD_COLORS[2] },
+  { label: "Below average", min: 20, max: 39.999, color: WORK_CARD_COLORS[3] },
+  { label: "Poor", min: 0, max: 19.999, color: WORK_CARD_COLORS[4] },
 ];
-const TOP_PERFORMER_GREEN = "hsl(var(--foreground))";
+const TOP_PERFORMER_GREEN = WORK_CARD_COLORS[4];
 
 type RankedState = AiIndexState & { rank: number };
 type ChartPayload<TPayload = Record<string, unknown>> = {
@@ -157,6 +159,83 @@ const TextReveal = ({
     {children}
   </motion.div>
 );
+
+const EditorialImage = ({
+  alt,
+  credit,
+  creditHref,
+  creditId,
+  eager = false,
+  flush = false,
+  overlayTitle,
+  src,
+}: {
+  alt: string;
+  credit: string;
+  creditHref?: string;
+  creditId: string;
+  eager?: boolean;
+  flush?: boolean;
+  overlayTitle?: string;
+  src: string;
+}) => {
+  const [creditOpen, setCreditOpen] = useState(false);
+
+  return (
+    <figure
+      className="article-hero relative aspect-[16/9]"
+      style={flush ? { marginBottom: 0 } : undefined}
+    >
+      <img src={src} alt={alt} loading={eager ? "eager" : "lazy"} decoding="async" />
+      {overlayTitle ? (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] bg-gradient-to-t from-black/90 via-black/48 to-transparent px-6 pb-6 pr-20 pt-24 sm:px-8 sm:pb-8 sm:pr-24">
+          <h2 className="max-w-4xl text-2xl font-semibold leading-[1.02] tracking-tight text-white sm:text-4xl">
+            {overlayTitle}
+          </h2>
+        </div>
+      ) : null}
+      <div className="absolute bottom-3 right-3 z-10">
+        <AnimatePresence>
+          {creditOpen ? (
+            <motion.div
+              id={creditId}
+              role="status"
+              className="absolute bottom-11 right-0 w-60 origin-bottom-right rounded-xl bg-background/95 px-3 py-2 text-right text-xs leading-relaxed text-foreground shadow-lg backdrop-blur"
+              initial={{ opacity: 0, y: 6, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 4, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: EASE_TEXT }}
+            >
+              {creditHref ? (
+                <a
+                  href={creditHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-end gap-1.5 font-medium hover:underline"
+                >
+                  {credit}
+                  <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
+                </a>
+              ) : (
+                credit
+              )}
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+        <button
+          type="button"
+          aria-label={`Show image credit for ${alt}`}
+          aria-expanded={creditOpen}
+          aria-controls={creditId}
+          onClick={() => setCreditOpen((open) => !open)}
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-white/85 bg-transparent text-white drop-shadow-md transition-all duration-200 hover:scale-105 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+        >
+          <span aria-hidden="true" className="font-serif text-lg italic leading-none">i</span>
+        </button>
+      </div>
+    </figure>
+  );
+};
 
 const RevealSection = ({
   children,
@@ -493,12 +572,13 @@ const AIStateGovernmentIndexPage = () => {
                   which state and territory governments are actually preparing their own operations for it?
                 </p>
 
-                <figure className="article-hero aspect-[16/9]">
-                  <img src={HERO_IMAGE} alt="Utah state capitol building" loading="eager" decoding="async" />
-                </figure>
-                <p className="mt-3 text-[11px] leading-relaxed text-foreground/45">
-                  Utah state capitol building. Credit: Lonely Planet
-                </p>
+                <EditorialImage
+                  alt="Utah state capitol building"
+                  credit="Utah state capitol building. Credit: Lonely Planet"
+                  creditId="utah-image-credit"
+                  eager
+                  src={HERO_IMAGE}
+                />
               </div>
             </div>
 
@@ -543,10 +623,18 @@ const AIStateGovernmentIndexPage = () => {
           </RevealSection>
 
           <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
-            <div className="content-measure grid gap-10">
+            <div className="content-measure grid gap-6">
+              <EditorialImage
+                alt="Pennsylvania Governor Josh Shapiro speaking at Carnegie Mellon University"
+                credit="Credit: PoliticsPA.com"
+                creditHref="https://www.politicspa.com/"
+                creditId="pennsylvania-image-credit"
+                flush
+                overlayTitle="The benchmark only counts what governments make visible."
+                src="/ai-state-index/pennsylvania-shapiro.jpg"
+              />
               <div>
-                <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The benchmark only counts what governments make visible.</h2>
-                <p className="mt-4 text-sm leading-relaxed text-foreground/62">
+                <p className="text-sm leading-relaxed text-foreground/62">
                   The goal was not to score press-release enthusiasm. Each row is grounded in publicly available
                   evidence of GenAI adoption, infrastructure, and employee resources inside executive-branch government.
                 </p>
@@ -685,10 +773,18 @@ const AIStateGovernmentIndexPage = () => {
           </RevealSection>
 
           <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
-            <div className="content-measure grid gap-8">
+            <div className="content-measure grid gap-6">
+              <EditorialImage
+                alt="California State Capitol building in Sacramento"
+                credit="Credit: PPIC.org"
+                creditHref="https://www.ppic.org/"
+                creditId="california-image-credit"
+                flush
+                overlayTitle="A few governments are ahead. Most are still building the basics."
+                src="/ai-state-index/california-capitol.jpg"
+              />
               <div>
-                <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">A few governments are ahead. Most are still building the basics.</h2>
-                <p className="mt-4 w-full text-sm leading-relaxed text-foreground/62">
+                <p className="w-full text-sm leading-relaxed text-foreground/62">
                   The pattern is uneven but legible: leadership clusters around states with clear implementation,
                   public strategy, employee resources, and enough transparency to verify what is actually happening.
                 </p>
@@ -717,48 +813,32 @@ const AIStateGovernmentIndexPage = () => {
                 </ChartReveal>
               </div>
 
-              <div className="grid content-start gap-3">
-                {bandData.map((band, index) => (
-                  <motion.div
+              <div className="grid content-start gap-3 sm:grid-cols-2 lg:grid-cols-5">
+                {bandData.map((band) => (
+                  <div
                     key={band.label}
-                    className="site-corner bg-card p-4"
-                    initial={{ opacity: 0, x: -34, clipPath: "inset(0 100% 0 0)", filter: "blur(6px)" }}
-                    whileInView={{ opacity: 1, x: 0, clipPath: "inset(0 0% 0 0)", filter: "blur(0px)" }}
-                    viewport={{ once: true, amount: 0.7 }}
-                    transition={{ duration: 0.72, ease: EASE_TEXT, delay: index * 0.05 }}
+                    className="site-corner flex min-h-32 flex-col p-4 text-[#11140f]"
+                    style={{ backgroundColor: band.color }}
                   >
-                    <div className="mb-3 flex items-center justify-between">
-                      <span className="text-sm font-medium text-foreground/62">{band.label}</span>
-                      <span className="font-mono text-xs text-foreground/55">{band.min}-{Math.floor(band.max)}</span>
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="text-sm font-medium text-[#11140f]/75">{band.label}</span>
+                      <span className="font-mono text-xs text-[#11140f]/60">{band.min}-{Math.floor(band.max)}</span>
                     </div>
-                    <div className="flex items-end justify-between gap-4">
-                      <motion.div
-                        className="text-4xl font-semibold"
-                        style={{ color: band.color }}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.7 }}
-                        transition={{ duration: 0.5, ease: EASE_TEXT, delay: 0.16 + index * 0.05 }}
-                      >
-                        {band.count}
-                      </motion.div>
-                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-foreground/10">
+                    <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+                      <div className="text-4xl font-semibold">{band.count}</div>
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#11140f]/15">
                         {band.count > 0 ? (
-                          <motion.div
-                            className="h-full origin-left rounded-full"
+                          <div
+                            className="h-full rounded-full"
                             style={{
                               width: `${percent(band.count, aiIndexStates.length)}%`,
-                              backgroundColor: band.color,
+                              backgroundColor: "rgba(17, 20, 15, 0.62)",
                             }}
-                            initial={{ scaleX: 0 }}
-                            whileInView={{ scaleX: 1 }}
-                            viewport={{ once: true, amount: 0.7 }}
-                            transition={{ duration: 0.78, ease: EASE_TEXT, delay: 0.18 + index * 0.05 }}
                           />
                         ) : null}
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -786,10 +866,18 @@ const AIStateGovernmentIndexPage = () => {
           </RevealSection>
 
           <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
-            <div className="content-measure grid gap-8">
+            <div className="content-measure grid gap-6">
+              <EditorialImage
+                alt="A speaker at an OpenAI state government event"
+                credit="Credit: StateAffairs.com"
+                creditHref="https://stateaffairs.com/"
+                creditId="state-affairs-image-credit"
+                flush
+                overlayTitle="Resources matter. They do not decide the story."
+                src="/ai-state-index/state-affairs-openai.jpg"
+              />
               <div>
-                <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">Resources matter. They do not decide the story.</h2>
-                <p className="mt-4 text-sm leading-relaxed text-foreground/62">
+                <p className="text-sm leading-relaxed text-foreground/62">
                   The composite model keeps preparedness as the main signal while accounting for government resources.
                   Smaller governments can still move quickly when the public evidence is concrete.
                 </p>
@@ -894,54 +982,67 @@ const AIStateGovernmentIndexPage = () => {
           </RevealSection>
 
           <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
-            <div className="content-measure">
-              <div className="w-full">
-                <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">Make safe use normal, measurable, and public.</h2>
-              </div>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="content-measure grid gap-6">
+              <EditorialImage
+                alt="Wisconsin State Capitol in Madison at night"
+                credit="Credit: AmericanGhostWalks.com"
+                creditHref="https://www.americanghostwalks.com/wisconsin/milwaukee"
+                creditId="wisconsin-image-credit"
+                flush
+                overlayTitle="Make safe use normal, measurable, and public."
+                src="/ai-state-index/wisconsin-capitol.jpg"
+              />
+              <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   {
                     icon: ShieldCheck,
+                    color: WORK_CARD_COLORS[0],
                     title: "Publish clear guidance",
                     text: "Clear executive-branch guidance is the floor for safe, confident experimentation.",
                   },
                   {
                     icon: Users,
+                    color: WORK_CARD_COLORS[1],
                     title: "Train the workforce",
                     text: "Employees need practical GenAI literacy, not only warnings about what not to do.",
                   },
                   {
                     icon: Bot,
+                    color: WORK_CARD_COLORS[2],
                     title: "Run public pilots",
                     text: "Enterprise trials, sandboxes, and pilots create measurable evidence before full deployment.",
                   },
                   {
                     icon: SlidersHorizontal,
+                    color: WORK_CARD_COLORS[3],
                     title: "Write a roadmap",
                     text: "A public action plan turns isolated experiments into a visible government strategy.",
                   },
                   {
                     icon: Database,
+                    color: WORK_CARD_COLORS[4],
                     title: "Make ownership permanent",
                     text: "Dedicated staff and offices help governments learn instead of rediscovering the same problems.",
                   },
                   {
                     icon: CheckCircle2,
+                    color: WORK_CARD_COLORS[5],
                     title: "Lead transparently",
                     text: "Public evidence is part of responsible deployment, not a communications afterthought.",
                   },
                 ].map((item, index) => (
                   <motion.div
                     key={item.title}
-                    className="site-corner bg-background p-5"
+                    className="site-corner min-h-44 p-5 text-white"
+                    style={{ backgroundColor: item.color }}
                     initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
                     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.58, ease: EASE_TEXT, delay: index * 0.05 }}
                   >
-                    <item.icon className="h-5 w-5 text-foreground/58" strokeWidth={1.6} />
+                    <item.icon className="h-5 w-5 text-white/75" strokeWidth={1.6} />
                     <h3 className="mt-4 text-xl font-semibold tracking-tight">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-foreground/62">{item.text}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">{item.text}</p>
                   </motion.div>
                 ))}
               </div>
@@ -951,8 +1052,7 @@ const AIStateGovernmentIndexPage = () => {
           <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
             <div className="content-measure grid gap-8">
               <div>
-                <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">Public evidence only.</h2>
-                <div className="mt-5 w-full space-y-4 text-sm leading-relaxed text-foreground/66">
+                <div className="w-full space-y-4 text-sm leading-relaxed text-foreground/66">
                   <p>
                     The benchmark scores publicly accessible evidence of generative AI activity inside executive-branch
                     state and territory government. Internal tools, private memos, or undocumented deployments do not
