@@ -84,12 +84,6 @@ class RouteErrorBoundary extends Component<
 }
 
 const RouteFallback = () => {
-  const location = useLocation();
-
-  if (location.pathname === "/fulbrightmap" || location.pathname === "/photos/map") {
-    return <RouteLoader tone="map" label="Preparing the map" detail="Loading New Taipei and shared spots." />;
-  }
-
   return <RouteLoader />;
 };
 
