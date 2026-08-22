@@ -2325,8 +2325,7 @@
     align-content: start;
     gap: clamp(12px, 1.4vw, 20px);
     max-width: none;
-    max-height: calc((100% - 24px) / 3);
-    overflow: hidden;
+    overflow: visible;
     padding-left: clamp(12px, 2vw, 28px);
   }
 
@@ -2582,7 +2581,6 @@
 
     .about-lede-copy {
       grid-column: auto;
-      max-height: 310px;
       padding-left: 0;
     }
   }
@@ -2617,10 +2615,6 @@
     .about-lede-body {
       grid-template-columns: 220px minmax(0, 1fr);
       gap: 18px;
-    }
-
-    .about-lede-copy {
-      max-height: 220px;
     }
 
     .about-lede-bio {
