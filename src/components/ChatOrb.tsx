@@ -43,7 +43,6 @@ const ChatOrb = () => {
       })
       .join("\n\n");
     return {
-      label: project.source === "BLOG" ? "Ask about this article" : "Ask about this project",
       placeholder: project.source === "BLOG" ? "Ask about this article" : "Ask about this project",
       text: `Title: ${project.title}\nYear: ${project.year}\nSummary: ${project.summary}\n\n${body}`,
     };
@@ -164,7 +163,7 @@ const ChatOrb = () => {
       <motion.div
         className="ai-dock-shell"
         initial={false}
-        animate={{ width: open ? "min(92vw, 620px)" : pageContext ? 210 : 148 }}
+        animate={{ width: open ? "min(92vw, 620px)" : 148 }}
         transition={{ duration: 0.52, ease: EASE }}
       >
         <AnimatePresence initial={false}>
@@ -247,7 +246,7 @@ const ChatOrb = () => {
                 transition={{ duration: 0.22, ease: EASE }}
                 aria-expanded={false}
               >
-                {pageContext?.label ?? "Ask AI"}
+                Ask AI
               </motion.button>
             )}
           </AnimatePresence>
