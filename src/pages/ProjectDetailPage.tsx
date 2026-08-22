@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -107,19 +107,8 @@ const ProjectDetailPage = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const isMobile = useIsMobile();
   const bodyRef = useRef<HTMLDivElement | null>(null);
-  const [progress, setProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState(0);
 
   const project = projectItems.find((p) => p.id === id);
-
-  const headings = useMemo(
-    () =>
-      (project?.sections ?? []).map((section) => ({
-        heading: section.heading,
-        slug: slugify(section.heading),
-      })),
-    [project],
-  );
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);
@@ -133,32 +122,6 @@ const ProjectDetailPage = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
-    setProgress(0);
-    setActiveSection(0);
-  }, [id]);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const doc = document.documentElement;
-      const scrollable = doc.scrollHeight - window.innerHeight;
-      setProgress(scrollable > 0 ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)) : 0);
-
-      const nodes = bodyRef.current?.querySelectorAll("section[id]");
-      if (!nodes?.length) return;
-      let current = 0;
-      nodes.forEach((node, index) => {
-        if (node.getBoundingClientRect().top <= 160) current = index;
-      });
-      setActiveSection(current);
-    };
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
   }, [id]);
 
   if (!project) {
