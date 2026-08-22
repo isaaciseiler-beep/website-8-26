@@ -133,7 +133,23 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     content:
       "A Washington University news item about Isaac being named a 2024 Rhodes Scholarship finalist, relevant to academic distinction and public-interest work.",
     url: "/#news",
+  },,
+{
+    id: "openai-product-testing",
+    title: "OpenAI Product Testing and Feedback",
+    source: "Project",
+    content:
+      "Early product testing and feedback across ChatGPT products as a member of OpenAI's ChatGPT Lab, including the 100 Chats Project, a testimonial featured in the ChatGPT Pulse launch, a Study Mode spotlight on ChatGPT's Instagram, and early browser product feedback. Keep wording careful and public.",
+    url: "/projects/openai-product-testing-and-feedback",
   },
+  {
+    id: "blog-fulbright-award",
+    title: "Won Fulbright Award to Taiwan",
+    source: "Blog",
+    content:
+      "A blog post about Isaac earning a Fulbright award to Taiwan, relevant to education, cross-cultural work, and AI literacy programming. The post is not yet written.",
+    url: "/projects/fulbright-award-to-taiwan",
+  }
 ];
 
 const STOP_WORDS = new Set([
@@ -244,23 +260,7 @@ export const getAssistantGuidance = () => {
 
 export const retrieveKnowledge = (query: string, limit = 5): RetrievedChunk[] => {
   const queryTerms = tokenize(query);
-  if (!queryTerms.length) return [  {
-    id: "openai-product-testing",
-    title: "OpenAI Product Testing and Feedback",
-    source: "Project",
-    content:
-      "Early product testing and feedback across ChatGPT products as a member of OpenAI's ChatGPT Lab, including the 100 Chats Project, a testimonial featured in the ChatGPT Pulse launch, a Study Mode spotlight on ChatGPT's Instagram, and early browser product feedback. Keep wording careful and public.",
-    url: "/projects/openai-product-testing-and-feedback",
-  },
-  {
-    id: "blog-fulbright-award",
-    title: "Won Fulbright Award to Taiwan",
-    source: "Blog",
-    content:
-      "A blog post about Isaac earning a Fulbright award to Taiwan, relevant to education, cross-cultural work, and AI literacy programming. The post is not yet written.",
-    url: "/projects/fulbright-award-to-taiwan",
-  },
-];
+  if (!queryTerms.length) return [];
 
   return getKnowledgeChunks()
     .map((chunk) => {
