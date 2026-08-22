@@ -28,6 +28,7 @@ import {
 } from "recharts";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
+import ReadingProgress from "@/components/ReadingProgress";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -442,6 +443,7 @@ const AIStateGovernmentIndexPage = () => {
       ref={pageScrollRef}
       className="relative min-h-[100svh] overflow-x-clip bg-background text-foreground"
     >
+      <ReadingProgress />
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}
@@ -470,8 +472,8 @@ const AIStateGovernmentIndexPage = () => {
           transition={{ duration: 0.62, ease: EASE_TEXT, delay: 0.08 }}
         >
           <section className="relative bg-background">
-            <div className="px-5 pt-28 sm:px-8">
-              <div className="mx-auto max-w-7xl">
+            <div className="px-6 pt-28">
+              <div className="mx-auto max-w-6xl">
                 <button
                   type="button"
                   onClick={() => navigate("/?section=projects")}
@@ -502,8 +504,8 @@ const AIStateGovernmentIndexPage = () => {
               </div>
             </div>
 
-            <div className="relative z-20 bg-background px-5 py-10 sm:px-8 lg:py-14">
-              <div className="mx-auto grid max-w-7xl gap-10">
+            <div className="relative z-20 bg-background px-6 py-16">
+              <div className="mx-auto grid max-w-6xl gap-10">
                 <TextReveal>
                   <div className="space-y-5">
                     <p className="w-full text-xl leading-relaxed text-foreground/72 sm:text-2xl">
@@ -533,8 +535,8 @@ const AIStateGovernmentIndexPage = () => {
             </div>
           </section>
 
-          <RevealSection className="bg-background px-5 py-8 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <RevealSection className="bg-background px-6 py-8 " scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto grid max-w-6xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
               <StatPanel label="Governments scored" value="56" detail="50 states, five territories, and DC." />
               <StatPanel label="Median score" value={`${round(medianComposite)}/100`} detail={`Mean composite score: ${round(meanComposite, 1)}.`} />
               <StatPanel label="Above 80" value={`${statesAbove80}`} detail="Only a small top tier clears the excellent band." />
@@ -542,8 +544,8 @@ const AIStateGovernmentIndexPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[360px_minmax(0,1fr)]">
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[360px_minmax(0,1fr)]">
               <div>
                 <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">The benchmark only counts what governments make visible.</h2>
                 <p className="mt-4 text-sm leading-relaxed text-foreground/62">
@@ -684,8 +686,8 @@ const AIStateGovernmentIndexPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)]">
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)]">
               <div>
                 <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">A few governments are ahead. Most are still building the basics.</h2>
                 <p className="mt-4 w-full text-sm leading-relaxed text-foreground/62">
@@ -764,8 +766,8 @@ const AIStateGovernmentIndexPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto max-w-7xl">
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto max-w-6xl">
               <div className="grid gap-8 lg:grid-cols-[420px_minmax(0,1fr)]">
                 <div>
                   <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">The missing pieces are practical, not abstract.</h2>
@@ -785,8 +787,8 @@ const AIStateGovernmentIndexPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[390px_minmax(0,1fr)]">
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[390px_minmax(0,1fr)]">
               <div>
                 <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">Resources matter. They do not decide the story.</h2>
                 <p className="mt-4 text-sm leading-relaxed text-foreground/62">
@@ -893,8 +895,8 @@ const AIStateGovernmentIndexPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto max-w-7xl">
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto max-w-6xl">
               <div className="w-full">
                 <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">Make safe use normal, measurable, and public.</h2>
               </div>
@@ -948,8 +950,8 @@ const AIStateGovernmentIndexPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
               <div>
                 <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">Public evidence only.</h2>
                 <div className="mt-5 w-full space-y-4 text-sm leading-relaxed text-foreground/66">

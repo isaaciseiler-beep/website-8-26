@@ -3116,3 +3116,22 @@ body::-webkit-scrollbar,
 * {
   scrollbar-width: none;
 }
+
+/* Reading progress (article + report pages) */
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  height: 2px;
+  background: hsl(var(--foreground) / 0.08);
+  pointer-events: none;
+}
+
+.reading-progress > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  background: hsl(var(--foreground) / 0.72);
+  transition: transform 0.12s linear;
+}
