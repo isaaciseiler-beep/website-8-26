@@ -319,25 +319,6 @@
     color: #fff;
   }
 
-  .site-footer-pill {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 12px 22px;
-    border-radius: 26px;
-    background: hsl(var(--background) / 0.42);
-    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.10);
-    backdrop-filter: blur(30px) saturate(1.7);
-    -webkit-backdrop-filter: blur(30px) saturate(1.7);
-    transition: opacity 300ms ease;
-  }
-
-  .site-footer-pill--overlay {
-    background: hsl(var(--background) / 0.42);
-  }
-
   .site-footer--overlay a,
   .site-footer--overlay p {
     color: rgba(255, 255, 255, 0.85);
