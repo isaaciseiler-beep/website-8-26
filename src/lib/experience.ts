@@ -9,7 +9,7 @@ export interface ExperienceEntry {
   paragraphs: string[];
   focus: string[];
   projectIds: string[];
-  newsIds: number[];
+    newsIds: number[];
 }
 
 export const experienceIntro = {
@@ -37,7 +37,7 @@ export const experienceEntries: ExperienceEntry[] = [
     ],
     focus: ["AI enablement", "user education", "community comms", "curriculum design"],
     projectIds: ["fulbright-focus-group-sponsored-by-openai"],
-    newsIds: [1, 7],
+    newsIds: [1],
   },
   {
     id: "csg-ai-index",
@@ -70,7 +70,7 @@ export const experienceEntries: ExperienceEntry[] = [
     ],
     focus: ["product feedback", "GTM insight", "AI education", "user behavior", "early testing"],
     projectIds: ["fulbright-focus-group-sponsored-by-openai"],
-    newsIds: [5, 9, 8],
+    newsIds: [],
   },
   {
     id: "washu-head-ta",
@@ -85,7 +85,8 @@ export const experienceEntries: ExperienceEntry[] = [
       "The work combined classroom operations, student writing feedback, staff coordination, and practical thinking about how AI tools should be handled in undergraduate courses.",
     ],
     focus: ["teaching operations", "team management", "student feedback"],
-        newsIds: [],
+    projectIds: [],
+    newsIds: [],
   },
   {
     id: "boehringer-communications-strategy",
@@ -118,7 +119,7 @@ export const experienceEntries: ExperienceEntry[] = [
     ],
     focus: ["user research", "qualitative analysis", "platform strategy", "longform synthesis"],
     projectIds: ["senior-thesis-local-journalism"],
-    newsIds: [12, 6, 11],
+    newsIds: [6],
   },
   {
     id: "isaac-seiler-strategies",
@@ -148,7 +149,8 @@ export const experienceEntries: ExperienceEntry[] = [
       "My reporting focused on campus politics, protest, elections, free speech, governance, and institutional accountability.",
     ],
     focus: ["reporting", "campus politics", "student journalism"],
-        newsIds: [11],
+    projectIds: [],
+    newsIds: [],
   },
   {
     id: "us-house",
@@ -180,7 +182,8 @@ export const experienceEntries: ExperienceEntry[] = [
       "I helped run a cross-platform digital program generating 1M+ weekly impressions and $30k+ in organic fundraising. I also supported logistics for 100+ events with elected officials, cabinet secretaries, senators, and community leaders.",
     ],
     focus: ["digital strategy", "campaign operations", "audience growth", "event logistics"],
-        newsIds: [],
+    projectIds: [],
+    newsIds: [],
   },
   {
     id: "progressive-turnout-project",
@@ -194,7 +197,8 @@ export const experienceEntries: ExperienceEntry[] = [
       "Topics included messaging, organizing, and digital mobilization.",
     ],
     focus: ["campaign strategy", "organizing", "digital mobilization"],
-        newsIds: [],
+    projectIds: [],
+    newsIds: [],
   },
   {
     id: "dccc-democracy-summer",
@@ -208,7 +212,8 @@ export const experienceEntries: ExperienceEntry[] = [
       "Selected as a part of a nationwide cohort, I got access to training and support as I interned on a high profile congressional campaign.",
     ],
     focus: ["congressional politics", "campaign training", "field support"],
-        newsIds: [],
+    projectIds: [],
+    newsIds: [],
   },
   {
     id: "institute-for-nonprofit-news",
