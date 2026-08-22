@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Mail, Moon, Sun } from "lucide-react";
+import { ChevronRight, Mail, Moon, Skull, Sun } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme, type Theme } from "@/components/ThemeProvider";
 import SearchTrigger from "@/components/SearchOverlay";
@@ -13,6 +13,7 @@ const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const themeOptions = [
   { value: "light" as const, label: "Light", icon: Sun },
   { value: "dark" as const, label: "Dark", icon: Moon },
+  { value: "skull" as const, label: "Skull", icon: Skull },
 ];
 
 const ThemeSwitch = () => {
@@ -21,7 +22,7 @@ const ThemeSwitch = () => {
 
   return (
     <div
-      className="theme-switch relative grid h-9 w-[112px] grid-cols-2 overflow-hidden rounded-full bg-foreground/[0.06] p-[3px]"
+      className="theme-switch relative grid h-9 w-[152px] grid-cols-3 overflow-hidden rounded-full bg-foreground/[0.06] p-[3px]"
       role="radiogroup"
       aria-label="Appearance"
     >
@@ -31,7 +32,7 @@ const ThemeSwitch = () => {
         initial={false}
         animate={{ x: `${activeIndex * 100}%` }}
         transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.9 }}
-        style={{ left: 3, width: "calc((100% - 6px) / 2)" }}
+        style={{ left: 3, width: "calc((100% - 6px) / 3)" }}
       />
       {themeOptions.map((opt) => {
         const active = theme === opt.value;
