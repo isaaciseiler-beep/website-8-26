@@ -2199,7 +2199,10 @@
   }
 
   .work-library-rail {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, auto);
+    grid-auto-columns: calc((100% - 24px) / 3);
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -2214,8 +2217,7 @@
   }
 
   .work-library-rail > * {
-    flex: 0 0 calc((100% - 24px) / 3);
-    max-width: calc((100% - 24px) / 3);
+    min-width: 0;
     scroll-snap-align: start;
   }
 
