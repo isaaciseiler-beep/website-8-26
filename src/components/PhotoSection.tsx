@@ -109,11 +109,11 @@ const PhotoSection = () => {
   if (!activePhoto) return null;
 
   return (
-    <section className="flex h-auto min-h-0 flex-1 flex-col md:min-h-0">
+    <section className="h-[calc(100svh-3.5rem)] w-full md:h-[calc(100svh-3.5rem)]">
       <Link
         to="/photos"
         ref={previewRef}
-        className="group relative block h-auto min-h-0 w-full flex-1 cursor-pointer overflow-hidden bg-foreground/[0.05] md:h-full"
+        className="site-corner relative block h-full w-full cursor-pointer overflow-hidden bg-foreground/[0.05]"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
         aria-label="View photo portfolio"
