@@ -2627,12 +2627,11 @@
     }
 
     .about-lede-body {
-      grid-template-columns: 310px minmax(0, 1fr);
+      grid-template-columns: calc((100% - 36px) / 2) minmax(0, 1fr);
       gap: 26px;
     }
 
     .about-lede-copy {
-      grid-column: auto;
       padding-left: 0;
     }
   }
