@@ -82,7 +82,7 @@ const Footer = ({ overlay = false }: FooterProps) => {
         }`}
       >
         <div
-          className={`flex items-center gap-5 transition-opacity duration-300 ${
+          className={`site-footer-pill ${overlay ? "site-footer-pill--overlay" : ""} ${
             sidebarOpen ? "pointer-events-none opacity-0" : "opacity-100"
           }`}
         >
@@ -97,9 +97,9 @@ const Footer = ({ overlay = false }: FooterProps) => {
               {link.icon}
             </a>
           ))}
-        </div>
 
-        <p className={`text-[13px] ${overlay ? "text-white/80" : "text-foreground/45"}`}>© 2026 Isaac Seiler</p>
+          <p className={`text-[13px] ${overlay ? "text-white/80" : "text-foreground/45"}`}>© 2026 Isaac Seiler</p>
+        </div>
       </div>
     </footer>
   );
