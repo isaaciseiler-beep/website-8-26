@@ -95,6 +95,15 @@ const Index = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const overlap = sidebarOpen && !isMobile;
+    document.body.dataset.sidebar = overlap ? "open" : "closed";
+    return () => {
+      delete document.body.dataset.sidebar;
+    };
+  }, [sidebarOpen, isMobile]);
+
+
   return (
     <div className="home-photo-v2 relative min-h-screen overflow-x-clip bg-background text-foreground">
       <Sidebar
