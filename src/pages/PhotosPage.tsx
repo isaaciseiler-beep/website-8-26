@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import PhotoPreview from "@/components/PhotoPreview";
 import { preloadImage, preloadImages, scheduleImagePreloads } from "@/lib/imagePreload";
-import { albums, albumPhotoFiles, albumPhotos, coverFor, type Album, type Continent } from "@/lib/photoAlbums";
+import { albums, albumPhotos, coverFor, type Album, type Continent } from "@/lib/photoAlbums";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const continents: ("All" | Continent)[] = ["All", "Asia", "Europe", "Oceania"];
@@ -100,7 +100,6 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
       <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 35%)" }} />
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <h3 className="text-sm font-medium tracking-tight text-white/90">{album.location}</h3>
-        <p className="font-mono text-[8px] tracking-[0.2em] uppercase text-white/30 mt-0.5">{albumPhotoFiles(album).length}</p>
       </div>
     </div>
   );
@@ -119,7 +118,7 @@ const FeaturedHero = () => {
     animate: { opacity: 1, y: 0, filter: "blur(0px)" },
   };
   return (
-    <div className="px-6 mb-16 max-w-6xl mx-auto">
+    <div className="photos-shell mb-16">
       <div className="site-corner overflow-hidden">
         {/* Row 1: full-width 4:3 */}
         <motion.div
@@ -268,7 +267,7 @@ const PhotosPage = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="relative min-h-screen bg-background text-foreground overflow-x-clip">
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}
@@ -301,31 +300,30 @@ const PhotosPage = () => {
           )}
 
           {!openAlbum && (
-            <div className="flex justify-center mb-16">
-              <div className="flex flex-wrap justify-center gap-1 px-6 max-w-full">
-                <LayoutGroup>
-                  {continents.map((loc) => {
-                    const active = filter === loc;
-                    return (
-                      <button
-                        key={loc}
-                        onClick={() => { setFilter(loc); setOpenAlbum(null); setSearchParams({}); }}
-                        className="relative px-3 py-1 font-mono text-[9px] tracking-[0.2em] uppercase transition-colors duration-300"
-                        style={{ color: active ? "hsl(var(--background))" : "hsl(var(--foreground) / 0.3)" }}
-                      >
-                        {active && (
-                          <motion.div
-                            layoutId="filter-pill"
-                            className="absolute inset-0 bg-foreground"
-                            style={{ zIndex: -1 }}
-                            transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                          />
-                        )}
-                        {loc}
-                      </button>
-                    );
-                  })}
-                </LayoutGroup>
+            <div className="photos-shell mb-16">
+              <div className="work-library-tabs" role="tablist" aria-label="Filter albums">
+                {continents.map((loc) => {
+                  const active = filter === loc;
+                  return (
+                    <button
+                      key={loc}
+                      type="button"
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => { setFilter(loc); setOpenAlbum(null); setSearchParams({}); }}
+                      className={`pill-tab ${active ? "is-active" : ""}`}
+                    >
+                      {active ? (
+                        <motion.span
+                          layoutId="photos-tab-pill"
+                          className="pill-tab-indicator"
+                          transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.9 }}
+                        />
+                      ) : null}
+                      <span className="pill-tab-label">{loc}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -338,16 +336,17 @@ const PhotosPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4, ease: EASE }}
-                className="px-6 max-w-5xl mx-auto"
+                className="photos-shell"
               >
                 <motion.button
+                  type="button"
                   onClick={() => { setOpenAlbum(null); setSearchParams({}); }}
-                  className="flex items-center gap-2 mb-12 text-foreground/30 hover:text-foreground transition-colors"
+                  className="pill-back mb-12"
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1, duration: 0.3, ease: EASE }}
                 >
-                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase">← All Photos</span>
+                  <span>← All photos</span>
                 </motion.button>
 
                 <div className="site-corner flex flex-col gap-[3px] overflow-hidden">
@@ -405,7 +404,6 @@ const PhotosPage = () => {
                   })}
                 </div>
 
-                <p className="font-mono text-[8px] tracking-[0.2em] uppercase text-foreground/20 mt-10 text-right">{currentAlbum.location}</p>
               </motion.div>
             ) : (
               <motion.div
@@ -414,7 +412,7 @@ const PhotosPage = () => {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5, ease: EASE }}
-                className="px-6"
+                className="photos-shell"
               >
                 <div className="site-corner grid grid-cols-2 gap-[3px] overflow-hidden sm:grid-cols-3">
                   {filtered.map((album, i) => (
