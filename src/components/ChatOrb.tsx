@@ -50,14 +50,6 @@ const ChatOrb = () => {
   }, []);
 
   useEffect(() => {
-    const onPhoto = (event: Event) => {
-      setPhotoVisible(Boolean((event as CustomEvent).detail?.visible));
-    };
-    window.addEventListener("photo-section-visibility", onPhoto);
-    return () => window.removeEventListener("photo-section-visibility", onPhoto);
-  }, []);
-
-  useEffect(() => {
     const list = listRef.current;
     if (list) list.scrollTo({ top: list.scrollHeight, behavior: "smooth" });
   }, [messages, isLoading, open]);
