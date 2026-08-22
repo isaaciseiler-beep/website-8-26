@@ -160,20 +160,7 @@ const PhotosPage = () => {
   const previewImages = currentAlbumPhotos;
 
   useEffect(() => {
-    const featured = [
-      featuredPhotos.hero,
-      featuredPhotos.pairLeft,
-      featuredPhotos.pairRight,
-      featuredPhotos.overlap,
-      featuredPhotos.bottom,
-    ];
-
-    void preloadImages([featuredPhotos.hero], {
-      decode: true,
-      fetchPriority: "high",
-      linkPreload: true,
-    });
-    scheduleImagePreloads([...featured.slice(1), ...albums.map(coverFor)], {
+    scheduleImagePreloads(albums.map(coverFor), {
       batchSize: isMobile ? 2 : 4,
       decode: false,
       fallbackDelay: isMobile ? 240 : 160,
