@@ -2274,6 +2274,14 @@
     padding-bottom: 4px;
   }
 
+  /* When the sidebar is open, let the rail bleed over it so cards scroll on top. */
+  body[data-sidebar="open"] .work-library-rail {
+    margin-left: -200px;
+    padding-left: 200px;
+    scroll-padding-left: 200px;
+  }
+
+
   .work-library-rail::-webkit-scrollbar {
     display: none;
   }
