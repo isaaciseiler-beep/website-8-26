@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
+import { tileImageFor } from "@/lib/tileImages";
 
 type ProjectFilter = "ALL" | "NEWS" | ProjectItem["source"];
 
@@ -98,9 +99,7 @@ const ProjectsSection = () => {
                   rel={item.href === "#" ? undefined : "noopener noreferrer"}
                   className="work-library-card group"
                 >
-                  {item.imageUrl ? (
-                    <img src={item.imageUrl} alt="" loading="lazy" decoding="async" />
-                  ) : null}
+                  <img src={tileImageFor(index)} alt="" loading="lazy" decoding="async" />
                   <div className="work-library-scrim" />
                   <div className="news-compact-logo-row">
                     <img src={item.logoUrl} alt={item.logoAlt} className="news-compact-logo" loading="lazy" />
@@ -122,7 +121,7 @@ const ProjectsSection = () => {
                   aria-label={`Read more about ${project.title}`}
                 >
                   <img
-                    src={project.image}
+                    src={tileImageFor(index)}
                     alt=""
                     loading={index < 3 ? "eager" : "lazy"}
                     decoding="async"
