@@ -112,7 +112,7 @@ const PhotoSection = () => {
             key={activePhoto.image}
             src={activePhoto.image}
             alt={activePhoto.title}
-            className="absolute inset-0 h-full w-full animate-fade-in object-cover"
+            className="absolute inset-0 h-full w-full photo-crossfade object-cover"
             loading="eager"
             decoding="async"
           />

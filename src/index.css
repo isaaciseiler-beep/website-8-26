@@ -2921,3 +2921,12 @@ html.theme-crossfade body * {
 .skull #photos {
   background: transparent !important;
 }
+
+@keyframes photo-crossfade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.photo-crossfade {
+  animation: photo-crossfade 420ms ease-out both;
+}
