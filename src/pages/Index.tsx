@@ -118,13 +118,13 @@ const Index = () => {
         }}
         transition={{ duration: 0.5, ease: EASE }}
       >
-        <main>
+        <main className="flex min-h-screen flex-col">
           <Suspense fallback={<SectionFallback />}>
             <div id="hero" className="home-work-opening" data-reveal>
               <div id="about"><AboutSection revealEnabled /></div>
             </div>
             <div id="projects" className="home-photo-section" data-reveal><ProjectsSection /></div>
-            <div id="photos" className="home-photo-section home-photo-section--last" data-reveal><PhotoSection /></div>
+            <div id="photos" className="home-photo-section home-photo-section--last flex flex-1 flex-col" data-reveal><PhotoSection /></div>
             <Footer />
           </Suspense>
         </main>
