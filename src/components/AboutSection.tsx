@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { profilePhotoUrl } from "@/lib/tileImages";
 
@@ -10,7 +10,6 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
   const reduceMotion = useReducedMotion();
   const photoRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLParagraphElement>(null);
-  const [fontSize, setFontSize] = useState<string>("");
   const fittingRef = useRef(false);
 
   useLayoutEffect(() => {
@@ -29,12 +28,12 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
         return;
       }
 
-      // Temporarily clear inline font size for a clean measurement pass
+      // Preserve any previously applied inline font size for measurement baseline
+      const previousSize = intro.style.fontSize;
       intro.style.fontSize = "";
       const baseStyle = window.getComputedStyle(intro);
       const baseSize = parseFloat(baseStyle.fontSize) || 16;
       const baseHeight = intro.getBoundingClientRect().height;
-      console.log("fitText", { targetHeight, baseHeight, baseSize, introWidth });
 
       let bestSize = baseSize;
       let low = 10;
@@ -53,7 +52,6 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
       }
 
       intro.style.fontSize = `${bestSize}px`;
-      console.log("fitText result", { bestSize });
       fittingRef.current = false;
     };
 
@@ -61,7 +59,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
     ro.observe(photo);
 
     const timer = window.setTimeout(fitText, 0);
-    const fontsPromise = document.fonts.ready.then(fitText);
+    document.fonts.ready.then(fitText);
 
     return () => {
       ro.disconnect();
@@ -85,11 +83,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
           </div>
 
           <div className="about-lede-copy">
-            <p
-              ref={introRef}
-              className="about-lede-intro"
-              style={{ lineHeight: "100px", color: "red" }}
-            >
+            <p ref={introRef} className="about-lede-intro">
               I&apos;m a strategist leading marketing and communications at Summation, working across
               artificial intelligence, public institutions, education, and everyday life.
             </p>
