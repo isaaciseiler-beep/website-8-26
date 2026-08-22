@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import Footer from "@/components/Footer";
-import ReadingProgress from "@/components/ReadingProgress";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { projectItems, type ProjectMedia } from "@/lib/siteContent";
@@ -135,7 +134,6 @@ const ProjectDetailPage = () => {
 
   return (
     <div className="relative min-h-screen bg-background text-foreground overflow-x-clip">
-      <ReadingProgress />
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}
