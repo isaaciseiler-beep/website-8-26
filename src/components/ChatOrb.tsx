@@ -237,7 +237,7 @@ const ChatOrb = () => {
           </AnimatePresence>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
