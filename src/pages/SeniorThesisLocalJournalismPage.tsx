@@ -9,6 +9,7 @@ import Scale from "lucide-react/dist/esm/icons/scale.js";
 import Users from "lucide-react/dist/esm/icons/users.js";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
+import ReadingProgress from "@/components/ReadingProgress";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -250,6 +251,7 @@ const SeniorThesisLocalJournalismPage = () => {
       ref={pageScrollRef}
       className="relative min-h-[100svh] overflow-x-clip bg-background text-foreground"
     >
+      <ReadingProgress />
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}
@@ -277,8 +279,8 @@ const SeniorThesisLocalJournalismPage = () => {
           transition={{ duration: 0.62, ease: EASE_TEXT, delay: 0.08 }}
         >
           <section className="relative bg-background">
-            <div className="px-5 pt-28 sm:px-8">
-              <div className="mx-auto max-w-7xl">
+            <div className="px-6 pt-28">
+              <div className="mx-auto max-w-6xl">
                 <BackButton onClick={() => navigate("/?section=projects")} />
 
                 <div className="article-meta mt-10">
@@ -299,8 +301,8 @@ const SeniorThesisLocalJournalismPage = () => {
               </div>
             </div>
 
-            <div className="relative z-20 bg-background px-5 py-12 sm:px-8 lg:py-16">
-              <div className="mx-auto max-w-7xl">
+            <div className="relative z-20 bg-background px-6 py-16">
+              <div className="mx-auto max-w-6xl">
                 <TextReveal>
                   <div className="max-w-6xl space-y-6">
                     <motion.p
@@ -342,8 +344,8 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </section>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className={`mx-auto max-w-7xl ${EDITORIAL_GRID}`}>
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className={`mx-auto max-w-6xl ${EDITORIAL_GRID}`}>
               <motion.div
                 initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
                 whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -380,8 +382,8 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className={`mx-auto max-w-7xl ${EDITORIAL_GRID}`}>
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className={`mx-auto max-w-6xl ${EDITORIAL_GRID}`}>
               <motion.div
                 initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
                 whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -426,8 +428,8 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto max-w-7xl">
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto max-w-6xl">
               <div className={EDITORIAL_GRID}>
                 <motion.div
                   initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
@@ -545,8 +547,8 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 text-foreground sm:px-8 lg:py-20" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto max-w-7xl">
+          <RevealSection className="bg-background px-6 py-16 text-foreground" scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto max-w-6xl">
               <div className={EDITORIAL_GRID}>
                 <motion.div
                   initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
@@ -590,8 +592,8 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
           </RevealSection>
 
-          <RevealSection className="bg-background px-5 py-16 sm:px-8" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto max-w-7xl">
+          <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
+            <div className="mx-auto max-w-6xl">
               <motion.div
                 className="site-corner bg-card p-5 sm:p-6 lg:p-7"
                 variants={CARD_REVEAL}
