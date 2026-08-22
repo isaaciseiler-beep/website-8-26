@@ -11,25 +11,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 const continents: ("All" | Continent)[] = ["All", "Asia", "Europe", "Oceania", "United States"];
 
-// Featured photos for the editorial layout above the grid — randomized on every load
-const allPhotos = albums.flatMap((album) => albumPhotos(album));
-const pickRandom = (count: number) => {
-  const pool = [...allPhotos];
-  const picked: string[] = [];
-  for (let i = 0; i < count && pool.length; i++) {
-    picked.push(...pool.splice(Math.floor(Math.random() * pool.length), 1));
-  }
-  return picked;
-};
-const [heroPhoto, pairLeftPhoto, pairRightPhoto, overlapPhoto, bottomPhoto] = pickRandom(5);
-const featuredPhotos = {
-  hero: heroPhoto,
-  pairLeft: pairLeftPhoto,
-  pairRight: pairRightPhoto,
-  overlap: overlapPhoto,
-  bottom: bottomPhoto,
-};
-
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -131,70 +112,6 @@ const layoutPatterns: RowLayout[][] = [
   ["offset-right", "full", "pair", "offset-left", "full"],
 ];
 
-const FeaturedHero = () => {
-  const fade = {
-    initial: { opacity: 0, y: 24, filter: "blur(6px)" },
-    animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-  };
-  return (
-    <div className="photos-shell mb-16">
-      <div className="site-corner overflow-hidden">
-        {/* Row 1: full-width 4:3 */}
-        <motion.div
-          {...fade}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="aspect-[4/3] overflow-hidden mb-[3px]"
-        >
-          <img src={featuredPhotos.hero} alt="" className="w-full h-full object-cover" loading="eager" decoding="async" fetchpriority="high" />
-        </motion.div>
-
-        {/* Row 2: pair of 4:3 */}
-        <div className="grid grid-cols-2 gap-[3px] mb-[3px]">
-          <motion.div
-            {...fade}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.08 }}
-            className="aspect-[4/3] overflow-hidden"
-          >
-            <img src={featuredPhotos.pairLeft} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" fetchpriority="low" />
-          </motion.div>
-          <motion.div
-            {...fade}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.14 }}
-            className="aspect-[4/3] overflow-hidden"
-          >
-            <img src={featuredPhotos.pairRight} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" fetchpriority="low" />
-          </motion.div>
-        </div>
-
-        {/* Row 3: full-width 4:3 with overlapping smaller photo on top-right */}
-        <div className="relative">
-          <motion.div
-            {...fade}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
-            className="aspect-[4/3] overflow-hidden"
-          >
-            <img src={featuredPhotos.bottom} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" fetchpriority="low" />
-          </motion.div>
-          {/* Floating 70%-scale 4:3 sitting between row 2 and row 3, right-aligned with buffer */}
-          <motion.div
-            initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.32 }}
-            className="absolute right-[6%] aspect-[4/3] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] z-10"
-            style={{
-              width: "35%",
-              top: 0,
-              transform: "translateY(-50%)",
-            }}
-          >
-            <img src={featuredPhotos.overlap} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" fetchpriority="low" />
-          </motion.div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const PhotosPage = () => {
   const [filter, setFilter] = useState("All");
   const [openAlbum, setOpenAlbum] = useState<string | null>(null);
@@ -243,20 +160,7 @@ const PhotosPage = () => {
   const previewImages = currentAlbumPhotos;
 
   useEffect(() => {
-    const featured = [
-      featuredPhotos.hero,
-      featuredPhotos.pairLeft,
-      featuredPhotos.pairRight,
-      featuredPhotos.overlap,
-      featuredPhotos.bottom,
-    ];
-
-    void preloadImages([featuredPhotos.hero], {
-      decode: true,
-      fetchPriority: "high",
-      linkPreload: true,
-    });
-    scheduleImagePreloads([...featured.slice(1), ...albums.map(coverFor)], {
+    scheduleImagePreloads(albums.map(coverFor), {
       batchSize: isMobile ? 2 : 4,
       decode: false,
       fallbackDelay: isMobile ? 240 : 160,
@@ -314,10 +218,6 @@ const PhotosPage = () => {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
         >
-          {!openAlbum && (
-            <FeaturedHero />
-          )}
-
           {!openAlbum && (
             <div className="photos-shell mb-16">
               <div className="work-library-tabs" role="tablist" aria-label="Filter albums">
