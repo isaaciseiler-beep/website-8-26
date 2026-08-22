@@ -280,7 +280,7 @@ const SeniorThesisLocalJournalismPage = () => {
         >
           <section className="relative bg-background">
             <div className="px-6 pt-28">
-              <div className="mx-auto max-w-6xl">
+              <div className="content-measure">
                 <BackButton onClick={() => navigate("/?section=projects")} />
 
                 <div className="article-meta mt-10">
@@ -302,9 +302,9 @@ const SeniorThesisLocalJournalismPage = () => {
             </div>
 
             <div className="relative z-20 bg-background px-6 py-16">
-              <div className="mx-auto max-w-6xl">
+              <div className="content-measure">
                 <TextReveal>
-                  <div className="max-w-6xl space-y-6">
+                  <div className="space-y-6">
                     <motion.p
                       className="text-xl leading-relaxed text-foreground/78 sm:text-2xl"
                       initial={{ opacity: 0, y: 18 }}
@@ -345,7 +345,7 @@ const SeniorThesisLocalJournalismPage = () => {
           </section>
 
           <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
-            <div className={`mx-auto max-w-6xl ${EDITORIAL_GRID}`}>
+            <div className={`content-measure ${EDITORIAL_GRID}`}>
               <motion.div
                 initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
                 whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -383,7 +383,7 @@ const SeniorThesisLocalJournalismPage = () => {
           </RevealSection>
 
           <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
-            <div className={`mx-auto max-w-6xl ${EDITORIAL_GRID}`}>
+            <div className={`content-measure ${EDITORIAL_GRID}`}>
               <motion.div
                 initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
                 whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -429,7 +429,7 @@ const SeniorThesisLocalJournalismPage = () => {
           </RevealSection>
 
           <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto max-w-6xl">
+            <div className="content-measure">
               <div className={EDITORIAL_GRID}>
                 <motion.div
                   initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
@@ -548,7 +548,7 @@ const SeniorThesisLocalJournalismPage = () => {
           </RevealSection>
 
           <RevealSection className="bg-background px-6 py-16 text-foreground" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto max-w-6xl">
+            <div className="content-measure">
               <div className={EDITORIAL_GRID}>
                 <motion.div
                   initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
@@ -593,7 +593,7 @@ const SeniorThesisLocalJournalismPage = () => {
           </RevealSection>
 
           <RevealSection className="bg-background px-6 py-16" scrollContainerRef={pageScrollRef}>
-            <div className="mx-auto max-w-6xl">
+            <div className="content-measure">
               <motion.div
                 className="site-corner bg-card p-5 sm:p-6 lg:p-7"
                 variants={CARD_REVEAL}
