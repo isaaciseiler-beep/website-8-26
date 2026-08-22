@@ -52,9 +52,8 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
         }
       }
 
-      intro.style.fontSize = "";
+      intro.style.fontSize = `${bestSize}px`;
       console.log("fitText result", { bestSize });
-      setFontSize(`${bestSize}px`);
       fittingRef.current = false;
     };
 
