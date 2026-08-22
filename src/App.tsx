@@ -4,6 +4,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Index from "./pages/Index.tsx";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import SkullChrome from "@/components/SkullChrome";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const isRecoverableChunkError = (error: unknown) => {
   const message = error instanceof Error ? error.message : String(error);
@@ -183,13 +185,21 @@ const ChatOrbGate = () => {
   );
 };
 
+const AppShell = () => {
+  useScrollReveal();
+  return (
+    <BrowserRouter>
+      <SkullChrome />
+      <AnimatedRoutes />
+      <ChatOrbGate />
+    </BrowserRouter>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
-      <BrowserRouter>
-        <AnimatedRoutes />
-        <ChatOrbGate />
-      </BrowserRouter>
+      <AppShell />
     </ThemeProvider>
   </QueryClientProvider>
 );
