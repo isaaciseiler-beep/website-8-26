@@ -30,7 +30,6 @@ const ChatOrb = () => {
   const disabled = location.pathname === "/photos" || location.pathname === "/photos/map";
 
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [photoVisible, setPhotoVisible] = useState(false);
 
   const userMessageCount = countUserMessages(messages);
   const limitReached = messages.some(
