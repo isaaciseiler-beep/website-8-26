@@ -337,15 +337,6 @@ export const projectItems: ProjectItem[] = [
       },
     ],
   },
-  {
-    id: "__removed__",
-    title: "",
-    source: "PROJECT",
-    year: "",
-    summary: "",
-    image: "",
-    sections: [],
-  },
 
   {
     id: "electric-vehicle-access-analysis",
