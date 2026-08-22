@@ -142,7 +142,7 @@ const ProjectDetailPage = () => {
         transition={{ duration: 0.56, ease: EASE_TEXT }}
       >
         <motion.main
-          className={`pt-28 pb-20 px-6 max-w-4xl mx-auto ${id === "fulbright-award-to-taiwan" ? "blog-post--fulbright" : ""}`}
+          className={`pt-28 pb-20 px-6 max-w-4xl mx-auto ${isFulbright ? "blog-post--fulbright" : ""}`}
           initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.6, ease: EASE_TEXT, delay: 0.1 }}
