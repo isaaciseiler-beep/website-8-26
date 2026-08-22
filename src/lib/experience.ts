@@ -9,7 +9,8 @@ export interface ExperienceEntry {
   paragraphs: string[];
   focus: string[];
   projectIds: string[];
-    newsIds: number[];
+  newsIds: number[];
+
 }
 
 export const experienceIntro = {
