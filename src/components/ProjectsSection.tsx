@@ -5,15 +5,13 @@ import { Link } from "react-router-dom";
 import { projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
 
-type ProjectFilter = "ALL" | "NEWS" | "AI" | ProjectItem["source"];
+type ProjectFilter = "ALL" | "AI" | "PROJECTS" | "BLOG";
 
 const filters: { label: string; value: ProjectFilter }[] = [
   { label: "All", value: "ALL" },
   { label: "AI", value: "AI" },
-  { label: "Research", value: "RESEARCH" },
-  { label: "Work", value: "WORK" },
-  { label: "Projects", value: "PROJECT" },
-  { label: "News", value: "NEWS" },
+  { label: "Projects", value: "PROJECTS" },
+  { label: "Blog", value: "BLOG" },
 ];
 
 const AI_SUBJECT_PATTERN =
@@ -43,20 +41,19 @@ const ProjectsSection = () => {
       node: item,
     }));
 
-    if (filter === "NEWS") return newsEntries;
+    if (filter === "BLOG") {
+      return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source === "BLOG");
+    }
     if (filter === "AI") {
       return [...projectEntries, ...newsEntries].filter((entry) => {
         const node = entry.node as { title?: string; source?: string; summary?: string; description?: string };
-        return isAiSubject(node.title, node.source, node.summary, node.description);
+        return entry.node.source !== "BLOG" && isAiSubject(node.title, node.source, node.summary, node.description);
       });
     }
-    if (filter === "ALL") return [...projectEntries, ...newsEntries];
-    if (filter === "WORK") {
-      return projectEntries.filter(
-        (entry) => entry.kind === "project" && (entry.node.source === "WORK" || entry.node.source === "REPORTING"),
-      );
+    if (filter === "PROJECTS") {
+      return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source !== "BLOG");
     }
-    return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source === filter);
+    return [...projectEntries, ...newsEntries];
   }, [filter]);
 
   return (
@@ -114,9 +111,6 @@ const ProjectsSection = () => {
               >
                 <img src={tileImageFor(index)} alt="" loading="lazy" decoding="async" />
                 <div className="work-library-scrim" />
-                <div className="news-compact-logo-row">
-                  <img src={item.logoUrl} alt={item.logoAlt} className="news-compact-logo" loading="lazy" />
-                </div>
                 <ArrowUpRight aria-hidden="true" className="work-library-card-arrow" />
                 <div className="work-library-card-bottom">
                   <h3>{item.title}</h3>
