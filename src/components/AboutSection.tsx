@@ -60,6 +60,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
     ro.observe(photo);
 
     const timer = window.setTimeout(fitText, 0);
+    const fontsPromise = document.fonts.ready.then(fitText);
 
     return () => {
       ro.disconnect();
