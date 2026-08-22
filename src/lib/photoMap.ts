@@ -28,6 +28,9 @@ const albumCoordinates: Record<Album["folder"], [number, number]> = {
   TaiwanStrait: [119.9499, 26.1602],
   Thailand: [98.3923, 7.8804],
   Vietnam: [105.8342, 21.0278],
+  "kz-kyrgz": [74.5698, 42.8746],
+  mongolia: [106.9057, 47.8864],
+  "washington-state": [-120.7401, 47.7511],
 };
 
 const miscUsPhoto = (fileName: string) => `${R2_BASE}/misc-USA/${fileName}`;

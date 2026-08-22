@@ -1,11 +1,16 @@
 export const R2_BASE = "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev";
 
-export type Continent = "Asia" | "Europe" | "Oceania";
+export type Continent = "Asia" | "Europe" | "Oceania" | "United States";
+
+/** Newer uploads live in the 8-26-website-update bucket. */
+export const R2_BASE_ALT = "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev";
 
 export interface Album {
   folder: string;
   location: string;
   continent: Continent;
+  /** Optional override when the album lives in a different R2 bucket. */
+  baseUrl?: string;
   photos: string[];
 }
 
@@ -86,7 +91,7 @@ export const albums: Album[] = [
   {
     folder: "Indonesia",
     location: "Indonesia",
-    continent: "Asia",
+    continent: "Oceania",
     photos: [
       "15F558C5-1BEC-44B0-871B-4FF3453EB6F6_1_102_o.jpeg",
       "3E3E1FB0-419E-448A-8CF3-A70F337C6707_1_102_o.jpeg",
@@ -236,19 +241,85 @@ export const albums: Album[] = [
       "E2B47120-5EB0-4D70-A055-A3E182072695_1_105_c.jpeg",
     ],
   },
+  {
+    folder: "kz-kyrgz",
+    location: "Kazakhstan & Kyrgyzstan",
+    continent: "Asia",
+    baseUrl: R2_BASE_ALT,
+    photos: [
+      "084E90AE-5E4B-4982-BE65-5A9CEAA675A8_1_105_c.jpeg",
+      "0C33B020-BA48-4D3A-B997-F7C54E663AC4_1_105_c.jpeg",
+      "101AF367-26DC-427F-ABF7-C53A10F84B6E_1_105_c.jpeg",
+      "1F1DCC54-4820-4B47-B0A7-AA8E26DEA42A_1_105_c.jpeg",
+      "207BED5E-AD43-4C76-A2AE-BCC6C1320F9B_1_105_c.jpeg",
+      "3A2F1C21-24FF-4C30-8760-F2D39C90693D_1_105_c.jpeg",
+      "54152F96-BC29-4D27-B968-0F66E29A8EBD_1_105_c.jpeg",
+      "54B47624-C0EB-4510-BCFC-D8BEDF2ECA00_1_105_c.jpeg",
+      "62F809A3-1D3C-46D6-B426-677A62569BE9_1_105_c.jpeg",
+      "6885E1DB-887E-4AA2-86AE-469C395E6082_1_105_c.jpeg",
+      "6EC32056-7737-48E1-B814-42DB8DDE0DE6_1_105_c.jpeg",
+      "7EC2B093-B35C-41C3-9CC6-8BC7F89249C3_1_105_c.jpeg",
+      "ACCCDEC5-6D00-4906-A519-169CEFF80EC0_1_105_c.jpeg",
+      "B8D64A7A-15E3-451C-B292-7354F30CA834_1_105_c.jpeg",
+      "BDD55F2F-4981-4FD4-B4D7-8A31A5935F1F_1_105_c.jpeg",
+      "BEA5AF98-79AE-41FE-A0C5-5305EE996ABF_1_105_c.jpeg",
+      "D2C0A5FB-324A-423C-8014-584836D9036F_1_105_c.jpeg",
+      "DAEF1AB2-74D1-403D-ACA7-913C755E26F6_1_105_c.jpeg",
+      "EBE88181-5749-44DA-9762-FB0F204BB774_1_105_c.jpeg",
+      "F6AA09D3-248D-44D8-8765-3A35E943136C_1_105_c.jpeg",
+    ],
+  },
+  {
+    folder: "mongolia",
+    location: "Mongolia",
+    continent: "Asia",
+    baseUrl: R2_BASE_ALT,
+    photos: [
+      "020599DB-E50F-4BC0-938C-DF65427B2390_1_105_c.jpeg",
+      "04689A44-8451-4CBB-BEE1-1C158F85E8E5_1_105_c.jpeg",
+      "44F39F19-60CC-40D1-8E57-898077F2C386_1_105_c.jpeg",
+      "4664BB00-F505-4AD1-A6D9-3945E5CDAD46_1_105_c.jpeg",
+      "4B59D059-DAEE-483B-8CDD-971010279B5D_1_105_c.jpeg",
+      "5CA65493-F75A-44D2-87C7-C41A39F05D96_1_105_c.jpeg",
+      "AAE65C44-CC8B-4549-AB3B-7241FB7F6873_1_105_c.jpeg",
+      "AB9D42F7-DE88-4670-8E7B-D20ED15C4D2B_1_105_c.jpeg",
+      "C6B51EAB-E1B5-4005-B433-DD569D49CB62_1_105_c.jpeg",
+      "C6F9F3A3-0E08-463A-BBF8-420B83ED16DF_1_105_c.jpeg",
+      "CCA30A98-0658-4F31-9EA5-D5F15BD3E5F1_1_105_c.jpeg",
+      "D18B1A76-E64F-4E4D-8BFA-C7450655FD72_1_105_c.jpeg",
+      "E7C7D20D-2601-44E2-A929-C6D0CBEE66BE_1_105_c.jpeg",
+      "ED393BD4-BF2F-4B1C-AC22-5AB953417443_1_105_c.jpeg",
+      "F449F5FE-7D21-4A32-9D29-E7918C387B6F_1_105_c.jpeg",
+    ],
+  },
+  {
+    folder: "washington-state",
+    location: "Washington State",
+    continent: "United States",
+    baseUrl: R2_BASE_ALT,
+    photos: [
+      "0839E20A-90DE-4B82-A2ED-42C2ED9ACBE5_1_105_c.jpeg",
+      "736976DE-C98A-4697-AB17-D8C9E0416209_1_105_c.jpeg",
+      "750D9F5B-E868-4194-9238-BF57B72B82A4_1_105_c.jpeg",
+      "CFAD673F-9913-4CA6-831F-E808E2862A5A_1_105_c.jpeg",
+      "EB544320-8DC0-49F1-AD85-AFB395EF7FBF_1_105_c.jpeg",
+      "F79A8B18-AD81-424A-9BC9-6A9EBD600790_1_105_c.jpeg",
+    ],
+  },
 ];
 
-export const photoUrl = (folder: string, file: string) =>
-  `${R2_BASE}/${folder}/${file}`;
+export const photoUrl = (folder: string, file: string, base: string = R2_BASE) =>
+  `${base}/${folder}/${file}`;
 
 export const isHdrPhotoFile = (file: string) => /_1_201_a\.(jpe?g|png|webp)$/i.test(file);
 
 export const albumPhotoFiles = (album: Album) => album.photos.filter((file) => !isHdrPhotoFile(file));
 
 export const albumPhotos = (album: Album) =>
-  albumPhotoFiles(album).map((f) => photoUrl(album.folder, f));
+  albumPhotoFiles(album).map((f) => photoUrl(album.folder, f, album.baseUrl));
 
-export const coverFor = (album: Album) => photoUrl(album.folder, albumPhotoFiles(album)[0] ?? album.photos[0]);
+export const coverFor = (album: Album) =>
+  photoUrl(album.folder, albumPhotoFiles(album)[0] ?? album.photos[0], album.baseUrl);
 
 // Curated picks: one image per album for home preview & featured tiles.
 export const curatedPicks = albums.map((a) => ({
