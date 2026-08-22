@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useMotionValue, AnimatePresence } from "framer-motion";
 import { ChevronRight, Mail, Moon, Skull, Sun } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme, type Theme } from "@/components/ThemeProvider";
