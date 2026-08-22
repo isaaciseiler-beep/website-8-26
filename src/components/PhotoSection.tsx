@@ -92,9 +92,9 @@ const PhotoSection = () => {
             alt={activePhoto.title}
             className="absolute inset-0 w-full h-full object-cover"
             style={{
-              filter: shouldFlipPhotos ? "grayscale(0%)" : "grayscale(100%)",
+              filter: "none",
               transform: shouldFlipPhotos ? "scale(1.02)" : "scale(1)",
-              transition: "filter 600ms ease-out, transform 900ms cubic-bezier(0.16,1,0.3,1)",
+              transition: "transform 900ms cubic-bezier(0.16,1,0.3,1)",
             }}
             loading="eager"
             decoding="async"

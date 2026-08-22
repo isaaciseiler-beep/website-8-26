@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
 
@@ -10,31 +10,28 @@ const filters: { label: string; value: ProjectFilter }[] = [
   { label: "All", value: "ALL" },
   { label: "Research", value: "RESEARCH" },
   { label: "Work", value: "WORK" },
-  { label: "Reporting", value: "REPORTING" },
   { label: "Projects", value: "PROJECT" },
   { label: "News", value: "NEWS" },
 ];
 
-const INITIAL_COUNT = 6;
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const ProjectsSection = () => {
   const [filter, setFilter] = useState<ProjectFilter>("ALL");
-  const [expanded, setExpanded] = useState(false);
 
   const projects = useMemo(() => {
     if (filter === "NEWS") return [];
-    const matches = filter === "ALL"
-      ? projectItems
-      : projectItems.filter((project) => project.source === filter);
-    return matches.slice(0, 12);
+    if (filter === "ALL") return projectItems;
+    if (filter === "WORK") {
+      return projectItems.filter((project) => project.source === "WORK" || project.source === "REPORTING");
+    }
+    return projectItems.filter((project) => project.source === filter);
   }, [filter]);
 
   const isNews = filter === "NEWS";
-  const total = isNews ? newsItems.length : projects.length;
-  const collapsed = !expanded && total > INITIAL_COUNT;
-  const visible = collapsed ? projects.slice(0, INITIAL_COUNT) : projects;
-  const visibleNews = collapsed ? newsItems.slice(0, INITIAL_COUNT) : newsItems;
+  const visible = projects;
+  const visibleNews = newsItems;
+
 
 
   return (
@@ -52,7 +49,6 @@ const ProjectsSection = () => {
               aria-selected={active}
               onClick={() => {
                 setFilter(item.value);
-                setExpanded(false);
               }}
               className={`pill-tab ${active ? "is-active" : ""}`}
             >
@@ -69,7 +65,7 @@ const ProjectsSection = () => {
         })}
       </div>
 
-      <motion.div layout transition={{ duration: 0.45, ease: EASE }} className="work-library-grid">
+      <motion.div layout transition={{ duration: 0.45, ease: EASE }} className="work-library-rail">
         <AnimatePresence mode="popLayout" initial={false}>
           {isNews
             ? visibleNews.map((item, index) => (
@@ -83,7 +79,7 @@ const ProjectsSection = () => {
                   initial={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   exit={{ opacity: 0, scale: 0.985, filter: "blur(6px)" }}
-                  transition={{ duration: 0.5, ease: EASE, delay: Math.min((index % INITIAL_COUNT) * 0.035, 0.18) }}
+                  transition={{ duration: 0.5, ease: EASE, delay: Math.min(index * 0.035, 0.18) }}
                 >
                   {item.imageUrl ? (
                     <img src={item.imageUrl} alt="" loading="lazy" decoding="async" />
@@ -108,7 +104,7 @@ const ProjectsSection = () => {
               transition={{
                 duration: 0.5,
                 ease: EASE,
-                delay: Math.min((index % INITIAL_COUNT) * 0.035, 0.18),
+                delay: Math.min(index * 0.035, 0.18),
               }}
             >
               <Link
@@ -133,20 +129,6 @@ const ProjectsSection = () => {
         </AnimatePresence>
       </motion.div>
 
-      {total > INITIAL_COUNT ? (
-
-        <div className="work-library-more">
-          <button
-            type="button"
-            className="pill-button"
-            onClick={() => setExpanded((value) => !value)}
-            aria-expanded={expanded}
-          >
-            <span>{expanded ? "View less" : "View more"}</span>
-            <ChevronDown aria-hidden="true" className={expanded ? "is-flipped" : ""} />
-          </button>
-        </div>
-      ) : null}
     </section>
   );
 };

@@ -2198,6 +2198,27 @@
     gap: 12px;
   }
 
+  .work-library-rail {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+  }
+
+  .work-library-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .work-library-rail > * {
+    flex: 0 0 calc((100% - 24px) / 3);
+    max-width: calc((100% - 24px) / 3);
+    scroll-snap-align: start;
+  }
+
 
   .work-library-card {
     position: relative;
@@ -2574,6 +2595,11 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .work-library-rail > * {
+      flex-basis: calc((100% - 12px) / 2);
+      max-width: calc((100% - 12px) / 2);
+    }
+
     .about-lede-body {
       grid-template-columns: 310px minmax(0, 1fr);
       gap: 26px;
@@ -2608,6 +2634,15 @@
       gap: 10px;
     }
 
+    .work-library-rail {
+      gap: 10px;
+    }
+
+    .work-library-rail > * {
+      flex-basis: calc((100% - 10px) / 2);
+      max-width: calc((100% - 10px) / 2);
+    }
+
     .work-library-card-bottom h3 {
       font-size: 1.25rem;
     }
@@ -2627,4 +2662,97 @@
 html body,
 html body * {
   letter-spacing: 0.012em !important;
+}
+
+/* ============ Skull mode: dial-up era, blue + b/w only ============ */
+.skull {
+  --background: 0 0% 100%;
+  --foreground: 220 100% 30%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 100% 30%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 100% 30%;
+  --primary: 220 100% 40%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 92%;
+  --secondary-foreground: 220 100% 30%;
+  --muted: 0 0% 92%;
+  --muted-foreground: 0 0% 35%;
+  --accent: 220 100% 40%;
+  --accent-foreground: 0 0% 100%;
+  --border: 220 100% 40%;
+  --input: 220 100% 40%;
+  --ring: 220 100% 40%;
+}
+
+.skull body {
+  background: #ffffff;
+  color: #0000aa;
+}
+
+.skull body,
+.skull body * {
+  font-family: 'Times New Roman', Times, serif !important;
+  letter-spacing: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  text-shadow: none !important;
+}
+
+.skull img,
+.skull video {
+  filter: grayscale(1) contrast(1.25) !important;
+  image-rendering: pixelated;
+}
+
+.skull a,
+.skull .pill-tab-label,
+.skull .work-library-card-bottom h3 {
+  color: #0000ee !important;
+  text-decoration: underline !important;
+}
+
+.skull .work-library-card,
+.skull .about-lede-photo,
+.skull .site-corner {
+  border: 2px outset #0000aa !important;
+  background: #ffffff !important;
+}
+
+.skull .work-library-scrim {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent 60%) !important;
+}
+
+.skull .pill-tab,
+.skull .pill-button,
+.skull .pill-back,
+.skull button {
+  border: 2px outset #c0c0c0 !important;
+  background: #c0c0c0 !important;
+  color: #000080 !important;
+  text-decoration: none !important;
+}
+
+.skull button:active {
+  border-style: inset !important;
+}
+
+.skull .pill-tab-indicator,
+.skull .ai-dock-trigger::before,
+.skull .pill-button::before,
+.skull .pill-tab::before {
+  background: #000080 !important;
+}
+
+.skull .pill-tab.is-active .pill-tab-label {
+  color: #ffffff !important;
+}
+
+.skull .ai-dock-trigger,
+.skull .ai-dock-panel {
+  border: 2px outset #c0c0c0 !important;
+  background: #c0c0c0 !important;
+  color: #000080 !important;
 }
