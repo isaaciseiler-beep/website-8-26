@@ -95,6 +95,7 @@ const ProjectDetailPage = () => {
   const isMobile = useIsMobile();
 
   const project = projectItems.find((p) => p.id === id);
+  const isFulbright = id === "fulbright-award-to-taiwan";
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);
@@ -142,7 +143,7 @@ const ProjectDetailPage = () => {
         transition={{ duration: 0.56, ease: EASE_TEXT }}
       >
         <motion.main
-          className={`pt-28 pb-20 px-6 max-w-4xl mx-auto ${id === "fulbright-award-to-taiwan" ? "blog-post--fulbright" : ""}`}
+          className={`pt-28 pb-20 px-6 max-w-4xl mx-auto ${isFulbright ? "blog-post--fulbright" : ""}`}
           initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.6, ease: EASE_TEXT, delay: 0.1 }}
@@ -163,6 +164,13 @@ const ProjectDetailPage = () => {
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground mb-4">{project.title}</h1>
           <p className="text-base md:text-lg text-foreground/65 leading-relaxed mb-10">{project.summary}</p>
 
+          {isFulbright && (
+            <div className="nyt-byline">
+              By Isaac Stone Simonelli
+              <span>Published {project.year} · Reading time 6 min</span>
+            </div>
+          )}
+
           <div className="site-corner aspect-[16/9] overflow-hidden mb-12">
             <img
               src={project.image}
@@ -173,6 +181,12 @@ const ProjectDetailPage = () => {
               fetchpriority="high"
             />
           </div>
+          {isFulbright && (
+            <p className="nyt-caption -mt-12">
+              A view along the route east, where the plan stops being a plan. Photograph for this piece.
+            </p>
+          )}
+
 
           <div className="space-y-10">
             {project.sections.map((section) => (
