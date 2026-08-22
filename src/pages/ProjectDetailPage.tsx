@@ -204,32 +204,6 @@ const ProjectDetailPage = () => {
           </button>
 
           <div className="article-shell">
-            <aside className="article-toc" aria-label="Contents">
-              <div className="article-toc-label">Contents</div>
-              <div className="article-toc-list">
-                {headings.map((item, index) => (
-                  <button
-                    key={item.slug}
-                    type="button"
-                    className={`article-toc-item ${activeSection === index ? "is-active" : ""}`}
-                    onClick={() => {
-                      const node = document.getElementById(item.slug);
-                      if (node) window.scrollTo({ top: node.getBoundingClientRect().top + window.scrollY - 110, behavior: "smooth" });
-                    }}
-                  >
-                    <span>{String(index).padStart(2, "0")}</span>
-                    <span>{item.heading}</span>
-                  </button>
-                ))}
-              </div>
-              <div className="article-toc-progress">
-                <div className="article-toc-bar">
-                  <span style={{ width: `${progress}%` }} />
-                </div>
-                <div className="article-toc-percent">{Math.round(progress)}% read</div>
-              </div>
-            </aside>
-
             <div>
               <div className="article-meta">
                 <span>{project.year}</span>
