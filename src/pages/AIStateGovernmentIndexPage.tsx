@@ -488,7 +488,7 @@ const AIStateGovernmentIndexPage = () => {
                 <div className="mx-auto max-w-7xl">
                   <button
                     type="button"
-                    onClick={() => navigate("/projects")}
+                    onClick={() => navigate("/?section=projects")}
                     className="back-projects-button group relative inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-full bg-foreground px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-background"
                   >
                     <span

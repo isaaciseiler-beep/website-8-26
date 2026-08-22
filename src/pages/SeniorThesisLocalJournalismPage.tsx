@@ -322,7 +322,7 @@ const SeniorThesisLocalJournalismPage = () => {
 
               <div className="absolute inset-x-0 top-0 z-10 px-5 pt-28 sm:px-8">
                 <div className="mx-auto max-w-7xl">
-                  <BackButton onClick={() => navigate("/projects")} />
+                  <BackButton onClick={() => navigate("/?section=projects")} />
                 </div>
               </div>
 

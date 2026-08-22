@@ -1,7 +1,7 @@
 import { Component, Suspense, lazy, useEffect, useState, type ComponentType, type ErrorInfo, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Index from "./pages/Index.tsx";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -39,7 +39,6 @@ const lazyWithRetry = <T extends { default: ComponentType }>(
 const ChatOrb = lazyWithRetry(() => import("@/components/ChatOrb"), "chat-orb");
 const PhotosPage = lazyWithRetry(() => import("./pages/PhotosPage.tsx"), "photos");
 const PhotoMapPage = lazyWithRetry(() => import("./pages/PhotoMapPage.tsx"), "photo-map");
-const ProjectsPage = lazyWithRetry(() => import("./pages/ProjectsPage.tsx"), "projects");
 const ProjectDetailPage = lazyWithRetry(() => import("./pages/ProjectDetailPage.tsx"), "project-detail");
 const AIStateGovernmentIndexPage = lazyWithRetry(() => import("./pages/AIStateGovernmentIndexPage.tsx"), "ai-state-government-index");
 const SeniorThesisLocalJournalismPage = lazyWithRetry(() => import("./pages/SeniorThesisLocalJournalismPage.tsx"), "senior-thesis-local-journalism");
@@ -152,7 +151,7 @@ const AnimatedRoutes = () => {
               <Route path="/" element={<Index />} />
               <Route path="/photos" element={<PhotosPage />} />
               <Route path="/photos/map" element={<PhotoMapPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/projects" element={<Navigate to="/?section=projects" replace />} />
               <Route path="/projects/artificial-intelligence-in-state-government-index" element={<AIStateGovernmentIndexPage />} />
               <Route path="/projects/senior-thesis-local-journalism" element={<SeniorThesisLocalJournalismPage />} />
               <Route path="/projects/:id" element={<ProjectDetailPage />} />

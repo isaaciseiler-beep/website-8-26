@@ -113,7 +113,7 @@ const ProjectDetailPage = () => {
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        <button onClick={() => navigate("/projects")} className="font-mono text-xs uppercase tracking-widest">← Back to projects</button>
+        <button onClick={() => navigate("/?section=projects")} className="font-mono text-xs uppercase tracking-widest">← Back to projects</button>
       </div>
     );
   }
@@ -148,7 +148,7 @@ const ProjectDetailPage = () => {
           transition={{ duration: 0.6, ease: EASE_TEXT, delay: 0.1 }}
         >
           <button
-            onClick={() => navigate("/projects")}
+            onClick={() => navigate("/?section=projects")}
             className="back-projects-button group relative mb-8 inline-flex items-center justify-center overflow-hidden rounded-full bg-foreground px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] cursor-pointer"
           >
             <span
