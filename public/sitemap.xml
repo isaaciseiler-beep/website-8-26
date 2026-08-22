@@ -213,4 +213,15 @@
       <image:caption>Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.</image:caption>
     </image:image>
   </url>
+  <url>
+    <loc>https://www.isaacseiler.xyz/projects/fulbright-award-to-taiwan</loc>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+    <image:image>
+      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
+      <image:title>Won Fulbright Award to Taiwan</image:title>
+      <image:caption>A sample blog post about leaving one life for another: notes, packing lists, and imaginary itineraries for a year that has not happened yet.</image:caption>
+    </image:image>
+  </url>
 </urlset>
