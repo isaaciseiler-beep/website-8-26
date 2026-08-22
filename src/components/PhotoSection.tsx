@@ -5,7 +5,11 @@ import { albums, albumPhotos } from "@/lib/photoAlbums";
 import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const SET_SIZE = 8;
+const SET_SIZE = 10;
+
+// Slow -> fast -> slow cadence across the ten frames (ms per step).
+const STEP_DELAYS = [520, 400, 300, 210, 150, 130, 150, 210, 320, 460];
+const delayForStep = (step: number) => STEP_DELAYS[step % STEP_DELAYS.length];
 
 const buildRandomSet = () => {
   const pool = albums.flatMap((album) =>
@@ -74,7 +78,7 @@ const PhotoSection = () => {
           return;
         }
         schedule();
-      }, 320);
+      }, delayForStep(tick));
     };
 
     schedule();
@@ -88,11 +92,18 @@ const PhotoSection = () => {
   useEffect(() => {
     if (prefersReducedMotion || isMobile || !hovering || isCycling) return;
 
-    const interval = setInterval(() => {
-      setActiveIdx((current) => (current + 1) % photos.length);
-    }, 320);
+    let step = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const run = () => {
+      timer = setTimeout(() => {
+        setActiveIdx((current) => (current + 1) % photos.length);
+        step += 1;
+        run();
+      }, delayForStep(step));
+    };
+    run();
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timer);
   }, [hovering, isCycling, isMobile, photos.length, prefersReducedMotion]);
 
   if (!activePhoto) return null;
@@ -114,10 +125,7 @@ const PhotoSection = () => {
               src={photo.image}
               alt={photo.title}
               className="absolute inset-0 h-full w-full object-cover"
-              style={{
-                opacity: photo.image === activePhoto.image ? 1 : 0,
-                transition: "opacity 150ms ease-out",
-              }}
+              style={{ opacity: photo.image === activePhoto.image ? 1 : 0 }}
               loading="eager"
               decoding="async"
             />
