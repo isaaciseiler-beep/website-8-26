@@ -2488,12 +2488,15 @@
   /* Floating AI dock */
   .ai-dock {
     position: fixed;
-    bottom: 26px;
-    left: 50%;
+    inset: auto 0 26px;
     z-index: 58;
     display: flex;
     justify-content: center;
-    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .ai-dock > * {
+    pointer-events: auto;
   }
 
   .ai-dock-shell {
