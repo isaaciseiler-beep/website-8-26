@@ -163,6 +163,13 @@ const ProjectDetailPage = () => {
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground mb-4">{project.title}</h1>
           <p className="text-base md:text-lg text-foreground/65 leading-relaxed mb-10">{project.summary}</p>
 
+          {isFulbright && (
+            <div className="nyt-byline">
+              By Isaac Stone Simonelli
+              <span>Published {project.year} · Reading time 6 min</span>
+            </div>
+          )}
+
           <div className="site-corner aspect-[16/9] overflow-hidden mb-12">
             <img
               src={project.image}
@@ -173,6 +180,12 @@ const ProjectDetailPage = () => {
               fetchpriority="high"
             />
           </div>
+          {isFulbright && (
+            <p className="nyt-caption -mt-12">
+              A view along the route east, where the plan stops being a plan. Photograph for this piece.
+            </p>
+          )}
+
 
           <div className="space-y-10">
             {project.sections.map((section) => (
