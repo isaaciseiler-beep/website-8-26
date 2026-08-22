@@ -48,7 +48,7 @@ const Footer = () => {
 
   return (
     <footer id="footer" className="relative bg-background">
-      <div className="work-library flex items-center justify-between gap-6 pt-12 pb-8 md:pt-16">
+      <div data-reveal className="work-library flex items-center justify-between gap-6 pt-12 pb-8 md:pt-16">
         <div
           className={`flex items-center gap-5 transition-opacity duration-300 ${
             sidebarOpen ? "pointer-events-none opacity-0" : "opacity-100"

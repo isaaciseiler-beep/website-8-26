@@ -120,11 +120,11 @@ const Index = () => {
       >
         <main>
           <Suspense fallback={<SectionFallback />}>
-            <div id="hero" className="home-work-opening">
+            <div id="hero" className="home-work-opening" data-reveal>
               <div id="about"><AboutSection revealEnabled /></div>
             </div>
-            <div id="projects" className="home-photo-section"><ProjectsSection /></div>
-            <div id="photos" className="home-photo-section home-photo-section--last"><PhotoSection /></div>
+            <div id="projects" className="home-photo-section" data-reveal><ProjectsSection /></div>
+            <div id="photos" className="home-photo-section home-photo-section--last" data-reveal><PhotoSection /></div>
             <Footer />
           </Suspense>
         </main>
