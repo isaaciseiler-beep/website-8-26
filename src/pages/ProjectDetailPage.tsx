@@ -95,6 +95,7 @@ const ProjectDetailPage = () => {
   const isMobile = useIsMobile();
 
   const project = projectItems.find((p) => p.id === id);
+  const isFulbright = id === "fulbright-award-to-taiwan";
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);
