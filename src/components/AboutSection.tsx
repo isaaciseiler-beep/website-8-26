@@ -21,7 +21,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
       if (fittingRef.current) return;
       fittingRef.current = true;
 
-      const targetHeight = photo.clientHeight * 0.5;
+      const targetHeight = photo.clientHeight * 0.7;
       const introWidth = intro.parentElement?.clientWidth ?? intro.clientWidth;
       if (!targetHeight || !introWidth) {
         fittingRef.current = false;
@@ -86,7 +86,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
 
           <div className="about-lede-copy">
             <p ref={introRef} className="about-lede-intro">
-              I lead marketing and communications at{" "}
+              I lead marketing and comms at{" "}
               <a
                 href="https://summation.com"
                 target="_blank"
@@ -95,7 +95,9 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
               >
                 Summation
               </a>
-              , helping tell the story of how AI is changing the way people work. My background spans government, startups, and larger companies, including senior communications roles in the U.S. House and published work with OpenAI. Based in Seattle, WA.
+              , helping tell the story of how AI is changing the way people work. My background spans government and large enterprise, including senior roles at the U.S. House and published work with OpenAI.
+              <br /><br />
+              Based in Seattle, WA.
             </p>
           </div>
         </div>
