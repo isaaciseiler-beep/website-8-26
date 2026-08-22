@@ -133,8 +133,8 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     content:
       "A Washington University news item about Isaac being named a 2024 Rhodes Scholarship finalist, relevant to academic distinction and public-interest work.",
     url: "/#news",
-  },,
-{
+  },
+  {
     id: "openai-product-testing",
     title: "OpenAI Product Testing and Feedback",
     source: "Project",
