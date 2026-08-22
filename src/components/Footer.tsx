@@ -40,6 +40,7 @@ interface FooterProps {
 
 const Footer = ({ overlay = false }: FooterProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [atBottom, setAtBottom] = useState(!overlay);
 
   useEffect(() => {
     const onState = (event: Event) => {
@@ -50,9 +51,36 @@ const Footer = ({ overlay = false }: FooterProps) => {
     return () => window.removeEventListener("site-sidebar-state", onState as EventListener);
   }, []);
 
+  useEffect(() => {
+    if (!overlay) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const remaining = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+      setAtBottom(remaining <= 12);
+    };
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [overlay]);
+
   return (
     <footer id="footer" className={overlay ? "site-footer--overlay" : "relative bg-background"}>
-      <div data-reveal className="work-library flex items-center justify-between gap-6 pt-12 pb-8 md:pt-16">
+      <div
+        data-reveal
+        className={`work-library flex items-center justify-between gap-6 pt-12 pb-8 md:pt-16 ${
+          overlay ? `site-footer-slide ${atBottom ? "is-in" : ""}` : ""
+        }`}
+      >
         <div
           className={`flex items-center gap-5 transition-opacity duration-300 ${
             sidebarOpen ? "pointer-events-none opacity-0" : "opacity-100"
