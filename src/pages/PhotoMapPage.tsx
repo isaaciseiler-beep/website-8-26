@@ -377,7 +377,7 @@ const PhotoMapPage = () => {
       const button = document.createElement("button");
       button.type = "button";
       button.className =
-        "photo-map-marker group absolute -left-4 -top-4 h-8 w-8 overflow-hidden rounded-full border border-[hsl(var(--image-scrim)/0.34)] bg-[#e2e8f4] shadow-[0_8px_22px_rgba(18,24,34,0.22)] grayscale transition-[transform,border-color,box-shadow,filter] duration-200 hover:scale-110 hover:border-[hsl(var(--image-scrim)/0.62)] hover:shadow-[0_12px_30px_rgba(18,24,34,0.3)] hover:grayscale-0 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--image-scrim)/0.28)] sm:-left-[18px] sm:-top-[18px] sm:h-9 sm:w-9 sm:shadow-[0_9px_24px_rgba(18,24,34,0.24)]";
+        "photo-map-marker group absolute -left-4 -top-4 h-8 w-8 overflow-hidden rounded-full border border-[hsl(var(--image-scrim)/0.34)] bg-[#e2e8f4] shadow-[0_8px_22px_rgba(18,24,34,0.22)] transition-[transform,border-color,box-shadow,filter] duration-200 hover:scale-110 hover:border-[hsl(var(--image-scrim)/0.62)] hover:shadow-[0_12px_30px_rgba(18,24,34,0.3)] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--image-scrim)/0.28)] sm:-left-[18px] sm:-top-[18px] sm:h-9 sm:w-9 sm:shadow-[0_9px_24px_rgba(18,24,34,0.24)]";
       button.setAttribute("aria-label", `Open ${entry.location} photos`);
       button.style.backgroundImage = `linear-gradient(rgba(244,247,254,0.02), rgba(0,0,0,0.18)), url("${entry.coverImage}")`;
       button.style.backgroundSize = "cover";
@@ -508,7 +508,7 @@ const PhotoMapPage = () => {
                   <img
                     src={activeEntry.coverImage}
                     alt=""
-                    className="absolute inset-0 h-full w-full object-cover grayscale transition-[filter,transform] duration-700 ease-out group-hover/photo-panel:scale-[1.015] group-hover/photo-panel:grayscale-0"
+                    className="absolute inset-0 h-full w-full object-cover transition-[filter,transform] duration-700 ease-out group-hover/photo-panel:scale-[1.015]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/22 to-black/20" />
                   <div className="relative z-10 flex min-h-0 flex-1 flex-col justify-end p-4 sm:p-5">

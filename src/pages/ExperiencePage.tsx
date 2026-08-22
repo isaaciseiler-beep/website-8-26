@@ -150,7 +150,7 @@ const RelatedLink = ({ item }: { item: RelatedItem }) => {
           <ExperienceImage
             src={item.image}
             className="h-full w-full"
-            imageClassName="h-full w-full object-cover grayscale transition-[filter,transform] duration-700 ease-out will-change-[filter,transform] group-hover:scale-[1.015] group-hover:grayscale-0"
+            imageClassName="h-full w-full object-cover transition-[filter,transform] duration-700 ease-out will-change-[filter,transform] group-hover:scale-[1.015]"
           />
         ) : (
           <span className="flex h-full w-full items-center justify-center text-foreground/35">
@@ -230,7 +230,7 @@ const ExperienceImage = ({
         loading="lazy"
         className={
           imageClassName ??
-          "absolute inset-0 h-full w-full object-cover grayscale transition-[filter,transform] duration-700 ease-out will-change-[filter,transform] group-hover/resume-image:grayscale-0"
+          "absolute inset-0 h-full w-full object-cover transition-[filter,transform] duration-700 ease-out will-change-[filter,transform]"
         }
       />
     </motion.div>
