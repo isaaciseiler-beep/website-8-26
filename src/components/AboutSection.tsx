@@ -70,6 +70,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
     };
   }, []);
 
+  console.log("render fontSize", fontSize);
   return (
     <section className="about-lede" aria-labelledby="about-lede-title">
       <motion.div
