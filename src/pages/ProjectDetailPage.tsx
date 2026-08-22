@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -15,13 +15,26 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const sourceLabel: Record<string, string> = {
+  RESEARCH: "Research",
+  WORK: "Work",
+  REPORTING: "Reporting",
+  PROJECT: "Project",
+  BLOG: "Blog",
+};
 
 const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
   if (media.type === "pdf" && media.src) {
     return (
-      <figure className="site-corner my-6 overflow-hidden bg-foreground/[0.02]">
+      <figure className="my-6 overflow-hidden bg-foreground/[0.02]">
         <iframe
           src={`${media.src}#toolbar=0&navpanes=0&view=FitH`}
           title={media.title ?? media.alt ?? "Project slide deck"}
@@ -39,7 +52,7 @@ const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
           <CarouselContent>
             {media.images.map((image, index) => (
               <CarouselItem key={image.src}>
-                <figure className="site-corner overflow-hidden border border-foreground/10 bg-foreground/[0.02]">
+                <figure className="overflow-hidden bg-foreground/[0.02]">
                   <div className="aspect-square overflow-hidden bg-foreground/[0.03]">
                     <img
                       src={image.src}
@@ -50,7 +63,7 @@ const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
                     />
                   </div>
                   {image.caption && (
-                    <figcaption className="border-t border-foreground/10 px-4 py-3 text-xs leading-relaxed text-foreground/55">
+                    <figcaption className="px-1 py-3 text-xs leading-relaxed text-foreground/50">
                       {image.caption}
                     </figcaption>
                   )}
@@ -67,7 +80,7 @@ const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
 
   if (media.type === "image" && media.src) {
     return (
-      <figure className="site-corner my-6 overflow-hidden border border-foreground/10 bg-foreground/[0.02]">
+      <figure className="my-6 overflow-hidden bg-foreground/[0.02]">
         <img
           src={media.src}
           alt={media.alt ?? ""}
@@ -76,7 +89,7 @@ const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
           decoding="async"
         />
         {media.caption && (
-          <figcaption className="border-t border-foreground/10 px-4 py-3 text-xs leading-relaxed text-foreground/55">
+          <figcaption className="px-1 py-3 text-xs leading-relaxed text-foreground/50">
             {media.caption}
           </figcaption>
         )}
@@ -93,9 +106,20 @@ const ProjectDetailPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const isMobile = useIsMobile();
+  const bodyRef = useRef<HTMLDivElement | null>(null);
+  const [progress, setProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState(0);
 
   const project = projectItems.find((p) => p.id === id);
-  const isFulbright = id === "fulbright-award-to-taiwan";
+
+  const headings = useMemo(
+    () =>
+      (project?.sections ?? []).map((section) => ({
+        heading: section.heading,
+        slug: slugify(section.heading),
+      })),
+    [project],
+  );
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);
@@ -109,6 +133,32 @@ const ProjectDetailPage = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
+    setProgress(0);
+    setActiveSection(0);
+  }, [id]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      setProgress(scrollable > 0 ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)) : 0);
+
+      const nodes = bodyRef.current?.querySelectorAll("section[id]");
+      if (!nodes?.length) return;
+      let current = 0;
+      nodes.forEach((node, index) => {
+        if (node.getBoundingClientRect().top <= 160) current = index;
+      });
+      setActiveSection(current);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [id]);
 
   if (!project) {
@@ -143,92 +193,106 @@ const ProjectDetailPage = () => {
         transition={{ duration: 0.56, ease: EASE_TEXT }}
       >
         <motion.main
-          className={`pt-28 pb-20 px-6 max-w-4xl mx-auto ${isFulbright ? "blog-post--fulbright" : ""}`}
-          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+          className="pt-28 pb-24 px-6 max-w-6xl mx-auto"
+          initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.6, ease: EASE_TEXT, delay: 0.1 }}
+          transition={{ duration: 0.6, ease: EASE_TEXT, delay: 0.08 }}
         >
-          <button
-      type="button"
-      onClick={() => navigate("/?section=projects")}
-      className="pill-back mb-8"
-    >
-      <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
-      <span>Back to work</span>
-    </button>
+          <button type="button" onClick={() => navigate("/?section=projects")} className="pill-back mb-10">
+            <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
+            <span>Back to work</span>
+          </button>
 
-          <div className="mb-3 flex items-center">
-            <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-foreground/50">{project.year}</span>
-          </div>
+          <div className="article-shell">
+            <aside className="article-toc" aria-label="Contents">
+              <div className="article-toc-label">Contents</div>
+              <div className="article-toc-list">
+                {headings.map((item, index) => (
+                  <button
+                    key={item.slug}
+                    type="button"
+                    className={`article-toc-item ${activeSection === index ? "is-active" : ""}`}
+                    onClick={() => {
+                      const node = document.getElementById(item.slug);
+                      if (node) window.scrollTo({ top: node.getBoundingClientRect().top + window.scrollY - 110, behavior: "smooth" });
+                    }}
+                  >
+                    <span>{String(index).padStart(2, "0")}</span>
+                    <span>{item.heading}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="article-toc-progress">
+                <div className="article-toc-bar">
+                  <span style={{ width: `${progress}%` }} />
+                </div>
+                <div className="article-toc-percent">{Math.round(progress)}% read</div>
+              </div>
+            </aside>
 
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground mb-4">{project.title}</h1>
-          <p className="text-base md:text-lg text-foreground/65 leading-relaxed mb-10">{project.summary}</p>
+            <div>
+              <div className="article-meta">
+                <span>{project.year}</span>
+                <span data-dot aria-hidden="true" />
+                <span>{sourceLabel[project.source] ?? project.source}</span>
+              </div>
 
-          {isFulbright && (
-            <div className="nyt-byline">
-              By Isaac Stone Simonelli
-              <span>Published {project.year} · Reading time 6 min</span>
+              <h1 className="article-title">{project.title}</h1>
+              <p className="article-subtitle">{project.summary}</p>
+
+              <div className="article-hero aspect-[16/9]">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
+                />
+              </div>
+
+              <div ref={bodyRef} className="article-body">
+                {project.sections.map((section) => (
+                  <section key={section.heading} id={slugify(section.heading)}>
+                    <h2>{section.heading}</h2>
+                    {section.paragraphs?.map((p) => (
+                      <p key={p}>{p}</p>
+                    ))}
+                    {section.bullets && (
+                      <ul className="space-y-2">
+                        {section.bullets.map((b) => (
+                          <li key={b} className="flex gap-3">
+                            <span className="mt-[0.7rem] h-[3px] w-[3px] shrink-0 rounded-full bg-foreground/40" />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {section.links && (
+                      <div className="space-y-2 mt-2">
+                        {section.links.map((link) => (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex items-center justify-between py-3 text-sm text-foreground/75 hover:text-foreground transition-colors"
+                          >
+                            <span>{link.label}</span>
+                            <ArrowUpRight className="h-4 w-4 text-foreground/40 transition-transform group-hover:-translate-y-[1px] group-hover:translate-x-[1px] group-hover:text-foreground" />
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                    {section.media?.map((media) => (
+                      <ProjectMediaBlock
+                        key={media.src ?? media.images?.map((image) => image.src).join("|")}
+                        media={media}
+                      />
+                    ))}
+                  </section>
+                ))}
+              </div>
             </div>
-          )}
-
-          <div className="site-corner aspect-[16/9] overflow-hidden mb-12">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-            />
-          </div>
-          {isFulbright && (
-            <p className="nyt-caption -mt-12">
-              A view along the route east, where the plan stops being a plan. Photograph for this piece.
-            </p>
-          )}
-
-
-          <div className="space-y-10">
-            {project.sections.map((section) => (
-              <section key={section.heading}>
-                <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground mb-3">{section.heading}</h2>
-                {section.paragraphs?.map((p) => (
-                  <p key={p} className="mb-3 text-[15px] leading-relaxed text-foreground/70">{p}</p>
-                ))}
-                {section.bullets && (
-                  <ul className="space-y-2">
-                    {section.bullets.map((b) => (
-                      <li key={b} className="flex gap-3 text-[15px] leading-relaxed text-foreground/70">
-                        <span className="mt-[0.55rem] h-[3px] w-[3px] shrink-0 rounded-full bg-foreground/40" />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {section.links && (
-                  <div className="space-y-2 mt-2">
-                    {section.links.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center justify-between border-b border-foreground/10 py-3 text-sm text-foreground/75 hover:text-foreground transition-colors"
-                      >
-                        <span>{link.label}</span>
-                        <ArrowUpRight className="h-4 w-4 text-foreground/40 transition-transform group-hover:-translate-y-[1px] group-hover:translate-x-[1px] group-hover:text-foreground" />
-                      </a>
-                    ))}
-                  </div>
-                )}
-                {section.media?.map((media) => (
-                  <ProjectMediaBlock
-                    key={media.src ?? media.images?.map((image) => image.src).join("|")}
-                    media={media}
-                  />
-                ))}
-              </section>
-            ))}
           </div>
         </motion.main>
 
