@@ -2536,9 +2536,8 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .work-library-rail > * {
-      flex-basis: calc((100% - 12px) / 2);
-      max-width: calc((100% - 12px) / 2);
+    .work-library-rail {
+      grid-auto-columns: calc((100% - 12px) / 2);
     }
 
     .about-lede-body {
@@ -2579,9 +2578,8 @@
       gap: 10px;
     }
 
-    .work-library-rail > * {
-      flex-basis: calc((100% - 10px) / 2);
-      max-width: calc((100% - 10px) / 2);
+    .work-library-rail {
+      grid-auto-columns: calc((100% - 10px) / 2);
     }
 
     .work-library-card-bottom h3 {
