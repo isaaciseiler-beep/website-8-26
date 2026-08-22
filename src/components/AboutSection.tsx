@@ -86,8 +86,16 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
 
           <div className="about-lede-copy">
             <p ref={introRef} className="about-lede-intro">
-              I&apos;m a strategist leading marketing and communications at Summation, working across
-              artificial intelligence, public institutions, education, and everyday life.
+              I lead marketing and communications at{" "}
+              <a
+                href="https://summation.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="summation-link"
+              >
+                Summation
+              </a>
+              , helping tell the story of how AI is changing the way people work. My background spans government, startups, and larger companies, including senior communications roles in the U.S. House and published work with OpenAI. Based in Seattle, WA.
             </p>
           </div>
         </div>
