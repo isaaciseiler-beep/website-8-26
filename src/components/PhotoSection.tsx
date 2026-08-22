@@ -1,16 +1,24 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { albums, coverFor } from "@/lib/photoAlbums";
+import { albums, albumPhotos } from "@/lib/photoAlbums";
 import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const photos = albums.map((a, i) => ({
-  id: i + 1,
-  title: a.location,
-  image: coverFor(a),
-}));
+const SET_SIZE = 8;
+
+const buildRandomSet = () => {
+  const pool = albums.flatMap((album) =>
+    albumPhotos(album).map((image) => ({ image, title: album.location })),
+  );
+
+  for (let i = pool.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+
+  return pool.slice(0, Math.min(SET_SIZE, pool.length));
+};
 
 const PhotoSection = () => {
   const [hovering, setHovering] = useState(false);
@@ -23,10 +31,13 @@ const PhotoSection = () => {
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
   const isPreviewInView = useInView(previewRef, { amount: 0.55 });
-  const shouldFlipPhotos = !prefersReducedMotion && (isCycling || (!isMobile && hovering));
+
+  // Fresh random selection on every page load.
+  const photos = useMemo(buildRandomSet, []);
   const activePhoto = photos[activeIdx] ?? photos[0];
 
   useEffect(() => {
+    if (photos.length === 0) return;
     const imageUrls = photos.map((photo) => photo.image);
     const [firstImage, ...remainingImages] = imageUrls;
 
@@ -40,7 +51,7 @@ const PhotoSection = () => {
       fetchPriority: "low",
       idleTimeout: isMobile ? 1500 : 1000,
     });
-  }, [isMobile]);
+  }, [isMobile, photos]);
 
   useEffect(() => {
     if (prefersReducedMotion || hasAutoplayed || !isPreviewInView || !coversReady) {
@@ -53,8 +64,6 @@ const PhotoSection = () => {
     let tick = 0;
     setIsCycling(true);
     const schedule = () => {
-      const cadence = [520, 380, 260, 200, 170, 160, 170, 200, 260, 340, 420, 500];
-      const delay = cadence[tick % cadence.length];
       timeoutRef.current = setTimeout(() => {
         setActiveIdx((tick + 1) % photos.length);
         tick += 1;
@@ -65,7 +74,7 @@ const PhotoSection = () => {
           return;
         }
         schedule();
-      }, delay);
+      }, 420);
     };
 
     schedule();
@@ -73,20 +82,20 @@ const PhotoSection = () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     };
-  }, [coversReady, hasAutoplayed, isPreviewInView, prefersReducedMotion]);
+  }, [coversReady, hasAutoplayed, isPreviewInView, photos.length, prefersReducedMotion]);
 
-  // Hover flip-through: cycles covers while the pointer rests on the preview.
+  // Simple hover swipe-through.
   useEffect(() => {
     if (prefersReducedMotion || isMobile || !hovering || isCycling) return;
 
     const interval = setInterval(() => {
       setActiveIdx((current) => (current + 1) % photos.length);
-    }, 320);
+    }, 420);
 
     return () => clearInterval(interval);
-  }, [hovering, isCycling, isMobile, prefersReducedMotion]);
+  }, [hovering, isCycling, isMobile, photos.length, prefersReducedMotion]);
 
-
+  if (!activePhoto) return null;
 
   return (
     <section className="flex h-auto min-h-0 flex-col pb-0 pt-0 md:h-[calc(100svh-9.75rem)] md:min-h-[420px]">
@@ -100,51 +109,15 @@ const PhotoSection = () => {
           aria-label="View photo portfolio"
         >
           <img
-            key={activePhoto.id}
+            key={activePhoto.image}
             src={activePhoto.image}
             alt={activePhoto.title}
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{
-              filter: "none",
-              transform: shouldFlipPhotos ? "scale(1.02)" : "scale(1)",
-              transition: "transform 900ms cubic-bezier(0.16,1,0.3,1)",
-            }}
+            className="absolute inset-0 h-full w-full animate-fade-in object-cover"
             loading="eager"
             decoding="async"
-            fetchpriority={activeIdx === 0 ? "high" : "auto"}
           />
         </Link>
       </div>
-
-
-      <div className="mt-5 shrink-0 px-6 md:mt-6">
-        <div className="flex w-full gap-[3px] overflow-hidden site-corner">
-          {[
-            { label: "Portfolio", href: "/photos" },
-            { label: "Map", href: "/photos/map" },
-          ].map((item, index) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className="work-cta-link group block min-w-0"
-            >
-              <div
-                className={`homepage-cta relative flex w-full cursor-pointer items-center justify-center bg-primary py-3 font-mono text-sm uppercase tracking-[0.2em] transition-colors duration-300 group-hover:bg-accent group-focus-visible:bg-accent ${
-                  index === 0 ? "rounded-r-none" : "rounded-l-none"
-                }`}
-              >
-                <span className="flex min-w-0 items-center justify-center">
-                  <span className="truncate">{item.label}</span>
-                  <span className="inline-flex max-w-0 overflow-hidden opacity-0 transition-all duration-300 ease-out group-hover:max-w-[2rem] group-hover:opacity-100">
-                    <ArrowUpRight className="ml-2 h-4 w-4 shrink-0" strokeWidth={1.5} />
-                  </span>
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-
     </section>
   );
 };
