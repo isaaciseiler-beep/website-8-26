@@ -92,10 +92,8 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
               className="about-lede-intro"
               style={{ lineHeight: "100px", color: "red" }}
             >
-              <span style={{ fontSize: "80px" }}>
-                I&apos;m a strategist leading marketing and communications at Summation, working across
-                artificial intelligence, public institutions, education, and everyday life.
-              </span>
+              I&apos;m a strategist leading marketing and communications at Summation, working across
+              artificial intelligence, public institutions, education, and everyday life.
             </p>
           </div>
         </div>
