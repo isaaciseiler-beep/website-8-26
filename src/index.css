@@ -2407,7 +2407,6 @@
   }
 
   .about-lede-copy {
-    grid-column: span 2;
     display: grid;
     align-content: start;
     gap: clamp(12px, 1.4vw, 20px);
