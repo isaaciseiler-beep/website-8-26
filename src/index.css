@@ -3068,6 +3068,11 @@ html.theme-crossfade body * {
   gap: 0.85rem;
 }
 
+.blog-post--fulbright section:nth-child(4) li > span:first-child,
+.blog-post--fulbright section:nth-child(5) li > span:first-child {
+  display: none;
+}
+
 .blog-post--fulbright section:nth-child(4) li::before {
   content: "→";
   background: transparent;
