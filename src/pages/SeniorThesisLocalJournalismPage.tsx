@@ -9,7 +9,6 @@ import Scale from "lucide-react/dist/esm/icons/scale.js";
 import Users from "lucide-react/dist/esm/icons/users.js";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
-import ReadingProgress from "@/components/ReadingProgress";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -251,7 +250,6 @@ const SeniorThesisLocalJournalismPage = () => {
       ref={pageScrollRef}
       className="relative min-h-[100svh] overflow-x-clip bg-background text-foreground"
     >
-      <ReadingProgress />
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}
