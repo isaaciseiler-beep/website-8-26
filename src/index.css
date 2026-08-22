@@ -2261,11 +2261,11 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(2, auto);
-    /* Bleed past the content frame so the next card peeks in from the right. */
-    width: calc(100% + 48px);
-    margin-left: -24px;
+    /* Align left edge with content frame; bleed only to the right. */
+    width: calc(100% + 24px);
+    margin-left: 0;
     margin-right: -24px;
-    grid-auto-columns: calc((100% - 120px) / 3);
+    grid-auto-columns: calc((100% - 144px) / 3);
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -2670,10 +2670,10 @@
     }
 
     .work-library-rail {
-      width: calc(100% + 32px);
-      margin-left: -16px;
+      width: calc(100% + 16px);
+      margin-left: 0;
       margin-right: -16px;
-      grid-auto-columns: calc((100% - 80px) / 2);
+      grid-auto-columns: calc((100% - 96px) / 2);
     }
 
     .work-library-card-bottom h3 {
