@@ -109,29 +109,27 @@ const PhotoSection = () => {
   if (!activePhoto) return null;
 
   return (
-    <section className="flex h-auto min-h-0 flex-col pb-0 pt-0 md:h-[calc((100svh-9.75rem)*0.85)] md:min-h-[357px]">
-      <div className="px-6 md:min-h-0 md:flex-1">
-        <Link
-          to="/photos"
-          ref={previewRef}
-          className="site-corner group relative block aspect-[4/4.25] h-auto min-h-0 w-full cursor-pointer overflow-hidden bg-foreground/[0.05] md:aspect-auto md:h-full"
-          onMouseEnter={() => setHovering(true)}
-          onMouseLeave={() => setHovering(false)}
-          aria-label="View photo portfolio"
-        >
-          {photos.map((photo) => (
-            <img
-              key={photo.image}
-              src={photo.image}
-              alt={photo.title}
-              className="absolute inset-0 h-full w-full object-cover"
-              style={{ opacity: photo.image === activePhoto.image ? 1 : 0 }}
-              loading="eager"
-              decoding="async"
-            />
-          ))}
-        </Link>
-      </div>
+    <section className="flex h-auto min-h-0 flex-1 flex-col md:min-h-0">
+      <Link
+        to="/photos"
+        ref={previewRef}
+        className="group relative block h-auto min-h-0 w-full flex-1 cursor-pointer overflow-hidden bg-foreground/[0.05] md:h-full"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+        aria-label="View photo portfolio"
+      >
+        {photos.map((photo) => (
+          <img
+            key={photo.image}
+            src={photo.image}
+            alt={photo.title}
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ opacity: photo.image === activePhoto.image ? 1 : 0 }}
+            loading="eager"
+            decoding="async"
+          />
+        ))}
+      </Link>
     </section>
   );
 };
