@@ -74,7 +74,7 @@ const PhotoSection = () => {
           return;
         }
         schedule();
-      }, 420);
+      }, 320);
     };
 
     schedule();
@@ -90,7 +90,7 @@ const PhotoSection = () => {
 
     const interval = setInterval(() => {
       setActiveIdx((current) => (current + 1) % photos.length);
-    }, 420);
+    }, 320);
 
     return () => clearInterval(interval);
   }, [hovering, isCycling, isMobile, photos.length, prefersReducedMotion]);
@@ -98,24 +98,30 @@ const PhotoSection = () => {
   if (!activePhoto) return null;
 
   return (
-    <section className="flex h-auto min-h-0 flex-col pb-0 pt-0 md:h-[calc(100svh-9.75rem)] md:min-h-[420px]">
+    <section className="flex h-auto min-h-0 flex-col pb-0 pt-0 md:h-[calc((100svh-9.75rem)*0.85)] md:min-h-[357px]">
       <div className="px-6 md:min-h-0 md:flex-1">
         <Link
           to="/photos"
           ref={previewRef}
-          className="site-corner group relative block aspect-[4/5] h-auto min-h-0 w-full cursor-pointer overflow-hidden bg-foreground/[0.05] md:aspect-auto md:h-full"
+          className="site-corner group relative block aspect-[4/4.25] h-auto min-h-0 w-full cursor-pointer overflow-hidden bg-foreground/[0.05] md:aspect-auto md:h-full"
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}
           aria-label="View photo portfolio"
         >
-          <img
-            key={activePhoto.image}
-            src={activePhoto.image}
-            alt={activePhoto.title}
-            className="absolute inset-0 h-full w-full photo-crossfade object-cover"
-            loading="eager"
-            decoding="async"
-          />
+          {photos.map((photo) => (
+            <img
+              key={photo.image}
+              src={photo.image}
+              alt={photo.title}
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{
+                opacity: photo.image === activePhoto.image ? 1 : 0,
+                transition: "opacity 150ms ease-out",
+              }}
+              loading="eager"
+              decoding="async"
+            />
+          ))}
         </Link>
       </div>
     </section>
