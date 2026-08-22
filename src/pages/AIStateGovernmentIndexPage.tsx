@@ -470,47 +470,36 @@ const AIStateGovernmentIndexPage = () => {
           transition={{ duration: 0.62, ease: EASE_TEXT, delay: 0.08 }}
         >
           <section className="relative bg-background">
-            <div className="sticky top-0 z-0 h-[75svh] overflow-hidden">
-              <motion.img
-                src={HERO_IMAGE}
-                alt="Utah state capitol building"
-                className="absolute inset-0 h-full w-full object-cover"
-                initial={{ scale: 1.04, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 1.1, ease: EASE_TEXT }}
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(8,12,8,0.1)_0%,rgba(8,12,8,0.16)_34%,rgba(8,12,8,0.86)_100%)]" />
-              <p className="absolute bottom-3 right-4 z-20 text-[11px] leading-none text-white/62 sm:right-6">
-                Utah state capitol building. Credit: Lonely Planet
-              </p>
-              <div className="absolute inset-x-0 top-0 z-10 px-5 pt-28 sm:px-8">
-                <div className="mx-auto max-w-7xl">
-                  <button
-      type="button"
-      onClick={() => navigate("/?section=projects")}
-      className="pill-back "
-    >
-      <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
-      <span>Back to work</span>
-    </button>
+            <div className="px-5 pt-28 sm:px-8">
+              <div className="mx-auto max-w-7xl">
+                <button
+                  type="button"
+                  onClick={() => navigate("/?section=projects")}
+                  className="pill-back"
+                >
+                  <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  <span>Back to work</span>
+                </button>
+
+                <div className="article-meta mt-10">
+                  <span>2025</span>
+                  <span data-dot aria-hidden="true" />
+                  <span>Research</span>
                 </div>
+
+                <h1 className="article-title">The state GenAI gap is now measurable.</h1>
+                <p className="article-subtitle">
+                  Generative AI is already changing how work gets done. This benchmark asks a narrower question:
+                  which state and territory governments are actually preparing their own operations for it?
+                </p>
+
+                <figure className="article-hero aspect-[16/9]">
+                  <img src={HERO_IMAGE} alt="Utah state capitol building" loading="eager" decoding="async" />
+                </figure>
+                <p className="mt-3 text-[11px] leading-relaxed text-foreground/45">
+                  Utah state capitol building. Credit: Lonely Planet
+                </p>
               </div>
-              <motion.div
-                className="absolute inset-x-0 bottom-0 z-10 px-5 pb-10 text-white sm:px-8 sm:pb-14"
-                initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.78, ease: EASE_TEXT, delay: 0.18 }}
-              >
-                <div className="mx-auto max-w-7xl">
-                  <h1 className="max-w-5xl text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl lg:text-8xl">
-                    The state GenAI gap is now measurable.
-                  </h1>
-                  <p className="mt-6 w-full text-lg leading-relaxed text-white/78 sm:text-xl">
-                    Generative AI is already changing how work gets done. This benchmark asks a narrower question:
-                    which state and territory governments are actually preparing their own operations for it?
-                  </p>
-                </div>
-              </motion.div>
             </div>
 
             <div className="relative z-20 bg-background px-5 py-10 sm:px-8 lg:py-14">
