@@ -1,5 +1,5 @@
 import { type ComponentType, type ReactNode, type RefObject, useEffect, useRef, useState } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left.js";
 import ArrowUpRight from "lucide-react/dist/esm/icons/arrow-up-right.js";
 import Bot from "lucide-react/dist/esm/icons/bot.js";
@@ -230,13 +230,6 @@ const SeniorThesisLocalJournalismPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const pageScrollRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress: pageScrollProgress } = useScroll();
-  const progressScaleX = useSpring(pageScrollProgress, {
-    stiffness: 90,
-    damping: 24,
-    restDelta: 0.001,
-  });
-
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
@@ -264,12 +257,6 @@ const SeniorThesisLocalJournalismPage = () => {
         onSearchOpen={handleSearchOpen}
         showToggle={false}
       />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[80] h-[2px] w-full origin-left bg-foreground/70"
-        style={{ scaleX: progressScaleX }}
-      />
-
       <motion.div
         animate={{
           marginLeft: sidebarOpen && !isMobile ? 240 : 0,

@@ -1257,6 +1257,8 @@
     max-width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     color-scheme: light;
   }
 
@@ -2250,7 +2252,9 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-rows: repeat(2, auto);
-    grid-auto-columns: calc((100% - 24px) / 3);
+    /* Bleed past the content frame so the next card peeks in from the right. */
+    margin-right: -24px;
+    grid-auto-columns: calc((100% - 72px) / 3);
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -2588,7 +2592,7 @@
     }
 
     .work-library-rail {
-      grid-auto-columns: calc((100% - 12px) / 2);
+      grid-auto-columns: calc((100% - 60px) / 2);
     }
 
     .about-lede-body {
@@ -2630,7 +2634,8 @@
     }
 
     .work-library-rail {
-      grid-auto-columns: calc((100% - 10px) / 2);
+      margin-right: -16px;
+      grid-auto-columns: calc((100% - 48px) / 2);
     }
 
     .work-library-card-bottom h3 {
@@ -2981,4 +2986,17 @@ html.theme-crossfade body * {
 
 .photo-crossfade {
   animation: photo-crossfade 420ms ease-out both;
+}
+
+/* No visible scroll progress indicator / scrollbars anywhere on the site. */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
 }
