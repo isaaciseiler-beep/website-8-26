@@ -71,7 +71,7 @@ const ProjectModal = ({ projects, currentIndex, onClose, onNavigate }: ProjectMo
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="h-full w-full object-cover grayscale"
+                  className="h-full w-full object-cover"
                   loading="eager"
                   decoding="async"
                   fetchpriority="high"

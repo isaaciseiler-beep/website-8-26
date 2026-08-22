@@ -476,7 +476,7 @@ const IconButton = ({
 const ExhibitPanel = ({ exhibit, nearby }: { exhibit: ExperienceExhibit; nearby: boolean }) => (
   <aside className="border border-white/12 bg-[#07130f]/90 p-4 shadow-2xl shadow-black/35 backdrop-blur-xl lg:h-full">
     <div className="relative aspect-[16/10] overflow-hidden border border-white/10 [image-rendering:pixelated]">
-      <img src={exhibit.image} alt="" className="h-full w-full object-cover grayscale" />
+      <img src={exhibit.image} alt="" className="h-full w-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#06110d]/90 via-transparent to-transparent" />
       <div className="absolute bottom-3 left-3 right-3">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#d7ff4f]">{exhibit.period}</p>

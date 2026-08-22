@@ -81,13 +81,9 @@ const FeaturedSection = () => {
     [BUFFER, BUFFER, 0, 0, 0, BUFFER, BUFFER]
   );
 
-  const topGrayscale = useTransform(scrollYProgress, [0.20, 0.30, 0.70, 0.78], [1, 0, 0, 1]);
-  const blGrayscale = useTransform(scrollYProgress, [0.30, 0.38, 0.62, 0.70], [1, 0, 0, 1]);
-  const brGrayscale = useTransform(scrollYProgress, [0.38, 0.46, 0.54, 0.62], [1, 0, 0, 1]);
-
-  const topFilter = useTransform(topGrayscale, (v) => `grayscale(${v * 100}%)`);
-  const blFilter = useTransform(blGrayscale, (v) => `grayscale(${v * 100}%)`);
-  const brFilter = useTransform(brGrayscale, (v) => `grayscale(${v * 100}%)`);
+  const topFilter = "grayscale(0%)";
+  const blFilter = "grayscale(0%)";
+  const brFilter = "grayscale(0%)";
 
   if (isMobile) {
     return (
