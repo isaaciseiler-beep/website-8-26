@@ -679,32 +679,52 @@ export const projectItems: ProjectItem[] = [
     ],
   },
   {
-    id: "sustainable-development-health-access-report",
-    title: "Sustainable Development and Health Access Report",
+    id: "openai-product-testing-and-feedback",
+    title: "OpenAI Product Testing and Feedback",
     source: "PROJECT",
-    year: "2024",
+    year: "2025",
     summary:
-      "Strategy and communications work around health access policy at Boehringer Ingelheim, including an internal report and SDX partnership support.",
-    image: projectImg.boehStrategy,
+      "Early product testing, feedback, and featured contributions across ChatGPT products, including the 100 Chats Project, Pulse, Study Mode, and Atlas.",
+    image: projectImg.chatLab,
     sections: [
       {
         heading: "Overview",
         paragraphs: [
-          "While working at Boehringer Ingelheim, part of my work was to shape the strategy and narrative around the company's health access policies.",
-          "My work sat at the intersection of research, communications, and operations: clarifying what the company stood for, how it communicated that stance, and how it operationalized those commitments.",
-          "At the end of my rotation with the sustainable development team, I authored an internal report summarizing the state of health access within the company and supported operations around the Sustainable Development Excellence program.",
+          "As a member of OpenAI's ChatGPT Lab, I test early products and share structured feedback with the teams building them.",
+          "That work spans pre-release product feedback, contributions to public projects, and testimonials featured in launch materials.",
         ],
       },
       {
-        heading: "More Information",
+        heading: "Contributions",
+        bullets: [
+          "Contributed to the 100 Chats Project with the ChatGPT Lab.",
+          "Shared early product feedback with OpenAI ahead of public releases.",
+          "Shared early feedback on OpenAI's browser product.",
+          "Testimonial featured in the ChatGPT Pulse launch.",
+          "Study Mode use case spotlighted on ChatGPT's Instagram.",
+        ],
+      },
+      {
+        heading: "References",
         links: [
-          { label: "SDX Brandon Hall Group Award Announcement", href: "https://www.boehringer-ingelheim.com/us/about-us/sustainable-development/more-potential/boehringer-wins-10-brandon-hall-group-awards" },
-          { label: "Boehringer's Sustainable Development Strategy", href: "https://www.boehringer-ingelheim.com/us/about-us/sustainable-development" },
+          { label: "100 Chats Project", href: "https://chatgpt.com/100chats-project" },
+          { label: "Introducing ChatGPT Pulse", href: "https://openai.com/index/introducing-chatgpt-pulse/" },
+          { label: "Study Mode Spotlight", href: "https://www.instagram.com/chatgpt/reel/DNyG5VvXEZM/" },
         ],
       },
     ],
   },
+  {
+    id: "fulbright-award-to-taiwan",
+    title: "Won Fulbright Award to Taiwan",
+    source: "BLOG",
+    year: "2025",
+    summary: "",
+    image: projectImg.chatLab,
+    sections: [],
+  },
 ];
+
 
 export const featuredProjectIds = [
   "artificial-intelligence-in-state-government-index",
