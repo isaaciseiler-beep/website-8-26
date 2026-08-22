@@ -2254,7 +2254,7 @@
   .work-library-scrim {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.14), transparent 34%, rgba(0, 0, 0, 0.72));
+    background: rgba(0, 0, 0, 0.42);
     opacity: 0.78;
     transition: opacity 300ms ease;
   }
