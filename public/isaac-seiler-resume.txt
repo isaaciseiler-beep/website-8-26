@@ -2,12 +2,18 @@ Isaac Seiler
 Resume
 
 Profile
-Work at the intersection of AI, emerging technology, communications, operations, policy research, and the systems people use every day. Fulbright Scholar in Taiwan, Truman Scholar, and member of OpenAI's ChatGPT Lab.
+Lead marketing and communications at Summation, a decision-grade AI company in the Seattle area. Work at the intersection of AI, emerging technology, communications, operations, policy research, and the systems people use every day. Fulbright Scholar, Truman Scholar, Rhodes Scholarship finalist, WashU graduate, and member of OpenAI's ChatGPT Lab.
 
 Experience
 
+Summation
+Marketing and Communications | 2026-Present
+- Lead marketing and communications for a decision-grade AI company serving enterprise teams.
+- Translate complex AI and data products into clear, accurate, useful narratives.
+Focus: AI marketing, communications strategy, go-to-market, enterprise AI.
+
 Fulbright Taiwan
-Fulbright Scholar | 2025-Present
+Fulbright Scholar | 2025-2026
 - Created and led an OpenAI-supported AI literacy program for educators in Taiwan.
 - Designed six applied sessions on AI use cases, prompt design, LLM basics, and safe adoption.
 - Led an LLM fundamentals and alignment workshop at a 250+ person international education conference.

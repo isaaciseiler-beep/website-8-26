@@ -16,7 +16,8 @@ export interface ExperienceEntry {
 export const experienceIntro = {
   title: "The work that motivates me",
   paragraphs: [
-    "I'm most interested in work that sits at the intersection of AI, emerging tech, communications, operations, and the systems people use every day.",
+    "I lead marketing and communications at Summation, a decision-grade AI company in the Seattle area.",
+    "My work sits at the intersection of AI, emerging tech, communications, operations, and the systems people use every day.",
     "For me, that has meant building programs around AI literacy, supporting early product feedback, researching how technology changes society, designing digital and IRL communications systems, and helping teams leverage communication tools to achieve their goals.",
     "I do not come from a traditional technical background. A lot of my growth has come from learning quickly, figuring out new tools, and using AI to build systems I would not have been able to build a few years ago.",
     "That is the part I'm most excited by: not just what new technology can do, but the ways it can enable people to do good.",
@@ -25,11 +26,27 @@ export const experienceIntro = {
 
 export const experienceEntries: ExperienceEntry[] = [
   {
+    id: "summation-ai",
+    organization: "Summation",
+    organizationUrl: "https://www.summation.com/",
+    role: "Marketing and Communications",
+    period: "2026-Present",
+    location: "Seattle, Washington",
+    image: "/webpreview-linkedin.png",
+    paragraphs: [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on.",
+    ],
+    focus: ["AI marketing", "communications strategy", "go-to-market", "enterprise AI"],
+    projectIds: [],
+    newsIds: [],
+  },
+  {
     id: "fulbright-taiwan",
     organization: "Fulbright Taiwan",
     organizationUrl: "https://www.fulbright.org.tw/",
     role: "Fulbright Scholar",
-    period: "Aug 2025-Present",
+    period: "Aug 2025-Aug 2026",
     image: "/experience/fb.jpeg",
     paragraphs: [
       "I created and led an OpenAI-supported AI literacy program for educators in Taiwan, focused on helping non-technical users understand and apply AI in real classroom workflows.",

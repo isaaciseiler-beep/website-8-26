@@ -1,7 +1,7 @@
 export const SITE_URL = "https://www.isaacseiler.xyz";
 export const SITE_NAME = "Isaac Seiler";
 export const SITE_DESCRIPTION =
-  "Isaac Seiler is a Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member working across AI education, public technology, journalism, communications, and research.";
+  "Isaac Seiler leads marketing and communications at Summation and works across AI, public technology, and education. He is a Fulbright Scholar, Truman Scholar, Rhodes Scholarship finalist, WashU graduate, and OpenAI ChatGPT Lab member.";
 export const CONTACT_EMAIL = "isaaciseiler@gmail.com";
 export const PREVIEW_IMAGE = {
   url: "/webpreview-linkedin.png",
@@ -38,21 +38,49 @@ export const topLevelPages = [
   {
     path: "/",
     navTitle: "Home",
-    title: "Isaac Seiler | AI Education, Public Technology, OpenAI ChatGPT Lab",
+    title: "Isaac Seiler | Summation AI, OpenAI ChatGPT Lab, Truman Scholar",
     description: SITE_DESCRIPTION,
     sitelinkDescription:
-      "Overview of Isaac Seiler's AI education, public technology, communications, research, photography, and credentials.",
+      "Isaac Seiler's work at Summation and across OpenAI, AI education, public technology, communications, research, and public service.",
     priority: "1.0",
     changefreq: "weekly",
     image: PREVIEW_IMAGE,
     keywords: [
       "Isaac Seiler",
+      "Summation",
+      "Summation AI",
       "OpenAI ChatGPT Lab",
+      "OpenAI Student Collective",
       "Fulbright Scholar",
       "Truman Scholar",
+      "Truman Scholarship",
+      "WashU",
+      "Rhodes Scholarship",
       "AI education",
       "public technology",
       "AI communications",
+    ],
+  },
+  {
+    path: "/latest",
+    navTitle: "Latest",
+    title: "Latest from Isaac Seiler | AI, OpenAI, Summation, and Public Technology",
+    description:
+      "Recent writing and updates from Isaac Seiler on Summation AI, OpenAI's ChatGPT Lab and Student Collective, AI education, public technology, WashU, and the Truman Scholarship.",
+    sitelinkDescription:
+      "Recent articles and updates on Summation AI, OpenAI, AI education, public technology, WashU, Truman, and research.",
+    priority: "0.97",
+    changefreq: "weekly",
+    image: { url: projectCardImages.chatLab },
+    keywords: [
+      "Latest from Isaac Seiler",
+      "Isaac Seiler blog",
+      "Summation AI",
+      "OpenAI Student Collective",
+      "ChatGPT Lab",
+      "AI education",
+      "Truman Scholar",
+      "WashU",
     ],
   },
   {
@@ -80,7 +108,7 @@ export const topLevelPages = [
     navTitle: "Experience",
     title: "Experience | Isaac Seiler",
     description:
-      "Isaac Seiler's experience across OpenAI's ChatGPT Lab, Fulbright Taiwan, the Council of State Governments, Boehringer Ingelheim, Congress, campaigns, and journalism.",
+      "Isaac Seiler leads marketing and communications at Summation, with experience across OpenAI's ChatGPT Lab, Fulbright Taiwan, AI research, Congress, and journalism.",
     sitelinkDescription:
       "Work history across OpenAI, Fulbright Taiwan, state government AI, Congress, communications, and journalism.",
     priority: "0.86",
@@ -88,6 +116,8 @@ export const topLevelPages = [
     image: { url: "/experience/oai.jpg" },
     keywords: [
       "Isaac Seiler resume",
+      "Summation AI",
+      "AI marketing",
       "OpenAI ChatGPT Lab",
       "Fulbright Taiwan",
       "Council of State Governments",
@@ -100,7 +130,7 @@ export const topLevelPages = [
     navTitle: "Credentials",
     title: "Credentials | Isaac Seiler",
     description:
-      "A concise profile of Isaac Seiler's AI, public service, communications, research, Fulbright, Truman, and OpenAI credentials.",
+      "Isaac Seiler's Summation AI, OpenAI ChatGPT Lab, Fulbright, Truman Scholarship, Rhodes finalist, WashU, communications, and research credentials.",
     sitelinkDescription:
       "Fulbright, Truman, Rhodes finalist, OpenAI ChatGPT Lab, research, communications, and public-service proof points.",
     priority: "0.84",
@@ -112,6 +142,10 @@ export const topLevelPages = [
       "Truman Scholar",
       "Rhodes finalist",
       "OpenAI ChatGPT Lab",
+      "Summation AI",
+      "Truman Scholarship",
+      "WashU",
+      "Rhodes Scholarship",
     ],
   },
   {
@@ -367,9 +401,9 @@ export const priorityImages = [
     url: "/webpreview-linkedin.png",
     page: "/",
     title: "Isaac Seiler",
-    alt: "Isaac Seiler portfolio preview image",
+    alt: "Isaac Seiler, Summation AI marketing and communications lead, Truman Scholar, and OpenAI ChatGPT Lab member",
     caption:
-      "Primary image for Isaac Seiler, Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member.",
+      "Primary image for Isaac Seiler, Summation AI marketing and communications lead, Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member.",
   },
   {
     id: "fulbright-chatgpt-lab-openai",
@@ -432,6 +466,38 @@ export const projectPriorityOrder = [
 ];
 
 export const redirectTargets = [
+  {
+    source: "/blog",
+    destination: "/latest",
+  },
+  {
+    source: "/writing",
+    destination: "/latest",
+  },
+  {
+    source: "/summation-ai",
+    destination: "/latest/joining-summation-ai-marketing-communications",
+  },
+  {
+    source: "/openai-student-collective",
+    destination: "/latest/openai-student-collective-student-led-ai-learning",
+  },
+  {
+    source: "/truman-scholar",
+    destination: "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+  },
+  {
+    source: "/truman-scholarship",
+    destination: "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+  },
+  {
+    source: "/rhodes-scholarship",
+    destination: "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+  },
+  {
+    source: "/washu",
+    destination: "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+  },
   {
     source: "/chatgpt-lab",
     destination: "/projects/fulbright-focus-group-sponsored-by-openai",

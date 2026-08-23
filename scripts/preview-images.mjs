@@ -1,6 +1,6 @@
 export const previewImageOptions = [
   {
-    url: "https://isaacseiler.xyz/webpreview-linkedin.png",
+    url: "https://www.isaacseiler.xyz/webpreview-linkedin.png",
     width: 1200,
     height: 630,
     type: "image/png",

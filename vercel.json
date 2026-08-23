@@ -61,6 +61,46 @@
   ],
   "redirects": [
     {
+      "source": "/blog",
+      "destination": "/latest",
+      "permanent": true
+    },
+    {
+      "source": "/writing",
+      "destination": "/latest",
+      "permanent": true
+    },
+    {
+      "source": "/summation-ai",
+      "destination": "/latest/joining-summation-ai-marketing-communications",
+      "permanent": true
+    },
+    {
+      "source": "/openai-student-collective",
+      "destination": "/latest/openai-student-collective-student-led-ai-learning",
+      "permanent": true
+    },
+    {
+      "source": "/truman-scholar",
+      "destination": "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+      "permanent": true
+    },
+    {
+      "source": "/truman-scholarship",
+      "destination": "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+      "permanent": true
+    },
+    {
+      "source": "/rhodes-scholarship",
+      "destination": "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+      "permanent": true
+    },
+    {
+      "source": "/washu",
+      "destination": "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+      "permanent": true
+    },
+    {
       "source": "/chatgpt-lab",
       "destination": "/projects/fulbright-focus-group-sponsored-by-openai",
       "permanent": true

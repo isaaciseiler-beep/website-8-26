@@ -8,6 +8,7 @@ import { HEADER_SCROLL_OFFSET } from "@/lib/scroll";
 
 const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
+const LatestSection = lazy(() => import("@/components/LatestSection"));
 const PhotoSection = lazy(() => import("@/components/PhotoSection"));
 
 const Footer = lazy(() => import("@/components/Footer"));
@@ -135,6 +136,7 @@ const Index = () => {
               <div id="about"><AboutSection revealEnabled /></div>
             </div>
             <div id="projects" className="home-photo-section" data-reveal><ProjectsSection /></div>
+            <div id="latest" className="home-photo-section" data-reveal><LatestSection /></div>
             <div className="home-photo-footer-stack">
               <div id="photos" className="home-photo-section home-photo-section--last" data-reveal><PhotoSection /></div>
               <Footer overlay />

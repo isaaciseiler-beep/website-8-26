@@ -58,6 +58,11 @@ const strengths = [
 
 const evidence = [
   {
+    org: "Summation",
+    role: "Marketing and communications",
+    proof: "Lead marketing and communications for a Seattle-area company building decision-grade AI for enterprise teams.",
+  },
+  {
     org: "OpenAI",
     role: "ChatGPT Lab",
     proof: "Test new ChatGPT products and give structured feedback to product and go-to-market teams; contributed to 100 Chats.",
@@ -97,6 +102,7 @@ const fit = [
 
 const recognitions = ["Fulbright Scholar", "Truman Scholar", "Rhodes finalist", "OpenAI ChatGPT Lab"];
 const mobileEvidence = [
+  "Summation AI marketing and communications.",
   "OpenAI product and GTM feedback.",
   "Fulbright AI literacy in Taiwan.",
   "CSG state AI adoption benchmark.",

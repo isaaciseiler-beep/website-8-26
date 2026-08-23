@@ -49,6 +49,8 @@ const AIStateGovernmentIndexPage = lazyWithRetry(() => import("./pages/AIStateGo
 const SeniorThesisLocalJournalismPage = lazyWithRetry(() => import("./pages/SeniorThesisLocalJournalismPage.tsx"), "senior-thesis-local-journalism");
 const CredentialsPage = lazyWithRetry(() => import("./pages/CredentialsPage.tsx"), "credentials");
 const ExperiencePage = lazyWithRetry(() => import("./pages/ExperiencePage.tsx"), "experience");
+const LatestPage = lazyWithRetry(() => import("./pages/LatestPage.tsx"), "latest");
+const LatestArticlePage = lazyWithRetry(() => import("./pages/LatestArticlePage.tsx"), "latest-article");
 const ExperienceGamePage = lazyWithRetry(() => import("./pages/ExperienceGamePage.tsx"), "experience-game");
 const FulbrightMapPage = lazyWithRetry(() => import("./pages/FulbrightMapPage.tsx"), "fulbright-map");
 const StrikeTrackerPage = lazyWithRetry(() => import("./pages/StrikeTrackerPage.tsx"), "strike-tracker");
@@ -139,6 +141,8 @@ const AnimatedRoutes = () => {
               <Route path="/projects/:id" element={<ProjectDetailPage />} />
               <Route path="/credentials" element={<CredentialsPage />} />
               <Route path="/experience" element={<ExperiencePage />} />
+              <Route path="/latest" element={<LatestPage />} />
+              <Route path="/latest/:slug" element={<LatestArticlePage />} />
               <Route path="/experience/arcade" element={<ExperienceGamePage />} />
               <Route path="/fulbrightmap" element={<FulbrightMapPage />} />
               <Route path="/strike-tracker" element={<StrikeTrackerPage />} />

@@ -95,6 +95,13 @@ const Footer = ({ overlay = false }: FooterProps) => {
           ))}
         </div>
 
+        <nav className={`site-footer-links ${overlay ? "site-footer-links--overlay" : ""}`} aria-label="Site links">
+          <a href="/">Home</a>
+          <a href="/latest">Latest</a>
+          <a href="/experience">Experience</a>
+          <a href="/credentials">Credentials</a>
+        </nav>
+
         <p className={`text-[13px] ${overlay ? "text-white/80" : "text-foreground/45"}`}>© 2026 Isaac Seiler</p>
       </div>
     </footer>

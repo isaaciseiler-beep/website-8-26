@@ -1,9 +1,9 @@
-export const SITE_URL = "https://isaacseiler.xyz";
+export const SITE_URL = "https://www.isaacseiler.xyz";
 export const SITE_NAME = "Isaac Seiler";
 export const SITE_DESCRIPTION =
-  "Isaac Seiler is a Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member working across AI education, public technology, journalism, communications, and research.";
+  "Isaac Seiler leads marketing and communications at Summation and works across AI, public technology, and education. He is a Fulbright Scholar, Truman Scholar, Rhodes Scholarship finalist, WashU graduate, and OpenAI ChatGPT Lab member.";
 export const PREVIEW_IMAGE_URL =
-  "https://isaacseiler.xyz/webpreview-linkedin.png";
+  "https://www.isaacseiler.xyz/webpreview-linkedin.png";
 export const PREVIEW_IMAGE_URLS = [PREVIEW_IMAGE_URL];
 
 export const CONTACT_EMAIL = "isaaciseiler@gmail.com";

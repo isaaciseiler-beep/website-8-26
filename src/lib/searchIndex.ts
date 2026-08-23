@@ -1,8 +1,9 @@
 import { inspirationItems } from "@/lib/inspirationItems";
+import { latestItems } from "@/lib/latestContent";
 import { albums, coverFor } from "@/lib/photoAlbums";
 import { newsItems, projectItems } from "@/lib/siteContent";
 
-export type SearchCategory = "projects" | "news" | "photos" | "inspiration";
+export type SearchCategory = "latest" | "projects" | "news" | "photos" | "inspiration";
 
 export interface SearchDocument {
   id: string;
@@ -31,13 +32,14 @@ export interface SearchGroup {
 }
 
 const CATEGORY_LABELS: Record<SearchCategory, string> = {
+  latest: "Latest",
   projects: "Projects",
   news: "News",
   photos: "Photos",
   inspiration: "Inspiration",
 };
 
-export const SEARCH_CATEGORY_ORDER: SearchCategory[] = ["projects", "news", "photos", "inspiration"];
+export const SEARCH_CATEGORY_ORDER: SearchCategory[] = ["latest", "projects", "news", "photos", "inspiration"];
 
 const STOP_WORDS = new Set([
   "a",
@@ -103,6 +105,7 @@ const SEMANTIC_EXPANSIONS: Record<string, string[]> = {
   atlas: ["browser", "chatgpt", "openai", "early testing"],
   award: ["scholarship", "truman", "rhodes", "fulbright", "honor", "recognition"],
   browser: ["atlas", "openai", "chatgpt"],
+  collective: ["openai student collective", "campus lead", "students", "chatgpt", "codex"],
   campaign: ["candidate", "election", "politics", "communications", "digital strategy"],
   car: ["volvo", "wagon", "automotive"],
   classroom: ["education", "teaching", "learning", "study", "students"],
@@ -138,16 +141,20 @@ const SEMANTIC_EXPANSIONS: Record<string, string[]> = {
   pulse: ["openai", "chatgpt", "proactive", "personalized updates"],
   reporting: ["journalism", "news", "media", "newspaper", "interview"],
   research: ["study", "analysis", "survey", "index", "thesis", "qualitative"],
+  rhodes: ["scholarship", "finalist", "washu", "award", "public service"],
   scholar: ["scholarship", "truman", "rhodes", "fulbright", "award"],
   scholarship: ["truman", "rhodes", "fulbright", "award", "public service"],
   study: ["education", "learning", "students", "classroom", "chatgpt"],
+  summation: ["summation ai", "enterprise ai", "marketing", "communications", "seattle"],
   thesis: ["research", "journalism", "qualitative", "analysis", "washu"],
   travel: ["photos", "album", "asia", "europe", "oceania", "place"],
   truman: ["scholarship", "public service", "washu", "award"],
+  washu: ["washington university in st louis", "truman", "rhodes", "journalism", "public service"],
   website: ["portfolio", "design", "brand", "web"],
 };
 
 const CATEGORY_INTENTS: Record<SearchCategory, string[]> = {
+  latest: ["latest", "blog", "blogs", "post", "posts", "writing", "update", "updates", "recent"],
   projects: ["project", "projects", "case study", "case studies", "built", "building", "made", "portfolio work"],
   news: ["news", "article", "articles", "press", "featured", "coverage", "headline", "announcement"],
   photos: ["photo", "photos", "picture", "pictures", "pics", "image", "images", "album", "albums", "map", "travel"],
@@ -267,6 +274,26 @@ const flattenProjectText = (project: (typeof projectItems)[number]) =>
     .join(" ");
 
 export const searchDocuments: SearchDocument[] = [
+  ...latestItems.map((item) => ({
+    id: `latest-${item.slug}`,
+    category: "latest" as const,
+    title: item.title,
+    subtitle: `${item.category} / ${formatDate(item.published)}`,
+    description: item.excerpt,
+    href: `/latest/${item.slug}`,
+    image: item.image,
+    date: item.published,
+    topics: item.about,
+    tags: item.keywords,
+    keywords: [
+      ...item.keywords,
+      ...item.sections.flatMap((section) => [
+        section.heading,
+        ...section.paragraphs,
+        ...(section.bullets ?? []),
+      ]),
+    ],
+  })),
   ...projectItems.map((project) => {
     const meta = projectMetadata[project.id];
     return {

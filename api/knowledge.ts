@@ -19,8 +19,24 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     title: "Isaac Seiler Bio",
     source: "Website bio",
     content:
-      "Isaac Seiler is a recent WashU graduate, Fulbright and Truman Scholar, and member of OpenAI's ChatGPT Lab. He has managed communications for a Member of Congress, published work with OpenAI, built a congressional office, founded a consultancy, and conducted international research on the social and material impacts of AI and the Internet. He is currently in the market for tech roles starting Summer 2026.",
+      "Isaac Seiler is a Seattle-based strategist leading marketing and communications at Summation, a decision-grade AI company. He is a WashU graduate, Fulbright Scholar, Truman Scholar, Rhodes Scholarship finalist, and member of OpenAI's ChatGPT Lab. He has managed communications for a Member of Congress, published education work with OpenAI, helped build a congressional office, and conducted international research on AI, digital platforms, and journalism.",
     url: "/#about",
+  },
+  {
+    id: "summation-ai",
+    title: "Summation AI Marketing and Communications",
+    source: "Current experience",
+    content:
+      "Isaac leads marketing and communications at Summation, a decision-grade AI company in the Seattle area. Summation connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next. The role brings together Isaac's experience in AI, strategy, writing, communications, and translating complex technology.",
+    url: "/latest/joining-summation-ai-marketing-communications",
+  },
+  {
+    id: "openai-student-collective",
+    title: "OpenAI Student Collective and Student-Led AI Learning",
+    source: "Latest article",
+    content:
+      "Isaac wrote about what the OpenAI Student Collective signals for peer-led campus AI learning. His connection is through a separate OpenAI student initiative: he joined the first cohort of OpenAI's ChatGPT Lab. Do not describe Isaac as a Student Collective Campus Lead. His article connects workshops, studio hours, showcases, and community with lessons from his ChatGPT Lab and Fulbright Taiwan educator-lab experience.",
+    url: "/latest/openai-student-collective-student-led-ai-learning",
   },
   {
     id: "state-ai-index",

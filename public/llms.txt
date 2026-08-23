@@ -1,12 +1,13 @@
 # Isaac Seiler
 
-Isaac Seiler is a Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member working across AI education, public technology, journalism, communications, and research.
+Isaac Seiler leads marketing and communications at Summation and works across AI, public technology, and education. He is a Fulbright Scholar, Truman Scholar, Rhodes Scholarship finalist, WashU graduate, and OpenAI ChatGPT Lab member.
 
 ## Canonical Site
 
 - [Home](https://www.isaacseiler.xyz/): overview, featured work, photos, news, and Isaac AI.
+- [Latest](https://www.isaacseiler.xyz/latest): dated first-party writing on Summation AI, OpenAI, AI education, public technology, WashU, and the Truman Scholarship.
 - [Projects](https://www.isaacseiler.xyz/projects): project archive with individual pages for AI, public policy, journalism, communications, and research work.
-- [Experience](https://www.isaacseiler.xyz/experience): work history across OpenAI, Fulbright Taiwan, Council of State Governments, Boehringer Ingelheim, Congress, campaigns, and journalism.
+- [Experience](https://www.isaacseiler.xyz/experience): current work leading marketing and communications at Summation, plus OpenAI, Fulbright Taiwan, AI research, Congress, campaigns, and journalism.
 - [Credentials](https://www.isaacseiler.xyz/credentials): concise credentials and proof points.
 - [Photos](https://www.isaacseiler.xyz/photos): travel photography and image archive.
 
@@ -25,13 +26,21 @@ Isaac Seiler is a Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab memb
 - [Helping Shape ChatGPT Before Launch](https://www.isaacseiler.xyz/projects/openai-product-testing-and-feedback): Inside my work with OpenAI's first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.
 - [Won Fulbright Award to Taiwan](https://www.isaacseiler.xyz/projects/fulbright-award-to-taiwan): A sample blog post about leaving one life for another: notes, packing lists, and imaginary itineraries for a year that has not happened yet.
 
+## Latest Articles
+
+- [Joining Summation to Lead Marketing and Communications](https://www.isaacseiler.xyz/latest/joining-summation-ai-marketing-communications) (2026-08-22): A new chapter in Seattle at Summation, bringing together AI, strategy, writing, and the work of making complex technology useful to real people.
+- [What the OpenAI Student Collective Signals for Student-Led AI Learning](https://www.isaacseiler.xyz/latest/openai-student-collective-student-led-ai-learning) (2026-08-22): OpenAI’s new Student Collective points toward a practical model for campus AI learning: peer-led workshops, studio time, projects, and visible outcomes.
+- [From ChatGPT Lab to the Classroom: Practical AI Education Use Cases](https://www.isaacseiler.xyz/latest/chatgpt-lab-ai-education-use-cases) (2026-08-22): The most useful AI education begins with real tasks, clear limits, and enough context for teachers and students to exercise judgment.
+- [What a 56-Government Index Revealed About Public-Sector AI Adoption](https://www.isaacseiler.xyz/latest/ai-adoption-state-government-index) (2026-08-22): A 900-input benchmark turned scattered public information into a clearer picture of AI guidance, training, pilots, governance, and transparency.
+- [From WashU and the Truman Scholarship to Public-Interest AI Work](https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai) (2026-08-22): How public service, journalism, the Truman Scholarship, a Rhodes finalist selection, and WashU shaped a practical approach to AI.
+
 ## Key Topics
 
-OpenAI ChatGPT Lab, ChatGPT for Education, OpenAI for Education, Fulbright Taiwan, AI literacy, teacher AI training, generative AI in state government, AI governance, public sector AI adoption, local journalism, AI platforms, communications strategy, campaign communications, public service, Truman Scholarship, Fulbright Scholarship.
+Summation, Summation AI, OpenAI, OpenAI ChatGPT Lab, OpenAI Student Collective, ChatGPT for Education, OpenAI for Education, Fulbright Taiwan, AI literacy, teacher AI training, generative AI in state government, AI governance, public sector AI adoption, WashU, Washington University in St. Louis, Truman Scholar, Truman Scholarship, Rhodes Scholarship, local journalism, AI platforms, communications strategy, public service.
 
 ## Preferred Images
 
-- 1. [Isaac Seiler](https://www.isaacseiler.xyz/webpreview-linkedin.png) on [https://www.isaacseiler.xyz/](https://www.isaacseiler.xyz/): Primary image for Isaac Seiler, Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member.
+- 1. [Isaac Seiler](https://www.isaacseiler.xyz/webpreview-linkedin.png) on [https://www.isaacseiler.xyz/](https://www.isaacseiler.xyz/): Primary image for Isaac Seiler, Summation AI marketing and communications lead, Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member.
 - 2. [Fulbright Taiwan ChatGPT Lab with OpenAI Support](https://www.isaacseiler.xyz/project-images/chatlab.jpg) on [https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai](https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai): Isaac Seiler founded and led an OpenAI-supported Fulbright Taiwan ChatGPT Lab for educators.
 - 3. [Artificial Intelligence in State Government Index](https://www.isaacseiler.xyz/project-images/aiindex.jpg) on [https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index](https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index): A public benchmark measuring generative AI adoption across U.S. states and territories.
 - 4. [Congressional Office Setup and 100 Day Report](https://www.isaacseiler.xyz/project-images/caphill.jpg) on [https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report](https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report): Systems, staffing, communications, and metrics used to launch a new congressional office.
@@ -40,6 +49,14 @@ OpenAI ChatGPT Lab, ChatGPT for Education, OpenAI for Education, Fulbright Taiwa
 
 ## High-Intent Shortcut URLs
 
+- [https://www.isaacseiler.xyz/blog](https://www.isaacseiler.xyz/blog) -> [https://www.isaacseiler.xyz/latest](https://www.isaacseiler.xyz/latest)
+- [https://www.isaacseiler.xyz/writing](https://www.isaacseiler.xyz/writing) -> [https://www.isaacseiler.xyz/latest](https://www.isaacseiler.xyz/latest)
+- [https://www.isaacseiler.xyz/summation-ai](https://www.isaacseiler.xyz/summation-ai) -> [https://www.isaacseiler.xyz/latest/joining-summation-ai-marketing-communications](https://www.isaacseiler.xyz/latest/joining-summation-ai-marketing-communications)
+- [https://www.isaacseiler.xyz/openai-student-collective](https://www.isaacseiler.xyz/openai-student-collective) -> [https://www.isaacseiler.xyz/latest/openai-student-collective-student-led-ai-learning](https://www.isaacseiler.xyz/latest/openai-student-collective-student-led-ai-learning)
+- [https://www.isaacseiler.xyz/truman-scholar](https://www.isaacseiler.xyz/truman-scholar) -> [https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai](https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai)
+- [https://www.isaacseiler.xyz/truman-scholarship](https://www.isaacseiler.xyz/truman-scholarship) -> [https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai](https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai)
+- [https://www.isaacseiler.xyz/rhodes-scholarship](https://www.isaacseiler.xyz/rhodes-scholarship) -> [https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai](https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai)
+- [https://www.isaacseiler.xyz/washu](https://www.isaacseiler.xyz/washu) -> [https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai](https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai)
 - [https://www.isaacseiler.xyz/chatgpt-lab](https://www.isaacseiler.xyz/chatgpt-lab) -> [https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai](https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai)
 - [https://www.isaacseiler.xyz/fulbright-chatgpt-lab](https://www.isaacseiler.xyz/fulbright-chatgpt-lab) -> [https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai](https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai)
 - [https://www.isaacseiler.xyz/openai-education](https://www.isaacseiler.xyz/openai-education) -> [https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai](https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai)
