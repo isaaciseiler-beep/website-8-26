@@ -54,7 +54,7 @@ const lightMapPalette: MapPalette = {
 };
 
 const darkMapPalette: MapPalette = {
-  background: "#181818",
+  background: "#000000",
   water: "#202020",
   land: "#343434",
   park: "#3b3b3b",
@@ -62,7 +62,7 @@ const darkMapPalette: MapPalette = {
   border: "#777777",
   detail: "#4b4b4b",
   label: "#d8d8d5",
-  labelHalo: "#181818",
+  labelHalo: "#000000",
 };
 
 const stopMarkerEvent = (event: Event) => event.stopPropagation();
