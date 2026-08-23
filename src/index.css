@@ -3729,9 +3729,13 @@ html.theme-crossfade body * {
   color: #ffffff;
 }
 
+[data-project-id="congressional-office-setup-100-day-report"] .article-hero,
 [data-project-id="congressional-office-setup-100-day-report"] .project-media-image {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
+}
+
+[data-project-id="congressional-office-setup-100-day-report"] .project-media-image {
   margin: 0 0 24px;
   border-radius: 14px;
 }
