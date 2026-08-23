@@ -5,13 +5,16 @@ import { Link } from "react-router-dom";
 import { hiddenProjectIds, projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
 
-type ProjectFilter = "ALL" | "AI" | "PROJECTS";
+type ProjectFilter = "ALL" | "AI" | "PROJECTS" | "BLOG";
 
 const filters: { label: string; value: ProjectFilter }[] = [
   { label: "All", value: "ALL" },
   { label: "AI", value: "AI" },
   { label: "Projects", value: "PROJECTS" },
+  { label: "Blog", value: "BLOG" },
 ];
+
+const HIDDEN_NEWS_IDS = new Set([2, 6]);
 
 const AI_SUBJECT_PATTERN =
   /\b(ai|a\.i\.|artificial intelligence|chatgpt|openai|llm|machine learning|gpt|generative)\b/i;
@@ -37,6 +40,7 @@ const ProjectsSection = () => {
         node: project,
       }));
     const newsEntries: Entry[] = newsItems
+      .filter((item) => !HIDDEN_NEWS_IDS.has(item.id))
       .map((item) => ({
         kind: "news",
         id: `news-${item.id}`,
@@ -51,6 +55,9 @@ const ProjectsSection = () => {
     }
     if (filter === "PROJECTS") {
       return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source !== "BLOG");
+    }
+    if (filter === "BLOG") {
+      return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source === "BLOG");
     }
     return [...projectEntries, ...newsEntries];
   }, [filter]);
