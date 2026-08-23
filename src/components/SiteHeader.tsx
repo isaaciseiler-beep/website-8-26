@@ -146,7 +146,6 @@ const backgroundAtPoint = (x: number, y: number, header: HTMLElement | null) => 
 const SiteHeader = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }: SiteHeaderProps) => {
   const headerRef = useRef<HTMLDivElement | null>(null);
   const [headerInk, setHeaderInk] = useState("rgb(255 255 255)");
-  const [searchInk, setSearchInk] = useState("rgb(255 255 255)");
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -175,7 +174,6 @@ const SiteHeader = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }:
       if (!header) return;
 
       const nextHeaderInk = inkForRect(header.getBoundingClientRect(), header);
-      setHeaderInk((current) => (current === nextHeaderInk ? current : nextHeaderInk));
 
       const searchControl = document.querySelector<HTMLElement>(
         ".site-header-search, button[aria-label='Search']",
@@ -183,8 +181,12 @@ const SiteHeader = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }:
       const nextSearchInk = searchControl
         ? inkForRect(searchControl.getBoundingClientRect(), header)
         : inkForRect(new DOMRect(window.innerWidth - 49, 16, 25, 25), header);
+      const nextSharedInk =
+        nextHeaderInk === "rgb(255 255 255)" || nextSearchInk === "rgb(255 255 255)"
+          ? "rgb(255 255 255)"
+          : "rgb(12 12 10)";
 
-      setSearchInk((current) => (current === nextSearchInk ? current : nextSearchInk));
+      setHeaderInk((current) => (current === nextSharedInk ? current : nextSharedInk));
     };
 
     const requestUpdate = () => {
@@ -253,7 +255,7 @@ const SiteHeader = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }:
         <ChevronRight className="h-3.5 w-3.5" />
       </motion.button>
       <SearchTrigger
-        style={{ color: searchInk }}
+        style={{ color: headerInk }}
         open={searchOpen}
         onOpen={onSearchOpen}
         onClose={onSearchClose}

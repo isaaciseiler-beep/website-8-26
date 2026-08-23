@@ -127,10 +127,6 @@
     color: #0a0a0a;
   }
 
-  .home-photo-v2 .site-header-xray {
-    color: #0a0a0a !important;
-  }
-
   .dark .home-photo-v2 {
     --background: 0 0% 0%;
     --foreground: 0 0% 98%;
@@ -159,10 +155,6 @@
     --sidebar-border: 0 0% 12%;
     background: #000;
     color: #fafafa;
-  }
-
-  .dark .home-photo-v2 .site-header-xray {
-    color: #fafafa !important;
   }
 
   .dark .home-work-opening,
@@ -1400,6 +1392,10 @@
   }
 
   @media (max-width: 767px) {
+    .site-sidebar-panel {
+      --sidebar-nav-font-size: clamp(1.65rem, 7.5vw, 2.25rem);
+    }
+
     .home-section-frame {
       margin-block: 4rem;
     }
@@ -2854,6 +2850,7 @@
       width: calc(100% + 32px);
       margin-left: -16px;
       margin-right: -16px;
+      grid-template-rows: repeat(2, auto);
       grid-auto-columns: calc((100% - 48px) / 2);
       min-height: calc(100cqw - 34px);
       scroll-padding-inline: 16px;
@@ -2866,8 +2863,22 @@
     }
 
     .about-lede-body {
-      grid-template-columns: calc((100% - 32px) / 2) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: 18px;
+    }
+
+    .about-lede-photo {
+      width: 100%;
+    }
+
+    .about-lede-copy {
+      min-width: 0;
+      padding-left: 0;
+    }
+
+    .about-lede-intro {
+      font-size: clamp(1.35rem, 6.5vw, 1.9rem);
+      line-height: 1.16;
     }
 
     .about-lede-bio {

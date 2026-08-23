@@ -21,6 +21,13 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
       if (fittingRef.current) return;
       fittingRef.current = true;
 
+      if (window.matchMedia("(max-width: 600px)").matches) {
+        document.documentElement.style.removeProperty("--bio-font-size");
+        intro.style.fontSize = "";
+        fittingRef.current = false;
+        return;
+      }
+
       const targetHeight = photo.clientHeight * 0.7;
       const introWidth = intro.parentElement?.clientWidth ?? intro.clientWidth;
       if (!targetHeight || !introWidth) {

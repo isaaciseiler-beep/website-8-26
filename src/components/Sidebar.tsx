@@ -217,7 +217,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
       ) : null}
 
       <motion.nav
-        className={`site-sidebar-panel fixed inset-y-0 left-0 z-[45] isolate flex h-[100dvh] w-screen transform-gpu flex-col overflow-y-auto overscroll-contain px-6 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-20 will-change-transform md:w-[var(--site-panel-width)] md:justify-between md:py-20 ${
+        className={`site-sidebar-panel fixed inset-y-0 left-0 z-[45] isolate flex h-[100dvh] w-screen transform-gpu flex-col justify-between overflow-y-auto overscroll-contain px-6 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-20 will-change-transform md:w-[var(--site-panel-width)] md:py-20 ${
           open ? "pointer-events-auto" : "pointer-events-none"
         }`}
         initial={{ x: open ? 0 : "-100%" }}
@@ -226,8 +226,8 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
       >
         <AnimatePresence>
           {open && (
-            <div className="flex flex-1 items-center md:mt-4 md:block md:flex-none">
-              <div className="flex flex-col gap-1.5 relative md:gap-0.5">
+            <div className="mt-4 block flex-none">
+              <div className="relative flex flex-col gap-0.5">
                 <SearchTrigger variant="sidebar" renderPanel={false} onOpen={onSearchOpen} />
                 {sitemapItems.map((item) => {
                   const idx = flatIndex++;
@@ -328,7 +328,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
         <AnimatePresence>
           {open && (
             <motion.div
-              className="flex items-start justify-between gap-8 md:block"
+              className="block"
               initial="hidden"
               animate="shown"
               exit="hiddenExit"
@@ -372,7 +372,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                   ))}
                 </div>
               </div>
-              <div className="shrink-0 md:mt-6">
+              <div className="mt-6 shrink-0">
                 <p className="sidebar-section-label">Appearance</p>
                 <div className="flex justify-center">
                   <ThemeSwitch />
