@@ -181,7 +181,12 @@ const readMarkdownKnowledge = () => {
 
   const files = fs
     .readdirSync(knowledgeDir)
-    .filter((file) => /\.mdx?$/i.test(file) && file.toLowerCase() !== "readme.md")
+    .filter((file) => {
+      const normalizedFile = file.toLowerCase();
+      return /\.mdx?$/i.test(file)
+        && normalizedFile !== "readme.md"
+        && normalizedFile !== "isaac-ai-agent-training.md";
+    })
     .sort()
     .map((file) => path.join(knowledgeDir, file));
 
