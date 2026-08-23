@@ -3,12 +3,14 @@ import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Sidebar, { sitemapItems } from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
+import { useTheme } from "@/components/ThemeProvider";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { HEADER_SCROLL_OFFSET } from "@/lib/scroll";
 
 const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
 const PhotoSection = lazy(() => import("@/components/PhotoSection"));
+const SkullHome = lazy(() => import("@/components/SkullHome"));
 
 const Footer = lazy(() => import("@/components/Footer"));
 
@@ -19,7 +21,7 @@ const sectionIds = sitemapItems
 
 const SectionFallback = () => <div className="home-photo-section-fallback" aria-hidden="true" />;
 
-const Index = () => {
+const ModernIndex = () => {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(
     () => Boolean((location.state as { sidebarOpen?: boolean } | null)?.sidebarOpen),
@@ -156,6 +158,13 @@ const Index = () => {
       />
     </div>
   );
+};
+
+const Index = () => {
+  const { theme } = useTheme();
+  return theme === "skull"
+    ? <Suspense fallback={<div className="win-shell win-desktop" aria-hidden="true" />}><SkullHome /></Suspense>
+    : <ModernIndex />;
 };
 
 export default Index;

@@ -11,3 +11,4 @@ export const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}`;
 export const LINKEDIN_URL = "https://www.linkedin.com/in/isaacseiler/";
 export const SUBSTACK_URL = "https://substack.com/@isaacseiler";
 export const GITHUB_URL = "https://github.com/isaaciseiler-beep";
+export const CALENDAR_URL = "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3NMWXBry-gVjXa2-Fhen_phB8BykNIGcFG47oDAWRPUqOKeC3MNfKKG4po2-eLvofOpvOY2LlO";

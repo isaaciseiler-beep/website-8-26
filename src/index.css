@@ -3505,3 +3505,971 @@ body::-webkit-scrollbar,
     display: none;
   }
 }
+
+/* ============ Skull mode: complete Windows 95 desktop ============ */
+.skull .win-shell,
+.skull .win-shell * {
+  box-sizing: border-box;
+  font-family: "MS Sans Serif", Tahoma, Geneva, Arial, sans-serif !important;
+  letter-spacing: 0 !important;
+  text-shadow: none !important;
+  scrollbar-width: auto;
+}
+
+.skull .win-shell {
+  color: #000000 !important;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.skull .win-shell *::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.skull .win-shell *::-webkit-scrollbar-track {
+  border: 1px solid #808080;
+  background: #dfdfdf;
+}
+
+.skull .win-shell *::-webkit-scrollbar-thumb {
+  border: 2px outset #ffffff;
+  background: #c0c0c0;
+}
+
+.skull .win-desktop,
+.skull .win-route-desktop {
+  min-height: 100svh;
+  padding: 12px 12px 52px;
+  background: #008080 !important;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 0.6px, transparent 0.6px) !important;
+  background-size: 3px 3px !important;
+}
+
+.skull .win-desktop a,
+.skull .win-route-desktop a {
+  color: #000080 !important;
+  text-decoration: underline !important;
+}
+
+.skull .win-desktop-icons {
+  position: fixed;
+  inset: 10px auto 48px 8px;
+  z-index: 2;
+  display: flex;
+  width: 86px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.skull .win-desktop-icon {
+  display: grid;
+  width: 82px;
+  justify-items: center;
+  gap: 3px;
+  padding: 3px !important;
+  color: #ffffff !important;
+  text-align: center;
+  text-decoration: none !important;
+}
+
+.skull .win-desktop-icon:focus-visible,
+.skull .win-desktop-icon:hover {
+  background: #000080 !important;
+  outline: 1px dotted #ffffff;
+}
+
+.skull .win-desktop-icon-picture {
+  display: grid;
+  width: 36px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid #ffffff;
+  background: #c0c0c0;
+  color: #000080;
+  font-family: "Courier New", monospace !important;
+  font-size: 23px;
+  font-weight: 700;
+  box-shadow: 2px 2px 0 #000000 !important;
+}
+
+.skull .win-desktop-workspace {
+  display: grid;
+  width: min(1120px, calc(100% - 104px));
+  margin-left: 104px;
+  gap: 18px;
+}
+
+.skull .win-window {
+  overflow: hidden;
+  border: 3px outset #ffffff !important;
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.48) !important;
+}
+
+.skull .win-titlebar {
+  display: flex;
+  min-height: 24px;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 3px;
+  background: #000080 !important;
+  color: #ffffff !important;
+}
+
+.skull .win-titlebar-icon {
+  display: grid;
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  place-items: center;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  font-family: "Courier New", monospace !important;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.skull .win-titlebar h1,
+.skull .win-titlebar h2 {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  margin: 0;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skull .win-titlebar-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.skull .win-titlebar-controls i {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border: 2px outset #ffffff;
+  background: #c0c0c0;
+  color: #000000;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.skull .win-menubar,
+.skull .win-explorer-toolbar {
+  display: flex;
+  min-height: 27px;
+  align-items: center;
+  gap: 20px;
+  padding: 4px 9px;
+  border-bottom: 1px solid #808080;
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+}
+
+.skull .win-toolbar {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding: 5px;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #808080;
+  background: #c0c0c0 !important;
+}
+
+.skull .win-toolbar a {
+  display: flex;
+  min-width: 68px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 7px;
+  border: 2px outset #ffffff;
+  color: #000000 !important;
+  font-size: 11px;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.skull .win-toolbar a:active {
+  border-style: inset;
+}
+
+.skull .win-addressbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  padding: 4px 6px;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #808080;
+  background: #c0c0c0 !important;
+}
+
+.skull .win-addressbar > div {
+  overflow: hidden;
+  min-height: 23px;
+  padding: 3px 6px;
+  border: 2px inset #ffffff;
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-family: "Courier New", monospace !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skull .win-window-content,
+.skull .win-browser-page {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.skull .win-browser-page {
+  min-height: 360px;
+  padding: 20px;
+  border: 3px inset #ffffff;
+}
+
+.skull .win-home-banner {
+  display: grid;
+  min-height: 320px;
+  align-content: center;
+  justify-items: center;
+  padding: 24px;
+  background-color: #ffffff !important;
+  background-image: repeating-linear-gradient(45deg, rgba(0, 0, 128, 0.055) 0 1px, transparent 1px 5px) !important;
+  color: #000000 !important;
+  text-align: center;
+}
+
+.skull .win-home-banner h2 {
+  margin: 4px 0;
+  color: #000080 !important;
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: clamp(38px, 8vw, 84px) !important;
+  font-weight: 700 !important;
+  line-height: 0.95 !important;
+}
+
+.skull .win-home-kicker {
+  margin: 0;
+  color: #800000;
+  font-family: "Courier New", monospace !important;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.skull .win-rule {
+  width: min(620px, 88%);
+  height: 5px;
+  margin: 15px auto 8px;
+  border-top: 2px solid #000080;
+  border-bottom: 1px solid #000080;
+}
+
+.skull .win-under-construction {
+  padding: 5px 10px;
+  border: 1px dashed #000000;
+  background: #ffff00 !important;
+  color: #000000 !important;
+  font-family: "Courier New", monospace !important;
+  font-weight: 700;
+}
+
+.skull .win-home-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-top: 10px;
+}
+
+.skull .win-home-links a {
+  color: #0000ee !important;
+  font-family: "Times New Roman", Times, serif !important;
+  font-weight: 700;
+}
+
+.skull .win-statusbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px;
+  padding: 3px;
+  background: #c0c0c0 !important;
+}
+
+.skull .win-statusbar span {
+  min-width: 0;
+  overflow: hidden;
+  padding: 3px 5px;
+  border: 2px inset #ffffff;
+  color: #000000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skull .win-notepad-layout {
+  display: grid;
+  grid-template-columns: minmax(190px, 30%) minmax(0, 1fr);
+  gap: 18px;
+  min-height: 330px;
+  padding: 14px;
+  border: 3px inset #ffffff;
+  background: #ffffff !important;
+}
+
+.skull .win-profile-frame {
+  align-self: start;
+  border: 2px solid #000000;
+  background: #c0c0c0;
+}
+
+.skull .win-profile-frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.25) !important;
+}
+
+.skull .win-profile-frame span {
+  display: block;
+  padding: 4px;
+  border-top: 1px solid #000000;
+  font-family: "Courier New", monospace !important;
+  text-align: center;
+}
+
+.skull .win-notepad-copy {
+  font-family: "Courier New", Courier, monospace !important;
+  font-size: clamp(14px, 2vw, 18px);
+  line-height: 1.6;
+}
+
+.skull .win-notepad-copy * {
+  font-family: inherit !important;
+}
+
+.skull .win-notepad-copy p:first-child {
+  margin-top: 0;
+}
+
+.skull .win-explorer-headings,
+.skull .win-file-row {
+  display: grid;
+  grid-template-columns: minmax(200px, 1.1fr) 100px 60px minmax(240px, 1.4fr);
+}
+
+.skull .win-explorer-headings {
+  border-top: 1px solid #ffffff;
+  border-bottom: 2px solid #808080;
+  background: #c0c0c0 !important;
+  font-weight: 700;
+}
+
+.skull .win-explorer-headings span {
+  padding: 4px 6px;
+  border-right: 2px groove #ffffff;
+}
+
+.skull .win-file-list {
+  max-height: 570px;
+  overflow: auto;
+  border: 3px inset #ffffff;
+  background: #ffffff !important;
+}
+
+.skull .win-file-row {
+  align-items: start;
+  color: #000000 !important;
+  text-decoration: none !important;
+}
+
+.skull .win-file-row > span {
+  min-width: 0;
+  padding: 7px 6px;
+  overflow-wrap: anywhere;
+}
+
+.skull .win-file-row:nth-child(even) {
+  background: #eeeeee !important;
+}
+
+.skull .win-file-row:hover,
+.skull .win-file-row:focus-visible {
+  background: #000080 !important;
+  color: #ffffff !important;
+  outline: 1px dotted #ffffff;
+  outline-offset: -3px;
+}
+
+.skull .win-file-name {
+  display: flex;
+  gap: 7px;
+  font-weight: 700;
+}
+
+.skull .win-file-name b {
+  color: #808000;
+}
+
+.skull .win-photo-layout {
+  display: grid;
+  grid-template-columns: minmax(230px, 31%) minmax(0, 1fr);
+  gap: 6px;
+  min-height: min(680px, 72svh);
+  padding: 6px;
+  background: #c0c0c0 !important;
+}
+
+.skull .win-photo-files {
+  overflow: auto;
+  border: 3px inset #ffffff;
+  background: #ffffff !important;
+  padding: 2px;
+}
+
+.skull .win-photo-files button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 7px;
+  overflow: hidden;
+  padding: 7px 5px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #000000 !important;
+  font-family: "Courier New", monospace !important;
+  font-size: 11px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skull .win-photo-files button.is-selected,
+.skull .win-photo-files button:focus-visible {
+  background: #000080 !important;
+  color: #ffffff !important;
+  outline: 1px dotted #ffffff;
+  outline-offset: -2px;
+}
+
+.skull .win-photo-preview {
+  display: grid;
+  min-width: 0;
+  margin: 0;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  border: 3px inset #ffffff;
+  background: #808080 !important;
+}
+
+.skull .win-photo-canvas {
+  display: grid;
+  min-height: 0;
+  place-items: center;
+  overflow: hidden;
+  padding: 10px;
+  background-image: repeating-conic-gradient(#909090 0 25%, #777777 0 50%) !important;
+  background-size: 12px 12px !important;
+}
+
+.skull .win-photo-canvas img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid #000000;
+  background: #ffffff !important;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.18) !important;
+}
+
+.skull .win-photo-preview figcaption {
+  overflow: hidden;
+  padding: 5px 7px;
+  border-top: 2px groove #ffffff;
+  background: #c0c0c0 !important;
+  color: #000000;
+  font-family: "Courier New", monospace !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skull .win-photo-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px;
+  border-top: 1px solid #808080;
+  background: #c0c0c0 !important;
+}
+
+.skull .win-photo-controls button,
+.skull .win-button {
+  min-width: 88px;
+  padding: 6px 10px !important;
+  border: 2px outset #ffffff !important;
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+  font-weight: 700;
+}
+
+.skull .win-photo-controls button:active,
+.skull .win-button:active {
+  border-style: inset !important;
+}
+
+.skull .win-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding: 22px;
+  border: 3px inset #ffffff;
+  background: #ffffff !important;
+}
+
+.skull .win-contact-grid a {
+  display: grid;
+  min-width: 0;
+  justify-items: center;
+  gap: 5px;
+  padding: 7px;
+  color: #000000 !important;
+  text-align: center;
+  text-decoration: none !important;
+}
+
+.skull .win-contact-grid a:hover,
+.skull .win-contact-grid a:focus-visible {
+  background: #000080 !important;
+  color: #ffffff !important;
+  outline: 1px dotted #ffffff;
+}
+
+.skull .win-contact-grid a > span {
+  display: grid;
+  width: 48px;
+  height: 42px;
+  place-items: center;
+  border: 2px outset #ffffff;
+  background: #c0c0c0;
+  color: #000080;
+  font-family: "Courier New", monospace !important;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.skull .win-contact-grid small {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skull .win-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px;
+  border-top: 2px groove #ffffff;
+  background: #c0c0c0 !important;
+}
+
+.skull .win-dialog p {
+  margin: 0;
+}
+
+.skull .win-dialog-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 2px solid #000080;
+  border-radius: 50% !important;
+  color: #000080;
+  font-family: "Times New Roman", serif !important;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.skull .win-page-footer {
+  padding: 16px !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-family: "Courier New", monospace !important;
+  text-align: center;
+}
+
+.skull .win-page-footer p {
+  margin: 3px 0;
+  font-family: inherit !important;
+}
+
+.skull .win-system-chrome {
+  position: relative;
+  z-index: 1100;
+}
+
+.skull .win-taskbar {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 1100;
+  display: grid;
+  height: 40px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border-top: 2px outset #ffffff;
+  background: #c0c0c0 !important;
+  box-shadow: 0 -1px 0 #808080 !important;
+}
+
+.skull .win-start-button,
+.skull .win-task-button {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  padding: 3px 8px !important;
+  border: 2px outset #ffffff !important;
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skull .win-start-button.is-open,
+.skull .win-start-button:active,
+.skull .win-task-button:active {
+  border-style: inset !important;
+}
+
+.skull .win-start-logo {
+  color: #000080;
+  font-size: 20px;
+}
+
+.skull .win-task-button {
+  width: min(330px, 100%);
+}
+
+.skull .win-task-button > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skull .win-task-tray {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 9px;
+  border: 2px inset #ffffff;
+  background: #c0c0c0 !important;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.skull .win-start-menu {
+  position: fixed;
+  bottom: 39px;
+  left: 2px;
+  z-index: 1099;
+  display: grid;
+  width: 270px;
+  grid-template-columns: 30px minmax(0, 1fr);
+  border: 3px outset #ffffff;
+  background: #c0c0c0 !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.55) !important;
+}
+
+.skull .win-start-rail {
+  display: flex;
+  align-items: flex-end;
+  padding: 8px 4px;
+  background: #808080 !important;
+  color: #c0c0c0;
+  font-size: 15px;
+  font-weight: 700;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.skull .win-start-menu nav {
+  padding: 3px;
+}
+
+.skull .win-start-menu a,
+.skull .win-start-menu button {
+  display: flex;
+  width: 100%;
+  min-height: 42px;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 9px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #000000 !important;
+  text-align: left;
+  text-decoration: none !important;
+}
+
+.skull .win-start-menu a:hover,
+.skull .win-start-menu a:focus-visible,
+.skull .win-start-menu button:hover,
+.skull .win-start-menu button:focus-visible {
+  background: #000080 !important;
+  color: #ffffff !important;
+  outline: 1px dotted #ffffff;
+}
+
+.skull .win-start-menu a > span,
+.skull .win-start-menu button > span {
+  display: grid;
+  width: 25px;
+  flex: 0 0 25px;
+  place-items: center;
+  color: inherit;
+  font-family: "Courier New", monospace !important;
+  font-size: 18px;
+}
+
+.skull .win-start-separator {
+  height: 2px;
+  margin: 3px;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #ffffff;
+}
+
+.skull .win-start-visitor {
+  margin: 3px;
+  padding: 5px;
+  border: 2px inset #ffffff;
+  background: #000000 !important;
+  color: #00ff00;
+  font-family: "Courier New", monospace !important;
+  text-align: center;
+}
+
+.skull .win-route-desktop {
+  padding: 10px 10px 52px;
+}
+
+.skull .win-route-window {
+  width: min(1280px, 100%);
+  min-height: calc(100svh - 62px);
+  margin: 0 auto;
+}
+
+.skull .win-route-content {
+  min-height: calc(100svh - 145px);
+  overflow: auto;
+  border: 3px inset #ffffff;
+  background: #ffffff !important;
+}
+
+.skull .win-route-content > * {
+  min-height: 100%;
+}
+
+@media (max-width: 700px) {
+  .skull .win-desktop,
+  .skull .win-route-desktop {
+    padding: 6px 6px 48px;
+  }
+
+  .skull .win-desktop-icons {
+    position: static;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: start;
+    gap: 3px;
+    margin-bottom: 7px;
+  }
+
+  .skull .win-desktop-icon {
+    width: 100%;
+    min-width: 0;
+    font-size: 9px;
+    overflow-wrap: anywhere;
+  }
+
+  .skull .win-desktop-icon-picture {
+    width: 31px;
+    height: 29px;
+    font-size: 19px;
+  }
+
+  .skull .win-desktop-workspace {
+    width: 100%;
+    margin-left: 0;
+    gap: 9px;
+  }
+
+  .skull .win-titlebar h1,
+  .skull .win-titlebar h2 {
+    font-size: 11px !important;
+  }
+
+  .skull .win-titlebar-controls i:not(:last-child) {
+    display: none;
+  }
+
+  .skull .win-browser-page {
+    min-height: 330px;
+    padding: 7px;
+  }
+
+  .skull .win-home-banner {
+    min-height: 315px;
+    padding: 12px 8px;
+  }
+
+  .skull .win-home-banner h2 {
+    font-size: clamp(38px, 15vw, 62px) !important;
+  }
+
+  .skull .win-home-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+
+  .skull .win-home-links a {
+    padding: 5px;
+  }
+
+  .skull .win-notepad-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 8px;
+  }
+
+  .skull .win-profile-frame {
+    width: 100%;
+  }
+
+  .skull .win-profile-frame img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .skull .win-notepad-copy {
+    font-size: 14px;
+  }
+
+  .skull .win-explorer-headings {
+    display: none;
+  }
+
+  .skull .win-file-row {
+    grid-template-columns: minmax(0, 1fr) 72px 42px;
+    border-bottom: 1px dotted #808080;
+  }
+
+  .skull .win-file-row > span {
+    padding: 7px 5px;
+  }
+
+  .skull .win-file-row > span:last-child {
+    grid-column: 1 / -1;
+    padding-top: 0;
+    color: inherit;
+    font-size: 11px;
+  }
+
+  .skull .win-photo-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(145px, 27svh) minmax(390px, 60svh);
+    min-height: 0;
+  }
+
+  .skull .win-photo-files button {
+    min-height: 38px;
+  }
+
+  .skull .win-photo-controls button {
+    min-height: 38px;
+  }
+
+  .skull .win-contact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    padding: 9px;
+  }
+
+  .skull .win-contact-grid a {
+    min-height: 104px;
+  }
+
+  .skull .win-dialog {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .skull .win-dialog .win-button {
+    grid-column: 1 / -1;
+    min-height: 40px;
+  }
+
+  .skull .win-taskbar {
+    height: 42px;
+  }
+
+  .skull .win-start-button {
+    padding-inline: 6px !important;
+  }
+
+  .skull .win-task-button {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 5px !important;
+  }
+
+  .skull .win-task-tray {
+    padding-inline: 6px;
+  }
+
+  .skull .win-task-tray > span {
+    display: none;
+  }
+
+  .skull .win-start-menu {
+    bottom: 41px;
+    width: min(300px, calc(100vw - 4px));
+  }
+
+  .skull .win-route-desktop {
+    padding-inline: 3px;
+  }
+
+  .skull .win-route-window {
+    min-height: calc(100svh - 50px);
+  }
+
+  .skull .win-route-content {
+    min-height: calc(100svh - 134px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skull .win-shell,
+  .skull .win-shell * {
+    scroll-behavior: auto !important;
+  }
+}

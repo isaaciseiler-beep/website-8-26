@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Index from "./pages/Index.tsx";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeProvider, useTheme } from "@/components/ThemeProvider";
 import SkullChrome from "@/components/SkullChrome";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import RouteLoader from "@/components/RouteLoader";
@@ -105,9 +105,61 @@ const RouteRenderErrorFallback = ({ isMap }: { isMap: boolean }) => (
   </main>
 );
 
+const SkullRouteFrame = ({ children, path }: { children: ReactNode; path: string }) => (
+  <main className="win-shell win-route-desktop">
+    <section className="win-window win-route-window" aria-label="Program window">
+      <div className="win-titlebar">
+        <span className="win-titlebar-icon" aria-hidden="true">▣</span>
+        <h1>{path.replace(/^\//, "") || "home"} - Isaac Seiler</h1>
+        <span className="win-titlebar-controls" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
+      </div>
+      <div className="win-menubar" aria-hidden="true">
+        <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span>
+      </div>
+      <div className="win-addressbar">
+        <span>Address</span><div>{`C:\\ISAAC${path.replaceAll("/", "\\").toUpperCase()}`}</div>
+      </div>
+      <div className="win-route-content">{children}</div>
+      <div className="win-statusbar"><span>Ready</span><span>My Computer</span></div>
+    </section>
+  </main>
+);
+
 const AnimatedRoutes = () => {
   const location = useLocation();
+  const { theme } = useTheme();
   const prefersReducedMotion = useReducedMotion();
+  const isSkullHome = location.pathname === "/" || location.pathname === "/about" || location.pathname === "/work";
+
+  const routes = (
+    <RouteErrorBoundary
+      resetKey={location.pathname}
+      fallback={<RouteRenderErrorFallback isMap={location.pathname === "/fulbrightmap" || location.pathname === "/photos/map"} />}
+    >
+      <Suspense fallback={<RouteFallback />}>
+        <Routes location={location}>
+          <Route path="/" element={<Index />} />
+          <Route path="/photos" element={<PhotosPage />} />
+          <Route path="/photos/map" element={<PhotoMapPage />} />
+          <Route path="/photos/music" element={<MusicPage />} />
+          <Route path="/about" element={<Index />} />
+          <Route path="/work" element={<Index />} />
+          <Route path="/projects" element={<Navigate to="/work" replace />} />
+          <Route path="/projects/artificial-intelligence-in-state-government-index" element={<AIStateGovernmentIndexPage />} />
+          <Route path="/projects/senior-thesis-local-journalism" element={<SeniorThesisLocalJournalismPage />} />
+          <Route path="/projects/:id" element={<ProjectDetailPage />} />
+          <Route path="/credentials" element={<Navigate to="/about" replace />} />
+          <Route path="/experience" element={<Navigate to="/about" replace />} />
+          <Route path="/latest" element={<Navigate to="/work" replace />} />
+          <Route path="/latest/:slug" element={<Navigate to="/work" replace />} />
+          <Route path="/experience/arcade" element={<ExperienceGamePage />} />
+          <Route path="/fulbrightmap" element={<FulbrightMapPage />} />
+          <Route path="/strike-tracker" element={<StrikeTrackerPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </RouteErrorBoundary>
+  );
 
   return (
     <AnimatePresence initial={false} mode="wait">
@@ -121,33 +173,9 @@ const AnimatedRoutes = () => {
           ease: PAGE_TRANSITION_EASE,
         }}
       >
-        <RouteErrorBoundary
-          resetKey={location.pathname}
-          fallback={<RouteRenderErrorFallback isMap={location.pathname === "/fulbrightmap" || location.pathname === "/photos/map"} />}
-        >
-          <Suspense fallback={<RouteFallback />}>
-            <Routes location={location}>
-              <Route path="/" element={<Index />} />
-              <Route path="/photos" element={<PhotosPage />} />
-              <Route path="/photos/map" element={<PhotoMapPage />} />
-              <Route path="/photos/music" element={<MusicPage />} />
-              <Route path="/about" element={<Index />} />
-              <Route path="/work" element={<Index />} />
-              <Route path="/projects" element={<Navigate to="/work" replace />} />
-              <Route path="/projects/artificial-intelligence-in-state-government-index" element={<AIStateGovernmentIndexPage />} />
-              <Route path="/projects/senior-thesis-local-journalism" element={<SeniorThesisLocalJournalismPage />} />
-              <Route path="/projects/:id" element={<ProjectDetailPage />} />
-              <Route path="/credentials" element={<Navigate to="/about" replace />} />
-              <Route path="/experience" element={<Navigate to="/about" replace />} />
-              <Route path="/latest" element={<Navigate to="/work" replace />} />
-              <Route path="/latest/:slug" element={<Navigate to="/work" replace />} />
-              <Route path="/experience/arcade" element={<ExperienceGamePage />} />
-              <Route path="/fulbrightmap" element={<FulbrightMapPage />} />
-              <Route path="/strike-tracker" element={<StrikeTrackerPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </RouteErrorBoundary>
+        {theme === "skull" && !isSkullHome
+          ? <SkullRouteFrame path={location.pathname}>{routes}</SkullRouteFrame>
+          : routes}
       </motion.div>
     </AnimatePresence>
   );
@@ -155,8 +183,9 @@ const AnimatedRoutes = () => {
 
 const ChatOrbGate = () => {
   const location = useLocation();
+  const { theme } = useTheme();
 
-  if (location.pathname === "/experience/arcade" || location.pathname === "/strike-tracker") {
+  if (theme === "skull" || location.pathname === "/experience/arcade" || location.pathname === "/strike-tracker") {
     return null;
   }
 

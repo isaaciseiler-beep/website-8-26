@@ -8,12 +8,16 @@ interface ThemeContextType {
   theme: Theme;
   resolvedTheme: ResolvedTheme;
   setTheme: (t: Theme) => void;
+  exitSkullMode: () => void;
 }
+
+const PRE_SKULL_THEME_KEY = "pre-skull-theme";
 
 const ThemeContext = createContext<ThemeContextType>({
   theme: "light",
   resolvedTheme: "light",
   setTheme: () => {},
+  exitSkullMode: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);
@@ -39,6 +43,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const applyTheme = (next: Theme) => {
+    if (next === "skull" && theme !== "skull") {
+      window.localStorage.setItem(PRE_SKULL_THEME_KEY, resolvedTheme);
+    }
+
     const root = document.documentElement;
     root.classList.add("theme-crossfade");
     window.setTimeout(() => root.classList.remove("theme-crossfade"), 700);
@@ -50,6 +58,12 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
     setTheme(next);
+  };
+
+  const exitSkullMode = () => {
+    const previousTheme = window.localStorage.getItem(PRE_SKULL_THEME_KEY);
+    window.scrollTo({ top: 0, left: 0 });
+    applyTheme(previousTheme === "dark" ? "dark" : "light");
   };
 
   useEffect(() => {
@@ -64,7 +78,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [theme, resolvedTheme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme: applyTheme }}>
+    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme: applyTheme, exitSkullMode }}>
       {children}
     </ThemeContext.Provider>
   );
