@@ -82,8 +82,19 @@ const loadMapbox = () => {
   return mapboxPromise;
 };
 
+const getLightMapPalette = (): MapPalette => {
+  const sidebar = document.querySelector<HTMLElement>(".site-sidebar-panel");
+  const siteBackground = window.getComputedStyle(sidebar ?? document.body).backgroundColor;
+
+  return {
+    ...lightMapPalette,
+    background: siteBackground,
+    labelHalo: siteBackground,
+  };
+};
+
 const getMapPalette = (): MapPalette =>
-  document.documentElement.classList.contains("dark") ? darkMapPalette : lightMapPalette;
+  document.documentElement.classList.contains("dark") ? darkMapPalette : getLightMapPalette();
 
 const defaultMapView = (isMobile: boolean) => ({
   ...photoMapInitialView,
@@ -318,7 +329,7 @@ const PhotoMapPage = () => {
   useEffect(() => {
     const map = mapRef.current;
     if (!mapReady || !map?.isStyleLoaded()) return;
-    applyMapPalette(map, resolvedTheme === "dark" ? darkMapPalette : lightMapPalette);
+    applyMapPalette(map, resolvedTheme === "dark" ? darkMapPalette : getLightMapPalette());
   }, [mapReady, resolvedTheme]);
 
   useEffect(() => {
