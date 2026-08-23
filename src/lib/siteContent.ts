@@ -192,7 +192,6 @@ export const projectItems: ProjectItem[] = [
       },
       {
         heading: "Building the press list",
-        overlayHeading: true,
         paragraphs: [
           "The new office began without a network of trusted press relationships. Isaac started building one immediately.",
           "He reached local television producers in Grand Rapids, statewide political journalists, Washington correspondents, national policy reporters, trade publications, Spanish-language media, and journalists covering subjects such as immigration, labor, infrastructure, and small business.",
@@ -201,14 +200,6 @@ export const projectItems: ProjectItem[] = [
         ],
         pullQuote:
           "Isaac built a press network designed to move local stories through regional, statewide, and national outlets while preserving their context.",
-        media: [
-          {
-            type: "image",
-            src: `${CAP_COMMS_ASSET_BASE}/2ch.jpeg`,
-            alt: "Isaac outside the United States Capitol during his time in Congress.",
-            placement: "top",
-          },
-        ],
       },
       {
         heading: "Turning a West Michigan story into national news",
@@ -289,6 +280,7 @@ export const projectItems: ProjectItem[] = [
       },
       {
         heading: "What the work added up to",
+        overlayHeading: true,
         paragraphs: [
           "By June 2023, Isaac had helped move a congressional operation from campaign mode into public service. He helped establish the team, shape its early strategy, create its public voice, and build a press network spanning local, statewide, and national media.",
           "That network gave local stories a route into national coverage and gave national policy a way back to the district. It helped a new office become visible quickly without losing its connection to the people it represented.",
@@ -302,7 +294,7 @@ export const projectItems: ProjectItem[] = [
             type: "image",
             src: projectImg.capHill,
             alt: "Isaac speaking with a congressional colleague outside the United States Capitol.",
-            placement: "bottom",
+            placement: "top",
           },
         ],
       },

@@ -3689,7 +3689,8 @@ html.theme-crossfade body * {
 }
 
 [data-project-id="congressional-office-setup-100-day-report"] .article-body h2 {
-  max-width: 18ch;
+  width: 100%;
+  max-width: none;
   margin-bottom: 18px;
   font-size: clamp(1.5rem, 4vw, 2.25rem);
   letter-spacing: -0.025em;
@@ -3700,7 +3701,32 @@ html.theme-crossfade body * {
 [data-project-id="congressional-office-setup-100-day-report"] .article-body li {
   font-size: 1rem;
   line-height: 1.65;
-  color: hsl(var(--foreground) / 0.66);
+  color: hsl(var(--foreground));
+}
+
+[data-project-id="congressional-office-setup-100-day-report"] .article-topper,
+[data-project-id="congressional-office-setup-100-day-report"] .article-pull-quote,
+[data-project-id="congressional-office-setup-100-day-report"] .project-source-link,
+[data-project-id="congressional-office-setup-100-day-report"] .project-source-links-label,
+[data-project-id="congressional-office-setup-100-day-report"] .article-stat-card span,
+[data-project-id="congressional-office-setup-100-day-report"] .article-meta > span:not([data-dot]),
+[data-project-id="congressional-office-setup-100-day-report"] figcaption {
+  color: hsl(var(--foreground));
+}
+
+[data-project-id="congressional-office-setup-100-day-report"] .article-pull-quote {
+  margin: 12px 0 8px;
+}
+
+[data-project-id="congressional-office-setup-100-day-report"] .project-source-links {
+  margin-top: 12px;
+}
+
+[data-project-id="congressional-office-setup-100-day-report"] .article-body .project-media-heading-overlay h2 {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 0;
+  color: #ffffff;
 }
 
 [data-project-id="congressional-office-setup-100-day-report"] .project-media-image {
