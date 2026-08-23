@@ -328,7 +328,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
         <AnimatePresence>
           {open && (
             <motion.div
-              className="block"
+              className="mt-auto block pt-10"
               initial="hidden"
               animate="shown"
               exit="hiddenExit"
