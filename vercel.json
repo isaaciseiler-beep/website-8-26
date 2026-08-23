@@ -1,6 +1,27 @@
 {
   "headers": [
     {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
       "source": "/fulbrightmap",
       "headers": [
         {
@@ -153,9 +174,41 @@
       "source": "/projects",
       "destination": "/work",
       "permanent": true
+    },
+    {
+      "source": "/projects/communications-consultancy-supporting-local-candidates",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/projects/2022-institute-for-nonprofit-news-index-survey",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/projects/exclusive-interview-with-high-visibility-congressperson",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/projects/fulbright-award-to-taiwan",
+      "destination": "/work",
+      "permanent": true
     }
   ],
   "rewrites": [
+    {
+      "source": "/photos/map",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/photos/music",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/experience/arcade",
+      "destination": "/index.html"
+    },
     {
       "source": "/fulbrightmap",
       "destination": "/index.html"

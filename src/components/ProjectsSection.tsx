@@ -2,16 +2,15 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
+import { hiddenProjectIds, projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
 
-type ProjectFilter = "ALL" | "AI" | "PROJECTS" | "BLOG";
+type ProjectFilter = "ALL" | "AI" | "PROJECTS";
 
 const filters: { label: string; value: ProjectFilter }[] = [
   { label: "All", value: "ALL" },
   { label: "AI", value: "AI" },
   { label: "Projects", value: "PROJECTS" },
-  { label: "Blog", value: "BLOG" },
 ];
 
 const AI_SUBJECT_PATTERN =
@@ -22,14 +21,6 @@ const isAiSubject = (...values: (string | undefined)[]) =>
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const HIDDEN_PROJECT_IDS = new Set([
-  "communications-consultancy-supporting-local-candidates",
-  "2022-institute-for-nonprofit-news-index-survey",
-  "exclusive-interview-with-high-visibility-congressperson",
-  "fulbright-award-to-taiwan",
-]);
-const HIDDEN_NEWS_IDS = new Set([2, 6]);
-
 type Entry =
   | { kind: "project"; id: string; node: ProjectItem }
   | { kind: "news"; id: string; node: (typeof newsItems)[number] };
@@ -39,23 +30,19 @@ const ProjectsSection = () => {
 
   const entries = useMemo<Entry[]>(() => {
     const projectEntries: Entry[] = projectItems
-      .filter((project) => !HIDDEN_PROJECT_IDS.has(project.id))
+      .filter((project) => !hiddenProjectIds.has(project.id))
       .map((project) => ({
         kind: "project",
         id: `project-${project.id}`,
         node: project,
       }));
     const newsEntries: Entry[] = newsItems
-      .filter((item) => !HIDDEN_NEWS_IDS.has(item.id))
       .map((item) => ({
         kind: "news",
         id: `news-${item.id}`,
         node: item,
       }));
 
-    if (filter === "BLOG") {
-      return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source === "BLOG");
-    }
     if (filter === "AI") {
       return [...projectEntries, ...newsEntries].filter((entry) => {
         const node = entry.node as { title?: string; source?: string; summary?: string; description?: string };

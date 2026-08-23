@@ -59,7 +59,8 @@ export const topLevelPages = [
     path: "/work",
     navTitle: "Work",
     title: "Work | Isaac Seiler",
-    description: "Selected projects by Isaac Seiler.",
+    description:
+      "Selected projects by Isaac Seiler across communications, strategy, research, artificial intelligence, journalism, and visual identity.",
     sitelinkDescription: "Selected projects and case studies by Isaac Seiler.",
     priority: "0.94",
     changefreq: "weekly",
@@ -147,11 +148,11 @@ export const projectSeo = {
     about: ["generative AI", "state government", "AI governance", "public policy"],
   },
   "congressional-office-setup-100-day-report": {
-    title: "Congressional Office Setup and 100 Day Report | Isaac Seiler",
+    title: "Congressional Office Setup and 100-Day Report | Isaac Seiler",
     description:
       "Isaac Seiler helped stand up a new congressional office and produced early systems, staffing, metrics, communications, and first-100-day reporting.",
     searchIntent:
-      "Congressional office setup, first 100 day report, Capitol Hill communications, office operations, and public-service reporting.",
+      "Congressional office setup, first 100-day report, Capitol Hill communications, office operations, and public-service reporting.",
     proofPoints: [
       "Helped build operational systems for a new congressional office.",
       "Collected and verified office-wide first-100-day performance metrics.",
@@ -159,7 +160,7 @@ export const projectSeo = {
     ],
     image: {
       url: projectCardImages.capHill,
-      alt: "Congressional Office Setup and 100 Day Report project preview",
+      alt: "Congressional Office Setup and 100-Day Report project preview",
     },
     keywords: [
       "congressional office setup",
@@ -222,6 +223,9 @@ export const projectSeo = {
     about: ["electric vehicles", "GIS", "transportation infrastructure", "equity analysis"],
   },
   "boehringer-cares-foundation-rebrand-strategy-shift": {
+    title: "Boehringer Cares Foundation Rebrand | Isaac Seiler",
+    description:
+      "A full rebrand and strategic redirect for Boehringer Cares, spanning narrative, UX, visual identity, and internal communications.",
     image: {
       url: projectCardImages.biCares,
       alt: "Boehringer Cares Foundation rebrand and strategy project preview",
@@ -314,8 +318,8 @@ export const priorityImages = [
     id: "congressional-office-100-day-report",
     url: projectCardImages.capHill,
     page: "/projects/congressional-office-setup-100-day-report",
-    title: "Congressional Office Setup and 100 Day Report",
-    alt: "Congressional Office Setup and 100 Day Report project preview",
+    title: "Congressional Office Setup and 100-Day Report",
+    alt: "Congressional Office Setup and 100-Day Report project preview",
     caption:
       "Systems, staffing, communications, and metrics used to launch a new congressional office.",
   },
@@ -346,10 +350,8 @@ export const projectPriorityOrder = [
   "congressional-office-setup-100-day-report",
   "electric-vehicle-access-analysis",
   "boehringer-cares-foundation-rebrand-strategy-shift",
-  "communications-consultancy-supporting-local-candidates",
-  "2022-institute-for-nonprofit-news-index-survey",
   "stl-immigrant-refugee-support-grant-process",
-  "exclusive-interview-with-high-visibility-congressperson",
+  "openai-product-testing-and-feedback",
 ];
 
 export const rssProjectIds = [

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { hasSearchResults, searchSite } from "@/lib/searchIndex";
+import { hasSearchResults, searchDocuments, searchSite } from "@/lib/searchIndex";
 
 const titlesFor = (query: string, category: string) =>
   searchSite(query)
@@ -26,6 +26,14 @@ describe("search index", () => {
   it("does not return primary site pages in the search index", () => {
     expect(searchSite("photo map").some((group) => String(group.category) === "pages")).toBe(false);
     expect(searchSite("resume timeline").some((group) => String(group.category) === "pages")).toBe(false);
+  });
+
+  it("does not index retired or placeholder projects", () => {
+    const ids = searchDocuments.map((document) => document.id);
+    expect(ids).not.toContain("communications-consultancy-supporting-local-candidates");
+    expect(ids).not.toContain("2022-institute-for-nonprofit-news-index-survey");
+    expect(ids).not.toContain("exclusive-interview-with-high-visibility-congressperson");
+    expect(ids).not.toContain("fulbright-award-to-taiwan");
   });
 
   it("surfaces inspiration items through hidden tags", () => {

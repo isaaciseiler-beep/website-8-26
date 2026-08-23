@@ -94,11 +94,11 @@ export const experienceEntries: ExperienceEntry[] = [
     id: "washu-head-ta",
     organization: "Washington University in St. Louis",
     organizationUrl: "https://washu.edu/",
-    role: "Assistant Teaching",
+    role: "Teaching Assistant",
     period: "Jan 2024-May 2024; Jan 2025-Apr 2025",
     image: "/experience/washu2.jpg",
     paragraphs: [
-      "I supported political science instruction across two teaching appointments, first as a teaching assistant and later as head teaching assistant for a 150 person seminar course.",
+      "I supported political science instruction across two teaching appointments, first as a teaching assistant and later as head teaching assistant for a 150-person seminar course.",
       "I provided guidance for departmental AI policy, delivered feedback on 120+ student products, and managed a teaching team of 12.",
       "The work combined classroom operations, student writing feedback, staff coordination, and practical thinking about how AI tools should be handled in undergraduate courses.",
     ],
@@ -129,7 +129,7 @@ export const experienceEntries: ExperienceEntry[] = [
     organizationUrl: "https://washu.edu/",
     role: "AI, Digital Platforms, and Journalism Research",
     period: "Mar 2024-May 2025",
-    location: "St Louis, Missouri, United States",
+    location: "St. Louis, Missouri, United States",
     image: "/experience/washu2.jpg",
     paragraphs: [
       "I authored a 100+ page honors thesis on AI, digital platforms, and local journalism.",
@@ -160,7 +160,7 @@ export const experienceEntries: ExperienceEntry[] = [
     organizationUrl: "https://washu.edu/",
     role: "Staff Writer",
     period: "Sep 2023-Apr 2025",
-    location: "St Louis, Missouri, United States",
+    location: "St. Louis, Missouri, United States",
     image: "/experience/washu2.jpg",
     paragraphs: [
       "I wrote 9+ journalism pieces for WashU's independent newspaper, Student Life.",
@@ -227,7 +227,7 @@ export const experienceEntries: ExperienceEntry[] = [
     image: "/experience/DCCC.jpeg",
     paragraphs: [
       "The Democracy Summer program is the Democratic Congressional Campaign Committee's premier fellowship for college students interested in congressional politics.",
-      "Selected as a part of a nationwide cohort, I got access to training and support as I interned on a high profile congressional campaign.",
+      "Selected as part of a nationwide cohort, I received training and support while interning on a high-profile congressional campaign.",
     ],
     focus: ["congressional politics", "campaign training", "field support"],
     projectIds: [],

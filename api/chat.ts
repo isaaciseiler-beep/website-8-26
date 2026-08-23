@@ -85,15 +85,21 @@ Your backend has already retrieved the most relevant knowledge chunks below. Tre
 ${guidance ? `Assistant guidance:\n${guidance}\n\n` : ""}Retrieved knowledge:
 ${context}`;
 
+const buildSearchFallback = (results: ReturnType<typeof retrieveKnowledge>) => {
+  if (!results.length) {
+    return "I could not find a matching project yet. Visit the Work page or contact Isaac for more information.";
+  }
+
+  return results.slice(0, 2).map((result) => {
+    const firstSentence = result.content.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim() || result.content;
+    const link = result.url ? ` [${result.title}](${result.url})` : "";
+    return `- ${firstSentence}${link}`;
+  }).join("\n");
+};
+
 export default async function handler(request: ApiRequest, response: ApiResponse) {
   if (request.method !== "POST") {
     sendJson(response, 405, { error: "Method not allowed" });
-    return;
-  }
-
-  const apiKey = getEnvValue(process.env.OPENAI_API) || getEnvValue(process.env.OPENAI_API_KEY);
-  if (!apiKey) {
-    sendJson(response, 503, { error: "The AI assistant is not configured yet." });
     return;
   }
 
@@ -127,6 +133,15 @@ export default async function handler(request: ApiRequest, response: ApiResponse
       : "No matching knowledge chunks were retrieved.";
 
     const guidance = getAssistantGuidance();
+    const apiKey = getEnvValue(process.env.OPENAI_API) || getEnvValue(process.env.OPENAI_API_KEY);
+    if (!apiKey) {
+      sendJson(response, 200, {
+        message: buildSearchFallback(retrieved),
+        sources: retrieved.map(({ id, title, source, url }) => ({ id, title, source, url })),
+      });
+      return;
+    }
+
     const pageInstructions = pageContext
       ? `\n\nThe visitor is currently reading this page. Prioritize it when answering, and assume ambiguous questions ("this", "it", "this article") refer to it:\n${pageContext}`
       : "";

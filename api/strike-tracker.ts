@@ -24,8 +24,10 @@ const getEnvValue = (value?: string) => {
   return trimmed && trimmed !== "undefined" ? trimmed : undefined;
 };
 
-const getAccessCode = () =>
-  getEnvValue(process.env.STRIKE_TRACKER_ACCESS_CODE) ?? DEFAULT_ACCESS_CODE;
+const getAccessCode = (hasSharedStorage: boolean) => {
+  const configuredCode = getEnvValue(process.env.STRIKE_TRACKER_ACCESS_CODE);
+  return configuredCode ?? (hasSharedStorage ? undefined : DEFAULT_ACCESS_CODE);
+};
 
 const getSupabaseClient = () => {
   const url = getEnvValue(process.env.SUPABASE_URL) ?? getEnvValue(process.env.VITE_SUPABASE_URL);
@@ -101,12 +103,18 @@ export default async function handler(request: ApiRequest, response: ApiResponse
       return;
     }
 
-    if (String(body.code ?? "") !== getAccessCode()) {
+    const supabase = getSupabaseClient();
+    const accessCode = getAccessCode(Boolean(supabase));
+    if (!accessCode) {
+      sendJson(response, 503, { error: "Strike Tracker access is not configured." });
+      return;
+    }
+
+    if (String(body.code ?? "") !== accessCode) {
       sendJson(response, 401, { error: "Wrong code" });
       return;
     }
 
-    const supabase = getSupabaseClient();
     if (!supabase) {
       sendJson(response, 200, {
         counts: initialCounts,

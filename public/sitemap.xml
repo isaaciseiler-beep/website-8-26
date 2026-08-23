@@ -18,7 +18,7 @@
     </image:image>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/caphill.jpg</image:loc>
-      <image:title>Congressional Office Setup and 100 Day Report</image:title>
+      <image:title>Congressional Office Setup and 100-Day Report</image:title>
       <image:caption>Systems, staffing, communications, and metrics used to launch a new congressional office.</image:caption>
     </image:image>
     <image:image>
@@ -51,7 +51,7 @@
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/bicares.jpg</image:loc>
       <image:title>Work</image:title>
-      <image:caption>Selected projects by Isaac Seiler.</image:caption>
+      <image:caption>Selected projects by Isaac Seiler across communications, strategy, research, artificial intelligence, journalism, and visual identity.</image:caption>
     </image:image>
   </url>
   <url>
@@ -105,7 +105,7 @@
     <priority>0.78</priority>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/caphill.jpg</image:loc>
-      <image:title>Congressional Office Setup and 100 Day Report</image:title>
+      <image:title>Congressional Office Setup and 100-Day Report</image:title>
       <image:caption>Isaac Seiler helped stand up a new congressional office and produced early systems, staffing, metrics, communications, and first-100-day reporting.</image:caption>
     </image:image>
   </url>
@@ -132,28 +132,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/communications-consultancy-supporting-local-candidates</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/politicalconsult.jpg</image:loc>
-      <image:title>Communications Consultancy and Supporting Local Candidates</image:title>
-      <image:caption>An independent consultancy effort supporting local candidates through campaign websites, digital strategy, and rapid-response communications.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/projects/2022-institute-for-nonprofit-news-index-survey</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/nonprofitnews.jpg</image:loc>
-      <image:title>The 2022 Institute for Nonprofit News Index Survey</image:title>
-      <image:caption>A large-scale nonprofit news research project involving data collection, survey synthesis, and direct stakeholder outreach.</image:caption>
-    </image:image>
-  </url>
-  <url>
     <loc>https://www.isaacseiler.xyz/projects/stl-immigrant-refugee-support-grant-process</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -165,17 +143,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/exclusive-interview-with-high-visibility-congressperson</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/congressinterview.jpg</image:loc>
-      <image:title>Exclusive Interview with High-Visibility Congressperson</image:title>
-      <image:caption>Early access-driven political reporting on then-Congressman Peter Meijer during a volatile post-impeachment period.</image:caption>
-    </image:image>
-  </url>
-  <url>
     <loc>https://www.isaacseiler.xyz/projects/openai-product-testing-and-feedback</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -184,17 +151,6 @@
       <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
       <image:title>Helping Shape ChatGPT Before Launch</image:title>
       <image:caption>Inside my work with OpenAI&apos;s first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/projects/fulbright-award-to-taiwan</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
-      <image:title>Won Fulbright Award to Taiwan</image:title>
-      <image:caption>A sample blog post about leaving one life for another: notes, packing lists, and imaginary itineraries for a year that has not happened yet.</image:caption>
     </image:image>
   </url>
 </urlset>

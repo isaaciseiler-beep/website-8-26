@@ -110,7 +110,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
               >
                 Summation
               </a>
-              , helping tell the story of how AI is changing the way people work. My background spans government and large enterprise, including senior roles at the U.S. House and published work with OpenAI.
+              , helping tell the story of how AI is changing the way people work.
               <br /><br />
               <span className="about-location">
                 Based in Seattle, WA

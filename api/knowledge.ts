@@ -19,24 +19,16 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     title: "Isaac Seiler Bio",
     source: "Website bio",
     content:
-      "Isaac Seiler is a Seattle-based strategist leading marketing and communications at Summation, a decision-grade AI company. He is a WashU graduate, Fulbright Scholar, Truman Scholar, Rhodes Scholarship finalist, and member of OpenAI's ChatGPT Lab. He has managed communications for a Member of Congress, published education work with OpenAI, helped build a congressional office, and conducted international research on AI, digital platforms, and journalism.",
-    url: "/#about",
+      "Isaac Seiler leads marketing and communications at Summation, helping tell the story of how AI is changing the way people work. He is based in Seattle, Washington.",
+    url: "/about",
   },
   {
     id: "summation-ai",
-    title: "Summation AI Marketing and Communications",
-    source: "Current experience",
+    title: "Summation Marketing and Communications",
+    source: "Current work",
     content:
       "Isaac leads marketing and communications at Summation, a decision-grade AI company in the Seattle area. Summation connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next. The role brings together Isaac's experience in AI, strategy, writing, communications, and translating complex technology.",
-    url: "/latest/joining-summation-ai-marketing-communications",
-  },
-  {
-    id: "openai-student-collective",
-    title: "OpenAI Student Collective and Student-Led AI Learning",
-    source: "Latest article",
-    content:
-      "Isaac wrote about what the OpenAI Student Collective signals for peer-led campus AI learning. His connection is through a separate OpenAI student initiative: he joined the first cohort of OpenAI's ChatGPT Lab. Do not describe Isaac as a Student Collective Campus Lead. His article connects workshops, studio hours, showcases, and community with lessons from his ChatGPT Lab and Fulbright Taiwan educator-lab experience.",
-    url: "/latest/openai-student-collective-student-led-ai-learning",
+    url: "/about",
   },
   {
     id: "state-ai-index",
@@ -48,7 +40,7 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
   },
   {
     id: "congressional-office-report",
-    title: "Congressional Office Setup and 100 Day Report",
+    title: "Congressional Office Setup and 100-Day Report",
     source: "Project",
     content:
       "A 2025 work project capturing the systems, staffing, and benchmarks used to stand up a brand-new congressional office from zero. Isaac helped design internal systems, set priorities, define success, collect and verify office-wide metrics, summarize qualitative and quantitative wins, design the final report, and coordinate its release to media and stakeholders.",
@@ -79,14 +71,6 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     url: "/projects/electric-vehicle-access-analysis",
   },
   {
-    id: "campaign-consultancy",
-    title: "Communications Consultancy and Supporting Local Candidates",
-    source: "Project",
-    content:
-      "A 2024 independent consultancy supporting local and federal candidates through campaign websites, digital strategy, and rapid-response communications. Isaac led digital and communications strategy for Allyson Damikolas for Tustin Unified School Board, including website strategy, social media messaging, content design, crisis communications, and campaign narrative positioning.",
-    url: "/projects/communications-consultancy-supporting-local-candidates",
-  },
-  {
     id: "fulbright-chatgpt-lab",
     title: "The ChatGPT Lab I Built in Taiwan",
     source: "Project",
@@ -103,51 +87,11 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     url: "/projects/boehringer-cares-foundation-rebrand-strategy-shift",
   },
   {
-    id: "inn-index",
-    title: "The 2022 Institute for Nonprofit News Index Survey",
-    source: "Project",
-    content:
-      "A large-scale nonprofit news research project involving data collection, survey synthesis, and stakeholder outreach. Isaac contributed to qualitative and quantitative components, collected and cleaned data, synthesized survey responses, and contacted respondents.",
-    url: "/projects/2022-institute-for-nonprofit-news-index-survey",
-  },
-  {
-    id: "meijer-reporting",
-    title: "Exclusive Interview with High-Visibility Congressperson",
-    source: "Project",
-    content:
-      "Early political reporting for The Calvin Chimes on then-Congressman Peter Meijer after his vote to impeach President Trump. Isaac conducted direct interviews and covered intra-party backlash, policy positions, and the risks facing a first-term member of Congress.",
-    url: "/projects/exclusive-interview-with-high-visibility-congressperson",
-  },
-  {
     id: "news-openai-educator-lab",
     title: "Conducted OpenAI-supported Education Focus Group",
     source: "News",
     content:
       "A ChatGPT for Education news item about Isaac's OpenAI-supported Fulbright Taiwan educator lab, focused on practical ChatGPT use cases for educators.",
-    url: "/#news",
-  },
-  {
-    id: "news-truman-forbes",
-    title: "Featured 2024 Truman Scholars",
-    source: "News",
-    content:
-      "A Forbes news item featuring the 2024 Truman Scholars, including Isaac. Useful for recruiter questions about national recognition, public service, and scholarship credentials.",
-    url: "/#news",
-  },
-  {
-    id: "news-openai-product-feedback",
-    title: "Shared Early Product Feedback with OpenAI",
-    source: "News",
-    content:
-      "A site news item about Isaac sharing early product feedback with OpenAI through the ChatGPT Lab context. Use careful public phrasing and avoid claiming private details.",
-    url: "/#news",
-  },
-  {
-    id: "news-rhodes-finalist",
-    title: "Named 2024 Rhodes Scholarship Finalist",
-    source: "News",
-    content:
-      "A Washington University news item about Isaac being named a 2024 Rhodes Scholarship finalist, relevant to academic distinction and public-interest work.",
     url: "/#news",
   },
   {
@@ -157,14 +101,6 @@ const SITE_CHUNKS: KnowledgeChunk[] = [
     content:
       "As a member of the first ChatGPT Lab cohort, Isaac tested products before launch and translated real student behavior into product and go-to-market feedback. His work includes the 100 Chats book, Study Mode testing and a ChatGPT Instagram feature, a distinct Back-to-School campaign, a testimonial in the ChatGPT Pulse launch, early ChatGPT Atlas browser feedback, and testing the collaboration model that became Group Chats. He also worked with Hillary Bush and other OpenAI leaders through the Lab.",
     url: "/projects/openai-product-testing-and-feedback",
-  },
-  {
-    id: "blog-fulbright-award",
-    title: "Won Fulbright Award to Taiwan",
-    source: "Blog",
-    content:
-      "A blog post about Isaac earning a Fulbright award to Taiwan, relevant to education, cross-cultural work, and AI literacy programming. The post is not yet written.",
-    url: "/projects/fulbright-award-to-taiwan",
   }
 ];
 
@@ -245,7 +181,7 @@ const readMarkdownKnowledge = () => {
 
   const files = fs
     .readdirSync(knowledgeDir)
-    .filter((file) => /\.mdx?$/i.test(file))
+    .filter((file) => /\.mdx?$/i.test(file) && file.toLowerCase() !== "readme.md")
     .sort()
     .map((file) => path.join(knowledgeDir, file));
 

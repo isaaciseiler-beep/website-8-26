@@ -24,6 +24,8 @@ const distDir = path.join(root, "dist");
 const distIndexPath = path.join(distDir, "index.html");
 const buildHasDist = fs.existsSync(distIndexPath);
 const baseDistHtml = buildHasDist ? fs.readFileSync(distIndexPath, "utf8") : "";
+const buildDate = new Date().toISOString().slice(0, 10);
+const buildTimestamp = new Date(`${buildDate}T12:00:00Z`).toUTCString();
 
 const sourceText = fs.readFileSync(siteContentPath, "utf8");
 const sourceFile = ts.createSourceFile(
@@ -293,7 +295,10 @@ const projectRank = (project) => {
   return index === -1 ? projectPriorityOrder.length + (originalProjectOrder.get(project.id) ?? 0) : index;
 };
 
-const enrichedProjects = projects.map(enrichedProject).sort((a, b) => projectRank(a) - projectRank(b));
+const enrichedProjects = projects
+  .filter((project) => projectPriorityOrder.includes(project.id))
+  .map(enrichedProject)
+  .sort((a, b) => projectRank(a) - projectRank(b));
 const projectById = new Map(enrichedProjects.map((project) => [project.id, project]));
 
 const priorityImageObjects = priorityImages.map((image, index) => {
@@ -806,7 +811,7 @@ const sitemapImage = (image) => `
 const urlEntry = ({ loc, changefreq, priority, images = [] }) => `
   <url>
     <loc>${escapeXml(loc)}</loc>
-    <lastmod>${new Date().toISOString().slice(0, 10)}</lastmod>
+    <lastmod>${buildDate}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>${images.map(sitemapImage).join("")}
   </url>`;
@@ -906,7 +911,7 @@ const rssFeedXml = () => `<?xml version="1.0" encoding="UTF-8"?>
     <link>${escapeXml(absoluteUrl("/work"))}</link>
     <description>${escapeXml(SITE_DESCRIPTION)}</description>
     <language>en-us</language>
-    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <lastBuildDate>${buildTimestamp}</lastBuildDate>
     <atom:link href="${escapeXml(absoluteUrl("/feed.xml"))}" rel="self" type="application/rss+xml" />
     ${rssProjects
       .map(

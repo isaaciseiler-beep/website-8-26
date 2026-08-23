@@ -76,12 +76,6 @@ export interface ProjectItem {
 
 export const personName = "Isaac Seiler";
 
-export const bioLines = [
-  "I'm Isaac, a Seattle-based strategist leading marketing and communications at Summation.",
-  "Previously, I managed communications for a Member of Congress, published work with OpenAI, helped build a congressional office, and conducted international research on the social and material impacts of AI and the Internet.",
-  "I'm also a Fulbright and Truman Scholar and a member of OpenAI's ChatGPT Lab.",
-];
-
 const NEWS_IMG_BASE = "https://pub-0f2ac8ec0d4e41b885a39ae5fd004706.r2.dev";
 
 export const newsItems: NewsItem[] = [
@@ -93,24 +87,6 @@ export const newsItems: NewsItem[] = [
     logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
     logoAlt: "OpenAI",
     imageUrl: `${NEWS_IMG_BASE}/chatgptlab.png`,
-  },
-  {
-    id: 2,
-    source: "Forbes",
-    title: "Featured 2024 Truman Scholars",
-    href: "https://www.forbes.com/sites/michaeltnietzel/2024/04/13/the-truman-scholars-for-2024-are-announced/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/Forbes.png",
-    logoAlt: "Forbes",
-    imageUrl: `${NEWS_IMG_BASE}/truman.png`,
-  },
-  {
-    id: 6,
-    source: "Washington University in St. Louis",
-    title: "Named 2024 Rhodes Scholarship Finalist",
-    href: "https://source.washu.edu/2024/11/seniors-darden-seiler-were-rhodes-scholars-finalists/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
-    logoAlt: "WashU",
-    imageUrl: `${NEWS_IMG_BASE}/rhodes.png`,
   },
 ];
 
@@ -154,7 +130,7 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "congressional-office-setup-100-day-report",
-    title: "Congressional Office Setup and 100 Day Report",
+    title: "Congressional Office Setup and 100-Day Report",
     source: "WORK",
     year: "2025",
     summary:
@@ -181,7 +157,7 @@ export const projectItems: ProjectItem[] = [
       {
         heading: "Final Products",
         links: [
-          { label: "100 Day Report Executive Summary", href: "https://drive.google.com/file/d/1gdSr7RjjmidqJkLTWkyIbesVPIkECizn/view" },
+          { label: "100-Day Report Executive Summary", href: "https://drive.google.com/file/d/1gdSr7RjjmidqJkLTWkyIbesVPIkECizn/view" },
         ],
       },
     ],
@@ -705,76 +681,13 @@ export const projectItems: ProjectItem[] = [
       },
     ],
   },
-  {
-    id: "fulbright-award-to-taiwan",
-    title: "Won Fulbright Award to Taiwan",
-    source: "BLOG",
-    year: "2025",
-    summary:
-      "A sample blog post about leaving one life for another: notes, packing lists, and imaginary itineraries for a year that has not happened yet.",
-    image: projectImg.chatLab,
-    sections: [
-      {
-        heading: "Dispatch, early",
-        paragraphs: [
-          "I keep thinking about the moment the plane leaves the runway and the city below shrinks into something I can fold and put in my pocket. Taiwan is still mostly a name on a map, a set of characters I cannot yet read, a humid promise made by people who have been there and come back changed.",
-          "This post is a placeholder for that future self. The one who knows which night market sells the best oyster omelet, which temple has the quietest courtyard, and which bus route to take when the rain comes in sideways off the Pacific.",
-        ],
-      },
-      {
-        heading: "What I am bringing",
-        bullets: [
-          "One pair of shoes that can survive a monsoon and a formal dinner.",
-          "A notebook with the first forty pages already filled and the rest deliberately empty.",
-          "A stubborn belief that language is learned through embarrassment.",
-          "A small photograph of Seattle in winter, for the days when green feels impossible.",
-          "Enough curiosity to fill the empty suitcase I am leaving behind.",
-        ],
-      },
-      {
-        heading: "What I hope to leave behind",
-        paragraphs: [
-          "The idea that productivity must look like motion. The habit of answering emails before I answer myself. The certainty that I already know what I am looking for.",
-          "I want to arrive in Taipei with fewer opinions and more questions. I want to be the person who asks the same thing three different ways because the first two attempts missed the point.",
-        ],
-      },
-      {
-        heading: "A loose itinerary",
-        bullets: [
-          "Months one through two: learn to order breakfast without pointing at the menu.",
-          "Months three through four: find a coffee shop where the owner remembers my order.",
-          "Months five through six: take a train to a city I cannot pronounce and stay longer than planned.",
-          "Months seven through eight: write something I am afraid to publish.",
-          "Months nine through twelve: understand, finally, that the plan was only ever a compass.",
-        ],
-      },
-      {
-        heading: "Field notes",
-        bullets: [
-          "The scooters move like schools of fish. Crosswalks are suggestions. Umbrellas are weapons.",
-          "Convenience stores here sell everything, including dignity at 3 a.m.",
-          "The mountains are never as far away as they look.",
-          "Silence, in another language, has a different weight.",
-        ],
-      },
-      {
-        heading: "Reading list",
-        links: [
-          { label: "The Tao of Travel — Pico Iyer", href: "https://www.penguinrandomhouse.com/books/176226/the-tao-of-travel-by-pico-iyer/" },
-          { label: "Taiwan: A New History — Murray A. Rubinstein", href: "https://www.amazon.com/Taiwan-History-Illuminating-History-Geography/dp/0765614958" },
-          { label: "The Argonauts — Maggie Nelson", href: "https://www.graywolfpress.org/books/the-argonauts" },
-          { label: "A sample of nothing in particular", href: "#" },
-        ],
-      },
-      {
-        heading: "Colophon",
-        paragraphs: [
-          "This post is a draft of a feeling. Every sentence is subject to revision by the person I will be in a year. If you are reading it after that, please send notes.",
-        ],
-      },
-    ],
-  },
 ];
+
+export const hiddenProjectIds = new Set([
+  "communications-consultancy-supporting-local-candidates",
+  "2022-institute-for-nonprofit-news-index-survey",
+  "exclusive-interview-with-high-visibility-congressperson",
+]);
 
 
 export const featuredProjectIds = [

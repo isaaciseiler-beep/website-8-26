@@ -14,6 +14,7 @@ export const sendJson = (
 ) => {
   response.statusCode = status;
   response.setHeader("Content-Type", "application/json");
+  response.setHeader("Cache-Control", "no-store");
   response.end(JSON.stringify(payload));
 };
 

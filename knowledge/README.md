@@ -9,7 +9,6 @@ Suggested files:
 - `isaac-ai-agent-training.md`
 - `bio.md`
 - `projects.md`
-- `resume.md`
 - `voice.md`
 - `faq.md`
 
@@ -22,9 +21,9 @@ Markdown knowledge file.
 Example:
 
 ```md
-# Resume
+# Project
 
-## OpenAI ChatGPT Lab
+## Project title
 
 Add concise facts, accomplishments, dates, collaborators, links, and preferred language here.
 ```
