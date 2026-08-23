@@ -43,10 +43,15 @@ export interface ProjectSection {
   bullets?: string[];
   links?: ProjectLink[];
   media?: ProjectMedia[];
+  pullQuote?: string;
+  stats?: {
+    value: string;
+    label: string;
+  }[];
 }
 
 export interface ProjectMedia {
-  type: "image" | "carousel" | "gallery" | "video" | "pdf";
+  type: "image" | "carousel" | "gallery" | "video" | "pdf" | "placeholder";
   src?: string;
   alt?: string;
   caption?: string;
@@ -56,6 +61,7 @@ export interface ProjectMedia {
   fallbackPoster?: string;
   placement?: "top" | "before-links" | "bottom";
   layout?: "full" | "half-left" | "half-right" | "two-up" | "two-up-square" | "three-up";
+  placeholderAspect?: "landscape" | "wide" | "portrait" | "square";
   images?: {
     src: string;
     alt: string;
@@ -71,6 +77,7 @@ export interface ProjectItem {
   summary: string;
   image: string;
   hideHero?: boolean;
+  hideSummary?: boolean;
   sections: ProjectSection[];
 }
 
@@ -154,34 +161,149 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "congressional-office-setup-100-day-report",
-    title: "Congressional Office Setup and 100-Day Report",
-    source: "WORK",
-    year: "2025",
+    title: "Building a Congressional Office, Fast",
+    source: "BLOG",
+    year: "2023",
     summary:
-      "A report capturing the systems, staffing, and benchmarks used to stand up a brand-new congressional office from zero.",
+      "How I helped launch a congressional office and built its press network across local, statewide, and national media.",
     image: projectImg.capHill,
+    hideSummary: true,
     sections: [
       {
-        heading: "Overview",
+        heading: "From the campaign to an empty office",
         paragraphs: [
-          "This report captures the work I led to stand up a brand-new congressional office from zero and benchmark its first 100 days of operation.",
-          "I helped design the office's internal systems, set early priorities, and define what success would look like before we opened the doors.",
-          "I led the collection and verification of office-wide metrics, identified and summarized qualitative and quantitative wins, designed the final report, and coordinated its release to media and stakeholders.",
+          "Isaac Seiler joined a congressional campaign in Grand Rapids as an intern. Within a year, he had helped win the race, build the incoming office, and become the youngest Communications Director in the history of the United States Congress.",
+          "During the campaign, Isaac took over digital strategy and operations, managed its online presence, produced public-facing content, and documented the race through photography. After the election, he moved to Washington, D.C. The next task was building an office.",
+          "There was no inherited staff, communications system, or established way of working. Isaac helped recruit the initial team, negotiate commercial leases, shape the office's early strategy, and set its first-100-day goals. In less than two months, the team established staffed operations in Washington and West Michigan.",
+        ],
+        media: [
+          {
+            type: "placeholder",
+            title: "Campaign to Congress",
+            alt: "Add a campaign-night, transition, or early office photograph here.",
+            caption: "Suggested image: the campaign, transition period, or the first weeks in the new office.",
+            placement: "bottom",
+            placeholderAspect: "wide",
+          },
         ],
       },
       {
-        heading: "My Contributions",
-        bullets: [
-          "Building core office infrastructure and workflows.",
-          "Hiring a core team and directing recruiting processes.",
-          "Tracking early performance benchmarks.",
-          "Managing schedule and logistics for a new member of Congress.",
+        heading: "Building the press list",
+        paragraphs: [
+          "The new office began without a network of trusted press relationships. Isaac started building one immediately.",
+          "He reached local television producers in Grand Rapids, statewide political journalists, Washington correspondents, national policy reporters, trade publications, Spanish-language media, and journalists covering subjects such as immigration, labor, infrastructure, and small business.",
+          "The geographic range was intentional. Local reporters understood the district and reached the people the office represented. Statewide outlets placed its work within Michigan politics. National reporters offered a path into larger policy conversations. Isaac built all three layers at the same time.",
+          "He learned what individual reporters covered, what made a useful pitch, and how quickly they needed answers. He became a dependable contact for journalists working on deadline while also bringing them stories, interviews, and events. Within a few months, the office had an active press network stretching from West Michigan to Washington.",
+        ],
+        pullQuote:
+          "Within months, the office had a working press network across local, statewide, national, trade, and Spanish-language media.",
+        media: [
+          {
+            type: "placeholder",
+            title: "Press network",
+            alt: "Add a collage of interviews, headlines, outlet logos, or behind-the-scenes press work here.",
+            caption: "Suggested image: a press-hit collage or a behind-the-scenes photograph from an interview.",
+            placement: "bottom",
+            placeholderAspect: "landscape",
+          },
         ],
       },
       {
-        heading: "Final Products",
+        heading: "Turning a West Michigan story into national news",
+        paragraphs: [
+          "The strength of that network became clear when reports emerged that children were working in dangerous conditions at facilities in West Michigan.",
+          "Isaac saw that the story extended beyond one company or one region. It raised national questions about migrant children, corporate accountability, and the weakness of federal child-labor penalties. He developed the office's message, planned the press strategy, pitched reporters, prepared interviews, and connected what was happening in West Michigan to proposed federal action.",
+          "His outreach secured coverage from The New York Times, Reuters, Bloomberg Law, Slate, MSNBC, and The Dispatch. At home, he kept the story moving through MLive, FOX 17, WWMT, and Michigan Advance.",
+          "A local investigation became part of a national conversation. The coverage accompanied bipartisan legislation to increase penalties for child-labor violations and continued as the federal government activated an interagency task force.",
+        ],
         links: [
-          { label: "100-Day Report Executive Summary", href: "https://drive.google.com/file/d/1gdSr7RjjmidqJkLTWkyIbesVPIkECizn/view" },
+          { label: "Reuters: Bipartisan bill targets child-labor violations", href: "https://www.reuters.com/world/us/bipartisan-bill-aims-increase-penalties-us-child-labor-violations-2023-03-29/" },
+          { label: "The New York Times: Migrant child-labor crackdown", href: "https://www.nytimes.com/2023/02/27/us/biden-child-labor.html" },
+          { label: "Bloomberg Law: Congress addresses child-labor laws", href: "https://news.bloomberglaw.com/daily-labor-report/congress-answering-agencies-calls-to-address-child-labor-laws" },
+          { label: "FOX 17: Federal task force activated", href: "https://www.fox17online.com/news/local-news/grand-rapids/i-will-not-stand-by-rep-scholten-helps-activate-federal-task-force-on-young-exploited-migrant-workers" },
+        ],
+        media: [
+          {
+            type: "placeholder",
+            title: "Child-labor coverage",
+            alt: "Add a press-conference, interview, district-event, or House-floor photograph here.",
+            caption: "Suggested image: a press event or a selection of national and local child-labor headlines.",
+            placement: "top",
+            placeholderAspect: "landscape",
+          },
+        ],
+      },
+      {
+        heading: "Reaching different audiences",
+        paragraphs: [
+          "Child labor became the office's largest national story, but the press network supported a much wider range of work.",
+          "Isaac secured national coverage about immigration, the economy, gun violence, faith, and the experience of a new generation entering Congress. The office appeared in reporting from The Washington Post, NBC News, Axios, CNN, The 19th, and The Dispatch.",
+          "He also developed regular relationships with Michigan Radio, MLive, FOX 17, WOOD TV, WZZM, WWMT, regional business publications, and Spanish-language media. Those relationships produced coverage of town halls, district visits, infrastructure funding, workforce development, telehealth, childcare, prescription-drug costs, and bipartisan immigration legislation.",
+          "Each group of reporters reached a different audience. Isaac built a network that could carry the office's work across the full geographic spectrum, from neighborhood and regional reporting to statewide outlets and major national publications.",
+        ],
+        links: [
+          { label: "View the full Press Hit List", href: "https://app.notion.com/p/Press-Hit-List-25b96844a3ac4a8abac3d749412938cb" },
+          { label: "The Washington Post: A new generation in a divided House", href: "https://www.washingtonpost.com/politics/2023/02/13/freshman-lawmakers-bipartisan-compromise/" },
+          { label: "CNN: Michigan voters and the national political picture", href: "https://www.cnn.com/2023/05/05/politics/biden-enthusiasm-michigan-voters/index.html" },
+          { label: "The Dispatch: The prospects for immigration reform", href: "https://thedispatch.com/article/does-a-new-immigration-reform-bill-have-a-chance/" },
+        ],
+      },
+      {
+        heading: "The State of the Union",
+        paragraphs: [
+          "For the 2023 State of the Union, Isaac developed and coordinated a collaboration with fellow Michigan freshman John James.",
+          "The two offices represented different parties. The collaboration put them together during one of Washington's most visible nights and offered a straightforward picture of bipartisan cooperation. The resulting content received more than 100,000 views across platforms.",
+        ],
+        links: [
+          { label: "View the State of the Union collaboration", href: "https://x.com/RepScholten/status/1623105756609355776" },
+        ],
+        media: [
+          {
+            type: "placeholder",
+            title: "State of the Union",
+            alt: "Add the State of the Union photograph or a still from the John James collaboration here.",
+            caption: "Suggested image: the bipartisan State of the Union collaboration, which reached more than 100,000 views across platforms.",
+            placement: "top",
+            placeholderAspect: "wide",
+          },
+        ],
+      },
+      {
+        heading: "Making the first 100 days measurable",
+        paragraphs: [
+          "Isaac also led the creation of the office's 100 Day Report. He collected and checked information from across the office, chose which results to highlight, wrote the narrative, designed the report, and coordinated its release to reporters and stakeholders.",
+          "The numbers belonged to the full team. Isaac's job was to make sure they were accurate, understandable, and available to the public. The report gave his growing press network a useful account of the office's first months and gave constituents a direct way to evaluate its work.",
+        ],
+        stats: [
+          { value: "$4M+", label: "returned to constituents" },
+          { value: "550", label: "constituent cases opened" },
+          { value: "9,569", label: "constituent responses" },
+          { value: "300+", label: "meetings and site visits" },
+          { value: "51", label: "bills cosponsored" },
+        ],
+        links: [
+          { label: "Read the 100 Day Report", href: "https://drive.google.com/file/d/1gdSr7RjjmidqJkLTWkyIbesVPIkECizn/view" },
+        ],
+        media: [
+          {
+            type: "placeholder",
+            title: "100 Day Report",
+            alt: "Add a full report spread followed by one or two close-up detail images here.",
+            caption: "Suggested image: a full spread from the report, followed by close-up details of its design and results.",
+            placement: "before-links",
+            placeholderAspect: "landscape",
+          },
+        ],
+      },
+      {
+        heading: "What the work added up to",
+        paragraphs: [
+          "By June 2023, Isaac had helped move a congressional operation from campaign mode into public service. He helped establish the team, shape its early strategy, create its public voice, and build a press network spanning local, statewide, and national media.",
+          "That network gave local stories a route into national coverage and gave national policy a way back to the district. It helped a new office become visible quickly without losing its connection to the people it represented.",
+          "Isaac's contribution was later recognized in the Congressional Record, which cited his work establishing the office, producing constituent newsletters, securing media appearances, responding to difficult questions, and helping people understand what their congressional office was doing.",
+        ],
+        links: [
+          { label: "Read the Congressional Record entry", href: "https://www.congress.gov/118/crec/2023/05/30/169/92/CREC-2023-05-30-pt1-PgE504-3.pdf" },
         ],
       },
     ],

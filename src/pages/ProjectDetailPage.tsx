@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, Play } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Image as ImageIcon, Play } from "lucide-react";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -32,6 +32,21 @@ const sourceLabel: Record<string, string> = {
 };
 
 const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
+  if (media.type === "placeholder") {
+    const aspect = media.placeholderAspect ?? "landscape";
+
+    return (
+      <figure className="project-image-slot my-7">
+        <div className={`project-image-slot-frame project-image-slot-${aspect}`} role="img" aria-label={media.alt}>
+          <ImageIcon className="project-image-slot-icon" aria-hidden="true" strokeWidth={1.35} />
+          <span className="project-image-slot-title">{media.title ?? "Image coming soon"}</span>
+          {media.alt && <span className="project-image-slot-hint">{media.alt}</span>}
+        </div>
+        {media.caption && <figcaption>{media.caption}</figcaption>}
+      </figure>
+    );
+  }
+
   if (media.type === "video" && media.href) {
     return (
       <figure className="project-video my-7">
@@ -251,8 +266,10 @@ const ProjectDetailPage = () => {
                 <span>{sourceLabel[project.source] ?? project.source}</span>
               </div>
 
-              <h1 className="article-title">{project.title}</h1>
-              <p className="article-subtitle">{project.summary}</p>
+              <h1 className={`article-title ${project.hideSummary ? "article-title-no-summary" : ""}`}>
+                {project.title}
+              </h1>
+              {!project.hideSummary && <p className="article-subtitle">{project.summary}</p>}
 
               {!project.hideHero && (
                 <div className="article-hero aspect-[16/9]">
@@ -302,6 +319,19 @@ const ProjectDetailPage = () => {
                     {section.paragraphs?.map((p) => (
                       <p key={p}>{p}</p>
                     ))}
+                    {section.pullQuote && (
+                      <blockquote className="article-pull-quote">{section.pullQuote}</blockquote>
+                    )}
+                    {section.stats && (
+                      <div className="article-stat-grid" aria-label="Project results">
+                        {section.stats.map((stat) => (
+                          <div key={`${stat.value}-${stat.label}`} className="article-stat-card">
+                            <strong>{stat.value}</strong>
+                            <span>{stat.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                     {section.bullets && (
                       <ul className="space-y-2">
                         {section.bullets.map((b) => (

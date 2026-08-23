@@ -161,9 +161,9 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
     tags: ["genai", "ai governance", "lawmakers", "training", "sandboxes", "pilots", "Council of State Governments"],
   },
   "congressional-office-setup-100-day-report": {
-    date: "2025",
-    topics: ["congress", "public service", "operations", "communications", "office launch"],
-    tags: ["capitol hill", "100-day report", "staffing", "metrics", "stakeholder release", "new member office"],
+    date: "2023",
+    topics: ["congress", "press strategy", "media relations", "public service", "office launch"],
+    tags: ["capitol hill", "press network", "earned media", "child labor", "100-day report", "State of the Union"],
   },
   "senior-thesis-local-journalism": {
     date: "2025",

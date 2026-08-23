@@ -148,28 +148,29 @@ export const projectSeo = {
     about: ["generative AI", "state government", "AI governance", "public policy"],
   },
   "congressional-office-setup-100-day-report": {
-    title: "Congressional Office Setup and 100-Day Report | Isaac Seiler",
+    title: "Building a Congressional Office, Fast | Isaac Seiler",
     description:
-      "Isaac Seiler helped stand up a new congressional office and produced early systems, staffing, metrics, communications, and first-100-day reporting.",
+      "Isaac Seiler helped launch a congressional office and built a press network spanning West Michigan, statewide, and national media.",
     searchIntent:
-      "Congressional office setup, first 100-day report, Capitol Hill communications, office operations, and public-service reporting.",
+      "Congressional communications, press strategy, earned media, office setup, child-labor coverage, and first-100-day reporting.",
     proofPoints: [
-      "Helped build operational systems for a new congressional office.",
-      "Collected and verified office-wide first-100-day performance metrics.",
-      "Designed and coordinated the release of the final public report.",
+      "Built press relationships across local, statewide, national, trade, and Spanish-language media.",
+      "Secured national coverage of child-labor enforcement and other office priorities.",
+      "Led the writing, design, verification, and release of the first 100 Day Report.",
     ],
     image: {
       url: projectCardImages.capHill,
-      alt: "Congressional Office Setup and 100-Day Report project preview",
+      alt: "Building a Congressional Office, Fast project preview",
     },
     keywords: [
-      "congressional office setup",
-      "100 day report",
+      "congressional communications",
+      "press strategy",
+      "earned media",
       "Capitol Hill communications",
-      "House office operations",
-      "public service communications",
+      "100 day report",
+      "child labor coverage",
     ],
-    about: ["Congress", "communications", "public service", "operations"],
+    about: ["Congress", "communications", "media relations", "public service"],
   },
   "senior-thesis-local-journalism": {
     title: "AI Platforms and Journalism Research | Isaac Seiler",
@@ -318,10 +319,10 @@ export const priorityImages = [
     id: "congressional-office-100-day-report",
     url: projectCardImages.capHill,
     page: "/projects/congressional-office-setup-100-day-report",
-    title: "Congressional Office Setup and 100-Day Report",
-    alt: "Congressional Office Setup and 100-Day Report project preview",
+    title: "Building a Congressional Office, Fast",
+    alt: "Building a Congressional Office, Fast project preview",
     caption:
-      "Systems, staffing, communications, and metrics used to launch a new congressional office.",
+      "Launching a congressional office and building its local, statewide, and national press network.",
   },
   {
     id: "ai-platforms-journalism-research",
