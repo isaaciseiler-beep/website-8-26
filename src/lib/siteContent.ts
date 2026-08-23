@@ -777,6 +777,7 @@ export const projectItems: ProjectItem[] = [
 ];
 
 export const hiddenProjectIds = new Set([
+  "stl-immigrant-refugee-support-grant-process",
   "communications-consultancy-supporting-local-candidates",
   "2022-institute-for-nonprofit-news-index-survey",
   "exclusive-interview-with-high-visibility-congressperson",
