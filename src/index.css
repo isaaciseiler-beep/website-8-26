@@ -1,5 +1,5 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=JetBrains+Mono:wght@300;400;500&family=Bungee+Shade&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=gambetta@300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,300..1000;1,300..1000&family=DM+Mono:wght@300;400&family=JetBrains+Mono:wght@300;400;500&family=Bungee+Shade&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -206,7 +206,7 @@
   .home-photo-hero h1 {
     max-width: 760px;
     margin: 0;
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Sofia Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: clamp(3.35rem, 6.6vw, 7.1rem);
     font-weight: 300;
     line-height: 1.01;
@@ -222,7 +222,7 @@
 
   .home-photo-hero-bottom p {
     max-width: 520px;
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Gambetta', Georgia, serif;
     font-size: clamp(13px, 1.25vw, 17px);
     font-weight: 300;
     line-height: 1.58;
@@ -440,7 +440,7 @@
     --home-line: rgba(23, 25, 20, 0.14);
     --home-muted: rgba(23, 25, 20, 0.58);
     --home-accent: #d9ff62;
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Gambetta', Georgia, serif;
     font-weight: 400;
     letter-spacing: -0.015em;
     user-select: text;
@@ -455,7 +455,7 @@
   .home-v2 h1,
   .home-v2 h2,
   .home-v2 h3 {
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Sofia Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 400;
   }
 
@@ -1273,8 +1273,7 @@
     overflow-y: visible;
     overscroll-behavior-y: none;
     background-color: hsl(var(--background));
-    font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-feature-settings: "ss01", "ss02";
+    font-family: 'Gambetta', Georgia, serif;
     line-height: 1.6;
     user-select: none;
     -webkit-user-select: none;
@@ -1298,7 +1297,7 @@
 
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Sofia Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 600;
     letter-spacing: -0.03em;
   }
@@ -1311,7 +1310,7 @@
   }
 
   .logo-font {
-    font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Sofia Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   .hero-kinetic-word {

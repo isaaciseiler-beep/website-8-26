@@ -15,7 +15,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["'Satoshi'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        sans: ["'Gambetta'", "Georgia", "serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
       colors: {
