@@ -1,6 +1,7 @@
 const PROJECT_IMG_BASE = "/project-images";
 const PROJECT_FILE_BASE = "https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev";
 const CHAT_LAB_ASSET_BASE = "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab";
+const CAP_COMMS_ASSET_BASE = "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms";
 const projectImg = {
   aiClassroom: `${PROJECT_IMG_BASE}/ai-classroom.jpg`,
   aiIndex: `${PROJECT_IMG_BASE}/aiindex.jpg`,
@@ -168,7 +169,7 @@ export const projectItems: ProjectItem[] = [
     year: "2023",
     summary:
       "How I helped launch a congressional office and built its press network across local, statewide, and national media.",
-    image: projectImg.capHill,
+    image: `${CAP_COMMS_ASSET_BASE}/0ch.jpeg`,
     hideSummary: true,
     lead:
       "Isaac entered the campaign as an intern. A year later, he was the youngest Communications Director in U.S. congressional history, running a new press operation across local, statewide, and national media.",
@@ -182,12 +183,10 @@ export const projectItems: ProjectItem[] = [
         ],
         media: [
           {
-            type: "placeholder",
-            title: "Campaign to Congress",
-            alt: "Add a campaign-night, transition, or early office photograph here.",
-            caption: "Suggested image: the campaign, transition period, or the first weeks in the new office.",
+            type: "image",
+            src: `${CAP_COMMS_ASSET_BASE}/1ch.jpeg`,
+            alt: "Isaac at a congressional campaign event during the 2022 race.",
             placement: "top",
-            placeholderAspect: "wide",
           },
         ],
       },
@@ -204,12 +203,10 @@ export const projectItems: ProjectItem[] = [
           "Isaac built a press network designed to move local stories through regional, statewide, and national outlets while preserving their context.",
         media: [
           {
-            type: "placeholder",
-            title: "Press network",
-            alt: "Add a collage of interviews, headlines, outlet logos, or behind-the-scenes press work here.",
-            caption: "Suggested image: a press-hit collage or a behind-the-scenes photograph from an interview.",
+            type: "image",
+            src: `${CAP_COMMS_ASSET_BASE}/2ch.jpeg`,
+            alt: "Isaac outside the United States Capitol during his time in Congress.",
             placement: "top",
-            placeholderAspect: "landscape",
           },
         ],
       },
@@ -229,16 +226,6 @@ export const projectItems: ProjectItem[] = [
           { label: "The New York Times: Migrant child-labor crackdown", href: "https://www.nytimes.com/2023/02/27/us/biden-child-labor.html" },
           { label: "Bloomberg Law: Congress addresses child-labor laws", href: "https://news.bloomberglaw.com/daily-labor-report/congress-answering-agencies-calls-to-address-child-labor-laws" },
           { label: "FOX 17: Federal task force activated", href: "https://www.fox17online.com/news/local-news/grand-rapids/i-will-not-stand-by-rep-scholten-helps-activate-federal-task-force-on-young-exploited-migrant-workers" },
-        ],
-        media: [
-          {
-            type: "placeholder",
-            title: "Child-labor coverage",
-            alt: "Add a press-conference, interview, district-event, or House-floor photograph here.",
-            caption: "Suggested image: a press event or a selection of national and local child-labor headlines.",
-            placement: "top",
-            placeholderAspect: "landscape",
-          },
         ],
       },
       {
@@ -268,12 +255,10 @@ export const projectItems: ProjectItem[] = [
         ],
         media: [
           {
-            type: "placeholder",
-            title: "State of the Union",
-            alt: "Add the State of the Union photograph or a still from the John James collaboration here.",
-            caption: "Suggested image: the bipartisan State of the Union collaboration, which reached more than 100,000 views across platforms.",
+            type: "image",
+            src: `${CAP_COMMS_ASSET_BASE}/3ch.jpeg`,
+            alt: "Isaac documenting the press scrum at the 2023 State of the Union.",
             placement: "top",
-            placeholderAspect: "wide",
           },
           {
             type: "x-post",
@@ -301,16 +286,6 @@ export const projectItems: ProjectItem[] = [
         links: [
           { label: "Read the 100 Day Report", href: "https://drive.google.com/file/d/1gdSr7RjjmidqJkLTWkyIbesVPIkECizn/view" },
         ],
-        media: [
-          {
-            type: "placeholder",
-            title: "100 Day Report",
-            alt: "Add a full report spread followed by one or two close-up detail images here.",
-            caption: "Suggested image: a full spread from the report, followed by close-up details of its design and results.",
-            placement: "top",
-            placeholderAspect: "landscape",
-          },
-        ],
       },
       {
         heading: "What the work added up to",
@@ -321,6 +296,14 @@ export const projectItems: ProjectItem[] = [
         ],
         links: [
           { label: "Read the Congressional Record entry", href: "https://www.congress.gov/118/crec/2023/05/30/169/92/CREC-2023-05-30-pt1-PgE504-3.pdf" },
+        ],
+        media: [
+          {
+            type: "image",
+            src: projectImg.capHill,
+            alt: "Isaac speaking with a congressional colleague outside the United States Capitol.",
+            placement: "bottom",
+          },
         ],
       },
     ],
