@@ -3779,8 +3779,8 @@ html.theme-crossfade body * {
 
 .project-x-embed iframe {
   display: block;
-  width: 100%;
-  height: 640px;
+  width: calc(100% + 16px);
+  height: 618px;
   border: 0;
 }
 

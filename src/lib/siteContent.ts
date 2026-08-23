@@ -255,7 +255,6 @@ export const projectItems: ProjectItem[] = [
             type: "x-post",
             title: "2023 State of the Union collaboration",
             href: "https://x.com/RepScholten/status/1623105756609355776",
-            caption: "The bipartisan State of the Union collaboration received more than 100,000 views across platforms.",
             placement: "before-links",
           },
         ],
