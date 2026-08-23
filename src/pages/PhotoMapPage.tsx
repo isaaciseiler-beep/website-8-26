@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { LngLatLike, Map as MapboxMap, Marker as MapboxMarker } from "mapbox-gl";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
+import { useTheme } from "@/components/ThemeProvider";
 import { photoMapEntries, photoMapInitialView, type PhotoMapEntry } from "@/lib/photoMap";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getMapboxToken } from "@/lib/mapboxToken";
@@ -41,27 +42,27 @@ type MapPalette = {
 };
 
 const lightMapPalette: MapPalette = {
-  background: "#f4f7fe",
-  water: "#eceff4",
-  land: "#dce4f1",
-  park: "#d2dceb",
-  coast: "#aeb9ca",
-  border: "#8d98ab",
-  detail: "#bcc6d7",
-  label: "#4f5a69",
-  labelHalo: "#f4f7fe",
+  background: "#f2f2f0",
+  water: "#e9e9e6",
+  land: "#d8d8d4",
+  park: "#cececa",
+  coast: "#aaaaa5",
+  border: "#92928d",
+  detail: "#bebeba",
+  label: "#555550",
+  labelHalo: "#f2f2f0",
 };
 
 const darkMapPalette: MapPalette = {
-  background: "#11160c",
-  water: "#17140d",
-  land: "#1f2616",
-  park: "#26301b",
-  coast: "#665a3e",
-  border: "#8a7651",
-  detail: "#4b4933",
-  label: "#d5d8c7",
-  labelHalo: "#11160c",
+  background: "#181818",
+  water: "#202020",
+  land: "#343434",
+  park: "#3b3b3b",
+  coast: "#696969",
+  border: "#777777",
+  detail: "#4b4b4b",
+  label: "#d8d8d5",
+  labelHalo: "#181818",
 };
 
 const stopMarkerEvent = (event: Event) => event.stopPropagation();
@@ -157,8 +158,7 @@ const addWorldGeographyLayers = (map: MapboxMap, palette: MapPalette) => {
   }
 };
 
-const applyMapPalette = (map: MapboxMap) => {
-  const palette = getMapPalette();
+const applyMapPalette = (map: MapboxMap, palette = getMapPalette()) => {
   const layers = map.getStyle().layers ?? [];
 
   layers.forEach((layer) => {
@@ -210,6 +210,7 @@ const applyMapPalette = (map: MapboxMap) => {
 };
 
 const PhotoMapPage = () => {
+  const { resolvedTheme } = useTheme();
   const mapboxToken = getMapboxToken();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapboxMap | null>(null);
@@ -315,15 +316,10 @@ const PhotoMapPage = () => {
   }, [isMobile, mapboxToken]);
 
   useEffect(() => {
-    if (!mapRef.current) return;
-
-    const observer = new MutationObserver(() => {
-      if (mapRef.current?.isStyleLoaded()) applyMapPalette(mapRef.current);
-    });
-
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
+    const map = mapRef.current;
+    if (!mapReady || !map?.isStyleLoaded()) return;
+    applyMapPalette(map, resolvedTheme === "dark" ? darkMapPalette : lightMapPalette);
+  }, [mapReady, resolvedTheme]);
 
   useEffect(() => {
     if (!mapReady || !mapRef.current) return;
