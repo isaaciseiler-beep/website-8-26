@@ -135,9 +135,10 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     const guidance = getAssistantGuidance();
     const apiKey = getEnvValue(process.env.OPENAI_API) || getEnvValue(process.env.OPENAI_API_KEY);
     if (!apiKey) {
+      const fallbackResults = retrieved.slice(0, 1);
       sendJson(response, 200, {
-        message: buildSearchFallback(retrieved),
-        sources: retrieved.map(({ id, title, source, url }) => ({ id, title, source, url })),
+        message: buildSearchFallback(fallbackResults),
+        sources: fallbackResults.map(({ id, title, source, url }) => ({ id, title, source, url })),
       });
       return;
     }
