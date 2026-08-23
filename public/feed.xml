@@ -1,56 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>Latest from Isaac Seiler</title>
-    <link>https://www.isaacseiler.xyz/latest</link>
-    <description>Recent writing and updates from Isaac Seiler on Summation AI, OpenAI&apos;s ChatGPT Lab and Student Collective, AI education, public technology, WashU, and the Truman Scholarship.</description>
+    <title>Projects by Isaac Seiler</title>
+    <link>https://www.isaacseiler.xyz/work</link>
+    <description>Isaac Seiler leads marketing and communications at Summation, helping tell the story of how AI is changing the way people work. Based in Seattle, Washington.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Aug 2026 02:33:39 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 02:53:29 GMT</lastBuildDate>
     <atom:link href="https://www.isaacseiler.xyz/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Joining Summation to Lead Marketing and Communications</title>
-      <link>https://www.isaacseiler.xyz/latest/joining-summation-ai-marketing-communications</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/latest/joining-summation-ai-marketing-communications</guid>
-      <pubDate>Sat, 22 Aug 2026 12:00:00 GMT</pubDate>
-      <category>Update</category>
-      <description>A new chapter in Seattle at Summation, bringing together AI, strategy, writing, and the work of making complex technology useful to real people.</description>
-      <media:content url="https://www.isaacseiler.xyz/webpreview-linkedin.png" type="image/png" width="1200" height="630" medium="image" />
-    </item>
-    <item>
-      <title>What the OpenAI Student Collective Signals for Student-Led AI Learning</title>
-      <link>https://www.isaacseiler.xyz/latest/openai-student-collective-student-led-ai-learning</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/latest/openai-student-collective-student-led-ai-learning</guid>
-      <pubDate>Sat, 22 Aug 2026 12:00:00 GMT</pubDate>
-      <category>AI Education</category>
-      <description>OpenAI’s new Student Collective points toward a practical model for campus AI learning: peer-led workshops, studio time, projects, and visible outcomes.</description>
-      <media:content url="https://www.isaacseiler.xyz/project-images/chatlab.jpg" type="image/jpeg" width="1600" height="1200" medium="image" />
-    </item>
-    <item>
-      <title>From ChatGPT Lab to the Classroom: Practical AI Education Use Cases</title>
-      <link>https://www.isaacseiler.xyz/latest/chatgpt-lab-ai-education-use-cases</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/latest/chatgpt-lab-ai-education-use-cases</guid>
-      <pubDate>Sat, 22 Aug 2026 12:00:00 GMT</pubDate>
-      <category>OpenAI</category>
-      <description>The most useful AI education begins with real tasks, clear limits, and enough context for teachers and students to exercise judgment.</description>
-      <media:content url="https://www.isaacseiler.xyz/project-images/ai-classroom.jpg" type="image/jpeg" width="1600" height="1066" medium="image" />
-    </item>
-    <item>
-      <title>What a 56-Government Index Revealed About Public-Sector AI Adoption</title>
-      <link>https://www.isaacseiler.xyz/latest/ai-adoption-state-government-index</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/latest/ai-adoption-state-government-index</guid>
-      <pubDate>Sat, 22 Aug 2026 12:00:00 GMT</pubDate>
-      <category>Research</category>
-      <description>A 900-input benchmark turned scattered public information into a clearer picture of AI guidance, training, pilots, governance, and transparency.</description>
+      <title>Artificial Intelligence in State Government Index</title>
+      <link>https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index</link>
+      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index</guid>
+      <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
+      <category>RESEARCH</category>
+      <description>A public-information benchmark measuring how state and territory governments are actually responding to generative AI.</description>
       <media:content url="https://www.isaacseiler.xyz/project-images/aiindex.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
     </item>
     <item>
-      <title>From WashU and the Truman Scholarship to Public-Interest AI Work</title>
-      <link>https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai</guid>
-      <pubDate>Sat, 22 Aug 2026 12:00:00 GMT</pubDate>
-      <category>Profile</category>
-      <description>How public service, journalism, the Truman Scholarship, a Rhodes finalist selection, and WashU shaped a practical approach to AI.</description>
-      <media:content url="https://www.isaacseiler.xyz/experience/washu2.jpg" type="image/jpeg" width="1200" height="1200" medium="image" />
+      <title>Congressional Office Setup and 100 Day Report</title>
+      <link>https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report</link>
+      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report</guid>
+      <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
+      <category>WORK</category>
+      <description>A report capturing the systems, staffing, and benchmarks used to stand up a brand-new congressional office from zero.</description>
+      <media:content url="https://www.isaacseiler.xyz/project-images/caphill.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
+    </item>
+    <item>
+      <title>Raised $20k for Local St. Louis Organizations</title>
+      <link>https://www.isaacseiler.xyz/projects/stl-immigrant-refugee-support-grant-process</link>
+      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/stl-immigrant-refugee-support-grant-process</guid>
+      <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
+      <category>PROJECT</category>
+      <description>A student-led philanthropy process that helped move real dollars to St. Louis nonprofits, including immigrant and refugee-serving organizations.</description>
+      <media:content url="https://www.isaacseiler.xyz/project-images/philanthropy-lab.jpg" type="image/jpeg" width="1600" height="1066" medium="image" />
+    </item>
+    <item>
+      <title>AI Platforms and Journalism Research</title>
+      <link>https://www.isaacseiler.xyz/projects/senior-thesis-local-journalism</link>
+      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/senior-thesis-local-journalism</guid>
+      <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
+      <category>RESEARCH</category>
+      <description>A qualitative honors thesis on the structural decline of local journalism in Australia and its implications for democracy, labor, and media policy.</description>
+      <media:content url="https://www.isaacseiler.xyz/project-images/ainews.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
+    </item>
+    <item>
+      <title>Electric Vehicle Charging Access Analysis</title>
+      <link>https://www.isaacseiler.xyz/projects/electric-vehicle-access-analysis</link>
+      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/electric-vehicle-access-analysis</guid>
+      <pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate>
+      <category>RESEARCH</category>
+      <description>A GIS and quantitative analysis project examining EV infrastructure access and where structural charger gaps remain.</description>
+      <media:content url="https://www.isaacseiler.xyz/project-images/charging.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
+    </item>
+    <item>
+      <title>Boehringer Cares Foundation Rebrand and Strategy Shift</title>
+      <link>https://www.isaacseiler.xyz/projects/boehringer-cares-foundation-rebrand-strategy-shift</link>
+      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/boehringer-cares-foundation-rebrand-strategy-shift</guid>
+      <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
+      <category>WORK</category>
+      <description>A full rebrand and strategic redirect for Boehringer Cares, spanning narrative, UX, visual identity, and internal communications.</description>
+      <media:content url="https://www.isaacseiler.xyz/project-images/bicares.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
     </item>
   </channel>
 </rss>

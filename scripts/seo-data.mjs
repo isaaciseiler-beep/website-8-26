@@ -1,7 +1,7 @@
 export const SITE_URL = "https://www.isaacseiler.xyz";
 export const SITE_NAME = "Isaac Seiler";
 export const SITE_DESCRIPTION =
-  "Isaac Seiler leads marketing and communications at Summation and works across AI, public technology, and education. He is a Fulbright Scholar, Truman Scholar, Rhodes Scholarship finalist, WashU graduate, and OpenAI ChatGPT Lab member.";
+  "Isaac Seiler leads marketing and communications at Summation, helping tell the story of how AI is changing the way people work. Based in Seattle, Washington.";
 export const CONTACT_EMAIL = "isaaciseiler@gmail.com";
 export const PREVIEW_IMAGE = {
   url: "/webpreview-linkedin.png",
@@ -30,123 +30,41 @@ export const SAME_AS = [
   "https://www.linkedin.com/in/isaacseiler/",
   "https://substack.com/@isaacseiler",
   "https://github.com/isaaciseiler-beep",
-  "https://chatgpt.com/100chats-project",
-  "https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan",
 ];
 
 export const topLevelPages = [
   {
     path: "/",
     navTitle: "Home",
-    title: "Isaac Seiler | Summation AI, OpenAI ChatGPT Lab, Truman Scholar",
+    title: "Isaac Seiler | Work and Photos",
     description: SITE_DESCRIPTION,
-    sitelinkDescription:
-      "Isaac Seiler's work at Summation and across OpenAI, AI education, public technology, communications, research, and public service.",
+    sitelinkDescription: "Isaac Seiler's portfolio, selected work, and photography.",
     priority: "1.0",
     changefreq: "weekly",
     image: PREVIEW_IMAGE,
-    keywords: [
-      "Isaac Seiler",
-      "Summation",
-      "Summation AI",
-      "OpenAI ChatGPT Lab",
-      "OpenAI Student Collective",
-      "Fulbright Scholar",
-      "Truman Scholar",
-      "Truman Scholarship",
-      "WashU",
-      "Rhodes Scholarship",
-      "AI education",
-      "public technology",
-      "AI communications",
-    ],
+    keywords: ["Isaac Seiler", "Summation", "marketing", "communications", "portfolio", "projects", "photography"],
   },
   {
-    path: "/latest",
-    navTitle: "Latest",
-    title: "Latest from Isaac Seiler | AI, OpenAI, Summation, and Public Technology",
-    description:
-      "Recent writing and updates from Isaac Seiler on Summation AI, OpenAI's ChatGPT Lab and Student Collective, AI education, public technology, WashU, and the Truman Scholarship.",
-    sitelinkDescription:
-      "Recent articles and updates on Summation AI, OpenAI, AI education, public technology, WashU, Truman, and research.",
-    priority: "0.97",
-    changefreq: "weekly",
-    image: { url: projectCardImages.chatLab },
-    keywords: [
-      "Latest from Isaac Seiler",
-      "Isaac Seiler blog",
-      "Summation AI",
-      "OpenAI Student Collective",
-      "ChatGPT Lab",
-      "AI education",
-      "Truman Scholar",
-      "WashU",
-    ],
-  },
-  {
-    path: "/projects",
-    navTitle: "Projects",
-    title: "Projects | Isaac Seiler AI, Public Technology, Journalism, and Communications Work",
-    description:
-      "Research, AI education, public policy, journalism, campaign communications, and strategy projects by Isaac Seiler.",
-    sitelinkDescription:
-      "Standalone case studies on AI education, public-sector AI, journalism research, communications, and civic technology.",
+    path: "/about",
+    navTitle: "About",
+    title: "About | Isaac Seiler",
+    description: SITE_DESCRIPTION,
+    sitelinkDescription: "About Isaac Seiler and his current work at Summation.",
     priority: "0.95",
-    changefreq: "weekly",
-    image: { url: projectCardImages.chatLab },
-    keywords: [
-      "Isaac Seiler projects",
-      "ChatGPT Lab",
-      "OpenAI for Education",
-      "AI state government index",
-      "AI journalism research",
-      "Fulbright Taiwan",
-    ],
-  },
-  {
-    path: "/experience",
-    navTitle: "Experience",
-    title: "Experience | Isaac Seiler",
-    description:
-      "Isaac Seiler leads marketing and communications at Summation, with experience across OpenAI's ChatGPT Lab, Fulbright Taiwan, AI research, Congress, and journalism.",
-    sitelinkDescription:
-      "Work history across OpenAI, Fulbright Taiwan, state government AI, Congress, communications, and journalism.",
-    priority: "0.86",
-    changefreq: "monthly",
-    image: { url: "/experience/oai.jpg" },
-    keywords: [
-      "Isaac Seiler resume",
-      "Summation AI",
-      "AI marketing",
-      "OpenAI ChatGPT Lab",
-      "Fulbright Taiwan",
-      "Council of State Governments",
-      "Boehringer Ingelheim",
-      "U.S. House of Representatives",
-    ],
-  },
-  {
-    path: "/credentials",
-    navTitle: "Credentials",
-    title: "Credentials | Isaac Seiler",
-    description:
-      "Isaac Seiler's Summation AI, OpenAI ChatGPT Lab, Fulbright, Truman Scholarship, Rhodes finalist, WashU, communications, and research credentials.",
-    sitelinkDescription:
-      "Fulbright, Truman, Rhodes finalist, OpenAI ChatGPT Lab, research, communications, and public-service proof points.",
-    priority: "0.84",
     changefreq: "monthly",
     image: PREVIEW_IMAGE,
-    keywords: [
-      "Isaac Seiler credentials",
-      "Fulbright Scholar",
-      "Truman Scholar",
-      "Rhodes finalist",
-      "OpenAI ChatGPT Lab",
-      "Summation AI",
-      "Truman Scholarship",
-      "WashU",
-      "Rhodes Scholarship",
-    ],
+    keywords: ["Isaac Seiler", "Summation", "Seattle", "marketing", "communications"],
+  },
+  {
+    path: "/work",
+    navTitle: "Work",
+    title: "Work | Isaac Seiler",
+    description: "Selected projects by Isaac Seiler.",
+    sitelinkDescription: "Selected projects and case studies by Isaac Seiler.",
+    priority: "0.94",
+    changefreq: "weekly",
+    image: { url: projectCardImages.biCares },
+    keywords: ["Isaac Seiler work", "Isaac Seiler projects", "communications", "research", "strategy"],
   },
   {
     path: "/photos",
@@ -168,27 +86,6 @@ export const topLevelPages = [
       "Taiwan photography",
       "Asia travel photos",
       "photo portfolio",
-    ],
-  },
-  {
-    path: "/photos/map",
-    navTitle: "Photo Map",
-    title: "Photo Map | Isaac Seiler",
-    description:
-      "An interactive map for browsing Isaac Seiler's travel photography by place, album, and geography.",
-    sitelinkDescription:
-      "A mapped interface for exploring Isaac Seiler's travel photography by place, geography, and album.",
-    priority: "0.68",
-    changefreq: "monthly",
-    image: {
-      url: "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/HongKong/0DB78A6E-A136-4224-8880-E388B1210176_1_105_c.jpeg",
-      alt: "Mapped travel photography by Isaac Seiler",
-    },
-    keywords: [
-      "Isaac Seiler photo map",
-      "mapped photography",
-      "travel photo map",
-      "photo locations",
     ],
   },
 ];
@@ -401,18 +298,8 @@ export const priorityImages = [
     url: "/webpreview-linkedin.png",
     page: "/",
     title: "Isaac Seiler",
-    alt: "Isaac Seiler, Summation AI marketing and communications lead, Truman Scholar, and OpenAI ChatGPT Lab member",
-    caption:
-      "Primary image for Isaac Seiler, Summation AI marketing and communications lead, Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member.",
-  },
-  {
-    id: "fulbright-chatgpt-lab-openai",
-    url: projectCardImages.chatLab,
-    page: "/projects/fulbright-focus-group-sponsored-by-openai",
-    title: "Fulbright Taiwan ChatGPT Lab with OpenAI Support",
-    alt: "Fulbright Taiwan ChatGPT Lab and OpenAI education project preview",
-    caption:
-      "Isaac Seiler founded and led an OpenAI-supported Fulbright Taiwan ChatGPT Lab for educators.",
+    alt: "Isaac Seiler portfolio preview image",
+    caption: "Primary image for Isaac Seiler's portfolio.",
   },
   {
     id: "ai-state-government-index",
@@ -465,74 +352,43 @@ export const projectPriorityOrder = [
   "exclusive-interview-with-high-visibility-congressperson",
 ];
 
+export const rssProjectIds = [
+  "artificial-intelligence-in-state-government-index",
+  "congressional-office-setup-100-day-report",
+  "stl-immigrant-refugee-support-grant-process",
+  "senior-thesis-local-journalism",
+  "electric-vehicle-access-analysis",
+  "boehringer-cares-foundation-rebrand-strategy-shift",
+];
+
 export const redirectTargets = [
   {
     source: "/blog",
-    destination: "/latest",
+    destination: "/work",
   },
   {
     source: "/writing",
-    destination: "/latest",
+    destination: "/work",
   },
   {
-    source: "/summation-ai",
-    destination: "/latest/joining-summation-ai-marketing-communications",
+    source: "/latest",
+    destination: "/work",
   },
   {
-    source: "/openai-student-collective",
-    destination: "/latest/openai-student-collective-student-led-ai-learning",
+    source: "/experience",
+    destination: "/about",
   },
   {
-    source: "/truman-scholar",
-    destination: "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
-  },
-  {
-    source: "/truman-scholarship",
-    destination: "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
-  },
-  {
-    source: "/rhodes-scholarship",
-    destination: "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
-  },
-  {
-    source: "/washu",
-    destination: "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
-  },
-  {
-    source: "/chatgpt-lab",
-    destination: "/projects/fulbright-focus-group-sponsored-by-openai",
-  },
-  {
-    source: "/fulbright-chatgpt-lab",
-    destination: "/projects/fulbright-focus-group-sponsored-by-openai",
-  },
-  {
-    source: "/openai-education",
-    destination: "/projects/fulbright-focus-group-sponsored-by-openai",
-  },
-  {
-    source: "/chatgpt-for-education",
-    destination: "/projects/fulbright-focus-group-sponsored-by-openai",
-  },
-  {
-    source: "/ai-state-government-index",
-    destination: "/projects/artificial-intelligence-in-state-government-index",
-  },
-  {
-    source: "/ai-government-index",
-    destination: "/projects/artificial-intelligence-in-state-government-index",
-  },
-  {
-    source: "/ai-journalism-research",
-    destination: "/projects/senior-thesis-local-journalism",
+    source: "/credentials",
+    destination: "/about",
   },
   {
     source: "/resume",
-    destination: "/experience",
+    destination: "/about",
   },
   {
-    source: "/work",
-    destination: "/projects",
+    source: "/projects",
+    destination: "/work",
   },
 ];
 

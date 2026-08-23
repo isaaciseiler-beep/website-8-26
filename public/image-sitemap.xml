@@ -9,18 +9,7 @@
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/webpreview-linkedin.png</image:loc>
       <image:title>Isaac Seiler</image:title>
-      <image:caption>Primary image for Isaac Seiler, Summation AI marketing and communications lead, Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
-      <image:title>Fulbright Taiwan ChatGPT Lab with OpenAI Support</image:title>
-      <image:caption>Isaac Seiler founded and led an OpenAI-supported Fulbright Taiwan ChatGPT Lab for educators.</image:caption>
+      <image:caption>Primary image for Isaac Seiler&apos;s portfolio.</image:caption>
     </image:image>
   </url>
   <url>
@@ -65,6 +54,17 @@
       <image:loc>https://www.isaacseiler.xyz/project-images/charging.jpg</image:loc>
       <image:title>Electric Vehicle Charging Access Analysis</image:title>
       <image:caption>GIS analysis of electric vehicle charging access, infrastructure, and transportation equity.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.92</priority>
+    <image:image>
+      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
+      <image:title>The ChatGPT Lab I Built in Taiwan</image:title>
+      <image:caption>Isaac Seiler founded and led the Fulbright Taiwan ChatGPT Lab, an OpenAI-supported educator lab focused on practical, responsible ChatGPT use cases in education.</image:caption>
     </image:image>
   </url>
   <url>
@@ -142,61 +142,6 @@
       <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
       <image:title>Won Fulbright Award to Taiwan</image:title>
       <image:caption>A sample blog post about leaving one life for another: notes, packing lists, and imaginary itineraries for a year that has not happened yet.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/joining-summation-ai-marketing-communications</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/webpreview-linkedin.png</image:loc>
-      <image:title>Joining Summation to Lead Marketing and Communications</image:title>
-      <image:caption>A new chapter in Seattle at Summation, bringing together AI, strategy, writing, and the work of making complex technology useful to real people.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/openai-student-collective-student-led-ai-learning</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
-      <image:title>What the OpenAI Student Collective Signals for Student-Led AI Learning</image:title>
-      <image:caption>OpenAI’s new Student Collective points toward a practical model for campus AI learning: peer-led workshops, studio time, projects, and visible outcomes.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/chatgpt-lab-ai-education-use-cases</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/ai-classroom.jpg</image:loc>
-      <image:title>From ChatGPT Lab to the Classroom: Practical AI Education Use Cases</image:title>
-      <image:caption>The most useful AI education begins with real tasks, clear limits, and enough context for teachers and students to exercise judgment.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/ai-adoption-state-government-index</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/aiindex.jpg</image:loc>
-      <image:title>What a 56-Government Index Revealed About Public-Sector AI Adoption</image:title>
-      <image:caption>A 900-input benchmark turned scattered public information into a clearer picture of AI guidance, training, pilots, governance, and transparency.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/experience/washu2.jpg</image:loc>
-      <image:title>From WashU and the Truman Scholarship to Public-Interest AI Work</image:title>
-      <image:caption>How public service, journalism, the Truman Scholarship, a Rhodes finalist selection, and WashU shaped a practical approach to AI.</image:caption>
     </image:image>
   </url>
 </urlset>

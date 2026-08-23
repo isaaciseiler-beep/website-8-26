@@ -9,12 +9,7 @@
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/webpreview-linkedin.png</image:loc>
       <image:title>Isaac Seiler</image:title>
-      <image:caption>Primary image for Isaac Seiler, Summation AI marketing and communications lead, Fulbright Scholar, Truman Scholar, and OpenAI ChatGPT Lab member.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
-      <image:title>Fulbright Taiwan ChatGPT Lab with OpenAI Support</image:title>
-      <image:caption>Isaac Seiler founded and led an OpenAI-supported Fulbright Taiwan ChatGPT Lab for educators.</image:caption>
+      <image:caption>Primary image for Isaac Seiler&apos;s portfolio.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/aiindex.jpg</image:loc>
@@ -38,47 +33,25 @@
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/latest</loc>
+    <loc>https://www.isaacseiler.xyz/about</loc>
     <lastmod>2026-08-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.97</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
-      <image:title>Latest</image:title>
-      <image:caption>Recent writing and updates from Isaac Seiler on Summation AI, OpenAI&apos;s ChatGPT Lab and Student Collective, AI education, public technology, WashU, and the Truman Scholarship.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/projects</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
-      <image:title>Projects</image:title>
-      <image:caption>Research, AI education, public policy, journalism, campaign communications, and strategy projects by Isaac Seiler.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/experience</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/experience/oai.jpg</image:loc>
-      <image:title>Experience</image:title>
-      <image:caption>Isaac Seiler leads marketing and communications at Summation, with experience across OpenAI&apos;s ChatGPT Lab, Fulbright Taiwan, AI research, Congress, and journalism.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/credentials</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.84</priority>
-    <image:image>
       <image:loc>https://www.isaacseiler.xyz/webpreview-linkedin.png</image:loc>
-      <image:title>Credentials</image:title>
-      <image:caption>Isaac Seiler&apos;s Summation AI, OpenAI ChatGPT Lab, Fulbright, Truman Scholarship, Rhodes finalist, WashU, communications, and research credentials.</image:caption>
+      <image:title>About</image:title>
+      <image:caption>Isaac Seiler leads marketing and communications at Summation, helping tell the story of how AI is changing the way people work. Based in Seattle, Washington.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.isaacseiler.xyz/work</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.94</priority>
+    <image:image>
+      <image:loc>https://www.isaacseiler.xyz/project-images/bicares.jpg</image:loc>
+      <image:title>Work</image:title>
+      <image:caption>Selected projects by Isaac Seiler.</image:caption>
     </image:image>
   </url>
   <url>
@@ -90,72 +63,6 @@
       <image:loc>https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Taiwan/14BC8F70-A1CE-4D79-8FBE-665B57EB131F_1_105_c.jpeg</image:loc>
       <image:title>Photos</image:title>
       <image:caption>Travel photography by Isaac Seiler, with albums from Taiwan, Japan, Hong Kong, Iceland, Australia, New Zealand, Portugal, Thailand, Vietnam, Korea, and more.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/photos/map</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
-    <image:image>
-      <image:loc>https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/HongKong/0DB78A6E-A136-4224-8880-E388B1210176_1_105_c.jpeg</image:loc>
-      <image:title>Photo Map</image:title>
-      <image:caption>An interactive map for browsing Isaac Seiler&apos;s travel photography by place, album, and geography.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/joining-summation-ai-marketing-communications</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/webpreview-linkedin.png</image:loc>
-      <image:title>Joining Summation to Lead Marketing and Communications</image:title>
-      <image:caption>A new chapter in Seattle at Summation, bringing together AI, strategy, writing, and the work of making complex technology useful to real people.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/openai-student-collective-student-led-ai-learning</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
-      <image:title>What the OpenAI Student Collective Signals for Student-Led AI Learning</image:title>
-      <image:caption>OpenAI’s new Student Collective points toward a practical model for campus AI learning: peer-led workshops, studio time, projects, and visible outcomes.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/chatgpt-lab-ai-education-use-cases</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/ai-classroom.jpg</image:loc>
-      <image:title>From ChatGPT Lab to the Classroom: Practical AI Education Use Cases</image:title>
-      <image:caption>The most useful AI education begins with real tasks, clear limits, and enough context for teachers and students to exercise judgment.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/ai-adoption-state-government-index</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/aiindex.jpg</image:loc>
-      <image:title>What a 56-Government Index Revealed About Public-Sector AI Adoption</image:title>
-      <image:caption>A 900-input benchmark turned scattered public information into a clearer picture of AI guidance, training, pilots, governance, and transparency.</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.isaacseiler.xyz/latest/truman-scholar-washu-rhodes-finalist-public-service-ai</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/experience/washu2.jpg</image:loc>
-      <image:title>From WashU and the Truman Scholarship to Public-Interest AI Work</image:title>
-      <image:caption>How public service, journalism, the Truman Scholarship, a Rhodes finalist selection, and WashU shaped a practical approach to AI.</image:caption>
     </image:image>
   </url>
   <url>

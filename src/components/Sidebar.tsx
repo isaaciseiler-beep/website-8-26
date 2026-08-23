@@ -98,14 +98,13 @@ interface SitemapItem {
 }
 
 export const sitemapItems: SitemapItem[] = [
-  { id: "about", label: "About", scrollTo: "about" },
-  { id: "projects", label: "Work", scrollTo: "projects" },
-  { id: "latest", label: "Latest", href: "/latest" },
-  { id: "photos", label: "Photos", scrollTo: "photos", children: [
+  { id: "about", label: "About", scrollTo: "about", href: "/about" },
+  { id: "projects", label: "Work", scrollTo: "projects", href: "/work" },
+  { id: "photos", label: "Photos", scrollTo: "photos", href: "/photos", children: [
     { id: "portfolio", label: "Portfolio", href: "/photos" },
     { id: "photo-map", label: "Map", href: "/photos/map" },
+    { id: "music", label: "Music", href: "/photos/music" },
   ]},
-  { id: "music", label: "Music", href: "/photos/music" },
 ];
 
 const socialLinks = [
@@ -135,9 +134,6 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
   const isOnPhotos = location.pathname === "/photos" || location.pathname === "/photos/map";
   const isOnMusic = location.pathname === "/photos/music";
   const isOnProjects = location.pathname.startsWith("/projects");
-  const isOnExperience = location.pathname.startsWith("/experience");
-  const isOnCredentials = location.pathname.startsWith("/credentials");
-  const isOnLatest = location.pathname.startsWith("/latest");
 
   useEffect(() => {
     window.dispatchEvent(new CustomEvent("site-sidebar-state", { detail: { open } }));
@@ -188,11 +184,8 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
 
   const isItemActive = (item: SitemapItem) => {
     if (isOnPhotos && item.id === "photos") return true;
-    if (isOnMusic && item.id === "music") return true;
+    if (isOnMusic && item.id === "photos") return true;
     if (isOnProjects && item.id === "projects") return true;
-    if (isOnExperience && item.id === "projects") return true;
-    if (isOnCredentials && item.id === "projects") return true;
-    if (isOnLatest && item.id === "latest") return true;
     if (activeSection && activeSection === item.id) return true;
     return false;
   };
@@ -200,7 +193,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
   const isChildActive = (child: { id: string; href: string }) => {
     if (location.pathname === "/photos/map" && child.id === "photo-map") return true;
     if (location.pathname === "/photos" && child.id === "portfolio") return true;
-    if (isOnExperience && child.id === "experience") return true;
+    if (location.pathname === "/photos/music" && child.id === "music") return true;
     if (isOnProjects && child.id === "project-archive") return true;
     return location.pathname === child.href;
   };

@@ -19,24 +19,6 @@ describe("search index", () => {
     expect(titlesFor("classroom teaching with chatgpt", "projects")).toContain("The ChatGPT Lab I Built in Taiwan");
   });
 
-  it("surfaces the OpenAI Student Collective article", () => {
-    expect(titlesFor("OpenAI Student Collective", "latest")).toContain(
-      "What the OpenAI Student Collective Signals for Student-Led AI Learning",
-    );
-  });
-
-  it("surfaces the current Summation AI update", () => {
-    expect(titlesFor("Summation AI marketing", "latest")).toContain(
-      "Joining Summation to Lead Marketing and Communications",
-    );
-  });
-
-  it("connects Truman, Rhodes, and WashU searches to the profile note", () => {
-    expect(titlesFor("Truman Scholarship Rhodes WashU", "latest")).toContain(
-      "From WashU and the Truman Scholarship to Public-Interest AI Work",
-    );
-  });
-
   it("groups photo album matches separately", () => {
     expect(titlesFor("taiwan travel photos", "photos")).toContain("Taiwan");
   });

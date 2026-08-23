@@ -19,6 +19,15 @@
       ]
     },
     {
+      "source": "/isaac-seiler-resume(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         {
@@ -62,62 +71,62 @@
   "redirects": [
     {
       "source": "/blog",
-      "destination": "/latest",
+      "destination": "/work",
       "permanent": true
     },
     {
       "source": "/writing",
-      "destination": "/latest",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/latest",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/latest/(.*)",
+      "destination": "/work",
       "permanent": true
     },
     {
       "source": "/summation-ai",
-      "destination": "/latest/joining-summation-ai-marketing-communications",
+      "destination": "/work",
       "permanent": true
     },
     {
       "source": "/openai-student-collective",
-      "destination": "/latest/openai-student-collective-student-led-ai-learning",
+      "destination": "/work",
       "permanent": true
     },
     {
       "source": "/truman-scholar",
-      "destination": "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+      "destination": "/about",
       "permanent": true
     },
     {
       "source": "/truman-scholarship",
-      "destination": "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+      "destination": "/about",
       "permanent": true
     },
     {
       "source": "/rhodes-scholarship",
-      "destination": "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+      "destination": "/about",
       "permanent": true
     },
     {
       "source": "/washu",
-      "destination": "/latest/truman-scholar-washu-rhodes-finalist-public-service-ai",
+      "destination": "/about",
       "permanent": true
     },
     {
-      "source": "/chatgpt-lab",
-      "destination": "/projects/fulbright-focus-group-sponsored-by-openai",
+      "source": "/experience",
+      "destination": "/about",
       "permanent": true
     },
     {
-      "source": "/fulbright-chatgpt-lab",
-      "destination": "/projects/fulbright-focus-group-sponsored-by-openai",
-      "permanent": true
-    },
-    {
-      "source": "/openai-education",
-      "destination": "/projects/fulbright-focus-group-sponsored-by-openai",
-      "permanent": true
-    },
-    {
-      "source": "/chatgpt-for-education",
-      "destination": "/projects/fulbright-focus-group-sponsored-by-openai",
+      "source": "/credentials",
+      "destination": "/about",
       "permanent": true
     },
     {
@@ -137,12 +146,12 @@
     },
     {
       "source": "/resume",
-      "destination": "/experience",
+      "destination": "/about",
       "permanent": true
     },
     {
-      "source": "/work",
-      "destination": "/projects",
+      "source": "/projects",
+      "destination": "/work",
       "permanent": true
     }
   ],
