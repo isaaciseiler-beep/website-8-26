@@ -18,6 +18,14 @@ export default {
         sans: ["'Switzer'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
+      fontWeight: {
+        normal: "300",
+        medium: "400",
+        semibold: "500",
+        bold: "600",
+        extrabold: "700",
+        black: "800",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
