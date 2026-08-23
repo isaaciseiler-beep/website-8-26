@@ -28,6 +28,7 @@ import {
 } from "recharts";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
+import ProjectSourceLinks from "@/components/ProjectSourceLinks";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -1068,21 +1069,7 @@ const AIStateGovernmentIndexPage = () => {
                 </div>
               </div>
               <div className="site-corner bg-card p-5">
-                <p className="text-sm font-medium text-foreground/55">Source files</p>
-                <div className="mt-4 space-y-2">
-                  {aiIndexSources.map((source) => (
-                    <a
-                      key={source.href}
-                      href={source.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center justify-between gap-4 border-b border-foreground/10 py-3 text-sm text-foreground/70 transition-colors hover:text-foreground"
-                    >
-                      <span>{source.label}</span>
-                      <ArrowUpRight className="h-4 w-4 text-foreground/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </a>
-                  ))}
-                </div>
+                <ProjectSourceLinks label="Source files" links={aiIndexSources} />
               </div>
               <p className="site-corner bg-card p-4 text-sm leading-relaxed text-foreground/62 lg:col-span-2">
                 {LAST_UPDATED_LABEL}. The dashboard should be read as a point-in-time public evidence benchmark, not a

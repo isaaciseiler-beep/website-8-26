@@ -148,7 +148,7 @@ export const projectSeo = {
     about: ["generative AI", "state government", "AI governance", "public policy"],
   },
   "congressional-office-setup-100-day-report": {
-    title: "Building a Congressional Office, Fast | Isaac Seiler",
+    title: "Building a Congressional Press Operation from Scratch | Isaac Seiler",
     description:
       "Isaac Seiler helped launch a congressional office and built a press network spanning West Michigan, statewide, and national media.",
     searchIntent:
@@ -160,7 +160,7 @@ export const projectSeo = {
     ],
     image: {
       url: projectCardImages.capHill,
-      alt: "Building a Congressional Office, Fast project preview",
+      alt: "Building a Congressional Press Operation from Scratch project preview",
     },
     keywords: [
       "congressional communications",
@@ -319,8 +319,8 @@ export const priorityImages = [
     id: "congressional-office-100-day-report",
     url: projectCardImages.capHill,
     page: "/projects/congressional-office-setup-100-day-report",
-    title: "Building a Congressional Office, Fast",
-    alt: "Building a Congressional Office, Fast project preview",
+    title: "Building a Congressional Press Operation from Scratch",
+    alt: "Building a Congressional Press Operation from Scratch project preview",
     caption:
       "Launching a congressional office and building its local, statewide, and national press network.",
   },

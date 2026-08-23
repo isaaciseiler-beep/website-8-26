@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, Image as ImageIcon, Play } from "lucide-react";
 import Footer from "@/components/Footer";
+import ProjectSourceLinks from "@/components/ProjectSourceLinks";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { projectItems, type ProjectMedia } from "@/lib/siteContent";
@@ -32,6 +33,24 @@ const sourceLabel: Record<string, string> = {
 };
 
 const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
+  if (media.type === "x-post" && media.href) {
+    const tweetId = media.href.split("/").filter(Boolean).pop();
+
+    return (
+      <figure className="project-x-embed my-7">
+        <div className="project-x-embed-frame">
+          <iframe
+            src={`https://platform.twitter.com/embed/Tweet.html?dnt=true&id=${tweetId}`}
+            title={media.title ?? "Embedded post on X"}
+            loading="lazy"
+            allowFullScreen
+          />
+        </div>
+        {media.caption && <figcaption>{media.caption}</figcaption>}
+      </figure>
+    );
+  }
+
   if (media.type === "placeholder") {
     const aspect = media.placeholderAspect ?? "landscape";
 
@@ -349,20 +368,7 @@ const ProjectDetailPage = () => {
                       />
                     ))}
                     {section.links && (
-                      <div className="space-y-2 mt-2">
-                        {section.links.map((link) => (
-                          <a
-                            key={link.href}
-                            href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group flex items-center justify-between py-3 text-sm text-foreground/75 hover:text-foreground transition-colors"
-                          >
-                            <span>{link.label}</span>
-                            <ArrowUpRight className="h-4 w-4 text-foreground/40 transition-transform group-hover:-translate-y-[1px] group-hover:translate-x-[1px] group-hover:text-foreground" />
-                          </a>
-                        ))}
-                      </div>
+                      <ProjectSourceLinks links={section.links} />
                     )}
                     {bottomMedia.map((media) => (
                       <ProjectMediaBlock

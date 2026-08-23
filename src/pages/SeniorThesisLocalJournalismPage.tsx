@@ -1,7 +1,6 @@
 import { type ComponentType, type ReactNode, type RefObject, useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left.js";
-import ArrowUpRight from "lucide-react/dist/esm/icons/arrow-up-right.js";
 import Bot from "lucide-react/dist/esm/icons/bot.js";
 import FileText from "lucide-react/dist/esm/icons/file-text.js";
 import Newspaper from "lucide-react/dist/esm/icons/newspaper.js";
@@ -9,6 +8,7 @@ import Scale from "lucide-react/dist/esm/icons/scale.js";
 import Users from "lucide-react/dist/esm/icons/users.js";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
+import ProjectSourceLinks from "@/components/ProjectSourceLinks";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -16,6 +16,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const HERO_IMAGE = "https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev/newspaperdisp.jpg";
 const FULL_TEXT_LINK = "https://drive.google.com/file/d/1Z6-RR1Zw7z2RieJwVHdk0yOtycRIN1ia/view?usp=sharing";
+const FULL_TEXT_SOURCES = [{ label: "Read the full thesis", href: FULL_TEXT_LINK }];
 const EDITORIAL_GRID = "grid gap-8 md:grid-cols-[minmax(0,0.3fr)_minmax(0,0.7fr)] md:items-start";
 const CARD_REVEAL = {
   hidden: { opacity: 0, y: 34, scale: 0.985, filter: "blur(10px)" },
@@ -616,18 +617,10 @@ const SeniorThesisLocalJournalismPage = () => {
                   </div>
 
                   <div className="border-t border-foreground/10 pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
-                    <p className="text-sm font-medium text-foreground/55">Source file</p>
-                    <div className="mt-4 space-y-2">
-                      <a
-                        href={FULL_TEXT_LINK}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center justify-between gap-4 border-b border-foreground/10 py-3 text-sm text-foreground/70 transition-colors hover:text-foreground"
-                      >
-                        <span>Read the full thesis</span>
-                        <ArrowUpRight className="h-4 w-4 text-foreground/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                      </a>
-                    </div>
+                    <ProjectSourceLinks
+                      label="Source file"
+                      links={FULL_TEXT_SOURCES}
+                    />
                   </div>
                 </div>
               </motion.div>

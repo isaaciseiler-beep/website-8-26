@@ -51,7 +51,7 @@ export interface ProjectSection {
 }
 
 export interface ProjectMedia {
-  type: "image" | "carousel" | "gallery" | "video" | "pdf" | "placeholder";
+  type: "image" | "carousel" | "gallery" | "video" | "pdf" | "placeholder" | "x-post";
   src?: string;
   alt?: string;
   caption?: string;
@@ -161,7 +161,7 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "congressional-office-setup-100-day-report",
-    title: "Building a Congressional Office, Fast",
+    title: "Building a Congressional Press Operation from Scratch",
     source: "BLOG",
     year: "2023",
     summary:
@@ -216,6 +216,8 @@ export const projectItems: ProjectItem[] = [
           "His outreach secured coverage from The New York Times, Reuters, Bloomberg Law, Slate, MSNBC, and The Dispatch. At home, he kept the story moving through MLive, FOX 17, WWMT, and Michigan Advance.",
           "A local investigation became part of a national conversation. The coverage accompanied bipartisan legislation to increase penalties for child-labor violations and continued as the federal government activated an interagency task force.",
         ],
+        pullQuote:
+          "Isaac's outreach moved a West Michigan labor story into national reporting and helped keep it there as federal action followed.",
         links: [
           { label: "Reuters: Bipartisan bill targets child-labor violations", href: "https://www.reuters.com/world/us/bipartisan-bill-aims-increase-penalties-us-child-labor-violations-2023-03-29/" },
           { label: "The New York Times: Migrant child-labor crackdown", href: "https://www.nytimes.com/2023/02/27/us/biden-child-labor.html" },
@@ -241,6 +243,8 @@ export const projectItems: ProjectItem[] = [
           "He also developed regular relationships with Michigan Radio, MLive, FOX 17, WOOD TV, WZZM, WWMT, regional business publications, and Spanish-language media. Those relationships produced coverage of town halls, district visits, infrastructure funding, workforce development, telehealth, childcare, prescription-drug costs, and bipartisan immigration legislation.",
           "Each group of reporters reached a different audience. Isaac built a network that could carry the office's work across the full geographic spectrum, from neighborhood and regional reporting to statewide outlets and major national publications.",
         ],
+        pullQuote:
+          "The same story could travel from a Grand Rapids newsroom to a national policy desk without losing its local meaning.",
         links: [
           { label: "View the full Press Hit List", href: "https://app.notion.com/p/Press-Hit-List-25b96844a3ac4a8abac3d749412938cb" },
           { label: "The Washington Post: A new generation in a divided House", href: "https://www.washingtonpost.com/politics/2023/02/13/freshman-lawmakers-bipartisan-compromise/" },
@@ -265,6 +269,13 @@ export const projectItems: ProjectItem[] = [
             caption: "Suggested image: the bipartisan State of the Union collaboration, which reached more than 100,000 views across platforms.",
             placement: "top",
             placeholderAspect: "wide",
+          },
+          {
+            type: "x-post",
+            title: "2023 State of the Union collaboration",
+            href: "https://x.com/RepScholten/status/1623105756609355776",
+            caption: "The bipartisan State of the Union collaboration received more than 100,000 views across platforms.",
+            placement: "before-links",
           },
         ],
       },
