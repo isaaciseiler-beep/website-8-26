@@ -3668,7 +3668,7 @@ html.theme-crossfade body * {
   align-items: flex-end;
   justify-content: flex-start;
   text-align: left;
-  background: linear-gradient(to top, rgb(0 0 0 / 0.9), rgb(0 0 0 / 0.48) 48%, transparent 100%);
+  background: linear-gradient(to top, rgb(0 0 0 / 0.74), rgb(0 0 0 / 0.28) 46%, transparent 92%);
   padding: 6rem 5rem 1.5rem 1.5rem;
 }
 
@@ -3779,7 +3779,7 @@ html.theme-crossfade body * {
 
 .project-x-embed iframe {
   display: block;
-  width: 100%;
+  width: calc(100% + 16px);
   height: 618px;
   border: 0;
 }
