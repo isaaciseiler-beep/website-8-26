@@ -3,6 +3,7 @@ import ArrowUpRight from "lucide-react/dist/esm/icons/arrow-up-right.js";
 export interface ProjectSourceLink {
   label: string;
   href: string;
+  wide?: boolean;
 }
 
 interface ProjectSourceLinksProps {
@@ -20,7 +21,7 @@ const ProjectSourceLinks = ({ links, label }: ProjectSourceLinksProps) => (
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="project-source-link"
+          className={`project-source-link ${link.wide ? "project-source-link-wide" : ""}`}
         >
           <span className="project-source-link-label">{link.label}</span>
           <span className="project-source-link-action" aria-hidden="true">

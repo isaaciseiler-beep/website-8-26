@@ -36,6 +36,7 @@ export interface NewsItem {
 export interface ProjectLink {
   label: string;
   href: string;
+  wide?: boolean;
 }
 
 export interface ProjectSection {
@@ -228,10 +229,11 @@ export const projectItems: ProjectItem[] = [
           "Each group of reporters reached a different audience. Isaac built a network that could carry the office's work across the full geographic spectrum, from neighborhood and regional reporting to statewide outlets and major national publications.",
         ],
         links: [
-          { label: "View the full Press Hit List", href: "https://app.notion.com/p/Press-Hit-List-25b96844a3ac4a8abac3d749412938cb" },
+          { label: "Axios: Biden's D.C. crime decision strains House Democrats", href: "https://www.axios.com/2023/03/04/biden-dc-crime-veto-house-democrats" },
           { label: "The Washington Post: A new generation in a divided House", href: "https://www.washingtonpost.com/politics/2023/02/13/freshman-lawmakers-bipartisan-compromise/" },
           { label: "CNN: Michigan voters and the national political picture", href: "https://www.cnn.com/2023/05/05/politics/biden-enthusiasm-michigan-voters/index.html" },
           { label: "The Dispatch: The prospects for immigration reform", href: "https://thedispatch.com/article/does-a-new-immigration-reform-bill-have-a-chance/" },
+          { label: "View the full Press Hit List", href: "https://app.notion.com/p/Press-Hit-List-25b96844a3ac4a8abac3d749412938cb", wide: true },
         ],
       },
       {
