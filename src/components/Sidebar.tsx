@@ -102,8 +102,9 @@ export const sitemapItems: SitemapItem[] = [
   { id: "projects", label: "Work", scrollTo: "projects" },
   { id: "photos", label: "Photos", scrollTo: "photos", children: [
     { id: "portfolio", label: "Portfolio", href: "/photos" },
-    { id: "photo-map", label: "Photo Map", href: "/photos/map" },
+    { id: "photo-map", label: "Map", href: "/photos/map" },
   ]},
+  { id: "music", label: "Music", href: "/photos/music" },
 ];
 
 const socialLinks = [
@@ -130,7 +131,8 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
   const navigate = useNavigate();
   const location = useLocation();
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
-  const isOnPhotos = location.pathname.startsWith("/photos");
+  const isOnPhotos = location.pathname === "/photos" || location.pathname === "/photos/map";
+  const isOnMusic = location.pathname === "/photos/music";
   const isOnProjects = location.pathname.startsWith("/projects");
   const isOnExperience = location.pathname.startsWith("/experience");
   const isOnCredentials = location.pathname.startsWith("/credentials");
@@ -184,6 +186,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
 
   const isItemActive = (item: SitemapItem) => {
     if (isOnPhotos && item.id === "photos") return true;
+    if (isOnMusic && item.id === "music") return true;
     if (isOnProjects && item.id === "projects") return true;
     if (isOnExperience && item.id === "projects") return true;
     if (isOnCredentials && item.id === "projects") return true;

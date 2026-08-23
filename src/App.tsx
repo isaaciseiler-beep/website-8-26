@@ -43,6 +43,7 @@ const lazyWithRetry = <T extends { default: ComponentType }>(
 const ChatOrb = lazyWithRetry(() => import("@/components/ChatOrb"), "chat-orb");
 const PhotosPage = lazyWithRetry(() => import("./pages/PhotosPage.tsx"), "photos");
 const PhotoMapPage = lazyWithRetry(() => import("./pages/PhotoMapPage.tsx"), "photo-map");
+const MusicPage = lazyWithRetry(() => import("./pages/MusicPage.tsx"), "music");
 const ProjectDetailPage = lazyWithRetry(() => import("./pages/ProjectDetailPage.tsx"), "project-detail");
 const AIStateGovernmentIndexPage = lazyWithRetry(() => import("./pages/AIStateGovernmentIndexPage.tsx"), "ai-state-government-index");
 const SeniorThesisLocalJournalismPage = lazyWithRetry(() => import("./pages/SeniorThesisLocalJournalismPage.tsx"), "senior-thesis-local-journalism");
@@ -131,6 +132,7 @@ const AnimatedRoutes = () => {
               <Route path="/" element={<Index />} />
               <Route path="/photos" element={<PhotosPage />} />
               <Route path="/photos/map" element={<PhotoMapPage />} />
+              <Route path="/photos/music" element={<MusicPage />} />
               <Route path="/projects" element={<Navigate to="/?section=projects" replace />} />
               <Route path="/projects/artificial-intelligence-in-state-government-index" element={<AIStateGovernmentIndexPage />} />
               <Route path="/projects/senior-thesis-local-journalism" element={<SeniorThesisLocalJournalismPage />} />

@@ -20,11 +20,13 @@ const sectionIds = sitemapItems
 const SectionFallback = () => <div className="home-photo-section-fallback" aria-hidden="true" />;
 
 const Index = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(
+    () => Boolean((location.state as { sidebarOpen?: boolean } | null)?.sidebarOpen),
+  );
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const isMobile = useIsMobile();
-  const location = useLocation();
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);

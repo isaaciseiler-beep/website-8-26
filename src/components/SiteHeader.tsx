@@ -240,7 +240,7 @@ const SiteHeader = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }:
       className="site-header-xray fixed left-0 top-0 z-[60] flex items-center gap-1 px-6 py-4"
       style={{ color: headerInk }}
     >
-      <Link to="/" className="contents">
+      <Link to="/" state={open ? { sidebarOpen: true } : undefined} className="contents">
         <Logo />
       </Link>
       <motion.button
