@@ -3579,37 +3579,39 @@ html.theme-crossfade body * {
 .project-source-links-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 28px;
+  gap: 12px;
 }
 
 .project-source-link {
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr) 34px;
+  grid-template-columns: minmax(0, 1fr) 34px;
   align-items: center;
   gap: 12px;
-  min-height: 76px;
-  border-bottom: 1px solid hsl(var(--foreground) / 0.12);
-  padding: 13px 0;
+  min-height: 88px;
+  border: 1px solid hsl(var(--foreground) / 0.1);
+  border-radius: 12px;
+  background: hsl(var(--foreground) / 0.035);
+  padding: 16px;
   color: hsl(var(--foreground) / 0.76);
-  transition: color 180ms ease, border-color 180ms ease;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.project-source-link:only-child {
+  grid-column: 1 / -1;
+  min-height: 62px;
+  padding-block: 12px;
 }
 
 .project-source-link:hover,
 .project-source-link:focus-visible {
   border-color: hsl(var(--foreground) / 0.3);
+  background: hsl(var(--foreground) / 0.06);
   color: hsl(var(--foreground));
 }
 
 .project-source-link:focus-visible {
   outline: 2px solid hsl(var(--foreground) / 0.42);
   outline-offset: 3px;
-}
-
-.project-source-link-number {
-  font-size: 0.68rem;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em;
-  color: hsl(var(--foreground) / 0.34);
 }
 
 .project-source-link-label {
@@ -3664,17 +3666,22 @@ html.theme-crossfade body * {
   z-index: 2;
   display: flex;
   align-items: flex-end;
+  justify-content: flex-start;
+  text-align: left;
   background: linear-gradient(to top, rgb(0 0 0 / 0.88), rgb(0 0 0 / 0.28) 50%, transparent 76%);
   padding: clamp(22px, 5vw, 46px);
 }
 
 .article-body .project-media-heading-overlay h2 {
-  max-width: 17ch;
+  width: min(100%, 18ch);
+  max-width: none;
   margin: 0;
   font-size: clamp(2rem, 5vw, 3.65rem);
   font-weight: 600;
   letter-spacing: -0.045em;
   line-height: 1.04;
+  text-align: left;
+  text-wrap: balance;
   color: #ffffff;
 }
 
@@ -3752,6 +3759,10 @@ html.theme-crossfade body * {
     min-height: 76px;
   }
 
+  .project-source-link:only-child {
+    min-height: 62px;
+  }
+
   .project-x-embed iframe {
     height: 600px;
   }
@@ -3774,7 +3785,7 @@ html.theme-crossfade body * {
   }
 
   .article-body .project-media-heading-overlay h2 {
-    max-width: 19ch;
+    width: min(100%, 19ch);
   }
 
   .project-image-slot-frame {
