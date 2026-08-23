@@ -32,7 +32,13 @@ const sourceLabel: Record<string, string> = {
   BLOG: "Blog",
 };
 
-const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
+const ProjectMediaBlock = ({
+  media,
+  overlayTitle,
+}: {
+  media: ProjectMedia;
+  overlayTitle?: string;
+}) => {
   if (media.type === "x-post" && media.href) {
     const tweetId = media.href.split("/").filter(Boolean).pop();
 
@@ -56,10 +62,19 @@ const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
 
     return (
       <figure className="project-image-slot my-7">
-        <div className={`project-image-slot-frame project-image-slot-${aspect}`} role="img" aria-label={media.alt}>
+        <div
+          className={`project-image-slot-frame project-image-slot-${aspect} ${overlayTitle ? "project-media-with-heading" : ""}`}
+          role="img"
+          aria-label={media.alt}
+        >
           <ImageIcon className="project-image-slot-icon" aria-hidden="true" strokeWidth={1.35} />
           <span className="project-image-slot-title">{media.title ?? "Image coming soon"}</span>
           {media.alt && <span className="project-image-slot-hint">{media.alt}</span>}
+          {overlayTitle && (
+            <div className="project-media-heading-overlay">
+              <h2>{overlayTitle}</h2>
+            </div>
+          )}
         </div>
         {media.caption && <figcaption>{media.caption}</figcaption>}
       </figure>
@@ -188,7 +203,9 @@ const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
           : "";
 
     return (
-      <figure className={`my-6 overflow-hidden bg-foreground/[0.02] ${layoutClass}`}>
+      <figure
+        className={`my-6 overflow-hidden bg-foreground/[0.02] ${layoutClass} ${overlayTitle ? "project-media-with-heading" : ""}`}
+      >
         <img
           src={media.src}
           alt={media.alt ?? ""}
@@ -199,6 +216,11 @@ const ProjectMediaBlock = ({ media }: { media: ProjectMedia }) => {
             event.currentTarget.closest("figure")?.classList.add("hidden");
           }}
         />
+        {overlayTitle && (
+          <div className="project-media-heading-overlay">
+            <h2>{overlayTitle}</h2>
+          </div>
+        )}
         {media.caption && (
           <figcaption className="px-1 py-3 text-xs leading-relaxed text-foreground/50">
             {media.caption}
@@ -302,6 +324,8 @@ const ProjectDetailPage = () => {
                 </div>
               )}
 
+              {project.lead && <p className="article-topper">{project.lead}</p>}
+
               <div ref={bodyRef} className="article-body">
                 {project.sections.map((section) => {
                   const topMedia = section.media?.filter((media) => media.placement === "top") ?? [];
@@ -319,14 +343,16 @@ const ProjectDetailPage = () => {
                         media.layout !== "half-left" &&
                         media.layout !== "half-right",
                     ) ?? [];
+                  const overlayHeading = Boolean(section.overlayHeading && topMedia.length);
 
                   return (
                   <section key={section.heading} id={slugify(section.heading)} className="article-section">
-                    <h2>{section.heading}</h2>
+                    {!overlayHeading && <h2>{section.heading}</h2>}
                     {topMedia.map((media) => (
                       <ProjectMediaBlock
                         key={media.src ?? media.href ?? media.images?.map((image) => image.src).join("|")}
                         media={media}
+                        overlayTitle={overlayHeading ? section.heading : undefined}
                       />
                     ))}
                     {wrapMedia.map((media) => (

@@ -24,9 +24,8 @@ const ProjectSourceLinks = ({ links, label }: ProjectSourceLinksProps) => (
         >
           <span className="project-source-link-number">{String(index + 1).padStart(2, "0")}</span>
           <span className="project-source-link-label">{link.label}</span>
-          <span className="project-source-link-action">
-            <span>Open</span>
-            <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+          <span className="project-source-link-action" aria-hidden="true">
+            <ArrowUpRight className="h-4 w-4" />
           </span>
         </a>
       ))}

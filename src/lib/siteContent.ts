@@ -43,6 +43,7 @@ export interface ProjectSection {
   bullets?: string[];
   links?: ProjectLink[];
   media?: ProjectMedia[];
+  overlayHeading?: boolean;
   pullQuote?: string;
   stats?: {
     value: string;
@@ -78,6 +79,7 @@ export interface ProjectItem {
   image: string;
   hideHero?: boolean;
   hideSummary?: boolean;
+  lead?: string;
   sections: ProjectSection[];
 }
 
@@ -168,11 +170,13 @@ export const projectItems: ProjectItem[] = [
       "How I helped launch a congressional office and built its press network across local, statewide, and national media.",
     image: projectImg.capHill,
     hideSummary: true,
+    lead:
+      "Isaac entered the campaign as an intern. A year later, he was the youngest Communications Director in U.S. congressional history, running a new press operation across local, statewide, and national media.",
     sections: [
       {
         heading: "From the campaign to an empty office",
+        overlayHeading: true,
         paragraphs: [
-          "Isaac Seiler joined a congressional campaign in Grand Rapids as an intern. Within a year, he had helped win the race, build the incoming office, and become the youngest Communications Director in the history of the United States Congress.",
           "During the campaign, Isaac took over digital strategy and operations, managed its online presence, produced public-facing content, and documented the race through photography. After the election, he moved to Washington, D.C. The next task was building an office.",
           "There was no inherited staff, communications system, or established way of working. Isaac helped recruit the initial team, negotiate commercial leases, shape the office's early strategy, and set its first-100-day goals. In less than two months, the team established staffed operations in Washington and West Michigan.",
         ],
@@ -182,13 +186,14 @@ export const projectItems: ProjectItem[] = [
             title: "Campaign to Congress",
             alt: "Add a campaign-night, transition, or early office photograph here.",
             caption: "Suggested image: the campaign, transition period, or the first weeks in the new office.",
-            placement: "bottom",
+            placement: "top",
             placeholderAspect: "wide",
           },
         ],
       },
       {
         heading: "Building the press list",
+        overlayHeading: true,
         paragraphs: [
           "The new office began without a network of trusted press relationships. Isaac started building one immediately.",
           "He reached local television producers in Grand Rapids, statewide political journalists, Washington correspondents, national policy reporters, trade publications, Spanish-language media, and journalists covering subjects such as immigration, labor, infrastructure, and small business.",
@@ -196,20 +201,21 @@ export const projectItems: ProjectItem[] = [
           "He learned what individual reporters covered, what made a useful pitch, and how quickly they needed answers. He became a dependable contact for journalists working on deadline while also bringing them stories, interviews, and events. Within a few months, the office had an active press network stretching from West Michigan to Washington.",
         ],
         pullQuote:
-          "Within months, the office had a working press network across local, statewide, national, trade, and Spanish-language media.",
+          "Isaac built a press network designed to move local stories through regional, statewide, and national outlets while preserving their context.",
         media: [
           {
             type: "placeholder",
             title: "Press network",
             alt: "Add a collage of interviews, headlines, outlet logos, or behind-the-scenes press work here.",
             caption: "Suggested image: a press-hit collage or a behind-the-scenes photograph from an interview.",
-            placement: "bottom",
+            placement: "top",
             placeholderAspect: "landscape",
           },
         ],
       },
       {
         heading: "Turning a West Michigan story into national news",
+        overlayHeading: true,
         paragraphs: [
           "The strength of that network became clear when reports emerged that children were working in dangerous conditions at facilities in West Michigan.",
           "Isaac saw that the story extended beyond one company or one region. It raised national questions about migrant children, corporate accountability, and the weakness of federal child-labor penalties. He developed the office's message, planned the press strategy, pitched reporters, prepared interviews, and connected what was happening in West Michigan to proposed federal action.",
@@ -217,7 +223,7 @@ export const projectItems: ProjectItem[] = [
           "A local investigation became part of a national conversation. The coverage accompanied bipartisan legislation to increase penalties for child-labor violations and continued as the federal government activated an interagency task force.",
         ],
         pullQuote:
-          "Isaac's outreach moved a West Michigan labor story into national reporting and helped keep it there as federal action followed.",
+          "The strongest communications systems connect reporting, legislation, and public pressure while a story is still moving.",
         links: [
           { label: "Reuters: Bipartisan bill targets child-labor violations", href: "https://www.reuters.com/world/us/bipartisan-bill-aims-increase-penalties-us-child-labor-violations-2023-03-29/" },
           { label: "The New York Times: Migrant child-labor crackdown", href: "https://www.nytimes.com/2023/02/27/us/biden-child-labor.html" },
@@ -243,8 +249,6 @@ export const projectItems: ProjectItem[] = [
           "He also developed regular relationships with Michigan Radio, MLive, FOX 17, WOOD TV, WZZM, WWMT, regional business publications, and Spanish-language media. Those relationships produced coverage of town halls, district visits, infrastructure funding, workforce development, telehealth, childcare, prescription-drug costs, and bipartisan immigration legislation.",
           "Each group of reporters reached a different audience. Isaac built a network that could carry the office's work across the full geographic spectrum, from neighborhood and regional reporting to statewide outlets and major national publications.",
         ],
-        pullQuote:
-          "The same story could travel from a Grand Rapids newsroom to a national policy desk without losing its local meaning.",
         links: [
           { label: "View the full Press Hit List", href: "https://app.notion.com/p/Press-Hit-List-25b96844a3ac4a8abac3d749412938cb" },
           { label: "The Washington Post: A new generation in a divided House", href: "https://www.washingtonpost.com/politics/2023/02/13/freshman-lawmakers-bipartisan-compromise/" },
@@ -254,6 +258,7 @@ export const projectItems: ProjectItem[] = [
       },
       {
         heading: "The State of the Union",
+        overlayHeading: true,
         paragraphs: [
           "For the 2023 State of the Union, Isaac developed and coordinated a collaboration with fellow Michigan freshman John James.",
           "The two offices represented different parties. The collaboration put them together during one of Washington's most visible nights and offered a straightforward picture of bipartisan cooperation. The resulting content received more than 100,000 views across platforms.",
@@ -281,6 +286,7 @@ export const projectItems: ProjectItem[] = [
       },
       {
         heading: "Making the first 100 days measurable",
+        overlayHeading: true,
         paragraphs: [
           "Isaac also led the creation of the office's 100 Day Report. He collected and checked information from across the office, chose which results to highlight, wrote the narrative, designed the report, and coordinated its release to reporters and stakeholders.",
           "The numbers belonged to the full team. Isaac's job was to make sure they were accurate, understandable, and available to the public. The report gave his growing press network a useful account of the office's first months and gave constituents a direct way to evaluate its work.",
@@ -301,7 +307,7 @@ export const projectItems: ProjectItem[] = [
             title: "100 Day Report",
             alt: "Add a full report spread followed by one or two close-up detail images here.",
             caption: "Suggested image: a full spread from the report, followed by close-up details of its design and results.",
-            placement: "before-links",
+            placement: "top",
             placeholderAspect: "landscape",
           },
         ],
