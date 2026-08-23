@@ -4473,3 +4473,243 @@ body::-webkit-scrollbar,
     scroll-behavior: auto !important;
   }
 }
+
+/* ============ Skull mode boot sequence ============ */
+.skull .win-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  overflow: hidden;
+  background: #000000 !important;
+  color: #ffffff !important;
+  animation: win-boot-stage-in 140ms steps(2, end) both;
+}
+
+.skull .win-boot-bios {
+  width: 100%;
+  height: 100%;
+  padding: clamp(18px, 4vw, 48px);
+  background: #000000 !important;
+  color: #d9d9d9 !important;
+  font-family: "Courier New", Courier, monospace !important;
+  font-size: clamp(11px, 1.5vw, 17px);
+  line-height: 1.45;
+}
+
+.skull .win-boot-bios p {
+  margin: 0 0 3px;
+  font-family: inherit !important;
+}
+
+.skull .win-boot-bios-last::after {
+  content: "_";
+  display: inline-block;
+  margin-left: 3px;
+  animation: win-boot-cursor 450ms steps(1, end) infinite;
+}
+
+.skull .win-boot-splash {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: auto auto;
+  place-content: center;
+  align-items: center;
+  gap: 22px;
+  padding: 24px;
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+  box-shadow: inset 0 0 0 6px #000080 !important;
+}
+
+.skull .win-boot-flag {
+  display: grid;
+  width: clamp(84px, 15vw, 146px);
+  aspect-ratio: 1.18;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  transform: skewY(-7deg);
+}
+
+.skull .win-boot-flag i {
+  display: block;
+  border: 1px solid #000000;
+}
+
+.skull .win-boot-flag i:nth-child(1) { background: #e53935; }
+.skull .win-boot-flag i:nth-child(2) { background: #43a047; }
+.skull .win-boot-flag i:nth-child(3) { background: #1e5bd7; }
+.skull .win-boot-flag i:nth-child(4) { background: #fbc02d; }
+
+.skull .win-boot-splash > div:nth-child(2) {
+  display: grid;
+}
+
+.skull .win-boot-splash > div:nth-child(2) > span {
+  font-size: clamp(14px, 2vw, 22px);
+  font-weight: 700;
+}
+
+.skull .win-boot-splash strong {
+  color: #000000 !important;
+  font-family: "Arial Black", Arial, sans-serif !important;
+  font-size: clamp(38px, 8vw, 86px);
+  font-style: italic;
+  line-height: 0.9;
+  white-space: nowrap;
+}
+
+.skull .win-boot-splash strong span {
+  margin-left: 8px;
+  color: #000080;
+  font-family: "Times New Roman", serif !important;
+  font-size: 0.48em;
+  font-style: normal;
+  vertical-align: super;
+}
+
+.skull .win-boot-splash p {
+  grid-column: 1 / -1;
+  margin: 22px 0 0;
+  color: #000080 !important;
+  font-weight: 700;
+  text-align: center;
+}
+
+.skull .win-boot-settings {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  padding: 18px;
+  background: #008080 !important;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 0.6px, transparent 0.6px) !important;
+  background-size: 3px 3px !important;
+}
+
+.skull .win-boot-dialog {
+  width: min(440px, 100%);
+  border: 3px outset #ffffff;
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+.skull .win-boot-dialog-body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 24px 20px 22px;
+}
+
+.skull .win-boot-dialog-body p {
+  margin: 0 0 14px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.skull .win-boot-hourglass {
+  font-size: 34px;
+}
+
+.skull .win-boot-progress {
+  height: 18px;
+  padding: 2px;
+  overflow: hidden;
+  border: 2px inset #ffffff;
+  background: #ffffff !important;
+}
+
+.skull .win-boot-progress i {
+  display: block;
+  width: 48%;
+  height: 100%;
+  background: repeating-linear-gradient(90deg, #000080 0 8px, #ffffff 8px 10px) !important;
+  animation: win-boot-progress 850ms steps(5, end) infinite;
+}
+
+.skull .win-boot-skip {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 5001;
+  min-width: 100px;
+  padding: 7px 11px !important;
+  border: 2px outset #ffffff !important;
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.skull .win-boot-skip:active {
+  border-style: inset !important;
+}
+
+@keyframes win-boot-stage-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes win-boot-cursor {
+  0%, 45% { opacity: 1; }
+  46%, 100% { opacity: 0; }
+}
+
+@keyframes win-boot-progress {
+  from { width: 18%; }
+  to { width: 88%; }
+}
+
+@media (max-width: 600px) {
+  .skull .win-boot-bios {
+    padding: 20px 14px;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .skull .win-boot-splash {
+    grid-template-columns: 70px minmax(0, auto);
+    gap: 12px;
+    padding: 16px;
+    box-shadow: inset 0 0 0 4px #000080 !important;
+  }
+
+  .skull .win-boot-flag {
+    width: 70px;
+  }
+
+  .skull .win-boot-splash strong {
+    font-size: clamp(33px, 13vw, 55px);
+  }
+
+  .skull .win-boot-splash p {
+    max-width: 290px;
+    margin-top: 16px;
+    font-size: 11px;
+  }
+
+  .skull .win-boot-dialog-body {
+    gap: 10px;
+    padding: 20px 14px;
+  }
+
+  .skull .win-boot-skip {
+    right: 8px;
+    bottom: 8px;
+    min-height: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skull .win-boot,
+  .skull .win-boot-bios-last::after,
+  .skull .win-boot-progress i {
+    animation: none !important;
+  }
+
+  .skull .win-boot-progress i {
+    width: 70%;
+  }
+}
