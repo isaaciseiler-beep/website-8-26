@@ -204,7 +204,7 @@ const ProjectMediaBlock = ({
 
     return (
       <figure
-        className={`my-6 overflow-hidden bg-foreground/[0.02] ${layoutClass} ${overlayTitle ? "project-media-with-heading" : ""}`}
+        className={`project-media-image my-6 overflow-hidden bg-foreground/[0.02] ${layoutClass} ${overlayTitle ? "project-media-with-heading" : ""}`}
       >
         <img
           src={media.src}
@@ -266,7 +266,10 @@ const ProjectDetailPage = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-x-clip">
+    <div
+      className="relative min-h-screen bg-background text-foreground overflow-x-clip"
+      data-project-id={project.id}
+    >
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}
