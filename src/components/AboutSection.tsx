@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTheme } from "@/components/ThemeProvider";
 import { profilePhotoUrl } from "@/lib/tileImages";
 
 interface AboutSectionProps {
@@ -8,6 +9,7 @@ interface AboutSectionProps {
 
 const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
   const reduceMotion = useReducedMotion();
+  const { theme } = useTheme();
   const photoRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLParagraphElement>(null);
   const fittingRef = useRef(false);
@@ -16,9 +18,12 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
     const photo = photoRef.current;
     const intro = introRef.current;
     if (!photo || !intro) return;
+    let disposed = false;
+
+    document.documentElement.style.removeProperty("--bio-font-size");
 
     const fitText = () => {
-      if (fittingRef.current) return;
+      if (disposed || fittingRef.current) return;
       fittingRef.current = true;
 
       if (window.matchMedia("(max-width: 600px)").matches) {
@@ -69,14 +74,15 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
     ro.observe(photo);
 
     const timer = window.setTimeout(() => window.requestAnimationFrame(fitText), 0);
-    document.fonts.ready.then(fitText);
+    void document.fonts.ready.then(fitText);
 
     return () => {
+      disposed = true;
       ro.disconnect();
       window.clearTimeout(timer);
       document.documentElement.style.removeProperty("--bio-font-size");
     };
-  }, []);
+  }, [theme]);
 
   return (
     <section className="about-lede" aria-labelledby="about-lede-title">

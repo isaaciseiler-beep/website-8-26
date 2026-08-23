@@ -3001,9 +3001,7 @@ html.theme-crossfade body * {
     fill 520ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 520ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    font-size 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    letter-spacing 520ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+    box-shadow 520ms cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 ::view-transition-old(root),
@@ -3065,33 +3063,6 @@ html.theme-crossfade body * {
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><polygon points='2,2 2,18 6,14 9,21 12,20 9,13 15,13' fill='white' stroke='black'/></svg>") 2 2, auto !important;
 }
 
-.skull-marquee {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 90;
-  width: 100%;
-  overflow: hidden;
-  border-bottom: 2px outset #c0c0c0;
-  background: #000080;
-  color: #ffff00;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 13px;
-  line-height: 24px;
-}
-
-.skull-marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 60px;
-  animation: skull-marquee 26s linear infinite;
-}
-
-@keyframes skull-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
 .skull-counter {
   position: fixed;
   bottom: 6px;
@@ -3119,10 +3090,6 @@ html.theme-crossfade body * {
   padding: 1px 3px;
   font-family: 'Courier New', monospace;
   font-weight: 700;
-}
-
-.skull main {
-  padding-top: 22px !important;
 }
 
 .skull h1,
@@ -3211,6 +3178,144 @@ html.theme-crossfade body * {
 .skull #projects,
 .skull #photos {
   background: transparent !important;
+}
+
+.skull .skull-photo-browser {
+  min-height: calc(100svh - 3.5rem);
+  padding: 12px !important;
+  background: #008080 !important;
+  color: #000000 !important;
+}
+
+.skull-photo-window,
+.skull-photo-window * {
+  font-family: "MS Sans Serif", Tahoma, Arial, sans-serif !important;
+}
+
+.skull-photo-window {
+  width: min(100%, 980px);
+  margin: 0 auto;
+  border: 3px outset #ffffff !important;
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+}
+
+.skull-photo-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 26px;
+  padding: 3px 5px;
+  background: #000080 !important;
+  color: #ffffff !important;
+  font-size: 13px;
+}
+
+.skull-photo-titlebar span {
+  padding: 1px 4px;
+  border: 2px outset #ffffff;
+  background: #c0c0c0;
+  color: #000000;
+  font-weight: 700;
+  letter-spacing: 3px !important;
+}
+
+.skull-photo-menubar {
+  display: flex;
+  gap: 20px;
+  padding: 5px 8px;
+  border-bottom: 2px groove #ffffff;
+  color: #000000;
+  font-size: 12px;
+}
+
+.skull-photo-window-body {
+  display: grid;
+  grid-template-columns: minmax(190px, 250px) minmax(0, 1fr);
+  gap: 7px;
+  min-height: min(690px, 72svh);
+  padding: 7px;
+}
+
+.skull-photo-file-list {
+  overflow: auto;
+  border: 3px inset #ffffff;
+  background: #ffffff;
+  padding: 3px;
+}
+
+.skull .skull-photo-file-list button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 5px 4px !important;
+  color: #000000 !important;
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.skull .skull-photo-file-list button.is-selected,
+.skull .skull-photo-file-list button:focus-visible {
+  background: #000080 !important;
+  color: #ffffff !important;
+  outline: 1px dotted #ffffff;
+  outline-offset: -2px;
+}
+
+.skull-photo-preview {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-width: 0;
+  margin: 0;
+  border: 3px inset #ffffff;
+  background: #808080;
+}
+
+.skull-photo-preview figcaption,
+.skull-photo-status {
+  overflow: hidden;
+  padding: 5px 7px;
+  background: #c0c0c0;
+  color: #000000;
+  font-size: 11px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.skull-photo-preview figcaption {
+  border-bottom: 2px groove #ffffff;
+}
+
+.skull-photo-status {
+  border-top: 2px groove #ffffff;
+}
+
+.skull-photo-preview-canvas {
+  display: grid;
+  min-height: 0;
+  place-items: center;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.skull-photo-preview-canvas img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 1px solid #000000;
+  background: #ffffff;
+}
+
+@media (max-width: 680px) {
+  .skull-photo-window-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(150px, 30svh) minmax(420px, 58svh);
+  }
 }
 
 @keyframes photo-crossfade {
