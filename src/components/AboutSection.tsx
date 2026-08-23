@@ -95,7 +95,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
 
           <div className="about-lede-copy">
             <p ref={introRef} className="about-lede-intro">
-              I lead marketing and comms at{" "}
+              I'm on the team at{" "}
               <a
                 href="https://summation.com"
                 target="_blank"
