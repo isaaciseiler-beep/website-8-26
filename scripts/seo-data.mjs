@@ -17,7 +17,6 @@ const projectCardImages = {
   aiNews: `${PROJECT_IMG_BASE}/ainews.jpg`,
   biCares: `${PROJECT_IMG_BASE}/bicares.jpg`,
   boehStrategy: `${PROJECT_IMG_BASE}/boehstrategy.jpg`,
-  charging: `${PROJECT_IMG_BASE}/charging.jpg`,
   chatLab: `${PROJECT_IMG_BASE}/chatlab.jpg`,
   capHill: `${PROJECT_IMG_BASE}/caphill.jpg`,
   congressInterview: `${PROJECT_IMG_BASE}/congressinterview.jpg`,
@@ -198,47 +197,31 @@ export const projectSeo = {
     ],
     about: ["AI", "journalism", "digital platforms", "local news", "media policy"],
   },
-  "electric-vehicle-access-analysis": {
-    title: "Electric Vehicle Charging Access Analysis | Isaac Seiler",
-    description:
-      "A GIS and quantitative analysis project by Isaac Seiler examining EV charging infrastructure access, charger density, income, race, and transportation equity.",
-    searchIntent:
-      "EV charging access analysis, electric vehicle infrastructure, GIS, charger density, income, race, and transportation equity.",
-    proofPoints: [
-      "Combined spatial datasets to analyze EV charger access and infrastructure gaps.",
-      "Compared charger proximity with income, race, and regional variables.",
-      "Produced maps, charts, and written interpretation for transportation-equity analysis.",
-    ],
-    image: {
-      url: projectCardImages.charging,
-      alt: "Electric Vehicle Charging Access Analysis project preview",
-    },
-    keywords: [
-      "EV charging access",
-      "electric vehicle infrastructure",
-      "GIS EV charging",
-      "transportation equity",
-      "charger density",
-      "spatial analysis",
-    ],
-    about: ["electric vehicles", "GIS", "transportation infrastructure", "equity analysis"],
-  },
   "boehringer-cares-foundation-rebrand-strategy-shift": {
-    title: "Boehringer Cares Foundation Rebrand | Isaac Seiler",
+    title: "Bringing the Boehringer Cares Rebrand to Life | Isaac Seiler",
     description:
-      "A full rebrand and strategic redirect for Boehringer Cares, spanning narrative, UX, visual identity, and internal communications.",
+      "Implementing the Boehringer Cares rebrand across its website, employee communications, newsletter, and volunteering programs.",
+    searchIntent:
+      "Boehringer Cares rebrand implementation, website rollout, internal communications, and employee volunteering.",
+    proofPoints: [
+      "Worked with UX and brand teams to implement an established rebrand vision across the foundation's website and communications.",
+      "Created more than 25 assets using the new brand direction.",
+      "Built a newsletter with an 80% open rate as annual employee volunteering increased by 25% during the 2025 rollout.",
+    ],
     image: {
       url: projectCardImages.biCares,
-      alt: "Boehringer Cares Foundation rebrand and strategy project preview",
+      alt: "Boehringer Cares rebrand implementation case study preview",
     },
     keywords: [
       "Boehringer Cares Foundation",
-      "foundation rebrand",
-      "CSR communications",
+      "rebrand implementation",
+      "website rollout",
+      "internal communications",
       "employee volunteering",
-      "communications strategy",
+      "employee engagement",
+      "cross-functional coordination",
     ],
-    about: ["brand strategy", "foundation communications", "CSR", "UX"],
+    about: ["rebrand implementation", "website rollout", "internal communications", "employee engagement"],
   },
   "communications-consultancy-supporting-local-candidates": {
     image: {
@@ -333,15 +316,6 @@ export const priorityImages = [
     caption:
       "Honors research on AI, digital platforms, local journalism, democracy, and media policy.",
   },
-  {
-    id: "electric-vehicle-charging-access",
-    url: projectCardImages.charging,
-    page: "/projects/electric-vehicle-access-analysis",
-    title: "Electric Vehicle Charging Access Analysis",
-    alt: "Electric Vehicle Charging Access Analysis project preview",
-    caption:
-      "GIS analysis of electric vehicle charging access, infrastructure, and transportation equity.",
-  },
 ];
 
 export const projectPriorityOrder = [
@@ -349,7 +323,6 @@ export const projectPriorityOrder = [
   "artificial-intelligence-in-state-government-index",
   "senior-thesis-local-journalism",
   "congressional-office-setup-100-day-report",
-  "electric-vehicle-access-analysis",
   "boehringer-cares-foundation-rebrand-strategy-shift",
   "stl-immigrant-refugee-support-grant-process",
   "openai-product-testing-and-feedback",
@@ -360,7 +333,6 @@ export const rssProjectIds = [
   "congressional-office-setup-100-day-report",
   "stl-immigrant-refugee-support-grant-process",
   "senior-thesis-local-journalism",
-  "electric-vehicle-access-analysis",
   "boehringer-cares-foundation-rebrand-strategy-shift",
 ];
 
@@ -391,6 +363,10 @@ export const redirectTargets = [
   },
   {
     source: "/projects",
+    destination: "/work",
+  },
+  {
+    source: "/projects/electric-vehicle-access-analysis",
     destination: "/work",
   },
 ];

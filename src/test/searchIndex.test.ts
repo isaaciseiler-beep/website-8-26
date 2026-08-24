@@ -30,6 +30,7 @@ describe("search index", () => {
 
   it("does not index retired or placeholder projects", () => {
     const ids = searchDocuments.map((document) => document.id);
+    expect(ids).not.toContain("electric-vehicle-access-analysis");
     expect(ids).not.toContain("communications-consultancy-supporting-local-candidates");
     expect(ids).not.toContain("2022-institute-for-nonprofit-news-index-survey");
     expect(ids).not.toContain("exclusive-interview-with-high-visibility-congressperson");

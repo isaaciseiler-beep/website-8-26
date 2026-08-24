@@ -91,6 +91,11 @@
   ],
   "redirects": [
     {
+      "source": "/projects/electric-vehicle-access-analysis",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
       "source": "/blog",
       "destination": "/work",
       "permanent": true

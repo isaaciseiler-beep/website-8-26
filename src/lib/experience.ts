@@ -116,7 +116,7 @@ export const experienceEntries: ExperienceEntry[] = [
     image: "/experience/boehringer.jpg",
     paragraphs: [
       "I worked across communications, operations, internal strategy, employee engagement, and sustainability initiatives for two internal functions.",
-      "I led major rebrand and strategy work, coordinated the first quantitative performance benchmark for CSR programs, and completed the first comprehensive report for company sustainability initiatives across the U.S.",
+      "I helped implement a major rebrand across web and internal communications, coordinated the first quantitative performance benchmark for CSR programs, and completed the first comprehensive report for company sustainability initiatives across the U.S.",
       "I built a company-wide newsletter system with an 80% open rate, shipped dozens of major cross-functional communications assets, and redesigned internal messaging and UX around employee volunteering, helping increase annual participation by 25%.",
     ],
     focus: ["internal operations", "cross-functional execution", "systems design", "stakeholder communications"],

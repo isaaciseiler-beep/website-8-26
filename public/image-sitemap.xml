@@ -46,17 +46,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/electric-vehicle-access-analysis</loc>
-    <lastmod>2026-08-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/charging.jpg</image:loc>
-      <image:title>Electric Vehicle Charging Access Analysis</image:title>
-      <image:caption>GIS analysis of electric vehicle charging access, infrastructure, and transportation equity.</image:caption>
-    </image:image>
-  </url>
-  <url>
     <loc>https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai</loc>
     <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
@@ -74,8 +63,8 @@
     <priority>0.76</priority>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/bicares.jpg</image:loc>
-      <image:title>Boehringer Cares Foundation Rebrand and Strategy Shift</image:title>
-      <image:caption>A full rebrand and strategic redirect for Boehringer Cares, spanning narrative, UX, visual identity, and internal communications.</image:caption>
+      <image:title>Bringing the Boehringer Cares Rebrand to Life</image:title>
+      <image:caption>Implementing the Boehringer Cares rebrand across its website, employee communications, newsletter, and volunteering programs.</image:caption>
     </image:image>
   </url>
   <url>

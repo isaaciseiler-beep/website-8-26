@@ -44,21 +44,12 @@
       <media:content url="https://www.isaacseiler.xyz/project-images/ainews.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
     </item>
     <item>
-      <title>Electric Vehicle Charging Access Analysis</title>
-      <link>https://www.isaacseiler.xyz/projects/electric-vehicle-access-analysis</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/electric-vehicle-access-analysis</guid>
-      <pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate>
-      <category>RESEARCH</category>
-      <description>A GIS and quantitative analysis project examining EV infrastructure access and where structural charger gaps remain.</description>
-      <media:content url="https://www.isaacseiler.xyz/project-images/charging.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
-    </item>
-    <item>
-      <title>Boehringer Cares Foundation Rebrand and Strategy Shift</title>
+      <title>Bringing the Boehringer Cares Rebrand to Life</title>
       <link>https://www.isaacseiler.xyz/projects/boehringer-cares-foundation-rebrand-strategy-shift</link>
       <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/boehringer-cares-foundation-rebrand-strategy-shift</guid>
       <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
       <category>WORK</category>
-      <description>A full rebrand and strategic redirect for Boehringer Cares, spanning narrative, UX, visual identity, and internal communications.</description>
+      <description>Implementing a new brand direction across the foundation&apos;s website, employee communications, and volunteering programs.</description>
       <media:content url="https://www.isaacseiler.xyz/project-images/bicares.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
     </item>
   </channel>

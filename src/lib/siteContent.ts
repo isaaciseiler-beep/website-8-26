@@ -9,14 +9,10 @@ const projectImg = {
   biCares: `${PROJECT_IMG_BASE}/bicares.jpg`,
   boehStrategy: `${PROJECT_IMG_BASE}/boehstrategy.jpg`,
   capHill: `${PROJECT_IMG_BASE}/caphill.jpg`,
-  charging: `${PROJECT_IMG_BASE}/charging.jpg`,
   chatLab: `${PROJECT_IMG_BASE}/chatlab.jpg`,
   congressInterview: `${PROJECT_IMG_BASE}/congressinterview.jpg`,
   firstWebsite: `${PROJECT_IMG_BASE}/firstwebsite.jpg`,
   firstWebsitePreview: `${PROJECT_IMG_BASE}/firstwebsitepreview.jpg`,
-  gisPoster: `${PROJECT_IMG_BASE}/gis-poster.jpg`,
-  gisUsIncome: `${PROJECT_IMG_BASE}/usmap1.jpg`,
-  gisUsRace: `${PROJECT_IMG_BASE}/usmap2.jpg`,
   nonprofitNews: `${PROJECT_IMG_BASE}/nonprofitnews.jpg`,
   philanthropyLab: `${PROJECT_IMG_BASE}/philanthropy-lab.jpg`,
   politicalConsult: `${PROJECT_IMG_BASE}/politicalconsult.jpg`,
@@ -380,67 +376,6 @@ export const projectItems: ProjectItem[] = [
   },
 
   {
-    id: "electric-vehicle-access-analysis",
-    title: "Electric Vehicle Charging Access Analysis",
-    source: "RESEARCH",
-    year: "2024",
-    summary:
-      "A GIS and quantitative analysis project examining EV infrastructure access and where structural charger gaps remain.",
-    image: projectImg.charging,
-    sections: [
-      {
-        heading: "Overview",
-        paragraphs: [
-          "This GIS project investigated how race and household income affect Americans' proximity to electric vehicle charging infrastructure.",
-          "Working with county-level bivariate maps and a Wayne County, Michigan case study, we tested whether communities with different income levels or racial demographics had meaningfully different access to public battery-electric vehicle chargers.",
-          "My role focused on national charging station and income mapping, county-level spatial joins, bivariate symbology, and regression interpretation that translated geographic data into an accessible research poster.",
-        ],
-        media: [
-          {
-            type: "image",
-            src: projectImg.gisPoster,
-            alt: "Electric Vehicle Charging Accessibility in the United States research poster",
-            caption: "Final GIS poster summarizing the research question, national and local maps, regression results, methods, and conclusions.",
-          },
-        ],
-      },
-      {
-        heading: "Key Takeaways",
-        bullets: [
-          "Nationally, neither household income nor racial identity strongly correlated with proximity to EV chargers.",
-          "At the local level in Wayne County, the data also did not show a consistent racial or income disparity in EV charging access.",
-          "The results suggest charger access is shaped by a more complicated mix of region, density, public investment, car culture, and rural-urban geography.",
-          "Future work should examine rural communities, tract-level national data, and how access changes as EV adoption moves beyond early-adopter markets.",
-        ],
-      },
-      {
-        heading: "Map Details",
-        media: [
-          {
-            type: "image",
-            src: projectImg.gisUsIncome,
-            alt: "United States counties mapped by EV charging stations and median household income",
-            caption: "U.S. county bivariate map comparing EV charging station density with median household income. Higher-income counties in places like Los Angeles and San Francisco showed strong charger adoption, but low-income communities still had charger access across much of the country.",
-          },
-          {
-            type: "image",
-            src: projectImg.gisUsRace,
-            alt: "United States counties mapped by EV charging stations and racial minority concentration",
-            caption: "U.S. county bivariate map comparing EV charging station density with racial minority concentration. Areas with high minority concentrations, including parts of the American South, showed similar access patterns to other regions.",
-          },
-        ],
-      },
-      {
-        heading: "Final Products",
-        links: [
-          { label: "Initial Report", href: "https://drive.google.com/file/d/11lfGLY0n4XqNRCgFE3Yk_ph7zb2OlH3d/view?usp=sharing" },
-          { label: "Presentation Poster with Spatial Analysis", href: "https://drive.google.com/file/d/1a8RYeorbJRYYcGRrFKe6x2rKmQMft95j/view?usp=sharing" },
-        ],
-      },
-    ],
-  },
-  {
-
     id: "communications-consultancy-supporting-local-candidates",
     title: "Communications Consultancy and Supporting Local Candidates",
     source: "WORK",
@@ -558,33 +493,57 @@ export const projectItems: ProjectItem[] = [
 
   {
     id: "boehringer-cares-foundation-rebrand-strategy-shift",
-    title: "Boehringer Cares Foundation Rebrand and Strategy Shift",
+    title: "Bringing the Boehringer Cares Rebrand to Life",
     source: "WORK",
     year: "2025",
     summary:
-      "A full rebrand and strategic redirect for Boehringer Cares, spanning narrative, UX, visual identity, and internal communications.",
+      "Implementing a new brand direction across the foundation's website, employee communications, and volunteering programs.",
     image: projectImg.biCares,
+    lead:
+      "Boehringer Cares had a new rebrand vision. My job was to help turn that vision into finished work employees and the public could actually see and use.",
     sections: [
       {
-        heading: "Overview",
+        heading: "The assignment",
         paragraphs: [
-          "At Boehringer Cares, I helped lead a full rebrand including visual design and a broader strategic redirect.",
-          "I played a central role in redefining how the organization presented its mission, priorities, and impact, both internally and externally.",
-          "I led data collection and synthesis to inform the rebrand, then translated those insights into a new website and visual identity in collaboration with UX and brand strategy teams.",
+          "The broader team had established a new direction for how Boehringer Cares should present its mission and work. I was responsible for helping implement that direction across the places where employees and the public encountered the foundation.",
+          "That meant coordinating details, gathering and organizing information, working with UX and brand colleagues, and making sure the new vision carried through consistently from the website to internal communications.",
         ],
       },
       {
-        heading: "Major Contributions",
+        heading: "From vision to rollout",
+        paragraphs: [
+          "I collected and organized the information needed for the rollout, then worked with UX and brand strategy teams to apply the new direction to the foundation's website and communications materials.",
+          "I did not create the original rebrand vision. My role was to carry it through: helping translate the approved direction into clear copy, updated pages, and a consistent set of materials for the foundation's work.",
+        ],
         bullets: [
-          "Led research that clarified BICF's direction and narrative.",
-          "Designed and launched a new website that helped increase employee volunteering by 25% in 2025.",
-          "Shipped more than 25 assets and built a company-wide newsletter system that reached an 80% open rate.",
+          "Coordinated with UX and brand colleagues to implement the refreshed website and visual direction.",
+          "Organized content and information for the public-facing rollout.",
+          "Created more than 25 communications assets using the new brand direction.",
         ],
       },
       {
-        heading: "Final Products",
+        heading: "Carrying the rebrand inside the company",
+        paragraphs: [
+          "The website was only one part of the rollout. I also built a company-wide newsletter and updated internal messaging around volunteering so employees encountered the same voice and visual direction after the launch.",
+          "This ongoing work helped keep the rebrand consistent across announcements, program updates, volunteering communications, and impact stories.",
+        ],
+      },
+      {
+        heading: "Results",
+        stats: [
+          { value: "25%", label: "increase in annual employee volunteering" },
+          { value: "80%", label: "company-wide newsletter open rate" },
+          { value: "25+", label: "cross-functional communications assets shipped" },
+        ],
+        paragraphs: [
+          "During the 2025 rollout, annual employee volunteering increased by 25%. The company-wide newsletter reached an 80% open rate and became a reliable way to share opportunities, updates, and impact stories.",
+          "The result was a rebrand that showed up consistently in the foundation's public presence and in the communications employees received throughout the year.",
+        ],
+      },
+      {
+        heading: "See the work",
         links: [
-          { label: "Revamped Boehringer Cares Website", href: "https://www.boehringer-ingelheim.com/us/boehringer-ingelheim-cares-foundation" },
+          { label: "Visit the refreshed Boehringer Cares website", href: "https://www.boehringer-ingelheim.com/us/boehringer-ingelheim-cares-foundation" },
         ],
       },
     ],
@@ -904,5 +863,5 @@ export const featuredProjectIds = [
   "artificial-intelligence-in-state-government-index",
   "congressional-office-setup-100-day-report",
   "senior-thesis-local-journalism",
-  "electric-vehicle-access-analysis",
+  "boehringer-cares-foundation-rebrand-strategy-shift",
 ];

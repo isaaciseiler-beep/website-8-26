@@ -175,11 +175,6 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
     topics: ["philanthropy", "St. Louis", "public service", "grantmaking", "nonprofits"],
     tags: ["Philanthropy Lab", "WashU", "Casa de Salud", "IHELP", "Monarch Immigrant Services", "immigrant support"],
   },
-  "electric-vehicle-access-analysis": {
-    date: "2024",
-    topics: ["electric vehicles", "infrastructure", "geographic analysis", "transportation equity"],
-    tags: ["ev charging", "chargers", "GIS", "spatial joins", "urban rural gaps", "maps"],
-  },
   "communications-consultancy-supporting-local-candidates": {
     date: "2024",
     topics: ["campaign communications", "local elections", "digital strategy", "candidate websites"],
@@ -197,8 +192,8 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
   },
   "boehringer-cares-foundation-rebrand-strategy-shift": {
     date: "2025",
-    topics: ["brand strategy", "foundation communications", "UX", "employee engagement"],
-    tags: ["Boehringer Cares", "rebrand", "visual identity", "newsletter", "volunteering", "open rate"],
+    topics: ["rebrand implementation", "website rollout", "internal communications", "employee engagement"],
+    tags: ["Boehringer Cares", "rebrand", "visual identity", "cross-functional coordination", "newsletter", "volunteering", "open rate"],
   },
   "2022-institute-for-nonprofit-news-index-survey": {
     date: "2022",
