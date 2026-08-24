@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { hiddenProjectIds, projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
+import { hiddenProjectIds, newsItems, orderProjectItemsForWork, projectItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
 
 type ProjectFilter = "ALL" | "AI" | "WORK";
@@ -29,7 +29,7 @@ const ProjectsSection = () => {
   const [filter, setFilter] = useState<ProjectFilter>("ALL");
 
   const entries = useMemo<Entry[]>(() => {
-    const projectEntries: Entry[] = projectItems
+    const projectEntries: Entry[] = orderProjectItemsForWork(projectItems)
       .filter((project) => !hiddenProjectIds.has(project.id))
       .map((project) => ({
         kind: "project",

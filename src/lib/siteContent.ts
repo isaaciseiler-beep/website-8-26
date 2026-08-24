@@ -99,7 +99,7 @@ export const newsItems: NewsItem[] = [
     href: "/projects/fulbright-focus-group-sponsored-by-openai",
     logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
     logoAlt: "Fulbright Taiwan",
-    imageUrl: `${NEWS_IMG_BASE}/chatgptlab.png`,
+    imageUrl: projectImg.aiClassroom,
   },
   {
     id: 6,
@@ -415,24 +415,31 @@ export const projectItems: ProjectItem[] = [
     source: "PROJECT",
     year: "2025",
     summary:
-      "During my Fulbright year, I built a six-session program where 20 educators across Taiwan tested practical and responsible ways to use ChatGPT in and outside the classroom.",
-    image: projectImg.chatLab,
+      "During my Fulbright year in Taiwan, I brought 20 educators together for six sessions on how ChatGPT might—or might not—fit into their classrooms.",
+    image: projectImg.aiClassroom,
     lead:
-      "I did not come to Taiwan with a formal AI program ready to go. I built one after seeing a gap between how useful these tools had become in my own work and how little room educators had to learn about them together.",
+      "This started with a question I kept hearing from other educators: I know AI is changing things, but where am I supposed to begin? I did not have a perfect answer, so I built a place where we could work through it together.",
     sections: [
       {
         heading: "Why I started it",
         paragraphs: [
-          "I started using ChatGPT in 2022 while working in congressional communications. By the time I arrived in Taiwan as a Fulbright educator, I was using it across research, writing, lesson planning, and the ordinary problems that come with living in another country.",
-          "Many educators I met were curious about AI, but they did not necessarily have a place to ask basic questions, test ideas, or talk honestly about what made them uncomfortable. Some had barely used ChatGPT beyond summarizing a document. Others were already experimenting but wanted to compare notes with people who understood classrooms.",
-          "With support from OpenAI's education team, I created the Fulbright Taiwan ChatGPT Lab as a small, practical learning group. The point was not to convince teachers to use AI. It was to give them enough experience to make their own informed decisions about it.",
+          "I started using ChatGPT in 2022 while working in congressional communications. By the time I arrived in Taiwan, I was using it for research, writing, lesson planning, and plenty of small problems that came with living somewhere new.",
+          "Most of the educators around me had not been given much time to figure any of this out. Some had only used ChatGPT to summarize a document. Others were already experimenting but wanted to compare notes with people who understood the reality of a classroom.",
+          "I was not interested in running a product demo or telling teachers that AI belonged everywhere. I wanted to create a low-pressure group where people could try it, be skeptical, and decide for themselves what was useful.",
+        ],
+      },
+      {
+        heading: "The first program of its kind",
+        paragraphs: [
+          "OpenAI's education team agreed to sponsor the idea. The result was the first OpenAI-sponsored program of its kind for a Fulbright educator community: a six-week cohort in Taiwan focused on practical AI literacy rather than product promotion.",
+          "That support gave me room to build something more sustained than a one-off workshop. The same people came back each week, tried ideas between sessions, and returned with examples that had either worked or fallen apart.",
         ],
       },
       {
         heading: "What I built",
         paragraphs: [
           "The program brought together 20 Fulbright educators working at 19 institutions across six counties in Taiwan. Participants taught at every level from elementary school through high school.",
-          "I designed and facilitated six weekly sessions. We started with the basics of large language models and prompt design, then moved into live experiments, group feedback, and conversations about accuracy, privacy, cultural context, and the parts of teaching that should remain firmly human.",
+          "I designed and facilitated six weekly sessions. Each one mixed a little technical background with a lot of trying things ourselves. We covered large language models and prompt design, but also accuracy, privacy, cultural context, and when the easiest answer was simply not to use AI.",
         ],
         bullets: [
           "How large language models produce answers and why those answers can still be wrong.",
@@ -452,16 +459,35 @@ export const projectItems: ProjectItem[] = [
       {
         heading: "Where it fell short",
         paragraphs: [
-          "The program was also useful because the failures were obvious once we looked for them. ChatGPT could produce a polished lesson that was far too long, miss the cultural nuance behind a question, or state something uncertain with complete confidence.",
-          "Those moments changed the conversation. Instead of asking whether an answer looked impressive, participants began asking what they would need to check, what context was missing, and whether the output was actually useful for the students in front of them.",
-          "I came away more convinced that AI literacy has to include skepticism. Knowing how to prompt a model is useful, but knowing when not to trust it is more important.",
+          "A lot of the failures were not dramatic. ChatGPT would produce a polished lesson that was much too long, miss the cultural point of a question, or give a confident answer that nobody in the room could verify.",
+          "Those examples were often more useful than the good ones. People stopped asking whether an answer looked impressive and started asking what was missing, what they would need to check, and whether the output would actually help their students.",
+          "That made me more convinced that skepticism is part of AI literacy. Writing a strong prompt matters. Knowing when not to trust the response matters more.",
+        ],
+      },
+      {
+        heading: "Publishing the recap with OpenAI",
+        paragraphs: [
+          "After the final session, I asked participants to share the chats they had found most useful. I pulled nine of those examples into a recap, added the context behind them, and worked with OpenAI's education team to publish it.",
+          "I liked that the final piece did not pretend we had solved AI in education. It showed what real educators in Taiwan had tried, where the tool helped, and how much judgment still sat with the person using it.",
+        ],
+        media: [
+          {
+            type: "image",
+            placement: "top",
+            src: projectImg.chatLab,
+            alt: "Two educators in Taiwan holding copies of OpenAI's 100 Chats collection",
+            caption: "OpenAI education materials shared with educators in Taiwan during the program.",
+          },
+        ],
+        links: [
+          { label: "Read the recap published with OpenAI", href: "https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan" },
         ],
       },
       {
         heading: "Taking the work to a larger audience",
         paragraphs: [
-          "The six-session program became the basis for a workshop I delivered at an international education conference with more than 250 attendees. I focused on the parts that would remain useful after any single product or model changed: how large language models work, why they make mistakes, how to evaluate an output, and how to keep the learning goal ahead of the tool.",
-          "I wanted the session to be useful for people who were interested in AI and people who were skeptical of it. Both groups deserved a clearer explanation than either hype or fear could provide.",
+          "Later, I turned the six sessions into a workshop for an international education conference with more than 250 attendees. I focused on the things that would still matter after the next model came out: how large language models work, why they make mistakes, and how to evaluate an answer before using it.",
+          "Some people in the room were excited about AI and others were wary of it. I wanted both groups to leave with something more useful than hype on one side or fear on the other.",
         ],
         bullets: [
           "Understand enough about the system to recognize common failure modes.",
@@ -480,9 +506,9 @@ export const projectItems: ProjectItem[] = [
       {
         heading: "What I learned in Taiwan",
         paragraphs: [
-          "The program did not prove that ChatGPT belongs in every classroom. I do not think that would be a useful conclusion. What it showed me is that educators become more thoughtful about AI when they have time to try it, question it, and learn from one another without being pressured to reach the same answer.",
-          "My Fulbright year gave me a chance to work on AI education in a setting where language, culture, and classroom expectations were always present. It made the limitations harder to ignore and the useful applications more grounded.",
-          "That is the part of the work I want to keep doing: helping people understand new technology well enough to use it on purpose, or decide that they do not need it.",
+          "The program did not prove that ChatGPT belongs in every classroom. I do not think it does. What it showed me is that educators make better decisions about AI when they have time to try it, question it, and hear what happened in somebody else's classroom.",
+          "Doing this work in Taiwan made language and cultural context impossible to treat as side issues. They were part of nearly every useful example and nearly every bad output.",
+          "I want to keep doing this kind of work: helping people understand new technology well enough to use it deliberately, or decide they do not need it.",
         ],
       },
       {
@@ -863,6 +889,24 @@ export const hiddenProjectIds = new Set([
   "exclusive-interview-with-high-visibility-congressperson",
   "fulbright-award-to-taiwan",
 ]);
+
+const workProjectPriority = [
+  "artificial-intelligence-in-state-government-index",
+  "congressional-office-setup-100-day-report",
+  "fulbright-focus-group-sponsored-by-openai",
+];
+
+export const orderProjectItemsForWork = (items: ProjectItem[]) => {
+  const originalOrder = new Map(items.map((project, index) => [project.id, index]));
+  const rank = (project: ProjectItem) => {
+    const priorityIndex = workProjectPriority.indexOf(project.id);
+    return priorityIndex === -1
+      ? workProjectPriority.length + (originalOrder.get(project.id) ?? items.length)
+      : priorityIndex;
+  };
+
+  return [...items].sort((left, right) => rank(left) - rank(right));
+};
 
 
 export const featuredProjectIds = [

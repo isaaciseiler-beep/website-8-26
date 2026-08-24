@@ -182,8 +182,8 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
   },
   "fulbright-focus-group-sponsored-by-openai": {
     date: "2025",
-    topics: ["AI education", "Fulbright", "Taiwan", "teacher training", "AI literacy"],
-    tags: ["OpenAI for Education", "ChatGPT for Education", "20 educators", "19 institutions", "six counties", "classroom use cases", "lesson planning", "LLM fundamentals", "conference workshop"],
+    topics: ["AI education", "OpenAI", "Fulbright", "Taiwan", "teacher training", "AI literacy"],
+    tags: ["OpenAI-sponsored", "first program of its kind", "OpenAI for Education", "ChatGPT for Education", "20 educators", "19 institutions", "six counties", "classroom use cases", "published recap", "LLM fundamentals", "conference workshop"],
   },
   "openai-product-testing-and-feedback": {
     date: "2025-present",

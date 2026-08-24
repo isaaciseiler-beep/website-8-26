@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { hasSearchResults, searchDocuments, searchSite } from "@/lib/searchIndex";
-import { newsItems } from "@/lib/siteContent";
+import { hiddenProjectIds, newsItems, orderProjectItemsForWork, projectItems } from "@/lib/siteContent";
 
 const titlesFor = (query: string, category: string) =>
   searchSite(query)
@@ -33,6 +33,17 @@ describe("search index", () => {
 
   it("orders Fulbright before the final Rhodes and Truman features", () => {
     expect(newsItems.map((item) => item.id)).toEqual([1, 6, 2]);
+  });
+
+  it("places the Fulbright AI literacy work third", () => {
+    const visibleProjects = orderProjectItemsForWork(projectItems).filter(
+      (project) => !hiddenProjectIds.has(project.id),
+    );
+    expect(visibleProjects.slice(0, 3).map((project) => project.id)).toEqual([
+      "artificial-intelligence-in-state-government-index",
+      "congressional-office-setup-100-day-report",
+      "fulbright-focus-group-sponsored-by-openai",
+    ]);
   });
 
   it("groups photo album matches separately", () => {

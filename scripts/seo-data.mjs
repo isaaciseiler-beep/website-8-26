@@ -13,6 +13,7 @@ export const PREVIEW_IMAGE = {
 
 const PROJECT_IMG_BASE = "/project-images";
 const projectCardImages = {
+  aiClassroom: `${PROJECT_IMG_BASE}/ai-classroom.jpg`,
   aiIndex: `${PROJECT_IMG_BASE}/aiindex.jpg`,
   aiNews: `${PROJECT_IMG_BASE}/ainews.jpg`,
   biCares: `${PROJECT_IMG_BASE}/bicares.jpg`,
@@ -94,16 +95,17 @@ export const projectSeo = {
   "fulbright-focus-group-sponsored-by-openai": {
     title: "Leading AI Literacy Efforts in Taiwan | Isaac Seiler",
     description:
-      "During his Fulbright year in Taiwan, Isaac Seiler built a six-session AI education program for 20 educators working across 19 institutions and six counties.",
+      "Isaac Seiler built the first OpenAI-sponsored program of its kind for a Fulbright educator community in Taiwan, then published the cohort's recap with OpenAI.",
     searchIntent:
-      "Fulbright Taiwan AI education program, teacher AI literacy, practical classroom uses, LLM fundamentals, and responsible use.",
+      "OpenAI-sponsored Fulbright Taiwan AI literacy program, teacher training, classroom uses, LLM fundamentals, and published educator recap.",
     proofPoints: [
-      "Designed and led six applied sessions for 20 Fulbright educators across Taiwan.",
+      "Created the first OpenAI-sponsored program of its kind for a Fulbright educator community.",
+      "Designed and led six applied sessions for 20 educators across 19 institutions and six counties in Taiwan.",
       "Covered LLM fundamentals, prompt design, classroom workflows, verification, and responsible use.",
-      "Expanded the work into a workshop at an international education conference with more than 250 attendees.",
+      "Published a nine-example program recap with OpenAI and expanded the work into a 250+ person conference workshop.",
     ],
     image: {
-      url: projectCardImages.chatLab,
+      url: projectCardImages.aiClassroom,
       alt: "AI education program during Isaac Seiler's Fulbright year in Taiwan",
     },
     keywords: [
@@ -116,7 +118,8 @@ export const projectSeo = {
       "AI literacy",
       "LLM fundamentals",
     ],
-    about: ["ChatGPT", "Fulbright Taiwan", "AI education", "teacher training", "AI literacy"],
+    about: ["ChatGPT", "OpenAI", "Fulbright Taiwan", "AI education", "teacher training", "AI literacy"],
+    sameAs: ["https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan"],
   },
   "artificial-intelligence-in-state-government-index": {
     title: "Mapping the Rise of AI Across State Government | Isaac Seiler",
