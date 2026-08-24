@@ -3654,6 +3654,39 @@ html.theme-crossfade body * {
   color: hsl(var(--foreground) / 0.76);
 }
 
+.ai-index-source-panel {
+  border-top: 1px solid hsl(var(--foreground) / 0.14);
+  padding-top: 22px;
+}
+
+.project-source-links--compact {
+  margin-top: 0;
+}
+
+.project-source-links--compact .project-source-links-label {
+  margin-bottom: 14px;
+}
+
+.project-source-links--compact .project-source-links-grid {
+  gap: 8px;
+}
+
+.project-source-links--compact .project-source-link {
+  min-height: 64px;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.project-source-links--compact .project-source-link-label {
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.project-source-links--compact .project-source-link-action {
+  width: 30px;
+  height: 30px;
+}
+
 .dark .article-stat-card,
 .dark .project-source-link,
 .dark .project-image-slot-frame,
@@ -3873,6 +3906,10 @@ html.theme-crossfade body * {
 
   .project-source-link {
     min-height: 76px;
+  }
+
+  .project-source-links--compact .project-source-link {
+    min-height: 60px;
   }
 
   .project-source-link:only-child {

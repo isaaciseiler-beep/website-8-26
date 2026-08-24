@@ -9,10 +9,11 @@ export interface ProjectSourceLink {
 interface ProjectSourceLinksProps {
   links: ProjectSourceLink[];
   label?: string;
+  compact?: boolean;
 }
 
-const ProjectSourceLinks = ({ links, label }: ProjectSourceLinksProps) => (
-  <div className="project-source-links">
+const ProjectSourceLinks = ({ links, label, compact = false }: ProjectSourceLinksProps) => (
+  <div className={`project-source-links ${compact ? "project-source-links--compact" : ""}`}>
     {label && <p className="project-source-links-label">{label}</p>}
     <div className="project-source-links-grid">
       {links.map((link) => (

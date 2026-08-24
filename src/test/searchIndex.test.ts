@@ -24,7 +24,7 @@ describe("search index", () => {
 
   it("includes the restored scholarship features", () => {
     expect(titlesFor("Truman Forbes public service", "news")).toContain(
-      "Winning the Leading Scholarship in Public Service: Featured in Forbes",
+      "Featured in Forbes: Won Public Service Award",
     );
     expect(titlesFor("Rhodes WashU finalist", "news")).toContain(
       "Becoming a Rhodes Scholarship Finalist",

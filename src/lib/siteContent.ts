@@ -113,7 +113,7 @@ export const newsItems: NewsItem[] = [
   {
     id: 2,
     source: "Forbes",
-    title: "Winning the Leading Scholarship in Public Service: Featured in Forbes",
+    title: "Featured in Forbes: Won Public Service Award",
     href: "https://www.forbes.com/sites/michaeltnietzel/2024/04/13/the-truman-scholars-for-2024-are-announced/",
     logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/Forbes.png",
     logoAlt: "Forbes",
@@ -638,7 +638,7 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "openai-product-testing-and-feedback",
-    title: "Helping Shape ChatGPT Before Launch",
+    title: "Helping Shape OpenAI's Products Before Launch",
     source: "PROJECT",
     year: "2025–Present",
     summary:

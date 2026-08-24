@@ -1068,8 +1068,8 @@ const AIStateGovernmentIndexPage = () => {
                   <p>The composite score keeps preparedness central while applying a resource-efficiency adjustment.</p>
                 </div>
               </div>
-              <div className="site-corner bg-card p-5">
-                <ProjectSourceLinks label="Source files" links={aiIndexSources} />
+              <div className="ai-index-source-panel">
+                <ProjectSourceLinks label="Source files" links={aiIndexSources} compact />
               </div>
               <p className="site-corner bg-card p-4 text-sm leading-relaxed text-foreground/62 lg:col-span-2">
                 {LAST_UPDATED_LABEL}. The dashboard should be read as a point-in-time public evidence benchmark, not a
