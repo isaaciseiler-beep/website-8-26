@@ -127,7 +127,7 @@ const StatPanel = ({
   delay?: number;
 }) => (
   <motion.div
-    className="site-corner bg-card p-4 shadow-sm"
+    className="ai-index-stat-card site-corner border border-foreground/10 bg-card p-4"
     initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
     viewport={{ once: true, amount: 0.35 }}
@@ -883,17 +883,17 @@ const AIStateGovernmentIndexPage = () => {
                   Smaller governments can still move quickly when the public evidence is concrete.
                 </p>
                 <div className="mt-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                  <div className="site-corner bg-card p-4">
+                  <div className="ai-index-stat-card site-corner border border-foreground/10 bg-card p-4">
                     <p className="text-sm font-medium text-foreground/55">Median budget</p>
                     <p className="mt-2 text-3xl font-semibold tracking-tight">{formatMoney(medianBudget)}</p>
                     <p className="mt-1 text-xs leading-relaxed text-foreground/52">The chart uses a log scale so small governments stay visible.</p>
                   </div>
-                  <div className="site-corner bg-card p-4">
+                  <div className="ai-index-stat-card site-corner border border-foreground/10 bg-card p-4">
                     <p className="text-sm font-medium text-foreground/55">Best score under $15B</p>
                     <p className="mt-2 text-3xl font-semibold tracking-tight">{round(leanLeader.compositeScore, 1)}</p>
                     <p className="mt-1 text-xs leading-relaxed text-foreground/52">{leanLeader.state} shows that capacity is not only a size question.</p>
                   </div>
-                  <div className="site-corner bg-card p-4">
+                  <div className="ai-index-stat-card site-corner border border-foreground/10 bg-card p-4">
                     <p className="text-sm font-medium text-foreground/55">Large budgets below 50</p>
                     <p className="mt-2 text-3xl font-semibold tracking-tight">{largeBudgetBelow50}</p>
                     <p className="mt-1 text-xs leading-relaxed text-foreground/52">Scale helps only when it becomes public implementation.</p>

@@ -3481,6 +3481,7 @@ html.theme-crossfade body * {
   border: 1px solid hsl(var(--foreground) / 0.09);
   border-radius: 14px;
   background: hsl(var(--foreground) / 0.035);
+  box-shadow: none;
   padding: 18px;
 }
 
@@ -3606,6 +3607,7 @@ html.theme-crossfade body * {
   border: 1px solid hsl(var(--foreground) / 0.1);
   border-radius: var(--site-corner-radius);
   background: hsl(var(--card));
+  box-shadow: none;
   padding: 16px;
   color: hsl(var(--foreground) / 0.76);
   transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
@@ -3687,6 +3689,10 @@ html.theme-crossfade body * {
   height: 30px;
 }
 
+.ai-index-stat-card {
+  box-shadow: none;
+}
+
 .dark .article-stat-card,
 .dark .project-source-link,
 .dark .project-image-slot-frame,
@@ -3694,7 +3700,7 @@ html.theme-crossfade body * {
 .dark .project-video {
   border-color: rgb(255 255 255 / 0.16);
   background-color: #0a0a0a;
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.035);
+  box-shadow: none;
 }
 
 .dark .project-source-link:hover,
