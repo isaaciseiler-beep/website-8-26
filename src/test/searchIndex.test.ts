@@ -46,6 +46,10 @@ describe("search index", () => {
     ]);
   });
 
+  it("has no placeholder blog posts", () => {
+    expect(projectItems.filter((project) => project.source === "BLOG")).toEqual([]);
+  });
+
   it("groups photo album matches separately", () => {
     expect(titlesFor("taiwan travel photos", "photos")).toContain("Taiwan");
   });

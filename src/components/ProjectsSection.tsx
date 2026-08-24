@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import { hiddenProjectIds, newsItems, orderProjectItemsForWork, projectItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
 
-type ProjectFilter = "ALL" | "AI" | "WORK";
+type ProjectFilter = "ALL" | "AI" | "WORK" | "BLOG";
 
 const filters: { label: string; value: ProjectFilter }[] = [
   { label: "All", value: "ALL" },
   { label: "AI", value: "AI" },
   { label: "Work", value: "WORK" },
+  { label: "Blog", value: "BLOG" },
 ];
 
 const AI_SUBJECT_PATTERN =
@@ -36,7 +37,11 @@ const ProjectsSection = () => {
         id: `project-${project.id}`,
         node: project,
       }));
+    const projectHrefs = new Set(
+      projectEntries.map((entry) => `/projects/${entry.node.id}`),
+    );
     const newsEntries: Entry[] = newsItems
+      .filter((item) => !projectHrefs.has(item.href))
       .map((item) => ({
         kind: "news",
         id: `news-${item.id}`,
@@ -51,6 +56,9 @@ const ProjectsSection = () => {
     }
     if (filter === "WORK") {
       return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source !== "BLOG");
+    }
+    if (filter === "BLOG") {
+      return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source === "BLOG");
     }
     return [...projectEntries, ...newsEntries];
   }, [filter]);
@@ -86,8 +94,23 @@ const ProjectsSection = () => {
         })}
       </div>
 
-      <motion.div layout transition={{ duration: 0.45, ease: EASE }} className="work-library-rail">
+      <motion.div
+        layout
+        transition={{ duration: 0.45, ease: EASE }}
+        className={`work-library-rail ${entries.length === 0 ? "work-library-rail--empty" : ""}`}
+      >
         <AnimatePresence mode="popLayout" initial={false}>
+          {entries.length === 0 ? (
+            <motion.p
+              key="empty-blog"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              className="work-library-empty"
+            >
+              Nothing published yet.
+            </motion.p>
+          ) : null}
           {entries.map((entry, index) => {
             const motionProps = {
               layout: true as const,
