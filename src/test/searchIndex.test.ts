@@ -12,7 +12,7 @@ describe("search index", () => {
   });
 
   it("uses topic expansion for non-exact project language", () => {
-    expect(titlesFor("government ai policy", "projects")).toContain("Artificial Intelligence in State Government Index");
+    expect(titlesFor("government ai policy", "projects")).toContain("Mapping the Rise of AI Across State Government");
   });
 
   it("finds education work without exact title terms", () => {
@@ -42,7 +42,7 @@ describe("search index", () => {
 
   it("handles conversational government AI queries", () => {
     expect(titlesFor("what did Isaac build for gen AI in state govt", "projects")).toContain(
-      "Artificial Intelligence in State Government Index",
+      "Mapping the Rise of AI Across State Government",
     );
   });
 

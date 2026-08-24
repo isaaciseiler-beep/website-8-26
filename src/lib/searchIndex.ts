@@ -31,7 +31,7 @@ export interface SearchGroup {
 }
 
 const CATEGORY_LABELS: Record<SearchCategory, string> = {
-  projects: "Projects",
+  projects: "Work",
   news: "News",
   photos: "Photos",
   inspiration: "Inspiration",

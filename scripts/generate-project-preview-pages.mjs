@@ -340,7 +340,7 @@ const globalGraph = () => [
     "@id": `${SITE_URL}/#website`,
     url: SITE_URL,
     name: SITE_NAME,
-    alternateName: ["Isaac Seiler portfolio", "Isaac Seiler projects"],
+    alternateName: ["Isaac Seiler portfolio", "Isaac Seiler work"],
     description: SITE_DESCRIPTION,
     inLanguage: "en-US",
     publisher: { "@id": `${SITE_URL}/#person` },
@@ -475,7 +475,7 @@ const projectsPageStructuredData = () => ({
       hasPart: enrichedProjects.map((project) => ({ "@id": `${projectUrl(project)}#webpage` })),
       mainEntity: {
         "@type": "ItemList",
-        name: "Isaac Seiler project archive",
+        name: "Isaac Seiler work archive",
         itemListElement: enrichedProjects.map((project, index) => ({
           "@type": "ListItem",
           position: index + 1,
@@ -611,7 +611,7 @@ const applyHead = (html, route) => {
   nextHtml = setMetaByItemprop(nextHtml, "image", image.url);
   if (route.ogType === "article") {
     nextHtml = setMetaByProperty(nextHtml, "article:author", SITE_NAME);
-    nextHtml = setMetaByProperty(nextHtml, "article:section", route.section ?? "Projects");
+    nextHtml = setMetaByProperty(nextHtml, "article:section", route.section ?? "Work");
     nextHtml = setMetaByProperty(nextHtml, "article:published_time", route.year ? `${route.year}-01-01` : "");
   }
   nextHtml = insertPrimaryImagePreload(nextHtml, image);
@@ -671,7 +671,7 @@ const renderHomepageFallback = () => `
       ${renderSitelinkCandidates()}
       ${renderPriorityImages()}
       <section>
-        <h2>Featured Projects</h2>
+        <h2>Featured Work</h2>
         ${priorityImageObjects
           .map((image) => projectById.get(image.page.replace("/projects/", "")))
           .filter(Boolean)
@@ -786,7 +786,7 @@ const routeForProject = (project) => ({
   description: project.seoDescription,
   keywords: project.keywords,
   image: project.seoImage,
-  ogType: "article",
+  ogType: "website",
   section: project.source,
   year: project.year,
   structuredData: projectStructuredData(project),
@@ -907,7 +907,7 @@ const rssProjects = rssProjectIds
 const rssFeedXml = () => `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>Projects by Isaac Seiler</title>
+    <title>Work by Isaac Seiler</title>
     <link>${escapeXml(absoluteUrl("/work"))}</link>
     <description>${escapeXml(SITE_DESCRIPTION)}</description>
     <language>en-us</language>

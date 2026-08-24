@@ -3,7 +3,7 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.isaacseiler.xyz/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -13,17 +13,17 @@
     </image:image>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/aiindex.jpg</image:loc>
-      <image:title>Artificial Intelligence in State Government Index</image:title>
+      <image:title>Mapping the Rise of AI Across State Government</image:title>
       <image:caption>A public benchmark measuring generative AI adoption across U.S. states and territories.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/caphill.jpg</image:loc>
-      <image:title>Building a Congressional Press Operation from Scratch</image:title>
+      <image:title>Building a Congressional Operation from Scratch</image:title>
       <image:caption>Launching a congressional office and building its local, statewide, and national press network.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/ainews.jpg</image:loc>
-      <image:title>AI Platforms and Journalism Research</image:title>
+      <image:title>Investigating AI’s Impact on Journalism in Australia</image:title>
       <image:caption>Honors research on AI, digital platforms, local journalism, democracy, and media policy.</image:caption>
     </image:image>
     <image:image>
@@ -34,7 +34,7 @@
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/about</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -45,18 +45,18 @@
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/work</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.94</priority>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/bicares.jpg</image:loc>
       <image:title>Work</image:title>
-      <image:caption>Selected projects by Isaac Seiler across communications, strategy, research, artificial intelligence, journalism, and visual identity.</image:caption>
+      <image:caption>Selected work by Isaac Seiler across communications, strategy, research, artificial intelligence, journalism, and visual identity.</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/photos</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
     <image:image>
@@ -67,7 +67,7 @@
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.92</priority>
     <image:image>
@@ -78,40 +78,40 @@
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/aiindex.jpg</image:loc>
-      <image:title>Artificial Intelligence in State Government Index</image:title>
+      <image:title>Mapping the Rise of AI Across State Government</image:title>
       <image:caption>A public benchmark by Isaac Seiler measuring generative AI adoption, training, governance, pilots, transparency, and preparedness across U.S. states and territories.</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/projects/senior-thesis-local-journalism</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/ainews.jpg</image:loc>
-      <image:title>AI Platforms and Journalism Research</image:title>
+      <image:title>Investigating AI’s Impact on Journalism in Australia</image:title>
       <image:caption>Isaac Seiler&apos;s honors thesis analyzed AI, digital platforms, local journalism, democratic accountability, media policy, and newsroom labor through qualitative interviews.</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
     <image:image>
       <image:loc>https://www.isaacseiler.xyz/project-images/caphill.jpg</image:loc>
-      <image:title>Building a Congressional Press Operation from Scratch</image:title>
+      <image:title>Building a Congressional Operation from Scratch</image:title>
       <image:caption>Isaac Seiler helped launch a congressional office and built a press network spanning West Michigan, statewide, and national media.</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/projects/electric-vehicle-access-analysis</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
     <image:image>
@@ -122,7 +122,7 @@
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/projects/boehringer-cares-foundation-rebrand-strategy-shift</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
     <image:image>
@@ -133,7 +133,7 @@
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/projects/stl-immigrant-refugee-support-grant-process</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
     <image:image>
@@ -144,7 +144,7 @@
   </url>
   <url>
     <loc>https://www.isaacseiler.xyz/projects/openai-product-testing-and-feedback</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
     <image:image>

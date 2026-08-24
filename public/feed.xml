@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>Projects by Isaac Seiler</title>
+    <title>Work by Isaac Seiler</title>
     <link>https://www.isaacseiler.xyz/work</link>
     <description>Isaac Seiler leads marketing and communications at Summation, helping tell the story of how AI is changing the way people work. Based in Seattle, Washington.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 24 Aug 2026 12:00:00 GMT</lastBuildDate>
     <atom:link href="https://www.isaacseiler.xyz/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Artificial Intelligence in State Government Index</title>
+      <title>Mapping the Rise of AI Across State Government</title>
       <link>https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index</link>
       <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index</guid>
       <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
@@ -17,11 +17,11 @@
       <media:content url="https://www.isaacseiler.xyz/project-images/aiindex.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
     </item>
     <item>
-      <title>Building a Congressional Press Operation from Scratch</title>
+      <title>Building a Congressional Operation from Scratch</title>
       <link>https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report</link>
       <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report</guid>
       <pubDate>Sun, 01 Jan 2023 12:00:00 GMT</pubDate>
-      <category>BLOG</category>
+      <category>WORK</category>
       <description>How I helped launch a congressional office and built its press network across local, statewide, and national media.</description>
       <media:content url="https://www.isaacseiler.xyz/project-images/caphill.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
     </item>
@@ -35,7 +35,7 @@
       <media:content url="https://www.isaacseiler.xyz/project-images/philanthropy-lab.jpg" type="image/jpeg" width="1600" height="1066" medium="image" />
     </item>
     <item>
-      <title>AI Platforms and Journalism Research</title>
+      <title>Investigating AI’s Impact on Journalism in Australia</title>
       <link>https://www.isaacseiler.xyz/projects/senior-thesis-local-journalism</link>
       <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/senior-thesis-local-journalism</guid>
       <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>

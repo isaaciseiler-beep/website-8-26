@@ -60,8 +60,8 @@ export const topLevelPages = [
     navTitle: "Work",
     title: "Work | Isaac Seiler",
     description:
-      "Selected projects by Isaac Seiler across communications, strategy, research, artificial intelligence, journalism, and visual identity.",
-    sitelinkDescription: "Selected projects and case studies by Isaac Seiler.",
+      "Selected work by Isaac Seiler across communications, strategy, research, artificial intelligence, journalism, and visual identity.",
+    sitelinkDescription: "Selected work and case studies by Isaac Seiler.",
     priority: "0.94",
     changefreq: "weekly",
     image: { url: projectCardImages.biCares },
@@ -122,7 +122,7 @@ export const projectSeo = {
     sameAs: ["https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan"],
   },
   "artificial-intelligence-in-state-government-index": {
-    title: "Artificial Intelligence in State Government Index | Isaac Seiler",
+    title: "Mapping the Rise of AI Across State Government | Isaac Seiler",
     description:
       "A public benchmark by Isaac Seiler measuring generative AI adoption, training, governance, pilots, transparency, and preparedness across U.S. states and territories.",
     searchIntent:
@@ -134,7 +134,7 @@ export const projectSeo = {
     ],
     image: {
       url: projectCardImages.aiIndex,
-      alt: "Artificial Intelligence in State Government Index project preview",
+      alt: "Mapping the Rise of AI Across State Government work preview",
     },
     keywords: [
       "AI state government index",
@@ -148,7 +148,7 @@ export const projectSeo = {
     about: ["generative AI", "state government", "AI governance", "public policy"],
   },
   "congressional-office-setup-100-day-report": {
-    title: "Building a Congressional Press Operation from Scratch | Isaac Seiler",
+    title: "Building a Congressional Operation from Scratch | Isaac Seiler",
     description:
       "Isaac Seiler helped launch a congressional office and built a press network spanning West Michigan, statewide, and national media.",
     searchIntent:
@@ -160,7 +160,7 @@ export const projectSeo = {
     ],
     image: {
       url: projectCardImages.capHill,
-      alt: "Building a Congressional Press Operation from Scratch project preview",
+      alt: "Building a Congressional Operation from Scratch work preview",
     },
     keywords: [
       "congressional communications",
@@ -173,7 +173,7 @@ export const projectSeo = {
     about: ["Congress", "communications", "media relations", "public service"],
   },
   "senior-thesis-local-journalism": {
-    title: "AI Platforms and Journalism Research | Isaac Seiler",
+    title: "Investigating AI’s Impact on Journalism in Australia | Isaac Seiler",
     description:
       "Isaac Seiler's honors thesis analyzed AI, digital platforms, local journalism, democratic accountability, media policy, and newsroom labor through qualitative interviews.",
     searchIntent:
@@ -310,8 +310,8 @@ export const priorityImages = [
     id: "ai-state-government-index",
     url: projectCardImages.aiIndex,
     page: "/projects/artificial-intelligence-in-state-government-index",
-    title: "Artificial Intelligence in State Government Index",
-    alt: "Artificial Intelligence in State Government Index project preview",
+    title: "Mapping the Rise of AI Across State Government",
+    alt: "Mapping the Rise of AI Across State Government work preview",
     caption:
       "A public benchmark measuring generative AI adoption across U.S. states and territories.",
   },
@@ -319,8 +319,8 @@ export const priorityImages = [
     id: "congressional-office-100-day-report",
     url: projectCardImages.capHill,
     page: "/projects/congressional-office-setup-100-day-report",
-    title: "Building a Congressional Press Operation from Scratch",
-    alt: "Building a Congressional Press Operation from Scratch project preview",
+    title: "Building a Congressional Operation from Scratch",
+    alt: "Building a Congressional Operation from Scratch work preview",
     caption:
       "Launching a congressional office and building its local, statewide, and national press network.",
   },
@@ -328,7 +328,7 @@ export const priorityImages = [
     id: "ai-platforms-journalism-research",
     url: projectCardImages.aiNews,
     page: "/projects/senior-thesis-local-journalism",
-    title: "AI Platforms and Journalism Research",
+    title: "Investigating AI’s Impact on Journalism in Australia",
     alt: "AI platforms and local journalism honors thesis project preview",
     caption:
       "Honors research on AI, digital platforms, local journalism, democracy, and media policy.",

@@ -5,13 +5,12 @@ import { Link } from "react-router-dom";
 import { hiddenProjectIds, projectItems, newsItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
 
-type ProjectFilter = "ALL" | "AI" | "PROJECTS" | "BLOG";
+type ProjectFilter = "ALL" | "AI" | "WORK";
 
 const filters: { label: string; value: ProjectFilter }[] = [
   { label: "All", value: "ALL" },
   { label: "AI", value: "AI" },
-  { label: "Projects", value: "PROJECTS" },
-  { label: "Blog", value: "BLOG" },
+  { label: "Work", value: "WORK" },
 ];
 
 const HIDDEN_NEWS_IDS = new Set([2, 6]);
@@ -53,11 +52,8 @@ const ProjectsSection = () => {
         return entry.node.source !== "BLOG" && isAiSubject(node.title, node.source, node.summary, node.description);
       });
     }
-    if (filter === "PROJECTS") {
+    if (filter === "WORK") {
       return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source !== "BLOG");
-    }
-    if (filter === "BLOG") {
-      return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source === "BLOG");
     }
     return [...projectEntries, ...newsEntries];
   }, [filter]);
@@ -66,7 +62,7 @@ const ProjectsSection = () => {
     <section className="work-library" aria-labelledby="work-library-title">
       <h2 id="work-library-title" className="sr-only">Work</h2>
 
-      <div className="work-library-tabs" role="tablist" aria-label="Filter projects">
+      <div className="work-library-tabs" role="tablist" aria-label="Filter work">
         {filters.map((item) => {
           const active = filter === item.value;
           return (
