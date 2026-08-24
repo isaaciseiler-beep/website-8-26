@@ -182,8 +182,8 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
   },
   "fulbright-focus-group-sponsored-by-openai": {
     date: "2025",
-    topics: ["education", "OpenAI", "Fulbright", "ChatGPT Lab", "teacher training"],
-    tags: ["Taiwan", "OpenAI for Education", "ChatGPT for Education", "ChatGPT Lab x Fulbright Taiwan", "20 educators", "19 institutions", "six counties", "classroom use cases", "lesson planning", "educators", "Substack", "conference workshop"],
+    topics: ["AI education", "Fulbright", "Taiwan", "teacher training", "AI literacy"],
+    tags: ["OpenAI for Education", "ChatGPT for Education", "20 educators", "19 institutions", "six counties", "classroom use cases", "lesson planning", "LLM fundamentals", "conference workshop"],
   },
   "openai-product-testing-and-feedback": {
     date: "2025-present",
@@ -207,8 +207,10 @@ const projectMetadata: Record<string, { date: string; topics: string[]; tags: st
   },
 };
 
-const newsMetadata: Record<number, { date: string; topics: string[]; tags: string[] }> = {
-  1: { date: "2025-12-22", topics: ["education", "OpenAI", "Fulbright", "ChatGPT Lab"], tags: ["Taiwan", "lesson planning", "teaching", "cultural context", "Substack"] },
+const newsMetadata: Record<number, { date?: string; topics: string[]; tags: string[] }> = {
+  1: { topics: ["AI education", "Fulbright", "Taiwan"], tags: ["teacher training", "AI literacy", "classroom use cases"] },
+  2: { topics: ["Truman Scholarship", "public service", "Forbes"], tags: ["scholarship", "recognition", "public leadership"] },
+  6: { topics: ["Rhodes Scholarship", "WashU", "recognition"], tags: ["finalist", "scholarship", "Washington University"] },
 };
 
 const albumMetadata: Record<string, string[]> = {
@@ -276,7 +278,7 @@ export const searchDocuments: SearchDocument[] = [
       subtitle: item.source,
       description: `${item.source}${meta?.date ? ` / ${formatDate(meta.date)}` : ""}`,
       href: item.href,
-      external: true,
+      external: item.href.startsWith("http"),
       image: item.imageUrl,
       date: meta?.date,
       topics: meta?.topics ?? [item.source],

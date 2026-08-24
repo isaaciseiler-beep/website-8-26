@@ -94,30 +94,30 @@ const NEWS_IMG_BASE = "https://pub-0f2ac8ec0d4e41b885a39ae5fd004706.r2.dev";
 export const newsItems: NewsItem[] = [
   {
     id: 1,
-    source: "ChatGPT for Education",
-    title: "Conducted OpenAI-supported Education Focus Group",
-    href: "https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan",
+    source: "Fulbright Taiwan",
+    title: "Leading AI Literacy Efforts in Taiwan",
+    href: "/projects/fulbright-focus-group-sponsored-by-openai",
     logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
-    logoAlt: "OpenAI",
+    logoAlt: "Fulbright Taiwan",
     imageUrl: `${NEWS_IMG_BASE}/chatgptlab.png`,
-  },
-  {
-    id: 2,
-    source: "Forbes",
-    title: "Featured 2024 Truman Scholars",
-    href: "https://www.forbes.com/sites/michaeltnietzel/2024/04/13/the-truman-scholars-for-2024-are-announced/",
-    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/Forbes.png",
-    logoAlt: "Forbes",
-    imageUrl: `${NEWS_IMG_BASE}/truman.png`,
   },
   {
     id: 6,
     source: "Washington University in St. Louis",
-    title: "Named 2024 Rhodes Scholarship Finalist",
+    title: "Becoming a Rhodes Scholarship Finalist",
     href: "https://source.washu.edu/2024/11/seniors-darden-seiler-were-rhodes-scholars-finalists/",
     logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/WashU.png",
     logoAlt: "WashU",
     imageUrl: `${NEWS_IMG_BASE}/rhodes.png`,
+  },
+  {
+    id: 2,
+    source: "Forbes",
+    title: "Winning the Leading Scholarship in Public Service: Featured in Forbes",
+    href: "https://www.forbes.com/sites/michaeltnietzel/2024/04/13/the-truman-scholars-for-2024-are-announced/",
+    logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/Forbes.png",
+    logoAlt: "Forbes",
+    imageUrl: `${NEWS_IMG_BASE}/truman.png`,
   },
 ];
 
@@ -411,63 +411,63 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "fulbright-focus-group-sponsored-by-openai",
-    title: "The ChatGPT Lab I Built in Taiwan",
+    title: "Leading AI Literacy Efforts in Taiwan",
     source: "PROJECT",
     year: "2025",
     summary:
-      "I brought 20 Fulbright educators together for six weeks to test how ChatGPT could actually help in classrooms, then turned what we learned into workshops, public resources, and an OpenAI-published field guide.",
+      "During my Fulbright year, I built a six-session program where 20 educators across Taiwan tested practical and responsible ways to use ChatGPT in and outside the classroom.",
     image: projectImg.chatLab,
+    lead:
+      "I did not come to Taiwan with a formal AI program ready to go. I built one after seeing a gap between how useful these tools had become in my own work and how little room educators had to learn about them together.",
     sections: [
       {
-        heading: "It started with a gap I could see",
+        heading: "Why I started it",
         paragraphs: [
-          "I started using ChatGPT in 2022 while working in congressional communications. By the time I arrived in Taiwan as a Fulbright educator, it had become a whole toolbox for me. But most people around me were still using it for one thing: summarizing a PDF.",
-          "That gap felt worth doing something about. With support from OpenAI's education team, I built the Fulbright Taiwan ChatGPT Lab: a place where educators could try the technology together, compare notes honestly, and find uses that made sense in a real classroom.",
+          "I started using ChatGPT in 2022 while working in congressional communications. By the time I arrived in Taiwan as a Fulbright educator, I was using it across research, writing, lesson planning, and the ordinary problems that come with living in another country.",
+          "Many educators I met were curious about AI, but they did not necessarily have a place to ask basic questions, test ideas, or talk honestly about what made them uncomfortable. Some had barely used ChatGPT beyond summarizing a document. Others were already experimenting but wanted to compare notes with people who understood classrooms.",
+          "With support from OpenAI's education team, I created the Fulbright Taiwan ChatGPT Lab as a small, practical learning group. The point was not to convince teachers to use AI. It was to give them enough experience to make their own informed decisions about it.",
         ],
       },
       {
-        heading: "Building the room",
+        heading: "What I built",
         paragraphs: [
-          "The Lab brought together 20 Fulbright educators working at 19 institutions across six counties in Taiwan, with experience spanning every grade from elementary school through high school.",
-          "I designed and facilitated six weekly sessions. We moved from the basics of how large language models work into live experimentation, peer critique, and conversations about where AI was genuinely helpful—and where a teacher's judgment still mattered more.",
+          "The program brought together 20 Fulbright educators working at 19 institutions across six counties in Taiwan. Participants taught at every level from elementary school through high school.",
+          "I designed and facilitated six weekly sessions. We started with the basics of large language models and prompt design, then moved into live experiments, group feedback, and conversations about accuracy, privacy, cultural context, and the parts of teaching that should remain firmly human.",
         ],
         bullets: [
-          "Lesson planning that started with a clear learning goal instead of a flashy tool.",
-          "Language support for formal emails, sport-specific vocabulary, and cross-cultural misunderstandings.",
-          "Classroom games, discussion prompts, cultural comparisons, and visual materials for younger learners.",
-          "Everyday workflows that helped educators plan, communicate, travel, and live abroad.",
+          "How large language models produce answers and why those answers can still be wrong.",
+          "How to write a useful prompt by giving the model a goal, context, audience, and constraints.",
+          "How to review an output instead of treating fluency as proof that it is correct.",
+          "How to decide whether AI belongs in a particular lesson or workflow at all.",
         ],
       },
       {
-        heading: "What the testing taught us",
+        heading: "What educators actually used it for",
         paragraphs: [
-          "The strongest ideas were rarely the most complicated. ChatGPT was useful when it gave an educator a better starting point, translated context they were struggling to explain, or made a lesson easier to adapt for a particular group of students.",
-          "It also failed in revealing ways. A polished answer could still miss cultural nuance, overstuff a lesson, or sound more certain than it should. The Lab worked because people could put those failures on the table and improve the workflow together.",
+          "The best ideas were usually specific and fairly ordinary. Educators used ChatGPT to get a first draft of a lesson plan, adjust material for a different age group, write formal emails, explain sport-specific vocabulary, compare cultural references, and build games or discussion prompts for class.",
+          "Some of the most useful examples had nothing to do with formal instruction. Participants used it to plan travel, understand unfamiliar situations, and communicate more clearly while living abroad. That mattered because teaching in another country does not stop when the school day ends.",
+          "There was no single use case that worked for everyone. The value came from seeing what other educators tried, asking why it worked, and then adapting the idea to a different classroom or community.",
         ],
       },
       {
-        heading: "Turning the sessions into something public",
+        heading: "Where it fell short",
         paragraphs: [
-          "I did not want the useful parts to disappear when the six weeks ended. I worked with participants to turn what we had learned into a practical collection of chats for educators, then wrote the story for OpenAI's education newsletter.",
-          "The result was less a list of AI tricks than a field guide: concrete examples, built by educators, that another teacher could pick up and adapt without needing to become an AI expert first.",
-        ],
-        links: [
-          { label: "Read the OpenAI field guide", href: "https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan" },
-          { label: "Explore the Lab workspace", href: "https://notion.so/ChatGPT-Lab-x-Fulbright-Taiwan-261aaef174d680579138e8c1c658ab41" },
-          { label: "See the Lab introduction", href: "https://docs.google.com/presentation/d/1ZqOp_1KQte52BNBR5OBmOJThCufkNnBtVLBhNW_rkps/edit?slide=id.g38cd4d0aa4c_0_33#slide=id.g38cd4d0aa4c_0_33" },
+          "The program was also useful because the failures were obvious once we looked for them. ChatGPT could produce a polished lesson that was far too long, miss the cultural nuance behind a question, or state something uncertain with complete confidence.",
+          "Those moments changed the conversation. Instead of asking whether an answer looked impressive, participants began asking what they would need to check, what context was missing, and whether the output was actually useful for the students in front of them.",
+          "I came away more convinced that AI literacy has to include skepticism. Knowing how to prompt a model is useful, but knowing when not to trust it is more important.",
         ],
       },
       {
-        heading: "From a small lab to a bigger classroom",
+        heading: "Taking the work to a larger audience",
         paragraphs: [
-          "The Lab also became the foundation for a workshop I delivered at an international education conference with more than 250 attendees. I wanted educators to leave with enough technical literacy to ask better questions—not a sales pitch for any one model.",
-          "We talked about why a system can be useful and unreliable at the same time, how to verify outputs, and why the learning goal has to come before the tool. That remains the throughline of the project for me: responsible AI adoption is ultimately a human practice.",
+          "The six-session program became the basis for a workshop I delivered at an international education conference with more than 250 attendees. I focused on the parts that would remain useful after any single product or model changed: how large language models work, why they make mistakes, how to evaluate an output, and how to keep the learning goal ahead of the tool.",
+          "I wanted the session to be useful for people who were interested in AI and people who were skeptical of it. Both groups deserved a clearer explanation than either hype or fear could provide.",
         ],
         bullets: [
-          "Understand what the system is doing well enough to recognize its limits.",
-          "Keep teachers in charge of instructional decisions.",
-          "Choose a tool because it serves a learning outcome, not because it is new.",
-          "Verify anything a student, colleague, or family will rely on.",
+          "Understand enough about the system to recognize common failure modes.",
+          "Keep teachers responsible for instructional decisions.",
+          "Use AI only when it serves a clear learning or planning goal.",
+          "Verify anything that students, colleagues, or families will rely on.",
         ],
         media: [
           {
@@ -478,13 +478,19 @@ export const projectItems: ProjectItem[] = [
         ],
       },
       {
-        heading: "What stayed with me",
+        heading: "What I learned in Taiwan",
         paragraphs: [
-          "The best part of the Lab was not proving that ChatGPT belonged in every classroom. It was giving educators enough room to decide where it belonged in theirs.",
-          "Good adoption looks less like a mandate and more like a group of people sharing what worked, naming what did not, and leaving with sharper judgment than they arrived with. That is the kind of room I want to keep building.",
+          "The program did not prove that ChatGPT belongs in every classroom. I do not think that would be a useful conclusion. What it showed me is that educators become more thoughtful about AI when they have time to try it, question it, and learn from one another without being pressured to reach the same answer.",
+          "My Fulbright year gave me a chance to work on AI education in a setting where language, culture, and classroom expectations were always present. It made the limitations harder to ignore and the useful applications more grounded.",
+          "That is the part of the work I want to keep doing: helping people understand new technology well enough to use it on purpose, or decide that they do not need it.",
         ],
+      },
+      {
+        heading: "Program materials",
         links: [
-          { label: "View the conference deck", href: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf` },
+          { label: "Explore the program workspace", href: "https://notion.so/ChatGPT-Lab-x-Fulbright-Taiwan-261aaef174d680579138e8c1c658ab41" },
+          { label: "See the program introduction", href: "https://docs.google.com/presentation/d/1ZqOp_1KQte52BNBR5OBmOJThCufkNnBtVLBhNW_rkps/edit?slide=id.g38cd4d0aa4c_0_33#slide=id.g38cd4d0aa4c_0_33" },
+          { label: "View the conference workshop", href: `${PROJECT_FILE_BASE}/Artificial%20Intelligence%20in%20the%20Classroom.pdf` },
         ],
       },
     ],

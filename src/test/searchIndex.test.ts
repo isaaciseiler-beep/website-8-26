@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { hasSearchResults, searchDocuments, searchSite } from "@/lib/searchIndex";
+import { newsItems } from "@/lib/siteContent";
 
 const titlesFor = (query: string, category: string) =>
   searchSite(query)
@@ -16,7 +17,22 @@ describe("search index", () => {
   });
 
   it("finds education work without exact title terms", () => {
-    expect(titlesFor("classroom teaching with chatgpt", "projects")).toContain("The ChatGPT Lab I Built in Taiwan");
+    expect(titlesFor("classroom teaching with chatgpt", "projects")).toContain(
+      "Leading AI Literacy Efforts in Taiwan",
+    );
+  });
+
+  it("includes the restored scholarship features", () => {
+    expect(titlesFor("Truman Forbes public service", "news")).toContain(
+      "Winning the Leading Scholarship in Public Service: Featured in Forbes",
+    );
+    expect(titlesFor("Rhodes WashU finalist", "news")).toContain(
+      "Becoming a Rhodes Scholarship Finalist",
+    );
+  });
+
+  it("orders Fulbright before the final Rhodes and Truman features", () => {
+    expect(newsItems.map((item) => item.id)).toEqual([1, 6, 2]);
   });
 
   it("groups photo album matches separately", () => {

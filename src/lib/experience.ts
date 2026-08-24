@@ -51,7 +51,7 @@ export const experienceEntries: ExperienceEntry[] = [
     paragraphs: [
       "I created and led an OpenAI-supported AI literacy program for educators in Taiwan, focused on helping non-technical users understand and apply AI in real classroom workflows.",
       "I designed six applied sessions on AI use cases, prompt design, LLM basics, and safe adoption, then led an LLM fundamentals and alignment workshop at a 250+ person international education conference.",
-      "Alongside the AI education work, I coach elementary school soccer and published a Substack with OpenAI highlighting nine high-impact education use cases for ChatGPT.",
+      "Alongside the AI education work, I coach elementary school soccer and teach English in local schools.",
     ],
     focus: ["AI enablement", "user education", "community comms", "curriculum design"],
     projectIds: ["fulbright-focus-group-sponsored-by-openai"],
@@ -87,7 +87,7 @@ export const experienceEntries: ExperienceEntry[] = [
       "I also worked with Hillary Bush and other OpenAI leaders to bring a student and early-career perspective into product and go-to-market conversations.",
     ],
     focus: ["product feedback", "GTM insight", "AI education", "user behavior", "early testing"],
-    projectIds: ["openai-product-testing-and-feedback", "fulbright-focus-group-sponsored-by-openai"],
+    projectIds: ["openai-product-testing-and-feedback"],
     newsIds: [],
   },
   {

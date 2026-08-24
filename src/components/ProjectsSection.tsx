@@ -13,8 +13,6 @@ const filters: { label: string; value: ProjectFilter }[] = [
   { label: "Work", value: "WORK" },
 ];
 
-const HIDDEN_NEWS_IDS = new Set([2, 6]);
-
 const AI_SUBJECT_PATTERN =
   /\b(ai|a\.i\.|artificial intelligence|chatgpt|openai|llm|machine learning|gpt|generative)\b/i;
 
@@ -39,7 +37,6 @@ const ProjectsSection = () => {
         node: project,
       }));
     const newsEntries: Entry[] = newsItems
-      .filter((item) => !HIDDEN_NEWS_IDS.has(item.id))
       .map((item) => ({
         kind: "news",
         id: `news-${item.id}`,
@@ -107,8 +104,8 @@ const ProjectsSection = () => {
                 key={entry.id}
                 {...motionProps}
                 href={item.href}
-                target={item.href === "#" ? undefined : "_blank"}
-                rel={item.href === "#" ? undefined : "noopener noreferrer"}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className="work-library-card group"
               >
                 <img src={tileImageFor(index)} alt="" loading="lazy" decoding="async" />

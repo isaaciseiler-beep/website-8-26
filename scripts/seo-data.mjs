@@ -92,33 +92,31 @@ export const topLevelPages = [
 
 export const projectSeo = {
   "fulbright-focus-group-sponsored-by-openai": {
-    title: "Fulbright Taiwan ChatGPT Lab with OpenAI Support | Isaac Seiler",
+    title: "Leading AI Literacy Efforts in Taiwan | Isaac Seiler",
     description:
-      "Isaac Seiler founded and led the Fulbright Taiwan ChatGPT Lab, an OpenAI-supported educator lab focused on practical, responsible ChatGPT use cases in education.",
+      "During his Fulbright year in Taiwan, Isaac Seiler built a six-session AI education program for 20 educators working across 19 institutions and six counties.",
     searchIntent:
-      "OpenAI-supported Fulbright Taiwan educator lab, ChatGPT for Education, teacher AI training, and practical classroom AI use cases.",
+      "Fulbright Taiwan AI education program, teacher AI literacy, practical classroom uses, LLM fundamentals, and responsible use.",
     proofPoints: [
-      "Founded and led a six-session Fulbright Taiwan ChatGPT Lab for educators.",
-      "Designed curriculum around practical, responsible ChatGPT use in classrooms.",
-      "Connected the work to OpenAI for Education and published educator use cases.",
+      "Designed and led six applied sessions for 20 Fulbright educators across Taiwan.",
+      "Covered LLM fundamentals, prompt design, classroom workflows, verification, and responsible use.",
+      "Expanded the work into a workshop at an international education conference with more than 250 attendees.",
     ],
     image: {
       url: projectCardImages.chatLab,
-      alt: "Fulbright Taiwan ChatGPT Lab and OpenAI education project preview",
+      alt: "AI education program during Isaac Seiler's Fulbright year in Taiwan",
     },
     keywords: [
-      "ChatGPT Lab",
       "OpenAI for Education",
       "ChatGPT for Education",
       "Fulbright Taiwan",
-      "Fulbright ChatGPT Lab",
-      "OpenAI education newsletter",
+      "Fulbright AI education",
       "AI in education",
       "teacher AI training",
-      "100 Chats Project",
+      "AI literacy",
+      "LLM fundamentals",
     ],
-    about: ["OpenAI", "ChatGPT", "Fulbright Taiwan", "AI education", "teacher training"],
-    sameAs: ["https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan"],
+    about: ["ChatGPT", "Fulbright Taiwan", "AI education", "teacher training", "AI literacy"],
   },
   "artificial-intelligence-in-state-government-index": {
     title: "Mapping the Rise of AI Across State Government | Isaac Seiler",
