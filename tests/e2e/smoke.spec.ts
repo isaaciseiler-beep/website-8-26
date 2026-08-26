@@ -25,3 +25,46 @@ for (const route of routes) {
     expect(errors.filter((message) => !message.includes("Failed to load resource"))).toEqual([]);
   });
 }
+
+test("mobile Ask AI stays usable when the viewport contracts for a keyboard", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.route("**/api/chat", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        message: "Isaac leads marketing and communications at Summation.",
+        confidence: "high",
+        intent: "biography",
+        sources: [{ id: "bio", title: "Isaac Seiler — Current Public Profile", source: "Public profile", url: "/about" }],
+        suggestedQuestions: ["Which projects show that most clearly?"],
+        requestId: "e2e-answer",
+        model: "gpt-5.6-sol",
+        mode: "reasoning",
+        verified: true,
+        latencyMs: 120,
+        pageAware: true,
+      }),
+    });
+  });
+
+  await page.goto("/");
+  await page.evaluate(() => window.scrollTo(0, 600));
+  const askButton = page.getByRole("button", { name: "Ask AI" });
+  await expect(askButton).toBeVisible();
+  await askButton.click();
+
+  const input = page.getByRole("textbox", { name: "Ask AI" });
+  await expect(input).toBeVisible();
+  await expect(input).not.toBeFocused();
+  await input.fill("Who is Isaac?");
+  await page.getByRole("button", { name: "Send" }).click();
+  await expect(page.getByText("Isaac leads marketing and communications at Summation.")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Isaac Seiler — Current Public Profile" })).toBeVisible();
+
+  await page.setViewportSize({ width: 390, height: 540 });
+  await expect(input).toBeVisible();
+  const dock = await page.locator(".ai-dock-shell").boundingBox();
+  expect(dock).not.toBeNull();
+  expect((dock?.y ?? 0) + (dock?.height ?? 0)).toBeLessThanOrEqual(540);
+});

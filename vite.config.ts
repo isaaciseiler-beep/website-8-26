@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import chatHandler from "./api/chat";
+import chatFeedbackHandler from "./api/chat-feedback";
 import strikeTrackerHandler from "./api/strike-tracker";
 
 const applyEnv = (key: string, value?: string) => {
@@ -15,11 +16,24 @@ const applyEnv = (key: string, value?: string) => {
 const localApiPlugin = (mode: string): Plugin => ({
   name: "local-api",
   configureServer(server) {
+    server.middlewares.use("/api/chat-feedback", (request, response) => {
+      const env = loadEnv(mode, process.cwd(), "");
+      applyEnv("SUPABASE_URL", env.SUPABASE_URL);
+      applyEnv("SUPABASE_SERVICE_ROLE_KEY", env.SUPABASE_SERVICE_ROLE_KEY);
+      applyEnv("ASSISTANT_STORE_CONTENT", env.ASSISTANT_STORE_CONTENT);
+      void chatFeedbackHandler(request, response);
+    });
     server.middlewares.use("/api/chat", (request, response) => {
       const env = loadEnv(mode, process.cwd(), "");
       applyEnv("OPENAI_API", env.OPENAI_API);
       applyEnv("OPENAI_API_KEY", env.OPENAI_API_KEY);
       applyEnv("OPENAI_CHAT_MODEL", env.OPENAI_CHAT_MODEL);
+      applyEnv("OPENAI_REASONING_EFFORT", env.OPENAI_REASONING_EFFORT);
+      applyEnv("OPENAI_VERIFIER_MODEL", env.OPENAI_VERIFIER_MODEL);
+      applyEnv("OPENAI_VERIFIER_EFFORT", env.OPENAI_VERIFIER_EFFORT);
+      applyEnv("OPENAI_ASSISTANT_VERIFY", env.OPENAI_ASSISTANT_VERIFY);
+      applyEnv("OPENAI_EMBEDDING_MODEL", env.OPENAI_EMBEDDING_MODEL);
+      applyEnv("OPENAI_EMBEDDING_DIMENSIONS", env.OPENAI_EMBEDDING_DIMENSIONS);
       void chatHandler(request, response);
     });
     server.middlewares.use("/api/strike-tracker", (request, response) => {

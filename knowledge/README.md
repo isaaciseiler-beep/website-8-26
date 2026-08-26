@@ -13,10 +13,10 @@ Suggested files:
 - `faq.md`
 
 `isaac-ai-agent-training.md` is treated specially by the chat API. It is agent
-grounding and retrieval guidance, not fine-tuning data: selected voice,
-identity, freshness, behavior, and privacy sections are included as persistent
-assistant guidance, while the full file remains retrievable like any other
-Markdown knowledge file.
+grounding, not fine-tuning data: only the canonical public identity, current
+route rules, and privacy policy are included as persistent guidance. The file
+is excluded from ordinary retrieval so its instructions cannot appear as
+visitor-facing evidence.
 
 Example:
 

@@ -1,0 +1,71 @@
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import ChatOrb from "@/components/ChatOrb";
+
+describe("ChatOrb", () => {
+  beforeEach(() => {
+    Object.defineProperty(window, "scrollY", { configurable: true, value: 24 });
+    Object.defineProperty(window, "matchMedia", {
+      configurable: true,
+      value: vi.fn().mockReturnValue({
+        matches: true,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      }),
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
+
+  it("sends the current rendered page content with each question", async () => {
+    const fetchMock = vi.fn(async () =>
+      new Response(JSON.stringify({ message: "A short summary.", sources: [] }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(
+      <MemoryRouter initialEntries={["/projects/custom-story"]}>
+        <main>
+          <h1>A custom story</h1>
+          <p>This page explains a community research project and its results.</p>
+        </main>
+        <ChatOrb />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "Ask AI" }));
+    const input = await screen.findByRole("textbox", { name: "Ask AI" });
+    fireEvent.change(input, { target: { value: "Summarize this page" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send" }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    const request = fetchMock.mock.calls[0][1] as RequestInit;
+    const body = JSON.parse(String(request.body));
+
+    expect(body.pageContext.route).toBe("/projects/custom-story");
+    expect(body.pageContext.title).toBe("A custom story");
+    expect(body.pageContext.visibleText).toContain("community research project and its results");
+  });
+
+  it("does not auto-focus and summon the keyboard on a mobile pointer", async () => {
+    render(
+      <MemoryRouter>
+        <main>Page</main>
+        <ChatOrb />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "Ask AI" }));
+    const input = await screen.findByRole("textbox", { name: "Ask AI" });
+
+    await new Promise((resolve) => window.setTimeout(resolve, 300));
+    expect(input).not.toHaveFocus();
+  });
+});
