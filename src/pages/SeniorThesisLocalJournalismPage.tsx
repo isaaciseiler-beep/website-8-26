@@ -12,15 +12,16 @@ import ProjectSourceLinks from "@/components/ProjectSourceLinks";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE_TEXT = MOTION_EASE;
 const HERO_IMAGE = "https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev/newspaperdisp.jpg";
 const FULL_TEXT_LINK = "https://drive.google.com/file/d/1Z6-RR1Zw7z2RieJwVHdk0yOtycRIN1ia/view?usp=sharing";
 const FULL_TEXT_SOURCES = [{ label: "Read the full thesis", href: FULL_TEXT_LINK }];
 const EDITORIAL_GRID = "grid gap-8 md:grid-cols-[minmax(0,0.3fr)_minmax(0,0.7fr)] md:items-start";
 const CARD_REVEAL = {
-  hidden: { opacity: 0, y: 34, scale: 0.985, filter: "blur(10px)" },
-  show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+  hidden: { opacity: 0, y: 10, filter: "blur(3px)" },
+  show: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
 type ReportIcon = ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -167,10 +168,10 @@ const TextReveal = ({
 }) => (
   <motion.div
     className={className}
-    initial={{ opacity: 0, y: 18, filter: "blur(7px)" }}
+    initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
     viewport={{ once: true, amount: 0.38 }}
-    transition={{ duration: 0.7, ease: EASE_TEXT, delay }}
+    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay }}
   >
     {children}
   </motion.div>
@@ -190,17 +191,17 @@ const RevealSection = ({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const contentY = useTransform(scrollYProgress, [0, 1], [18, -18]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [6, -6]);
   const ruleX = useTransform(scrollYProgress, [0, 0.7], ["0%", "100%"]);
 
   return (
     <motion.section
       ref={sectionRef}
       className={`relative overflow-hidden ${className ?? ""}`}
-      initial={{ opacity: 0, y: 34, filter: "blur(10px)" }}
+      initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: 0.72, ease: EASE_TEXT }}
+      transition={{ duration: 0.5, ease: MOTION_EASE_ENTER }}
     >
       <motion.div
         aria-hidden
@@ -265,13 +266,13 @@ const SeniorThesisLocalJournalismPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: 0.56, ease: EASE_TEXT }}
+        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
       >
         <motion.main
           className="pb-24"
-          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.62, ease: EASE_TEXT, delay: 0.08 }}
+          transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.04 }}
         >
           <section className="relative bg-background">
             <div className="px-6 pt-28">
@@ -302,20 +303,20 @@ const SeniorThesisLocalJournalismPage = () => {
                   <div className="space-y-6">
                     <motion.p
                       className="text-xl leading-relaxed text-foreground/78 sm:text-2xl"
-                      initial={{ opacity: 0, y: 18 }}
+                      initial={{ opacity: 0, y: 8 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.75 }}
-                      transition={{ duration: 0.62, ease: EASE_TEXT }}
+                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                     >
                       This study investigates the recent decline of local journalism in Australia, incorporating
                       insights from the Australian media market to inform policy decisions in the United States.
                     </motion.p>
                     <motion.p
                       className="text-base leading-relaxed text-foreground/64"
-                      initial={{ opacity: 0, y: 18 }}
+                      initial={{ opacity: 0, y: 8 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.75 }}
-                      transition={{ duration: 0.62, ease: EASE_TEXT, delay: 0.08 }}
+                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.05 }}
                     >
                       Drawing on qualitative interviews with 17 Australian journalists, former journalists, and industry
                       experts, I examine how economic and social pressures, digital transformation, workforce
@@ -324,10 +325,10 @@ const SeniorThesisLocalJournalismPage = () => {
                     </motion.p>
                     <motion.p
                       className="text-base leading-relaxed text-foreground/64"
-                      initial={{ opacity: 0, y: 18 }}
+                      initial={{ opacity: 0, y: 8 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.75 }}
-                      transition={{ duration: 0.62, ease: EASE_TEXT, delay: 0.16 }}
+                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.1 }}
                     >
                       This study focuses on Australia because it is an international leader in legislative fixes to
                       journalism decline, and because, like the United States, it has wide swaths of rural, marginalized
@@ -342,10 +343,10 @@ const SeniorThesisLocalJournalismPage = () => {
           <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
             <div className={`content-measure ${EDITORIAL_GRID}`}>
               <motion.div
-                initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
+                initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
                 whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.62, ease: EASE_TEXT }}
+                transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
               >
                 <h2 className="text-3xl font-semibold leading-tight tracking-normal sm:text-5xl">
                   Key Questions
@@ -363,11 +364,11 @@ const SeniorThesisLocalJournalismPage = () => {
                   <motion.div
                     key={question}
                     className="site-corner grid gap-5 bg-card p-5 sm:grid-cols-[64px_minmax(0,1fr)]"
-                    initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
+                    initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
                     whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                    whileHover={{ x: 6 }}
+                    whileHover={{ x: 2 }}
                     viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.58, ease: EASE_TEXT, delay: index * 0.06 }}
+                    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: index * 0.04 }}
                   >
                     <div className="text-4xl font-semibold text-foreground/22">{index + 1}</div>
                     <p className="text-xl leading-snug text-foreground/78">{question}</p>
@@ -380,10 +381,10 @@ const SeniorThesisLocalJournalismPage = () => {
           <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
             <div className={`content-measure ${EDITORIAL_GRID}`}>
               <motion.div
-                initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
+                initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
                 whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.62, ease: EASE_TEXT }}
+                transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
               >
                 <h2 className="text-3xl font-semibold leading-tight tracking-normal sm:text-5xl">
                   Methods
@@ -404,9 +405,9 @@ const SeniorThesisLocalJournalismPage = () => {
                     variants={CARD_REVEAL}
                     initial="hidden"
                     whileInView="show"
-                    whileHover={{ y: -4, scale: 1.01 }}
+                    whileHover={{ y: -2 }}
                     viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.54, ease: EASE_TEXT, delay: index * 0.05 }}
+                    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: index * 0.035 }}
                   >
                     <div className="flex items-start gap-4">
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background text-lg font-semibold text-foreground/32">
@@ -427,10 +428,10 @@ const SeniorThesisLocalJournalismPage = () => {
             <div className="content-measure">
               <div className={EDITORIAL_GRID}>
                 <motion.div
-                  initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
+                  initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
                   whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                   viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.62, ease: EASE_TEXT }}
+                  transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                 >
                   <h2 className="text-3xl font-semibold leading-tight tracking-normal sm:text-5xl">
                     Interview Results
@@ -451,9 +452,9 @@ const SeniorThesisLocalJournalismPage = () => {
                       variants={CARD_REVEAL}
                       initial="hidden"
                       whileInView="show"
-                      whileHover={{ y: -3 }}
+                      whileHover={{ y: -2 }}
                       viewport={{ once: true, amount: 0.24 }}
-                      transition={{ duration: 0.62, ease: EASE_TEXT, delay: index * 0.04 }}
+                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: index * 0.035 }}
                     >
                       <div className="grid">
                         <div
@@ -466,25 +467,25 @@ const SeniorThesisLocalJournalismPage = () => {
                               initial={{ opacity: 0, y: -12 }}
                               whileInView={{ opacity: 1, y: 0 }}
                               viewport={{ once: true, amount: 0.65 }}
-                              transition={{ duration: 0.54, ease: EASE_TEXT, delay: 0.08 }}
+                              transition={{ duration: MOTION_DURATION.base, ease: EASE_TEXT, delay: 0.04 }}
                             >
                               {index + 1}
                             </motion.span>
                             <motion.div
-                              initial={{ opacity: 0, rotate: -8, scale: 0.9 }}
-                              whileInView={{ opacity: 1, rotate: 0, scale: 1 }}
+                              initial={{ opacity: 0 }}
+                              whileInView={{ opacity: 1 }}
                               viewport={{ once: true, amount: 0.65 }}
-                              transition={{ duration: 0.54, ease: EASE_TEXT, delay: 0.12 }}
+                              transition={{ duration: MOTION_DURATION.base, ease: EASE_TEXT, delay: 0.06 }}
                             >
                               <theme.icon className="h-6 w-6 text-white/72" strokeWidth={1.5} />
                             </motion.div>
                           </div>
                           <motion.p
                             className="max-w-4xl text-3xl font-semibold leading-tight tracking-normal sm:text-4xl"
-                            initial={{ opacity: 0, y: 24 }}
+                            initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.65 }}
-                            transition={{ duration: 0.68, ease: EASE_TEXT, delay: 0.16 }}
+                            transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.08 }}
                           >
                             "{theme.line}"
                           </motion.p>
@@ -493,28 +494,28 @@ const SeniorThesisLocalJournalismPage = () => {
                         <div className="p-5 sm:p-6">
                           <motion.h3
                             className="max-w-3xl text-3xl font-semibold leading-tight tracking-normal"
-                            initial={{ opacity: 0, y: 16 }}
+                            initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.65 }}
-                            transition={{ duration: 0.56, ease: EASE_TEXT, delay: 0.06 }}
+                            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER, delay: 0.03 }}
                           >
                             {theme.title}
                           </motion.h3>
                           <motion.p
                             className="mt-4 max-w-3xl text-base leading-relaxed text-foreground/68"
-                            initial={{ opacity: 0, y: 16 }}
+                            initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.65 }}
-                            transition={{ duration: 0.56, ease: EASE_TEXT, delay: 0.12 }}
+                            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER, delay: 0.06 }}
                           >
                             {theme.summary}
                           </motion.p>
                           <motion.p
                             className="mt-5 max-w-3xl text-sm leading-relaxed text-foreground/62"
-                            initial={{ opacity: 0, y: 16 }}
+                            initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.65 }}
-                            transition={{ duration: 0.56, ease: EASE_TEXT, delay: 0.18 }}
+                            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER, delay: 0.09 }}
                           >
                             {theme.reading}
                           </motion.p>
@@ -527,7 +528,7 @@ const SeniorThesisLocalJournalismPage = () => {
                                 initial={{ opacity: 0, y: 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0.65 }}
-                                transition={{ duration: 0.44, ease: EASE_TEXT, delay: 0.18 + signalIndex * 0.04 }}
+                                transition={{ duration: MOTION_DURATION.base, ease: EASE_TEXT, delay: 0.1 + signalIndex * 0.03 }}
                               >
                                 {signal}
                               </motion.span>
@@ -546,10 +547,10 @@ const SeniorThesisLocalJournalismPage = () => {
             <div className="content-measure">
               <div className={EDITORIAL_GRID}>
                 <motion.div
-                  initial={{ opacity: 0, x: -24, filter: "blur(8px)" }}
+                  initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
                   whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                   viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.62, ease: EASE_TEXT }}
+                  transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                 >
                   <h2 className="text-3xl font-semibold leading-tight tracking-normal sm:text-5xl">
                     Takeaways
@@ -567,11 +568,11 @@ const SeniorThesisLocalJournalismPage = () => {
                     <motion.article
                       key={finding.category}
                       className="grid gap-5 border-t border-foreground/12 py-5 md:grid-cols-[minmax(0,0.3fr)_minmax(0,0.7fr)]"
-                      initial={{ opacity: 0, y: 18, filter: "blur(7px)" }}
+                      initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
                       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      whileHover={{ x: 4 }}
+                      whileHover={{ x: 2 }}
                       viewport={{ once: true, amount: 0.35 }}
-                      transition={{ duration: 0.54, ease: EASE_TEXT, delay: index * 0.04 }}
+                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: index * 0.035 }}
                     >
                       <div className="flex items-baseline gap-3">
                         <span className="text-3xl font-semibold leading-none text-foreground/22">{index + 1}</span>
@@ -595,7 +596,7 @@ const SeniorThesisLocalJournalismPage = () => {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, amount: 0.28 }}
-                transition={{ duration: 0.62, ease: EASE_TEXT }}
+                transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
               >
                 <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
                   <div>

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, Image as ImageIcon, Play } from "lucide-react";
@@ -8,6 +8,8 @@ import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { projectItems, type ProjectMedia } from "@/lib/siteContent";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 import {
   Carousel,
   CarouselContent,
@@ -16,7 +18,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE_TEXT = MOTION_EASE;
 
 const slugify = (value: string) =>
   value
@@ -95,7 +97,7 @@ const ProjectMediaBlock = ({
             <img
               src={media.poster}
               alt=""
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.015]"
+              className="absolute inset-0 h-full w-full object-cover transition-transform [transition-duration:var(--motion-reveal)] [transition-timing-function:var(--motion-ease)] group-hover:scale-[1.008]"
               loading="lazy"
               decoding="async"
               onError={(event) => {
@@ -109,7 +111,7 @@ const ProjectMediaBlock = ({
           )}
           <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent" />
           <span className="absolute inset-0 flex items-center justify-center">
-            <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/40 bg-black/25 backdrop-blur-sm transition-transform duration-300 group-hover:scale-105">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/40 bg-black/25 backdrop-blur-sm transition-transform [transition-duration:var(--motion-fast)] [transition-timing-function:var(--motion-ease)] group-hover:scale-[1.02]">
               <Play className="ml-1 h-6 w-6 fill-current" aria-hidden="true" />
             </span>
           </span>
@@ -243,6 +245,29 @@ const ProjectDetailPage = () => {
 
   const project = projectItems.find((p) => p.id === id);
 
+  useEffect(() => {
+    if (!project) return;
+    const mediaImages = project.sections.flatMap((section) =>
+      (section.media ?? []).flatMap((media) => [
+        media.src,
+        media.poster,
+        media.fallbackPoster,
+        ...(media.images ?? []).map((image) => image.src),
+      ]),
+    ).filter((src): src is string => Boolean(src));
+    const [leadImage, ...remainingImages] = project.hideHero
+      ? mediaImages
+      : [project.image, ...mediaImages];
+
+    if (leadImage) void preloadImage(leadImage, { decode: true, fetchPriority: "high", linkPreload: true });
+    scheduleImagePreloads(remainingImages.slice(0, 10), {
+      batchSize: isMobile ? 2 : 4,
+      decode: false,
+      fetchPriority: "low",
+      idleTimeout: 900,
+    });
+  }, [isMobile, project]);
+
   const handleSidebarToggle = () => {
     setSearchOpen(false);
     setSidebarOpen((open) => !open);
@@ -285,13 +310,13 @@ const ProjectDetailPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: 0.56, ease: EASE_TEXT }}
+        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
       >
         <motion.main
           className="pt-28 pb-24 px-6 content-measure"
-          initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.6, ease: EASE_TEXT, delay: 0.08 }}
+          transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.04 }}
         >
           <button type="button" onClick={() => navigate("/?section=projects")} className="pill-back mb-10">
             <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />

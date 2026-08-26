@@ -1,6 +1,6 @@
 import { Component, Suspense, lazy, useEffect, useState, type ComponentType, type ErrorInfo, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Index from "./pages/Index.tsx";
 import { ThemeProvider, useTheme } from "@/components/ThemeProvider";
@@ -8,7 +8,8 @@ import SkullChrome from "@/components/SkullChrome";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import RouteLoader from "@/components/RouteLoader";
 import ScrollManager from "@/components/ScrollManager";
-
+import ImagePreloader from "@/components/ImagePreloader";
+import { MOTION_DURATION, MOTION_EASE } from "@/lib/motion";
 
 const isRecoverableChunkError = (error: unknown) => {
   const message = error instanceof Error ? error.message : String(error);
@@ -54,8 +55,6 @@ const StrikeTrackerPage = lazyWithRetry(() => import("./pages/StrikeTrackerPage.
 const NotFound = lazyWithRetry(() => import("./pages/NotFound.tsx"), "not-found");
 
 const queryClient = new QueryClient();
-
-const PAGE_TRANSITION_EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
 class RouteErrorBoundary extends Component<
   { children: ReactNode; fallback: ReactNode; resetKey: string },
@@ -170,8 +169,8 @@ const AnimatedRoutes = () => {
         animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1 }}
         exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
         transition={{
-          duration: prefersReducedMotion ? 0 : 0.24,
-          ease: PAGE_TRANSITION_EASE,
+          duration: prefersReducedMotion ? 0 : MOTION_DURATION.fast,
+          ease: MOTION_EASE,
         }}
       >
         {theme === "skull" && !isSkullHome
@@ -202,6 +201,7 @@ const AppShell = () => {
   return (
     <BrowserRouter>
       <ScrollManager />
+      <ImagePreloader />
       <SkullChrome />
       <AnimatedRoutes />
       <ChatOrbGate />
@@ -210,11 +210,16 @@ const AppShell = () => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <AppShell />
-    </ThemeProvider>
-  </QueryClientProvider>
+  <MotionConfig
+    reducedMotion="user"
+    transition={{ type: "tween", duration: MOTION_DURATION.base, ease: MOTION_EASE }}
+  >
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <AppShell />
+      </ThemeProvider>
+    </QueryClientProvider>
+  </MotionConfig>
 );
 
 export default App;

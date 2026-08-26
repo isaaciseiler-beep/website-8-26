@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
 import SearchTrigger from "@/components/SearchOverlay";
 import { useTheme } from "@/components/ThemeProvider";
+import { MOTION_DURATION, MOTION_EASE } from "@/lib/motion";
 
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const DARK_SURFACE_LUMINANCE = 0.5;
 const INK_SAMPLE_INTERVAL_MS = 96;
 
@@ -250,7 +250,7 @@ const SiteHeader = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }:
         className="site-nav-toggle-xray flex h-5 w-5 items-center justify-center transition-opacity duration-200 hover:opacity-70"
         aria-label="Toggle menu"
         animate={{ rotate: open ? 180 : 0 }}
-        transition={{ duration: 0.3, ease: EASE_TEXT }}
+        transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
       >
         <ChevronRight className="h-3.5 w-3.5" />
       </motion.button>

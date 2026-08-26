@@ -2,8 +2,9 @@ import { useCallback, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { ProjectItem } from "@/lib/siteContent";
+import { MOTION_DURATION, MOTION_EASE_ENTER } from "@/lib/motion";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const EASE = MOTION_EASE_ENTER;
 
 interface ProjectModalProps {
   projects: ProjectItem[];
@@ -42,7 +43,7 @@ const ProjectModal = ({ projects, currentIndex, onClose, onNavigate }: ProjectMo
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25, ease: EASE }}
+          transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
         >
           <div
             className="absolute inset-0"
@@ -57,10 +58,10 @@ const ProjectModal = ({ projects, currentIndex, onClose, onNavigate }: ProjectMo
           <motion.div
             key={project.id}
             className="site-corner relative z-10 mx-4 flex max-h-[88vh] w-full max-w-3xl flex-col overflow-hidden border border-foreground/10 bg-background shadow-[0_30px_120px_rgba(0,0,0,0.45)]"
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            initial={{ opacity: 0, y: 10, scale: 0.99 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ duration: 0.35, ease: EASE }}
+            exit={{ opacity: 0, y: 8, scale: 0.99 }}
+            transition={{ duration: MOTION_DURATION.base, ease: EASE }}
           >
             <button onClick={onClose} className="absolute right-4 top-4 z-20 text-foreground/35 transition-colors hover:text-foreground">
               <X className="h-4 w-4" />

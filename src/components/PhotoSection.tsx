@@ -195,7 +195,11 @@ const PhotoSection = () => {
             src={photo.image}
             alt={photo.title}
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ opacity: photo.image === activePhoto.image ? 1 : 0 }}
+            style={{
+              opacity: photo.image === activePhoto.image ? 1 : 0,
+              transition: prefersReducedMotion ? undefined : "opacity var(--motion-base) var(--motion-ease)",
+              zIndex: photo.image === activePhoto.image ? 1 : 0,
+            }}
             loading="eager"
             decoding="async"
           />

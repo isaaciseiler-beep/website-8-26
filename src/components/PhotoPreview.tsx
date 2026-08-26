@@ -2,8 +2,9 @@ import { useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { preloadImage } from "@/lib/imagePreload";
+import { MOTION_DURATION, MOTION_EASE_ENTER } from "@/lib/motion";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const EASE = MOTION_EASE_ENTER;
 
 interface PhotoPreviewProps {
   images: string[];
@@ -46,7 +47,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25, ease: EASE }}
+          transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
         >
           <div className="absolute inset-0" onClick={onClose} style={{ background: "rgba(0,0,0,0.88)", backdropFilter: "blur(40px)", WebkitBackdropFilter: "blur(40px)" }} />
 
@@ -59,7 +60,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
             <motion.div
               className="h-full bg-white/40"
               animate={{ width: `${progress * 100}%` }}
-              transition={{ duration: 0.3, ease: EASE }}
+              transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
             />
           </div>
 
@@ -71,10 +72,10 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
             decoding="async"
             fetchpriority="high"
             className="site-corner relative z-10 max-w-[90vw] max-h-[85vh] object-contain"
-            initial={{ opacity: 0, scale: 0.97 }}
+            initial={{ opacity: 0, scale: 0.99 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.97 }}
-            transition={{ duration: 0.3, ease: EASE }}
+            exit={{ opacity: 0, scale: 0.99 }}
+            transition={{ duration: MOTION_DURATION.base, ease: EASE }}
           />
 
           <AnimatePresence>

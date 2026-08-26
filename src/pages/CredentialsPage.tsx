@@ -5,26 +5,25 @@ import { Link } from "react-router-dom";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const RESUME_HREF = "/isaac-seiler-resume.pdf";
 const pageVariants = {
   hidden: {},
   show: {
     transition: {
-      delayChildren: 0.08,
-      staggerChildren: 0.055,
+      delayChildren: 0.04,
+      staggerChildren: 0.035,
     },
   },
 };
 const panelVariants = {
-  hidden: { opacity: 0, y: 12, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 8, filter: "blur(3px)" },
   show: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.48, ease: EASE_TEXT },
+    transition: { duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER },
   },
 };
 
@@ -195,7 +194,7 @@ const CredentialsPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: 0.56, ease: EASE_TEXT }}
+        transition={{ duration: MOTION_DURATION.panel, ease: MOTION_EASE }}
         className="h-full min-w-0 overflow-hidden"
       >
         <main className="h-full overflow-hidden px-4 pb-4 pt-20 sm:px-5 sm:pb-5 sm:pt-24 lg:px-6 lg:pb-6 [@media(max-height:760px)]:pb-3 [@media(max-height:760px)]:pt-16 lg:[@media(max-height:760px)]:pt-20">
@@ -290,7 +289,7 @@ const CredentialsPage = () => {
                         onClick={() => setActiveStrength(index)}
                         onFocus={() => setActiveStrength(index)}
                         animate={{ flex: isActive ? 1.45 : 0.78 }}
-                        transition={{ duration: 0.82, ease: EASE_TEXT }}
+                        transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE }}
                         className="grid min-h-0 cursor-default gap-4 overflow-hidden border-t border-foreground/10 py-2.5 first:border-t-0 first:pt-0 md:grid-cols-[7.5rem_minmax(0,1fr)] [@media(max-height:760px)]:py-2"
                       >
                         <h2 className="text-sm font-semibold tracking-tight text-foreground">{item.title}</h2>
@@ -301,7 +300,7 @@ const CredentialsPage = () => {
                             y: isActive ? 0 : 4,
                             filter: "blur(0px)",
                           }}
-                          transition={{ duration: 0.42, ease: EASE_TEXT }}
+                          transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
                           className="min-h-0 overflow-hidden text-[12px] leading-snug text-foreground/64 [@media(max-height:760px)]:text-[10.5px]"
                         >
                           {item.text}
@@ -358,7 +357,7 @@ const CredentialsPage = () => {
                           onClick={() => setActiveEvidence(index)}
                           onFocus={() => setActiveEvidence(index)}
                           animate={{ flex: isActive ? 1.64 : 0.82 }}
-                          transition={{ duration: 0.9, ease: EASE_TEXT }}
+                          transition={{ duration: 0.5, ease: MOTION_EASE }}
                           className="grid min-h-0 cursor-default gap-2 overflow-hidden border-t border-foreground/10 px-4 py-2.5 first:border-t-0 md:grid-cols-[8.25rem_8.5rem_minmax(0,1fr)] md:gap-4 [@media(max-height:760px)]:px-3 [@media(max-height:760px)]:py-2"
                         >
                           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/44 [@media(max-height:760px)]:text-[9px]">{item.org}</p>
@@ -370,7 +369,7 @@ const CredentialsPage = () => {
                               y: isActive ? 0 : 5,
                               filter: "blur(0px)",
                             }}
-                            transition={{ duration: 0.42, ease: EASE_TEXT }}
+                            transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
                             className="min-h-0 overflow-hidden text-[12px] leading-snug text-foreground/62 md:text-[13px] [@media(max-height:760px)]:text-[10.8px]"
                           >
                             {item.proof}

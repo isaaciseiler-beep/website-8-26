@@ -4,6 +4,8 @@ import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { hiddenProjectIds, newsItems, orderProjectItemsForWork, projectItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
+import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
 type ProjectFilter = "ALL" | "AI" | "WORK" | "BLOG";
 
@@ -20,11 +22,27 @@ const AI_SUBJECT_PATTERN =
 const isAiSubject = (...values: (string | undefined)[]) =>
   values.some((value) => typeof value === "string" && AI_SUBJECT_PATTERN.test(value));
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
 type Entry =
   | { kind: "project"; id: string; node: ProjectItem }
   | { kind: "news"; id: string; node: (typeof newsItems)[number] };
+
+const preloadProject = (project: ProjectItem) => {
+  void preloadImage(project.image, { decode: true, fetchPriority: "high", linkPreload: true });
+  const supportingImages = project.sections.flatMap((section) =>
+    (section.media ?? []).flatMap((media) => [
+      media.src,
+      media.poster,
+      media.fallbackPoster,
+      ...(media.images ?? []).map((image) => image.src),
+    ]),
+  ).filter((src): src is string => Boolean(src));
+  scheduleImagePreloads(supportingImages.slice(0, 6), {
+    batchSize: 2,
+    decode: false,
+    fetchPriority: "low",
+    idleTimeout: 800,
+  });
+};
 
 const ProjectsSection = () => {
   const [filter, setFilter] = useState<ProjectFilter>("ALL");
@@ -85,7 +103,7 @@ const ProjectsSection = () => {
                 <motion.span
                   layoutId="work-library-tab-pill"
                   className="pill-tab-indicator"
-                  transition={{ type: "tween", duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ type: "tween", duration: MOTION_DURATION.base, ease: MOTION_EASE }}
                 />
               ) : null}
               <span className="pill-tab-label">{item.label}</span>
@@ -96,7 +114,7 @@ const ProjectsSection = () => {
 
       <motion.div
         layout
-        transition={{ duration: 0.45, ease: EASE }}
+        transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE }}
         className={`work-library-rail ${entries.length === 0 ? "work-library-rail--empty" : ""}`}
       >
         <AnimatePresence mode="popLayout" initial={false}>
@@ -114,10 +132,10 @@ const ProjectsSection = () => {
           {entries.map((entry, index) => {
             const motionProps = {
               layout: true as const,
-              initial: { opacity: 0, scale: 0.985, filter: "blur(6px)" },
-              animate: { opacity: 1, scale: 1, filter: "blur(0px)" },
-              exit: { opacity: 0, scale: 0.985, filter: "blur(6px)" },
-              transition: { duration: 0.5, ease: EASE, delay: Math.min(index * 0.035, 0.18) },
+              initial: { opacity: 0, y: 6, filter: "blur(3px)" },
+              animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+              exit: { opacity: 0, y: -4, filter: "blur(2px)" },
+              transition: { duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER, delay: Math.min(index * 0.025, 0.12) },
             };
 
             if (entry.kind === "news") {
@@ -148,6 +166,9 @@ const ProjectsSection = () => {
                     to={`/projects/${project.id}`}
                     className="work-library-card group"
                     aria-label={`Read more about ${project.title}`}
+                    onPointerEnter={() => preloadProject(project)}
+                    onFocus={() => preloadProject(project)}
+                    onTouchStart={() => preloadProject(project)}
                   >
                     <img
                       src={tileImageFor(index)}

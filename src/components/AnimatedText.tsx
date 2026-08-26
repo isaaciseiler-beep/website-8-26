@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { motion } from "framer-motion";
+import { MOTION_DURATION, MOTION_EASE } from "@/lib/motion";
 
 interface AnimatedTextProps {
   text: string;
@@ -36,18 +37,18 @@ const AnimatedText = ({
     visible: {
       transition: {
         delayChildren: delay,
-        staggerChildren: 0.02,
+        staggerChildren: 0.012,
       },
     },
   };
 
   const child = {
-    hidden: { opacity: 0, y: 12, filter: "blur(4px)" },
+    hidden: { opacity: 0, y: 8, filter: "blur(3px)" },
     visible: {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] },
+      transition: { duration: MOTION_DURATION.base, ease: MOTION_EASE },
     },
   };
 

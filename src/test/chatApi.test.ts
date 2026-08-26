@@ -36,6 +36,41 @@ describe("chat API", () => {
     expect(payload.message).not.toContain("ChatGPT Lab");
   });
 
+  it("turns rendered page text into a human fallback summary", async () => {
+    vi.stubEnv("OPENAI_API", "");
+    vi.stubEnv("OPENAI_API_KEY", "");
+    let responseBody = "";
+    const response = {
+      statusCode: 0,
+      setHeader: vi.fn(),
+      end: (body: string) => { responseBody = body; },
+    } as unknown as ApiResponse;
+
+    await chatHandler({
+      method: "POST",
+      body: {
+        messages: [{ role: "user", content: "Summarize this page in one sentence." }],
+        pageContext: {
+          route: "/",
+          pageType: "home",
+          title: "Isaac Seiler",
+          summary: "",
+          headings: ["Isaac Seiler", "Work"],
+          facts: [],
+          visibleText: "Isaac Seiler I'm on the team at Summation, helping tell the story of how AI is changing the way people work. My background spans government and large enterprise.",
+          links: [],
+        },
+      },
+    } as ApiRequest, response);
+
+    const payload = JSON.parse(responseBody);
+    expect(response.statusCode).toBe(200);
+    expect(payload.mode).toBe("fallback");
+    expect(payload.message).toContain("Summation");
+    expect(payload.message).not.toContain("Route:");
+    expect(payload.message).not.toContain("Page type:");
+  });
+
   it("passes current-page content to OpenAI for summaries and page-aware answers", async () => {
     vi.stubEnv("OPENAI_API", "sk-test-key");
     vi.stubEnv("OPENAI_ASSISTANT_VERIFY", "false");

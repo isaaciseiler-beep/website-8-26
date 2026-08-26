@@ -9,9 +9,10 @@ import { useTheme } from "@/components/ThemeProvider";
 import { photoMapEntries, photoMapInitialView, type PhotoMapEntry } from "@/lib/photoMap";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getMapboxToken } from "@/lib/mapboxToken";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE = MOTION_EASE_ENTER;
+const EASE_TEXT = MOTION_EASE;
 const MONOCHROME_MAP_STYLE = "mapbox://styles/mapbox/light-v11";
 const DESKTOP_PANEL_WIDTH = 350;
 const DESKTOP_PANEL_GUTTER = 16;
@@ -466,7 +467,7 @@ const PhotoMapPage = () => {
         animate={{
           x: sidebarOpen && !isMobile ? 200 : searchOpen && !isMobile ? -200 : 0,
         }}
-        transition={{ duration: 0.56, ease: EASE_TEXT }}
+        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
         className="relative h-[100svh] w-full overflow-hidden bg-background will-change-transform"
       >
         <section className="relative h-full overflow-hidden bg-background">
@@ -494,15 +495,15 @@ const PhotoMapPage = () => {
                 <motion.article
                   key={activeEntry.id}
                   className="site-corner group/photo-panel pointer-events-auto relative flex h-[40svh] min-h-[260px] w-full overflow-hidden border border-white/18 bg-[hsl(var(--image-scrim))] text-white shadow-2xl shadow-black/45 sm:h-full sm:max-w-[350px]"
-                  initial={isMobile ? { opacity: 0, y: 28, filter: "blur(8px)" } : { opacity: 0, x: 36, filter: "blur(8px)" }}
+                  initial={isMobile ? { opacity: 0, y: 10, filter: "blur(3px)" } : { opacity: 0, x: 12, filter: "blur(3px)" }}
                   animate={{ opacity: 1, x: 0, y: 0, filter: "blur(0px)" }}
-                  exit={isMobile ? { opacity: 0, y: 24, filter: "blur(6px)" } : { opacity: 0, x: 28, filter: "blur(6px)" }}
-                  transition={{ duration: 0.35, ease: EASE }}
+                  exit={isMobile ? { opacity: 0, y: 10, filter: "blur(3px)" } : { opacity: 0, x: 12, filter: "blur(3px)" }}
+                  transition={{ duration: MOTION_DURATION.base, ease: EASE }}
                 >
                   <img
                     src={activeEntry.coverImage}
                     alt=""
-                    className="absolute inset-0 h-full w-full object-cover transition-[filter,transform] duration-700 ease-out group-hover/photo-panel:scale-[1.015]"
+                    className="absolute inset-0 h-full w-full object-cover transition-[filter,transform] [transition-duration:var(--motion-reveal)] [transition-timing-function:var(--motion-ease)] group-hover/photo-panel:scale-[1.008]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/22 to-black/20" />
                   <div className="relative z-10 flex min-h-0 flex-1 flex-col justify-end p-4 sm:p-5">

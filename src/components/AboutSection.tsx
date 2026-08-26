@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
 import { profilePhotoUrl } from "@/lib/tileImages";
+import { MOTION_DURATION, MOTION_EASE_ENTER } from "@/lib/motion";
 
 interface AboutSectionProps {
   revealEnabled?: boolean;
@@ -88,9 +89,9 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
     <section className="about-lede" aria-labelledby="about-lede-title">
       <motion.div
         className="about-lede-inner"
-        initial={reduceMotion || !revealEnabled ? false : { opacity: 0, y: 12 }}
+        initial={reduceMotion || !revealEnabled ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: reduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: reduceMotion ? 0 : MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
       >
         <h1 id="about-lede-title" className="sr-only">Isaac Seiler</h1>
 

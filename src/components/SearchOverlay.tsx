@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 import type { SearchGroup, SearchResult } from "@/lib/searchIndex";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { setSiteOverlayOpen } from "@/lib/siteOverlay";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
+import { preloadImage } from "@/lib/imagePreload";
 
-const EASE: [number, number, number, number] = [0.19, 1, 0.22, 1];
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
-const PANEL_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const PANEL_DURATION = 0.64;
-const SEARCH_BAR_TRANSITION = { duration: 0.68, ease: EASE };
+const EASE = MOTION_EASE_ENTER;
+const EASE_TEXT = MOTION_EASE;
+const SEARCH_BAR_TRANSITION = { duration: MOTION_DURATION.panel, ease: MOTION_EASE_ENTER };
 const EMPTY_SEARCH_GROUPS: SearchGroup[] = [];
 
 type SearchIndexModule = typeof import("@/lib/searchIndex");
@@ -46,10 +46,16 @@ const ResultCard = ({
   <motion.button
     type="button"
     onClick={() => onSelect(result)}
+    onPointerEnter={() => {
+      if (result.image) void preloadImage(result.image, { decode: true, fetchPriority: "high", linkPreload: true });
+    }}
+    onFocus={() => {
+      if (result.image) void preloadImage(result.image, { decode: true, fetchPriority: "high", linkPreload: true });
+    }}
     className="group block w-full text-left"
     initial={{ opacity: 0, x: 18, filter: "blur(6px)" }}
     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-    transition={{ delay: 0.05 + index * 0.035, duration: 0.46, ease: EASE }}
+    transition={{ delay: 0.04 + index * 0.03, duration: MOTION_DURATION.reveal, ease: EASE }}
   >
     <div className="site-corner relative aspect-[4/3] w-full overflow-hidden bg-[hsl(var(--image-scrim))]">
       {result.image ? (
@@ -116,7 +122,7 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
             initial={{ x: isMobile ? "100%" : 200 }}
             animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
             exit={{ x: isMobile ? "100%" : 200 }}
-            transition={{ duration: PANEL_DURATION, ease: PANEL_EASE }}
+            transition={{ duration: MOTION_DURATION.panel, ease: MOTION_EASE_ENTER }}
           >
             <div className="pointer-events-none absolute inset-x-0 top-20 z-10 h-12 bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,hsl(var(--background)/0.82)_34%,hsl(var(--background)/0)_100%)] md:top-20" />
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-10 pt-5 scrollbar-hide md:pb-12 md:pt-8">

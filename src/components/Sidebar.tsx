@@ -7,11 +7,10 @@ import SearchTrigger from "@/components/SearchOverlay";
 import { CONTACT_MAILTO, GITHUB_URL, LINKEDIN_URL } from "@/lib/site";
 import { scrollToPageSection } from "@/lib/scroll";
 import { setSiteOverlayOpen } from "@/lib/siteOverlay";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
-const EASE: [number, number, number, number] = [0.19, 1, 0.22, 1];
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
-const PANEL_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const PANEL_DURATION = 0.64;
+const EASE = MOTION_EASE_ENTER;
+const EASE_TEXT = MOTION_EASE;
 
 const themeOptions = [
   { value: "light" as const, label: "Light", icon: Sun },
@@ -34,8 +33,8 @@ const ThemeSwitch = () => {
     if (dragging) return;
     const controls = animate(x, activeIndex * STEP, {
       type: "tween",
-      duration: 0.42,
-      ease: [0.22, 1, 0.36, 1],
+      duration: MOTION_DURATION.base,
+      ease: MOTION_EASE,
     });
     return () => controls.stop();
   }, [activeIndex, dragging, x]);
@@ -234,7 +233,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
         }`}
         initial={{ x: open ? 0 : "-100%" }}
         animate={{ x: open ? 0 : "-100%" }}
-        transition={{ duration: PANEL_DURATION, ease: PANEL_EASE }}
+        transition={{ duration: MOTION_DURATION.panel, ease: MOTION_EASE_ENTER }}
       >
         <AnimatePresence>
           {open && (
@@ -259,7 +258,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                             y: 0,
                             scale: 1,
                             filter: "blur(0px)",
-                            transition: { delay: 0.08 + idx * 0.034, duration: 0.5, ease: EASE },
+                            transition: { delay: 0.06 + idx * 0.028, duration: MOTION_DURATION.reveal, ease: EASE },
                           },
                           hiddenExit: {
                             opacity: 0,
@@ -351,7 +350,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                   y: 0,
                   scale: 1,
                   filter: "blur(0px)",
-                  transition: { delay: 0.2, duration: 0.62, ease: EASE, filter: { duration: 0.66, delay: 0.24 } },
+                  transition: { delay: 0.14, duration: MOTION_DURATION.reveal, ease: EASE, filter: { duration: MOTION_DURATION.reveal, delay: 0.16 } },
                 },
                 hiddenExit: {
                   opacity: 0,

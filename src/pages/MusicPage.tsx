@@ -1,17 +1,30 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { musicAlbums } from "@/lib/musicAlbums";
+import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE_TEXT = MOTION_EASE;
 
 const MusicPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const [firstAlbum, ...remainingAlbums] = musicAlbums.map((release) => release.image);
+    if (firstAlbum) void preloadImage(firstAlbum, { decode: true, fetchPriority: "high", linkPreload: true });
+    scheduleImagePreloads(remainingAlbums, {
+      batchSize: isMobile ? 2 : 4,
+      decode: false,
+      fetchPriority: "low",
+      idleTimeout: 900,
+    });
+  }, [isMobile]);
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);
@@ -44,14 +57,14 @@ const MusicPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: 0.56, ease: EASE_TEXT }}
+        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
       >
         <main className="music-page-shell">
           <motion.h1
             className="music-page-title"
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.55, ease: EASE_TEXT }}
+            transition={{ duration: prefersReducedMotion ? 0 : MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
           >
             What I'm listening to
           </motion.h1>
@@ -68,8 +81,8 @@ const MusicPage = () => {
                 initial={prefersReducedMotion ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{
-                  duration: prefersReducedMotion ? 0 : 0.5,
-                  delay: prefersReducedMotion ? 0 : Math.min(index * 0.035, 0.3),
+                  duration: prefersReducedMotion ? 0 : MOTION_DURATION.base,
+                  delay: prefersReducedMotion ? 0 : Math.min(index * 0.025, 0.16),
                   ease: EASE_TEXT,
                 }}
               >

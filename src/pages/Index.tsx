@@ -7,6 +7,7 @@ import { useTheme } from "@/components/ThemeProvider";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { HEADER_SCROLL_OFFSET } from "@/lib/scroll";
 import { shouldRestoreInitialScrollFor } from "@/lib/navigationScroll";
+import { MOTION_DURATION, MOTION_EASE } from "@/lib/motion";
 
 const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
@@ -15,7 +16,6 @@ const SkullHome = lazy(() => import("@/components/SkullHome"));
 
 const Footer = lazy(() => import("@/components/Footer"));
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const sectionIds = sitemapItems
   .map((item) => item.scrollTo)
   .filter((id): id is string => Boolean(id));
@@ -140,7 +140,7 @@ const ModernIndex = () => {
               ? "calc(100% - 200px)"
               : "100%",
         }}
-        transition={{ duration: 0.5, ease: EASE }}
+        transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE }}
       >
         <main>
           <Suspense fallback={<SectionFallback />}>

@@ -9,11 +9,12 @@ import { preloadImage, preloadImages, scheduleImagePreloads } from "@/lib/imageP
 import { albums, albumPhotos, coverFor, type Album, type Continent } from "@/lib/photoAlbums";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { shouldRestoreInitialScrollFor } from "@/lib/navigationScroll";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
 const continents: ("All" | Continent)[] = ["All", "Asia", "Europe", "Oceania", "United States"];
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE = MOTION_EASE_ENTER;
+const EASE_TEXT = MOTION_EASE;
 
 const shuffleArray = <T,>(arr: T[]) => {
   const copy = [...arr];
@@ -52,7 +53,7 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
   useEffect(() => {
     if (hovering && photoCount > 0) {
       let tick = 0;
-      const maxFlashes = Math.min(photoCount, 3);
+      const maxFlashes = Math.min(photoCount, 2);
       intervalRef.current = setInterval(() => {
         tick++;
         if (tick > maxFlashes) {
@@ -61,7 +62,7 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
         } else {
           setFlashIdx(tick % photoCount);
         }
-      }, 320);
+      }, 380);
     } else {
       setFlashIdx(-1);
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -72,13 +73,17 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
   const cover = coverFor(album);
   const uniqueSrcs = [...new Set([cover, ...readyHoverPhotos])];
   const activeImage = flashIdx >= 0 ? readyHoverPhotos[flashIdx] ?? cover : cover;
+  const prepareAlbum = () => {
+    void preloadImages(photos.slice(0, 6), { decode: false, fetchPriority: "high" });
+  };
 
   return (
     <div
       className="relative cursor-pointer overflow-hidden group"
       onClick={onClick}
-      onMouseEnter={() => setHovering(true)}
+      onMouseEnter={() => { setHovering(true); prepareAlbum(); }}
       onMouseLeave={() => setHovering(false)}
+      onTouchStart={prepareAlbum}
     >
       <div className="aspect-[2/3] overflow-hidden relative">
         {uniqueSrcs.map((src) => (
@@ -90,7 +95,7 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
             style={{
               opacity: src === activeImage ? 1 : 0,
               filter: "grayscale(0%)",
-              transition: "opacity 150ms ease-out, filter 500ms ease-out",
+              transition: "opacity 220ms cubic-bezier(0.2, 0.78, 0.22, 1), filter 340ms cubic-bezier(0.2, 0.78, 0.22, 1)",
             }}
             loading="lazy"
             decoding="async"
@@ -223,13 +228,13 @@ const PhotosPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: 0.56, ease: EASE_TEXT }}
+        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
       >
         <motion.main
           className="pt-28 pb-0"
-          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+          transition={{ duration: MOTION_DURATION.reveal, ease: EASE, delay: 0.04 }}
         >
           {!openAlbum && (
             <div className="photos-shell mb-16">
@@ -249,7 +254,7 @@ const PhotosPage = () => {
                         <motion.span
                           layoutId="photos-tab-pill"
                           className="pill-tab-indicator"
-                          transition={{ type: "tween", duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                          transition={{ type: "tween", duration: MOTION_DURATION.base, ease: EASE_TEXT }}
                         />
                       ) : null}
                       <span className="pill-tab-label">{loc}</span>
@@ -264,10 +269,10 @@ const PhotosPage = () => {
             {openAlbum && currentAlbum ? (
               <motion.div
                 key={`album-${openAlbum}`}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.4, ease: EASE }}
+                transition={{ duration: MOTION_DURATION.base, ease: EASE }}
                 className="photos-shell"
               >
                 <motion.button
@@ -276,7 +281,7 @@ const PhotosPage = () => {
                   className="pill-back mb-12"
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1, duration: 0.3, ease: EASE }}
+                  transition={{ delay: 0.04, duration: MOTION_DURATION.fast, ease: EASE }}
                 >
                   <span>← All photos</span>
                 </motion.button>
@@ -290,9 +295,9 @@ const PhotosPage = () => {
                             <motion.div
                               key={photo}
                               className="cursor-pointer overflow-hidden"
-                              initial={{ opacity: 0, y: 20 }}
+                              initial={{ opacity: 0, y: 8 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: (row.startIdx + pi) * 0.05, duration: 0.5, ease: EASE }}
+                              transition={{ delay: Math.min((row.startIdx + pi) * 0.025, 0.16), duration: MOTION_DURATION.base, ease: EASE }}
                               onClick={() => setPreviewIdx(row.startIdx + pi)}
                             >
                               <div className="aspect-[4/3] overflow-hidden">
@@ -302,7 +307,7 @@ const PhotosPage = () => {
                                   loading={row.startIdx + pi < 2 ? "eager" : "lazy"}
                                   decoding="async"
                                   fetchpriority={row.startIdx + pi < 2 ? "high" : "low"}
-                                  className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-700 ease-out"
+                                  className="w-full h-full object-cover hover:scale-[1.008] transition-transform [transition-duration:var(--motion-reveal)] [transition-timing-function:var(--motion-ease)]"
                                 />
                               </div>
                             </motion.div>
@@ -316,9 +321,9 @@ const PhotosPage = () => {
                       <motion.div
                         key={photo}
                         className={`cursor-pointer overflow-hidden ${isOffset ? (row.layout === "offset-right" ? "ml-auto w-[75%]" : "mr-auto w-[75%]") : "w-full"}`}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: row.startIdx * 0.05, duration: 0.5, ease: EASE }}
+                        transition={{ delay: Math.min(row.startIdx * 0.025, 0.16), duration: MOTION_DURATION.base, ease: EASE }}
                         onClick={() => setPreviewIdx(row.startIdx)}
                       >
                         <div className="aspect-[4/3] overflow-hidden">
@@ -328,7 +333,7 @@ const PhotosPage = () => {
                             loading={row.startIdx < 2 ? "eager" : "lazy"}
                             decoding="async"
                             fetchpriority={row.startIdx < 2 ? "high" : "low"}
-                            className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-700 ease-out"
+                            className="w-full h-full object-cover hover:scale-[1.008] transition-transform [transition-duration:var(--motion-reveal)] [transition-timing-function:var(--motion-ease)]"
                           />
                         </div>
                       </motion.div>
@@ -340,19 +345,19 @@ const PhotosPage = () => {
             ) : (
               <motion.div
                 key={`overview-${filter}`}
-                initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+                initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, ease: EASE }}
+                transition={{ duration: MOTION_DURATION.base, ease: EASE }}
                 className="photos-shell"
               >
                 <div className="site-corner grid grid-cols-2 gap-[3px] overflow-hidden sm:grid-cols-3">
                   {filtered.map((album, i) => (
                     <motion.div
                       key={album.location}
-                      initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
+                      initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      transition={{ delay: i * 0.07, duration: 0.5, ease: EASE }}
+                      transition={{ delay: Math.min(i * 0.025, 0.16), duration: MOTION_DURATION.base, ease: EASE }}
                     >
                       <AlbumCover
                         album={album}

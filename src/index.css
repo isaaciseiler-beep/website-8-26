@@ -39,6 +39,12 @@
     --site-panel-width: 200px;
     --bio-font-size: clamp(1.1rem, 2.6vw, 2.62rem);
     --sidebar-nav-font-size: calc(var(--bio-font-size) * 0.8);
+    --motion-ease: cubic-bezier(0.2, 0.78, 0.22, 1);
+    --motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-fast: 180ms;
+    --motion-base: 340ms;
+    --motion-reveal: 460ms;
+    --motion-panel: 580ms;
 
     --site-corner-radius: 8px;
     --radius: var(--site-corner-radius);
@@ -281,11 +287,11 @@
     height: 100%;
     object-fit: cover;
     transform: scale(1);
-    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform var(--motion-reveal) var(--motion-ease);
   }
 
   .home-photo-mosaic-image:hover img {
-    transform: scale(1.012);
+    transform: scale(1.008);
   }
 
   .home-photo-section {
@@ -325,8 +331,8 @@
 
   .site-footer-slide {
     opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 520ms cubic-bezier(0.16, 1, 0.3, 1), transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(10px);
+    transition: opacity var(--motion-reveal) var(--motion-ease-enter), transform var(--motion-reveal) var(--motion-ease-enter);
     will-change: opacity, transform;
   }
 
@@ -1406,7 +1412,7 @@
     #root main {
       translate: 0 0;
       backface-visibility: hidden;
-      transition: translate 640ms cubic-bezier(0.16, 1, 0.3, 1);
+      transition: translate var(--motion-panel) var(--motion-ease-enter);
       will-change: translate;
     }
 
@@ -1496,7 +1502,7 @@
     align-items: center;
     justify-content: center;
     color: hsl(var(--foreground) / 0.5);
-    transition: color 220ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: color var(--motion-fast) var(--motion-ease), transform var(--motion-base) var(--motion-ease);
   }
 
   .sidebar-icon-link:hover,
@@ -1510,19 +1516,19 @@
     box-shadow:
       inset 0 1px 0 hsl(0 0% 100% / 0.52),
       inset 0 -13px 24px hsl(88 24% 8% / 0.1),
-      0 10px 28px hsl(88 24% 8% / 0.22);
+      0 8px 24px hsl(88 24% 8% / 0.18);
     transition:
-      background 320ms ease,
-      filter 280ms ease,
-      box-shadow 280ms ease;
+      background var(--motion-base) var(--motion-ease),
+      filter var(--motion-fast) var(--motion-ease),
+      box-shadow var(--motion-base) var(--motion-ease);
   }
 
   .chat-orb[data-expanded="true"] {
     background:
       radial-gradient(circle at 30% 24%, hsl(0 0% 100% / 0.74), transparent 19%),
       linear-gradient(135deg, hsl(var(--highlight)), hsl(var(--accent)) 58%, hsl(64 100% 76%));
-    background-size: 210% 210%;
-    animation: chat-orb-color-flow 2.6s ease-in-out infinite alternate;
+    background-size: 150% 150%;
+    background-position: 50% 50%;
   }
 
   .chat-orb::before {
@@ -1539,30 +1545,30 @@
         transparent
       );
     opacity: 0;
-    transform: rotate(0deg) scale(0.82);
+    transform: rotate(0deg) scale(0.94);
     transition:
-      opacity 260ms ease,
-      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+      opacity var(--motion-fast) var(--motion-ease),
+      transform var(--motion-reveal) var(--motion-ease);
   }
 
   .chat-orb:hover,
   .chat-orb:focus-visible {
-    filter: saturate(1.18) brightness(1.03);
+    filter: saturate(1.08) brightness(1.015);
     box-shadow:
       inset 0 1px 0 hsl(0 0% 100% / 0.6),
       inset 0 -13px 24px hsl(88 24% 8% / 0.09),
-      0 14px 34px hsl(88 24% 8% / 0.25);
+      0 10px 28px hsl(88 24% 8% / 0.2);
   }
 
   .chat-orb:hover::before,
   .chat-orb:focus-visible::before {
-    opacity: 0.48;
-    transform: rotate(32deg) scale(1);
+    opacity: 0.34;
+    transform: rotate(16deg) scale(0.98);
   }
 
   .chat-orb[data-expanded="true"]::before {
-    opacity: 0.42;
-    animation: chat-orb-sheen 3.2s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
+    opacity: 0.3;
+    transform: rotate(14deg) scale(0.98);
   }
 
   .theme-switch {
@@ -1777,7 +1783,8 @@
   }
 
   .photo-map-panel-button {
-    @apply relative isolate flex h-11 w-full items-center justify-between overflow-hidden rounded-full border border-white/20 bg-white/10 px-[18px] text-[13px] font-normal text-white transition-colors duration-500;
+    @apply relative isolate flex h-11 w-full items-center justify-between overflow-hidden rounded-full border border-white/20 bg-white/10 px-[18px] text-[13px] font-normal text-white;
+    transition: color var(--motion-fast) var(--motion-ease), border-color var(--motion-fast) var(--motion-ease), background-color var(--motion-fast) var(--motion-ease);
     letter-spacing: -0.01em;
   }
 
@@ -1785,7 +1792,7 @@
     content: '';
     @apply absolute inset-0 -z-10 rounded-full bg-white;
     transform: translateX(-101%);
-    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform var(--motion-base) var(--motion-ease);
   }
 
   .photo-map-panel-button:hover {
@@ -1826,11 +1833,12 @@
   }
 
   .grid-item img {
-    @apply w-full h-full object-cover transition-all duration-700 ease-out;
+    @apply w-full h-full object-cover;
+    transition: transform var(--motion-reveal) var(--motion-ease);
   }
 
   .grid-item:hover img {
-    transform: scale(1.02);
+    transform: scale(1.008);
   }
 
   .grid-item-overlay {
@@ -2026,25 +2034,25 @@
 }
 
 .fulbright-top-panel {
-  animation: fulbright-fade-down 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fulbright-fade-down var(--motion-reveal) var(--motion-ease-enter) both;
 }
 
 .fulbright-detail-panel[data-state="open"] .fulbright-detail-card {
-  animation: fulbright-panel-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fulbright-panel-in var(--motion-base) var(--motion-ease-enter) both;
 }
 
 .fulbright-modal-scrim {
-  animation: fulbright-fade-in 180ms ease-out both;
+  animation: fulbright-fade-in var(--motion-fast) var(--motion-ease) both;
 }
 
 .fulbright-modal-card {
-  animation: fulbright-sheet-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fulbright-sheet-in var(--motion-base) var(--motion-ease-enter) both;
 }
 
 @keyframes fulbright-fade-down {
   from {
     opacity: 0;
-    transform: translateY(-14px);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -2055,7 +2063,7 @@
 @keyframes fulbright-panel-in {
   from {
     opacity: 0;
-    transform: translateX(28px) scale(0.985);
+    transform: translateX(12px) scale(0.995);
   }
   to {
     opacity: 1;
@@ -2066,7 +2074,7 @@
 @keyframes fulbright-sheet-in {
   from {
     opacity: 0;
-    transform: translateY(24px) scale(0.985);
+    transform: translateY(10px) scale(0.995);
   }
   to {
     opacity: 1;
@@ -2281,7 +2289,7 @@
     font-weight: 500;
     letter-spacing: -0.01em;
     line-height: 1.1;
-    transition: color 260ms cubic-bezier(0.22, 1, 0.36, 1), background-color 260ms ease;
+    transition: color var(--motion-fast) var(--motion-ease), background-color var(--motion-fast) var(--motion-ease);
   }
 
   .pill-button > span,
@@ -2294,7 +2302,7 @@
     width: 14px;
     height: 14px;
     stroke-width: 1.5;
-    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform var(--motion-fast) var(--motion-ease);
   }
 
   .pill-button > svg.is-flipped {
@@ -2309,7 +2317,7 @@
     border-radius: 999px;
     background: hsl(var(--foreground) / 0.94);
     transform: translateX(-101%);
-    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform var(--motion-base) var(--motion-ease);
   }
 
   .pill-button:hover,
@@ -2381,7 +2389,7 @@
     line-height: 1.1;
     color: hsl(var(--foreground) / 0.5);
     background: transparent;
-    transition: color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: color var(--motion-fast) var(--motion-ease);
   }
 
   .pill-tab:hover {
@@ -2485,12 +2493,12 @@
     height: 100%;
     object-fit: cover;
     transform: scale(1);
-    transition: transform 680ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform var(--motion-reveal) var(--motion-ease);
   }
 
   .work-library-card:hover > img,
   .work-library-card:focus-visible > img {
-    transform: scale(1.015);
+    transform: scale(1.008);
   }
 
   .work-library-scrim {
@@ -2498,7 +2506,7 @@
     inset: 0;
     background: rgba(0, 0, 0, 0.42);
     opacity: 0.78;
-    transition: opacity 300ms ease;
+    transition: opacity var(--motion-fast) var(--motion-ease);
   }
 
   .work-library-card:hover .work-library-scrim,
@@ -2528,8 +2536,8 @@
     stroke-width: 1.1;
     color: #fff;
     opacity: 0;
-    transform: translate(6px, 6px);
-    transition: opacity 280ms ease, transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translate(4px, 4px);
+    transition: opacity var(--motion-fast) var(--motion-ease), transform var(--motion-base) var(--motion-ease-enter);
   }
 
   .work-library-card:hover .work-library-card-arrow,
@@ -2586,7 +2594,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 680ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform var(--motion-reveal) var(--motion-ease);
   }
 
   .about-lede-photo:hover img {
@@ -2624,14 +2632,12 @@
     border-radius: 999px;
     background: #c1ff72;
     box-shadow: 0 0 0.18em rgb(193 255 114 / 0.45);
-    animation: about-location-think 2.8s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+    animation: about-location-think 2.6s var(--motion-ease) infinite;
   }
 
   @keyframes about-location-think {
-    0%, 100% { transform: scale(0.92); }
-    38% { transform: scale(1.12); }
-    64% { transform: scale(0.98); }
-    80% { transform: scale(1.05); }
+    0%, 100% { opacity: 0.58; }
+    50% { opacity: 1; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -3235,29 +3241,29 @@ html.theme-crossfade,
 html.theme-crossfade body,
 html.theme-crossfade body * {
   transition:
-    background-color 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    color 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    fill 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 520ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+    background-color var(--motion-reveal) var(--motion-ease),
+    color var(--motion-reveal) var(--motion-ease),
+    fill var(--motion-reveal) var(--motion-ease),
+    filter var(--motion-reveal) var(--motion-ease),
+    border-color var(--motion-reveal) var(--motion-ease),
+    box-shadow var(--motion-reveal) var(--motion-ease) !important;
 }
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 520ms;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-duration: var(--motion-reveal);
+  animation-timing-function: var(--motion-ease);
 }
 
 /* ============ Scroll reveal ============ */
 .reveal {
   opacity: 0;
-  transform: translate3d(0, 14px, 0);
+  transform: translate3d(0, 10px, 0);
   filter: blur(3px);
   transition:
-    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity var(--motion-reveal) var(--motion-ease-enter),
+    transform var(--motion-reveal) var(--motion-ease-enter),
+    filter var(--motion-reveal) var(--motion-ease-enter);
   will-change: opacity, transform;
 }
 
@@ -3267,11 +3273,32 @@ html.theme-crossfade body * {
   filter: none;
 }
 
+img[data-image-state="loading"] {
+  opacity: 0;
+}
+
+img[data-image-reveal="true"] {
+  animation: site-image-ready var(--motion-base) var(--motion-ease) both;
+}
+
+@keyframes site-image-ready {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
     transform: none;
     filter: none;
+  }
+
+  img[data-image-state="loading"] {
+    opacity: 1;
+  }
+
+  img[data-image-reveal="true"] {
+    animation: none;
   }
 
   #root main {
@@ -3567,7 +3594,7 @@ html.theme-crossfade body * {
 }
 
 .photo-crossfade {
-  animation: photo-crossfade 420ms ease-out both;
+  animation: photo-crossfade var(--motion-base) var(--motion-ease) both;
 }
 
 /* Article / blog detail — modern product-release layout */

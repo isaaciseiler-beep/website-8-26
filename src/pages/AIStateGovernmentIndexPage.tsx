@@ -40,8 +40,9 @@ import {
   type AiIndexRegion,
   type AiIndexState,
 } from "@/lib/aiStateGovIndex";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE_TEXT = MOTION_EASE;
 const HERO_IMAGE = "https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev/utahstatecap.avif";
 const LAST_UPDATED_LABEL = "Last updated August 2025";
 
@@ -128,10 +129,10 @@ const StatPanel = ({
 }) => (
   <motion.div
     className="ai-index-stat-card site-corner border border-foreground/10 bg-card p-4"
-    initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+    initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
     viewport={{ once: true, amount: 0.35 }}
-    transition={{ duration: 0.54, ease: EASE_TEXT, delay }}
+    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay }}
   >
     <div className="mb-4">
       <span className="text-sm font-medium text-foreground/66">{label}</span>
@@ -152,10 +153,10 @@ const TextReveal = ({
 }) => (
   <motion.div
     className={className}
-    initial={{ opacity: 0, y: 18, filter: "blur(7px)" }}
+    initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
     viewport={{ once: true, amount: 0.42 }}
-    transition={{ duration: 0.7, ease: EASE_TEXT, delay }}
+    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay }}
   >
     {children}
   </motion.div>
@@ -252,17 +253,17 @@ const RevealSection = ({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const contentY = useTransform(scrollYProgress, [0, 1], [18, -18]);
-  const washY = useTransform(scrollYProgress, [0, 1], [64, -64]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [6, -6]);
+  const washY = useTransform(scrollYProgress, [0, 1], [24, -24]);
 
   return (
     <motion.section
       ref={sectionRef}
       className={`relative overflow-hidden ${className ?? ""}`}
-      initial={{ opacity: 0, y: 34, filter: "blur(10px)" }}
+      initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.72, ease: EASE_TEXT }}
+      transition={{ duration: 0.5, ease: MOTION_EASE_ENTER }}
     >
       <motion.div
         aria-hidden
@@ -328,15 +329,15 @@ const ChartReveal = ({
       ref={revealRef}
       className={className}
       style={{ minHeight }}
-      initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+      initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
       animate={hasEntered ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
-      transition={{ duration: 0.72, ease: EASE_TEXT, delay }}
+      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay }}
     >
       <motion.div
         className="h-full"
         initial={reveal === "left" ? { clipPath: "inset(0 100% 0 0)" } : undefined}
         animate={hasEntered && reveal === "left" ? { clipPath: "inset(0 0% 0 0)" } : undefined}
-        transition={{ duration: 0.95, ease: EASE_TEXT, delay: delay + 0.08 }}
+        transition={{ duration: 0.56, ease: EASE_TEXT, delay: delay + 0.04 }}
       >
         {hasEntered ? children : null}
       </motion.div>
@@ -388,13 +389,13 @@ const TopPerformersVisual = ({ states }: { states: RankedState[] }) => {
                 style={{ width: `${score}%`, backgroundColor: TOP_PERFORMER_GREEN }}
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 0.82, ease: EASE_TEXT, delay: 0.1 + index * 0.06 }}
+                transition={{ duration: 0.58, ease: EASE_TEXT, delay: 0.06 + index * 0.04 }}
               />
               <motion.div
                 className="relative z-10 flex h-full min-h-[72px] items-center justify-between gap-3 px-3 py-3 text-background sm:min-h-[82px] sm:gap-4 sm:px-5"
                 initial={{ opacity: 0, x: -12 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.48, ease: EASE_TEXT, delay: 0.72 + index * 0.06 }}
+                transition={{ duration: 0.36, ease: EASE_TEXT, delay: 0.38 + index * 0.04 }}
               >
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-background/62">#{state.rank}</p>
@@ -405,7 +406,7 @@ const TopPerformersVisual = ({ states }: { states: RankedState[] }) => {
                   style={{ color: scoreColor }}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.42, ease: EASE_TEXT, delay: 0.9 + index * 0.06 }}
+                  transition={{ duration: 0.34, ease: EASE_TEXT, delay: 0.44 + index * 0.04 }}
                 >
                   {score}
                 </motion.p>
@@ -537,13 +538,13 @@ const AIStateGovernmentIndexPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: 0.56, ease: EASE_TEXT }}
+        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
       >
         <motion.main
           className="pb-24"
-          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.62, ease: EASE_TEXT, delay: 0.08 }}
+          transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.04 }}
         >
           <section className="relative bg-background">
             <div className="px-6 pt-28">
@@ -597,10 +598,10 @@ const AIStateGovernmentIndexPage = () => {
                 </TextReveal>
 
                 <motion.div
-                  initial={{ opacity: 0, y: 36, scale: 0.98 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.78, ease: EASE_TEXT, delay: 0.1 }}
+                  transition={{ duration: 0.5, ease: MOTION_EASE_ENTER, delay: 0.04 }}
                 >
                   <ChartReveal minHeight={500} scrollContainerRef={pageScrollRef}>
                     <TopPerformersVisual states={topStates} />
@@ -1032,10 +1033,10 @@ const AIStateGovernmentIndexPage = () => {
                     key={item.title}
                     className="site-corner min-h-44 p-5 text-white"
                     style={{ backgroundColor: item.color }}
-                    initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
+                    initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
                     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.58, ease: EASE_TEXT, delay: index * 0.05 }}
+                    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: Math.min(index * 0.035, 0.14) }}
                   >
                     <item.icon className="h-5 w-5 text-white/75" strokeWidth={1.6} />
                     <h3 className="mt-4 text-xl font-semibold tracking-tight">{item.title}</h3>

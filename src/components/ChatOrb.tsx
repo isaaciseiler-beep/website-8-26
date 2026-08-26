@@ -15,8 +15,8 @@ import {
   type ChatSource,
 } from "@/lib/chatClient";
 import { isSiteOverlayOpen } from "@/lib/siteOverlay";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER, shouldFoldChatForPageScroll } from "@/lib/motion";
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const FEEDBACK_REASONS = [
   ["incorrect", "Incorrect"],
   ["too-vague", "Too vague"],
@@ -295,9 +295,20 @@ const ChatOrb = () => {
       if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
     };
     const startY = window.scrollY;
+    const openedAt = performance.now();
     const onScroll = () => {
-      if (document.activeElement === inputRef.current) return;
-      if (Math.abs(window.scrollY - startY) > window.innerHeight / 4) setOpen(false);
+      if (performance.now() - openedAt < 320) return;
+      const viewport = window.visualViewport;
+      const keyboardOpen = Boolean(
+        document.activeElement === inputRef.current
+        && viewport
+        && window.innerHeight - viewport.height - viewport.offsetTop > 120,
+      );
+      if (shouldFoldChatForPageScroll({
+        currentScrollY: window.scrollY,
+        initialScrollY: startY,
+        keyboardOpen,
+      })) setOpen(false);
     };
     window.addEventListener("keydown", onKey);
     window.addEventListener("mousedown", onPointerDown);
@@ -370,26 +381,28 @@ const ChatOrb = () => {
         y: visible ? 0 : 8,
         pointerEvents: visible ? "auto" : "none",
       }}
-      transition={{ duration: 0.55, ease: EASE }}
+      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
     >
       <motion.div
         className="ai-dock-shell"
         initial={false}
         animate={{ width: open ? "min(94vw, 660px)" : 148 }}
-        transition={{ duration: 0.52, ease: EASE }}
+        transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
       >
         <AnimatePresence initial={false}>
           {expanded ? (
             <motion.div
               key="thread"
               className="ai-dock-thread"
-              initial={{ height: 0, opacity: 0 }}
+              style={{ transformOrigin: "bottom center" }}
+              initial={{ height: 0, opacity: 0, clipPath: "inset(100% 0 0 0)" }}
               animate={{
                 height: "min(calc(var(--ai-dock-viewport-height, 100dvh) * 0.6), 460px)",
                 opacity: 1,
+                clipPath: "inset(0% 0 0 0)",
               }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.46, ease: EASE }}
+              exit={{ height: 0, opacity: 0, clipPath: "inset(100% 0 0 0)" }}
+              transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE }}
             >
               <div ref={listRef} className="ai-dock-messages" aria-live="polite">
                 {messages.map((message) => (
@@ -398,7 +411,7 @@ const ChatOrb = () => {
                     className={message.role === "user" ? "ai-dock-bubble ai-dock-bubble--user" : "ai-dock-bubble ai-dock-bubble--assistant"}
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, ease: EASE }}
+                    transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
                   >
                     {message.role === "assistant"
                       ? (
@@ -418,8 +431,8 @@ const ChatOrb = () => {
                       {[0, 1, 2].map((dot) => (
                         <motion.span
                           key={dot}
-                          animate={{ opacity: [0.25, 1, 0.25], y: [0, -3, 0] }}
-                          transition={{ duration: 1.1, repeat: Infinity, delay: dot * 0.14 }}
+                          animate={{ opacity: [0.25, 1, 0.25] }}
+                          transition={{ duration: 1.1, repeat: Infinity, delay: dot * 0.14, ease: MOTION_EASE }}
                         />
                       ))}
                     </div>
@@ -441,7 +454,7 @@ const ChatOrb = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.22, ease: EASE }}
+                transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
               >
                 <input
                   ref={inputRef}
@@ -464,7 +477,7 @@ const ChatOrb = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.22, ease: EASE }}
+                transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
                 aria-expanded={false}
               >
                 Ask AI

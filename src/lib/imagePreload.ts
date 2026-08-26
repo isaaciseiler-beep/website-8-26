@@ -12,7 +12,7 @@ interface PreloadImageOptions {
 }
 
 const warmedOrigins = new Set<string>();
-const requestedImages = new Set<string>();
+const requestedImages = new Map<string, Promise<boolean>>();
 
 const normalizeSrc = (src: string) => {
   if (!src) return "";
@@ -72,10 +72,10 @@ export const preloadImage = (src: string, options: PreloadImageOptions = {}) => 
     addPreloadHint(href, options.fetchPriority ?? "auto");
   }
 
-  if (requestedImages.has(href)) return Promise.resolve(true);
-  requestedImages.add(href);
+  const existingRequest = requestedImages.get(href);
+  if (existingRequest) return existingRequest;
 
-  return new Promise<boolean>((resolve) => {
+  const request = new Promise<boolean>((resolve) => {
     const image = new Image() as PrioritizedImage;
     image.decoding = "async";
     image.fetchPriority = options.fetchPriority ?? "auto";
@@ -93,6 +93,8 @@ export const preloadImage = (src: string, options: PreloadImageOptions = {}) => 
     image.onerror = () => resolve(false);
     image.src = href;
   });
+  requestedImages.set(href, request);
+  return request;
 };
 
 export const preloadImages = (srcs: Iterable<string>, options: PreloadImageOptions = {}) =>

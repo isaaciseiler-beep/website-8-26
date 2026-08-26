@@ -11,6 +11,7 @@ import {
   pageContextToText,
   type AssistantDraft,
   type AssistantIntent,
+  type NormalizedPageContext,
 } from "./assistant.js";
 import {
   getAssistantGuidance,
@@ -207,7 +208,7 @@ const callStructuredResponse = async ({
 const buildFallbackDraft = (
   intent: AssistantIntent,
   retrieved: RetrievedChunk[],
-  pageSummary: string,
+  pageContext: NormalizedPageContext | null,
 ): AssistantDraft => {
   const byId = (id: string) => retrieved.find((chunk) => chunk.id === id);
   const projects = retrieved.filter((chunk) => chunk.metadata?.kind === "project");
@@ -236,9 +237,15 @@ const buildFallbackDraft = (
     suggested_questions: suggestedQuestions,
   });
 
-  if (intent === "page_summary" && pageSummary) {
+  if (intent === "page_summary" && pageContext) {
     const page = byId("current-page") ?? first;
-    return answer(pageSummary, page ? [page.id] : [], "medium", [
+    const source = pageContext.summary || pageContext.visibleText;
+    const withoutRepeatedTitle = source.startsWith(pageContext.title)
+      ? source.slice(pageContext.title.length).trim()
+      : source;
+    const conciseSummary = withoutRepeatedTitle.match(/[^.!?]+[.!?]+/g)?.slice(0, 2).join(" ").trim()
+      || withoutRepeatedTitle.slice(0, 520).trim();
+    return answer(toThirdPerson(conciseSummary), page ? [page.id] : [], "medium", [
       "What did Isaac personally contribute?",
       "What results came from this work?",
     ]);
@@ -398,7 +405,7 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     const model = process.env.OPENAI_CHAT_MODEL || DEFAULT_MODEL;
     const verifierModel = process.env.OPENAI_VERIFIER_MODEL || DEFAULT_VERIFIER_MODEL;
     const guidance = getAssistantGuidance();
-    let draft = buildFallbackDraft(intent, retrieved, pageContext?.summary ?? "");
+    let draft = buildFallbackDraft(intent, retrieved, pageContext);
     let responseMode: "reasoning" | "fallback" = "fallback";
     let primaryUsage: OpenAIUsage | undefined;
     let verifierUsage: OpenAIUsage | undefined;

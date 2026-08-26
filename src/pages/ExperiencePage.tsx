@@ -9,10 +9,9 @@ import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { experienceEntries, experienceIntro, type ExperienceEntry } from "@/lib/experience";
+import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 import { newsItems, projectItems } from "@/lib/siteContent";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const RESUME_HREF = "/isaac-seiler-resume.pdf";
 const TIMELINE_STICKY_TOP = 112;
 const TIMELINE_HEADER_OFFSET = 66;
@@ -21,7 +20,7 @@ const GLITCH_IN_INITIAL = {
   x: 0,
   y: 10,
   skewX: 0,
-  filter: "blur(4px)",
+  filter: "blur(3px)",
 };
 const GLITCH_IN_VISIBLE = {
   opacity: 1,
@@ -32,8 +31,8 @@ const GLITCH_IN_VISIBLE = {
 };
 const glitchTransition = (delay = 0, duration = 0.62) => ({
   delay,
-  duration: Math.min(duration, 0.42),
-  ease: EASE_TEXT,
+  duration: Math.min(duration, MOTION_DURATION.base),
+  ease: MOTION_EASE_ENTER,
 });
 
 interface RelatedItem {
@@ -150,7 +149,7 @@ const RelatedLink = ({ item }: { item: RelatedItem }) => {
           <ExperienceImage
             src={item.image}
             className="h-full w-full"
-            imageClassName="h-full w-full object-cover transition-[filter,transform] duration-700 ease-out will-change-[filter,transform] group-hover:scale-[1.015]"
+            imageClassName="h-full w-full object-cover transition-[filter,transform] [transition-duration:var(--motion-reveal)] [transition-timing-function:var(--motion-ease)] will-change-[filter,transform] group-hover:scale-[1.008]"
           />
         ) : (
           <span className="flex h-full w-full items-center justify-center text-foreground/35">
@@ -194,8 +193,8 @@ const ExperienceImage = ({
   className?: string;
   imageClassName?: string;
 }) => {
-  const rotX = useSpring(useMotionValue(0), { stiffness: 90, damping: 26, mass: 0.7 });
-  const rotY = useSpring(useMotionValue(0), { stiffness: 90, damping: 26, mass: 0.7 });
+  const rotX = useSpring(useMotionValue(0), { stiffness: 110, damping: 30, mass: 0.6 });
+  const rotY = useSpring(useMotionValue(0), { stiffness: 110, damping: 30, mass: 0.6 });
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -203,8 +202,8 @@ const ExperienceImage = ({
     const ny = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
     const hoveringCorner = Math.abs(nx) > 0.62 && Math.abs(ny) > 0.62;
 
-    rotY.set(hoveringCorner ? nx * 5 : 0);
-    rotX.set(hoveringCorner ? -ny * 5 : 0);
+    rotY.set(hoveringCorner ? nx * 1.5 : 0);
+    rotX.set(hoveringCorner ? -ny * 1.5 : 0);
   };
 
   const handlePointerLeave = () => {
@@ -214,7 +213,7 @@ const ExperienceImage = ({
 
   return (
     <motion.div
-      className={`site-corner group/resume-image relative overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-md ${className ?? ""}`}
+      className={`site-corner group/resume-image relative overflow-hidden shadow-sm transition-shadow [transition-duration:var(--motion-base)] [transition-timing-function:var(--motion-ease)] ${className ?? ""}`}
       style={{
         perspective: 900,
         rotateX: rotX,
@@ -230,7 +229,7 @@ const ExperienceImage = ({
         loading="lazy"
         className={
           imageClassName ??
-          "absolute inset-0 h-full w-full object-cover transition-[filter,transform] duration-700 ease-out will-change-[filter,transform]"
+          "absolute inset-0 h-full w-full object-cover transition-[filter,transform] [transition-duration:var(--motion-reveal)] [transition-timing-function:var(--motion-ease)] will-change-[filter,transform]"
         }
       />
     </motion.div>
@@ -316,10 +315,10 @@ const ExperienceGroupSection = ({
             />
             <motion.div
               className="mt-5 space-y-4"
-              initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+              initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.42, ease: EASE_TEXT, delay: 0.05 }}
+              transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE, delay: 0.04 }}
             >
               {entry.paragraphs.map((paragraph) => (
                 <p key={paragraph} className="max-w-2xl text-[15px] leading-relaxed text-foreground/68 md:text-base">
@@ -416,13 +415,13 @@ const ExperiencePage = () => {
           paddingRight: searchOpen && !isMobile ? 200 : 0,
         }}
         className="min-w-0"
-        transition={{ duration: 0.56, ease: EASE_TEXT }}
+        transition={{ duration: MOTION_DURATION.panel, ease: MOTION_EASE }}
       >
         <motion.main
           className="pt-28"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: EASE_TEXT, delay: 0.1 }}
+          transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE }}
         >
           <section className="flex min-h-[calc(100svh-7rem)] flex-col justify-end px-6 pb-12 pt-16 md:pb-16">
             <motion.div

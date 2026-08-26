@@ -236,33 +236,44 @@ const metadataText = (chunk: KnowledgeChunk) => {
     .join(" ");
 };
 
-const lexicalScore = (query: string, chunk: KnowledgeChunk, corpus: KnowledgeChunk[]) => {
+const lexicalScores = (query: string, corpus: KnowledgeChunk[]) => {
   const queryTerms = expandTerms(tokenize(query));
-  if (!queryTerms.length) return 0;
-  const titleTokens = tokenize(chunk.title);
-  const metadataTokens = tokenize(metadataText(chunk));
-  const contentTokens = tokenize(chunk.content);
-  const fields = [
-    { tokens: titleTokens, weight: 4 },
-    { tokens: metadataTokens, weight: 2.4 },
-    { tokens: contentTokens, weight: 1 },
-  ];
+  if (!queryTerms.length) return corpus.map(() => 0);
 
-  const score = queryTerms.reduce((total, term) => {
-    const documentFrequency = corpus.filter((candidate) =>
-      tokenize(`${candidate.title} ${metadataText(candidate)} ${candidate.content}`).includes(term),
-    ).length;
-    const inverseDocumentFrequency = Math.log(1 + (corpus.length + 1) / (documentFrequency + 1));
-    const fieldScore = fields.reduce((fieldTotal, field) => {
-      const frequency = field.tokens.filter((token) => token === term).length;
-      return fieldTotal + (frequency ? (1 + Math.log(frequency)) * field.weight : 0);
-    }, 0);
-    return total + fieldScore * inverseDocumentFrequency;
-  }, 0);
-
+  const documents = corpus.map((chunk) => {
+    const metadata = metadataText(chunk);
+    const fields = [
+      { tokens: tokenize(chunk.title), weight: 4 },
+      { tokens: tokenize(metadata), weight: 2.4 },
+      { tokens: tokenize(chunk.content), weight: 1 },
+    ];
+    return {
+      fields,
+      phraseText: `${chunk.title} ${metadata}`.toLowerCase(),
+      terms: new Set(fields.flatMap((field) => field.tokens)),
+    };
+  });
+  const documentFrequency = new Map(
+    queryTerms.map((term) => [
+      term,
+      documents.reduce((count, document) => count + Number(document.terms.has(term)), 0),
+    ]),
+  );
   const phrase = query.toLowerCase().trim();
-  const phraseBoost = phrase.length > 5 && `${chunk.title} ${metadataText(chunk)}`.toLowerCase().includes(phrase) ? 8 : 0;
-  return score + phraseBoost;
+
+  return documents.map((document) => {
+    const score = queryTerms.reduce((total, term) => {
+      const frequency = documentFrequency.get(term) ?? 0;
+      const inverseDocumentFrequency = Math.log(1 + (corpus.length + 1) / (frequency + 1));
+      const fieldScore = document.fields.reduce((fieldTotal, field) => {
+        const termFrequency = field.tokens.reduce((count, token) => count + Number(token === term), 0);
+        return fieldTotal + (termFrequency ? (1 + Math.log(termFrequency)) * field.weight : 0);
+      }, 0);
+      return total + fieldScore * inverseDocumentFrequency;
+    }, 0);
+    const phraseBoost = phrase.length > 5 && document.phraseText.includes(phrase) ? 8 : 0;
+    return score + phraseBoost;
+  });
 };
 
 const KNOWLEDGE_DIR = "knowledge";
@@ -304,11 +315,16 @@ const extractAssistantGuidance = (text: string) =>
     return heading ? ASSISTANT_GUIDANCE_HEADINGS.has(heading) : false;
   }).join("\n\n");
 
-export const getKnowledgeChunks = (): KnowledgeChunk[] => [
-  ...PROFILE_CHUNKS,
-  ...projectItems.filter((project) => !hiddenProjectIds.has(project.id)).map(projectToChunk),
-  ...readMarkdownKnowledge(),
-];
+let cachedKnowledgeChunks: KnowledgeChunk[] | undefined;
+
+export const getKnowledgeChunks = (): KnowledgeChunk[] => {
+  cachedKnowledgeChunks ??= [
+    ...PROFILE_CHUNKS,
+    ...projectItems.filter((project) => !hiddenProjectIds.has(project.id)).map(projectToChunk),
+    ...readMarkdownKnowledge(),
+  ];
+  return cachedKnowledgeChunks;
+};
 
 export const getAssistantGuidance = () => {
   const filePath = path.join(getKnowledgeDir(), ASSISTANT_GUIDANCE_FILE);
@@ -329,8 +345,9 @@ export const createPageKnowledgeChunk = (page: NormalizedPageContext): Knowledge
 
 export const retrieveKnowledge = (query: string, limit = 5): RetrievedChunk[] => {
   const chunks = getKnowledgeChunks();
+  const scores = lexicalScores(query, chunks);
   return chunks
-    .map((chunk) => ({ ...chunk, score: lexicalScore(query, chunk, chunks) }))
+    .map((chunk, index) => ({ ...chunk, score: scores[index] }))
     .filter((chunk) => chunk.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
@@ -381,7 +398,7 @@ export const retrieveKnowledgeHybrid = async (
   const limit = options.limit ?? 6;
   const pageChunk = options.pageContext ? createPageKnowledgeChunk(options.pageContext) : null;
   const chunks = [...getKnowledgeChunks(), ...(pageChunk ? [pageChunk] : [])];
-  const lexical = chunks.map((chunk) => lexicalScore(query, chunk, chunks));
+  const lexical = lexicalScores(query, chunks);
   const lexicalMax = Math.max(...lexical, 1);
   let semantic = chunks.map(() => 0);
 
