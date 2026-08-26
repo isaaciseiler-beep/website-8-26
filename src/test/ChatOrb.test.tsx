@@ -1,7 +1,8 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ChatOrb from "@/components/ChatOrb";
+import { setSiteOverlayOpen } from "@/lib/siteOverlay";
 
 describe("ChatOrb", () => {
   beforeEach(() => {
@@ -17,8 +18,26 @@ describe("ChatOrb", () => {
   });
 
   afterEach(() => {
+    document.body.removeAttribute("data-site-sidebar-open");
+    document.body.removeAttribute("data-site-search-open");
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
+  });
+
+  it("closes the deployed assistant when a site panel opens", async () => {
+    render(
+      <MemoryRouter>
+        <main>Page</main>
+        <ChatOrb />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "Ask AI" }));
+    expect(await screen.findByRole("textbox", { name: "Ask AI" })).toBeInTheDocument();
+
+    act(() => setSiteOverlayOpen("sidebar", true));
+
+    await waitFor(() => expect(screen.queryByRole("textbox", { name: "Ask AI" })).not.toBeInTheDocument());
   });
 
   it("sends the current rendered page content with each question", async () => {

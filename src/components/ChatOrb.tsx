@@ -14,6 +14,7 @@ import {
   type ChatRequestMessage,
   type ChatSource,
 } from "@/lib/chatClient";
+import { isSiteOverlayOpen } from "@/lib/siteOverlay";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const FEEDBACK_REASONS = [
@@ -171,6 +172,7 @@ const ChatOrb = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [siteOverlayOpen, setSiteOverlayOpen] = useState(isSiteOverlayOpen);
   const listRef = useRef<HTMLDivElement | null>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -231,6 +233,18 @@ const ChatOrb = () => {
     if (window.scrollY > 10) setHasScrolled(true);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const syncOverlayState = () => {
+      const nextOpen = isSiteOverlayOpen();
+      setSiteOverlayOpen(nextOpen);
+      if (nextOpen) setOpen(false);
+    };
+
+    syncOverlayState();
+    window.addEventListener("site-overlay-state", syncOverlayState);
+    return () => window.removeEventListener("site-overlay-state", syncOverlayState);
   }, []);
 
   useEffect(() => {
@@ -344,16 +358,15 @@ const ChatOrb = () => {
   };
 
   if (disabled) return null;
-  const visible = hasScrolled;
+  const visible = hasScrolled && !siteOverlayOpen;
 
   return (
     <motion.div
       className="ai-dock"
       ref={rootRef}
-      initial={{ opacity: 0, filter: "blur(12px)", y: 8 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{
         opacity: visible ? 1 : 0,
-        filter: visible ? "blur(0px)" : "blur(12px)",
         y: visible ? 0 : 8,
         pointerEvents: visible ? "auto" : "none",
       }}

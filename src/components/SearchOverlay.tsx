@@ -5,6 +5,7 @@ import { ArrowUpRight, Search, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { SearchGroup, SearchResult } from "@/lib/searchIndex";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { setSiteOverlayOpen } from "@/lib/siteOverlay";
 
 const EASE: [number, number, number, number] = [0.19, 1, 0.22, 1];
 const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -83,6 +84,13 @@ interface SearchPanelProps {
 
 export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, open, searchReady }: SearchPanelProps) => {
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    setSiteOverlayOpen("search", open);
+    return () => {
+      setSiteOverlayOpen("search", false);
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;

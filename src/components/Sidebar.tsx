@@ -6,6 +6,7 @@ import { useTheme, type Theme } from "@/components/ThemeProvider";
 import SearchTrigger from "@/components/SearchOverlay";
 import { CONTACT_MAILTO, GITHUB_URL, LINKEDIN_URL } from "@/lib/site";
 import { scrollToPageSection } from "@/lib/scroll";
+import { setSiteOverlayOpen } from "@/lib/siteOverlay";
 
 const EASE: [number, number, number, number] = [0.19, 1, 0.22, 1];
 const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -142,7 +143,11 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
   const isOnProjects = location.pathname.startsWith("/projects");
 
   useEffect(() => {
+    setSiteOverlayOpen("sidebar", open);
     window.dispatchEvent(new CustomEvent("site-sidebar-state", { detail: { open } }));
+    return () => {
+      setSiteOverlayOpen("sidebar", false);
+    };
   }, [open]);
 
   useEffect(() => {
