@@ -8,7 +8,7 @@
     <meta name="author" content="Isaac Seiler" />
     <meta name="application-name" content="Isaac Seiler" />
     <meta name="keywords" content="Isaac Seiler, Summation, marketing, communications, artificial intelligence, portfolio, projects, photography, Seattle" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#000000" />
     <meta name="color-scheme" content="light dark" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
@@ -24,6 +24,29 @@
     <link rel="dns-prefetch" href="https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev" />
     <link rel="dns-prefetch" href="https://pub-0f2ac8ec0d4e41b885a39ae5fd004706.r2.dev" />
     <link rel="dns-prefetch" href="https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev" />
+    <script>
+      (() => {
+        try {
+          const storedTheme = window.localStorage.getItem("theme");
+          const theme = storedTheme === "light" || storedTheme === "dark" || storedTheme === "skull"
+            ? storedTheme
+            : "dark";
+          const resolvedTheme = theme === "skull" ? "light" : theme;
+          const root = document.documentElement;
+          root.classList.add(resolvedTheme);
+          if (theme === "skull") root.classList.add("skull");
+          root.dataset.themePreference = theme;
+          root.style.colorScheme = resolvedTheme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute(
+            "content",
+            resolvedTheme === "dark" ? "#000000" : "#ffffff",
+          );
+        } catch {
+          document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="shortcut icon" href="/icon.svg" />
     <link rel="manifest" href="/site.webmanifest" />

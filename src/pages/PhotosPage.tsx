@@ -8,6 +8,7 @@ import PhotoPreview from "@/components/PhotoPreview";
 import { preloadImage, preloadImages, scheduleImagePreloads } from "@/lib/imagePreload";
 import { albums, albumPhotos, coverFor, type Album, type Continent } from "@/lib/photoAlbums";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { shouldRestoreInitialScrollFor } from "@/lib/navigationScroll";
 
 const continents: ("All" | Continent)[] = ["All", "Asia", "Europe", "Oceania", "United States"];
 
@@ -124,6 +125,10 @@ const PhotosPage = () => {
   const filtered = filter === "All" ? albums : albums.filter((a) => a.continent === filter);
   const currentAlbum = openAlbum ? albums.find((a) => a.location === openAlbum) : null;
   const currentAlbumPhotos = useMemo(() => (currentAlbum ? albumPhotos(currentAlbum) : []), [currentAlbum]);
+  const albumScrollMountedRef = useRef(false);
+  const preserveReloadedAlbumRef = useRef(
+    shouldRestoreInitialScrollFor(`${window.location.pathname}${window.location.search}`) && searchParams.has("album"),
+  );
 
   useEffect(() => {
     const albumFolder = searchParams.get("album");
@@ -137,6 +142,14 @@ const PhotosPage = () => {
   }, [openAlbum, searchParams]);
 
   useEffect(() => {
+    if (!albumScrollMountedRef.current) {
+      albumScrollMountedRef.current = true;
+      return;
+    }
+    if (preserveReloadedAlbumRef.current) {
+      preserveReloadedAlbumRef.current = false;
+      return;
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [openAlbum]);
 

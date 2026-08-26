@@ -454,10 +454,6 @@ const AIStateGovernmentIndexPage = () => {
   );
   const [selectedStateName, setSelectedStateName] = useState(rankedStates[0].state);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, []);
-
   const selectedState = rankedStates.find((state) => state.state === selectedStateName) ?? rankedStates[0];
 
   const filteredStates = useMemo(

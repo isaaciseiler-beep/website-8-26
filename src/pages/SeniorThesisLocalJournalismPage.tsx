@@ -1,4 +1,4 @@
-import { type ComponentType, type ReactNode, type RefObject, useEffect, useRef, useState } from "react";
+import { type ComponentType, type ReactNode, type RefObject, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left.js";
 import Bot from "lucide-react/dist/esm/icons/bot.js";
@@ -231,10 +231,6 @@ const SeniorThesisLocalJournalismPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const pageScrollRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, []);
-
   const handleSidebarToggle = () => {
     setSearchOpen(false);
     setSidebarOpen((open) => !open);

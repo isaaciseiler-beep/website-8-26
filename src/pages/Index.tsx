@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Sidebar, { sitemapItems } from "@/components/Sidebar";
@@ -6,6 +6,7 @@ import SiteHeader from "@/components/SiteHeader";
 import { useTheme } from "@/components/ThemeProvider";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { HEADER_SCROLL_OFFSET } from "@/lib/scroll";
+import { shouldRestoreInitialScrollFor } from "@/lib/navigationScroll";
 
 const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
@@ -29,6 +30,7 @@ const ModernIndex = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const isMobile = useIsMobile();
+  const firstSectionScrollRef = useRef(true);
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);
@@ -41,6 +43,11 @@ const ModernIndex = () => {
   };
 
   useEffect(() => {
+    const isFirstSectionScroll = firstSectionScrollRef.current;
+    firstSectionScrollRef.current = false;
+    const url = `${location.pathname}${location.search}`;
+    if (isFirstSectionScroll && shouldRestoreInitialScrollFor(url)) return;
+
     const section = location.pathname === "/about"
       ? "about"
       : location.pathname === "/work"

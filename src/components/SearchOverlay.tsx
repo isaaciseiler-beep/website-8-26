@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Search, X } from "lucide-react";
@@ -9,6 +9,8 @@ import { setSiteOverlayOpen } from "@/lib/siteOverlay";
 
 const EASE: [number, number, number, number] = [0.19, 1, 0.22, 1];
 const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const PANEL_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const PANEL_DURATION = 0.64;
 const SEARCH_BAR_TRANSITION = { duration: 0.68, ease: EASE };
 const EMPTY_SEARCH_GROUPS: SearchGroup[] = [];
 
@@ -85,7 +87,7 @@ interface SearchPanelProps {
 export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, open, searchReady }: SearchPanelProps) => {
   const isMobile = useIsMobile();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSiteOverlayOpen("search", open);
     return () => {
       setSiteOverlayOpen("search", false);
@@ -114,7 +116,7 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
             initial={{ x: isMobile ? "100%" : 200 }}
             animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
             exit={{ x: isMobile ? "100%" : 200 }}
-            transition={{ duration: 0.56, ease: EASE_TEXT }}
+            transition={{ duration: PANEL_DURATION, ease: PANEL_EASE }}
           >
             <div className="pointer-events-none absolute inset-x-0 top-20 z-10 h-12 bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,hsl(var(--background)/0.82)_34%,hsl(var(--background)/0)_100%)] md:top-20" />
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-10 pt-5 scrollbar-hide md:pb-12 md:pt-8">

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { animate, motion, useMotionValue, AnimatePresence } from "framer-motion";
 import { CalendarDays, ChevronRight, Mail, Moon, Skull, Sun } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -10,6 +10,8 @@ import { setSiteOverlayOpen } from "@/lib/siteOverlay";
 
 const EASE: [number, number, number, number] = [0.19, 1, 0.22, 1];
 const EASE_TEXT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const PANEL_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const PANEL_DURATION = 0.64;
 
 const themeOptions = [
   { value: "light" as const, label: "Light", icon: Sun },
@@ -104,8 +106,8 @@ export const sitemapItems: SitemapItem[] = [
   { id: "photos", label: "Photos", scrollTo: "photos", href: "/photos", children: [
     { id: "portfolio", label: "Portfolio", href: "/photos" },
     { id: "photo-map", label: "Map", href: "/photos/map" },
-    { id: "music", label: "Music", href: "/photos/music" },
   ]},
+  { id: "music", label: "Music", href: "/photos/music" },
 ];
 
 const socialLinks = [
@@ -142,7 +144,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
   const isOnMusic = location.pathname === "/photos/music";
   const isOnProjects = location.pathname.startsWith("/projects");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSiteOverlayOpen("sidebar", open);
     window.dispatchEvent(new CustomEvent("site-sidebar-state", { detail: { open } }));
     return () => {
@@ -195,7 +197,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
 
   const isItemActive = (item: SitemapItem) => {
     if (isOnPhotos && item.id === "photos") return true;
-    if (isOnMusic && item.id === "photos") return true;
+    if (isOnMusic && item.id === "music") return true;
     if (isOnProjects && item.id === "projects") return true;
     if (activeSection && activeSection === item.id) return true;
     return false;
@@ -204,7 +206,6 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
   const isChildActive = (child: { id: string; href: string }) => {
     if (location.pathname === "/photos/map" && child.id === "photo-map") return true;
     if (location.pathname === "/photos" && child.id === "portfolio") return true;
-    if (location.pathname === "/photos/music" && child.id === "music") return true;
     if (isOnProjects && child.id === "project-archive") return true;
     return location.pathname === child.href;
   };
@@ -233,7 +234,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
         }`}
         initial={{ x: open ? 0 : "-100%" }}
         animate={{ x: open ? 0 : "-100%" }}
-        transition={{ duration: 0.56, ease: EASE_TEXT }}
+        transition={{ duration: PANEL_DURATION, ease: PANEL_EASE }}
       >
         <AnimatePresence>
           {open && (
@@ -389,7 +390,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
               </div>
               <div className="mt-6 shrink-0">
                 <p className="sidebar-section-label">Appearance</p>
-                <div className="flex justify-center">
+                <div className="flex justify-start">
                   <ThemeSwitch />
                 </div>
               </div>

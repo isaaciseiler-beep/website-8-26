@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, Image as ImageIcon, Play } from "lucide-react";
@@ -252,10 +252,6 @@ const ProjectDetailPage = () => {
     setSidebarOpen(false);
     setSearchOpen(true);
   };
-
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, [id]);
 
   if (!project) {
     return (

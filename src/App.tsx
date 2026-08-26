@@ -7,6 +7,7 @@ import { ThemeProvider, useTheme } from "@/components/ThemeProvider";
 import SkullChrome from "@/components/SkullChrome";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import RouteLoader from "@/components/RouteLoader";
+import ScrollManager from "@/components/ScrollManager";
 
 
 const isRecoverableChunkError = (error: unknown) => {
@@ -200,6 +201,7 @@ const AppShell = () => {
   useScrollReveal();
   return (
     <BrowserRouter>
+      <ScrollManager />
       <SkullChrome />
       <AnimatedRoutes />
       <ChatOrbGate />

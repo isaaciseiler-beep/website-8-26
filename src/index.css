@@ -1405,25 +1405,18 @@
 
     #root main {
       translate: 0 0;
-      scale: 1;
-      transform-origin: center top;
-      transition:
-        translate 560ms cubic-bezier(0.22, 1, 0.36, 1),
-        scale 560ms cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: translate, scale;
+      backface-visibility: hidden;
+      transition: translate 640ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: translate;
     }
 
     body[data-site-sidebar-open] #root main {
       translate: 100vw 0;
-      scale: 0.985;
-      transform-origin: left top;
       pointer-events: none;
     }
 
     body[data-site-search-open] #root main {
       translate: -100vw 0;
-      scale: 0.985;
-      transform-origin: right top;
       pointer-events: none;
     }
 
@@ -3114,12 +3107,17 @@
 
     .about-lede-copy {
       min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
       padding-left: 0;
     }
 
     .about-lede-intro {
-      font-size: clamp(1.35rem, 6.5vw, 1.9rem);
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      font-size: clamp(1.25rem, 6vw, 1.75rem);
       line-height: 1.16;
+      text-wrap: pretty;
     }
 
     .about-lede-bio {
