@@ -2734,10 +2734,10 @@
     display: grid;
     height: 100%;
     align-content: start;
-    gap: 18px;
+    gap: 12px;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: 22px 22px 10px;
+    padding: 14px 22px 10px;
     scrollbar-width: none;
   }
 
@@ -2788,34 +2788,29 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 6px 10px;
-    margin-top: 13px;
-    font-size: 10px;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 9px;
     line-height: 1.35;
-  }
-
-  .ai-dock-sources > span {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: hsl(var(--foreground) / 0.34);
   }
 
   .ai-dock-sources a {
     display: inline-flex;
     align-items: center;
     gap: 3px;
+    border: 1px solid hsl(var(--foreground) / 0.09);
+    border-radius: 999px;
+    padding: 4px 8px;
+    background: hsl(var(--foreground) / 0.025);
     color: hsl(var(--foreground) / 0.62);
-    text-decoration: underline;
-    text-decoration-color: hsl(var(--foreground) / 0.16);
-    text-underline-offset: 3px;
-    transition: color 180ms ease, text-decoration-color 180ms ease;
+    text-decoration: none;
+    transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
   }
 
   .ai-dock-sources a:hover {
     color: hsl(var(--foreground));
-    text-decoration-color: hsl(var(--foreground) / 0.48);
+    border-color: hsl(var(--foreground) / 0.2);
+    background: hsl(var(--foreground) / 0.055);
   }
 
   .ai-dock-sources svg {
@@ -2826,17 +2821,8 @@
   .ai-dock-answer-footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 12px;
-  }
-
-  .ai-dock-answer-status {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: hsl(var(--foreground) / 0.3);
+    justify-content: flex-end;
+    margin-top: 2px;
   }
 
   .ai-dock-feedback {
@@ -2973,8 +2959,8 @@
     }
 
     .ai-dock-messages {
-      gap: 16px;
-      padding: 18px 16px 8px;
+      gap: 12px;
+      padding: 12px 16px 8px;
     }
 
     .ai-dock-bubble {
@@ -2983,14 +2969,6 @@
       line-height: 1.62;
     }
 
-    .ai-dock-answer-footer {
-      align-items: flex-start;
-    }
-
-    .ai-dock-answer-status {
-      max-width: 76%;
-      line-height: 1.5;
-    }
   }
 
   .ai-dock-form input::placeholder {

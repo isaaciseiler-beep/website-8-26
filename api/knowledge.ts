@@ -119,7 +119,7 @@ const PROJECT_PROFILES: Record<
     outcomes: ["Built a six-session educator lab", "Published a field guide with OpenAI's education team", "Adapted the work into a conference workshop"],
     metrics: ["20 educators", "19 institutions", "6 counties", "12 grade levels", "250+ conference attendees"],
     tags: ["Fulbright", "Taiwan", "OpenAI", "ChatGPT", "education", "teachers", "AI literacy", "workshop"],
-    limitations: ["OpenAI supported the education work; do not describe Isaac as an OpenAI employee."],
+    limitations: ["Describe OpenAI as a supporter and collaborator on the education work."],
   },
   "boehringer-cares-foundation-rebrand-strategy-shift": {
     role: "Rebrand implementation and communications contributor",
@@ -135,7 +135,7 @@ const PROJECT_PROFILES: Record<
     outcomes: ["Contributed user feedback and public stories across multiple pre-launch ChatGPT products and campaigns"],
     metrics: ["First ChatGPT Lab cohort", "100 real student workflows collected across the Lab"],
     tags: ["OpenAI", "ChatGPT Lab", "product", "Study Mode", "Pulse", "Atlas", "Group Chats", "100 Chats"],
-    limitations: ["Isaac was a Lab participant and product-feedback contributor, not an OpenAI employee or product owner."],
+    limitations: ["Describe Isaac's role as a ChatGPT Lab participant and product-feedback contributor."],
   },
 };
 

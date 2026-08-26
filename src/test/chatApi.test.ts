@@ -82,6 +82,8 @@ describe("chat API", () => {
     const openAiRequest = responseCall?.[1] as RequestInit;
     const openAiBody = JSON.parse(String(openAiRequest.body));
     expect(openAiBody.instructions).toContain("Use only facts supported by the evidence below");
+    expect(openAiBody.instructions).toContain("Sound like a thoughtful person");
+    expect(openAiBody.instructions).toContain("Do not volunteer defensive caveats");
     expect(openAiBody.instructions).toContain("Community research findings");
     expect(openAiBody.input).toEqual([{ role: "user", content: "Summarize this page" }]);
   });

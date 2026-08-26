@@ -179,7 +179,7 @@ export const ASSISTANT_ANSWER_SCHEMA = {
   type: "object",
   additionalProperties: false,
   properties: {
-    answer: { type: "string", minLength: 1, maxLength: 1800 },
+    answer: { type: "string", minLength: 1, maxLength: 1100 },
     confidence: { type: "string", enum: ["high", "medium", "low"] },
     evidence_ids: {
       type: "array",
@@ -200,7 +200,7 @@ export const ASSISTANT_VERIFIER_SCHEMA = {
   additionalProperties: false,
   properties: {
     approved: { type: "boolean" },
-    answer: { type: "string", minLength: 1, maxLength: 1800 },
+    answer: { type: "string", minLength: 1, maxLength: 1100 },
     confidence: { type: "string", enum: ["high", "medium", "low"] },
     evidence_ids: {
       type: "array",
@@ -230,7 +230,7 @@ export const normalizeAssistantDraft = (
 ): AssistantDraft | null => {
   if (!value || typeof value !== "object") return null;
   const candidate = value as Partial<AssistantDraft>;
-  const answer = cleanText(candidate.answer, 1800);
+  const answer = cleanText(candidate.answer, 1100);
   if (!answer) return null;
   const evidenceIds = Array.isArray(candidate.evidence_ids)
     ? [...new Set(candidate.evidence_ids.filter((id): id is string => typeof id === "string" && validEvidenceIds.has(id)))].slice(0, 6)

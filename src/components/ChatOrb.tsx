@@ -40,7 +40,11 @@ interface ChatMessage extends ChatRequestMessage {
 
 const createMessageId = () => `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 const isExternal = (url: string) => /^https?:\/\//i.test(url);
-const intentLabel = (intent?: string) => intent?.replaceAll("_", " ") || "answer";
+const sourceLabel = (title: string) => title
+  .replace(/^Isaac Seiler\s*[—-]\s*/i, "")
+  .replace(/^Current Public Profile$/i, "About")
+  .replace(/^Current Role at Summation$/i, "Summation")
+  .replace(/^Public Contact Channels$/i, "Contact");
 
 const AnswerText = ({ content }: { content: string }) => {
   const blocks = content.split("\n").map((line) => line.trim()).filter(Boolean);
@@ -54,18 +58,20 @@ const AnswerText = ({ content }: { content: string }) => {
 };
 
 const SourceLinks = ({ sources }: { sources: ChatSource[] }) => {
-  const linked = sources.filter((source) => source.url).slice(0, 3);
+  const linked = sources
+    .filter((source) => source.url)
+    .filter((source, index, all) => all.findIndex((candidate) => candidate.url === source.url) === index)
+    .slice(0, 2);
   if (!linked.length) return null;
   return (
     <div className="ai-dock-sources" aria-label="Sources used">
-      <span>Sources</span>
       {linked.map((source) => (
         <a
           key={source.id}
           href={source.url}
           {...(isExternal(source.url) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         >
-          {source.title}
+          {sourceLabel(source.title)}
           {isExternal(source.url) ? <ExternalLink aria-hidden="true" /> : null}
         </a>
       ))}
@@ -76,10 +82,12 @@ const SourceLinks = ({ sources }: { sources: ChatSource[] }) => {
 const AssistantAnswer = ({
   message,
   route,
+  showExtras,
   onSuggestedQuestion,
 }: {
   message: ChatMessage;
   route: string;
+  showExtras: boolean;
   onSuggestedQuestion: (question: string) => void;
 }) => {
   const [feedbackState, setFeedbackState] = useState<"idle" | "choosing" | "sending" | "sent" | "error">("idle");
@@ -109,14 +117,9 @@ const AssistantAnswer = ({
   return (
     <div>
       <AnswerText content={message.content} />
-      <SourceLinks sources={message.sources ?? []} />
-      {message.requestId ? (
+      {showExtras ? <SourceLinks sources={message.sources ?? []} /> : null}
+      {showExtras && message.requestId ? (
         <div className="ai-dock-answer-footer">
-          <span className="ai-dock-answer-status">
-            {message.mode === "reasoning" ? (message.verified ? "Evidence-checked" : "Grounded") : "Site evidence"}
-            {message.confidence ? ` · ${message.confidence} confidence` : ""}
-            {message.intent ? ` · ${intentLabel(message.intent)}` : ""}
-          </span>
           <div className="ai-dock-feedback" aria-label="Rate this answer">
             {feedbackState === "sent" ? (
               <span className="ai-dock-feedback-thanks"><Check aria-hidden="true" /> Thanks</span>
@@ -143,15 +146,15 @@ const AssistantAnswer = ({
           </div>
         </div>
       ) : null}
-      {feedbackState === "choosing" ? (
+      {showExtras && feedbackState === "choosing" ? (
         <div className="ai-dock-feedback-reasons">
           {FEEDBACK_REASONS.map(([value, label]) => (
             <button key={value} type="button" onClick={() => void submitFeedback("down", value)}>{label}</button>
           ))}
         </div>
       ) : null}
-      {feedbackState === "error" ? <p className="ai-dock-feedback-error">Feedback could not be saved.</p> : null}
-      {message.suggestedQuestions?.length ? (
+      {showExtras && feedbackState === "error" ? <p className="ai-dock-feedback-error">Feedback could not be saved.</p> : null}
+      {showExtras && message.suggestedQuestions?.length ? (
         <div className="ai-dock-followups" aria-label="Suggested follow-up questions">
           {message.suggestedQuestions.map((question) => (
             <button key={question} type="button" onClick={() => onSuggestedQuestion(question)}>{question}</button>
@@ -214,6 +217,7 @@ const ChatOrb = () => {
   const userMessageCount = countUserMessages(messages);
   const limitReached = messages.some((message) => message.role === "assistant" && message.content === CHAT_LIMIT_MESSAGE);
   const expanded = open && (messages.length > 0 || isLoading);
+  const latestAssistantId = [...messages].reverse().find((message) => message.role === "assistant")?.id;
 
   useEffect(() => {
     setOpen(false);
@@ -384,7 +388,14 @@ const ChatOrb = () => {
                     transition={{ duration: 0.3, ease: EASE }}
                   >
                     {message.role === "assistant"
-                      ? <AssistantAnswer message={message} route={location.pathname} onSuggestedQuestion={useSuggestedQuestion} />
+                      ? (
+                          <AssistantAnswer
+                            message={message}
+                            route={location.pathname}
+                            showExtras={!isLoading && message.id === latestAssistantId && messages[messages.length - 1]?.id === message.id}
+                            onSuggestedQuestion={useSuggestedQuestion}
+                          />
+                        )
                       : message.content}
                   </motion.div>
                 ))}

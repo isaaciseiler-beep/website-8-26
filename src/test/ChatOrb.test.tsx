@@ -68,4 +68,47 @@ describe("ChatOrb", () => {
     await new Promise((resolve) => window.setTimeout(resolve, 300));
     expect(input).not.toHaveFocus();
   });
+
+  it("keeps answer chrome compact and only shows extras for the latest answer", async () => {
+    let requestCount = 0;
+    vi.stubGlobal("fetch", vi.fn(async () => {
+      requestCount += 1;
+      return new Response(JSON.stringify({
+        message: requestCount === 1 ? "A short, human answer." : "A second short answer.",
+        sources: [
+          { id: "bio", title: "Isaac Seiler — Current Public Profile", source: "Profile", url: "/about" },
+          { id: "current-role", title: "Current Role at Summation", source: "Role", url: "/about" },
+        ],
+        suggestedQuestions: [requestCount === 1 ? "What came next?" : "What did he build?"],
+        requestId: `answer-${requestCount}`,
+        mode: "reasoning",
+        verified: true,
+        confidence: "high",
+      }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }));
+
+    render(
+      <MemoryRouter>
+        <main>Page</main>
+        <ChatOrb />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(await screen.findByRole("button", { name: "Ask AI" }));
+    const input = await screen.findByRole("textbox", { name: "Ask AI" });
+    fireEvent.change(input, { target: { value: "Who is Isaac?" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send" }));
+
+    await screen.findByText("A short, human answer.");
+    expect(screen.getByRole("link", { name: "About" })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Summation" })).not.toBeInTheDocument();
+    expect(screen.queryByText("Sources")).not.toBeInTheDocument();
+    expect(screen.queryByText(/Evidence-checked|high confidence|biography/i)).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "What came next?" }));
+    fireEvent.click(screen.getByRole("button", { name: "Send" }));
+    await screen.findByText("A second short answer.");
+    expect(screen.queryByRole("button", { name: "What came next?" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "What did he build?" })).toBeInTheDocument();
+  });
 });
