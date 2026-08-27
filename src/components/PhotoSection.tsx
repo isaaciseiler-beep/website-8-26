@@ -185,6 +185,7 @@ const PhotoSection = () => {
       <Link
         to="/photos"
         className="relative block h-full w-full cursor-pointer overflow-hidden bg-foreground/[0.05]"
+        data-robot-surface="photo-frame"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
         aria-label="View photo portfolio"
