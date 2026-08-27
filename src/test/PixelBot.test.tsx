@@ -109,6 +109,14 @@ describe("PixelBot", () => {
     });
     expect(anchor?.style.getPropertyValue("--robot-surface-lift")).toBe("110px");
 
+    top = 680;
+    act(() => vi.advanceTimersByTime(181));
+    expect(anchor?.style.getPropertyValue("--robot-surface-lift")).toBe("120px");
+
+    top = 675;
+    act(() => vi.advanceTimersByTime(380));
+    expect(anchor?.style.getPropertyValue("--robot-surface-lift")).toBe("125px");
+
     top = 805;
     act(() => {
       window.dispatchEvent(new Event("scroll"));

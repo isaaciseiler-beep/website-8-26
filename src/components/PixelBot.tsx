@@ -138,7 +138,11 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
 
   useEffect(() => {
     let frame = 0;
+    let scrollSettleTimer = 0;
+    let scrollFinalTimer = 0;
     let previousTop: number | null = null;
+    let observedPhotoFrame: HTMLElement | null = null;
+    let layoutObserver: ResizeObserver | null = null;
 
     const updateEnvironment = () => {
       frame = 0;
@@ -150,6 +154,14 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
       if (!photoFrame || reducedMotionRef.current) {
         previousTop = null;
         return;
+      }
+
+      if (layoutObserver && observedPhotoFrame !== photoFrame) {
+        layoutObserver.disconnect();
+        layoutObserver.observe(document.body);
+        layoutObserver.observe(photoFrame);
+        if (photoFrame.parentElement) layoutObserver.observe(photoFrame.parentElement);
+        observedPhotoFrame = photoFrame;
       }
 
       const rect = photoFrame.getBoundingClientRect();
@@ -197,14 +209,31 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
       frame = window.requestAnimationFrame(updateEnvironment);
     };
 
+    const scheduleScrollUpdate = () => {
+      scheduleUpdate();
+      window.clearTimeout(scrollSettleTimer);
+      window.clearTimeout(scrollFinalTimer);
+      scrollSettleTimer = window.setTimeout(scheduleUpdate, 180);
+      scrollFinalTimer = window.setTimeout(scheduleUpdate, 560);
+    };
+
+    if (typeof ResizeObserver !== "undefined") {
+      layoutObserver = new ResizeObserver(scheduleUpdate);
+    }
+
     scheduleUpdate();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("scroll", scheduleScrollUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("load", scheduleUpdate);
     window.addEventListener("photo-section-visibility", scheduleUpdate);
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scheduleUpdate);
+      window.clearTimeout(scrollSettleTimer);
+      window.clearTimeout(scrollFinalTimer);
+      layoutObserver?.disconnect();
+      window.removeEventListener("scroll", scheduleScrollUpdate);
       window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("load", scheduleUpdate);
       window.removeEventListener("photo-section-visibility", scheduleUpdate);
     };
   }, [changeSupport, updateRoamBounds, updateSurfaceLift]);
