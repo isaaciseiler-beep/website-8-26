@@ -2711,10 +2711,9 @@
   /* Floating AI dock */
   .ai-dock {
     position: fixed;
-    inset: auto 0 calc(26px + var(--ai-dock-keyboard-offset, 0px));
+    right: 18px;
+    bottom: calc(16px + var(--ai-dock-keyboard-offset, 0px));
     z-index: 58;
-    display: flex;
-    justify-content: center;
     pointer-events: none;
     transition: bottom 120ms ease-out;
   }
@@ -2728,8 +2727,16 @@
     display: none;
   }
 
+  .ai-dock-companion {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
   .ai-dock-shell {
     display: flex;
+    width: min(94vw, 660px);
     flex-direction: column;
     overflow: hidden;
     border-radius: 26px;
@@ -2753,17 +2760,179 @@
     justify-content: center;
   }
 
-  .ai-dock-label {
-    width: 100%;
-    height: 100%;
-    font-size: 14px;
-    letter-spacing: -0.01em;
-    color: hsl(var(--foreground) / 0.8);
-    transition: color 0.25s ease;
+  .ai-pixel-bot-trigger {
+    position: relative;
+    display: grid;
+    width: 78px;
+    height: 78px;
+    place-items: center;
+    margin-right: 1px;
+    border-radius: 8px;
+    background: transparent;
+    color: hsl(var(--foreground));
+    cursor: pointer;
+    transform-origin: bottom right;
+    transition: filter var(--motion-fast) var(--motion-ease), transform var(--motion-base) var(--motion-ease);
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .ai-dock-label:hover {
-    color: hsl(var(--foreground));
+  .ai-pixel-bot-trigger[data-open="false"] {
+    animation: ai-pixel-bot-patrol 13s var(--motion-ease) infinite both;
+  }
+
+  .ai-pixel-bot-trigger:hover,
+  .ai-pixel-bot-trigger:focus-visible {
+    animation-play-state: paused;
+    filter: brightness(1.06) saturate(1.05);
+    outline: none;
+  }
+
+  .ai-pixel-bot-trigger:focus-visible::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid hsl(var(--foreground) / 0.38);
+    border-radius: 6px;
+  }
+
+  .ai-pixel-bot {
+    display: block;
+    width: 72px;
+    height: 72px;
+    overflow: visible;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 7px 8px rgb(0 0 0 / 0.2));
+  }
+
+  .ai-pixel-bot-ink,
+  .ai-pixel-bot-screen {
+    fill: #0b1009;
+  }
+
+  .ai-pixel-bot-shell {
+    fill: hsl(var(--highlight));
+  }
+
+  .ai-pixel-bot-shell-shade {
+    fill: #8cbd48;
+  }
+
+  .ai-pixel-bot-shell-light {
+    fill: #efffc9;
+  }
+
+  .ai-pixel-bot-screen-glint {
+    fill: rgb(255 255 255 / 0.1);
+  }
+
+  .ai-pixel-bot-eye,
+  .ai-pixel-bot-signal {
+    fill: #c8fbff;
+  }
+
+  .ai-pixel-bot-cheek {
+    fill: #efffc9;
+    opacity: 0.58;
+  }
+
+  .ai-pixel-bot-shadow {
+    fill: hsl(var(--foreground) / 0.2);
+  }
+
+  .ai-pixel-bot-eyes {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ai-pixel-bot-look 6.4s steps(1, end) infinite;
+  }
+
+  .ai-pixel-bot-antenna .ai-pixel-bot-signal {
+    animation: ai-pixel-bot-signal 2.8s steps(2, end) infinite;
+  }
+
+  .ai-pixel-bot-prompt {
+    animation: ai-pixel-bot-prompt 2.2s steps(1, end) infinite;
+  }
+
+  .ai-pixel-bot-close {
+    opacity: 0;
+  }
+
+  .ai-pixel-bot-trigger[data-open="true"] .ai-pixel-bot-prompt {
+    animation: none;
+    opacity: 0;
+  }
+
+  .ai-pixel-bot-trigger[data-open="true"] .ai-pixel-bot-close {
+    opacity: 1;
+  }
+
+  .ai-pixel-bot-arm,
+  .ai-pixel-bot-leg {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .ai-pixel-bot-trigger[data-open="false"] .ai-pixel-bot-leg--left {
+    animation: ai-pixel-bot-step-left 0.72s steps(2, end) infinite;
+  }
+
+  .ai-pixel-bot-trigger[data-open="false"] .ai-pixel-bot-leg--right {
+    animation: ai-pixel-bot-step-right 0.72s steps(2, end) infinite;
+  }
+
+  .ai-pixel-bot-trigger:hover .ai-pixel-bot-arm--right,
+  .ai-pixel-bot-trigger:focus-visible .ai-pixel-bot-arm--right,
+  .ai-pixel-bot-trigger[data-open="true"] .ai-pixel-bot-arm--right {
+    transform: translate(-1px, -4px) rotate(-16deg);
+  }
+
+  .ai-pixel-bot-trigger[data-thinking="true"] .ai-pixel-bot-signal,
+  .ai-pixel-bot-trigger[data-thinking="true"] .ai-pixel-bot-prompt {
+    animation-duration: 0.48s;
+  }
+
+  .ai-pixel-bot-trigger[data-thinking="true"] .ai-pixel-bot-eyes {
+    animation: ai-pixel-bot-think 0.8s steps(2, end) infinite;
+  }
+
+  @keyframes ai-pixel-bot-patrol {
+    0%, 12% { transform: translateX(0); }
+    30%, 44% { transform: translateX(-52px); }
+    61%, 76% { transform: translateX(-19px); }
+    94%, 100% { transform: translateX(0); }
+  }
+
+  @keyframes ai-pixel-bot-step-left {
+    0%, 49% { transform: translateX(-1px); }
+    50%, 100% { transform: translateX(1px); }
+  }
+
+  @keyframes ai-pixel-bot-step-right {
+    0%, 49% { transform: translateX(1px); }
+    50%, 100% { transform: translateX(-1px); }
+  }
+
+  @keyframes ai-pixel-bot-look {
+    0%, 26%, 52%, 100% { transform: translateX(0); }
+    27%, 38% { transform: translateX(-2px); }
+    53%, 64% { transform: translateX(2px); }
+    65%, 67% { transform: scaleY(0.18); }
+  }
+
+  @keyframes ai-pixel-bot-think {
+    0%, 49% { transform: translateX(-2px); }
+    50%, 100% { transform: translateX(2px); }
+  }
+
+  @keyframes ai-pixel-bot-signal {
+    0%, 32% { opacity: 0.4; }
+    33%, 66% { opacity: 1; }
+    67%, 100% { opacity: 0.68; }
+  }
+
+  @keyframes ai-pixel-bot-prompt {
+    0%, 72% { opacity: 1; }
+    73%, 100% { opacity: 0.34; }
   }
 
   .ai-dock-thread {
@@ -2985,13 +3154,29 @@
 
   @media (max-width: 767px), (pointer: coarse) {
     .ai-dock {
+      right: 8px;
       inset-block-end: calc(12px + env(safe-area-inset-bottom) + var(--ai-dock-keyboard-offset, 0px));
       transition: none;
     }
 
     .ai-dock-shell {
+      width: calc(100vw - 24px);
       max-width: calc(100vw - 24px);
       touch-action: manipulation;
+    }
+
+    .ai-pixel-bot-trigger {
+      width: 70px;
+      height: 70px;
+    }
+
+    .ai-pixel-bot {
+      width: 64px;
+      height: 64px;
+    }
+
+    .ai-pixel-bot-trigger[data-open="false"] {
+      animation-name: ai-pixel-bot-patrol-mobile;
     }
 
     .ai-dock-form input {
@@ -3009,6 +3194,23 @@
       line-height: 1.62;
     }
 
+  }
+
+  @keyframes ai-pixel-bot-patrol-mobile {
+    0%, 15% { transform: translateX(0); }
+    36%, 52% { transform: translateX(-28px); }
+    73%, 100% { transform: translateX(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-pixel-bot-trigger,
+    .ai-pixel-bot-eyes,
+    .ai-pixel-bot-antenna .ai-pixel-bot-signal,
+    .ai-pixel-bot-prompt,
+    .ai-pixel-bot-leg {
+      animation: none !important;
+      transform: none;
+    }
   }
 
   .ai-dock-form input::placeholder {

@@ -40,6 +40,23 @@ describe("ChatOrb", () => {
     await waitFor(() => expect(screen.queryByRole("textbox", { name: "Ask AI" })).not.toBeInTheDocument());
   });
 
+  it("uses the pixel companion as the assistant trigger from the top of the page", async () => {
+    Object.defineProperty(window, "scrollY", { configurable: true, value: 0 });
+
+    render(
+      <MemoryRouter>
+        <main>Page</main>
+        <ChatOrb />
+      </MemoryRouter>,
+    );
+
+    const bot = await screen.findByRole("button", { name: "Ask AI" });
+    expect(bot.querySelector(".ai-pixel-bot")).toBeInTheDocument();
+
+    fireEvent.click(bot);
+    expect(await screen.findByRole("button", { name: "Close AI assistant" })).toHaveAttribute("aria-expanded", "true");
+  });
+
   it("sends the current rendered page content with each question", async () => {
     const fetchMock = vi.fn(async () =>
       new Response(JSON.stringify({ message: "A short summary.", sources: [] }), {

@@ -16,6 +16,7 @@ import {
 } from "@/lib/chatClient";
 import { isSiteOverlayOpen } from "@/lib/siteOverlay";
 import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER, shouldFoldChatForPageScroll } from "@/lib/motion";
+import PixelBot from "@/components/PixelBot";
 
 const FEEDBACK_REASONS = [
   ["incorrect", "Incorrect"],
@@ -171,7 +172,6 @@ const ChatOrb = () => {
   const [query, setQuery] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
   const [siteOverlayOpen, setSiteOverlayOpen] = useState(isSiteOverlayOpen);
   const listRef = useRef<HTMLDivElement | null>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -215,7 +215,7 @@ const ChatOrb = () => {
     };
   };
 
-  const disabled = location.pathname === "/photos" || location.pathname === "/photos/map";
+  const disabled = location.pathname === "/photos/map";
   const userMessageCount = countUserMessages(messages);
   const limitReached = messages.some((message) => message.role === "assistant" && message.content === CHAT_LIMIT_MESSAGE);
   const expanded = open && (messages.length > 0 || isLoading);
@@ -225,15 +225,7 @@ const ChatOrb = () => {
     setOpen(false);
     setQuery("");
     setMessages([]);
-    setHasScrolled(window.scrollY > 10);
   }, [location.pathname]);
-
-  useEffect(() => {
-    const onScroll = () => setHasScrolled(window.scrollY > 10);
-    if (window.scrollY > 10) setHasScrolled(true);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const syncOverlayState = () => {
@@ -369,7 +361,7 @@ const ChatOrb = () => {
   };
 
   if (disabled) return null;
-  const visible = hasScrolled && !siteOverlayOpen;
+  const visible = !siteOverlayOpen;
 
   return (
     <motion.div
@@ -383,109 +375,93 @@ const ChatOrb = () => {
       }}
       transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
     >
-      <motion.div
-        className="ai-dock-shell"
-        initial={false}
-        animate={{ width: open ? "min(94vw, 660px)" : 148 }}
-        transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
-      >
+      <div className="ai-dock-companion">
         <AnimatePresence initial={false}>
-          {expanded ? (
+          {open ? (
             <motion.div
-              key="thread"
-              className="ai-dock-thread"
-              style={{ transformOrigin: "bottom center" }}
-              initial={{ height: 0, opacity: 0, clipPath: "inset(100% 0 0 0)" }}
-              animate={{
-                height: "min(calc(var(--ai-dock-viewport-height, 100dvh) * 0.6), 460px)",
-                opacity: 1,
-                clipPath: "inset(0% 0 0 0)",
-              }}
-              exit={{ height: 0, opacity: 0, clipPath: "inset(100% 0 0 0)" }}
-              transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE }}
+              key="assistant-panel"
+              className="ai-dock-shell"
+              initial={{ opacity: 0, y: 8, scale: 0.99 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 6, scale: 0.99 }}
+              transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER }}
             >
-              <div ref={listRef} className="ai-dock-messages" aria-live="polite">
-                {messages.map((message) => (
+              <AnimatePresence initial={false}>
+                {expanded ? (
                   <motion.div
-                    key={message.id}
-                    className={message.role === "user" ? "ai-dock-bubble ai-dock-bubble--user" : "ai-dock-bubble ai-dock-bubble--assistant"}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
+                    key="thread"
+                    className="ai-dock-thread"
+                    style={{ transformOrigin: "bottom right" }}
+                    initial={{ height: 0, opacity: 0, clipPath: "inset(100% 0 0 0)" }}
+                    animate={{
+                      height: "min(calc(var(--ai-dock-viewport-height, 100dvh) * 0.6), 460px)",
+                      opacity: 1,
+                      clipPath: "inset(0% 0 0 0)",
+                    }}
+                    exit={{ height: 0, opacity: 0, clipPath: "inset(100% 0 0 0)" }}
+                    transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE }}
                   >
-                    {message.role === "assistant"
-                      ? (
-                          <AssistantAnswer
-                            message={message}
-                            route={location.pathname}
-                            showExtras={!isLoading && message.id === latestAssistantId && messages[messages.length - 1]?.id === message.id}
-                            onSuggestedQuestion={useSuggestedQuestion}
-                          />
-                        )
-                      : message.content}
-                  </motion.div>
-                ))}
-                {isLoading ? (
-                  <div className="ai-dock-thinking" aria-label="Reading the page and checking evidence">
-                    <div className="ai-dock-typing" aria-hidden="true">
-                      {[0, 1, 2].map((dot) => (
-                        <motion.span
-                          key={dot}
-                          animate={{ opacity: [0.25, 1, 0.25] }}
-                          transition={{ duration: 1.1, repeat: Infinity, delay: dot * 0.14, ease: MOTION_EASE }}
-                        />
+                    <div ref={listRef} className="ai-dock-messages" aria-live="polite">
+                      {messages.map((message) => (
+                        <motion.div
+                          key={message.id}
+                          className={message.role === "user" ? "ai-dock-bubble ai-dock-bubble--user" : "ai-dock-bubble ai-dock-bubble--assistant"}
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
+                        >
+                          {message.role === "assistant"
+                            ? (
+                                <AssistantAnswer
+                                  message={message}
+                                  route={location.pathname}
+                                  showExtras={!isLoading && message.id === latestAssistantId && messages[messages.length - 1]?.id === message.id}
+                                  onSuggestedQuestion={useSuggestedQuestion}
+                                />
+                              )
+                            : message.content}
+                        </motion.div>
                       ))}
+                      {isLoading ? (
+                        <div className="ai-dock-thinking" aria-label="Reading the page and checking evidence">
+                          <div className="ai-dock-typing" aria-hidden="true">
+                            {[0, 1, 2].map((dot) => (
+                              <motion.span
+                                key={dot}
+                                animate={{ opacity: [0.25, 1, 0.25] }}
+                                transition={{ duration: 1.1, repeat: Infinity, delay: dot * 0.14, ease: MOTION_EASE }}
+                              />
+                            ))}
+                          </div>
+                          <span>Reading this page and checking the evidence…</span>
+                        </div>
+                      ) : null}
                     </div>
-                    <span>Reading this page and checking the evidence…</span>
-                  </div>
+                  </motion.div>
                 ) : null}
+              </AnimatePresence>
+
+              <div className="ai-dock-row">
+                <form className="ai-dock-form" onSubmit={ask}>
+                  <input
+                    ref={inputRef}
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder={limitReached ? "Chat limit reached" : catalogProject ? "Ask about this work" : "Ask about my work"}
+                    disabled={limitReached}
+                    aria-label="Ask AI"
+                  />
+                  <button type="submit" className="ai-dock-send" disabled={!query.trim() || isLoading || limitReached} aria-label="Send">
+                    <ArrowUp aria-hidden="true" />
+                  </button>
+                </form>
               </div>
             </motion.div>
           ) : null}
         </AnimatePresence>
 
-        <div className="ai-dock-row">
-          <AnimatePresence initial={false} mode="wait">
-            {open ? (
-              <motion.form
-                key="form"
-                className="ai-dock-form"
-                onSubmit={ask}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
-              >
-                <input
-                  ref={inputRef}
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder={limitReached ? "Chat limit reached" : catalogProject ? "Ask about this work" : "Ask about my work"}
-                  disabled={limitReached}
-                  aria-label="Ask AI"
-                />
-                <button type="submit" className="ai-dock-send" disabled={!query.trim() || isLoading || limitReached} aria-label="Send">
-                  <ArrowUp aria-hidden="true" />
-                </button>
-              </motion.form>
-            ) : (
-              <motion.button
-                key="label"
-                type="button"
-                className="ai-dock-label"
-                onClick={() => setOpen(true)}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: MOTION_DURATION.fast, ease: MOTION_EASE }}
-                aria-expanded={false}
-              >
-                Ask AI
-              </motion.button>
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.div>
+        <PixelBot open={open} thinking={isLoading} onToggle={() => setOpen((current) => !current)} />
+      </div>
     </motion.div>
   );
 };
