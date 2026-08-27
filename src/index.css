@@ -2764,10 +2764,10 @@
   .ai-pixel-bot-trigger {
     position: relative;
     display: grid;
-    width: 88px;
-    height: 104px;
+    width: 92px;
+    height: 106px;
     place-items: center;
-    border-radius: 4px;
+    border-radius: 14px;
     background: transparent;
     color: hsl(var(--foreground));
     cursor: pointer;
@@ -2777,7 +2777,7 @@
   }
 
   .ai-pixel-bot-trigger[data-open="false"] {
-    animation: ai-pixel-bot-edge-crawl 20s linear infinite both;
+    animation: ai-pixel-bot-edge-crawl 22s linear infinite both;
   }
 
   .ai-pixel-bot-trigger[data-open="true"] {
@@ -2796,23 +2796,22 @@
     position: absolute;
     inset: 6px;
     border: 1px solid hsl(var(--foreground) / 0.38);
-    border-radius: 2px;
+    border-radius: 12px;
   }
 
   .ai-pixel-bot {
     display: block;
-    width: 88px;
-    height: 100px;
+    width: 92px;
+    height: 101px;
     overflow: visible;
-    image-rendering: pixelated;
-    filter: drop-shadow(0 5px 5px rgb(0 0 0 / 0.19));
+    filter: drop-shadow(0 6px 6px rgb(0 0 0 / 0.18));
   }
 
   .ai-pixel-bot-rig,
+  .ai-pixel-bot-head,
   .ai-pixel-bot-arm,
   .ai-pixel-bot-leg,
-  .ai-pixel-bot-eyes,
-  .ai-pixel-bot-scanline {
+  .ai-pixel-bot-eyes {
     transform-box: fill-box;
   }
 
@@ -2823,72 +2822,55 @@
   .ai-pixel-bot-outline,
   .ai-pixel-bot-head-outline,
   .ai-pixel-bot-screen-outline,
-  .ai-pixel-bot-panel-outline,
-  .ai-pixel-bot-grip,
+  .ai-pixel-bot-chest-outline,
+  .ai-pixel-bot-hand,
   .ai-pixel-bot-boot {
-    fill: #0b100d;
+    fill: #0a100c;
   }
 
   .ai-pixel-bot-shell {
-    fill: #b8df79;
+    fill: hsl(var(--highlight));
   }
 
   .ai-pixel-bot-shell-mid {
-    fill: #97bd5f;
+    fill: #addf68;
   }
 
   .ai-pixel-bot-shell-shade {
-    fill: #5d7c3e;
+    fill: #719b42;
   }
 
   .ai-pixel-bot-shell-light {
-    fill: #dff5b2;
-    opacity: 0.66;
+    fill: #efffc9;
+    opacity: 0.7;
   }
 
   .ai-pixel-bot-screen,
-  .ai-pixel-bot-chest-screen,
-  .ai-pixel-bot-detail-dark {
-    fill: #07100d;
+  .ai-pixel-bot-chest-screen {
+    fill: #08110e;
   }
 
   .ai-pixel-bot-screen-glint {
-    fill: rgb(198 251 255 / 0.08);
+    fill: rgb(198 251 255 / 0.09);
   }
 
   .ai-pixel-bot-eye,
-  .ai-pixel-bot-signal,
-  .ai-pixel-bot-status {
+  .ai-pixel-bot-face-status {
     fill: #bff8ff;
     filter: drop-shadow(0 0 1.5px rgb(151 242 255 / 0.62));
   }
 
-  .ai-pixel-bot-status-dim,
-  .ai-pixel-bot-rivet {
-    fill: #dff5b2;
-    opacity: 0.34;
-  }
-
-  .ai-pixel-bot-screen-mark,
-  .ai-pixel-bot-scanline {
-    fill: #bff8ff;
-    opacity: 0.18;
-  }
-
-  .ai-pixel-bot-shell-seam {
+  .ai-pixel-bot-eye-line {
     fill: none;
-    stroke: #0b100d;
-    stroke-width: 1;
-    opacity: 0.42;
+    stroke: #bff8ff;
+    stroke-width: 2.2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+    filter: drop-shadow(0 0 1.5px rgb(151 242 255 / 0.7));
   }
 
-  .ai-pixel-bot-grip-line {
-    fill: #b8df79;
-  }
-
-  .ai-pixel-bot-sole {
-    fill: #dff5b2;
-    opacity: 0.72;
+  .ai-pixel-bot-finger {
+    fill: #0a100c;
   }
 
   .ai-pixel-bot-contact {
@@ -2897,20 +2879,15 @@
 
   .ai-pixel-bot-eyes {
     transform-origin: center;
-    animation: ai-pixel-bot-look 8.6s steps(1, end) infinite;
-  }
-
-  .ai-pixel-bot-scanline {
-    transform-origin: center;
-    animation: ai-pixel-bot-scanline 4.2s steps(4, end) infinite;
-  }
-
-  .ai-pixel-bot-signal {
-    animation: ai-pixel-bot-signal 3.2s steps(2, end) infinite;
+    animation: ai-pixel-bot-look 7.8s steps(1, end) infinite;
   }
 
   .ai-pixel-bot-chest-pixels {
-    animation: ai-pixel-bot-prompt 2.6s steps(1, end) infinite;
+    animation: ai-pixel-bot-prompt 2.3s steps(1, end) infinite;
+  }
+
+  .ai-pixel-bot-face-status {
+    animation: ai-pixel-bot-status 3.4s steps(2, end) infinite;
   }
 
   .ai-pixel-bot-close {
@@ -2936,7 +2913,7 @@
 
   .ai-pixel-bot-arm--left,
   .ai-pixel-bot-arm--right {
-    transform-origin: 50% 12%;
+    transform-origin: 50% 8%;
   }
 
   .ai-pixel-bot-leg--left,
@@ -2944,14 +2921,20 @@
     transform-origin: 50% 6%;
   }
 
-  .ai-pixel-bot-trigger[data-open="false"] .ai-pixel-bot-arm--left,
-  .ai-pixel-bot-trigger[data-open="false"] .ai-pixel-bot-leg--right {
-    animation: ai-pixel-bot-gait-forward 0.84s steps(2, end) infinite;
+  .ai-pixel-bot-trigger[data-open="false"] .ai-pixel-bot-arm--left {
+    animation: ai-pixel-bot-arm-left 22s linear infinite;
   }
 
-  .ai-pixel-bot-trigger[data-open="false"] .ai-pixel-bot-arm--right,
+  .ai-pixel-bot-trigger[data-open="false"] .ai-pixel-bot-arm--right {
+    animation: ai-pixel-bot-arm-right 22s linear infinite;
+  }
+
   .ai-pixel-bot-trigger[data-open="false"] .ai-pixel-bot-leg--left {
-    animation: ai-pixel-bot-gait-reverse 0.84s steps(2, end) infinite;
+    animation: ai-pixel-bot-leg-left 0.82s steps(2, end) infinite;
+  }
+
+  .ai-pixel-bot-trigger[data-open="false"] .ai-pixel-bot-leg--right {
+    animation: ai-pixel-bot-leg-right 0.82s steps(2, end) infinite;
   }
 
   .ai-pixel-bot-trigger:hover .ai-pixel-bot-arm,
@@ -2963,8 +2946,8 @@
     animation: none;
   }
 
-  .ai-pixel-bot-trigger[data-thinking="true"] .ai-pixel-bot-signal,
-  .ai-pixel-bot-trigger[data-thinking="true"] .ai-pixel-bot-chest-pixels {
+  .ai-pixel-bot-trigger[data-thinking="true"] .ai-pixel-bot-chest-pixels,
+  .ai-pixel-bot-trigger[data-thinking="true"] .ai-pixel-bot-face-status {
     animation-duration: 0.48s;
   }
 
@@ -2974,29 +2957,45 @@
 
   @keyframes ai-pixel-bot-edge-crawl {
     0%, 4% { transform: translate(0, 0) rotate(0deg); }
-    28%, 32% { transform: translate(-76px, 0) rotate(0deg); }
+    28%, 32% { transform: translate(-80px, 0) rotate(0deg); }
     56%, 60% { transform: translate(0, 0) rotate(0deg); }
-    66% { transform: translate(44px, -50px) rotate(-90deg); }
-    84%, 88% { transform: translate(44px, -100px) rotate(-90deg); }
-    96% { transform: translate(44px, -50px) rotate(-90deg); }
+    66% { transform: translate(46px, -50px) rotate(-90deg); }
+    84%, 88% { transform: translate(46px, -108px) rotate(-90deg); }
+    96% { transform: translate(46px, -50px) rotate(-90deg); }
     100% { transform: translate(0, 0) rotate(0deg); }
   }
 
-  @keyframes ai-pixel-bot-gait-forward {
-    0%, 100% { transform: rotate(-5deg) translateY(0); }
-    50% { transform: rotate(5deg) translateY(-0.6px); }
+  @keyframes ai-pixel-bot-arm-left {
+    0%, 4%, 28%, 32%, 56%, 60%, 66%, 96%, 100% { transform: translate(0, 0) rotate(0deg); }
+    8%, 16%, 24%, 36%, 44%, 52% { transform: translate(0, -1px) rotate(8deg); }
+    12%, 20%, 40%, 48% { transform: translate(0, 0) rotate(-8deg); }
+    69%, 77%, 85%, 92% { transform: translate(7px, -3px) rotate(-13deg); }
+    73%, 81%, 88%, 94% { transform: translate(-2px, 2px) rotate(9deg); }
   }
 
-  @keyframes ai-pixel-bot-gait-reverse {
-    0%, 100% { transform: rotate(5deg) translateY(-0.6px); }
-    50% { transform: rotate(-5deg) translateY(0); }
+  @keyframes ai-pixel-bot-arm-right {
+    0%, 4%, 28%, 32%, 56%, 60%, 66%, 96%, 100% { transform: translate(0, 0) rotate(0deg); }
+    8%, 16%, 24%, 36%, 44%, 52% { transform: translate(0, 0) rotate(-8deg); }
+    12%, 20%, 40%, 48% { transform: translate(0, -1px) rotate(8deg); }
+    69%, 77%, 85%, 92% { transform: translate(-2px, 2px) rotate(-9deg); }
+    73%, 81%, 88%, 94% { transform: translate(7px, -3px) rotate(13deg); }
+  }
+
+  @keyframes ai-pixel-bot-leg-left {
+    0%, 100% { transform: translateX(-1px) rotate(-5deg); }
+    50% { transform: translate(1px, -1px) rotate(5deg); }
+  }
+
+  @keyframes ai-pixel-bot-leg-right {
+    0%, 100% { transform: translate(1px, -1px) rotate(5deg); }
+    50% { transform: translateX(-1px) rotate(-5deg); }
   }
 
   @keyframes ai-pixel-bot-look {
-    0%, 30%, 62%, 100% { transform: translateX(0); }
-    31%, 45% { transform: translateX(-2px); }
-    63%, 76% { transform: translateX(2px); }
-    77%, 79% { transform: scaleY(0.2); }
+    0%, 28%, 58%, 100% { transform: translateX(0); }
+    29%, 42% { transform: translateX(-2px); }
+    59%, 72% { transform: translateX(2px); }
+    73%, 75% { transform: scaleY(0.18); }
   }
 
   @keyframes ai-pixel-bot-think {
@@ -3004,22 +3003,14 @@
     50%, 100% { transform: translateX(2px); }
   }
 
-  @keyframes ai-pixel-bot-signal {
-    0%, 32% { opacity: 0.18; }
-    33%, 66% { opacity: 1; }
-    67%, 100% { opacity: 0.46; }
-  }
-
   @keyframes ai-pixel-bot-prompt {
-    0%, 74% { opacity: 0.92; }
-    75%, 100% { opacity: 0.34; }
+    0%, 70% { opacity: 0.94; }
+    71%, 100% { opacity: 0.38; }
   }
 
-  @keyframes ai-pixel-bot-scanline {
-    0%, 15% { transform: translateY(-4px); opacity: 0; }
-    25% { opacity: 0.18; }
-    75% { opacity: 0.18; }
-    85%, 100% { transform: translateY(6px); opacity: 0; }
+  @keyframes ai-pixel-bot-status {
+    0%, 68% { opacity: 0.28; }
+    69%, 100% { opacity: 0.92; }
   }
 
   .ai-dock-thread {
@@ -3254,13 +3245,13 @@
     }
 
     .ai-pixel-bot-trigger {
-      width: 82px;
-      height: 96px;
+      width: 86px;
+      height: 99px;
     }
 
     .ai-pixel-bot {
-      width: 82px;
-      height: 92px;
+      width: 86px;
+      height: 95px;
     }
 
     .ai-pixel-bot-trigger[data-open="false"] {
@@ -3286,20 +3277,20 @@
 
   @keyframes ai-pixel-bot-edge-crawl-mobile {
     0%, 4% { transform: translate(0, 0) rotate(0deg); }
-    28%, 32% { transform: translate(-54px, 0) rotate(0deg); }
+    28%, 32% { transform: translate(-58px, 0) rotate(0deg); }
     56%, 60% { transform: translate(0, 0) rotate(0deg); }
-    66% { transform: translate(41px, -46px) rotate(-90deg); }
-    84%, 88% { transform: translate(41px, -88px) rotate(-90deg); }
-    96% { transform: translate(41px, -46px) rotate(-90deg); }
+    66% { transform: translate(43px, -47px) rotate(-90deg); }
+    84%, 88% { transform: translate(43px, -94px) rotate(-90deg); }
+    96% { transform: translate(43px, -47px) rotate(-90deg); }
     100% { transform: translate(0, 0) rotate(0deg); }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .ai-pixel-bot-trigger,
     .ai-pixel-bot-rig,
+    .ai-pixel-bot-head,
     .ai-pixel-bot-eyes,
-    .ai-pixel-bot-signal,
-    .ai-pixel-bot-scanline,
+    .ai-pixel-bot-face-status,
     .ai-pixel-bot-chest-pixels,
     .ai-pixel-bot-arm,
     .ai-pixel-bot-leg {
