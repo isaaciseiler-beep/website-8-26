@@ -16,110 +16,96 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => (
   >
     <svg
       className="ai-pixel-bot"
-      viewBox="0 0 100 110"
+      viewBox="0 0 92 104"
       aria-hidden="true"
-      shapeRendering="geometricPrecision"
+      shapeRendering="crispEdges"
     >
-      <ellipse className="ai-pixel-bot-aura" cx="50" cy="55" rx="44" ry="43" />
-      <ellipse className="ai-pixel-bot-shadow" cx="50" cy="104" rx="27" ry="3.5" />
-
       <g className="ai-pixel-bot-rig">
+        <path className="ai-pixel-bot-contact" d="M24 101h44v3H24z" />
+
         <g className="ai-pixel-bot-antenna">
-          <path className="ai-pixel-bot-antenna-stem" d="M50 16V9.5" />
-          <circle className="ai-pixel-bot-antenna-node" cx="50" cy="6" r="3.5" />
-          <rect className="ai-pixel-bot-signal ai-pixel-bot-signal--one" x="43" y="2" width="2" height="2" rx="0.4" />
-          <rect className="ai-pixel-bot-signal ai-pixel-bot-signal--two" x="55" y="1" width="3" height="3" rx="0.5" />
+          <rect className="ai-pixel-bot-outline" x="44" y="6" width="4" height="11" />
+          <rect className="ai-pixel-bot-shell" x="45" y="7" width="2" height="9" />
+          <rect className="ai-pixel-bot-outline" x="41" y="1" width="10" height="7" />
+          <rect className="ai-pixel-bot-status" x="44" y="3" width="4" height="3" />
+          <rect className="ai-pixel-bot-signal" x="53" y="2" width="3" height="3" />
         </g>
 
         <g className="ai-pixel-bot-backpack">
-          <rect className="ai-pixel-bot-outline" x="20" y="66" width="12" height="21" rx="6" />
-          <rect className="ai-pixel-bot-shell-shade" x="22.5" y="68.5" width="7" height="16" rx="3.5" />
-          <rect className="ai-pixel-bot-detail-dark" x="24" y="72" width="4" height="2" rx="1" />
+          <path className="ai-pixel-bot-outline" d="M16 60h12v29H13V66z" />
+          <path className="ai-pixel-bot-shell-shade" d="M18 63h7v23h-9V68z" />
+          <rect className="ai-pixel-bot-detail-dark" x="17" y="69" width="7" height="3" />
+          <rect className="ai-pixel-bot-status-dim" x="17" y="77" width="3" height="3" />
         </g>
 
         <g className="ai-pixel-bot-arm ai-pixel-bot-arm--left">
-          <rect className="ai-pixel-bot-outline" x="11" y="66" width="17" height="13" rx="6.5" transform="rotate(15 19.5 72.5)" />
-          <rect className="ai-pixel-bot-shell-mid" x="14" y="68.5" width="12" height="8" rx="4" transform="rotate(15 20 72.5)" />
-          <rect className="ai-pixel-bot-outline" x="8" y="76" width="12" height="15" rx="6" />
-          <rect className="ai-pixel-bot-shell" x="10.5" y="78" width="7" height="10" rx="3.5" />
-          <path className="ai-pixel-bot-hand-line" d="M11.5 83.5h5" />
+          <path className="ai-pixel-bot-outline" d="M15 61h12v9l-5 5v14H10V72l5-5z" />
+          <path className="ai-pixel-bot-shell-mid" d="M17 64h7v5l-5 5v12h-6V73l4-4z" />
+          <rect className="ai-pixel-bot-grip" x="9" y="86" width="14" height="7" />
+          <rect className="ai-pixel-bot-grip-line" x="12" y="88" width="2" height="3" />
+          <rect className="ai-pixel-bot-grip-line" x="18" y="88" width="2" height="3" />
         </g>
 
         <g className="ai-pixel-bot-arm ai-pixel-bot-arm--right">
-          <rect className="ai-pixel-bot-outline" x="72" y="66" width="17" height="13" rx="6.5" transform="rotate(-15 80.5 72.5)" />
-          <rect className="ai-pixel-bot-shell-mid" x="74" y="68.5" width="12" height="8" rx="4" transform="rotate(-15 80 72.5)" />
-          <rect className="ai-pixel-bot-outline" x="80" y="76" width="12" height="15" rx="6" />
-          <rect className="ai-pixel-bot-shell" x="82.5" y="78" width="7" height="10" rx="3.5" />
-          <path className="ai-pixel-bot-hand-line" d="M83.5 83.5h5" />
+          <path className="ai-pixel-bot-outline" d="M65 61h12l5 6v5h4v17H74V75l-5-5h-4z" />
+          <path className="ai-pixel-bot-shell-mid" d="M68 64h7l4 4v5l4 1v12h-6V74l-5-5h-4z" />
+          <rect className="ai-pixel-bot-grip" x="72" y="86" width="14" height="7" />
+          <rect className="ai-pixel-bot-grip-line" x="75" y="88" width="2" height="3" />
+          <rect className="ai-pixel-bot-grip-line" x="81" y="88" width="2" height="3" />
         </g>
 
         <g className="ai-pixel-bot-leg ai-pixel-bot-leg--left">
-          <rect className="ai-pixel-bot-outline" x="29" y="84" width="17" height="17" rx="7" />
-          <rect className="ai-pixel-bot-shell-mid" x="32" y="85" width="11" height="12" rx="5" />
-          <path className="ai-pixel-bot-boot" d="M27 96h19v7H27z" />
-          <rect className="ai-pixel-bot-sole" x="29" y="100" width="15" height="2" rx="1" />
+          <path className="ai-pixel-bot-outline" d="M27 84h17v15H24V89z" />
+          <path className="ai-pixel-bot-shell-mid" d="M30 86h11v10H27v-6z" />
+          <rect className="ai-pixel-bot-boot" x="21" y="96" width="23" height="6" />
+          <rect className="ai-pixel-bot-sole" x="23" y="99" width="19" height="2" />
         </g>
 
         <g className="ai-pixel-bot-leg ai-pixel-bot-leg--right">
-          <rect className="ai-pixel-bot-outline" x="54" y="84" width="17" height="17" rx="7" />
-          <rect className="ai-pixel-bot-shell-mid" x="57" y="85" width="11" height="12" rx="5" />
-          <path className="ai-pixel-bot-boot" d="M54 96h19v7H54z" />
-          <rect className="ai-pixel-bot-sole" x="56" y="100" width="15" height="2" rx="1" />
+          <path className="ai-pixel-bot-outline" d="M48 84h17l3 5v10H48z" />
+          <path className="ai-pixel-bot-shell-mid" d="M51 86h11l3 4v6H51z" />
+          <rect className="ai-pixel-bot-boot" x="48" y="96" width="23" height="6" />
+          <rect className="ai-pixel-bot-sole" x="50" y="99" width="19" height="2" />
         </g>
 
         <g className="ai-pixel-bot-body">
-          <rect className="ai-pixel-bot-neck-outline" x="41" y="58" width="18" height="12" rx="5" />
-          <rect className="ai-pixel-bot-neck" x="44" y="59" width="12" height="10" rx="4" />
-          <path className="ai-pixel-bot-outline" d="M31 62.5Q50 57 69 62.5L76 70v15Q76 93 68 96H32q-8-3-8-11V70z" />
-          <path className="ai-pixel-bot-shell" d="M32 65q18-5 36 0l5 7v13q0 6-6 8H33q-6-2-6-8V72z" />
-          <path className="ai-pixel-bot-body-light" d="M32 67q18-4 34-.5l2 3q-17-3-38 .5z" />
-          <path className="ai-pixel-bot-body-shade" d="M28 84q22 6 44 0v2q0 4-5 6H33q-5-2-5-6z" />
-          <rect className="ai-pixel-bot-chest-outline" x="36" y="70" width="28" height="16" rx="6" />
-          <rect className="ai-pixel-bot-chest-screen" x="39" y="73" width="22" height="10" rx="3.5" />
+          <rect className="ai-pixel-bot-outline" x="39" y="58" width="14" height="9" />
+          <rect className="ai-pixel-bot-shell-shade" x="42" y="59" width="8" height="8" />
+          <path className="ai-pixel-bot-outline" d="M27 61h38l7 7v20l-7 7H27l-7-7V68z" />
+          <path className="ai-pixel-bot-shell" d="M30 64h32l6 6v16l-6 6H30l-6-6V70z" />
+          <path className="ai-pixel-bot-shell-light" d="M30 66h30l3 3H28z" />
+          <path className="ai-pixel-bot-shell-shade" d="M25 85h42v2l-5 5H30l-5-5z" />
+          <path className="ai-pixel-bot-panel-outline" d="M34 70h24l4 4v10l-4 4H34l-4-4V74z" />
+          <rect className="ai-pixel-bot-chest-screen" x="35" y="75" width="22" height="8" />
           <g className="ai-pixel-bot-chest-pixels">
-            <rect className="ai-pixel-bot-eye" x="43" y="76" width="2.5" height="2.5" rx="0.4" />
-            <rect className="ai-pixel-bot-eye" x="47" y="78.5" width="2.5" height="2" rx="0.4" />
-            <rect className="ai-pixel-bot-eye" x="52" y="79" width="5" height="1.5" rx="0.5" />
+            <rect className="ai-pixel-bot-eye" x="39" y="77" width="3" height="3" />
+            <rect className="ai-pixel-bot-eye" x="44" y="79" width="3" height="2" />
+            <rect className="ai-pixel-bot-eye" x="50" y="79" width="4" height="2" />
           </g>
           <g className="ai-pixel-bot-close">
-            <path className="ai-pixel-bot-close-line" d="m45 76 10 5m0-5-10 5" />
+            <path className="ai-pixel-bot-close-line" d="m40 77 12 5m0-5-12 5" />
           </g>
-          <circle className="ai-pixel-bot-status" cx="69" cy="78" r="1.5" />
+          <rect className="ai-pixel-bot-status" x="62" y="73" width="3" height="3" />
+          <rect className="ai-pixel-bot-status-dim" x="62" y="79" width="3" height="3" />
         </g>
 
         <g className="ai-pixel-bot-head">
-          <rect className="ai-pixel-bot-ear-outline" x="4" y="31" width="13" height="25" rx="6.5" />
-          <rect className="ai-pixel-bot-shell-shade" x="7" y="34" width="8" height="19" rx="4" />
-          <rect className="ai-pixel-bot-ear-detail" x="9" y="39" width="4" height="8" rx="2" />
-          <rect className="ai-pixel-bot-ear-outline" x="83" y="31" width="13" height="25" rx="6.5" />
-          <rect className="ai-pixel-bot-shell-shade" x="85" y="34" width="8" height="19" rx="4" />
-          <rect className="ai-pixel-bot-ear-detail" x="87" y="39" width="4" height="8" rx="2" />
-
-          <path className="ai-pixel-bot-head-outline" d="M27 14h46q18 0 18 18v20q0 19-19 19H28Q9 71 9 52V32q0-18 18-18z" />
-          <path className="ai-pixel-bot-shell" d="M28 17h44q15 0 15 15v19q0 16-16 16H29q-16 0-16-16V32q0-15 15-15z" />
-          <path className="ai-pixel-bot-head-light" d="M29 19h40q11 0 14 8-22-7-64 .5 3-8.5 10-8.5z" />
-          <path className="ai-pixel-bot-head-shade" d="M14 52q36 13 72 0-1 12-15 13H29q-14-1-15-13z" />
-
-          <rect className="ai-pixel-bot-screen-outline" x="16" y="24" width="68" height="39" rx="15" />
-          <rect className="ai-pixel-bot-screen" x="19" y="27" width="62" height="33" rx="12" />
-          <path className="ai-pixel-bot-screen-glint" d="M27 29h38q9 0 12 8-26-6-54 2 1-7 4-10z" />
-          <rect className="ai-pixel-bot-pixel-accent" x="20" y="32" width="2" height="7" rx="0.5" />
-          <rect className="ai-pixel-bot-pixel-accent" x="78" y="48" width="2" height="7" rx="0.5" />
-
-          <g className="ai-pixel-bot-face-pixels">
-            <g className="ai-pixel-bot-eyes">
-              <path className="ai-pixel-bot-eye ai-pixel-bot-eye--left" d="M28 40h4v3h3v2h4v-2h3v-3h4v5h-3v3H32v-3h-4z" />
-              <path className="ai-pixel-bot-eye ai-pixel-bot-eye--right" d="M54 40h4v3h3v2h4v-2h3v-3h4v5h-3v3H58v-3h-4z" />
-            </g>
-            <g className="ai-pixel-bot-mouth">
-              <rect className="ai-pixel-bot-mouth-pixel" x="45" y="52" width="3" height="2" rx="0.4" />
-              <rect className="ai-pixel-bot-mouth-pixel" x="49" y="53" width="3" height="2" rx="0.4" />
-              <rect className="ai-pixel-bot-mouth-pixel" x="53" y="52" width="3" height="2" rx="0.4" />
-            </g>
+          <path className="ai-pixel-bot-head-outline" d="M19 14h54l8 8v30l-8 9H19l-8-9V22z" />
+          <path className="ai-pixel-bot-shell" d="M21 18h50l6 6v26l-6 7H21l-6-7V24z" />
+          <path className="ai-pixel-bot-shell-light" d="M22 20h47l4 4H19z" />
+          <path className="ai-pixel-bot-shell-shade" d="M16 49h60v2l-6 6H22l-6-6z" />
+          <path className="ai-pixel-bot-screen-outline" d="M24 25h44l5 5v16l-5 5H24l-5-5V30z" />
+          <path className="ai-pixel-bot-screen" d="M26 28h40l4 4v12l-4 4H26l-4-4V32z" />
+          <rect className="ai-pixel-bot-screen-glint" x="26" y="30" width="31" height="2" />
+          <rect className="ai-pixel-bot-scanline" x="25" y="37" width="42" height="1" />
+          <g className="ai-pixel-bot-eyes">
+            <rect className="ai-pixel-bot-eye" x="30" y="37" width="10" height="4" />
+            <rect className="ai-pixel-bot-eye" x="52" y="37" width="10" height="4" />
           </g>
-          <circle className="ai-pixel-bot-cheek" cx="25" cy="51" r="1.5" />
-          <circle className="ai-pixel-bot-cheek" cx="75" cy="51" r="1.5" />
-          <path className="ai-pixel-bot-shell-seam" d="M29 17h42M13 43v8M87 43v8" />
+          <rect className="ai-pixel-bot-screen-mark" x="44" y="44" width="4" height="2" />
+          <rect className="ai-pixel-bot-rivet" x="18" y="27" width="3" height="3" />
+          <rect className="ai-pixel-bot-rivet" x="71" y="47" width="3" height="3" />
+          <path className="ai-pixel-bot-shell-seam" d="M27 18v3h38v-3M15 35h3m56 0h3" />
         </g>
       </g>
     </svg>
