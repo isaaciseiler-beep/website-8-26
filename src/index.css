@@ -2761,681 +2761,188 @@
     justify-content: center;
   }
 
-  .ai-robot-surface-anchor {
+  .ai-ambient-assistant-anchor {
     position: relative;
-    width: 78px;
-    right: 14px;
-    height: 88px;
+    right: 20px;
+    width: 70px;
+    height: 66px;
+    margin-bottom: 18px;
     flex: none;
     pointer-events: none;
-    transform: translate3d(0, calc(-1 * var(--robot-surface-lift, 0px)), 0);
-    transform-origin: 100% 100%;
-    will-change: transform;
   }
 
-  .ai-robot-surface-anchor[data-action="climbUp"],
-  .ai-robot-surface-anchor[data-action="climbDown"] {
-    transition: transform 360ms cubic-bezier(0.22, 0.72, 0.28, 1);
-  }
-
-  .ai-pixel-bot-trigger {
+  .ai-ambient-assistant-trigger {
     position: absolute;
     inset: 0;
     display: grid;
     width: 100%;
     height: 100%;
     place-items: center;
-    border-radius: 18px;
+    border-radius: 32px;
     background: transparent;
-    color: hsl(var(--foreground));
     cursor: pointer;
     pointer-events: auto;
-    transform: translateX(calc(-1 * var(--robot-roam-offset, 0px)));
-    transition: filter 160ms ease-out;
+    isolation: isolate;
+    transition: filter 220ms ease-out;
     -webkit-tap-highlight-color: transparent;
   }
 
-  .ai-pixel-bot-trigger[data-action="walk"] {
-    transition: filter 160ms ease-out, transform var(--robot-walk-duration, 0ms) linear;
-  }
-
-  .ai-pixel-bot-trigger:hover,
-  .ai-pixel-bot-trigger:focus-visible {
-    filter: brightness(1.02);
+  .ai-ambient-assistant-trigger:hover,
+  .ai-ambient-assistant-trigger:focus-visible {
+    filter: brightness(1.025);
     outline: none;
   }
 
-  .ai-pixel-bot-trigger:focus-visible::after {
+  .ai-ambient-assistant-trigger:focus-visible::after {
     content: "";
     position: absolute;
-    inset: 1px;
-    border: 1px solid hsl(var(--foreground) / 0.38);
-    border-radius: 17px;
+    inset: -2px;
+    border: 1px solid hsl(var(--foreground) / 0.24);
+    border-radius: 34px;
   }
 
-  .ai-pixel-bot {
-    position: absolute;
-    right: 0;
-    bottom: -2px;
+  .ai-ambient-assistant {
     display: block;
-    width: 78px;
-    height: 88px;
+    width: 70px;
+    height: auto;
     overflow: visible;
-    transform-origin: right bottom;
   }
 
-  .ai-robot-rig,
-  .ai-robot-head,
-  .ai-robot-antenna,
-  .ai-robot-eyes,
-  .ai-robot-arm,
-  .ai-robot-leg,
-  .ai-robot-foot,
-  .ai-robot-torso {
-    transform-box: fill-box;
-  }
-
-  .ai-robot-rig {
-    transform-origin: 50% 100%;
-    transition: transform 160ms ease-out;
-  }
-
-  .ai-robot-head-shell,
-  .ai-robot-torso-shell,
-  .ai-robot-arm-shell,
-  .ai-robot-antenna-dot,
-  .ai-robot-eye {
-    fill: #b8ff3c;
-  }
-
-  .ai-robot-head-highlight,
-  .ai-robot-torso-highlight {
-    fill: #c9ff63;
-    opacity: 0.46;
-  }
-
-  .ai-robot-head-plane,
-  .ai-robot-torso-plane,
-  .ai-robot-ear,
-  .ai-robot-foot-shell,
-  .ai-robot-antenna-stem {
-    fill: #91d82b;
-  }
-
-  .ai-robot-ear-back,
-  .ai-robot-joint-shadow,
-  .ai-robot-torso-shadow,
-  .ai-robot-leg,
-  .ai-robot-foot-plane,
-  .ai-robot-visor-lip {
-    fill: #76b922;
-  }
-
-  .ai-robot-visor {
-    fill: #080a08;
-  }
-
-  .ai-robot-ground-contact {
-    fill: rgb(0 0 0 / 0.2);
-    transform-box: fill-box;
-    transform-origin: 50% 100%;
-  }
-
-  .ai-robot-head {
-    transform-origin: 50% 100%;
-    transition: transform 160ms ease-out;
-  }
-
-  .ai-robot-antenna {
-    transform-origin: 50% 100%;
-    transition: transform 160ms ease-out;
-  }
-
-  .ai-robot-eyes {
-    transform-origin: center;
-    transition: transform 160ms ease-out;
-  }
-
-  .ai-robot-eye {
+  .ai-ambient-form,
+  .ai-ambient-shadow,
+  .ai-ambient-eyes,
+  .ai-ambient-eye {
     transform-box: fill-box;
     transform-origin: center;
-    transition: transform 90ms ease-in-out;
   }
 
-  .ai-robot-arm--left {
-    transform-origin: 86% 8%;
+  .ai-ambient-form {
+    animation: ai-ambient-float 7.4s cubic-bezier(0.42, 0, 0.28, 1) infinite;
+    will-change: transform;
   }
 
-  .ai-robot-arm--right {
-    transform-origin: 14% 8%;
+  .ai-ambient-shadow {
+    fill: hsl(var(--foreground) / 0.07);
+    filter: blur(3px);
+    animation: ai-ambient-shadow-drift 7.4s cubic-bezier(0.42, 0, 0.28, 1) infinite;
   }
 
-  .ai-robot-leg--left,
-  .ai-robot-leg--right,
-  .ai-robot-foot--left,
-  .ai-robot-foot--right {
-    transform-origin: 50% 100%;
+  .ai-ambient-shell {
+    fill: #f7f7f5;
+    stroke: rgb(0 0 0 / 0.13);
+    stroke-width: 0.7;
   }
 
-  .ai-robot-torso {
-    transform-origin: 50% 100%;
+  .ai-ambient-side-plane {
+    fill: #dcdcd8;
+    opacity: 0.82;
   }
 
-  .ai-pixel-bot-trigger[data-action="idle"][data-hovered="false"] .ai-robot-head,
-  .ai-pixel-bot-trigger[data-action="idle"][data-hovered="false"] .ai-robot-antenna,
-  .ai-pixel-bot-trigger[data-action="idle"][data-hovered="false"] .ai-robot-torso,
-  .ai-pixel-bot-trigger[data-action="idle"][data-hovered="false"] .ai-robot-arm {
-    animation: ai-robot-grounded-breathe 5.6s ease-in-out infinite;
+  .ai-ambient-highlight {
+    fill: #ffffff;
+    opacity: 0.68;
   }
 
-  .ai-pixel-bot-trigger[data-action="idle"][data-hovered="false"] .ai-robot-leg {
-    animation: ai-robot-leg-breathe 5.6s ease-in-out infinite;
+  .ai-ambient-face {
+    fill: #111212;
   }
 
-  .ai-pixel-bot-trigger[data-blinking="true"] .ai-robot-eye {
+  .ai-ambient-face-edge {
+    fill: none;
+    stroke: rgb(255 255 255 / 0.08);
+    stroke-width: 0.8;
+  }
+
+  .ai-ambient-eye {
+    fill: #f7f7f4;
+    transition: transform 100ms ease-in-out;
+  }
+
+  .ai-ambient-eyes {
+    transition: transform 180ms ease-out;
+  }
+
+  .ai-ambient-assistant-trigger[data-gaze="left"] .ai-ambient-eyes {
+    transform: translate(-3px, 0.4px);
+  }
+
+  .ai-ambient-assistant-trigger[data-gaze="right"] .ai-ambient-eyes {
+    transform: translate(3px, -0.2px);
+  }
+
+  .ai-ambient-assistant-trigger[data-blinking="true"] .ai-ambient-eye {
     transform: scaleY(0.12);
   }
 
-  .ai-pixel-bot-trigger[data-action="look"] .ai-robot-eyes {
-    animation: ai-robot-look-eyes 1.6s ease-in-out;
+  .ai-ambient-assistant-trigger[data-hovered="true"] .ai-ambient-form {
+    animation: ai-ambient-attentive 4.2s cubic-bezier(0.42, 0, 0.3, 1) infinite;
   }
 
-  .ai-pixel-bot-trigger[data-action="look"] .ai-robot-head {
-    animation: ai-robot-look-head 1.6s ease-in-out;
+  .ai-ambient-assistant-trigger[data-hovered="true"] .ai-ambient-shadow {
+    animation: ai-ambient-attentive-shadow 4.2s cubic-bezier(0.42, 0, 0.3, 1) infinite;
   }
 
-  .ai-pixel-bot-trigger[data-action="wave"] .ai-robot-rig {
-    animation: ai-robot-wave-body 1.2s ease-in-out;
+  .ai-ambient-assistant-trigger[data-open="true"] .ai-ambient-form {
+    animation: ai-ambient-open-float 9.6s cubic-bezier(0.42, 0, 0.3, 1) infinite;
   }
 
-  .ai-pixel-bot-trigger[data-action="wave"] .ai-robot-arm--right {
-    animation: ai-robot-wave-arm 1.2s ease-in-out;
+  .ai-ambient-assistant-trigger[data-open="true"] .ai-ambient-shadow {
+    animation-duration: 9.6s;
+    opacity: 0.72;
   }
 
-  .ai-pixel-bot-trigger[data-action="wave"] .ai-robot-head {
-    animation: ai-robot-wave-head 1.2s ease-in-out;
+  .ai-ambient-assistant-trigger[data-clicking="true"] .ai-ambient-form {
+    animation: ai-ambient-press 320ms ease-out;
   }
 
-  .ai-pixel-bot-trigger[data-action="sit"] .ai-robot-head,
-  .ai-pixel-bot-trigger[data-action="sit"] .ai-robot-antenna {
-    animation: ai-robot-sit-head 3s ease-in-out;
+  .ai-ambient-assistant-trigger[data-clicking="true"] .ai-ambient-eye {
+    animation: ai-ambient-press-eyes 320ms ease-out;
   }
 
-  .ai-pixel-bot-trigger[data-action="sit"] .ai-robot-torso,
-  .ai-pixel-bot-trigger[data-action="sit"] .ai-robot-arm {
-    animation: ai-robot-sit-body 3s ease-in-out;
+  .ai-ambient-assistant-trigger[data-thinking="true"] .ai-ambient-eyes {
+    animation: ai-ambient-thinking-eyes 1.5s ease-in-out infinite;
   }
 
-  .ai-pixel-bot-trigger[data-action="sit"] .ai-robot-leg--left {
-    animation: ai-robot-sit-left-leg 3s ease-in-out;
+  @keyframes ai-ambient-float {
+    0%, 100% { transform: translate(0, 1px) rotate(-1.6deg); }
+    38% { transform: translate(-1px, -3px) rotate(-2.5deg); }
+    68% { transform: translate(0.5px, -4px) rotate(-0.8deg); }
   }
 
-  .ai-pixel-bot-trigger[data-action="sit"] .ai-robot-leg--right {
-    animation: ai-robot-sit-right-leg 3s ease-in-out;
+  @keyframes ai-ambient-shadow-drift {
+    0%, 100% { transform: scaleX(1.02); opacity: 0.5; }
+    38% { transform: scaleX(0.9); opacity: 0.34; }
+    68% { transform: scaleX(0.86); opacity: 0.29; }
   }
 
-  .ai-pixel-bot-trigger[data-action="turn"] .ai-robot-rig {
-    animation: ai-robot-turn-body 460ms ease-in-out;
+  @keyframes ai-ambient-attentive {
+    0%, 100% { transform: translate(-1px, -3px) rotate(-2.2deg); }
+    50% { transform: translate(-1.5px, -4px) rotate(-1.5deg); }
   }
 
-  .ai-pixel-bot-trigger[data-action="turn"] .ai-robot-head {
-    animation: ai-robot-turn-head 460ms ease-in-out;
+  @keyframes ai-ambient-attentive-shadow {
+    0%, 100% { transform: scaleX(0.92); opacity: 0.34; }
+    50% { transform: scaleX(0.88); opacity: 0.28; }
   }
 
-  .ai-pixel-bot-trigger[data-action="walk"][data-direction="left"] .ai-robot-rig {
-    animation: ai-robot-walk-body-left 560ms linear infinite;
+  @keyframes ai-ambient-open-float {
+    0%, 100% { transform: translate(0, 0) rotate(-1.4deg); }
+    50% { transform: translate(-0.5px, -2px) rotate(-2deg); }
   }
 
-  .ai-pixel-bot-trigger[data-action="walk"][data-direction="right"] .ai-robot-rig {
-    animation: ai-robot-walk-body-right 560ms linear infinite;
+  @keyframes ai-ambient-press {
+    0%, 100% { transform: translate(0, -2px) rotate(-1.5deg) scale(1); }
+    38%, 62% { transform: translate(0.5px, 1px) rotate(-0.5deg) scale(0.985); }
   }
 
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-head {
-    animation: ai-robot-walk-head 560ms linear infinite;
-  }
-
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-antenna {
-    animation: ai-robot-walk-antenna 560ms linear infinite;
-  }
-
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-torso {
-    animation: ai-robot-walk-torso 560ms linear infinite;
-  }
-
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-leg--left,
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-foot--left {
-    animation: ai-robot-walk-left-foot 560ms linear infinite;
-  }
-
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-leg--right,
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-foot--right {
-    animation: ai-robot-walk-right-foot 560ms linear infinite;
-  }
-
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-arm--left {
-    animation: ai-robot-walk-left-arm 560ms linear infinite;
-  }
-
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-arm--right {
-    animation: ai-robot-walk-right-arm 560ms linear infinite;
-  }
-
-  .ai-pixel-bot-trigger[data-action="walk"] .ai-robot-ground-contact {
-    animation: ai-robot-walk-contact 560ms linear infinite;
-  }
-
-  .ai-pixel-bot-trigger[data-clicking="true"] .ai-robot-head,
-  .ai-pixel-bot-trigger[data-clicking="true"] .ai-robot-antenna,
-  .ai-pixel-bot-trigger[data-clicking="true"] .ai-robot-torso,
-  .ai-pixel-bot-trigger[data-clicking="true"] .ai-robot-arm {
-    animation: ai-robot-press-upper 360ms ease-out !important;
-  }
-
-  .ai-pixel-bot-trigger[data-clicking="true"] .ai-robot-leg {
-    animation: ai-robot-press-legs 360ms ease-out !important;
-  }
-
-  .ai-pixel-bot-trigger[data-clicking="true"] .ai-robot-eye {
-    animation: ai-robot-press-eyes 360ms ease-out !important;
-  }
-
-  .ai-pixel-bot-trigger[data-hovered="true"][data-gaze="left"] .ai-robot-eyes {
-    transform: translateX(-4px);
-  }
-
-  .ai-pixel-bot-trigger[data-hovered="true"][data-gaze="right"] .ai-robot-eyes {
-    transform: translateX(4px);
-  }
-
-  .ai-pixel-bot-trigger[data-hovered="true"][data-gaze="left"] .ai-robot-antenna {
-    transform: rotate(-3deg);
-  }
-
-  .ai-pixel-bot-trigger[data-hovered="true"][data-gaze="right"] .ai-robot-antenna {
-    transform: rotate(3deg);
-  }
-
-  .ai-pixel-bot-trigger[data-hovered="true"][data-gaze="left"] .ai-robot-head {
-    transform: rotate(-1.5deg);
-  }
-
-  .ai-pixel-bot-trigger[data-hovered="true"][data-gaze="right"] .ai-robot-head {
-    transform: rotate(1.5deg);
-  }
-
-  .ai-pixel-bot-trigger[data-hovered="true"][data-action="idle"] .ai-robot-arm--right {
-    transform: rotate(-6deg);
-  }
-
-  .ai-pixel-bot-trigger[data-gaze="up"] .ai-robot-eyes {
-    transform: translateY(-3px);
-  }
-
-  .ai-pixel-bot-trigger[data-gaze="down"] .ai-robot-eyes {
-    transform: translateY(3px);
-  }
-
-  .ai-pixel-bot-trigger[data-action="surfaceContact"] .ai-robot-head,
-  .ai-pixel-bot-trigger[data-action="surfaceContact"] .ai-robot-antenna,
-  .ai-pixel-bot-trigger[data-action="surfaceContact"] .ai-robot-torso,
-  .ai-pixel-bot-trigger[data-action="surfaceContact"] .ai-robot-arm,
-  .ai-pixel-bot-trigger[data-action="wallLand"] .ai-robot-head,
-  .ai-pixel-bot-trigger[data-action="wallLand"] .ai-robot-antenna,
-  .ai-pixel-bot-trigger[data-action="wallLand"] .ai-robot-torso,
-  .ai-pixel-bot-trigger[data-action="wallLand"] .ai-robot-arm {
-    animation: ai-robot-surface-contact 420ms ease-out;
-  }
-
-  .ai-pixel-bot-trigger[data-action="surfaceContact"] .ai-robot-leg,
-  .ai-pixel-bot-trigger[data-action="wallLand"] .ai-robot-leg {
-    animation: ai-robot-surface-contact-legs 420ms ease-out;
-  }
-
-  .ai-pixel-bot-trigger[data-action="wallLand"] .ai-robot-rig {
-    animation: ai-robot-wall-land 520ms ease-out;
-  }
-
-  .ai-pixel-bot-trigger[data-action="wallLand"] .ai-robot-visor,
-  .ai-pixel-bot-trigger[data-action="wallLand"] .ai-robot-visor-lip {
-    transform-box: fill-box;
-    transform-origin: 100% 50%;
-    animation: ai-robot-wall-land-visor 520ms ease-out;
-  }
-
-  .ai-pixel-bot-trigger[data-action="edgeInspect"] .ai-robot-rig {
-    animation: ai-robot-edge-inspect 1.9s ease-in-out;
-  }
-
-  .ai-pixel-bot-trigger[data-action="edgeInspect"] .ai-robot-head {
-    animation: ai-robot-edge-inspect-head 1.9s ease-in-out;
-  }
-
-  .ai-pixel-bot-trigger[data-action="wallTurn"] .ai-robot-rig {
-    animation: ai-robot-wall-turn 620ms ease-in-out;
-  }
-
-  .ai-pixel-bot-trigger[data-action="wallTurn"] .ai-robot-head {
-    animation: ai-robot-wall-turn-head 620ms ease-in-out;
-  }
-
-  .ai-pixel-bot-trigger[data-action="wallTurn"] .ai-robot-arm--right {
-    animation: ai-robot-wall-reach 620ms ease-in-out;
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-rig,
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-head,
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-antenna,
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-arm,
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-leg,
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-foot,
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-visor,
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-visor-lip {
-    transition: transform 220ms ease-out, opacity 180ms ease-out;
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-ground-contact {
-    opacity: 0;
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-visor,
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-visor-lip {
-    transform-box: fill-box;
-    transform-origin: 100% 50%;
-    transform: scaleX(0.9);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-arm--left {
-    opacity: 0.48;
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-arm--right {
-    opacity: 1;
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="a"] .ai-robot-rig {
-    transform: translateX(3px) rotate(1.5deg) scaleX(0.94);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="b"] .ai-robot-rig {
-    transform: translateX(1px) rotate(-1deg) scaleX(0.94);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="a"] .ai-robot-arm--left {
-    transform: translateY(-7px) rotate(-28deg);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="a"] .ai-robot-arm--right {
-    transform: translateY(4px) rotate(-42deg) scale(1.06);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="b"] .ai-robot-arm--left {
-    transform: translateY(4px) rotate(-16deg);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="b"] .ai-robot-arm--right {
-    transform: translateY(-7px) rotate(-58deg) scale(1.06);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="a"] .ai-robot-leg--left {
-    transform: translateY(4px) rotate(13deg);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="a"] .ai-robot-leg--right {
-    transform: translateY(-6px) rotate(-17deg);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="b"] .ai-robot-leg--left {
-    transform: translateY(-6px) rotate(17deg);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="b"] .ai-robot-leg--right {
-    transform: translateY(4px) rotate(-13deg);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-foot--left,
-  .ai-pixel-bot-trigger[data-support="rightWall"] .ai-robot-foot--right {
-    transform: translateX(5px) rotate(-72deg) scaleY(0.9);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="a"] .ai-robot-head {
-    transform: translate(3px, 1px) rotate(2deg);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="b"] .ai-robot-head {
-    transform: translate(2px, -1px) rotate(1deg);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="a"] .ai-robot-antenna {
-    transform: rotate(-3deg);
-  }
-
-  .ai-pixel-bot-trigger[data-support="rightWall"][data-climb-phase="b"] .ai-robot-antenna {
-    transform: rotate(3deg);
-  }
-
-  .ai-pixel-bot-trigger[data-action="wallPause"] .ai-robot-eyes {
-    animation: ai-robot-wall-look 1.8s ease-in-out;
-  }
-
-  .ai-pixel-bot-trigger[data-thinking="true"] .ai-robot-eyes {
-    animation: ai-robot-thinking-eyes 1.1s ease-in-out infinite;
-  }
-
-  @keyframes ai-robot-surface-contact {
-    0%, 100% { transform: translateY(0); }
-    34%, 62% { transform: translateY(2px); }
-  }
-
-  @keyframes ai-robot-surface-contact-legs {
+  @keyframes ai-ambient-press-eyes {
     0%, 100% { transform: scaleY(1); }
-    34%, 62% { transform: scaleY(0.8); }
+    38%, 62% { transform: scaleY(0.72); }
   }
 
-  @keyframes ai-robot-edge-inspect {
-    0%, 100% { transform: translateX(0) rotate(0deg); }
-    26%, 70% { transform: translateX(2px) rotate(1.5deg); }
-    84% { transform: translateX(-1px) rotate(-0.5deg); }
-  }
-
-  @keyframes ai-robot-edge-inspect-head {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    26%, 70% { transform: translate(2px, 1px) rotate(2deg); }
-    84% { transform: translate(-1px, 0) rotate(-1deg); }
-  }
-
-  @keyframes ai-robot-wall-turn {
-    0% { transform: translateX(0) rotate(0deg) scaleX(1); }
-    48% { transform: translateX(1px) rotate(1deg) scaleX(0.97); }
-    100% { transform: translateX(3px) rotate(1.5deg) scaleX(0.94); }
-  }
-
-  @keyframes ai-robot-wall-turn-head {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    46% { transform: translate(1px, -1px) rotate(1deg); }
-    100% { transform: translate(3px, 1px) rotate(2deg); }
-  }
-
-  @keyframes ai-robot-wall-reach {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    42% { transform: translate(1px, -2px) rotate(-22deg); }
-    100% { transform: translate(1px, -6px) rotate(-48deg) scale(1.04); }
-  }
-
-  @keyframes ai-robot-wall-look {
-    0%, 100% { transform: translate(0, 0); }
-    28%, 48% { transform: translate(-3px, -1px); }
-    66%, 84% { transform: translate(2px, 1px); }
-  }
-
-  @keyframes ai-robot-wall-land {
-    0% { transform: translateX(3px) rotate(1.5deg) scaleX(0.94); }
-    58% { transform: translateX(1px) rotate(0.5deg) scaleX(0.98); }
-    100% { transform: translateX(0) rotate(0deg) scaleX(1); }
-  }
-
-  @keyframes ai-robot-wall-land-visor {
-    0% { transform: scaleX(0.9); }
-    100% { transform: scaleX(1); }
-  }
-
-  @keyframes ai-robot-grounded-breathe {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(1px); }
-  }
-
-  @keyframes ai-robot-leg-breathe {
-    0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(0.9); }
-  }
-
-  @keyframes ai-robot-look-eyes {
-    0%, 100% { transform: translateX(0); }
-    22%, 34% { transform: translateX(-5px); }
-    50% { transform: translateX(0); }
-    68%, 80% { transform: translateX(5px); }
-  }
-
-  @keyframes ai-robot-look-head {
-    0%, 48%, 100% { transform: rotate(0deg); }
-    22%, 34% { transform: rotate(-2deg); }
-    68%, 80% { transform: rotate(2deg); }
-  }
-
-  @keyframes ai-robot-wave-body {
-    0%, 100% { transform: rotate(0deg); }
-    22%, 78% { transform: rotate(-1.5deg); }
-  }
-
-  @keyframes ai-robot-wave-arm {
-    0%, 100% { transform: rotate(0deg); }
-    18% { transform: rotate(-82deg); }
-    36% { transform: rotate(-66deg); }
-    50% { transform: rotate(-86deg); }
-    64% { transform: rotate(-68deg); }
-    78% { transform: rotate(-82deg); }
-  }
-
-  @keyframes ai-robot-wave-head {
-    0%, 100% { transform: rotate(0deg); }
-    22%, 78% { transform: rotate(-1.5deg); }
-  }
-
-  @keyframes ai-robot-sit-head {
-    0%, 100% { transform: translateY(0); }
-    18%, 82% { transform: translateY(10px); }
-  }
-
-  @keyframes ai-robot-sit-body {
-    0%, 100% { transform: translateY(0) scaleY(1); }
-    18%, 82% { transform: translateY(8px) scaleY(0.94); }
-  }
-
-  @keyframes ai-robot-sit-left-leg {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    18%, 82% { transform: translate(-5px, 3px) rotate(20deg) scaleY(0.72); }
-  }
-
-  @keyframes ai-robot-sit-right-leg {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    18%, 82% { transform: translate(5px, 3px) rotate(-20deg) scaleY(0.72); }
-  }
-
-  @keyframes ai-robot-turn-body {
-    0%, 100% { transform: rotate(0deg) scaleX(1); }
-    42% { transform: rotate(-1deg) scaleX(0.96); }
-    64% { transform: rotate(1deg) scaleX(0.98); }
-  }
-
-  @keyframes ai-robot-turn-head {
-    0%, 100% { transform: translateX(0) rotate(0deg); }
-    46% { transform: translateX(-1px) rotate(-2deg); }
-    68% { transform: translateX(1px) rotate(2deg); }
-  }
-
-  @keyframes ai-robot-walk-body-left {
-    0%, 100% { transform: rotate(-1deg); }
-    25% { transform: rotate(-2deg) scaleY(0.99); }
-    50% { transform: rotate(-1deg); }
-    75% { transform: rotate(-2deg) scaleY(0.99); }
-  }
-
-  @keyframes ai-robot-walk-body-right {
-    0%, 100% { transform: rotate(1deg); }
-    25% { transform: rotate(2deg) scaleY(0.99); }
-    50% { transform: rotate(1deg); }
-    75% { transform: rotate(2deg) scaleY(0.99); }
-  }
-
-  @keyframes ai-robot-walk-head {
-    0%, 100% { transform: translateX(-0.5px); }
-    25% { transform: translateX(0.5px) translateY(0.5px); }
-    50% { transform: translateX(0.5px); }
-    75% { transform: translateX(-0.5px) translateY(0.5px); }
-  }
-
-  @keyframes ai-robot-walk-antenna {
-    0%, 100% { transform: rotate(-1deg); }
-    25% { transform: rotate(2deg); }
-    50% { transform: rotate(1deg); }
-    75% { transform: rotate(-2deg); }
-  }
-
-  @keyframes ai-robot-walk-torso {
-    0%, 50%, 100% { transform: translateX(0) scaleY(1); }
-    25% { transform: translateX(-1px) scaleY(0.98); }
-    75% { transform: translateX(1px) scaleY(0.98); }
-  }
-
-  @keyframes ai-robot-walk-left-foot {
-    0% { transform: translateX(7px) rotate(2deg); }
-    25% { transform: translateX(0) rotate(0deg); }
-    50% { transform: translateX(-7px) rotate(-2deg); }
-    51% { transform: translateX(-7px) translateY(-3px) rotate(-4deg); }
-    75% { transform: translateX(0) translateY(-4px) rotate(0deg); }
-    100% { transform: translateX(7px) rotate(2deg); }
-  }
-
-  @keyframes ai-robot-walk-right-foot {
-    0% { transform: translateX(-7px) translateY(-3px) rotate(-4deg); }
-    25% { transform: translateX(0) translateY(-4px) rotate(0deg); }
-    50% { transform: translateX(7px) rotate(2deg); }
-    75% { transform: translateX(0) rotate(0deg); }
-    100% { transform: translateX(-7px) rotate(-2deg); }
-  }
-
-  @keyframes ai-robot-walk-left-arm {
-    0%, 100% { transform: rotate(-10deg); }
-    50% { transform: rotate(10deg); }
-  }
-
-  @keyframes ai-robot-walk-right-arm {
-    0%, 100% { transform: rotate(10deg); }
-    50% { transform: rotate(-10deg); }
-  }
-
-  @keyframes ai-robot-walk-contact {
-    0%, 49%, 100% { transform: translateX(-7px); opacity: 0.22; }
-    50%, 99% { transform: translateX(7px); opacity: 0.18; }
-  }
-
-  @keyframes ai-robot-press-upper {
-    0%, 100% { transform: translateY(0); }
-    36%, 62% { transform: translateY(2px); }
-  }
-
-  @keyframes ai-robot-press-legs {
-    0%, 100% { transform: scaleY(1); }
-    36%, 62% { transform: scaleY(0.78); }
-  }
-
-  @keyframes ai-robot-press-eyes {
-    0%, 100% { transform: scale(1); }
-    36%, 62% { transform: scale(1.08); }
-  }
-
-  @keyframes ai-robot-thinking-eyes {
-    0%, 100% { transform: translateX(-3px); }
-    50% { transform: translateX(3px); }
+  @keyframes ai-ambient-thinking-eyes {
+    0%, 100% { transform: translateX(-2.5px); }
+    50% { transform: translateX(2.5px); }
   }
 
   .ai-dock-thread {
@@ -3669,15 +3176,15 @@
       touch-action: manipulation;
     }
 
-    .ai-robot-surface-anchor {
-      width: 60px;
-      right: 10px;
-      height: 69px;
+    .ai-ambient-assistant-anchor {
+      right: 14px;
+      width: 58px;
+      height: 55px;
+      margin-bottom: 14px;
     }
 
-    .ai-pixel-bot {
-      width: 60px;
-      height: 69px;
+    .ai-ambient-assistant {
+      width: 58px;
     }
 
     .ai-dock-form input {
@@ -3698,20 +3205,21 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .ai-robot-surface-anchor,
-    .ai-pixel-bot-trigger,
-    .ai-robot-ground-contact,
-    .ai-robot-rig,
-    .ai-robot-head,
-    .ai-robot-antenna,
-    .ai-robot-eyes,
-    .ai-robot-eye,
-    .ai-robot-arm,
-    .ai-robot-leg,
-    .ai-robot-foot,
-    .ai-robot-torso {
+    .ai-ambient-assistant-trigger,
+    .ai-ambient-form,
+    .ai-ambient-shadow,
+    .ai-ambient-eyes,
+    .ai-ambient-eye {
       animation: none !important;
       transition: none !important;
+    }
+
+    .ai-ambient-form {
+      transform: translateY(-2px) rotate(-1.5deg) !important;
+    }
+
+    .ai-ambient-shadow {
+      opacity: 0.34;
       transform: none !important;
     }
   }

@@ -40,7 +40,7 @@ describe("ChatOrb", () => {
     await waitFor(() => expect(screen.queryByRole("textbox", { name: "Ask AI" })).not.toBeInTheDocument());
   });
 
-  it("uses the pixel companion as the assistant trigger from the top of the page", async () => {
+  it("uses the ambient assistant as the trigger from the top of the page", async () => {
     Object.defineProperty(window, "scrollY", { configurable: true, value: 0 });
 
     render(
@@ -51,7 +51,7 @@ describe("ChatOrb", () => {
     );
 
     const bot = await screen.findByRole("button", { name: "Ask AI" });
-    expect(bot.querySelector(".ai-pixel-bot")).toBeInTheDocument();
+    expect(bot.querySelector(".ai-ambient-assistant")).toBeInTheDocument();
 
     fireEvent.click(bot);
     expect(await screen.findByRole("button", { name: "Close AI assistant" })).toHaveAttribute("aria-expanded", "true");
