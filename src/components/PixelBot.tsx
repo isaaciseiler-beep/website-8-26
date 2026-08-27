@@ -182,8 +182,8 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
               rx="12"
             />
             <g className="ai-ambient-eyes">
-              <ellipse className="ai-ambient-eye ai-ambient-eye--left" cx="41" cy="36.2" rx="3.4" ry="4.2" />
-              <ellipse className="ai-ambient-eye ai-ambient-eye--right" cx="56" cy="35.8" rx="3.4" ry="4.2" />
+              <ellipse className="ai-ambient-eye ai-ambient-eye--left" cx="41" cy="36.2" rx="4.08" ry="5.04" />
+              <ellipse className="ai-ambient-eye ai-ambient-eye--right" cx="56" cy="35.8" rx="4.08" ry="5.04" />
             </g>
           </g>
         </svg>

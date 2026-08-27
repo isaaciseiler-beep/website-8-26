@@ -20,7 +20,7 @@ describe("PixelBot", () => {
     vi.restoreAllMocks();
   });
 
-  it("uses only a white outer pill, a black inset, and two eyes", () => {
+  it("uses only a white outer pill, a white inset, and two enlarged eyes", () => {
     const onToggle = vi.fn();
     render(<PixelBot open={false} thinking={false} onToggle={onToggle} />);
 
@@ -28,6 +28,10 @@ describe("PixelBot", () => {
     expect(assistant.querySelectorAll(".ai-ambient-shell")).toHaveLength(1);
     expect(assistant.querySelectorAll(".ai-ambient-inset")).toHaveLength(1);
     expect(assistant.querySelectorAll(".ai-ambient-eye")).toHaveLength(2);
+    assistant.querySelectorAll(".ai-ambient-eye").forEach((eye) => {
+      expect(eye).toHaveAttribute("rx", "4.08");
+      expect(eye).toHaveAttribute("ry", "5.04");
+    });
     expect(assistant.querySelectorAll("svg path, svg rect, svg circle, svg ellipse")).toHaveLength(4);
     expect(assistant.querySelector(".ai-ambient-shadow")).not.toBeInTheDocument();
     expect(assistant.querySelector(".ai-ambient-side-plane")).not.toBeInTheDocument();
