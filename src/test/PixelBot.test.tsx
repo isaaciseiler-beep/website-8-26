@@ -40,12 +40,36 @@ describe("PixelBot", () => {
     fireEvent.pointerEnter(assistant);
     expect(assistant).toHaveAttribute("data-hovered", "true");
 
-    fireEvent.pointerMove(assistant, { clientX: 100 });
-    expect(assistant).toHaveAttribute("data-gaze", "right");
-
     fireEvent.click(assistant);
     expect(onToggle).toHaveBeenCalledTimes(1);
     expect(assistant).toHaveAttribute("data-clicking", "true");
+  });
+
+  it("tracks the cursor across the viewport without changing React state", () => {
+    render(<PixelBot open={false} thinking={false} onToggle={vi.fn()} />);
+    const assistant = screen.getByRole("button", { name: "Ask AI" });
+    vi.spyOn(assistant, "getBoundingClientRect").mockReturnValue({
+      x: 320,
+      y: 700,
+      left: 320,
+      top: 700,
+      right: 390,
+      bottom: 756,
+      width: 70,
+      height: 56,
+      toJSON: () => ({}),
+    });
+
+    fireEvent.pointerMove(window, { clientX: 20, clientY: 40 });
+    act(() => vi.advanceTimersByTime(20));
+    expect(assistant).toHaveAttribute("data-cursor-tracking", "true");
+    expect(Number.parseFloat(assistant.style.getPropertyValue("--ai-eye-x"))).toBeLessThan(0);
+    expect(Number.parseFloat(assistant.style.getPropertyValue("--ai-eye-y"))).toBeLessThan(0);
+
+    fireEvent.pointerMove(window, { clientX: 1200, clientY: 860 });
+    act(() => vi.advanceTimersByTime(20));
+    expect(Number.parseFloat(assistant.style.getPropertyValue("--ai-eye-x"))).toBeGreaterThan(0);
+    expect(Number.parseFloat(assistant.style.getPropertyValue("--ai-eye-y"))).toBeGreaterThan(0);
   });
 
   it("glances quietly during its sparse awareness cycle", () => {

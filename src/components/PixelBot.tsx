@@ -18,7 +18,10 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
   const [gaze, setGaze] = useState<AssistantGaze>("center");
   const [awarenessCycle, setAwarenessCycle] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const clickTimer = useRef<number | null>(null);
+  const pointerFrame = useRef<number | null>(null);
+  const pointerPosition = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -62,6 +65,58 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
     setGaze("center");
   }, [open]);
 
+  useEffect(() => {
+    if (reducedMotion) return;
+
+    const updateEyes = () => {
+      pointerFrame.current = null;
+      const trigger = triggerRef.current;
+      if (!trigger) return;
+
+      const bounds = trigger.getBoundingClientRect();
+      const deltaX = pointerPosition.current.x - (bounds.left + bounds.width / 2);
+      const deltaY = pointerPosition.current.y - (bounds.top + bounds.height / 2);
+      const distance = Math.hypot(deltaX, deltaY);
+      const influence = Math.min(1, distance / 240);
+      const angle = Math.atan2(deltaY, deltaX);
+      const eyeX = Math.cos(angle) * 3.2 * influence;
+      const eyeY = Math.sin(angle) * 2 * influence;
+
+      trigger.dataset.cursorTracking = "true";
+      trigger.style.setProperty("--ai-eye-x", `${eyeX.toFixed(2)}px`);
+      trigger.style.setProperty("--ai-eye-y", `${eyeY.toFixed(2)}px`);
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      pointerPosition.current = { x: event.clientX, y: event.clientY };
+      if (pointerFrame.current === null) {
+        pointerFrame.current = window.requestAnimationFrame(updateEyes);
+      }
+    };
+
+    const resetEyes = () => {
+      const trigger = triggerRef.current;
+      if (!trigger) return;
+      trigger.removeAttribute("data-cursor-tracking");
+      trigger.style.removeProperty("--ai-eye-x");
+      trigger.style.removeProperty("--ai-eye-y");
+    };
+
+    const page = document.documentElement;
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("blur", resetEyes);
+    page.addEventListener("pointerleave", resetEyes);
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("blur", resetEyes);
+      page.removeEventListener("pointerleave", resetEyes);
+      if (pointerFrame.current !== null) window.cancelAnimationFrame(pointerFrame.current);
+      pointerFrame.current = null;
+      resetEyes();
+    };
+  }, [reducedMotion]);
+
   useEffect(() => () => {
     if (clickTimer.current !== null) window.clearTimeout(clickTimer.current);
   }, []);
@@ -76,15 +131,6 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
     setGaze("center");
   };
 
-  const followPointer = (clientX: number, left: number, width: number) => {
-    const nextGaze: AssistantGaze = clientX < left + width * 0.44
-      ? "left"
-      : clientX > left + width * 0.56
-        ? "right"
-        : "center";
-    setGaze((current) => current === nextGaze ? current : nextGaze);
-  };
-
   const handleToggle = () => {
     setClicking(true);
     if (clickTimer.current !== null) window.clearTimeout(clickTimer.current);
@@ -95,6 +141,7 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
   return (
     <div className="ai-ambient-assistant-anchor">
       <button
+        ref={triggerRef}
         type="button"
         className="ai-ambient-assistant-trigger"
         data-open={open ? "true" : "false"}
@@ -106,10 +153,6 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
         onClick={handleToggle}
         onPointerEnter={beginInteraction}
         onPointerLeave={endInteraction}
-        onPointerMove={(event) => {
-          const bounds = event.currentTarget.getBoundingClientRect();
-          followPointer(event.clientX, bounds.left, bounds.width);
-        }}
         onFocus={beginInteraction}
         onBlur={endInteraction}
         aria-label={open ? "Close AI assistant" : "Ask AI"}
@@ -129,7 +172,6 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
               width="86"
               height="58"
               rx="29"
-              transform="rotate(-2 48 36)"
             />
             <rect
               className="ai-ambient-inset"
@@ -138,7 +180,6 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
               width="52"
               height="24"
               rx="12"
-              transform="rotate(-1.4 48 36)"
             />
             <g className="ai-ambient-eyes">
               <ellipse className="ai-ambient-eye ai-ambient-eye--left" cx="41" cy="36.2" rx="3.4" ry="4.2" />
