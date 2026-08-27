@@ -173,14 +173,6 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
               height="58"
               rx="29"
             />
-            <rect
-              className="ai-ambient-inset"
-              x="22"
-              y="24"
-              width="52"
-              height="24"
-              rx="12"
-            />
             <g className="ai-ambient-eyes">
               <ellipse className="ai-ambient-eye ai-ambient-eye--left" cx="41" cy="36.2" rx="4.08" ry="5.04" />
               <ellipse className="ai-ambient-eye ai-ambient-eye--right" cx="56" cy="35.8" rx="4.08" ry="5.04" />
