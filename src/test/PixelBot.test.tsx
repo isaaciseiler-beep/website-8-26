@@ -20,15 +20,19 @@ describe("PixelBot", () => {
     vi.restoreAllMocks();
   });
 
-  it("uses one abstract shell, a quiet face, and the existing assistant toggle", () => {
+  it("uses only a white outer pill, a black inset, and two eyes", () => {
     const onToggle = vi.fn();
     render(<PixelBot open={false} thinking={false} onToggle={onToggle} />);
 
     const assistant = screen.getByRole("button", { name: "Ask AI" });
     expect(assistant.querySelectorAll(".ai-ambient-shell")).toHaveLength(1);
-    expect(assistant.querySelectorAll(".ai-ambient-face")).toHaveLength(1);
+    expect(assistant.querySelectorAll(".ai-ambient-inset")).toHaveLength(1);
     expect(assistant.querySelectorAll(".ai-ambient-eye")).toHaveLength(2);
-    expect(assistant.querySelector(".ai-ambient-shadow")).toBeInTheDocument();
+    expect(assistant.querySelectorAll("svg path, svg rect, svg circle, svg ellipse")).toHaveLength(4);
+    expect(assistant.querySelector(".ai-ambient-shadow")).not.toBeInTheDocument();
+    expect(assistant.querySelector(".ai-ambient-side-plane")).not.toBeInTheDocument();
+    expect(assistant.querySelector(".ai-ambient-highlight")).not.toBeInTheDocument();
+    expect(assistant.querySelector(".ai-ambient-face-edge")).not.toBeInTheDocument();
     expect(assistant.querySelector(".ai-robot-antenna")).not.toBeInTheDocument();
     expect(assistant.querySelector(".ai-robot-arm")).not.toBeInTheDocument();
     expect(assistant.querySelector(".ai-robot-leg")).not.toBeInTheDocument();

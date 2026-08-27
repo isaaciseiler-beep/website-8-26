@@ -117,46 +117,32 @@ const PixelBot = ({ open, thinking, onToggle }: PixelBotProps) => {
       >
         <svg
           className="ai-ambient-assistant"
-          viewBox="0 0 96 88"
+          viewBox="0 0 96 72"
           aria-hidden="true"
           shapeRendering="geometricPrecision"
         >
-          <ellipse className="ai-ambient-shadow" cx="48" cy="79" rx="25" ry="4" />
-
           <g className="ai-ambient-form">
-            <path
+            <rect
               className="ai-ambient-shell"
-              d="M40 7C62 4 79 13 85 29c2 5 3 11 3 18 0 19-13 31-34 34l-11 1C24 83 10 73 8 55L7 42C5 24 17 11 35 8l5-1Z"
-            />
-            <path
-              className="ai-ambient-side-plane"
-              d="M75 15c8 7 12 18 13 32 0 18-11 29-28 33 11-7 16-18 16-34 0-12-2-22-7-29l6-2Z"
-            />
-            <path
-              className="ai-ambient-highlight"
-              d="M19 25C24 15 34 11 48 10c11-1 20 1 27 6-10-2-21-2-33 0-10 1-18 5-23 9Z"
+              x="5"
+              y="7"
+              width="86"
+              height="58"
+              rx="29"
+              transform="rotate(-2 48 36)"
             />
             <rect
-              className="ai-ambient-face"
-              x="18"
-              y="25"
-              width="61"
-              height="35"
-              rx="16"
-              transform="rotate(-2 48.5 42.5)"
-            />
-            <rect
-              className="ai-ambient-face-edge"
-              x="19"
-              y="26"
-              width="59"
-              height="33"
-              rx="15"
-              transform="rotate(-2 48.5 42.5)"
+              className="ai-ambient-inset"
+              x="22"
+              y="24"
+              width="52"
+              height="24"
+              rx="12"
+              transform="rotate(-1.4 48 36)"
             />
             <g className="ai-ambient-eyes">
-              <ellipse className="ai-ambient-eye ai-ambient-eye--left" cx="39" cy="42" rx="3.6" ry="4" />
-              <ellipse className="ai-ambient-eye ai-ambient-eye--right" cx="59" cy="41.3" rx="3.6" ry="4" />
+              <ellipse className="ai-ambient-eye ai-ambient-eye--left" cx="41" cy="36.2" rx="3.4" ry="4.2" />
+              <ellipse className="ai-ambient-eye ai-ambient-eye--right" cx="56" cy="35.8" rx="3.4" ry="4.2" />
             </g>
           </g>
         </svg>
