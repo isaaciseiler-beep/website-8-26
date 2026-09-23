@@ -415,7 +415,7 @@ export const projectItems: ProjectItem[] = [
     source: "PROJECT",
     year: "2025",
     summary:
-      "I pitched OpenAI on a local program for educators in Taiwan, then led six sessions and shared what we learned through OpenAI's education newsletter and an international conference.",
+      "I pitched a local program for educators in Taiwan, then led six sessions and shared what we learned through OpenAI's education newsletter and an international conference.",
     image: projectImg.chatLab,
     lead:
       "During my Fulbright year in Taiwan, I kept noticing a gap between the general conversation about AI in education and the questions educators were actually asking.",
