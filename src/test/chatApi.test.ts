@@ -224,7 +224,7 @@ describe("chat API", () => {
 
     const payload = JSON.parse(responseBody);
     expect(response.statusCode).toBe(200);
-    expect(payload.message).toContain("From Pitch to Practice: A Local ChatGPT Lab in Taiwan");
+    expect(payload.message).toContain("Leading AI Literacy Efforts in Taiwan");
     expect(payload.message).toContain("20 educators");
     expect(payload.message).not.toMatch(/\bI\b|\bmy\b/i);
     expect(payload.sources[0].id).toBe("fulbright-focus-group-sponsored-by-openai");

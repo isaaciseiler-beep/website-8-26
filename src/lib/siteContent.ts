@@ -95,7 +95,7 @@ export const newsItems: NewsItem[] = [
   {
     id: 1,
     source: "Fulbright Taiwan",
-    title: "From Pitch to Practice: A Local ChatGPT Lab in Taiwan",
+    title: "Leading AI Literacy Efforts in Taiwan",
     href: "/projects/fulbright-focus-group-sponsored-by-openai",
     logoUrl: "https://pub-e466b845a9ef4344b05811b344fb11e1.r2.dev/openai-text.png",
     logoAlt: "Fulbright Taiwan",
@@ -411,7 +411,7 @@ export const projectItems: ProjectItem[] = [
   },
   {
     id: "fulbright-focus-group-sponsored-by-openai",
-    title: "From Pitch to Practice: A Local ChatGPT Lab in Taiwan",
+    title: "Leading AI Literacy Efforts in Taiwan",
     source: "PROJECT",
     year: "2025",
     summary:

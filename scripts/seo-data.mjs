@@ -93,7 +93,7 @@ export const topLevelPages = [
 
 export const projectSeo = {
   "fulbright-focus-group-sponsored-by-openai": {
-    title: "From Pitch to Practice: A Local ChatGPT Lab in Taiwan | Isaac Seiler",
+    title: "Leading AI Literacy Efforts in Taiwan | Isaac Seiler",
     description:
       "Isaac Seiler pitched and led one of the first Local ChatGPT Labs, then turned what educators learned into a published resource and conference workshop.",
     searchIntent:
