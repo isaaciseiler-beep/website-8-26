@@ -18,7 +18,7 @@ describe("search index", () => {
 
   it("finds education work without exact title terms", () => {
     expect(titlesFor("classroom teaching with chatgpt", "projects")).toContain(
-      "Leading AI Literacy Efforts in Taiwan",
+      "From Pitch to Practice: A Local ChatGPT Lab in Taiwan",
     );
   });
 

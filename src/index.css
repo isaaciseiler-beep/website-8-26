@@ -3840,6 +3840,39 @@ img[data-image-reveal="true"] {
   margin-bottom: 34px;
 }
 
+.article-subtitle-with-link {
+  margin-bottom: 18px;
+}
+
+.article-primary-link {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 34px;
+  border: 1px solid hsl(var(--foreground) / 0.14);
+  border-radius: 999px;
+  background: hsl(var(--foreground) / 0.045);
+  padding: 10px 15px;
+  color: hsl(var(--foreground) / 0.78);
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.article-primary-link:hover,
+.article-primary-link:focus-visible {
+  border-color: hsl(var(--foreground) / 0.3);
+  background: hsl(var(--foreground) / 0.075);
+  color: hsl(var(--foreground));
+}
+
+.article-primary-link:focus-visible {
+  outline: 2px solid hsl(var(--foreground) / 0.42);
+  outline-offset: 3px;
+}
+
 .article-hero {
   overflow: hidden;
   border-radius: 14px;
@@ -3936,6 +3969,14 @@ img[data-image-reveal="true"] {
   font-size: 0.76rem;
   line-height: 1.35;
   color: hsl(var(--foreground) / 0.52);
+}
+
+[data-project-id="fulbright-focus-group-sponsored-by-openai"] .article-stat-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+[data-project-id="fulbright-focus-group-sponsored-by-openai"] .article-stat-card span {
+  max-width: none;
 }
 
 .project-image-slot {
@@ -4345,6 +4386,10 @@ img[data-image-reveal="true"] {
 }
 
 @media (max-width: 640px) {
+  [data-project-id="fulbright-focus-group-sponsored-by-openai"] .article-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .project-source-links-grid {
     grid-template-columns: 1fr;
   }

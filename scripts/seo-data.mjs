@@ -93,20 +93,20 @@ export const topLevelPages = [
 
 export const projectSeo = {
   "fulbright-focus-group-sponsored-by-openai": {
-    title: "Leading AI Literacy Efforts in Taiwan | Isaac Seiler",
+    title: "From Pitch to Practice: A Local ChatGPT Lab in Taiwan | Isaac Seiler",
     description:
-      "Isaac Seiler built the first OpenAI-sponsored program of its kind for a Fulbright educator community in Taiwan, then published the cohort's recap with OpenAI.",
+      "Isaac Seiler pitched and led one of the first Local ChatGPT Labs, then turned what educators learned into a published resource and conference workshop.",
     searchIntent:
       "OpenAI-sponsored Fulbright Taiwan AI literacy program, teacher training, classroom uses, LLM fundamentals, and published educator recap.",
     proofPoints: [
-      "Created the first OpenAI-sponsored program of its kind for a Fulbright educator community.",
+      "Pitched and led one of the first Local ChatGPT Labs with support from OpenAI and ChatGPT for Education.",
       "Designed and led six applied sessions for 20 educators across 19 institutions and six counties in Taiwan.",
       "Covered LLM fundamentals, prompt design, classroom workflows, verification, and responsible use.",
       "Published a nine-example program recap with OpenAI and expanded the work into a 250+ person conference workshop.",
     ],
     image: {
-      url: projectCardImages.aiClassroom,
-      alt: "AI education program during Isaac Seiler's Fulbright year in Taiwan",
+      url: projectCardImages.chatLab,
+      alt: "Educators participating in a Local ChatGPT Lab in Taiwan",
     },
     keywords: [
       "OpenAI for Education",

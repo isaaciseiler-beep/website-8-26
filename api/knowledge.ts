@@ -114,12 +114,12 @@ const PROJECT_PROFILES: Record<
     limitations: ["Do not expose unpublished participant identities or interview material beyond the public thesis."],
   },
   "fulbright-focus-group-sponsored-by-openai": {
-    role: "Founder, curriculum designer, and facilitator",
+    role: "Program proposer, curriculum designer, and facilitator",
     skills: ["AI literacy", "education", "facilitation", "curriculum design", "cross-cultural communication", "product adoption"],
     outcomes: ["Built a six-session educator lab", "Published a field guide with OpenAI's education team", "Adapted the work into a conference workshop"],
     metrics: ["20 educators", "19 institutions", "6 counties", "12 grade levels", "250+ conference attendees"],
     tags: ["Fulbright", "Taiwan", "OpenAI", "ChatGPT", "education", "teachers", "AI literacy", "workshop"],
-    limitations: ["Describe OpenAI as a supporter and collaborator on the education work."],
+    limitations: ["Credit OpenAI for the broader ChatGPT Lab framework. Isaac pitched and led the local Taiwan program with OpenAI and ChatGPT for Education support; do not imply that he invented the Local Labs model."],
   },
   "boehringer-cares-foundation-rebrand-strategy-shift": {
     role: "Rebrand implementation and communications contributor",
