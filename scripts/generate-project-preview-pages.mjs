@@ -765,7 +765,13 @@ const renderPageFallback = (page) => {
 };
 
 const replaceRoot = (html, fallback) =>
-  html.replace('<div id="root"></div>', `<div id="root">${fallback}</div>`);
+  html.replace(
+    '<div id="root"></div>',
+    // Keep the crawlable, no-JavaScript document without painting it before
+    // React mounts. Rendering this markup directly in #root caused the old
+    // fallback layout to flash on every cold load and refresh.
+    `<div id="root"><noscript data-seo-fallback>${fallback}</noscript></div>`,
+  );
 
 const htmlImageSrc = (url) => {
   const parsed = new URL(url, SITE_URL);
