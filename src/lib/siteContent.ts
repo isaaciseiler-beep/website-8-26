@@ -78,7 +78,6 @@ export interface ProjectItem {
   hideHero?: boolean;
   hideSummary?: boolean;
   lead?: string;
-  primaryLink?: ProjectLink;
   sections: ProjectSection[];
 }
 
@@ -420,22 +419,12 @@ export const projectItems: ProjectItem[] = [
     image: projectImg.chatLab,
     lead:
       "During my Fulbright year in Taiwan, I kept noticing a gap between the general conversation about AI in education and the questions educators were actually asking.",
-    primaryLink: {
-      label: "Read the OpenAI Education story",
-      href: "https://edunewsletter.openai.com/p/top-chats-from-the-fulbright-taiwan",
-    },
     sections: [
       {
         heading: "From the Idea to the Lab",
         paragraphs: [
           "Many people in my community were either skeptical of AI or unsure how to use it well.",
           "I was already participating in OpenAI's ChatGPT Lab, so I pitched the team on extending that work into a local program for educators in Taiwan. With support from OpenAI and ChatGPT for Education, it became one of the first Local Labs to run.",
-        ],
-        stats: [
-          { value: "20", label: "fellow educators across six counties" },
-          { value: "6", label: "sessions built around shared learning" },
-          { value: "9", label: "educator use cases published" },
-          { value: "250+", label: "international conference attendees" },
         ],
       },
       {
@@ -473,7 +462,6 @@ export const projectItems: ProjectItem[] = [
             placement: "top",
             src: projectImg.aiClassroom,
             alt: "Isaac Seiler presenting an AI workshop at an international education conference in Taiwan",
-            caption: "Presenting an LLM fundamentals and alignment workshop at an international education conference in Taiwan.",
           },
         ],
       },

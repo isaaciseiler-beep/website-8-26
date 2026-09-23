@@ -334,23 +334,7 @@ const ProjectDetailPage = () => {
               <h1 className={`article-title ${project.hideSummary ? "article-title-no-summary" : ""}`}>
                 {project.title}
               </h1>
-              {!project.hideSummary && (
-                <p className={`article-subtitle ${project.primaryLink ? "article-subtitle-with-link" : ""}`}>
-                  {project.summary}
-                </p>
-              )}
-
-              {project.primaryLink && (
-                <a
-                  className="article-primary-link"
-                  href={project.primaryLink.href}
-                  target={project.primaryLink.href.startsWith("http") ? "_blank" : undefined}
-                  rel={project.primaryLink.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                >
-                  <span>{project.primaryLink.label}</span>
-                  <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
-                </a>
-              )}
+              {!project.hideSummary && <p className="article-subtitle">{project.summary}</p>}
 
               {!project.hideHero && (
                 <div className="article-hero aspect-[16/9]">
