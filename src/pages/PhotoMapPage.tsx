@@ -43,7 +43,7 @@ type MapPalette = {
 };
 
 const lightMapPalette: MapPalette = {
-  background: "#f5f7fa",
+  background: "#ffffff",
   water: "#e9e9e6",
   land: "#d8d8d4",
   park: "#cececa",
@@ -51,7 +51,7 @@ const lightMapPalette: MapPalette = {
   border: "#92928d",
   detail: "#bebeba",
   label: "#555550",
-  labelHalo: "#f5f7fa",
+  labelHalo: "#ffffff",
 };
 
 const darkMapPalette: MapPalette = {

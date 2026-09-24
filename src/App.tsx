@@ -1,5 +1,4 @@
-import { Component, Suspense, lazy, useEffect, useState, type ComponentType, type ErrorInfo, type ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Component, Suspense, lazy, type ComponentType, type ErrorInfo, type ReactNode } from "react";
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Index from "./pages/Index.tsx";
@@ -53,8 +52,6 @@ const ExperienceGamePage = lazyWithRetry(() => import("./pages/ExperienceGamePag
 const FulbrightMapPage = lazyWithRetry(() => import("./pages/FulbrightMapPage.tsx"), "fulbright-map");
 const StrikeTrackerPage = lazyWithRetry(() => import("./pages/StrikeTrackerPage.tsx"), "strike-tracker");
 const NotFound = lazyWithRetry(() => import("./pages/NotFound.tsx"), "not-found");
-
-const queryClient = new QueryClient();
 
 class RouteErrorBoundary extends Component<
   { children: ReactNode; fallback: ReactNode; resetKey: string },
@@ -214,11 +211,9 @@ const App = () => (
     reducedMotion="user"
     transition={{ type: "tween", duration: MOTION_DURATION.base, ease: MOTION_EASE }}
   >
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AppShell />
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <AppShell />
+    </ThemeProvider>
   </MotionConfig>
 );
 
