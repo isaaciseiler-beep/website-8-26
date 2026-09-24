@@ -573,8 +573,7 @@ const removeSeoPrimaryImagePreload = (html) =>
 const primaryImagePreload = (image) => {
   const parsed = new URL(image.url, SITE_URL);
   const href = parsed.origin === SITE_URL ? parsed.pathname : parsed.toString();
-  const crossorigin = parsed.origin === SITE_URL ? "" : ' crossorigin="anonymous"';
-  return `    <link rel="preload" as="image" href="${escapeHtml(href)}" fetchpriority="high"${crossorigin} data-seo-primary-image="true" />\n`;
+  return `    <link rel="preload" as="image" href="${escapeHtml(href)}" fetchpriority="high" data-seo-primary-image="true" />\n`;
 };
 
 const insertPrimaryImagePreload = (html, image) =>
