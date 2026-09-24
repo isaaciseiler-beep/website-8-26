@@ -238,7 +238,7 @@
     align-items: center;
     gap: 8px;
     width: max-content;
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: 'DM Mono', ui-monospace, monospace;
     font-size: 9px;
     font-weight: 300;
     letter-spacing: 0.08em;
@@ -561,7 +561,7 @@
   .home-v2-label,
   .home-v2-news-index,
   .home-v2-news-source {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: 'DM Mono', ui-monospace, monospace;
     font-size: 10px;
     font-weight: 300;
     letter-spacing: 0.065em;
@@ -678,7 +678,7 @@
   .home-v2-orbit-core {
     position: relative;
     z-index: 1;
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
   }
@@ -816,7 +816,7 @@
     height: 34px;
     border-radius: 50% !important;
     background: rgba(248, 247, 242, 0.9);
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 9px;
   }
 
@@ -1283,13 +1283,6 @@
   input, textarea, [contenteditable="true"] {
     user-select: text;
     -webkit-user-select: text;
-  }
-
-  button,
-  input,
-  textarea,
-  select {
-    font: inherit;
   }
 
   #root {
@@ -3318,6 +3311,12 @@
       gap: 8px;
     }
   }
+}
+
+/* Preserve the original site-wide typography treatment. */
+html body,
+html body * {
+  letter-spacing: 0.012em !important;
 }
 
 /* ============ Skull mode: dial-up era, blue + b/w only ============ */
