@@ -123,7 +123,8 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
   if(stateNames(text).length){
     const match=checked.blocks.find(block=>block.kind==='benchmark');
     if(!match)return baseline;
-    return {blocks:[{...match,states:stateNames(text),layout:stateNames(text).length===2?'benchmark-compare':'benchmark-scorecard'}]};
+    const block={...match,states:stateNames(text)};
+    return {blocks:[withLayout(block,inferLayout(text,block))]};
   }
   if(interpreted.task==='comparison'&&interpreted.projectIds.length===2) {
     const match=checked.blocks.find(block=>block.kind==='comparison');

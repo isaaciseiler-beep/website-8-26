@@ -46,7 +46,7 @@ function Timeline({block,onChange}:BlockProps) {
   const filters=['All','AI & education','Communications'];
   const filter=filters[block.section]??'All';
   const entries=experienceEntries.filter(e=>filter==='All'||(filter==='AI & education'?/ai|research|teach|fulbright/i.test(e.role+' '+e.organization):/communicat|director|consult/i.test(e.role)));
-  return <section aria-label="Experience explorer"><div className="canvas-heading"><h2>Experience</h2></div><div className="canvas-segments">{filters.map((f,i)=><button key={f} aria-pressed={filter===f} onClick={()=>setSelected(i)}>{f}</button>)}</div><div className="canvas-timeline">{entries.map(e=><article key={e.id}><small>{e.period}</small><div><h3>{e.organization}</h3><p>{e.role}</p></div></article>)}</div></section>;
+  return <section aria-label="Experience explorer"><div className="canvas-heading"><h2>Experience</h2></div><div className="canvas-segments">{filters.map((f,i)=><button key={f} aria-pressed={filter===f} onClick={()=>onChange({...block,section:i})}>{f}</button>)}</div><div className="canvas-timeline">{entries.map(e=><article key={e.id}><small>{e.period}</small><div><h3>{e.organization}</h3><p>{e.role}</p></div></article>)}</div></section>;
 }
 function Architecture({plan,generation}:{plan:Plan;generation:GenerationInfo}) {
   const [selected,setSelected]=useState(0);

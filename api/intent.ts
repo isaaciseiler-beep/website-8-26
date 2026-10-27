@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { initialPlan, CONTENT_VERSION, publicProjects, type Plan } from '../src/lib/canvas.js';
-import { isPhotographyRequest, explorationGuidance, resolveCanvasPlan, composeLocal, compositionSchema, validateComposition, withLayout, blankBlock, reconcileComposition, type Composition } from '../src/lib/genui.js';
+import { isPhotographyRequest, explorationGuidance, resolveCanvasPlan, composeLocal, compositionSchema, validateComposition, withLayout, blankBlock, inferLayout, reconcileComposition, type Composition } from '../src/lib/genui.js';
 import { AI_LAYOUTS, defaultLayout, type LayoutId, type ModuleKind } from '../src/lib/layouts.js';
 import { portfolioCatalog, evidenceFocuses } from '../src/lib/portfolioEvidence.js';
 import { interpretPortfolioRequest } from '../src/lib/portfolioIntent.js';
@@ -82,7 +82,8 @@ export default async function intentHandler(req:ApiRequest,res:ApiResponse){
       if(!definition||probability<.75){recordProviderResult(request,{status:'healthy',model:result.model??model,reason:'uncertain',duration:Math.round(performance.now()-started)});return fallbackResponse('uncertain');}
       const localBlock=local.blocks.find(block=>block.kind===definition.kind);
       const primary=publicProjects.find(project=>project.id===result.answers.project?.choice);
-      let block=withLayout(localBlock??blankBlock(definition.kind),(kind&&localBlock?.layout?localBlock.layout:definition.id) as LayoutId);
+      const baseBlock=localBlock??blankBlock(definition.kind);
+      let block=withLayout(baseBlock,(kind?(localBlock?.layout??inferLayout(data.draft,baseBlock)):definition.id) as LayoutId);
       if(block.kind==='story'&&!block.projectIds.length&&primary)block={...block,projectIds:[primary.id]};
       const focus=result.answers.focus?.choice;
       if(evidenceFocuses.includes(focus as typeof evidenceFocuses[number]))block={...block,focus:focus as typeof evidenceFocuses[number]};
