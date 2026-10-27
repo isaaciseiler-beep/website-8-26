@@ -92,7 +92,9 @@ export default async function intentHandler(req:ApiRequest,res:ApiResponse){
       if(composition.blocks[0].kind==='collection'&&interpretPortfolioRequest(data.draft).task!=='collection')return sendJson(res,200,{plan:fallback,composition:null,needsComposition:false,guidance:'unmatched',requestId:request.requestId,routing});
       const layout:Plan['layout']=composition.blocks[0].kind==='story'?'detail':composition.blocks[0].kind==='benchmark'||composition.blocks[0].kind==='collection'?'work':composition.blocks[0].kind as Plan['layout'];
       const plan:Plan={...fallback,layout,projectIds:composition.blocks.flatMap(module=>module.projectIds),albumIds:[],source:'jev',model:result.model??model,confidence:selected?.confidence,duration:Math.round(performance.now()-started)};
-      const needsComposition=(result.answers.needsComposition?.noul??0)>.6||probability<.85;
+      // A confident project classification still cannot choose the relevant story section.
+      const needsSectionSelection=composition.blocks.some(module=>module.kind==='story'&&['process','outcomes'].includes(module.focus??''));
+      const needsComposition=needsSectionSelection||(result.answers.needsComposition?.noul??0)>.6||probability<.85;
       if(cache.size>=128)cache.delete(cache.keys().next().value!);
       cache.set(cacheKey,{expires:now+300000,plan,composition,needsComposition});
       recordProviderResult(request,{status:'healthy',model:plan.model,duration:plan.duration,layout:composition.blocks[0].layout});
