@@ -67,6 +67,7 @@ export function ProjectComparison({ block, onChange }: Props) {
     if (row === 'Published outcome') return record.outcome;
     const sections = evidenceSections(record.project.id, row === 'Evidence' ? 'outcomes' : 'process');
     if (row === 'Approach') return record.process;
+    if (row === 'Work in practice') return record.practice;
     return sections[0]?.paragraphs?.[0] ?? sections[0]?.bullets?.[0] ?? record.outcome;
   }
   return <section className="portfolio-comparison" aria-label="Project comparison">

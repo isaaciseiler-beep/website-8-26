@@ -10,6 +10,7 @@ export const projectEvidence: Record<string, {
   role: string;
   contribution: string;
   process: string;
+  practice: string;
   sectionLabels: string[];
   outcome: string;
   processSections: number[];
@@ -20,6 +21,7 @@ export const projectEvidence: Record<string, {
     contribution: 'I built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.',
     outcome: 'A 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.',
     process: 'I translated publicly verifiable signals into 15 criteria, combined preparedness with an efficiency adjustment, and used the gaps to shape a policy roadmap.',
+    practice: 'I looked for concrete adoption signals: employee guidance, training, sandboxes, pilots, governance structures, and transparency.',
     sectionLabels: ['Research context', 'Scoring framework'],
     processSections: [1], outcomeSections: [0, 1],
   },
@@ -28,6 +30,7 @@ export const projectEvidence: Record<string, {
     contribution: 'I pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.',
     outcome: 'I turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.',
     process: 'I proposed the Lab, designed six sessions around educators’ real work, and adapted later sessions to the questions and concerns participants raised.',
+    practice: 'Participant questions changed what I emphasized in later sessions. We spent less time on ChatGPT in the abstract and more time on when and how educators should use it.',
     sectionLabels: ['Proposing the Lab', 'Learning together', 'Nine published use cases', 'Conference workshop', 'Lessons learned'],
     processSections: [0, 1], outcomeSections: [2, 3, 4],
   },
@@ -36,6 +39,7 @@ export const projectEvidence: Record<string, {
     contribution: 'I helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.',
     outcome: 'The work connected a new office with local and national audiences and made its first 100 days of service understandable. Constituent-service totals describe the whole office’s work.',
     process: 'I built relationships across local, statewide, and national media, connected district stories to federal policy, and gathered and checked the office’s results for its 100 Day Report.',
+    practice: 'For the child-labor story in West Michigan, I developed the message, pitched reporters, prepared interviews, and connected the local reporting to proposed federal action.',
     sectionLabels: ['Launching the office', 'Building the press network', 'Child-labor coverage', 'Reaching different audiences', 'Bipartisan collaboration', 'The 100 Day Report', 'Public recognition'],
     processSections: [1, 2, 3, 4, 5], outcomeSections: [5, 6],
   },
@@ -44,6 +48,7 @@ export const projectEvidence: Record<string, {
     contribution: 'I authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.',
     outcome: 'An original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI.',
     process: 'I carried out the literature review, recruited interviewees, verified transcripts, coded the material, and synthesized themes across 17 interviews.',
+    practice: 'The analysis compared print, digital, hybrid, nonprofit, and subscription models alongside policy options such as bargaining codes, subsidies, and training.',
     sectionLabels: ['Research design', 'Findings & outputs'],
     processSections: [0, 1], outcomeSections: [1],
   },
@@ -52,6 +57,7 @@ export const projectEvidence: Record<string, {
     contribution: 'I helped carry the team’s approved rebrand into the foundation’s website, communications assets, company-wide newsletter, and volunteering communications.',
     outcome: 'During the 2025 rollout, annual employee volunteering increased by 25%; the newsletter reached an 80% open rate, alongside more than 25 communications assets.',
     process: 'I organized the rollout content, worked with UX and brand colleagues on the public website, and extended the approved direction into employee newsletters and volunteering communications.',
+    practice: 'I applied the approved direction to updated web pages and more than 25 communications assets, then carried the same voice into the company-wide newsletter.',
     sectionLabels: ['The assignment', 'Website & rollout', 'Employee communications', 'Published results'],
     processSections: [1, 2], outcomeSections: [3],
   },
@@ -60,6 +66,7 @@ export const projectEvidence: Record<string, {
     contribution: 'In OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.',
     outcome: 'My contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.',
     process: 'I tested early products in real workflows, documented where the experience broke down, and brought specific feedback into product discussions and launch storytelling.',
+    practice: 'For Pulse, I asked for clearer sources and preference controls. For Group Chats, I pushed on when the assistant should speak and how people could control its participation.',
     sectionLabels: ['Joining the Lab', '100 Chats', 'Study Mode', 'Back to School', 'Pulse', 'Atlas', 'Group Chats', 'Lessons from the Lab'],
     processSections: [1, 2, 3, 4, 5, 6], outcomeSections: [1, 7],
   },
@@ -76,6 +83,7 @@ export function evidenceFor(id: string) {
     contribution: authored?.contribution ?? project.summary,
     outcome: authored?.outcome ?? project.summary,
     process: authored?.process ?? project.summary,
+    practice: authored?.practice ?? project.summary,
     sectionLabels: authored?.sectionLabels ?? [],
     processSections: authored?.processSections ?? [0],
     outcomeSections: authored?.outcomeSections ?? [Math.max(0, project.sections.length - 1)],
