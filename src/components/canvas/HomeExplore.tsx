@@ -118,7 +118,7 @@ export default function HomeExplore() {
     void fetch('/api/compose',{signal:abort.signal}).then(r=>r.json()).then(data=>{llmConfigured.current=Boolean(data.configured);}).catch(()=>{});
     return()=>{abort.abort();controller.current?.abort();};
   },[]);
-  function clear(){cancel();setImmediateDismiss(true);setQuery('');setGuidance(null);setHistory([]);setFuture([]);setLinkError('');update(null);input.current?.focus();setAutocompleteOpen(false);if(window.location.hash.startsWith('#view=')){window.history.replaceState(window.history.state,'',window.location.pathname+window.location.search);}}
+  function clear(){cancel();setImmediateDismiss(true);setQuery('');setGuidance(null);setHistory([]);setFuture([]);setLinkError('');update(null);input.current?.focus({preventScroll:true});setAutocompleteOpen(false);if(window.location.hash.startsWith('#view=')){window.history.replaceState(window.history.state,'',window.location.pathname+window.location.search);}}
   async function resolve(text:string,rev:number,allowModel=false){
     const context=current.current;
     setGuidance(null);
@@ -215,7 +215,7 @@ export default function HomeExplore() {
         <ExperienceAutocomplete inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
         {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
       </form></div>
-      {!query.trim()&&!view&&!guidance&&!autocompleteOpen&&<div className="home-genui-suggestion" onPointerEnter={()=>setPaused(true)} onPointerLeave={()=>setPaused(false)} onFocusCapture={()=>setPaused(true)} onBlurCapture={()=>setPaused(false)}>
+      {!query.trim()&&!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&<div className="home-genui-suggestion" onPointerEnter={()=>setPaused(true)} onPointerLeave={()=>setPaused(false)} onFocusCapture={()=>setPaused(true)} onBlurCapture={()=>setPaused(false)}>
         <button type="button" aria-label={suggestions[suggestion].label} onClick={()=>{submit(suggestions[suggestion].prompt);}}>
           <span className="home-suggestion-viewport" aria-hidden="true">
             {suggestions.map(item=><span className="home-suggestion-size" key={item.label}>{item.label}</span>)}

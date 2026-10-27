@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { useAnimate, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2, ArrowUpRight } from 'lucide-react';
 import { publicProjects, projectSources, albums, albumPhotos, experienceEntries, type Plan } from '@/lib/canvas';
 import { POLICY_ID, TAIWAN_ID, type Composition, type CanvasBlock } from '@/lib/genui';
@@ -55,12 +56,36 @@ function Architecture({block,onChange,plan,generation}:BlockProps&{plan:Plan;gen
   const steps=[{title:'Understand',body:plan.source==='jev'?'Jev selected relevant content and an interface direction for this request.':'Local matching selected an interface direction for this request.',value:plan.source==='jev'?plan.model??'Jev':'Local matching'},{title:'Retrieve',body:'The interface uses published project sections, and the dated state benchmark. Each visible fact comes from these records.',value:'Published content'},{title:'Compose',body:generation.status==='generated'?'An LLM composed these interactive modules from a bounded component library.':'An authored composition is currently displayed. LLM composition is used when its service is configured and succeeds.',value:generation.status==='generated'?generation.model??'LLM':'Authored composition'},{title:'Interact',body:'Change a measure, compare governments, or refine your request. Controls update immediately; the next request receives the current view.',value:'React components'}];
   return <section className="canvas-architecture" aria-label="Live interface architecture"><span className="canvas-eyebrow">This request</span><h2>How this interface works</h2><div className="canvas-flow">{steps.map((s,i)=><button key={s.title} aria-pressed={i===selected} onClick={()=>onChange({...block,section:i})}><span>{String(i+1).padStart(2,'0')}</span><strong>{s.title}</strong><ChevronRight size={16}/></button>)}</div><div className="canvas-flow-detail"><span className="canvas-eyebrow">{steps[selected].value}</span><h3>{steps[selected].title}</h3><p>{steps[selected].body}</p></div></section>;
 }
+function SelectionModule({block,children}:{block:CanvasBlock;children:ReactNode}) {
+  const [scope,animate]=useAnimate<HTMLDivElement>();
+  const reduceMotion=useReducedMotion();
+  // Search updates stay immediate. Keep the subtree mounted so focus, disclosures,
+  // and local controls survive a selection change.
+  const selection=JSON.stringify({...block,search:undefined});
+  const previous=useRef(selection);
+  useLayoutEffect(()=>{
+    if(previous.current===selection)return;
+    previous.current=selection;
+    const node=scope.current;
+    if(!node||reduceMotion)return;
+    const style=getComputedStyle(node);
+    const duration=style.getPropertyValue('--motion-duration').trim();
+    const curve=style.getPropertyValue('--motion-easing').match(/[\d.]+/g)?.map(Number);
+    const animation=animate(node,{opacity:[0,1]},{
+      duration:parseFloat(duration)/(duration.endsWith('ms')?1000:1),
+      ease:curve?.length===4?curve as [number,number,number,number]:'easeOut',
+    });
+    return ()=>{animation.stop();node.style.opacity='';};
+  },[selection,reduceMotion,animate,scope]);
+  return <div ref={scope} className="canvas-module" data-layout={block.layout??defaultLayout[block.kind]}>{children}</div>;
+}
+
 export default function ExplorationCanvas({composition,plan,generation,onChange,onAction}:{composition:Composition;plan:Plan;generation:GenerationInfo;onChange:(c:Composition)=>void;onAction?:(action:PortfolioAction)=>void}) {
   const career=composition.blocks.find(block=>block.kind==='timeline');
   const role=career?experienceEntries.find(entry=>entry.id===career.roleId)??experienceEntries[0]:null;
   const ids=[...new Set(composition.blocks.flatMap(b=>b.kind==='benchmark'?[POLICY_ID]:b.kind==='timeline'?(role?.projectIds??[]).filter(id=>publicProjects.some(project=>project.id===id)):b.projectIds))];
   const sources=[...ids.flatMap(id=>id===POLICY_ID?aiIndexSources:projectSources(id)),...(role?[{label:'Published experience',href:'/about'},...(role.organizationUrl?[{label:role.organization,href:role.organizationUrl}]:[])]:[])];
-  return <><div className="canvas-modules">{composition.blocks.map((block,i)=><div className="canvas-module" data-layout={block.layout??defaultLayout[block.kind]} key={`${i}-${block.kind}`}><CanvasModule block={block} onChange={next=>onChange({blocks:composition.blocks.map((b,n)=>n===i?next:b)})} plan={plan} generation={generation}/>{import.meta.env.DEV&&new URLSearchParams(window.location.search).has('layouts')&&AI_LAYOUTS.filter(l=>l.kind===block.kind).length>1&&<div className="canvas-layout-control"><label><span className="sr-only">View style {i+1}</span><select aria-label={`View style ${i+1}`} value={block.layout??defaultLayout[block.kind]} onChange={e=>onChange({blocks:composition.blocks.map((b,n)=>n===i?withLayout(b,e.target.value as LayoutId):b)})}>{AI_LAYOUTS.filter(l=>l.kind===block.kind).map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></label></div>}</div>)}</div><details className="canvas-sources"><summary>Sources</summary><div>{sources.filter((s,i,a)=>a.findIndex(v=>v.href===s.href)===i).map(s=><a href={s.href} key={s.href} target="_blank" rel="noreferrer">{s.label}<ArrowUpRight size={12}/></a>)}{ids.map(id=><a key={id} href={`/projects/${id}`}>Full project · {publicProjects.find(p=>p.id===id)?.title}<ArrowUpRight size={12}/></a>)}<p>{plan.source==='jev'?'Jev routing':'Local matching'} · {generation.status==='generated'?`Composed with ${generation.model??'LLM'}`:generation.status==='composing'?'Composing…':generation.status==='unavailable'?generation.reason==='unconfigured'?'Authored view · Mistral is not configured in this environment':'Authored view · Mistral unavailable':'Authored view'}</p>{generation.cached&&<p>Reused a validated composition.</p>}{generation.inputTokens!==undefined&&<p>{generation.inputTokens} input / {generation.outputTokens??0} output tokens</p>}{generation.duration!==undefined&&<p>Composition: {(generation.duration/1000).toFixed(1)}s</p>}</div></details><ViewCompositionControls composition={composition} onAction={onAction??(action=>onChange(applyPortfolioAction(createPortableView(composition),action).composition))}/></>;
+  return <><div className="canvas-modules">{composition.blocks.map((block,i)=><SelectionModule block={block} key={`${i}-${block.kind}`}><CanvasModule block={block} onChange={next=>onChange({blocks:composition.blocks.map((b,n)=>n===i?next:b)})} plan={plan} generation={generation}/>{import.meta.env.DEV&&new URLSearchParams(window.location.search).has('layouts')&&AI_LAYOUTS.filter(l=>l.kind===block.kind).length>1&&<div className="canvas-layout-control"><label><span className="sr-only">View style {i+1}</span><select aria-label={`View style ${i+1}`} value={block.layout??defaultLayout[block.kind]} onChange={e=>onChange({blocks:composition.blocks.map((b,n)=>n===i?withLayout(b,e.target.value as LayoutId):b)})}>{AI_LAYOUTS.filter(l=>l.kind===block.kind).map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></label></div>}</SelectionModule>)}</div><details className="canvas-sources"><summary>Sources</summary><div>{sources.filter((s,i,a)=>a.findIndex(v=>v.href===s.href)===i).map(s=><a href={s.href} key={s.href} target="_blank" rel="noreferrer">{s.label}<ArrowUpRight size={12}/></a>)}{ids.map(id=><a key={id} href={`/projects/${id}`}>Full project · {publicProjects.find(p=>p.id===id)?.title}<ArrowUpRight size={12}/></a>)}<p>{plan.source==='jev'?'Jev routing':'Local matching'} · {generation.status==='generated'?`Composed with ${generation.model??'LLM'}`:generation.status==='composing'?'Composing…':generation.status==='unavailable'?generation.reason==='unconfigured'?'Authored view · Mistral is not configured in this environment':'Authored view · Mistral unavailable':'Authored view'}</p>{generation.cached&&<p>Reused a validated composition.</p>}{generation.inputTokens!==undefined&&<p>{generation.inputTokens} input / {generation.outputTokens??0} output tokens</p>}{generation.duration!==undefined&&<p>Composition: {(generation.duration/1000).toFixed(1)}s</p>}</div></details><ViewCompositionControls composition={composition} onAction={onAction??(action=>onChange(applyPortfolioAction(createPortableView(composition),action).composition))}/></>;
 }
 function CanvasModule(props:BlockProps&{plan:Plan;generation:GenerationInfo}) {
   if(['photo-grid','photo-diptych','photo-collections'].includes(props.block.layout??''))return <PhotoLayouts {...props}/>;

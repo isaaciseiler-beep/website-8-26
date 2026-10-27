@@ -1,3 +1,5 @@
+/* The moving gallery must not pull the viewport while Explore folds above it. */
+.photo-home-exploration { overflow-anchor: none; }
 /* Let the available pane width determine the homepage gallery columns. */
 .photo-overview-shell { container-type: inline-size; }
 .photo-album-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; overflow: hidden; }

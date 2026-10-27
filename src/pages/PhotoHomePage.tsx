@@ -243,7 +243,7 @@ const PhotoHomePage = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-x-clip">
+    <div className={`relative min-h-screen bg-background text-foreground overflow-x-clip${home && !openAlbum ? " photo-home-exploration" : ""}`}>
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}
