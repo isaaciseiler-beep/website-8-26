@@ -31,6 +31,7 @@ export const SAME_AS = [
 ];
 
 export const topLevelPages = [
+  { path: "/writing", navTitle: "Writing", title: "Writing | Isaac Seiler", description: "Essays by Isaac Seiler. Coming soon.", priority: "0.6", changefreq: "monthly", image: PREVIEW_IMAGE, keywords: ["Isaac Seiler writing", "essays"] },
   {
     path: "/",
     navTitle: "Home",
@@ -339,10 +340,6 @@ export const rssProjectIds = [
 export const redirectTargets = [
   {
     source: "/blog",
-    destination: "/work",
-  },
-  {
-    source: "/writing",
     destination: "/work",
   },
   {

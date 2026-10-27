@@ -27,7 +27,6 @@ import {
   ZAxis,
 } from "recharts";
 import { useNavigate } from "react-router-dom";
-import Footer from "@/components/Footer";
 import ProjectSourceLinks from "@/components/ProjectSourceLinks";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -1076,7 +1075,7 @@ const AIStateGovernmentIndexPage = () => {
           </RevealSection>
         </motion.main>
 
-        <Footer />
+
       </motion.div>
 
       <SiteHeader

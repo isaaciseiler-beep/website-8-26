@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://seiler.page/writing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://seiler.page/webpreview-linkedin.png</image:loc>
+      <image:title>Writing</image:title>
+      <image:caption>Essays by Isaac Seiler. Coming soon.</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://seiler.page/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>

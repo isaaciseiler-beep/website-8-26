@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, Image as ImageIcon, Play } from "lucide-react";
-import Footer from "@/components/Footer";
 import ProjectSourceLinks from "@/components/ProjectSourceLinks";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -434,7 +433,7 @@ const ProjectDetailPage = () => {
           </div>
         </motion.main>
 
-        <Footer />
+
       </motion.div>
       <SiteHeader
         open={sidebarOpen}

@@ -14,7 +14,6 @@ const AboutSection = lazy(() => import("@/components/AboutSection"));
 const PhotoSection = lazy(() => import("@/components/PhotoSection"));
 const SkullHome = lazy(() => import("@/components/SkullHome"));
 
-const Footer = lazy(() => import("@/components/Footer"));
 
 const sectionIds = sitemapItems
   .map((item) => item.scrollTo)
@@ -150,7 +149,7 @@ const ModernIndex = () => {
             <div id="projects" className="home-photo-section" data-reveal><ProjectsSection /></div>
             <div className="home-photo-footer-stack">
               <div id="photos" className="home-photo-section home-photo-section--last" data-reveal><PhotoSection /></div>
-              <Footer overlay />
+
             </div>
           </Suspense>
         </main>

@@ -66,6 +66,7 @@ interface SitemapItem {
 
 export const sitemapItems: SitemapItem[] = [
   { id: "projects", label: "Work", href: "/work" },
+  { id: "writing", label: "Writing", href: "/writing" },
   { id: "photos", label: "Photo Map", href: "/photos/map" },
   { id: "music", label: "Music", href: "/photos/music" },
 ];
@@ -152,6 +153,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
   };
 
   const isItemActive = (item: SitemapItem) => {
+    if (location.pathname.startsWith("/writing") && item.id === "writing") return true;
     if (isOnPhotos && item.id === "photos") return true;
     if (isOnMusic && item.id === "music") return true;
     if (isOnProjects && item.id === "projects") return true;

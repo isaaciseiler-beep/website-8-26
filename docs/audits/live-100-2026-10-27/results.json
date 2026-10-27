@@ -1,0 +1,1471 @@
+[
+  {
+    "id": 1,
+    "category": "Prompt",
+    "prompt": "Walk me through Isaac’s experience",
+    "expected": "Career view with accurate roles and chronology",
+    "setup": null,
+    "elapsedMs": 2853,
+    "observed": {
+      "headings": [
+        "Career & experience",
+        "Marketing and Communications"
+      ],
+      "height": 1220,
+      "layouts": [
+        "experience-timeline"
+      ],
+      "overflow": false,
+      "selected": [
+        "Summation2026-Present"
+      ],
+      "text": "Share\nCareer & experience\n\nMy work sits at the intersection of AI, emerging tech, communications, operations, and the systems people use every day.\n\nFilter roles\nSummation\n2026-Present\nFulbright Taiwan\nAug 2025-Aug 2026\nCouncil of State Governments\nJun 2025-Jul 2025\nOpenAI\nMar 2025-Present\nWashington University in St. Louis\nJan 2024-May 2024; Jan 2025-Apr 2025\nBoehringer Ingelheim\nMay 2024-Aug 2025\nWashington University in St. Louis\nMar 2024-May 2025\nIsaac Seiler Strategies\nJan 2024-Apr 2025\nWashington University in St. Louis\nSep 2023-Apr 2025\nU.S. House of Representatives\nNov 2022-Jun 2023\nScholten for Congress\nJun 2022-Nov 2022\nProgressive Turnout Project\nAug 2022-Nov 2022\nDCCC\nJun 2022-Aug 2022\nInstitute for Nonprofit News\nDec 2021-Sep 2022\n2026-Present\nMarketing and Communications\n\nI lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.\n\nThe role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on.\n\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nPublished experience\nSummation\n\nLocal matching · Composed with mistral-small-2603\n\n3938 input / 94 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 2,
+    "category": "Prompt",
+    "prompt": "Who is Isaac?",
+    "expected": "Concise identity and experience rather than an unrelated project",
+    "setup": null,
+    "elapsedMs": 2232,
+    "observed": {
+      "headings": [
+        "Career & experience",
+        "Marketing and Communications"
+      ],
+      "height": 1220,
+      "layouts": [
+        "experience-roles"
+      ],
+      "overflow": false,
+      "selected": [
+        "Summation2026-Present"
+      ],
+      "text": "Share\nCareer & experience\n\nMy work sits at the intersection of AI, emerging tech, communications, operations, and the systems people use every day.\n\nFilter roles\nSummation\n2026-Present\nFulbright Taiwan\nAug 2025-Aug 2026\nCouncil of State Governments\nJun 2025-Jul 2025\nOpenAI\nMar 2025-Present\nWashington University in St. Louis\nJan 2024-May 2024; Jan 2025-Apr 2025\nBoehringer Ingelheim\nMay 2024-Aug 2025\nWashington University in St. Louis\nMar 2024-May 2025\nIsaac Seiler Strategies\nJan 2024-Apr 2025\nWashington University in St. Louis\nSep 2023-Apr 2025\nU.S. House of Representatives\nNov 2022-Jun 2023\nScholten for Congress\nJun 2022-Nov 2022\nProgressive Turnout Project\nAug 2022-Nov 2022\nDCCC\nJun 2022-Aug 2022\nInstitute for Nonprofit News\nDec 2021-Sep 2022\n2026-Present\nMarketing and Communications\n\nI lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.\n\nThe role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on.\n\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nPublished experience\nSummation\n\nLocal matching · Composed with mistral-small-2603\n\n3934 input / 93 output tokens\n\nComposition: 0.8s",
+    "status": "Review"
+  },
+  {
+    "id": 3,
+    "category": "Prompt",
+    "prompt": "What is Isaac working on now?",
+    "expected": "Current Summation AI role",
+    "setup": null,
+    "elapsedMs": 2157,
+    "observed": {
+      "headings": [
+        "Career & experience",
+        "Marketing and Communications"
+      ],
+      "height": 1220,
+      "layouts": [
+        "experience-timeline"
+      ],
+      "overflow": false,
+      "selected": [
+        "Summation2026-Present"
+      ],
+      "text": "Share\nCareer & experience\nFilter roles\nSummation\n2026-Present\nFulbright Taiwan\nAug 2025-Aug 2026\nCouncil of State Governments\nJun 2025-Jul 2025\nOpenAI\nMar 2025-Present\nWashington University in St. Louis\nJan 2024-May 2024; Jan 2025-Apr 2025\nBoehringer Ingelheim\nMay 2024-Aug 2025\nWashington University in St. Louis\nMar 2024-May 2025\nIsaac Seiler Strategies\nJan 2024-Apr 2025\nWashington University in St. Louis\nSep 2023-Apr 2025\nU.S. House of Representatives\nNov 2022-Jun 2023\nScholten for Congress\nJun 2022-Nov 2022\nProgressive Turnout Project\nAug 2022-Nov 2022\nDCCC\nJun 2022-Aug 2022\nInstitute for Nonprofit News\nDec 2021-Sep 2022\n2026-Present\nMarketing and Communications\n\nI lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.\n\nThe role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on.\n\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nPublished experience\nSummation\n\nJev routing · Composed with mistral-small-2603\n\n3939 input / 101 output tokens\n\nComposition: 1.0s",
+    "status": "Review"
+  },
+  {
+    "id": 4,
+    "category": "Prompt",
+    "prompt": "What are Isaac’s strongest skills?",
+    "expected": "Evidence-backed strengths across work, not just generic biography",
+    "setup": null,
+    "elapsedMs": 1015,
+    "observed": {
+      "headings": [
+        "Career & experience",
+        "Marketing and Communications"
+      ],
+      "height": 1220,
+      "layouts": [
+        "experience-timeline"
+      ],
+      "overflow": false,
+      "selected": [
+        "Summation2026-Present"
+      ],
+      "text": "Share\nCareer & experience\nFilter roles\nSummation\n2026-Present\nFulbright Taiwan\nAug 2025-Aug 2026\nCouncil of State Governments\nJun 2025-Jul 2025\nOpenAI\nMar 2025-Present\nWashington University in St. Louis\nJan 2024-May 2024; Jan 2025-Apr 2025\nBoehringer Ingelheim\nMay 2024-Aug 2025\nWashington University in St. Louis\nMar 2024-May 2025\nIsaac Seiler Strategies\nJan 2024-Apr 2025\nWashington University in St. Louis\nSep 2023-Apr 2025\nU.S. House of Representatives\nNov 2022-Jun 2023\nScholten for Congress\nJun 2022-Nov 2022\nProgressive Turnout Project\nAug 2022-Nov 2022\nDCCC\nJun 2022-Aug 2022\nInstitute for Nonprofit News\nDec 2021-Sep 2022\n2026-Present\nMarketing and Communications\n\nI lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.\n\nThe role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on.\n\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nPublished experience\nSummation\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 5,
+    "category": "Prompt",
+    "prompt": "Tell me about Isaac’s public service",
+    "expected": "Public-service roles and relevant work",
+    "setup": null,
+    "elapsedMs": 1074,
+    "observed": {
+      "headings": [
+        "Career & experience",
+        "Marketing and Communications"
+      ],
+      "height": 1220,
+      "layouts": [
+        "experience-timeline"
+      ],
+      "overflow": false,
+      "selected": [
+        "Summation2026-Present"
+      ],
+      "text": "Share\nCareer & experience\n\nMy work sits at the intersection of AI, emerging tech, communications, operations, and the systems people use every day.\n\nFilter roles\nSummation\n2026-Present\nFulbright Taiwan\nAug 2025-Aug 2026\nCouncil of State Governments\nJun 2025-Jul 2025\nOpenAI\nMar 2025-Present\nWashington University in St. Louis\nJan 2024-May 2024; Jan 2025-Apr 2025\nBoehringer Ingelheim\nMay 2024-Aug 2025\nWashington University in St. Louis\nMar 2024-May 2025\nIsaac Seiler Strategies\nJan 2024-Apr 2025\nWashington University in St. Louis\nSep 2023-Apr 2025\nU.S. House of Representatives\nNov 2022-Jun 2023\nScholten for Congress\nJun 2022-Nov 2022\nProgressive Turnout Project\nAug 2022-Nov 2022\nDCCC\nJun 2022-Aug 2022\nInstitute for Nonprofit News\nDec 2021-Sep 2022\n2026-Present\nMarketing and Communications\n\nI lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.\n\nThe role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on.\n\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nPublished experience\nSummation\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 6,
+    "category": "Prompt",
+    "prompt": "What did Isaac build in Taiwan?",
+    "expected": "Taiwan project and concrete contribution",
+    "setup": null,
+    "elapsedMs": 2263,
+    "observed": {
+      "headings": [
+        "AI literacy in Taiwan"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nI turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nRead the recap published with OpenAI\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFull project · Leading AI Literacy Efforts in Taiwan\n\nLocal matching · Composed with mistral-small-2603\n\n3945 input / 96 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 7,
+    "category": "Prompt",
+    "prompt": "How did Isaac design the Taiwan program?",
+    "expected": "Taiwan process, design decisions and evidence",
+    "setup": null,
+    "elapsedMs": 1900,
+    "observed": {
+      "headings": [
+        "AI literacy in Taiwan",
+        "Building a Program Where People Learned From Each Other"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "02Learning together"
+      ],
+      "text": "Share\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI proposed the Lab, designed six sessions around educators’ real work, and adapted later sessions to the questions and concerns participants raised.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nProposing the Lab\n02\nLearning together\nBuilding a Program Where People Learned From Each Other\n\nMy first goal was to create a space where educators could learn from one another. Then I wanted to tell the story of what we learned so others could benefit.\n\nI designed the Lab as six sessions covering AI fundamentals. We focused on work educators already had in front of them: preparing lessons, giving feedback, supporting language learning, and deciding when an AI tool would create more problems than it solved.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nRead the recap published with OpenAI\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFull project · Leading AI Literacy Efforts in Taiwan\n\nJev routing · Composed with mistral-small-2603\n\n3942 input / 94 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 8,
+    "category": "Prompt",
+    "prompt": "What were the outcomes of Isaac’s Taiwan project?",
+    "expected": "Published Taiwan outcomes without invented metrics",
+    "setup": null,
+    "elapsedMs": 1980,
+    "observed": {
+      "headings": [
+        "AI literacy in Taiwan",
+        "Turning What We Learned Into Public Value"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-outcomes"
+      ],
+      "overflow": false,
+      "selected": [
+        "Outcomes",
+        "01Nine published use cases"
+      ],
+      "text": "Share\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\n01\nNine published use cases\n02\nConference workshop\n03\nLessons learned\nTurning What We Learned Into Public Value\n\nI reviewed the use cases I had gathered and turned them into nine practical ChatGPT use cases that could apply across different educational environments.\n\nI wrote the final piece, which OpenAI's ChatGPT for Education Substack published.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nRead the recap published with OpenAI\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFull project · Leading AI Literacy Efforts in Taiwan\n\nJev routing · Composed with mistral-small-2603\n\n3948 input / 96 output tokens\n\nComposition: 0.8s",
+    "status": "Review"
+  },
+  {
+    "id": 9,
+    "category": "Prompt",
+    "prompt": "What did Isaac learn in Taiwan?",
+    "expected": "Taiwan reflections, not generic project overview",
+    "setup": null,
+    "elapsedMs": 2051,
+    "observed": {
+      "headings": [
+        "AI literacy in Taiwan",
+        "Turning What We Learned Into Public Value"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-outcomes"
+      ],
+      "overflow": false,
+      "selected": [
+        "Outcomes",
+        "01Nine published use cases"
+      ],
+      "text": "Share\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\n01\nNine published use cases\n02\nConference workshop\n03\nLessons learned\nTurning What We Learned Into Public Value\n\nI reviewed the use cases I had gathered and turned them into nine practical ChatGPT use cases that could apply across different educational environments.\n\nI wrote the final piece, which OpenAI's ChatGPT for Education Substack published.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nRead the recap published with OpenAI\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFull project · Leading AI Literacy Efforts in Taiwan\n\nLocal matching · Composed with mistral-small-2603\n\n3945 input / 96 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 51,
+    "category": "Interaction",
+    "name": "Editing preserves committed result",
+    "expected": "Taiwan outcomes remain while draft changes",
+    "observed": {
+      "headings": [
+        "AI literacy in Taiwan",
+        "Turning What We Learned Into Public Value"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-outcomes"
+      ],
+      "overflow": false,
+      "selected": [
+        "Outcomes",
+        "01Nine published use cases"
+      ],
+      "text": "Share\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\n01\nNine published use cases\n02\nConference workshop\n03\nLessons learned\nTurning What We Learned Into Public Value\n\nI reviewed the use cases I had gathered and turned them into nine practical ChatGPT use cases that could apply across different educational environments.\n\nI wrote the final piece, which OpenAI's ChatGPT for Education Substack published.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Pass",
+    "notes": "Committed headings and body unchanged while typing Taiwan."
+  },
+  {
+    "id": 52,
+    "category": "Interaction",
+    "name": "Arrow key selection preserves draft",
+    "expected": "Highlight a suggestion without replacing Taiwan",
+    "observed": {
+      "active": ":r4:-taiwan",
+      "draft": "Taiwan"
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 53,
+    "category": "Interaction",
+    "name": "Escape dismisses autocomplete",
+    "expected": "List closes and draft remains",
+    "observed": {
+      "draft": "Taiwan",
+      "expanded": "false"
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 54,
+    "category": "Interaction",
+    "name": "Tab dismisses autocomplete",
+    "expected": "List closes without submitting",
+    "observed": {
+      "draft": "Taiwa",
+      "expanded": "false",
+      "focus": "<button class=\"home-clear\" type=\"button\" aria-label=\"Clear exploration\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-x\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></button>"
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 56,
+    "category": "Interaction",
+    "name": "Typo-tolerant autocomplete",
+    "expected": "Taiwn suggests actual Taiwan questions",
+    "observed": {
+      "options": [
+        "What did Isaac build in Taiwan?",
+        "What were the outcomes of Isaac’s Taiwan project?",
+        "Compare Isaac’s AI policy and Taiwan projects"
+      ]
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 55,
+    "category": "Interaction",
+    "name": "Enter commits selected suggestion",
+    "expected": "Chosen Taiwan question becomes committed result",
+    "observed": {
+      "headings": [
+        "AI literacy in Taiwan"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Back\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nI turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 59,
+    "category": "Interaction",
+    "name": "Clear returns to resting composer",
+    "expected": "Result removed and compact shell restored",
+    "observed": {
+      "headings": [],
+      "height": 1220,
+      "layouts": [],
+      "overflow": false,
+      "selected": [],
+      "text": "",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Pass",
+    "notes": "Result removed; visual fold timing evaluated separately."
+  },
+  {
+    "id": 58,
+    "category": "Interaction",
+    "name": "Whitespace cannot submit",
+    "expected": "No result or pending request for whitespace",
+    "observed": {
+      "headings": [],
+      "height": 1220,
+      "layouts": [],
+      "overflow": false,
+      "selected": [],
+      "text": "",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Pass",
+    "notes": "No submit button appears for whitespace; Enter does nothing."
+  },
+  {
+    "id": 10,
+    "category": "Prompt",
+    "prompt": "How did educators shape the Taiwan program?",
+    "expected": "Participant feedback shapes later sessions",
+    "setup": null,
+    "elapsedMs": 2601,
+    "observed": {
+      "headings": [
+        "AI literacy in Taiwan",
+        "Building a Program Where People Learned From Each Other"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "02Learning together"
+      ],
+      "text": "Share\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI proposed the Lab, designed six sessions around educators’ real work, and adapted later sessions to the questions and concerns participants raised.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nProposing the Lab\n02\nLearning together\nBuilding a Program Where People Learned From Each Other\n\nMy first goal was to create a space where educators could learn from one another. Then I wanted to tell the story of what we learned so others could benefit.\n\nI designed the Lab as six sessions covering AI fundamentals. We focused on work educators already had in front of them: preparing lessons, giving feedback, supporting language learning, and deciding when an AI tool would create more problems than it solved.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nRead the recap published with OpenAI\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFull project · Leading AI Literacy Efforts in Taiwan\n\nJev routing · Composed with mistral-small-2603\n\n3942 input / 94 output tokens\n\nComposition: 1.3s",
+    "status": "Review"
+  },
+  {
+    "id": 11,
+    "category": "Prompt",
+    "prompt": "What was Isaac’s role in Congress?",
+    "expected": "Concrete congressional responsibility",
+    "setup": null,
+    "elapsedMs": 2226,
+    "observed": {
+      "headings": [
+        "Building a congressional office"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\n\nI helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nThe work connected a new office with local and national audiences and made its first 100 days of service understandable. Constituent-service totals describe the whole office’s work.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nReuters: Bipartisan bill targets child-labor violations\nThe New York Times: Migrant child-labor crackdown\nBloomberg Law: Congress addresses child-labor laws\nFOX 17: Federal task force activated\nAxios: Biden's D.C. crime decision strains House Democrats\nThe Washington Post: A new generation in a divided House\nCNN: Michigan voters and the national political picture\nThe Dispatch: The prospects for immigration reform\nView the full Press Hit List\nView the State of the Union collaboration\nRead the 100 Day Report\nRead the Congressional Record entry\nFull project · Building a Congressional Operation from Scratch\n\nJev routing · Composed with mistral-small-2603\n\n3952 input / 99 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 12,
+    "category": "Prompt",
+    "prompt": "How did Isaac create the 100 Day Report?",
+    "expected": "Report writing and production process",
+    "setup": null,
+    "elapsedMs": 1956,
+    "observed": {
+      "headings": [
+        "Building a congressional office",
+        "Building the press list"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "01Building the press network"
+      ],
+      "text": "Share\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\n\nI built relationships across local, statewide, and national media, connected district stories to federal policy, and gathered and checked the office’s results for its 100 Day Report.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nBuilding the press network\n02\nChild-labor coverage\n03\nReaching different audiences\n04\nBipartisan collaboration\n05\nThe 100 Day Report\nBuilding the press list\n\nThe new office began without a network of trusted press relationships. Isaac started building one immediately.\n\nHe reached local television producers in Grand Rapids, statewide political journalists, Washington correspondents, national policy reporters, trade publications, Spanish-language media, and journalists covering subjects such as immigration, labor, infrastructure, and small business.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nReuters: Bipartisan bill targets child-labor violations\nThe New York Times: Migrant child-labor crackdown\nBloomberg Law: Congress addresses child-labor laws\nFOX 17: Federal task force activated\nAxios: Biden's D.C. crime decision strains House Democrats\nThe Washington Post: A new generation in a divided House\nCNN: Michigan voters and the national political picture\nThe Dispatch: The prospects for immigration reform\nView the full Press Hit List\nView the State of the Union collaboration\nRead the 100 Day Report\nRead the Congressional Record entry\nFull project · Building a Congressional Operation from Scratch\n\nJev routing · Composed with mistral-small-2603\n\n3952 input / 97 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 13,
+    "category": "Prompt",
+    "prompt": "How did Isaac connect local stories to national news in Congress?",
+    "expected": "National media work and concrete examples",
+    "setup": null,
+    "elapsedMs": 2112,
+    "observed": {
+      "headings": [
+        "Building a congressional office",
+        "Turning a West Michigan story into national news"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "02Child-labor coverage"
+      ],
+      "text": "Share\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\n\nI built relationships across local, statewide, and national media, connected district stories to federal policy, and gathered and checked the office’s results for its 100 Day Report.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nBuilding the press network\n02\nChild-labor coverage\n03\nReaching different audiences\n04\nBipartisan collaboration\n05\nThe 100 Day Report\nTurning a West Michigan story into national news\n\nThe strength of that network became clear when reports emerged that children were working in dangerous conditions at facilities in West Michigan.\n\nIsaac saw that the story extended beyond one company or one region. It raised national questions about migrant children, corporate accountability, and the weakness of federal child-labor penalties. He developed the office's message, planned the press strategy, pitched reporters, prepared interviews, and connected what was happening in West Michigan to proposed federal action.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nReuters: Bipartisan bill targets child-labor violations\nThe New York Times: Migrant child-labor crackdown\nBloomberg Law: Congress addresses child-labor laws\nFOX 17: Federal task force activated\nAxios: Biden's D.C. crime decision strains House Democrats\nThe Washington Post: A new generation in a divided House\nCNN: Michigan voters and the national political picture\nThe Dispatch: The prospects for immigration reform\nView the full Press Hit List\nView the State of the Union collaboration\nRead the 100 Day Report\nRead the Congressional Record entry\nFull project · Building a Congressional Operation from Scratch\n\nLocal matching · Composed with mistral-small-2603\n\n3952 input / 97 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 66,
+    "category": "Interaction",
+    "name": "Select a process step",
+    "expected": "100 Day Report detail opens without submission",
+    "observed": {
+      "headings": [
+        "Building a congressional office",
+        "Making the first 100 days measurable"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "05The 100 Day Report"
+      ],
+      "text": "Back\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\n\nI built relationships across local, statewide, and national media, connected district stories to federal policy, and gathered and checked the office’s results for its 100 Day Report.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nBuilding the press network\n02\nChild-labor coverage\n03\nReaching different audiences\n04\nBipartisan collaboration\n05\nThe 100 Day Report\nMaking the first 100 days measurable\n\nIsaac also led the creation of the office's 100 Day Report. He collected and checked information from across the office, chose which results to highlight, wrote the narrative, designed the report, and coordinated its release to reporters and stakeholders.\n\nThe numbers belonged to the full team. Isaac's job was to make sure they were accurate, understandable, and available to the public. The report gave his growing press network a useful account of the office's first months and gave constituents a direct way to evaluate its work.\n\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 67,
+    "category": "Interaction",
+    "name": "Expand project reading",
+    "expected": "Remaining child-labor section text appears",
+    "observed": {
+      "headings": [
+        "Building a congressional office",
+        "Turning a West Michigan story into national news"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "02Child-labor coverage"
+      ],
+      "text": "Back\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\n\nI built relationships across local, statewide, and national media, connected district stories to federal policy, and gathered and checked the office’s results for its 100 Day Report.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nBuilding the press network\n02\nChild-labor coverage\n03\nReaching different audiences\n04\nBipartisan collaboration\n05\nThe 100 Day Report\nTurning a West Michigan story into national news\n\nThe strength of that network became clear when reports emerged that children were working in dangerous conditions at facilities in West Michigan.\n\nIsaac saw that the story extended beyond one company or one region. It raised national questions about migrant children, corporate accountability, and the weakness of federal child-labor penalties. He developed the office's message, planned the press strategy, pitched reporters, prepared interviews, and connected what was happening in West Michigan to proposed federal action.\n\nHis outreach secured coverage from The New York Times, Reuters, Bloomberg Law, Slate, MSNBC, and The Dispatch. At home, he kept the story moving through MLive, FOX 17, WWMT, and Michigan Advance.\n\nA local investigation became part of a national conversation. The coverage accompanied bipartisan legislation to increase penalties for child-labor violations and continued as the federal government activated an interagency task force.\n\nShow less\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 68,
+    "category": "Interaction",
+    "name": "Collapse project reading",
+    "expected": "Returns to two-paragraph excerpt",
+    "observed": {
+      "headings": [
+        "Building a congressional office",
+        "Turning a West Michigan story into national news"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "02Child-labor coverage"
+      ],
+      "text": "Back\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\n\nI built relationships across local, statewide, and national media, connected district stories to federal policy, and gathered and checked the office’s results for its 100 Day Report.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nBuilding the press network\n02\nChild-labor coverage\n03\nReaching different audiences\n04\nBipartisan collaboration\n05\nThe 100 Day Report\nTurning a West Michigan story into national news\n\nThe strength of that network became clear when reports emerged that children were working in dangerous conditions at facilities in West Michigan.\n\nIsaac saw that the story extended beyond one company or one region. It raised national questions about migrant children, corporate accountability, and the weakness of federal child-labor penalties. He developed the office's message, planned the press strategy, pitched reporters, prepared interviews, and connected what was happening in West Michigan to proposed federal action.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 62,
+    "category": "Interaction",
+    "name": "Open Sources",
+    "expected": "Relevant project sources appear",
+    "observed": "Sources\nReuters: Bipartisan bill targets child-labor violations\nThe New York Times: Migrant child-labor crackdown\nBloomberg Law: Congress addresses child-labor laws\nFOX 17: Federal task force activated\nAxios: Biden's D.C. crime decision strains House Democrats\nThe Washington Post: A new generation in a divided House\nCNN: Michigan voters and the national political picture\nThe Dispatch: The prospects for immigration reform\nView the full Press Hit List\nView the State of the Union collaboration\nRead the 100 Day Report\nRead the Congressional Record entry\nFull project · Building a Congressional Operation from Scratch\n\nLocal matching · Authored view",
+    "status": "Partial",
+    "notes": "Source links are useful, but provider and token diagnostics clutter the visitor-facing disclosure."
+  },
+  {
+    "id": 63,
+    "category": "Interaction",
+    "name": "Filter project evidence",
+    "expected": "Matching report sections remain",
+    "observed": {
+      "headings": [
+        "Building a congressional office"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-evidence"
+      ],
+      "overflow": false,
+      "selected": [
+        "Evidence"
+      ],
+      "text": "Back\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\nContribution\nProcess\nOutcomes\nEvidence\nFind in this project\nFrom the campaign to an empty office\nThe State of the Union\nMaking the first 100 days measurable\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 64,
+    "category": "Interaction",
+    "name": "Evidence empty state",
+    "expected": "Clear no-match feedback and recovery",
+    "observed": {
+      "headings": [
+        "Building a congressional office"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-evidence"
+      ],
+      "overflow": false,
+      "selected": [
+        "Evidence"
+      ],
+      "text": "Back\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\nContribution\nProcess\nOutcomes\nEvidence\nFind in this project\n\nNo matching evidence in this project.\n\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Partial",
+    "notes": "No-match feedback must be evaluated for a direct recovery action."
+  },
+  {
+    "id": 65,
+    "category": "Interaction",
+    "name": "Expand evidence section",
+    "expected": "Report evidence has substantive text",
+    "observed": {
+      "headings": [
+        "Building a congressional office"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-evidence"
+      ],
+      "overflow": false,
+      "selected": [
+        "Evidence"
+      ],
+      "text": "Back\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\nContribution\nProcess\nOutcomes\nEvidence\nFind in this project\nFrom the campaign to an empty office\nBuilding the press list\nTurning a West Michigan story into national news\nReaching different audiences\nThe State of the Union\nMaking the first 100 days measurable\n\nIsaac also led the creation of the office's 100 Day Report. He collected and checked information from across the office, chose which results to highlight, wrote the narrative, designed the report, and coordinated its release to reporters and stakeholders.\n\nThe numbers belonged to the full team. Isaac's job was to make sure they were accurate, understandable, and available to the public. The report gave his growing press network a useful account of the office's first months and gave constituents a direct way to evaluate its work.\n\nWhat the work added up to\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 14,
+    "category": "Prompt",
+    "prompt": "What did the congressional office accomplish?",
+    "expected": "Office outcomes, team attribution",
+    "setup": null,
+    "elapsedMs": 2029,
+    "observed": {
+      "headings": [
+        "Building a congressional office"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\n\nI helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nThe work connected a new office with local and national audiences and made its first 100 days of service understandable. Constituent-service totals describe the whole office’s work.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nReuters: Bipartisan bill targets child-labor violations\nThe New York Times: Migrant child-labor crackdown\nBloomberg Law: Congress addresses child-labor laws\nFOX 17: Federal task force activated\nAxios: Biden's D.C. crime decision strains House Democrats\nThe Washington Post: A new generation in a divided House\nCNN: Michigan voters and the national political picture\nThe Dispatch: The prospects for immigration reform\nView the full Press Hit List\nView the State of the Union collaboration\nRead the 100 Day Report\nRead the Congressional Record entry\nFull project · Building a Congressional Operation from Scratch\n\nLocal matching · Composed with mistral-small-2603\n\n3951 input / 99 output tokens\n\nComposition: 1.0s",
+    "status": "Review"
+  },
+  {
+    "id": 15,
+    "category": "Prompt",
+    "prompt": "What was Isaac’s role at Boehringer Ingelheim?",
+    "expected": "Specific business strategy responsibilities",
+    "setup": null,
+    "elapsedMs": 1108,
+    "observed": {
+      "headings": [
+        "Bringing Boehringer Cares to life"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nRebrand implementation & communications\n2025\n\nBringing Boehringer Cares to life\n\nI helped carry the team’s approved rebrand into the foundation’s website, communications assets, company-wide newsletter, and volunteering communications.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nDuring the 2025 rollout, annual employee volunteering increased by 25%; the newsletter reached an 80% open rate, alongside more than 25 communications assets.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nVisit the refreshed Boehringer Cares website\nFull project · Bringing the Boehringer Cares Rebrand to Life\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 16,
+    "category": "Prompt",
+    "prompt": "How did Isaac approach his Boehringer strategy work?",
+    "expected": "Strategy research and process",
+    "setup": null,
+    "elapsedMs": 2160,
+    "observed": {
+      "headings": [
+        "Bringing Boehringer Cares to life",
+        "From vision to rollout"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "01Website & rollout"
+      ],
+      "text": "Share\n\nRebrand implementation & communications\n2025\n\nBringing Boehringer Cares to life\n\nI organized the rollout content, worked with UX and brand colleagues on the public website, and extended the approved direction into employee newsletters and volunteering communications.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nWebsite & rollout\n02\nEmployee communications\nFrom vision to rollout\n\nI collected and organized the information needed for the rollout, then worked with UX and brand strategy teams to apply the new direction to the foundation's website and communications materials.\n\nI did not create the original rebrand vision. My role was to carry it through: helping translate the approved direction into clear copy, updated pages, and a consistent set of materials for the foundation's work.\n\nCoordinated with UX and brand colleagues to implement the refreshed website and visual direction.\nOrganized content and information for the public-facing rollout.\nCreated more than 25 communications assets using the new brand direction.\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nVisit the refreshed Boehringer Cares website\nFull project · Bringing the Boehringer Cares Rebrand to Life\n\nJev routing · Composed with mistral-small-2603\n\n3951 input / 97 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 17,
+    "category": "Prompt",
+    "prompt": "What were the results of Isaac’s Boehringer project?",
+    "expected": "Published outcomes without invented business metrics",
+    "setup": null,
+    "elapsedMs": 2069,
+    "observed": {
+      "headings": [
+        "Bringing Boehringer Cares to life",
+        "Results"
+      ],
+      "height": 1220,
+      "layouts": [
+        "project-outcomes"
+      ],
+      "overflow": false,
+      "selected": [
+        "Outcomes"
+      ],
+      "text": "Share\n\nRebrand implementation & communications\n2025\n\nBringing Boehringer Cares to life\nContribution\nProcess\nOutcomes\nEvidence\nResults\n\nDuring the 2025 rollout, annual employee volunteering increased by 25%. The company-wide newsletter reached an 80% open rate and became a reliable way to share opportunities, updates, and impact stories.\n\nThe result was a rebrand that showed up consistently in the foundation's public presence and in the communications employees received throughout the year.\n\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1553
+    },
+    "source": "Sources\nVisit the refreshed Boehringer Cares website\nFull project · Bringing the Boehringer Cares Rebrand to Life\n\nJev routing · Composed with mistral-small-2603\n\n3956 input / 99 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 81,
+    "category": "Visual",
+    "name": "Desktop idle — dark, 1440×900",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [],
+      "height": 900,
+      "layouts": [],
+      "overflow": false,
+      "selected": [],
+      "text": "",
+      "url": "https://seiler.page/",
+      "width": 1440,
+      "geometry": {
+        "body": "Explore\nHow did Isaac map AI in government?\nCanary Islands\nVietnam\nJapan\nKorea\nBritish Columbia\nWashington State\nThailand\nMatsu\nNew Zealand\nIndonesia\nTaiwan\nIceland\nMongolia\nHong Kong\nPortugal\nKazakhstan & Kyrgyzstan\nAustralia\nIIS",
+        "panel": [
+          {
+            "left": 0,
+            "width": 1440
+          }
+        ],
+        "theme": "dark",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-81.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 82,
+    "category": "Visual",
+    "name": "Desktop idle — light, 1440×900",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [],
+      "height": 900,
+      "layouts": [],
+      "overflow": false,
+      "selected": [],
+      "text": "",
+      "url": "https://seiler.page/",
+      "width": 1440,
+      "geometry": {
+        "body": "Work\nPhoto Map\nMusic\n\nGet in Touch\n\nAppearance\n\nExplore\nHow did Isaac map AI in government?\nWhat did Isaac build in Taiwan?\nCanary Islands\nVietnam\nJapan\nKorea\nBritish Columbia\nWashington State\nThailand\nMatsu\nNew Zealand\nIndonesia\nTaiwan\nIceland\nMongolia\nHong Kong\nPortugal\nKazakhstan & Kyrgyzstan\nAustralia\nIIS",
+        "panel": [
+          {
+            "left": 200,
+            "width": 1240
+          }
+        ],
+        "theme": "theme-crossfade light",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-82.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 84,
+    "category": "Visual",
+    "name": "Narrow idle — light, 390×844",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [],
+      "height": 844,
+      "layouts": [],
+      "overflow": false,
+      "selected": [],
+      "text": "",
+      "url": "https://seiler.page/",
+      "width": 390,
+      "geometry": {
+        "body": "Work\nPhoto Map\nMusic\n\nGet in Touch\n\nAppearance\n\nExplore\nHow did Isaac map AI in government?\nWhat did Isaac build in Taiwan?\nCanary Islands\nVietnam\nJapan\nKorea\nBritish Columbia\nWashington State\nThailand\nMatsu\nNew Zealand\nIndonesia\nTaiwan\nIceland\nMongolia\nHong Kong\nPortugal\nKazakhstan & Kyrgyzstan\nAustralia\nIIS",
+        "panel": [
+          {
+            "left": 338.80242919921875,
+            "width": 350.03125
+          }
+        ],
+        "theme": "light",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-84.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 83,
+    "category": "Visual",
+    "name": "Narrow idle — dark, 390×844",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [],
+      "height": 844,
+      "layouts": [],
+      "overflow": false,
+      "selected": [],
+      "text": "",
+      "url": "https://seiler.page/",
+      "width": 390,
+      "geometry": {
+        "body": "Explore\nWhat was Isaac’s role in Congress?\nCanary Islands\nVietnam\nJapan\nKorea\nBritish Columbia\nWashington State\nThailand\nMatsu\nNew Zealand\nIndonesia\nTaiwan\nIceland\nMongolia\nHong Kong\nPortugal\nKazakhstan & Kyrgyzstan\nAustralia\nIIS",
+        "panel": [
+          {
+            "left": 0,
+            "width": 390
+          }
+        ],
+        "theme": "dark",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-83.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 18,
+    "category": "Prompt",
+    "prompt": "Tell me about Isaac’s local journalism research",
+    "expected": "Thesis subject and contribution",
+    "setup": null,
+    "elapsedMs": 1025,
+    "observed": {
+      "headings": [
+        "AI, platforms & local journalism"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nPrincipal qualitative researcher\n2025\n\nAI, platforms & local journalism\n\nI authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nAn original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nFinal Thesis Draft\nFull project · Investigating AI’s Impact on Journalism in Australia\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 19,
+    "category": "Prompt",
+    "prompt": "How did Isaac interview local journalists?",
+    "expected": "Interview methodology and evidence",
+    "setup": null,
+    "elapsedMs": 2058,
+    "observed": {
+      "headings": [
+        "AI, platforms & local journalism",
+        "Core Outputs"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "02Findings & outputs"
+      ],
+      "text": "Share\n\nPrincipal qualitative researcher\n2025\n\nAI, platforms & local journalism\n\nI carried out the literature review, recruited interviewees, verified transcripts, coded the material, and synthesized themes across 17 interviews.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nResearch design\n02\nFindings & outputs\nCore Outputs\nAn original qualitative dataset with 17 semi-structured interviews and verified transcripts.\nFlexible coding and thematic synthesis on labor precarity, newsroom contraction, and platform dependence.\nComparative evaluation of print, digital, hybrid, nonprofit, and subscription-based business models.\nPolicy and platform assessment spanning bargaining codes, broadcasting, subsidies, and digital training programs.\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nFinal Thesis Draft\nFull project · Investigating AI’s Impact on Journalism in Australia\n\nJev routing · Composed with mistral-small-2603\n\n3939 input / 93 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 20,
+    "category": "Prompt",
+    "prompt": "What did Isaac discover about local journalism?",
+    "expected": "Actual research findings",
+    "setup": null,
+    "elapsedMs": 2010,
+    "observed": {
+      "headings": [
+        "AI, platforms & local journalism"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nPrincipal qualitative researcher\n2025\n\nAI, platforms & local journalism\n\nI authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nAn original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nFinal Thesis Draft\nFull project · Investigating AI’s Impact on Journalism in Australia\n\nLocal matching · Composed with mistral-small-2603\n\n3944 input / 95 output tokens\n\nComposition: 0.8s",
+    "status": "Review"
+  },
+  {
+    "id": 21,
+    "category": "Prompt",
+    "prompt": "What does Isaac do as an OpenAI advisor?",
+    "expected": "Accurate external advising responsibilities",
+    "setup": null,
+    "elapsedMs": 1115,
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFull project · Helping Shape OpenAI's Products Before Launch\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 85,
+    "category": "Visual",
+    "name": "Mobile project overview — dark, 390×844",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390,
+      "geometry": {
+        "body": "Explore\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore ",
+        "panel": [
+          {
+            "left": 0,
+            "width": 390
+          }
+        ],
+        "theme": "dark",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-85.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 86,
+    "category": "Visual",
+    "name": "Mobile project overview — light, 390×844",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390,
+      "geometry": {
+        "body": "Explore\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore ",
+        "panel": [
+          {
+            "left": 0,
+            "width": 390
+          }
+        ],
+        "theme": "light",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-86.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 88,
+    "category": "Visual",
+    "name": "Desktop project overview — light, 1440×900",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 900,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1440,
+      "geometry": {
+        "body": "Explore\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore ",
+        "panel": [
+          {
+            "left": 0,
+            "width": 1440
+          }
+        ],
+        "theme": "light",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-88.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 87,
+    "category": "Visual",
+    "name": "Desktop project overview — dark, 1440×900",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 900,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1440,
+      "geometry": {
+        "body": "Explore\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore ",
+        "panel": [
+          {
+            "left": 0.21875,
+            "width": 1439.765625
+          }
+        ],
+        "theme": "dark",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-87.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 87,
+    "category": "Visual",
+    "name": "Desktop project overview — dark, 1440×900",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 900,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1440,
+      "geometry": {
+        "body": "Explore\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore ",
+        "panel": [
+          {
+            "left": 0,
+            "width": 1440
+          }
+        ],
+        "theme": "dark",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-87.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 88,
+    "category": "Visual",
+    "name": "Desktop project overview — light, 1440×900",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 900,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 1440,
+      "geometry": {
+        "body": "Explore\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore ",
+        "panel": [
+          {
+            "left": 0,
+            "width": 1440
+          }
+        ],
+        "theme": "light",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-88.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 86,
+    "category": "Visual",
+    "name": "Mobile project overview — light, 390×844",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390,
+      "geometry": {
+        "body": "Explore\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore ",
+        "panel": [
+          {
+            "left": 0,
+            "width": 390
+          }
+        ],
+        "theme": "light",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-86.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 85,
+    "category": "Visual",
+    "name": "Mobile project overview — dark, 390×844",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390,
+      "geometry": {
+        "body": "Explore\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore ",
+        "panel": [
+          {
+            "left": 0,
+            "width": 390
+          }
+        ],
+        "theme": "dark",
+        "tiny": []
+      },
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-85.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 22,
+    "category": "Prompt",
+    "prompt": "What did Isaac learn from testing ChatGPT?",
+    "expected": "Specific product-testing lessons",
+    "setup": null,
+    "elapsedMs": 2257,
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab",
+        "What I learned from the Lab"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-outcomes"
+      ],
+      "overflow": false,
+      "selected": [
+        "Outcomes",
+        "02Lessons from the Lab"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nLessons from the Lab\nWhat I learned from the Lab\n\nBefore the Lab, I thought product feedback mostly meant finding bugs or asking for features. I learned that the more valuable work is often translation: connecting what a team built to the messy way a person is actually trying to learn, plan, or make a decision.\n\nThe products were different, but my questions stayed consistent. Does this make the user more capable? Is the source of the answer visible? Does the interface help someone understand what to do next? And does the launch story match the real experience?\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFull project · Helping Shape OpenAI's Products Before Launch\n\nJev routing · Composed with mistral-small-2603\n\n3944 input / 94 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 23,
+    "category": "Prompt",
+    "prompt": "What feedback did Isaac give on Study Mode?",
+    "expected": "Study Mode-specific evidence",
+    "setup": null,
+    "elapsedMs": 2244,
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFull project · Helping Shape OpenAI's Products Before Launch\n\nJev routing · Composed with mistral-small-2603\n\n3943 input / 94 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 24,
+    "category": "Prompt",
+    "prompt": "What feedback did Isaac give on Pulse?",
+    "expected": "Pulse-specific evidence",
+    "setup": null,
+    "elapsedMs": 2049,
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFull project · Helping Shape OpenAI's Products Before Launch\n\nJev routing · Composed with mistral-small-2603\n\n3942 input / 89 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 25,
+    "category": "Prompt",
+    "prompt": "What feedback did Isaac give on Atlas?",
+    "expected": "Atlas-specific evidence",
+    "setup": null,
+    "elapsedMs": 2031,
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFull project · Helping Shape OpenAI's Products Before Launch\n\nJev routing · Composed with mistral-small-2603\n\n3942 input / 94 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 60,
+    "category": "Interaction",
+    "name": "Back restores preceding view",
+    "expected": "Return from outcomes to process with selected section",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab",
+        "100 Chats: turning behavior into a book"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process",
+        "01100 Chats"
+      ],
+      "text": "Back\nForward\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nI tested early products in real workflows, documented where the experience broke down, and brought specific feedback into product discussions and launch storytelling.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nStudy Mode\n03\nBack to School\n04\nPulse\n05\nAtlas\n06\nGroup Chats\n100 Chats: turning behavior into a book\n\nThe first big project asked a deceptively simple question: what are college students actually using ChatGPT for? Together, the Lab built a collection of 100 real workflows—less a prompt library than a snapshot of how students were learning, creating, researching, and getting unstuck.\n\nMy contributions came from the places I was already using ChatGPT: research, writing, policy, and the small technical problems that can derail a day. I helped turn those examples into a public book and story that other students could recognize themselves in.\n\nExplaining a complex news-media bargaining policy from ten different angles.\nGenerating stronger academic titles and a clean first-pass abstract.\nMaking sense of a statistical correlation in my electric-vehicle research.\nTurning an opaque error message into a practical next step.\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 61,
+    "category": "Interaction",
+    "name": "Forward restores next view",
+    "expected": "Return to outcomes",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab",
+        "100 Chats: turning behavior into a book"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-outcomes"
+      ],
+      "overflow": false,
+      "selected": [
+        "Outcomes",
+        "01100 Chats"
+      ],
+      "text": "Back\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nLessons from the Lab\n100 Chats: turning behavior into a book\n\nThe first big project asked a deceptively simple question: what are college students actually using ChatGPT for? Together, the Lab built a collection of 100 real workflows—less a prompt library than a snapshot of how students were learning, creating, researching, and getting unstuck.\n\nMy contributions came from the places I was already using ChatGPT: research, writing, policy, and the small technical problems that can derail a day. I helped turn those examples into a public book and story that other students could recognize themselves in.\n\nExplaining a complex news-media bargaining policy from ten different angles.\nGenerating stronger academic titles and a clean first-pass abstract.\nMaking sense of a statistical correlation in my electric-vehicle research.\nTurning an opaque error message into a practical next step.\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 77,
+    "category": "Interaction",
+    "name": "Copy share link",
+    "expected": "Clipboard receives production view URL and confirmation",
+    "observed": {
+      "url": "https://seiler.page/#view=eyJ2ZXJzaW9uIjoxLCJjb250ZW50VmVyc2lvbiI6ImNhbnZhcy0yMDI2LTEwLTIyLXY3IiwiY29tcG9zaXRpb24iOnsiYmxvY2tzIjpbeyJraW5kIjoic3RvcnkiLCJsYXlvdXQiOiJwcm9qZWN0LW91dGNvbWVzIiwicHJvamVjdElkcyI6WyJvcGVuYWktcHJvZHVjdC10ZXN0aW5nLWFuZC1mZWVkYmFjayJdLCJhbGJ1bUlkcyI6W10sInN0YXRlcyI6W10sInJlZ2lvbiI6IkFsbCIsIm1ldHJpYyI6ImNvbXBvc2l0ZVNjb3JlIiwic2VjdGlvbiI6MSwiZm9jdXMiOiJvdXRjb21lcyIsInJvbGVJZCI6IiIsInNlYXJjaCI6IiIsImV4cGFuZGVkIjpmYWxzZSwiYmFuZCI6bnVsbH1dfX0",
+      "text": "Back\nCopied\nLink copied.\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nLessons from the Lab\n100 Chats: turning behavior into a book\n\nThe first big project asked a deceptively simple question: what are college students actually using ChatGPT for? Together, the Lab built a collection of 100 real workflows—less a prompt library than a snapshot of how students were learning, creating, researching, and getting unstuck.\n\nMy contributions came from the places I was already using ChatGPT: research, writing, policy, and the small technical problems that can derail a day. I helped turn those examples into a public book and story that other students could recognize themselves in.\n\nExplaining a complex news-media bargaining policy from ten different angles.\nGenerating stronger academic titles and a clean first-pass abstract.\nMaking sense of a statistical correlation in my electric-vehicle research.\nTurning an opaque error message into a practical next step.\nExplore another project\nSources\nAdjust view"
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 78,
+    "category": "Interaction",
+    "name": "Open shared view URL",
+    "expected": "Same OpenAI outcomes and selected section restore",
+    "observed": {
+      "headings": [
+        "Inside the ChatGPT Lab",
+        "100 Chats: turning behavior into a book"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-outcomes"
+      ],
+      "overflow": false,
+      "selected": [
+        "Outcomes",
+        "01100 Chats"
+      ],
+      "text": "Share\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nLessons from the Lab\n100 Chats: turning behavior into a book\n\nThe first big project asked a deceptively simple question: what are college students actually using ChatGPT for? Together, the Lab built a collection of 100 real workflows—less a prompt library than a snapshot of how students were learning, creating, researching, and getting unstuck.\n\nMy contributions came from the places I was already using ChatGPT: research, writing, policy, and the small technical problems that can derail a day. I helped turn those examples into a public book and story that other students could recognize themselves in.\n\nExplaining a complex news-media bargaining policy from ten different angles.\nGenerating stronger academic titles and a clean first-pass abstract.\nMaking sense of a statistical correlation in my electric-vehicle research.\nTurning an opaque error message into a practical next step.\nExplore another project\nSources\nAdjust view",
+      "url": "https://seiler.page/#view=eyJ2ZXJzaW9uIjoxLCJjb250ZW50VmVyc2lvbiI6ImNhbnZhcy0yMDI2LTEwLTIyLXY3IiwiY29tcG9zaXRpb24iOnsiYmxvY2tzIjpbeyJraW5kIjoic3RvcnkiLCJsYXlvdXQiOiJwcm9qZWN0LW91dGNvbWVzIiwicHJvamVjdElkcyI6WyJvcGVuYWktcHJvZHVjdC10ZXN0aW5nLWFuZC1mZWVkYmFjayJdLCJhbGJ1bUlkcyI6W10sInN0YXRlcyI6W10sInJlZ2lvbiI6IkFsbCIsIm1ldHJpYyI6ImNvbXBvc2l0ZVNjb3JlIiwic2VjdGlvbiI6MSwiZm9jdXMiOiJvdXRjb21lcyIsInJvbGVJZCI6IiIsInNlYXJjaCI6IiIsImV4cGFuZGVkIjpmYWxzZSwiYmFuZCI6bnVsbH1dfX0",
+      "width": 390
+    },
+    "status": "Pass",
+    "notes": ""
+  }
+]

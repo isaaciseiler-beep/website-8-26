@@ -1,3 +1,4 @@
+import { writingIndexMarkdown } from "./src/lib/writing.mjs";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -52,12 +53,14 @@ const localApiPlugin = (mode: string): Plugin => ({
         response.setHeader("Content-Type", "text/plain; charset=utf-8");
         response.end(llmsText()); return;
       }
+      if (url.pathname.startsWith("/src/")) return next();
       const explicit = url.pathname.endsWith(".md");
       const accept = (request.headers.accept ?? "").split(",").map(part => { const [mime,...options]=part.trim().split(";"); const quality = options.find(o=>o.trim().startsWith("q=")); return {mime,q:quality?Number(quality.trim().slice(2)):1}; });
       const mdQ = accept.find(a => a.mime === "text/markdown")?.q ?? 0;
       const htmlQ = accept.find(a => a.mime === "text/html")?.q ?? 0;
       if (explicit || mdQ > htmlQ) {
-        const content=markdown(explicit ? url.pathname.slice(0,-3) : url.pathname);
+        const contentPath = explicit ? url.pathname.slice(0,-3) : url.pathname;
+        const content = contentPath === "/writing" ? writingIndexMarkdown : markdown(contentPath);
         response.setHeader("Vary", "Accept"); response.setHeader("Cache-Control", "no-store");
         response.statusCode=content?200:404;response.setHeader("Content-Type","text/markdown; charset=utf-8");response.end(content ?? "# Not found");return;
       }

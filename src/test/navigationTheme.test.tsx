@@ -47,20 +47,8 @@ describe("navigation and theme defaults", () => {
     expect(music).toMatchObject({ id: "music", label: "Music", href: "/photos/music" });
   });
 
-  it("defaults new visitors to dark while preserving a saved light preference", async () => {
+  it("defaults new visitors to light while preserving a saved dark preference", async () => {
     const firstRender = render(
-      <ThemeProvider>
-        <ThemeValue />
-      </ThemeProvider>,
-    );
-
-    expect(screen.getByText("dark:dark")).toBeInTheDocument();
-    await waitFor(() => expect(document.documentElement).toHaveClass("dark"));
-
-    firstRender.unmount();
-    window.localStorage.setItem("theme", "light");
-
-    render(
       <ThemeProvider>
         <ThemeValue />
       </ThemeProvider>,
@@ -68,5 +56,17 @@ describe("navigation and theme defaults", () => {
 
     expect(screen.getByText("light:light")).toBeInTheDocument();
     await waitFor(() => expect(document.documentElement).toHaveClass("light"));
+
+    firstRender.unmount();
+    window.localStorage.setItem("theme", "dark");
+
+    render(
+      <ThemeProvider>
+        <ThemeValue />
+      </ThemeProvider>,
+    );
+
+    expect(screen.getByText("dark:dark")).toBeInTheDocument();
+    await waitFor(() => expect(document.documentElement).toHaveClass("dark"));
   });
 });

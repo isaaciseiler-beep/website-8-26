@@ -1,3 +1,4 @@
+import { writingIndexMarkdown } from "../src/lib/writing.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import ts from "typescript";
@@ -590,7 +591,7 @@ const applyHead = (html, route) => {
     .replace("</head>", `    <link rel="alternate" type="text/markdown" href="${escapeHtml(markdownUrl)}" />\n  </head>`);
   nextHtml = setMetaByName(nextHtml, "description", route.description);
   nextHtml = setMetaByName(nextHtml, "keywords", route.keywords.join(", "));
-  nextHtml = setMetaByName(nextHtml, "robots", route.robots ?? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1");
+  for (const bot of ["robots", "googlebot", "bingbot"]) nextHtml = setMetaByName(nextHtml, bot, route.robots ?? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1");
   nextHtml = setMetaByProperty(nextHtml, "og:title", route.title);
   nextHtml = setMetaByProperty(nextHtml, "og:description", route.description);
   nextHtml = setMetaByProperty(nextHtml, "og:type", route.ogType ?? "website");
@@ -967,7 +968,7 @@ writeGeneratedPublicFile("index.md", profileMarkdown);
 writeGeneratedPublicFile("about.md", profileMarkdown);
 writeGeneratedPublicFile("work.md", `# Work by Isaac Seiler\n\nCanonical: ${SITE_URL}/work\n\n${topPageByPath.get("/work").description}\n\n${enrichedProjects.map((project) => `## ${project.title}\n\n${project.year} · ${project.source}\n\n${project.seoDescription}\n\n[Case study](${projectUrl(project)}) · [Full text](${projectUrl(project)}.md)`).join("\n\n")}\n`);
 writeGeneratedPublicFile("photos/map.md", `# Photo Map\n\nCanonical: ${SITE_URL}/photos/map\n\n${topPageByPath.get("/photos/map").description}\n`);
-writeGeneratedPublicFile("llms.txt", `# Isaac Seiler — Tech Generalist\n\n> ${PROFILE_SUMMARY}\n\nCanonical website: ${SITE_URL}/\n\n## Profile and evidence\n- [About Isaac Seiler](${SITE_URL}/about.md)\n- [Selected work](${SITE_URL}/work.md)\n- [Public profile JSON](${SITE_URL}/api/public/profile)\n- [Agent guide](${SITE_URL}/agents)\n- [Interactive MCP endpoint](${SITE_URL}/mcp): Streamable HTTP; approved view tools and an MCP App.\n\n## Projects\n${enrichedProjects.map((project) => `- [${project.title}](${projectUrl(project)}.md): ${project.seoDescription}`).join("\n")}\n\n## Attribution\nThe government AI benchmark is an August 2025 snapshot. OpenAI program participation, collaboration, and product feedback are distinct from employment. Project pages link to published evidence.\n`);
+writeGeneratedPublicFile("llms.txt", `# Isaac Seiler — Tech Generalist\n\n> ${PROFILE_SUMMARY}\n\nCanonical website: ${SITE_URL}/\n\n## Profile and evidence\n- [About Isaac Seiler](${SITE_URL}/about.md)\n- [Selected work](${SITE_URL}/work.md)\n- [Writing](${SITE_URL}/writing.md): Coming soon.\n- [Public profile JSON](${SITE_URL}/api/public/profile)\n- [Agent guide](${SITE_URL}/agents)\n- [Interactive MCP endpoint](${SITE_URL}/mcp): Streamable HTTP; approved view tools and an MCP App.\n\n## Projects\n${enrichedProjects.map((project) => `- [${project.title}](${projectUrl(project)}.md): ${project.seoDescription}`).join("\n")}\n\n## Attribution\nThe government AI benchmark is an August 2025 snapshot. OpenAI program participation, collaboration, and product feedback are distinct from employment. Project pages link to published evidence.\n`);
 enrichedProjects.forEach((project) => {
   const sections = (project.sections ?? []).map((section) => `## ${section.heading}\n\n${(section.paragraphs ?? []).join("\n\n")}\n\n${(section.bullets ?? []).map((bullet) => `- ${bullet}`).join("\n")}\n\n${(section.links ?? []).map((link) => `- [${link.label}](${link.href})`).join("\n")}`).join("\n\n");
   writeGeneratedPublicFile(`projects/${project.id}.md`, `# ${project.title}\n\nCanonical: ${projectUrl(project)}\nYear: ${project.year}\nAuthor: Isaac Seiler\n\n${project.seoDescription}\n\n${sections}\n`);
@@ -989,3 +990,7 @@ enrichedProjects.forEach((project) => {
 
 console.log(`Generated SEO assets for ${topLevelPages.length} top-level routes and ${enrichedProjects.length} project routes.`);
 console.log(`Prioritized ${priorityImageObjects.length} image candidates for image search.`);
+
+writeGeneratedPublicFile("writing.md", writingIndexMarkdown);
+const writingPage = topPageByPath.get('/writing');
+writeDistRoute(routeForPage(writingPage), `<main>${renderNav()}<p>Coming soon</p></main>`);

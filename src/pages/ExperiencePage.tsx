@@ -3,7 +3,6 @@ import { motion, useMotionValue, useScroll, useSpring } from "framer-motion";
 import { ArrowUpRight, Download, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import AnimatedText from "@/components/AnimatedText";
-import Footer from "@/components/Footer";
 import ParallaxSection from "@/components/ParallaxSection";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -530,7 +529,7 @@ const ExperiencePage = () => {
           </section>
         </motion.main>
 
-        <Footer />
+
       </motion.div>
 
       <SiteHeader

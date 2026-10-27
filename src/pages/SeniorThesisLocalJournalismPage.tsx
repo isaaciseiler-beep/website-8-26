@@ -7,7 +7,6 @@ import Newspaper from "lucide-react/dist/esm/icons/newspaper.js";
 import Scale from "lucide-react/dist/esm/icons/scale.js";
 import Users from "lucide-react/dist/esm/icons/users.js";
 import { useNavigate } from "react-router-dom";
-import Footer from "@/components/Footer";
 import ProjectSourceLinks from "@/components/ProjectSourceLinks";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -625,7 +624,7 @@ const SeniorThesisLocalJournalismPage = () => {
           </RevealSection>
         </motion.main>
 
-        <Footer />
+
       </motion.div>
 
       <SiteHeader

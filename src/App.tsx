@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import { Component, Suspense, lazy, type ComponentType, type ErrorInfo, type ReactNode } from "react";
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
@@ -47,6 +48,7 @@ const lazyWithRetry = <T extends { default: ComponentType }>(
 const ChatOrb = lazyWithRetry(() => import("@/components/ChatOrb"), "chat-orb");
 const PhotoMapPage = lazyWithRetry(() => import("./pages/PhotoMapPage.tsx"), "photo-map");
 const WorkPage = lazyWithRetry(() => import("./pages/WorkPage.tsx"), "work");
+const WritingPage = lazyWithRetry(() => import("./pages/WritingPage.tsx"), "writing");
 const MusicPage = lazyWithRetry(() => import("./pages/MusicPage.tsx"), "music");
 const ProjectDetailPage = lazyWithRetry(() => import("./pages/ProjectDetailPage.tsx"), "project-detail");
 const AIStateGovernmentIndexPage = lazyWithRetry(() => import("./pages/AIStateGovernmentIndexPage.tsx"), "ai-state-government-index");
@@ -148,10 +150,13 @@ const AnimatedRoutes = () => {
           <Route path="/agents" element={<CanvasDocuments kind="agents" />} />
           <Route path="/projects/adaptive-portfolio" element={<CanvasDocuments kind="build" />} />
           <Route path="/photos" element={<Navigate to={{ pathname: "/", search: location.search, hash: location.search ? "" : "#photo-gallery" }} replace />} />
+          <Route path="/photos/locations" element={<Navigate to={{ pathname: "/", search: location.search, hash: location.search ? "" : "#photo-gallery" }} replace />} />
           <Route path="/photos/map" element={<PhotoMapPage />} />
           <Route path="/photos/music" element={<MusicPage />} />
           <Route path="/about" element={<Index />} />
           <Route path="/work" element={<WorkPage />} />
+          <Route path="/writing" element={<WritingPage />} />
+          <Route path="/writing/:slug" element={<Navigate to="/writing" replace />} />
           <Route path="/projects" element={<Navigate to="/work" replace />} />
           <Route path="/projects/artificial-intelligence-in-state-government-index" element={<AIStateGovernmentIndexPage />} />
           <Route path="/projects/senior-thesis-local-journalism" element={<SeniorThesisLocalJournalismPage />} />
@@ -184,6 +189,7 @@ const AnimatedRoutes = () => {
         {theme === "skull" && !isSkullHome
           ? <SkullRouteFrame path={location.pathname}>{routes}</SkullRouteFrame>
           : routes}
+        <Footer />
       </motion.div>
     </AnimatePresence>
   );

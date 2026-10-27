@@ -58,6 +58,7 @@ Canonical website: ${SITE_URL}/
 ## Profile and evidence
 - [About Isaac Seiler](${SITE_URL}/about.md): Biography, current role, and experience across fields.
 - [Selected work](${SITE_URL}/work.md): Published projects and their primary sources.
+- [Writing](${SITE_URL}/writing.md): Coming soon.
 - [Public profile JSON](${SITE_URL}/api/public/profile)
 - [Agent guide](${SITE_URL}/agents)
 - [Interactive MCP endpoint](${SITE_URL}/mcp): Streamable HTTP; approved view tools and an MCP App.

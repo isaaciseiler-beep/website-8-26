@@ -1,0 +1,2 @@
+.writing-shell { padding: clamp(120px, 16vh, 200px) 24px 120px; }
+.writing-coming-soon { max-width: 640px; margin: 0 auto; font-size: 16px; line-height: 1.5; color: hsl(var(--foreground) / .55); }

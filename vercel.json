@@ -1,6 +1,15 @@
 {
   "headers": [
     {
+      "source": "/writing.md",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/markdown; charset=utf-8"
+        }
+      ]
+    },
+    {
       "source": "/index.md",
       "headers": [
         {
@@ -193,11 +202,6 @@
       "permanent": true
     },
     {
-      "source": "/writing",
-      "destination": "/work",
-      "permanent": true
-    },
-    {
       "source": "/latest",
       "destination": "/work",
       "permanent": true
@@ -291,9 +295,18 @@
       "source": "/projects/fulbright-award-to-taiwan",
       "destination": "/work",
       "permanent": true
+    },
+    {
+      "source": "/writing/a-place-for-questions",
+      "destination": "/writing",
+      "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/writing",
+      "destination": "/writing/index.html"
+    },
     {
       "source": "/about",
       "destination": "/about/index.html"

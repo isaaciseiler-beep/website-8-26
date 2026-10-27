@@ -14,8 +14,8 @@ interface ThemeContextType {
 const PRE_SKULL_THEME_KEY = "pre-skull-theme";
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: "dark",
-  resolvedTheme: "dark",
+  theme: "light",
+  resolvedTheme: "light",
   setTheme: () => {},
   exitSkullMode: () => {},
 });
@@ -27,7 +27,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const storedTheme = window.localStorage.getItem(STORAGE_KEY);
     if (storedTheme === "dark" || storedTheme === "light") return storedTheme;
     if (storedTheme === "skull") return window.localStorage.getItem(PRE_SKULL_THEME_KEY) === "dark" ? "dark" : "light";
-    return "dark";
+    return "light";
   });
   const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(() =>
     window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",

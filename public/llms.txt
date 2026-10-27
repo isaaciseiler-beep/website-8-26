@@ -7,6 +7,7 @@ Canonical website: https://seiler.page/
 ## Profile and evidence
 - [About Isaac Seiler](https://seiler.page/about.md)
 - [Selected work](https://seiler.page/work.md)
+- [Writing](https://seiler.page/writing.md): Coming soon.
 - [Public profile JSON](https://seiler.page/api/public/profile)
 - [Agent guide](https://seiler.page/agents)
 - [Interactive MCP endpoint](https://seiler.page/mcp): Streamable HTTP; approved view tools and an MCP App.

@@ -1,3 +1,4 @@
+import RouteLoader from "@/components/RouteLoader";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -473,21 +474,11 @@ const PhotoMapPage = () => {
         <section className="relative h-full overflow-hidden bg-background">
           <div ref={containerRef} className="photo-map-shell h-full w-full" />
 
-          {!mapReady || mapError ? (
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/96 p-6">
-              <div className="w-full max-w-xs text-center">
-                <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-foreground/45">
-                  {mapError ? "Map unavailable" : "Photo Map"}
-                </p>
-                <div className="mx-auto mt-4 h-px w-40 overflow-hidden bg-foreground/10">
-                  {!mapError ? <div className="photo-map-loading-bar h-full w-1/2 bg-foreground/60" /> : null}
-                </div>
-                <p className="mt-4 text-sm leading-6 text-foreground/60">
-                  {mapError ?? "Loading locations"}
-                </p>
-              </div>
+          {mapError ? (
+            <div role="status" className="absolute inset-0 flex items-center justify-center bg-background p-6 text-center">
+              <p>{mapError}</p>
             </div>
-          ) : null}
+          ) : !mapReady ? <RouteLoader overlay /> : null}
 
           <section className="pointer-events-none absolute inset-x-0 bottom-0 right-0 z-[70] flex justify-end p-3 sm:bottom-0 sm:left-auto sm:top-14 sm:w-[382px] sm:p-4">
             <AnimatePresence mode="wait">
