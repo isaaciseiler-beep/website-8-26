@@ -294,7 +294,7 @@
   .portfolio-role-summary,.portfolio-section-explorer,.portfolio-career-explorer{grid-template-columns:1fr;gap:var(--space-m);}
   .portfolio-role-summary>.portfolio-inline-action{grid-column:auto;}
   .portfolio-section-nav{display:flex;overflow:auto;gap:var(--space-m);padding-bottom:var(--space-s);}
-  .home-genui .portfolio-section-nav button{min-width:180px;flex:0 0 65%;}
+  .home-genui .portfolio-section-nav button{min-width:0;flex:0 0 auto;max-width:85%;}
   .portfolio-comparison-titles{gap:var(--space-m);padding-block:var(--space-xs) var(--space-l);}
   .home-genui-stage .portfolio-comparison-titles h3{font-size:var(--size-m);line-height:var(--line-m);}
   .portfolio-comparison-row{grid-template-columns:1fr;gap:var(--space-m);padding-block:var(--space-l);}
