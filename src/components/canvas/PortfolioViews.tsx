@@ -19,13 +19,14 @@ export function ProjectStory({ block, onChange }: Props) {
   const sections = evidenceSections(record.project.id, focus);
   const active = sections.find(section => section.index === block.section) ?? sections[0];
   const matched = sections.filter(section => [section.heading, ...section.paragraphs ?? [], ...section.bullets ?? []].join(' ').toLowerCase().includes((block.search ?? '').toLowerCase()));
+  const deck = focus === 'role' ? record.contribution : focus === 'process' ? record.process : null;
   const selectFocus = (value: EvidenceFocus) => onChange({ ...block, focus: value, layout: layoutFor(value), section: evidenceSections(record.project.id, value)[0]?.index ?? 0, expanded: false });
   return <section className="portfolio-story" aria-label="Project explorer">
     <div className="portfolio-lead">
       <div>
         <p className="portfolio-meta">{record.role}<span>{record.project.year}</span></p>
         <h2>{record.title}</h2>
-        <p className="portfolio-deck">{focus === 'outcomes' ? record.outcome : record.contribution}</p>
+        {deck && <p className="portfolio-deck">{deck}</p>}
       </div>
       <img className="portfolio-project-image" src={image?.src??record.project.image} alt={image?.alt??record.project.title} />
     </div>
@@ -40,8 +41,8 @@ export function ProjectStory({ block, onChange }: Props) {
       <span className="portfolio-label">What came from it</span><p>{record.outcome}</p>
       <button className="portfolio-inline-action" onClick={() => selectFocus('process')}>Explore how it happened<ArrowUpRight size={15} aria-hidden="true" /></button>
     </div> : active && <div className={`portfolio-section-explorer${sections.length===1?' is-single':''}`}>
-      {sections.length>1&&<nav className="portfolio-section-nav" aria-label="Project process steps">
-        {sections.map((section, index) => <button key={section.id} aria-pressed={active.index === section.index} onClick={() => onChange({ ...block, section: section.index, expanded: false })}><span>{String(index + 1).padStart(2, '0')}</span>{section.heading}</button>)}
+      {sections.length>1&&<nav className="portfolio-section-nav" aria-label={focus === 'outcomes' ? 'Published outcomes' : 'Project process steps'}>
+        {sections.map((section, index) => <button key={section.id} aria-pressed={active.index === section.index} onClick={() => onChange({ ...block, section: section.index, expanded: false })}><span>{String(index + 1).padStart(2, '0')}</span>{section.label}</button>)}
       </nav>}
       <article className="portfolio-section-text">
         <h3>{active.heading}</h3>
@@ -65,7 +66,7 @@ export function ProjectComparison({ block, onChange }: Props) {
     if (row === 'Contribution') return record.contribution;
     if (row === 'Published outcome') return record.outcome;
     const sections = evidenceSections(record.project.id, row === 'Evidence' ? 'outcomes' : 'process');
-    if (row === 'Approach') return sections.map(section => section.heading).join(' · ');
+    if (row === 'Approach') return record.process;
     return sections[0]?.paragraphs?.[0] ?? sections[0]?.bullets?.[0] ?? record.outcome;
   }
   return <section className="portfolio-comparison" aria-label="Project comparison">
