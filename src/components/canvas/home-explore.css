@@ -305,3 +305,16 @@
   .home-genui .portfolio-career-nav nav button{min-width:160px;flex:0 0 65%;}
   .home-genui .portfolio-career-nav nav button[aria-pressed=true]{box-shadow:inset 0 -2px 0 currentColor;}
 }
+
+/* Shared view controls are disclosed only when a visitor adjusts a result. */
+.home-view-history{display:flex;align-items:center;gap:var(--space-m);}
+.home-genui-tools .home-share-view{margin-left:auto;font-size:var(--size-xs);line-height:var(--line-xs);}
+.canvas-arrangement{margin-top:var(--space-xs);}
+.canvas-arrangement-controls{display:grid;gap:var(--space-s);max-width:100%;}
+.canvas-arrangement-row{display:flex;gap:var(--space-s);align-items:center;min-width:0;}
+.canvas-arrangement-row label,.canvas-arrangement-controls>label{flex:1;min-width:0;}
+.canvas-arrangement select{width:100%;font-size:var(--size-xs);}
+.canvas-arrangement-actions{display:flex;gap:var(--space-xxs);}
+.home-genui .canvas-arrangement-actions button{display:grid;place-items:center;padding:var(--space-xs);}
+.canvas-module{min-width:0;}
+.canvas-module+.canvas-module{padding-top:var(--space-xl);border-top:1px solid var(--neutral-4);}

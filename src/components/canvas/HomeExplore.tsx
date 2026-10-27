@@ -1,12 +1,15 @@
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { flushSync } from 'react-dom';
 import { AnimatePresence, motion, useReducedMotion, useInView, useIsPresent } from 'framer-motion';
-import { ArrowUp, ArrowLeft, ArrowUpRight, LoaderCircle, X } from 'lucide-react';
+import { ArrowUp, ArrowLeft, ArrowRight, ArrowUpRight, Link, Check, LoaderCircle, X } from 'lucide-react';
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
 import { isPhotographyRequest, explorationGuidance, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
 import ExplorationCanvas, { type GenerationInfo } from './ExplorationCanvas';
 import './home-explore.css';
 import { AI_LAYOUTS, type LayoutId } from '@/lib/layouts';
+import { applyPortfolioAction, createPortableView, decodeView, portfolioActionForRequest, travelHistory, viewPlan, viewTitle, viewUrl } from '@/lib/portfolioView';
+import { registerPortfolioTools, type BrowserToolRegistry } from '@/lib/portfolioWebMcp';
 
 const suggestions=[
   'How did Isaac map AI in government?',
@@ -63,17 +66,48 @@ export default function HomeExplore() {
   const [phase,setPhase]=useState('Routing…');
   const [reviewLayout,setReviewLayout]=useState<LayoutId>('benchmark-compare');
   const [history,setHistory]=useState<View[]>([]);
+  const [future,setFuture]=useState<View[]>([]);
+  const [shareStatus,setShareStatus]=useState<'idle'|'copied'|'failed'>('idle');
+  const [linkError,setLinkError]=useState('');
   const revision=useRef(0);
   const current=useRef<View|null>(null);
   const controller=useRef<AbortController>();
   const input=useRef<HTMLInputElement>(null);
   const llmConfigured=useRef(false);
-  const update=(next:View|null)=>{current.current=next;setView(next);};
+  const update=useCallback((next:View|null)=>{current.current=next;setView(next);setShareStatus('idle');},[]);
+  const cancel=useCallback(()=>{controller.current?.abort();setBusy(false);if(current.current?.generation.status==='composing')update({...current.current,generation:{status:'authored'}});return ++revision.current;},[update]);
+  const remember=(previous:View)=>{setHistory(h=>[...h.slice(-19),previous]);setFuture([]);};
   const revealStart=()=>{
     const node=composerRef.current;
     if(node&&node.getBoundingClientRect().top<48)node.scrollIntoView({block:'start',behavior:reduceMotion?'auto':'smooth'});
   };
-  useEffect(()=>{if(reviewMode){const prompt=AI_LAYOUTS.find(l=>l.id==='benchmark-compare')!.prompt;setQuery(prompt);update({query:prompt,plan:resolveCanvasPlan(prompt,initialPlan(),0),composition:presetComposition('benchmark-compare'),generation:{status:'authored'}});}},[]);
+  useEffect(()=>{if(reviewMode){const prompt=AI_LAYOUTS.find(l=>l.id==='benchmark-compare')!.prompt;setQuery(prompt);update({query:prompt,plan:resolveCanvasPlan(prompt,initialPlan(),0),composition:presetComposition('benchmark-compare'),generation:{status:'authored'}});}},[update]);
+  useEffect(()=>{
+    let wasShared=false;
+    const restore=()=>{
+      const encoded=new URLSearchParams(window.location.hash.slice(1)).get('view');
+      if(!encoded){if(wasShared&&!window.location.hash){cancel();update(null);setQuery('');setHistory([]);setFuture([]);setLinkError('');}wasShared=false;return;}
+      wasShared=true;
+      cancel();setGuidance(null);setHistory([]);setFuture([]);
+      try {
+        const saved=decodeView(encoded);const title=viewTitle(saved);setQuery(title);setLinkError('');
+        update({query:title,plan:viewPlan(saved,revision.current),composition:saved.composition,generation:{status:'authored'}});
+      } catch {update(null);setQuery('');setLinkError('This shared view is unavailable. You can start a new exploration.');}
+    };
+    restore();window.addEventListener('hashchange',restore);
+    return()=>window.removeEventListener('hashchange',restore);
+  },[cancel,update]);
+  const browserControls=useRef<Parameters<typeof registerPortfolioTools>[1]>();
+  useEffect(()=>{
+    const registry=(document as Document & {modelContext?:BrowserToolRegistry}).modelContext
+      ??(navigator as Navigator & {modelContext?:BrowserToolRegistry}).modelContext;
+    if(!registry?.registerTool)return;
+    return registerPortfolioTools(registry,{
+      inspect:()=>browserControls.current!.inspect(),
+      apply:input=>browserControls.current!.apply(input),
+      travel:input=>browserControls.current!.travel(input),
+    });
+  },[]);
   useEffect(()=>{
     if(query.trim()||reduceMotion||paused||!composerInView||!pageVisible)return;
     const interval=setInterval(()=>{if(!document.hidden)setSuggestion(i=>(i+1)%suggestions.length);},5600);
@@ -84,14 +118,18 @@ export default function HomeExplore() {
     void fetch('/api/compose',{signal:abort.signal}).then(r=>r.json()).then(data=>{llmConfigured.current=Boolean(data.configured);}).catch(()=>{});
     return()=>{abort.abort();controller.current?.abort();};
   },[]);
-  function cancel(){controller.current?.abort();setBusy(false);if(current.current?.generation.status==='composing')update({...current.current,generation:{status:'authored'}});return ++revision.current;}
-  function clear(){cancel();setImmediateDismiss(true);setQuery('');setGuidance(null);setHistory([]);update(null);input.current?.focus();setAutocompleteOpen(false);}
+  function clear(){cancel();setImmediateDismiss(true);setQuery('');setGuidance(null);setHistory([]);setFuture([]);setLinkError('');update(null);input.current?.focus();setAutocompleteOpen(false);if(window.location.hash.startsWith('#view=')){window.history.replaceState(window.history.state,'',window.location.pathname+window.location.search);}}
   async function resolve(text:string,rev:number,allowModel=false){
     const context=current.current;
     setGuidance(null);
     const fallback=resolveCanvasPlan(text,context?.plan??initialPlan(),rev,context?.composition);
     if(isPhotographyRequest(text,fallback)){setBusy(false);return;}
-    if(context&&context.query!==text)setHistory(h=>[...h.slice(-9),context]);
+    if(context)remember(context);
+    if(context){
+      const portable=createPortableView(context.composition);
+      const action=portfolioActionForRequest(text,portable);
+      if(action){const edited=applyPortfolioAction(portable,action);update({query:text,plan:viewPlan(edited,rev),composition:edited.composition,generation:{status:'authored'}});setBusy(false);return;}
+    }
     const nextGuidance=explorationGuidance(text);
     if(nextGuidance){setGuidance(nextGuidance);update(null);setBusy(false);return;}
 
@@ -136,16 +174,35 @@ export default function HomeExplore() {
       try {while(live()){const {done,value}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});const lines=buffer.split('\n');buffer=lines.pop()??'';lines.forEach(accept);}if(buffer.trim())accept(buffer);if(live()&&!completed)throw new Error('Incomplete composition');} finally {await reader.cancel().catch(()=>{});}
     } catch {if(live()){if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update({...next,generation:{...next.generation,status:'unavailable'}});}} finally {if(live())setBusy(false);}
   }
-  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&current.current?.query===text))return;const rev=cancel();setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
-  const goBack=()=>{cancel();setGuidance(null);setImmediateDismiss(true);setAutocompleteOpen(false);const previous=history.at(-1);if(!previous)return;setQuery(previous.query);update(previous);setHistory(history.slice(0,-1));revealStart();};
+  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&current.current?.query===text))return;const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
+  const navigateHistory=(direction:'back'|'forward')=>{
+    if(direction==='back'?!history.length:!future.length)return;
+    cancel();setGuidance(null);setImmediateDismiss(true);setAutocompleteOpen(false);
+    const next=travelHistory<View|null>({past:history,present:current.current,future},direction);
+    setHistory(next.past.filter((item):item is View=>Boolean(item)));setFuture(next.future.filter((item):item is View=>Boolean(item)));
+    setQuery(next.present?.query??'');update(next.present);revealStart();
+  };
   const changeComposition=(composition:Composition)=>{
+    const checked=createPortableView(composition).composition;
     cancel();if(!current.current)return;
     const previous=current.current;
     const opensSubject=previous.composition.blocks.some((block,i)=>block.kind!==composition.blocks[i]?.kind||(block.kind==='story'&&block.projectIds[0]!==composition.blocks[i]?.projectIds[0]));
-    if(opensSubject){setHistory(h=>[...h.slice(-9),previous]);revealStart();}
-    const ids=composition.blocks.flatMap(b=>b.projectIds);const albumIds=composition.blocks.flatMap(b=>b.albumIds);
-    update({...previous,composition,plan:{...previous.plan,projectIds:ids.length?ids:previous.plan.projectIds,albumIds:albumIds.length?albumIds:previous.plan.albumIds},generation:{...previous.generation,status:previous.generation.status==='composing'?'authored':previous.generation.status}});
+    if(JSON.stringify(previous.composition)!==JSON.stringify(checked))remember(previous);
+    if(opensSubject)revealStart();
+    update({...previous,composition:checked,plan:{...viewPlan(createPortableView(checked),revision.current)},generation:{status:'authored'}});
   };
+  const inspectView=()=>({contentVersion:CONTENT_VERSION,revision:revision.current,view:current.current?createPortableView(current.current.composition):null,canGoBack:history.length>0,canGoForward:future.length>0,shareUrl:current.current?viewUrl(createPortableView(current.current.composition),window.location.origin):null});
+  browserControls.current={
+    inspect:inspectView,
+    apply:({action,expectedRevision})=>{
+      if(expectedRevision!==revision.current)throw new Error('The view changed. Read it again before applying an action.');
+      const next=applyPortfolioAction(current.current?createPortableView(current.current.composition):null,action);
+      flushSync(()=>{cancel();setGuidance(null);setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);if(current.current)remember(current.current);const title=viewTitle(next);setQuery(title);update({query:title,plan:viewPlan(next,revision.current),composition:next.composition,generation:{status:'authored'}});});
+      return browserControls.current!.inspect();
+    },
+    travel:({direction,expectedRevision})=>{if(expectedRevision!==revision.current)throw new Error('The view changed. Read it again before navigating.');flushSync(()=>navigateHistory(direction));return browserControls.current!.inspect();},
+  };
+  const shareView=async()=>{if(!current.current)return;try{await navigator.clipboard.writeText(viewUrl(createPortableView(current.current.composition),window.location.origin));setShareStatus('copied');}catch{setShareStatus('failed');}};
   const recessActive=composerHovered||explorationFocused||Boolean(view||guidance)||busy;
   return <section id="home-genui" className={`home-genui photos-shell${!view?' is-idle':''}`} aria-label="Interactive exploration">
     <div className={`home-genui-window${view||heldExpanded?' has-results':guidance?' has-guidance':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
@@ -170,10 +227,15 @@ export default function HomeExplore() {
         </button>
       </div>}
       {view&&query!==view.query&&<p className="home-draft-hint">Press Enter to update</p>}
+      {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel">
           <div className="home-genui-stage" aria-label="Exploration results" aria-busy={busy}>
-            <div className={`home-genui-tools${!history.length?' is-empty':''}`}>{history.length>0&&<button aria-label="Back" onClick={goBack}><ArrowLeft size={15}/>Back</button>}<span role="status" className="sr-only">{busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span></div>
+            <div className={`home-genui-tools${!history.length&&!view?' is-empty':''}`}>
+              <div className="home-view-history">{history.length>0&&<button aria-label="Back" onClick={()=>navigateHistory('back')}><ArrowLeft size={15}/>Back</button>}{future.length>0&&<button aria-label="Forward" onClick={()=>navigateHistory('forward')}><ArrowRight size={15}/><span className="sr-only">Forward</span></button>}</div>
+              {view&&<button className="home-share-view" aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
+              <span role="status" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
+            </div>
             {guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':'Try one of these starting points.'}</p>
               <div>{[{label:'Explore the work',prompt:'Explore all projects'},{label:'AI in government',prompt:suggestions[0].prompt},{label:'Career & experience',prompt:'Explore Isaac’s career'}].map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowUpRight size={14} aria-hidden="true"/></button>)}</div>

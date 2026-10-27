@@ -34,7 +34,7 @@ export function ProjectLayouts({block,onChange}:LayoutProps){
 export function ProjectIndex({block,onChange}:LayoutProps){
   const query=block.search??'';
   const filtered=publicProjects.filter(p=>(p.title+' '+p.summary).toLowerCase().includes(query.toLowerCase()));
-  return <section aria-label="Work explorer"><h2>Explore work</h2><label className="canvas-field"><span className="sr-only">Find a project</span><input type="search" placeholder="Find a project" value={query} onChange={e=>{onChange({...block,search:e.target.value});}}/></label><div className="canvas-project-list">{filtered.map(p=><button key={p.id} onClick={()=>onChange({...blankBlock('story'),projectIds:[p.id]})}><span>{p.year}</span><strong>{p.title}</strong><ArrowUpRight size={18}/></button>)}{!filtered.length&&<p>No matching projects.</p>}</div></section>;
+  return <section aria-label="Work explorer"><h2>Explore work</h2><label className="canvas-field"><span className="sr-only">Find a project</span><input type="search" maxLength={120} placeholder="Find a project" value={query} onChange={e=>{onChange({...block,search:e.target.value.slice(0,120)});}}/></label><div className="canvas-project-list">{filtered.map(p=><button key={p.id} onClick={()=>onChange({...blankBlock('story'),projectIds:[p.id]})}><span>{p.year}</span><strong>{p.title}</strong><ArrowUpRight size={18}/></button>)}{!filtered.length&&<p>No matching projects.</p>}</div></section>;
 }
 
 export function RoleExplorer({block,onChange}:LayoutProps){

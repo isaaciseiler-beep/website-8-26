@@ -33,7 +33,7 @@ export function ProjectStory({ block, onChange }: Props) {
       {facets.map(facet => <button key={facet.value} aria-pressed={focus === facet.value} onClick={() => selectFocus(facet.value)}>{facet.label}</button>)}
     </div>
     {focus === 'evidence' ? <div className="portfolio-evidence">
-      <label className="canvas-field"><span className="sr-only">Find in this project</span><input type="search" value={block.search ?? ''} onChange={event => onChange({ ...block, search: event.target.value })} placeholder="Find in the published evidence" /></label>
+      <label className="canvas-field"><span className="sr-only">Find in this project</span><input type="search" maxLength={120} value={block.search ?? ''} onChange={event => onChange({ ...block, search: event.target.value.slice(0, 120) })} placeholder="Find in the published evidence" /></label>
       {matched.map(section => <details key={section.id}><summary>{section.heading}</summary>{section.paragraphs?.map(text => <p key={text}>{text}</p>)}{section.bullets && <ul>{section.bullets.map(text => <li key={text}>{text}</li>)}</ul>}</details>)}
       {!matched.length && <p>No matching evidence in this project.</p>}
     </div> : focus === 'role' ? <div className="portfolio-role-summary">
@@ -84,7 +84,7 @@ export function CareerExplorer({ block, onChange }: Props) {
     <h2>Career &amp; experience</h2>
     {(!block.focus||block.focus==='overview')&&<p className="portfolio-deck">{experienceIntro.paragraphs[1]}</p>}
     <div className="portfolio-career-explorer">
-      <div className="portfolio-career-nav"><label><span className="sr-only">Filter roles</span><input type="search" value={block.search ?? ''} onChange={event => onChange({ ...block, search: event.target.value })} placeholder="Find a role or skill" /></label><nav aria-label="Professional roles">{entries.map(entry => <button key={entry.id} aria-pressed={active?.id === entry.id} onClick={() => onChange({ ...block, roleId: entry.id })}><strong>{entry.organization}</strong><span>{entry.period}</span></button>)}</nav></div>
+      <div className="portfolio-career-nav"><label><span className="sr-only">Filter roles</span><input type="search" maxLength={120} value={block.search ?? ''} onChange={event => onChange({ ...block, search: event.target.value.slice(0, 120) })} placeholder="Find a role or skill" /></label><nav aria-label="Professional roles">{entries.map(entry => <button key={entry.id} aria-pressed={active?.id === entry.id} onClick={() => onChange({ ...block, roleId: entry.id })}><strong>{entry.organization}</strong><span>{entry.period}</span></button>)}</nav></div>
       {active ? <article className="portfolio-career-detail"><span className="portfolio-meta">{active.period}</span><h3>{active.role}</h3>{active.paragraphs.map(text => <p key={text}>{text}</p>)}{active.projectIds.filter(id => evidenceFor(id)).map(id => <button className="portfolio-inline-action" key={id} onClick={() => onChange({ ...blankBlock('story'), projectIds: [id], focus: 'role' })}>Explore the work<ArrowUpRight size={15} aria-hidden="true" /></button>)}</article> : <p>No matching roles.</p>}
     </div>
   </section>;

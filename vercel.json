@@ -365,7 +365,7 @@
   ],
   "functions": {
     "api/*.ts": {
-      "includeFiles": "knowledge/**"
+      "includeFiles": "{knowledge/**,.mcp-build/**}"
     }
   }
 }

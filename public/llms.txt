@@ -9,6 +9,7 @@ Canonical website: https://seiler.page/
 - [Selected work](https://seiler.page/work.md)
 - [Public profile JSON](https://seiler.page/api/public/profile)
 - [Agent guide](https://seiler.page/agents)
+- [Interactive MCP endpoint](https://seiler.page/mcp): Streamable HTTP; approved view tools and an MCP App.
 
 ## Projects
 - [Leading AI Literacy Efforts in Taiwan](https://seiler.page/projects/fulbright-focus-group-sponsored-by-openai.md): Isaac Seiler pitched and led one of the first Local ChatGPT Labs, then turned what educators learned into a published resource and conference workshop.
@@ -20,4 +21,4 @@ Canonical website: https://seiler.page/
 - [Helping Shape OpenAI's Products Before Launch](https://seiler.page/projects/openai-product-testing-and-feedback.md): Inside my work with OpenAI's first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.
 
 ## Attribution
-The government AI benchmark is an August 2025 snapshot. Teaching examples are illustrative workflows. OpenAI program participation, collaboration, and product feedback are distinct from employment. Project pages link to published evidence.
+The government AI benchmark is an August 2025 snapshot. OpenAI program participation, collaboration, and product feedback are distinct from employment. Project pages link to published evidence.

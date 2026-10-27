@@ -58,6 +58,7 @@ export function validateComposition(value: unknown): Composition | null {
     if (b.kind === 'photos' && !b.albumIds.length) return null;
     if (b.kind === 'workshop' && (b.projectIds[0] !== TAIWAN_ID || b.section > 3)) return null;
     if (b.kind === 'timeline' && b.section > 2) return null;
+    if (b.kind === 'architecture' && b.section > 3) return null;
     if (b.kind === 'photos' && b.section >= (albums.find(a=>a.folder===b.albumIds[0])?.photos.length ?? 0)) return null;
     if (b.kind === 'story' && b.section >= (publicProjects.find(p=>p.id===b.projectIds[0])?.sections.length ?? 0)) return null;
   }

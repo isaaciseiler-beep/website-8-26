@@ -1,6 +1,7 @@
 import { records, publicProfile, searchPublic, albums, albumPhotos, CONTENT_VERSION } from "../src/lib/canvas.js";
 import type { ApiRequest, ApiResponse } from "../server/http.js";
 import { SITE_URL } from "../src/lib/site.js";
+import { agentGuideMarkdown } from "../src/lib/agentGuide.mjs";
 
 export function publicContent(path: string, params = new URLSearchParams()) {
   const limit = Math.min(20,Math.max(1, Number(params.get("limit") ?? 5) || 5));
@@ -38,6 +39,7 @@ export default function handler(req: ApiRequest,res: ApiResponse) {
   res.end(JSON.stringify(result.data));
 }
 export function markdown(path: string) {
+  if (path === "/agents") return `# Public content and sources\n\n${publicProfile.summary}\n\n${agentGuideMarkdown}`;
   if (path === "/" || path === "/index" || path === "/about") return `# ${publicProfile.name}\n\nCanonical: ${publicProfile.canonicalUrl}\nContent version: ${CONTENT_VERSION}\n\n${publicProfile.summary}\n\n${publicProfile.bio.join("\n\n")}\n\n${Object.entries(publicProfile.links).map(([label,url])=>`[${label}](${url})`).join("\n")}`;
   if (path === "/work") return `# Published work\n\n${records.filter(r=>r.type==="project").map(r=>`## ${r.title}\n\n${r.summary}\n\n[Project](${r.canonicalUrl})`).join("\n\n")}`;
   const id=path.startsWith("/projects/")?path.slice(10):path.startsWith("/photos/")?`album-${path.slice(8)}`:"";
@@ -58,11 +60,12 @@ Canonical website: ${SITE_URL}/
 - [Selected work](${SITE_URL}/work.md): Published projects and their primary sources.
 - [Public profile JSON](${SITE_URL}/api/public/profile)
 - [Agent guide](${SITE_URL}/agents)
+- [Interactive MCP endpoint](${SITE_URL}/mcp): Streamable HTTP; approved view tools and an MCP App.
 
 ## Projects
 ${records.filter(record => record.type === "project").map(record => `- [${record.title}](${record.canonicalUrl}.md): ${record.summary}`).join("\n")}
 
 ## Attribution
-The government AI benchmark is an August 2025 snapshot. Teaching examples are illustrative workflows. OpenAI program participation, collaboration, and product feedback are distinct from employment. Project pages link to published evidence.
+The government AI benchmark is an August 2025 snapshot. OpenAI program participation, collaboration, and product feedback are distinct from employment. Project pages link to published evidence.
 `;
 }
