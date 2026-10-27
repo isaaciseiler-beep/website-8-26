@@ -1373,5 +1373,860 @@
     },
     "source": "Sources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFull project · Helping Shape OpenAI's Products Before Launch\n\nLocal matching · Composed with mistral-small-2603\n\n3943 input / 92 output tokens\n\nComposition: 0.9s",
     "status": "Review"
+  },
+  {
+    "id": 27,
+    "category": "Prompt",
+    "prompt": "How did Isaac research AI in government?",
+    "expected": "Benchmark methodology, not just ranking",
+    "setup": null,
+    "settledMs": 1372,
+    "observed": {
+      "headings": [
+        "AI in state government",
+        "What I Built"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process"
+      ],
+      "text": "Share\n\nResearcher & benchmark designer\n2025\n\nAI in state government\n\nI translated publicly verifiable signals into 15 criteria, combined preparedness with an efficiency adjustment, and used the gaps to shape a policy roadmap.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat I Built\nGenAI Preparedness Score: a 15-criteria scoring framework grounded in publicly verifiable evidence.\nComposite scoring: a weighted model combining preparedness with an efficiency adjustment.\nState-by-state analysis and rankings with concise synopses explaining each placement.\nA practitioner roadmap tied directly to observed policy, training, pilot, and transparency gaps.\nExplore another project\nProject\nMapping the Rise of AI Across State Government\nBuilding a Congressional Operation from Scratch\nInvestigating AI’s Impact on Journalism in Australia\nLeading AI Literacy Efforts in Taiwan\nBringing the Boehringer Cares Rebrand to Life\nHelping Shape OpenAI's Products Before Launch\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nJev routing · Composed with mistral-small-2603\n\n3940 input / 93 output tokens\n\nComposition: 1.0s",
+    "status": "Review"
+  },
+  {
+    "id": 28,
+    "category": "Prompt",
+    "prompt": "Rank governments by AI implementation",
+    "expected": "Government implementation ranking with August 2025 date",
+    "setup": null,
+    "settledMs": 139,
+    "observed": {
+      "headings": [
+        "AI in state government",
+        "What I Built"
+      ],
+      "height": 844,
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process"
+      ],
+      "text": "Share\n\nResearcher & benchmark designer\n2025\n\nAI in state government\n\nI translated publicly verifiable signals into 15 criteria, combined preparedness with an efficiency adjustment, and used the gaps to shape a policy roadmap.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat I Built\nGenAI Preparedness Score: a 15-criteria scoring framework grounded in publicly verifiable evidence.\nComposite scoring: a weighted model combining preparedness with an efficiency adjustment.\nState-by-state analysis and rankings with concise synopses explaining each placement.\nA practitioner roadmap tied directly to observed policy, training, pilot, and transparency gaps.\nExplore another project\nProject\nMapping the Rise of AI Across State Government\nBuilding a Congressional Operation from Scratch\nInvestigating AI’s Impact on Journalism in Australia\nLeading AI Literacy Efforts in Taiwan\nBringing the Boehringer Cares Rebrand to Life\nHelping Shape OpenAI's Products Before Launch\nSources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nJev routing · Composed with mistral-small-2603\n\n3940 input / 93 output tokens\n\nComposition: 1.0s\n\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 29,
+    "category": "Prompt",
+    "prompt": "Show Michigan’s AI scorecard",
+    "expected": "Michigan scorecard, correct government",
+    "setup": null,
+    "settledMs": 273,
+    "observed": {
+      "headings": [
+        "Michigan"
+      ],
+      "height": 844,
+      "layouts": [
+        "benchmark-scorecard"
+      ],
+      "overflow": false,
+      "selected": [],
+      "text": "Share\nState AI benchmark · August 2025\nMichigan\nMeasure\nComposite score\nPreparedness\nAll governments\nGovernment 1\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n17.8 / 100\nRank 48 of 56\nCompare with\nCompare with…\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\nEvidence breakdown\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 71,
+    "category": "Interaction",
+    "name": "Change benchmark measure",
+    "expected": "Preparedness score and rank update coherently",
+    "observed": {
+      "headings": [
+        "Michigan"
+      ],
+      "height": 844,
+      "layouts": [
+        "benchmark-scorecard"
+      ],
+      "overflow": false,
+      "selected": [],
+      "text": "Back\nShare\nState AI benchmark · August 2025\nMichigan\nMeasure\nComposite score\nPreparedness\nAll governments\nGovernment 1\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n10.0 / 100\nRank 46 of 56\nCompare with\nCompare with…\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\nEvidence breakdown\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 73,
+    "category": "Interaction",
+    "name": "Change government",
+    "expected": "California heading, score and rank replace Michigan",
+    "observed": {
+      "headings": [
+        "California"
+      ],
+      "height": 844,
+      "layouts": [
+        "benchmark-scorecard"
+      ],
+      "overflow": false,
+      "selected": [],
+      "text": "Back\nShare\nState AI benchmark · August 2025\nCalifornia\nMeasure\nComposite score\nPreparedness\nAll governments\nGovernment 1\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n75.0 / 100\nRank 2 of 56\nCompare with\nCompare with…\nMaryland\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\nEvidence breakdown\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 30,
+    "category": "Prompt",
+    "prompt": "Which AI criteria does Michigan meet?",
+    "expected": "Michigan criterion evidence, not aggregate alone",
+    "setup": null,
+    "settledMs": 434,
+    "observed": {
+      "headings": [
+        "Michigan"
+      ],
+      "height": 844,
+      "layouts": [
+        "benchmark-criteria"
+      ],
+      "overflow": false,
+      "selected": [],
+      "text": "Share\nState AI benchmark · August 2025\nMichigan\nMeasure\nComposite score\nPreparedness\nAll governments\nGovernment 1\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\nCompare with\nCompare with…\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\nEvidence breakdown\nEvidence\nMichigan\nSandbox\n0/2\nDeployment\n0/1\nFuture plans\n1/1\nAction plan\n0/2\nEnterprise pilot\n0/3\nGenAI website\n0/1\nEO or law\n0/1\nTask force\n0/1\nDedicated FTE\n0/1\nAI office\n0/2\nGuidance\n1/1\nAllowed use\n0/1\nTraining\n0/1\nInventory\n0/1\nApproval system\n0/1\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 31,
+    "category": "Prompt",
+    "prompt": "Compare Michigan and California on AI",
+    "expected": "Named pair in benchmark comparison",
+    "setup": null,
+    "settledMs": 1319,
+    "observed": {
+      "headings": [
+        "Government comparison"
+      ],
+      "height": 844,
+      "layouts": [
+        "benchmark-compare"
+      ],
+      "overflow": false,
+      "selected": [],
+      "text": "Share\nState AI benchmark · August 2025\nGovernment comparison\nMeasure\nComposite score\nPreparedness\nAll governments\nGovernment 1\nMaryland\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n17.8 / 100\nRank 48 of 56\nGovernment 2\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n87.1 / 100\nRank 2 of 56\nEvidence breakdown\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nLocal matching · Composed with mistral-small-2603\n\n3932 input / 91 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 32,
+    "category": "Prompt",
+    "prompt": "Compare AI readiness across regions",
+    "expected": "Regional comparison view",
+    "setup": null,
+    "settledMs": 1332,
+    "observed": {
+      "headings": [
+        "Regional comparison"
+      ],
+      "height": 844,
+      "layouts": [
+        "benchmark-regions"
+      ],
+      "overflow": false,
+      "selected": [
+        "Regions"
+      ],
+      "text": "Share\nState AI benchmark · August 2025\nRegional comparison\n\nExplore public evidence of AI policies, training, and adoption.\n\nRankings\nRegions\nDistribution\nMeasure\nComposite score\nPreparedness\nGovernment\nFind a government\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\nEast\n55.0\nMean score · 14 governments\nMidwest\n35.8\nMean score · 11 governments\nSouth\n45.9\nMean score · 14 governments\nWest\n41.4\nMean score · 17 governments\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nJev routing · Composed with mistral-small-2603\n\n3921 input / 94 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 33,
+    "category": "Prompt",
+    "prompt": "Show the distribution of AI preparedness scores",
+    "expected": "Distribution view with preparedness metric",
+    "setup": null,
+    "settledMs": 1395,
+    "observed": {
+      "headings": [
+        "Score distribution"
+      ],
+      "height": 844,
+      "layouts": [
+        "benchmark-distribution"
+      ],
+      "overflow": false,
+      "selected": [
+        "Distribution"
+      ],
+      "text": "Share\nState AI benchmark · August 2025\nScore distribution\n\nExplore public evidence of AI policies, training, and adoption.\n\nRankings\nRegions\nDistribution\nMeasure\nComposite score\nPreparedness\nRegion\nAll regions\nEast\nMidwest\nSouth\nWest\nGovernment\nFind a government\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n16\n0–20\n15\n20–40\n16\n40–60\n8\n60–80\n1\n80–100\n01\nMaryland\n85.0\n02\nCalifornia\n75.0\n03\nArizona\n70.0\n04\nGeorgia\n70.0\n05\nPennsylvania\n70.0\n06\nUtah\n60.0\n07\nNew Jersey\n60.0\nShow all governments\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "source": "Sources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nJev routing · Composed with mistral-small-2603\n\n3928 input / 96 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 72,
+    "category": "Interaction",
+    "name": "Filter benchmark region",
+    "expected": "Midwest rows and counts only",
+    "observed": {
+      "headings": [
+        "Score distribution"
+      ],
+      "height": 844,
+      "layouts": [
+        "benchmark-distribution"
+      ],
+      "overflow": false,
+      "selected": [
+        "Distribution"
+      ],
+      "selects": [
+        {
+          "label": "Benchmark measure",
+          "text": "Preparedness",
+          "value": "preparednessScore"
+        },
+        {
+          "label": "Benchmark region",
+          "text": "Midwest",
+          "value": "Midwest"
+        },
+        {
+          "label": "First government",
+          "text": "Find a government",
+          "value": ""
+        },
+        {
+          "label": "View 1 layout",
+          "text": "Score distribution",
+          "value": "benchmark-distribution"
+        },
+        {
+          "label": "Add a project to this view",
+          "text": "Add a project…",
+          "value": ""
+        }
+      ],
+      "text": "Back\nShare\nState AI benchmark · August 2025\nScore distribution\n\nExplore public evidence of AI policies, training, and adoption.\n\nRankings\nRegions\nDistribution\nMeasure\nComposite score\nPreparedness\nRegion\nAll regions\nEast\nMidwest\nSouth\nWest\nGovernment\nFind a government\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n4\n0–20\n5\n20–40\n2\n40–60\n0\n60–80\n0\n80–100\n01\nWisconsin\n55.0\n02\nMinnesota\n50.0\n03\nIndiana\n35.0\n04\nOhio\n35.0\n05\nNorth Dakota\n30.0\n06\nIowa\n25.0\n07\nIllinois\n25.0\nShow all governments\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 390
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 74,
+    "category": "Interaction",
+    "name": "Select empty score band and recover",
+    "expected": "Clear empty state; second click restores region rows",
+    "observed": {
+      "empty": {
+        "headings": [
+          "Score distribution"
+        ],
+        "height": 844,
+        "layouts": [
+          "benchmark-distribution"
+        ],
+        "overflow": false,
+        "selected": [
+          "Distribution",
+          "080–100"
+        ],
+        "selects": [
+          {
+            "label": "Benchmark measure",
+            "text": "Preparedness",
+            "value": "preparednessScore"
+          },
+          {
+            "label": "Benchmark region",
+            "text": "Midwest",
+            "value": "Midwest"
+          },
+          {
+            "label": "First government",
+            "text": "Find a government",
+            "value": ""
+          },
+          {
+            "label": "View 1 layout",
+            "text": "Score distribution",
+            "value": "benchmark-distribution"
+          },
+          {
+            "label": "Add a project to this view",
+            "text": "Add a project…",
+            "value": ""
+          }
+        ],
+        "text": "Back\nShare\nState AI benchmark · August 2025\nScore distribution\n\nExplore public evidence of AI policies, training, and adoption.\n\nRankings\nRegions\nDistribution\nMeasure\nComposite score\nPreparedness\nRegion\nAll regions\nEast\nMidwest\nSouth\nWest\nGovernment\nFind a government\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n4\n0–20\n5\n20–40\n2\n40–60\n0\n60–80\n0\n80–100\n\nNo governments in this score range. Select another range to explore.\n\nSources\nAdjust view",
+        "url": "https://seiler.page/",
+        "width": 390
+      },
+      "recovered": {
+        "headings": [
+          "Score distribution"
+        ],
+        "height": 844,
+        "layouts": [
+          "benchmark-distribution"
+        ],
+        "overflow": false,
+        "selected": [
+          "Distribution"
+        ],
+        "selects": [
+          {
+            "label": "Benchmark measure",
+            "text": "Preparedness",
+            "value": "preparednessScore"
+          },
+          {
+            "label": "Benchmark region",
+            "text": "Midwest",
+            "value": "Midwest"
+          },
+          {
+            "label": "First government",
+            "text": "Find a government",
+            "value": ""
+          },
+          {
+            "label": "View 1 layout",
+            "text": "Score distribution",
+            "value": "benchmark-distribution"
+          },
+          {
+            "label": "Add a project to this view",
+            "text": "Add a project…",
+            "value": ""
+          }
+        ],
+        "text": "Back\nShare\nState AI benchmark · August 2025\nScore distribution\n\nExplore public evidence of AI policies, training, and adoption.\n\nRankings\nRegions\nDistribution\nMeasure\nComposite score\nPreparedness\nRegion\nAll regions\nEast\nMidwest\nSouth\nWest\nGovernment\nFind a government\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n4\n0–20\n5\n20–40\n2\n40–60\n0\n60–80\n0\n80–100\n01\nWisconsin\n55.0\n02\nMinnesota\n50.0\n03\nIndiana\n35.0\n04\nOhio\n35.0\n05\nNorth Dakota\n30.0\n06\nIowa\n25.0\n07\nIllinois\n25.0\nShow all governments\nSources\nAdjust view",
+        "url": "https://seiler.page/",
+        "width": 390
+      }
+    },
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 91,
+    "category": "Visual",
+    "name": "Tablet benchmark distribution — dark, 768×1024",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Score distribution"
+      ],
+      "height": 1024,
+      "layouts": [
+        "benchmark-distribution"
+      ],
+      "overflow": false,
+      "selected": [
+        "Distribution"
+      ],
+      "text": "Back\nShare\nState AI benchmark · August 2025\nScore distribution\n\nExplore public evidence of AI policies, training, and adoption.\n\nRankings\nRegions\nDistribution\nMeasure\nComposite score\nPreparedness\nRegion\nAll regions\nEast\nMidwest\nSouth\nWest\nGovernment\nFind a government\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n4\n0–20\n5\n20–40\n2\n40–60\n0\n60–80\n0\n80–100\n01\nWisconsin\n55.0\n02\nMinnesota\n50.0\n03\nIndiana\n35.0\n04\nOhio\n35.0\n05\nNorth Dakota\n30.0\n06\nIowa\n25.0\n07\nIllinois\n25.0\nShow all governments\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 768,
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-91.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 92,
+    "category": "Visual",
+    "name": "Tablet benchmark distribution — light, 768×1024",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Score distribution"
+      ],
+      "height": 1024,
+      "layouts": [
+        "benchmark-distribution"
+      ],
+      "overflow": false,
+      "selected": [
+        "Distribution"
+      ],
+      "text": "Back\nShare\nState AI benchmark · August 2025\nScore distribution\n\nExplore public evidence of AI policies, training, and adoption.\n\nRankings\nRegions\nDistribution\nMeasure\nComposite score\nPreparedness\nRegion\nAll regions\nEast\nMidwest\nSouth\nWest\nGovernment\nFind a government\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n4\n0–20\n5\n20–40\n2\n40–60\n0\n60–80\n0\n80–100\n01\nWisconsin\n55.0\n02\nMinnesota\n50.0\n03\nIndiana\n35.0\n04\nOhio\n35.0\n05\nNorth Dakota\n30.0\n06\nIowa\n25.0\n07\nIllinois\n25.0\nShow all governments\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 768,
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-92.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 34,
+    "category": "Prompt",
+    "prompt": "Rank all governments by preparedness",
+    "expected": "Preparedness ranking rather than composite",
+    "setup": null,
+    "settledMs": 1435,
+    "observed": {
+      "headings": [
+        "AI in state government"
+      ],
+      "height": 1024,
+      "layouts": [
+        "benchmark-ranking"
+      ],
+      "overflow": false,
+      "selected": [
+        "Rankings"
+      ],
+      "text": "Share\nState AI benchmark · August 2025\nAI in state government\n\nExplore public evidence of AI policies, training, and adoption.\n\nRankings\nRegions\nDistribution\nMeasure\nComposite score\nPreparedness\nRegion\nAll regions\nEast\nMidwest\nSouth\nWest\nGovernment\nFind a government\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n01\nMaryland\n85.0\n02\nCalifornia\n75.0\n03\nArizona\n70.0\n04\nGeorgia\n70.0\n05\nPennsylvania\n70.0\n06\nUtah\n60.0\n07\nNew Jersey\n60.0\nShow all governments\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 768
+    },
+    "source": "Sources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nJev routing · Composed with mistral-small-2603\n\n3924 input / 94 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 35,
+    "category": "Prompt",
+    "prompt": "Show me Isaac’s projects",
+    "expected": "Interactive project index",
+    "setup": null,
+    "settledMs": 322,
+    "observed": {
+      "headings": [
+        "Explore work"
+      ],
+      "height": 1024,
+      "layouts": [
+        "project-index"
+      ],
+      "overflow": false,
+      "selected": [],
+      "text": "Share\nExplore work\nFind a project\n2025\nMapping the Rise of AI Across State Government\n2023\nBuilding a Congressional Operation from Scratch\n2025\nInvestigating AI’s Impact on Journalism in Australia\n2025\nLeading AI Literacy Efforts in Taiwan\n2025\nBringing the Boehringer Cares Rebrand to Life\n2025–Present\nHelping Shape OpenAI's Products Before Launch\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 768
+    },
+    "source": "Sources\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 36,
+    "category": "Prompt",
+    "prompt": "How can I contact Isaac?",
+    "expected": "Public contact actions",
+    "setup": null,
+    "settledMs": 328,
+    "observed": {
+      "headings": [
+        "Get in touch"
+      ],
+      "height": 1024,
+      "layouts": [
+        "contact-card"
+      ],
+      "overflow": false,
+      "selected": [],
+      "text": "Share\nGet in touch\nEmail\nLinkedIn\nGitHub\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 768
+    },
+    "source": "Sources\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 37,
+    "category": "Prompt",
+    "prompt": "How does this generative interface work?",
+    "expected": "Accurate interface architecture",
+    "setup": null,
+    "settledMs": 378,
+    "observed": {
+      "headings": [
+        "How this interface works",
+        "Understand"
+      ],
+      "height": 1024,
+      "layouts": [
+        "site-pipeline"
+      ],
+      "overflow": false,
+      "selected": [
+        "01Understand"
+      ],
+      "text": "Share\nThis request\nHow this interface works\n01\nUnderstand\n02\nRetrieve\n03\nCompose\n04\nInteract\njev-1.14.0\nUnderstand\n\nJev selected relevant content and an interface direction for this request.\n\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 768
+    },
+    "source": "Sources\n\nJev routing · Authored view",
+    "status": "Review"
+  },
+  {
+    "id": 38,
+    "category": "Prompt",
+    "prompt": "Compare Isaac’s AI policy and Taiwan projects",
+    "expected": "Distinct contributions and real evidence for requested pair",
+    "setup": null,
+    "settledMs": 1513,
+    "observed": {
+      "headings": [
+        "Contributions, side by side",
+        "AI in state government",
+        "AI literacy in Taiwan"
+      ],
+      "height": 1024,
+      "layouts": [
+        "project-compare"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\nContributions, side by side\nContribution\nProcess\nOutcomes\n2025\nAI in state government\n2025\nAI literacy in Taiwan\nRole\n\nResearcher & benchmark designer\n\nProgram proposer, designer & facilitator\n\nContribution\n\nI built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.\n\nI pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.\n\nPublished outcome\n\nA 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.\n\nI turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.\n\nChange projects\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 768
+    },
+    "source": "Sources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nRead the recap published with OpenAI\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFull project · Mapping the Rise of AI Across State Government\nFull project · Leading AI Literacy Efforts in Taiwan\n\nJev routing · Composed with mistral-small-2603\n\n3964 input / 106 output tokens\n\nComposition: 1.0s",
+    "status": "Review"
+  },
+  {
+    "id": 39,
+    "category": "Prompt",
+    "prompt": "Compare Isaac’s Congress and Boehringer work",
+    "expected": "Requested pair and meaningful differences",
+    "setup": null,
+    "settledMs": 1394,
+    "observed": {
+      "headings": [
+        "Contributions, side by side",
+        "Building a congressional office",
+        "Bringing Boehringer Cares to life"
+      ],
+      "height": 1024,
+      "layouts": [
+        "project-compare"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\nContributions, side by side\nContribution\nProcess\nOutcomes\n2023\nBuilding a congressional office\n2025\nBringing Boehringer Cares to life\nRole\n\nCommunications & office-launch contributor\n\nRebrand implementation & communications\n\nContribution\n\nI helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.\n\nI helped carry the team’s approved rebrand into the foundation’s website, communications assets, company-wide newsletter, and volunteering communications.\n\nPublished outcome\n\nThe work connected a new office with local and national audiences and made its first 100 days of service understandable. Constituent-service totals describe the whole office’s work.\n\nDuring the 2025 rollout, annual employee volunteering increased by 25%; the newsletter reached an 80% open rate, alongside more than 25 communications assets.\n\nChange projects\nSources\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 768
+    },
+    "source": "Sources\nReuters: Bipartisan bill targets child-labor violations\nThe New York Times: Migrant child-labor crackdown\nBloomberg Law: Congress addresses child-labor laws\nFOX 17: Federal task force activated\nAxios: Biden's D.C. crime decision strains House Democrats\nThe Washington Post: A new generation in a divided House\nCNN: Michigan voters and the national political picture\nThe Dispatch: The prospects for immigration reform\nView the full Press Hit List\nView the State of the Union collaboration\nRead the 100 Day Report\nRead the Congressional Record entry\nVisit the refreshed Boehringer Cares website\nFull project · Building a Congressional Operation from Scratch\nFull project · Bringing the Boehringer Cares Rebrand to Life\n\nJev routing · Composed with mistral-small-2603\n\n3979 input / 113 output tokens\n\nComposition: 0.9s",
+    "status": "Review"
+  },
+  {
+    "id": 40,
+    "category": "Prompt",
+    "prompt": "Compare Isaac’s OpenAI and journalism work",
+    "expected": "Requested pair and grounded common threads",
+    "setup": null,
+    "settledMs": 1564,
+    "observed": {
+      "headings": [
+        "Contributions, side by side",
+        "Inside the ChatGPT Lab",
+        "AI, platforms & local journalism"
+      ],
+      "height": 1024,
+      "layouts": [
+        "project-compare"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\nContributions, side by side\nContribution\nProcess\nOutcomes\n2025–Present\nInside the ChatGPT Lab\n2025\nAI, platforms & local journalism\nRole\n\nProduct tester & feedback contributor\n\nPrincipal qualitative researcher\n\nContribution\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nI authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.\n\nPublished outcome\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nAn original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI.\n\nChange projects\nSources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFinal Thesis Draft\nFull project · Helping Shape OpenAI's Products Before Launch\nFull project · Investigating AI’s Impact on Journalism in Australia\n\nJev routing · Composed with mistral-small-2603\n\n3960 input / 104 output tokens\n\nComposition: 1.1s\n\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 768
+    },
+    "source": "Sources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFinal Thesis Draft\nFull project · Helping Shape OpenAI's Products Before Launch\nFull project · Investigating AI’s Impact on Journalism in Australia\n\nJev routing · Composed with mistral-small-2603\n\n3960 input / 104 output tokens\n\nComposition: 1.1s",
+    "status": "Review"
+  },
+  {
+    "id": 70,
+    "category": "Interaction",
+    "name": "Comparison excludes duplicate projects",
+    "expected": "Each dropdown excludes the opposite project",
+    "observed": [
+      {
+        "label": "Comparison project 1",
+        "options": [
+          "artificial-intelligence-in-state-government-index",
+          "congressional-office-setup-100-day-report",
+          "fulbright-focus-group-sponsored-by-openai",
+          "boehringer-cares-foundation-rebrand-strategy-shift",
+          "openai-product-testing-and-feedback"
+        ],
+        "selected": "openai-product-testing-and-feedback"
+      },
+      {
+        "label": "Comparison project 2",
+        "options": [
+          "artificial-intelligence-in-state-government-index",
+          "congressional-office-setup-100-day-report",
+          "senior-thesis-local-journalism",
+          "fulbright-focus-group-sponsored-by-openai",
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "selected": "senior-thesis-local-journalism"
+      }
+    ],
+    "status": "Pass",
+    "notes": ""
+  },
+  {
+    "id": 90,
+    "category": "Visual",
+    "name": "Small-phone project comparison — light, 320×740",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Contributions, side by side",
+        "Inside the ChatGPT Lab",
+        "AI, platforms & local journalism"
+      ],
+      "height": 740,
+      "layouts": [
+        "project-compare"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\nContributions, side by side\nContribution\nProcess\nOutcomes\n2025–Present\nInside the ChatGPT Lab\n2025\nAI, platforms & local journalism\nRole\nInside the ChatGPT Lab\n\nProduct tester & feedback contributor\n\nAI, platforms & local journalism\n\nPrincipal qualitative researcher\n\nContribution\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nAI, platforms & local journalism\n\nI authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.\n\nPublished outcome\nInside the ChatGPT Lab\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nAI, platforms & local journalism\n\nAn original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI.\n\nChange projects\nSources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFinal Thesis Draft\nFull project · Helping Shape OpenAI's Products Before Launch\nFull project · Investigating AI’s Impact on Journalism in Australia\n\nJev routing · Composed with mistral-small-2603\n\n3960 input / 104 output tokens\n\nComposition: 1.1s\n\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 320,
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-90.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 89,
+    "category": "Visual",
+    "name": "Small-phone project comparison — dark, 320×740",
+    "expected": "Clear hierarchy, contained controls, readable spacing and no horizontal overflow",
+    "observed": {
+      "headings": [
+        "Contributions, side by side",
+        "Inside the ChatGPT Lab",
+        "AI, platforms & local journalism"
+      ],
+      "height": 740,
+      "layouts": [
+        "project-compare"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "text": "Share\nContributions, side by side\nContribution\nProcess\nOutcomes\n2025–Present\nInside the ChatGPT Lab\n2025\nAI, platforms & local journalism\nRole\nInside the ChatGPT Lab\n\nProduct tester & feedback contributor\n\nAI, platforms & local journalism\n\nPrincipal qualitative researcher\n\nContribution\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nAI, platforms & local journalism\n\nI authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.\n\nPublished outcome\nInside the ChatGPT Lab\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nAI, platforms & local journalism\n\nAn original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI.\n\nChange projects\nSources\nExplore the 100 Chats Project\nRead 100 ways college students use ChatGPT\nExplore Study Mode at OpenAI\nWatch the ChatGPT Instagram feature\nRead my launch reflection\nExplore OpenAI for Education\nMeet ChatGPT Pulse\nMeet ChatGPT Atlas\nExplore group chats in ChatGPT\nRead my one-year ChatGPT Lab reflection\nFinal Thesis Draft\nFull project · Helping Shape OpenAI's Products Before Launch\nFull project · Investigating AI’s Impact on Journalism in Australia\n\nJev routing · Composed with mistral-small-2603\n\n3960 input / 104 output tokens\n\nComposition: 1.1s\n\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 320,
+      "screenshot": "/Users/isaacseiler/Desktop/personal/website-8-26/docs/audits/live-100-2026-10-27/test-89.png"
+    },
+    "status": "Review",
+    "notes": ""
+  },
+  {
+    "id": 41,
+    "category": "Prompt",
+    "prompt": "What were the results?",
+    "expected": "Retain Taiwan and show published outcomes",
+    "setup": "What did Isaac build in Taiwan?",
+    "settledMs": 1513,
+    "observed": {
+      "headings": [
+        "AI literacy in Taiwan",
+        "Turning What We Learned Into Public Value"
+      ],
+      "height": 740,
+      "layouts": [
+        "project-outcomes"
+      ],
+      "overflow": false,
+      "selected": [
+        "Outcomes",
+        "01Nine published use cases"
+      ],
+      "text": "Back\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\n01\nNine published use cases\n02\nConference workshop\n03\nLessons learned\nTurning What We Learned Into Public Value\n\nI reviewed the use cases I had gathered and turned them into nine practical ChatGPT use cases that could apply across different educational environments.\n\nI wrote the final piece, which OpenAI's ChatGPT for Education Substack published.\n\nContinue reading\nExplore another project\nSources\nRead the recap published with OpenAI\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFull project · Leading AI Literacy Efforts in Taiwan\n\nJev routing · Composed with mistral-small-2603\n\n3943 input / 96 output tokens\n\nComposition: 1.0s\n\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 320
+    },
+    "source": "Sources",
+    "status": "Review"
+  },
+  {
+    "id": 42,
+    "category": "Prompt",
+    "prompt": "What about the process?",
+    "expected": "Retain Congress/Boehringer pair and switch comparison aspect",
+    "setup": "Compare Isaac’s Congress and Boehringer work",
+    "settledMs": 1419,
+    "observed": {
+      "headings": [
+        "Two approaches to the work",
+        "Building a congressional office",
+        "Bringing Boehringer Cares to life"
+      ],
+      "height": 740,
+      "layouts": [
+        "project-compare"
+      ],
+      "overflow": false,
+      "selected": [
+        "Process"
+      ],
+      "text": "Back\nShare\nTwo approaches to the work\nContribution\nProcess\nOutcomes\n2023\nBuilding a congressional office\n2025\nBringing Boehringer Cares to life\nApproach\nBuilding a congressional office\n\nI built relationships across local, statewide, and national media, connected district stories to federal policy, and gathered and checked the office’s results for its 100 Day Report.\n\nBringing Boehringer Cares to life\n\nI organized the rollout content, worked with UX and brand colleagues on the public website, and extended the approved direction into employee newsletters and volunteering communications.\n\nWork in practice\nBuilding a congressional office\n\nFor the child-labor story in West Michigan, I developed the message, pitched reporters, prepared interviews, and connected the local reporting to proposed federal action.\n\nBringing Boehringer Cares to life\n\nI applied the approved direction to updated web pages and more than 25 communications assets, then carried the same voice into the company-wide newsletter.\n\nChange projects\nSources\nReuters: Bipartisan bill targets child-labor violations\nThe New York Times: Migrant child-labor crackdown\nBloomberg Law: Congress addresses child-labor laws\nFOX 17: Federal task force activated\nAxios: Biden's D.C. crime decision strains House Democrats\nThe Washington Post: A new generation in a divided House\nCNN: Michigan voters and the national political picture\nThe Dispatch: The prospects for immigration reform\nView the full Press Hit List\nView the State of the Union collaboration\nRead the 100 Day Report\nRead the Congressional Record entry\nVisit the refreshed Boehringer Cares website\nFull project · Building a Congressional Operation from Scratch\nFull project · Bringing the Boehringer Cares Rebrand to Life\n\nJev routing · Composed with mistral-small-2603\n\n3975 input / 113 output tokens\n\nComposition: 1.0s\n\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 320
+    },
+    "source": "Sources",
+    "status": "Review"
+  },
+  {
+    "id": 43,
+    "category": "Prompt",
+    "prompt": "Use preparedness",
+    "expected": "Retain Michigan/California pair and change measure",
+    "setup": "Compare Michigan and California on AI",
+    "settledMs": 302,
+    "observed": {
+      "headings": [
+        "Government comparison"
+      ],
+      "height": 740,
+      "layouts": [
+        "benchmark-compare"
+      ],
+      "overflow": false,
+      "selected": [],
+      "text": "Back\nShare\nState AI benchmark · August 2025\nGovernment comparison\nMeasure\nComposite score\nPreparedness\nAll governments\nGovernment 1\nMaryland\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nMichigan\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n10.0 / 100\nRank 46 of 56\nGovernment 2\nMaryland\nCalifornia\nArizona\nGeorgia\nPennsylvania\nAlabama\nUtah\nNew Jersey\nMassachusetts\nDistrict of Columbia\nNorth Carolina\nColorado\nOregon\nWisconsin\nWashington\nVirginia\nConnecticut\nMinnesota\nNew York\nHawaii\nMississippi\nTexas\nOklahoma\nRhode Island\nVermont\nIdaho\nKentucky\nIndiana\nOhio\nMaine\nDelaware\nNorth Dakota\nSouth Carolina\nTennessee\nIowa\nPuerto Rico\nGuam\nIllinois\nMontana\nNew Hampshire\nArkansas\nFlorida\nSouth Dakota\nKansas\nNebraska\nNevada\nWest Virginia\nLouisiana\nAlaska\nAmerican Samoa\nMissouri\nNew Mexico\nNorthern Mariana Islands\nVirgin Islands\nWyoming\n75.0 / 100\nRank 2 of 56\nEvidence breakdown\nSources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nLocal matching · Authored view\n\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 320
+    },
+    "source": "Sources",
+    "status": "Review"
+  },
+  {
+    "id": 44,
+    "category": "Prompt",
+    "prompt": "Tell me more",
+    "expected": "Useful expansion of the Taiwan story",
+    "setup": "What did Isaac build in Taiwan?",
+    "observed": {
+      "headings": [
+        "AI literacy in Taiwan"
+      ],
+      "height": 740,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "selects": [
+        {
+          "label": "Project",
+          "text": "Leading AI Literacy Efforts in Taiwan",
+          "value": "fulbright-focus-group-sponsored-by-openai"
+        },
+        {
+          "label": "View 1 layout",
+          "text": "Project brief",
+          "value": "project-brief"
+        },
+        {
+          "label": "Add a project to this view",
+          "text": "Add a project…",
+          "value": ""
+        }
+      ],
+      "text": "Back\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nI turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.\n\nExplore how it happened\nExplore another project\nSources\nRead the recap published with OpenAI\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFull project · Leading AI Literacy Efforts in Taiwan\n\nJev routing · Authored view\n\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 320,
+      "pageText": "Explore\nBack\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nI turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.\n\nExplore how it happened\nExplore another project\nSources\nRead the recap published with OpenAI\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFull project · Leading AI Literacy Efforts in Taiwan\n\nJev routing · Authored view\n\nAdjust view\nKorea\nMatsu\nTaiwan\nIceland\nWashington State\nThailand\nJapan\nPortugal\nVietnam\nNew Zealand\nMongolia\nIndonesia\nHong Kong\nKazakhstan & Kyrgyzstan\nAustralia\nBritish Columbia\nCanary Islands\nIIS"
+    },
+    "status": "Review"
+  },
+  {
+    "id": 45,
+    "category": "Prompt",
+    "prompt": "Show me the second one",
+    "expected": "Open Taiwan, the second compared project",
+    "setup": "Compare Isaac’s AI policy and Taiwan projects",
+    "observed": {
+      "headings": [
+        "AI in state government"
+      ],
+      "height": 740,
+      "layouts": [
+        "project-brief"
+      ],
+      "overflow": false,
+      "selected": [
+        "Contribution"
+      ],
+      "selects": [
+        {
+          "label": "Project",
+          "text": "Mapping the Rise of AI Across State Government",
+          "value": "artificial-intelligence-in-state-government-index"
+        },
+        {
+          "label": "View 1 layout",
+          "text": "Project brief",
+          "value": "project-brief"
+        },
+        {
+          "label": "Add a project to this view",
+          "text": "Add a project…",
+          "value": ""
+        }
+      ],
+      "text": "Back\nShare\n\nResearcher & benchmark designer\n2025\n\nAI in state government\n\nI built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nA 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.\n\nExplore how it happened\nExplore another project\nSources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nLocal matching · Composed with mistral-small-2603\n\n3940 input / 95 output tokens\n\nComposition: 0.8s\n\nAdjust view",
+      "url": "https://seiler.page/",
+      "width": 320,
+      "pageText": "Explore\nBack\nShare\n\nResearcher & benchmark designer\n2025\n\nAI in state government\n\nI built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nA 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.\n\nExplore how it happened\nExplore another project\nSources\nGenAI Benchmark Data\nMethodology and Background\nRecommendations to State Leaders\nExecutive Summary Presentation\nFull project · Mapping the Rise of AI Across State Government\n\nLocal matching · Composed with mistral-small-2603\n\n3940 input / 95 output tokens\n\nComposition: 0.8s\n\nAdjust view\nKorea\nMatsu\nTaiwan\nIceland\nWashington State\nThailand\nJapan\nPortugal\nVietnam\nNew Zealand\nMongolia\nIndonesia\nHong Kong\nKazakhstan & Kyrgyzstan\nAustralia\nBritish Columbia\nCanary Islands\nIIS"
+    },
+    "status": "Review"
   }
 ]
