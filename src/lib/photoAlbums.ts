@@ -1,6 +1,6 @@
 export const R2_BASE = "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev";
 
-export type Continent = "Asia" | "Europe" | "Oceania" | "United States";
+export type Continent = "Asia" | "Europe" | "Oceania" | "North America";
 
 /** Newer uploads live in the 8-26-website-update bucket. */
 export const R2_BASE_ALT = "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev";
@@ -11,6 +11,8 @@ export interface Album {
   continent: Continent;
   /** Optional override when the album lives in a different R2 bucket. */
   baseUrl?: string;
+  /** Include an HDR original when it is the only uploaded version. */
+  includeHdr?: boolean;
   photos: string[];
 }
 
@@ -295,15 +297,33 @@ export const albums: Album[] = [
   {
     folder: "washington-state",
     location: "Washington State",
-    continent: "United States",
+    continent: "North America",
     baseUrl: R2_BASE_ALT,
     photos: [
+      "04FF5F75-E934-40BC-AE04-FDCB8E88F3BE_1_105_c.jpeg",
+      "05083044-E263-4DF0-81D8-285F43AFAC65_1_105_c.jpeg",
       "0839E20A-90DE-4B82-A2ED-42C2ED9ACBE5_1_105_c.jpeg",
       "736976DE-C98A-4697-AB17-D8C9E0416209_1_105_c.jpeg",
-      "750D9F5B-E868-4194-9238-BF57B72B82A4_1_105_c.jpeg",
+      "7BE8EA00-0432-4CE4-BD5D-43C00FC31ADC_1_105_c.jpeg",
+      "917FE91C-7316-4180-B534-4DFC4508394A_1_105_c.jpeg",
+      "C0499536-625B-47BE-B6D3-38CD853AEA17_1_105_c.jpeg",
+      "C14F0CFB-9E10-46AF-9286-57D2D6A82034_1_105_c.jpeg",
       "CFAD673F-9913-4CA6-831F-E808E2862A5A_1_105_c.jpeg",
+      "D7B11F72-5197-4AC2-9247-AE7D4C643AC4_1_105_c.jpeg",
       "EB544320-8DC0-49F1-AD85-AFB395EF7FBF_1_105_c.jpeg",
-      "F79A8B18-AD81-424A-9BC9-6A9EBD600790_1_105_c.jpeg",
+    ],
+  },
+  {
+    folder: "british-columbia",
+    location: "British Columbia",
+    continent: "North America",
+    baseUrl: R2_BASE_ALT,
+    includeHdr: true,
+    photos: [
+      "B5958A86-47D3-45B0-949A-7A88C5754112_1_105_c.jpeg",
+      "DB7510D5-FE38-4631-A851-8E782BEDEE12_1_105_c.jpeg",
+      "E7DB3662-010B-4805-81D4-23BD42B45C9A_1_105_c.jpeg",
+      "1651174A-249C-43DF-B4F2-20AD1DCE0427_1_201_a.jpeg",
     ],
   },
 ];
@@ -313,7 +333,7 @@ export const photoUrl = (folder: string, file: string, base: string = R2_BASE) =
 
 export const isHdrPhotoFile = (file: string) => /_1_201_a\.(jpe?g|png|webp)$/i.test(file);
 
-export const albumPhotoFiles = (album: Album) => album.photos.filter((file) => !isHdrPhotoFile(file));
+export const albumPhotoFiles = (album: Album) => album.photos.filter((file) => album.includeHdr || !isHdrPhotoFile(file));
 
 export const albumPhotos = (album: Album) =>
   albumPhotoFiles(album).map((f) => photoUrl(album.folder, f, album.baseUrl));

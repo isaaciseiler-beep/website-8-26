@@ -1,0 +1,28 @@
+/* Let the available pane width determine the homepage gallery columns. */
+.photo-overview-shell { container-type: inline-size; }
+.photo-album-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; overflow: hidden; }
+@container (min-width: 960px) {
+  .photo-album-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* A continuous contact sheet: landscape / square, then square / landscape. */
+.album-photo-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; overflow: hidden; }
+.album-photo-tile { grid-column: span 3; aspect-ratio: 3 / 2; padding: 0; border: 0; background: hsl(var(--muted)); cursor: pointer; }
+.album-photo-tile:nth-child(4n + 2), .album-photo-tile:nth-child(4n + 3) { grid-column: span 2; aspect-ratio: 1; }
+.album-photo-tile:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 2 / 1; }
+.photo-tile { position: relative; overflow: hidden; isolation: isolate; }
+.album-photo-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-reveal) var(--motion-ease); }
+.photo-hover-label { position: absolute; inset: auto 0 0; padding: 16px; text-align: left; color: white; font-size: 12px; font-weight: 400; line-height: 1.4; pointer-events: none; opacity: 0; transform: translateY(4px); transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease); z-index: 1; }
+.photo-hover-label::before { content: ''; position: absolute; inset: -32px 0 0; z-index: -1; background: linear-gradient(transparent, rgb(0 0 0 / .55)); }
+.photo-tile:focus-visible .photo-hover-label { opacity: 1; transform: translateY(0); }
+.album-photo-tile:focus-visible { outline: 2px solid white; outline-offset: -4px; }
+@media (hover: hover) {
+  .photo-tile:hover .photo-hover-label { opacity: 1; transform: translateY(0); }
+  .album-photo-tile:hover img { transform: scale(1.008); }
+}
+@media (max-width: 640px) {
+  .photo-hover-label { padding: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-hover-label, .album-photo-tile img { transition: none; transform: none; }
+}

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import chatFeedbackHandler from "../../api/chat-feedback";
-import type { ApiRequest, ApiResponse } from "../../api/http";
+import type { ApiRequest, ApiResponse } from "../../server/http";
 
 const callHandler = async (body: Record<string, unknown>) => {
   let responseBody = "";

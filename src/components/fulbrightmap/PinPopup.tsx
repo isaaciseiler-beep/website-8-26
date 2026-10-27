@@ -65,7 +65,7 @@ export default function PinPopup({
             <button
               type="button"
               onClick={onDelete}
-              className="inline-flex items-center gap-1.5 rounded-full border border-neutral-300 bg-neutral-950 px-2.5 py-1 text-xs font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400"
+              className="inline-flex items-center gap-1.5 rounded-[7px] border border-neutral-300 bg-neutral-950 px-2.5 py-1 text-xs font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400"
             >
               <Trash2 aria-hidden="true" className="h-3.5 w-3.5" />
               Delete

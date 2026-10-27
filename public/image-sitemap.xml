@@ -2,89 +2,81 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://www.isaacseiler.xyz/</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://seiler.page/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/webpreview-linkedin.png</image:loc>
+      <image:loc>https://seiler.page/webpreview-linkedin.png</image:loc>
       <image:title>Isaac Seiler</image:title>
       <image:caption>Primary image for Isaac Seiler&apos;s portfolio.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://seiler.page/projects/artificial-intelligence-in-state-government-index</loc>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/aiindex.jpg</image:loc>
+      <image:loc>https://seiler.page/project-images/aiindex.jpg</image:loc>
       <image:title>Mapping the Rise of AI Across State Government</image:title>
       <image:caption>A public benchmark measuring generative AI adoption across U.S. states and territories.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://seiler.page/projects/congressional-office-setup-100-day-report</loc>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/caphill.jpg</image:loc>
+      <image:loc>https://seiler.page/project-images/caphill.jpg</image:loc>
       <image:title>Building a Congressional Operation from Scratch</image:title>
       <image:caption>Launching a congressional office and building its local, statewide, and national press network.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/senior-thesis-local-journalism</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://seiler.page/projects/senior-thesis-local-journalism</loc>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/ainews.jpg</image:loc>
+      <image:loc>https://seiler.page/project-images/ainews.jpg</image:loc>
       <image:title>Investigating AI’s Impact on Journalism in Australia</image:title>
       <image:caption>Honors research on AI, digital platforms, local journalism, democracy, and media policy.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/fulbright-focus-group-sponsored-by-openai</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://seiler.page/projects/fulbright-focus-group-sponsored-by-openai</loc>
     <changefreq>monthly</changefreq>
     <priority>0.92</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
+      <image:loc>https://seiler.page/project-images/chatlab.jpg</image:loc>
       <image:title>Leading AI Literacy Efforts in Taiwan</image:title>
       <image:caption>Isaac Seiler pitched and led one of the first Local ChatGPT Labs, then turned what educators learned into a published resource and conference workshop.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/boehringer-cares-foundation-rebrand-strategy-shift</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://seiler.page/projects/boehringer-cares-foundation-rebrand-strategy-shift</loc>
     <changefreq>monthly</changefreq>
     <priority>0.76</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/bicares.jpg</image:loc>
+      <image:loc>https://seiler.page/project-images/bicares.jpg</image:loc>
       <image:title>Bringing the Boehringer Cares Rebrand to Life</image:title>
       <image:caption>Implementing the Boehringer Cares rebrand across its website, employee communications, newsletter, and volunteering programs.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/stl-immigrant-refugee-support-grant-process</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://seiler.page/projects/stl-immigrant-refugee-support-grant-process</loc>
     <changefreq>monthly</changefreq>
     <priority>0.76</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/philanthropy-lab.jpg</image:loc>
+      <image:loc>https://seiler.page/project-images/philanthropy-lab.jpg</image:loc>
       <image:title>Raised $20k for Local St. Louis Organizations</image:title>
       <image:caption>A student-led philanthropy process by Isaac Seiler&apos;s WashU team evaluating and supporting St. Louis immigrant and refugee-serving nonprofits.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://www.isaacseiler.xyz/projects/openai-product-testing-and-feedback</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://seiler.page/projects/openai-product-testing-and-feedback</loc>
     <changefreq>monthly</changefreq>
     <priority>0.76</priority>
     <image:image>
-      <image:loc>https://www.isaacseiler.xyz/project-images/chatlab.jpg</image:loc>
+      <image:loc>https://seiler.page/project-images/chatlab.jpg</image:loc>
       <image:title>Helping Shape OpenAI&apos;s Products Before Launch</image:title>
       <image:caption>Inside my work with OpenAI&apos;s first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.</image:caption>
     </image:image>

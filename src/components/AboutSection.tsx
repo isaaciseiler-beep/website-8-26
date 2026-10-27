@@ -102,7 +102,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
 
           <div className="about-lede-copy">
             <p ref={introRef} className="about-lede-intro">
-              I'm on the team at{" "}
+              I'm a tech generalist working across AI, policy, education, research, and communications. I lead marketing and communications at{" "}
               <a
                 href="https://summation.com"
                 target="_blank"
@@ -111,7 +111,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
               >
                 Summation
               </a>
-              , helping tell the story of how AI is changing the way people work. My background spans government and large enterprise, including senior roles at the U.S. House and published work with OpenAI.
+              . Previously, I helped launch a congressional office and led AI literacy work in Taiwan with support from OpenAI.
               <br /><br />
               <span className="about-location">
                 Based in Seattle, WA

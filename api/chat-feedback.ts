@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { readJsonBody, sendJson, type ApiRequest, type ApiResponse } from "./http.js";
+import { readJsonBody, sendJson, type ApiRequest, type ApiResponse } from "../server/http.js";
 
 const TABLE = "assistant_feedback";
 const RATINGS = new Set(["up", "down"]);

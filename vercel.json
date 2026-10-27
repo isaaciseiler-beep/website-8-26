@@ -1,6 +1,60 @@
 {
   "headers": [
     {
+      "source": "/index.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://seiler.page/>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
+      "source": "/about.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://seiler.page/about>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
+      "source": "/work.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://seiler.page/work>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
+      "source": "/agents.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://seiler.page/agents>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
+      "source": "/photos/map.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://seiler.page/photos/map>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
+      "source": "/projects/:project.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://seiler.page/projects/:project>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -90,6 +144,44 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.seiler.page"
+        }
+      ],
+      "destination": "https://seiler.page/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "isaacseiler.xyz"
+        }
+      ],
+      "destination": "https://seiler.page/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.isaacseiler.xyz"
+        }
+      ],
+      "destination": "https://seiler.page/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/photos",
+      "destination": "/",
+      "permanent": true
+    },
     {
       "source": "/projects/electric-vehicle-access-analysis",
       "destination": "/work",
@@ -203,8 +295,56 @@
   ],
   "rewrites": [
     {
+      "source": "/about",
+      "destination": "/about/index.html"
+    },
+    {
+      "source": "/work",
+      "destination": "/work/index.html"
+    },
+    {
+      "source": "/agents",
+      "destination": "/agents/index.html"
+    },
+    {
+      "source": "/projects/fulbright-focus-group-sponsored-by-openai",
+      "destination": "/projects/fulbright-focus-group-sponsored-by-openai/index.html"
+    },
+    {
+      "source": "/projects/artificial-intelligence-in-state-government-index",
+      "destination": "/projects/artificial-intelligence-in-state-government-index/index.html"
+    },
+    {
+      "source": "/projects/senior-thesis-local-journalism",
+      "destination": "/projects/senior-thesis-local-journalism/index.html"
+    },
+    {
+      "source": "/projects/congressional-office-setup-100-day-report",
+      "destination": "/projects/congressional-office-setup-100-day-report/index.html"
+    },
+    {
+      "source": "/projects/boehringer-cares-foundation-rebrand-strategy-shift",
+      "destination": "/projects/boehringer-cares-foundation-rebrand-strategy-shift/index.html"
+    },
+    {
+      "source": "/projects/stl-immigrant-refugee-support-grant-process",
+      "destination": "/projects/stl-immigrant-refugee-support-grant-process/index.html"
+    },
+    {
+      "source": "/projects/openai-product-testing-and-feedback",
+      "destination": "/projects/openai-product-testing-and-feedback/index.html"
+    },
+    {
+      "source": "/api/public/:path*",
+      "destination": "/api/public-content?path=:path*"
+    },
+    {
+      "source": "/mcp",
+      "destination": "/api/mcp"
+    },
+    {
       "source": "/photos/map",
-      "destination": "/index.html"
+      "destination": "/photos/map/index.html"
     },
     {
       "source": "/photos/music",

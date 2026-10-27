@@ -239,14 +239,14 @@ export default function AddPinForm({
             type="button"
             onClick={onDismiss}
             disabled={submitting}
-            className="h-11 rounded-full px-4 text-sm font-semibold text-white/75 transition duration-200 hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/70 disabled:opacity-40"
+            className="h-11 rounded-[7px] px-4 text-sm font-semibold text-white/75 transition duration-200 hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/70 disabled:opacity-40"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={submitting}
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white px-5 text-sm font-semibold text-neutral-950 shadow-lg shadow-black/25 transition duration-200 hover:-translate-y-0.5 hover:bg-neutral-200 hover:shadow-xl hover:shadow-black/35 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-white/80 disabled:cursor-wait disabled:bg-white/15 disabled:text-white/55 disabled:shadow-none disabled:hover:translate-y-0"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-[7px] bg-white px-5 text-sm font-semibold text-neutral-950 shadow-lg shadow-black/25 transition duration-200 hover:-translate-y-0.5 hover:bg-neutral-200 hover:shadow-xl hover:shadow-black/35 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-white/80 disabled:cursor-wait disabled:bg-white/15 disabled:text-white/55 disabled:shadow-none disabled:hover:translate-y-0"
           >
             {submitting ? (
               <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />

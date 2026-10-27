@@ -1,7 +1,5 @@
-export const SITE_URL = "https://www.isaacseiler.xyz";
-export const SITE_NAME = "Isaac Seiler";
-export const SITE_DESCRIPTION =
-  "Isaac Seiler leads marketing and communications at Summation, helping tell the story of how AI is changing the way people work. Based in Seattle, Washington.";
+import { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from "../src/lib/siteIdentity.mjs";
+export { SITE_URL, SITE_NAME, SITE_DESCRIPTION };
 export const CONTACT_EMAIL = "isaaciseiler@gmail.com";
 export const PREVIEW_IMAGE = {
   url: "/webpreview-linkedin.png",
@@ -36,24 +34,24 @@ export const topLevelPages = [
   {
     path: "/",
     navTitle: "Home",
-    title: "Isaac Seiler | Work and Photos",
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    sitelinkDescription: "Isaac Seiler's portfolio, selected work, and photography.",
+    sitelinkDescription: "A tech generalist's work across AI, policy, education, research, and communications.",
     priority: "1.0",
     changefreq: "weekly",
     image: PREVIEW_IMAGE,
-    keywords: ["Isaac Seiler", "Summation", "marketing", "communications", "portfolio", "projects", "photography"],
+    keywords: ["Isaac Seiler", "tech generalist", "AI", "public policy", "education", "research", "communications"],
   },
   {
     path: "/about",
     navTitle: "About",
-    title: "About | Isaac Seiler",
+    title: "About Isaac Seiler | Tech Generalist",
     description: SITE_DESCRIPTION,
-    sitelinkDescription: "About Isaac Seiler and his current work at Summation.",
+    sitelinkDescription: "Isaac Seiler's experience across technology, government, enterprise, and education.",
     priority: "0.95",
     changefreq: "monthly",
     image: PREVIEW_IMAGE,
-    keywords: ["Isaac Seiler", "Summation", "Seattle", "marketing", "communications"],
+    keywords: ["Isaac Seiler", "tech generalist", "Summation", "Seattle", "AI", "public policy"],
   },
   {
     path: "/work",
@@ -68,9 +66,9 @@ export const topLevelPages = [
     keywords: ["Isaac Seiler work", "Isaac Seiler projects", "communications", "research", "strategy"],
   },
   {
-    path: "/photos",
-    navTitle: "Photos",
-    title: "Photos | Isaac Seiler",
+    path: "/photos/map",
+    navTitle: "Photo Map",
+    title: "Photo Map | Isaac Seiler",
     description:
       "Travel photography by Isaac Seiler, with albums from Taiwan, Japan, Hong Kong, Iceland, Australia, New Zealand, Portugal, Thailand, Vietnam, Korea, and more.",
     sitelinkDescription:
@@ -124,7 +122,7 @@ export const projectSeo = {
   "artificial-intelligence-in-state-government-index": {
     title: "Mapping the Rise of AI Across State Government | Isaac Seiler",
     description:
-      "A public benchmark by Isaac Seiler measuring generative AI adoption, training, governance, pilots, transparency, and preparedness across U.S. states and territories.",
+      "Isaac Seiler's August 2025 benchmark of generative AI adoption, training, governance, and preparedness across U.S. states and territories.",
     searchIntent:
       "AI state government index, public-sector generative AI adoption, state AI governance, training, pilots, sandboxes, and transparency.",
     proofPoints: [
@@ -330,6 +328,7 @@ export const projectPriorityOrder = [
 ];
 
 export const rssProjectIds = [
+  "fulbright-focus-group-sponsored-by-openai",
   "artificial-intelligence-in-state-government-index",
   "congressional-office-setup-100-day-report",
   "stl-immigrant-refugee-support-grant-process",

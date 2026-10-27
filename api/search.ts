@@ -1,5 +1,5 @@
-import { readJsonBody, sendJson, type ApiRequest, type ApiResponse } from "./http.js";
-import { retrieveKnowledge } from "./knowledge.js";
+import { readJsonBody, sendJson, type ApiRequest, type ApiResponse } from "../server/http.js";
+import { retrieveKnowledge } from "../server/knowledge.js";
 
 export default async function handler(request: ApiRequest, response: ApiResponse) {
   if (request.method !== "POST") {

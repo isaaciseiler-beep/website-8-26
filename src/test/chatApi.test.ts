@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import chatHandler from "../../api/chat";
-import type { ApiRequest, ApiResponse } from "../../api/http";
+import type { ApiRequest, ApiResponse } from "../../server/http";
 
 describe("chat API", () => {
   afterEach(() => {

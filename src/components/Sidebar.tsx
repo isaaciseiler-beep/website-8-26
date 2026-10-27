@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { animate, motion, useMotionValue, AnimatePresence } from "framer-motion";
-import { CalendarDays, ChevronRight, Mail, Moon, Skull, Sun } from "lucide-react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { BookOpen, ChevronRight, Mail, Moon, Sun } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme, type Theme } from "@/components/ThemeProvider";
 import SearchTrigger from "@/components/SearchOverlay";
@@ -15,59 +15,17 @@ const EASE_TEXT = MOTION_EASE;
 const themeOptions = [
   { value: "light" as const, label: "Light", icon: Sun },
   { value: "dark" as const, label: "Dark", icon: Moon },
-  { value: "skull" as const, label: "Skull", icon: Skull },
 ];
-
-const SWITCH_WIDTH = 152;
-const SWITCH_PAD = 3;
-const STEP = (SWITCH_WIDTH - SWITCH_PAD * 2) / themeOptions.length;
 
 const ThemeSwitch = () => {
   const { theme, setTheme } = useTheme();
-  const activeIndex = Math.max(0, themeOptions.findIndex((opt) => opt.value === theme));
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const x = useMotionValue(activeIndex * STEP);
-  const [dragging, setDragging] = useState(false);
-
-  useEffect(() => {
-    if (dragging) return;
-    const controls = animate(x, activeIndex * STEP, {
-      type: "tween",
-      duration: MOTION_DURATION.base,
-      ease: MOTION_EASE,
-    });
-    return () => controls.stop();
-  }, [activeIndex, dragging, x]);
-
-  const commitFromX = (value: number) => {
-    const index = Math.min(
-      themeOptions.length - 1,
-      Math.max(0, Math.round(value / STEP)),
-    );
-    setTheme(themeOptions[index].value as Theme);
-  };
 
   return (
     <div
-      ref={trackRef}
-      className="theme-switch relative grid h-9 w-[152px] grid-cols-3 overflow-hidden rounded-full bg-foreground/[0.06] p-[3px]"
+      className="theme-switch relative grid h-9 w-[152px] grid-cols-2 overflow-hidden rounded-[7px] bg-foreground/[0.06] p-[3px]"
       role="radiogroup"
       aria-label="Appearance"
     >
-      <motion.span
-        aria-hidden="true"
-        className="theme-switch-thumb absolute bottom-[3px] top-[3px] cursor-grab rounded-full bg-foreground/[0.92] active:cursor-grabbing"
-        style={{ left: SWITCH_PAD, width: STEP, x, touchAction: "none" }}
-        drag="x"
-        dragElastic={0.04}
-        dragMomentum={false}
-        dragConstraints={{ left: 0, right: STEP * (themeOptions.length - 1) }}
-        onDragStart={() => setDragging(true)}
-        onDragEnd={() => {
-          setDragging(false);
-          commitFromX(x.get());
-        }}
-      />
       {themeOptions.map((opt) => {
         const active = theme === opt.value;
         return (
@@ -77,12 +35,19 @@ const ThemeSwitch = () => {
             role="radio"
             onClick={() => setTheme(opt.value as Theme)}
             className={`relative z-10 flex items-center justify-center transition-colors duration-300 ${
-              active ? "text-background" : "text-foreground/50 hover:text-foreground"
+              active ? "text-background" : "text-foreground"
             }`}
             aria-label={opt.label}
             aria-checked={active}
           >
-            <opt.icon className="w-[15px] h-[15px]" strokeWidth={1.6} />
+            {active ? (
+              <motion.span
+                layoutId="appearance-switch-indicator"
+                className="theme-switch-indicator absolute inset-0 rounded-[7px] bg-primary"
+                transition={{ type: "tween", duration: MOTION_DURATION.base, ease: MOTION_EASE }}
+              />
+            ) : null}
+            <opt.icon className="relative z-10 h-[15px] w-[15px]" strokeWidth={1.6} />
           </button>
         );
       })}
@@ -100,16 +65,13 @@ interface SitemapItem {
 }
 
 export const sitemapItems: SitemapItem[] = [
-  { id: "about", label: "About", scrollTo: "about", href: "/about" },
-  { id: "projects", label: "Work", scrollTo: "projects", href: "/work" },
-  { id: "photos", label: "Photos", scrollTo: "photos", href: "/photos", children: [
-    { id: "portfolio", label: "Portfolio", href: "/photos" },
-    { id: "photo-map", label: "Map", href: "/photos/map" },
-  ]},
+  { id: "projects", label: "Work", href: "/work" },
+  { id: "photos", label: "Photo Map", href: "/photos/map" },
   { id: "music", label: "Music", href: "/photos/music" },
 ];
 
 const socialLinks = [
+  { id: "goodreads", label: "Goodreads", href: "https://www.goodreads.com/user/show/205879141-isaac-seiler", icon: <BookOpen className="h-[17px] w-[17px]" strokeWidth={1.5} /> },
   {
     id: "linkedin", label: "LinkedIn", href: LINKEDIN_URL,
     icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>,
@@ -118,12 +80,7 @@ const socialLinks = [
     id: "github", label: "GitHub", href: GITHUB_URL,
     icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>,
   },
-  {
-    id: "calendar",
-    label: "Schedule a meeting",
-    href: "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3NMWXBry-gVjXa2-Fhen_phB8BykNIGcFG47oDAWRPUqOKeC3MNfKKG4po2-eLvofOpvOY2LlO",
-    icon: <CalendarDays className="h-[17px] w-[17px]" strokeWidth={1.5} />,
-  },
+
 ];
 
 interface SidebarProps {
@@ -141,7 +98,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
   const isOnPhotos = location.pathname === "/photos" || location.pathname === "/photos/map";
   const isOnMusic = location.pathname === "/photos/music";
-  const isOnProjects = location.pathname.startsWith("/projects");
+  const isOnProjects = location.pathname === "/work" || location.pathname.startsWith("/projects");
 
   useLayoutEffect(() => {
     setSiteOverlayOpen("sidebar", open);
@@ -273,7 +230,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                         <button
                           onClick={() => handleItemClick(item)}
                           className={`sidebar-main-nav-item origin-left py-1.5 text-left transition-colors duration-300 ${
-                            active ? "text-foreground" : "text-foreground/30 hover:text-foreground/60"
+                            active ? "text-foreground" : "text-foreground"
                           }`}
                         >
                           {item.label}
@@ -287,7 +244,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                             aria-expanded={expanded}
                             aria-controls={`sidebar-${item.id}-children`}
                             className={`sidebar-main-nav-item site-corner flex h-[0.9em] w-[0.9em] items-center justify-center transition-colors duration-300 ${
-                              active ? "text-foreground" : "text-foreground/30 hover:text-foreground/60"
+                              active ? "text-foreground" : "text-foreground"
                             }`}
                             animate={{ rotate: expanded ? 90 : 0 }}
                             transition={{ duration: 0.42, ease: EASE_TEXT }}
@@ -318,7 +275,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                                   transition={{ duration: 0.34, ease: EASE }}
                                   onClick={() => handleChildClick(child)}
                                   className={`sidebar-main-nav-item block origin-left py-1.5 pl-6 text-left transition-colors duration-300 md:pl-4 ${
-                                    childActive ? "text-foreground" : "text-foreground/30 hover:text-foreground/60"
+                                    childActive ? "text-foreground" : "text-foreground"
                                   }`}
                                 >
                                   {child.label}
@@ -364,7 +321,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
               <div>
                 <p className="sidebar-section-label">Get in Touch</p>
                 <div
-                  className="theme-switch relative grid h-9 w-[152px] grid-cols-4 overflow-hidden rounded-full bg-foreground/[0.06] p-[3px]"
+                  className="theme-switch relative grid h-9 w-[152px] grid-cols-4 overflow-hidden rounded-[7px] bg-foreground/[0.06] p-[3px]"
                   role="group"
                   aria-label="Contact links"
                 >

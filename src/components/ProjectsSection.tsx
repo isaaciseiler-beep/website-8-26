@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { hiddenProjectIds, newsItems, orderProjectItemsForWork, projectItems, type ProjectItem } from "@/lib/siteContent";
 import { tileImageFor } from "@/lib/tileImages";
@@ -23,8 +22,8 @@ const isAiSubject = (...values: (string | undefined)[]) =>
   values.some((value) => typeof value === "string" && AI_SUBJECT_PATTERN.test(value));
 
 type Entry =
-  | { kind: "project"; id: string; node: ProjectItem }
-  | { kind: "news"; id: string; node: (typeof newsItems)[number] };
+  | { kind: "project"; id: string; node: ProjectItem; tileIndex: number }
+  | { kind: "news"; id: string; node: (typeof newsItems)[number]; tileIndex: number };
 
 const preloadProject = (project: ProjectItem) => {
   void preloadImage(project.image, { decode: true, fetchPriority: "high", linkPreload: true });
@@ -47,39 +46,45 @@ const preloadProject = (project: ProjectItem) => {
 const ProjectsSection = () => {
   const [filter, setFilter] = useState<ProjectFilter>("ALL");
 
-  const entries = useMemo<Entry[]>(() => {
+  const allEntries = useMemo<Entry[]>(() => {
     const projectEntries: Entry[] = orderProjectItemsForWork(projectItems)
       .filter((project) => !hiddenProjectIds.has(project.id))
-      .map((project) => ({
+      .map((project, tileIndex) => ({
         kind: "project",
         id: `project-${project.id}`,
         node: project,
+        tileIndex,
       }));
     const projectHrefs = new Set(
       projectEntries.map((entry) => `/projects/${entry.node.id}`),
     );
     const newsEntries: Entry[] = newsItems
       .filter((item) => !projectHrefs.has(item.href))
-      .map((item) => ({
+      .map((item, newsIndex) => ({
         kind: "news",
         id: `news-${item.id}`,
         node: item,
+        tileIndex: projectEntries.length + newsIndex,
       }));
 
+    return [...projectEntries, ...newsEntries];
+  }, []);
+
+  const entries = useMemo<Entry[]>(() => {
     if (filter === "AI") {
-      return [...projectEntries, ...newsEntries].filter((entry) => {
+      return allEntries.filter((entry) => {
         const node = entry.node as { title?: string; source?: string; summary?: string; description?: string };
         return entry.node.source !== "BLOG" && isAiSubject(node.title, node.source, node.summary, node.description);
       });
     }
     if (filter === "WORK") {
-      return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source !== "BLOG");
+      return allEntries.filter((entry) => entry.kind === "project" && entry.node.source !== "BLOG");
     }
     if (filter === "BLOG") {
-      return projectEntries.filter((entry) => entry.kind === "project" && entry.node.source === "BLOG");
+      return allEntries.filter((entry) => entry.kind === "project" && entry.node.source === "BLOG");
     }
-    return [...projectEntries, ...newsEntries];
-  }, [filter]);
+    return allEntries;
+  }, [allEntries, filter]);
 
   return (
     <section className="work-library" aria-labelledby="work-library-title">
@@ -129,13 +134,17 @@ const ProjectsSection = () => {
               Nothing published yet.
             </motion.p>
           ) : null}
-          {entries.map((entry, index) => {
+          {entries.map((entry) => {
             const motionProps = {
-              layout: true as const,
-              initial: { opacity: 0, y: 6, filter: "blur(3px)" },
-              animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-              exit: { opacity: 0, y: -4, filter: "blur(2px)" },
-              transition: { duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER, delay: Math.min(index * 0.025, 0.12) },
+              layout: "position" as const,
+              initial: { opacity: 0, scale: 0.985 },
+              animate: { opacity: 1, scale: 1 },
+              exit: { opacity: 0, scale: 0.985 },
+              transition: {
+                layout: { duration: 0.48, ease: MOTION_EASE_ENTER },
+                opacity: { duration: 0.24, ease: MOTION_EASE },
+                scale: { duration: 0.4, ease: MOTION_EASE_ENTER },
+              },
             };
 
             if (entry.kind === "news") {
@@ -149,9 +158,21 @@ const ProjectsSection = () => {
                 rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className="work-library-card group"
               >
-                <img src={tileImageFor(index)} alt="" loading="lazy" decoding="async" />
+                <img
+                  className="work-library-card-color"
+                  src={tileImageFor(entry.tileIndex)}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+                <img
+                  className="work-library-card-reveal"
+                  src={item.imageUrl ?? tileImageFor(entry.tileIndex)}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="work-library-scrim" />
-                <ArrowUpRight aria-hidden="true" className="work-library-card-arrow" />
                 <div className="work-library-card-bottom">
                   <h3>{item.title}</h3>
                 </div>
@@ -171,13 +192,20 @@ const ProjectsSection = () => {
                     onTouchStart={() => preloadProject(project)}
                   >
                     <img
-                      src={tileImageFor(index)}
+                      className="work-library-card-color"
+                      src={tileImageFor(entry.tileIndex)}
                       alt=""
-                      loading={index < 3 ? "eager" : "lazy"}
+                      loading={entry.tileIndex < 3 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
+                    <img
+                      className="work-library-card-reveal"
+                      src={project.image}
+                      alt=""
+                      loading={entry.tileIndex < 3 ? "eager" : "lazy"}
                       decoding="async"
                     />
                     <div className="work-library-scrim" />
-                    <ArrowUpRight aria-hidden="true" className="work-library-card-arrow" />
                     <div className="work-library-card-bottom">
                       <h3>{project.title}</h3>
                     </div>

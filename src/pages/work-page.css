@@ -1,0 +1,21 @@
+/* Preserve the site shell gutters, spacing rhythm, and shared corner token. */
+.work-page{padding-top:112px;padding-bottom:96px;}
+.work-grid{display:grid;gap:24px;}
+.work-row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;align-items:start;}
+.work-row--reverse{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);}
+.work-story{min-width:0;}
+.work-story a{display:block;color:inherit;text-decoration:none;border-radius:var(--site-corner-radius);}
+.work-story a:focus-visible{outline:2px solid currentColor;outline-offset:6px;}
+.work-story-image{position:relative;isolation:isolate;aspect-ratio:16/10;overflow:hidden;border-radius:var(--site-corner-radius);background:hsl(var(--muted));}
+.work-story--square .work-story-image{aspect-ratio:1;}
+.work-story-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform var(--motion-reveal) var(--motion-ease);}
+.work-story a:hover img{transform:scale(1.025);}
+.work-story-image::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(transparent 25%,hsl(var(--image-scrim)/.8));opacity:0;transition:opacity var(--motion-fast) var(--motion-ease);pointer-events:none;}
+.work-story-caption{position:absolute;inset:auto 24px 24px;z-index:2;color:#fff;opacity:0;transform:translateY(6px);transition:opacity var(--motion-fast) var(--motion-ease),transform var(--motion-fast) var(--motion-ease);pointer-events:none;}
+.work-story-caption h2{font-size:clamp(18px,2vw,32px);font-weight:500;line-height:1.15;letter-spacing:-.02em;text-wrap:pretty;}
+.work-story-caption p{margin-top:12px;font-size:14px;line-height:1.5;color:rgb(255 255 255 / .75);}
+.work-story a:hover .work-story-caption,.work-story a:focus-visible .work-story-caption{opacity:1;transform:none;}
+.work-story a:hover .work-story-image::after,.work-story a:focus-visible .work-story-image::after{opacity:1;}
+@media(max-width:700px){.work-page{padding-top:96px;}.work-grid,.work-row{gap:12px;}.work-story-caption{inset:auto 12px 12px;}.work-story-caption h2{font-size:clamp(12px,2.5vw,18px);}.work-story-caption p{font-size:12px;margin-top:6px;}}
+@media(hover:none){.work-story-caption,.work-story-image::after{opacity:1;transform:none;}}
+@media(prefers-reduced-motion:reduce){.work-story-image img,.work-story-caption,.work-story-image::after{transition:none;}.work-story a:hover img{transform:none;}}

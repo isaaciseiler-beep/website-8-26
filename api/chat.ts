@@ -1,5 +1,6 @@
 import { createHash, randomUUID } from "node:crypto";
-import { readJsonBody, sendJson, type ApiRequest, type ApiResponse } from "./http.js";
+import { PROFILE_SUMMARY } from "../src/lib/site.js";
+import { readJsonBody, sendJson, type ApiRequest, type ApiResponse } from "../server/http.js";
 import {
   ASSISTANT_ANSWER_SCHEMA,
   ASSISTANT_VERIFIER_SCHEMA,
@@ -12,12 +13,12 @@ import {
   type AssistantDraft,
   type AssistantIntent,
   type NormalizedPageContext,
-} from "./assistant.js";
+} from "../server/assistant.js";
 import {
   getAssistantGuidance,
   retrieveKnowledgeHybrid,
   type RetrievedChunk,
-} from "./knowledge.js";
+} from "../server/knowledge.js";
 
 type ChatRole = "user" | "assistant";
 
@@ -209,6 +210,7 @@ const buildFallbackDraft = (
   intent: AssistantIntent,
   retrieved: RetrievedChunk[],
   pageContext: NormalizedPageContext | null,
+  question = '',
 ): AssistantDraft => {
   const byId = (id: string) => retrieved.find((chunk) => chunk.id === id);
   const projects = retrieved.filter((chunk) => chunk.metadata?.kind === "project");
@@ -286,7 +288,7 @@ const buildFallbackDraft = (
     const currentRole = byId("current-role");
     if (bio || currentRole) {
       return answer(
-        "Isaac Seiler is a Seattle-based strategist who leads marketing and communications at Summation. His work focuses on translating complex technology into clear research, strategy, communications, and visual products.",
+        PROFILE_SUMMARY,
         [bio?.id, currentRole?.id].filter((id): id is string => Boolean(id)),
         "high",
         ["Which projects best show that?", "What is Isaac working on now?"],
@@ -333,7 +335,14 @@ const buildFallbackDraft = (
   }
 
   const currentRole = byId("current-role");
-  const selected = currentRole && !projects.length ? currentRole : first;
+  const selected = currentRole && /summation|current role|working on now/i.test(question) ? currentRole : projects[0] ?? currentRole ?? first;
+  if (selected.metadata?.kind === 'project' && selected.metadata.role) {
+    return answer([`Isaac's role was ${selected.metadata.role.toLowerCase()}.`, ...(selected.metadata.outcomes ?? []).slice(0, 2)].join(' '), [selected.id]);
+  }
+  if (selected.id === 'current-page' && pageContext) {
+    const source=pageContext.summary||pageContext.visibleText;
+    return answer(toThirdPerson(source.match(/[^.!?]+[.!?]+/g)?.slice(0,2).join(' ').trim()||source.slice(0,420)),[selected.id]);
+  }
   return answer(cleanEvidence(selected), [selected.id]);
 };
 
@@ -405,7 +414,7 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     const model = process.env.OPENAI_CHAT_MODEL || DEFAULT_MODEL;
     const verifierModel = process.env.OPENAI_VERIFIER_MODEL || DEFAULT_VERIFIER_MODEL;
     const guidance = getAssistantGuidance();
-    let draft = buildFallbackDraft(intent, retrieved, pageContext);
+    let draft = buildFallbackDraft(intent, retrieved, pageContext, latestMessage.content);
     let responseMode: "reasoning" | "fallback" = "fallback";
     let primaryUsage: OpenAIUsage | undefined;
     let verifierUsage: OpenAIUsage | undefined;

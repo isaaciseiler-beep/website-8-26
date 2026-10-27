@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import ts from "typescript";
+import { PROFILE_BIO, PROFILE_EXPERTISE, PROFILE_SUMMARY } from "../src/lib/siteIdentity.mjs";
 import {
   CONTACT_EMAIL,
   PREVIEW_IMAGE,
@@ -24,8 +25,7 @@ const distDir = path.join(root, "dist");
 const distIndexPath = path.join(distDir, "index.html");
 const buildHasDist = fs.existsSync(distIndexPath);
 const baseDistHtml = buildHasDist ? fs.readFileSync(distIndexPath, "utf8") : "";
-const buildDate = new Date().toISOString().slice(0, 10);
-const buildTimestamp = new Date(`${buildDate}T12:00:00Z`).toUTCString();
+const buildTimestamp = new Date().toUTCString();
 
 const sourceText = fs.readFileSync(siteContentPath, "utf8");
 const sourceFile = ts.createSourceFile(
@@ -283,7 +283,7 @@ const enrichedProject = (project) => {
     seoImage: projectPrimaryImage(project),
     keywords: projectKeywords(project),
     about: override.about ?? [project.source, "Isaac Seiler project"],
-    sameAs: textList([override.sameAs ?? [], sectionLinks(project).map((link) => link.href)]),
+    sameAs: textList(override.sameAs ?? []),
   };
 };
 
@@ -351,16 +351,14 @@ const globalGraph = () => [
     "@id": `${SITE_URL}/#person`,
     name: SITE_NAME,
     url: SITE_URL,
+    description: PROFILE_SUMMARY,
     email: `mailto:${CONTACT_EMAIL}`,
     image: absoluteUrl(PREVIEW_IMAGE.url),
     sameAs: SAME_AS,
-    knowsAbout: [
-      "artificial intelligence",
-      "marketing",
-      "communications",
-      "journalism research",
-      "photography",
-    ],
+    knowsAbout: PROFILE_EXPERTISE,
+    jobTitle: "Marketing and Communications",
+    worksFor: { "@type": "Organization", name: "Summation", url: "https://www.summation.com/" },
+    mainEntityOfPage: { "@id": `${SITE_URL}/about#webpage` },
   },
   {
     "@type": "ItemList",
@@ -420,7 +418,6 @@ const projectStructuredData = (project) => ({
       },
       thumbnailUrl: project.seoImage.url,
       dateCreated: project.year,
-      datePublished: `${project.year}-01-01`,
       author: { "@id": `${SITE_URL}/#person` },
       creator: { "@id": `${SITE_URL}/#person` },
       keywords: project.keywords.join(", "),
@@ -434,6 +431,7 @@ const projectStructuredData = (project) => ({
       })),
       mainEntityOfPage: `${projectUrl(project)}#webpage`,
       sameAs: unique(project.sameAs),
+      citation: sectionLinks(project).map((link) => ({ "@type": "CreativeWork", name: link.label, url: link.href })),
       isAccessibleForFree: true,
     },
     {
@@ -506,13 +504,14 @@ const pageStructuredData = (page) => {
           ],
     ),
     {
-      "@type": page.path === "/" ? "ProfilePage" : "WebPage",
+      "@type": page.path === "/about" ? "ProfilePage" : "WebPage",
       "@id": `${absoluteUrl(page.path)}#webpage`,
       url: absoluteUrl(page.path),
       name: page.title,
       description: page.description,
       isPartOf: { "@id": `${SITE_URL}/#website` },
       about: { "@id": `${SITE_URL}/#person` },
+      ...(page.path === "/about" ? { mainEntity: { "@id": `${SITE_URL}/#person` } } : {}),
       primaryImageOfPage: {
         "@type": "ImageObject",
         url: image.url,
@@ -559,12 +558,12 @@ const setLink = (html, rel, value, attrs = "") => {
 };
 
 const removeJsonLd = (html) =>
-  html.replace(/\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/g, "");
+  html.replace(/\s*<script type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/g, "");
 
 const insertJsonLd = (html, data) =>
   html.replace(
     "</head>",
-    `    <script type="application/ld+json">${JSON.stringify(data)}</script>\n  </head>`,
+    `    <script type="application/ld+json" data-site-structured-data>${JSON.stringify(data).replaceAll("<", "\\u003c")}</script>\n  </head>`,
   );
 
 const removeSeoPrimaryImagePreload = (html) =>
@@ -585,6 +584,9 @@ const applyHead = (html, route) => {
   nextHtml = setTitle(nextHtml, route.title);
   nextHtml = setLink(nextHtml, "canonical", absoluteUrl(route.path));
   nextHtml = setLink(nextHtml, "image_src", image.url);
+  const markdownUrl = absoluteUrl(`${route.path === "/" ? "/index" : route.path}.md`);
+  nextHtml = nextHtml.replace(/\s*<link rel="alternate" type="text\/markdown"[^>]*>/g, "")
+    .replace("</head>", `    <link rel="alternate" type="text/markdown" href="${escapeHtml(markdownUrl)}" />\n  </head>`);
   nextHtml = setMetaByName(nextHtml, "description", route.description);
   nextHtml = setMetaByName(nextHtml, "keywords", route.keywords.join(", "));
   nextHtml = setMetaByName(nextHtml, "robots", route.robots ?? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1");
@@ -700,7 +702,6 @@ const renderProjectFallback = (project) => `
             <li>Project type: ${escapeHtml(project.source)}</li>
             <li>Year: ${escapeHtml(project.year)}</li>
             <li>Primary topics: ${escapeHtml(project.about.join(", "))}</li>
-            <li>Search focus: ${escapeHtml(project.searchIntent)}</li>
           </ul>
         </section>
         <img src="${escapeHtml(htmlImageSrc(project.seoImage.url))}" alt="${escapeHtml(project.seoImage.alt)}" width="${project.seoImage.width}" height="${project.seoImage.height}" loading="eager" decoding="async" fetchpriority="high" />
@@ -736,7 +737,7 @@ const renderProjectFallback = (project) => `
           <ul>
             <li><a href="/about">About</a></li>
             <li><a href="/work">Work</a></li>
-            <li><a href="/photos">Photos</a></li>
+            <li><a href="/photos/map">Photo Map</a></li>
           </ul>
         </section>
       </article>
@@ -745,6 +746,12 @@ const renderProjectFallback = (project) => `
 const renderPageFallback = (page) => {
   if (page.path === "/") return renderHomepageFallback();
   if (page.path === "/work") return renderProjectsFallback();
+  if (page.path === "/about") return `
+    <main>${renderNav()}<h1>About Isaac Seiler</h1>
+      ${PROFILE_BIO.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}
+      <p><a href="mailto:${CONTACT_EMAIL}">Email Isaac</a> · <a href="${SAME_AS[0]}">LinkedIn</a> · <a href="${SAME_AS[2]}">GitHub</a></p>
+      <h2>Selected work across fields</h2>${enrichedProjects.map(renderProjectSummary).join("")}
+    </main>`;
 
   return `
     <main>
@@ -757,7 +764,7 @@ const renderPageFallback = (page) => {
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/work">Work</a></li>
-          <li><a href="/photos">Photos</a></li>
+          <li><a href="/photos/map">Photo Map</a></li>
         </ul>
       </section>
     </main>`;
@@ -816,7 +823,6 @@ const sitemapImage = (image) => `
 const urlEntry = ({ loc, changefreq, priority, images = [] }) => `
   <url>
     <loc>${escapeXml(loc)}</loc>
-    <lastmod>${buildDate}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>${images.map(sitemapImage).join("")}
   </url>`;
@@ -893,21 +899,24 @@ const imageSitemapXml = () => {
 };
 
 const robotsTxt = () => `${aiCrawlerAgents
-  .map((agent) => `User-agent: ${agent}\nAllow: /\nDisallow: /fulbrightmap\nDisallow: /api/\n`)
+  .map((agent) => `User-agent: ${agent}\nAllow: /\nAllow: /api/public/\nAllow: /api/public-content\nDisallow: /fulbrightmap\nDisallow: /strike-tracker\nDisallow: /api/\n`)
   .join("\n")}
 User-agent: *
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 Sitemap: ${SITE_URL}/sitemap.xml
 Sitemap: ${SITE_URL}/image-sitemap.xml
-Host: ${SITE_URL}
 `;
 
 const rssProjects = rssProjectIds
   .map((id) => projectById.get(id))
-  .filter(Boolean);
+  .filter(Boolean)
+  .sort((a, b) => b.year.localeCompare(a.year));
 
 const rssFeedXml = () => `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
@@ -924,7 +933,6 @@ const rssFeedXml = () => `<?xml version="1.0" encoding="UTF-8"?>
       <title>${escapeXml(project.title)}</title>
       <link>${escapeXml(projectUrl(project))}</link>
       <guid isPermaLink="true">${escapeXml(projectUrl(project))}</guid>
-      <pubDate>${new Date(`${project.year}-01-01T12:00:00Z`).toUTCString()}</pubDate>
       <category>${escapeXml(project.source)}</category>
       <description>${escapeXml(project.summary)}</description>
       <media:content url="${escapeXml(project.seoImage.url)}" type="${escapeXml(project.seoImage.type)}" width="${project.seoImage.width}" height="${project.seoImage.height}" medium="image" />
@@ -951,6 +959,22 @@ writeGeneratedPublicFile("sitemap.xml", sitemapXml());
 writeGeneratedPublicFile("image-sitemap.xml", imageSitemapXml());
 writeGeneratedPublicFile("robots.txt", robotsTxt());
 writeGeneratedPublicFile("feed.xml", rssFeedXml());
+
+// These resources must ship with the build, not depend on Vite's dev middleware.
+const profileMarkdown = `# Isaac Seiler — Tech Generalist\n\nCanonical: ${SITE_URL}/about\n\n${PROFILE_SUMMARY}\n\n${PROFILE_BIO.join("\n\n")}\n\n[Work](${SITE_URL}/work) · [LinkedIn](${SAME_AS[0]}) · [Email](mailto:${CONTACT_EMAIL})\n`;
+writeGeneratedPublicFile("index.md", profileMarkdown);
+writeGeneratedPublicFile("about.md", profileMarkdown);
+writeGeneratedPublicFile("work.md", `# Work by Isaac Seiler\n\nCanonical: ${SITE_URL}/work\n\n${topPageByPath.get("/work").description}\n\n${enrichedProjects.map((project) => `## ${project.title}\n\n${project.year} · ${project.source}\n\n${project.seoDescription}\n\n[Case study](${projectUrl(project)}) · [Full text](${projectUrl(project)}.md)`).join("\n\n")}\n`);
+writeGeneratedPublicFile("photos/map.md", `# Photo Map\n\nCanonical: ${SITE_URL}/photos/map\n\n${topPageByPath.get("/photos/map").description}\n`);
+writeGeneratedPublicFile("llms.txt", `# Isaac Seiler — Tech Generalist\n\n> ${PROFILE_SUMMARY}\n\nCanonical website: ${SITE_URL}/\n\n## Profile and evidence\n- [About Isaac Seiler](${SITE_URL}/about.md)\n- [Selected work](${SITE_URL}/work.md)\n- [Public profile JSON](${SITE_URL}/api/public/profile)\n- [Agent guide](${SITE_URL}/agents)\n\n## Projects\n${enrichedProjects.map((project) => `- [${project.title}](${projectUrl(project)}.md): ${project.seoDescription}`).join("\n")}\n\n## Attribution\nThe government AI benchmark is an August 2025 snapshot. Teaching examples are illustrative workflows. OpenAI program participation, collaboration, and product feedback are distinct from employment. Project pages link to published evidence.\n`);
+enrichedProjects.forEach((project) => {
+  const sections = (project.sections ?? []).map((section) => `## ${section.heading}\n\n${(section.paragraphs ?? []).join("\n\n")}\n\n${(section.bullets ?? []).map((bullet) => `- ${bullet}`).join("\n")}\n\n${(section.links ?? []).map((link) => `- [${link.label}](${link.href})`).join("\n")}`).join("\n\n");
+  writeGeneratedPublicFile(`projects/${project.id}.md`, `# ${project.title}\n\nCanonical: ${projectUrl(project)}\nYear: ${project.year}\nAuthor: Isaac Seiler\n\n${project.seoDescription}\n\n${sections}\n`);
+});
+
+const agentPage = { path: "/agents", navTitle: "For agents", title: "Public Content and Sources | Isaac Seiler", description: "Read Isaac Seiler's public profile, published projects, source links, and machine-readable content.", keywords: [], image: PREVIEW_IMAGE };
+writeGeneratedPublicFile("agents.md", `# Public content and sources\n\n${PROFILE_SUMMARY}\n\n[Profile](${SITE_URL}/about.md) · [Work](${SITE_URL}/work.md) · [Content directory](${SITE_URL}/llms.txt)\n\nUse the primary evidence linked from each project. OpenAI collaboration is distinct from employment. The government benchmark is an August 2025 snapshot.\n`);
+writeDistRoute(routeForPage(agentPage), `<main>${renderNav()}<h1>Public content and sources</h1><p>${escapeHtml(PROFILE_SUMMARY)}</p><p><a href="/about.md">About</a> · <a href="/work.md">Work</a> · <a href="/llms.txt">Content directory</a> · <a href="/api/public/profile">Profile JSON</a></p>${enrichedProjects.map(renderProjectSummary).join("")}</main>`);
 
 topLevelPages.forEach((page) => {
   const route = routeForPage(page);

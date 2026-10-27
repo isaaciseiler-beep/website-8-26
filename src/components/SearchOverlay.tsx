@@ -251,10 +251,10 @@ const SearchTrigger = ({
         <button
           type="button"
           onClick={handleOpen}
-          className={`sidebar-main-nav-item group flex w-fit items-center gap-2 py-1.5 text-left text-foreground/30 transition-colors duration-300 hover:text-foreground/60 ${className ?? ""}`}
+          aria-label="Search"
+          className={`sidebar-search flex h-11 w-11 items-center justify-start text-primary ${className ?? ""}`}
         >
-          <Search className="h-[0.52em] w-[0.52em]" strokeWidth={1.5} />
-          <span>Search</span>
+          <Search className="h-5 w-5" strokeWidth={1.5} />
         </button>
       ) : (
         <AnimatePresence initial={false} mode="wait">
@@ -263,7 +263,7 @@ const SearchTrigger = ({
               key="search-button"
               type="button"
               onClick={handleOpen}
-              className={`site-nav-toggle-xray fixed right-6 top-4 z-[60] flex h-[25px] w-[25px] items-center justify-center transition-opacity duration-200 hover:opacity-70 ${className ?? ""}`}
+              className={`site-search-xray fixed right-6 top-4 z-[60] flex h-[25px] w-[25px] items-center justify-center ${className ?? ""}`}
               style={style}
               aria-label="Search"
               initial={{ opacity: 1 }}

@@ -28,12 +28,22 @@ describe("navigation and theme defaults", () => {
     delete document.documentElement.dataset.themePreference;
   });
 
-  it("lists Music as a top-level destination immediately after Photos", () => {
+  it("removes About from navigation and migrates the retired theme", () => {
+    expect(sitemapItems.some(item => item.id === "about")).toBe(false);
+    window.localStorage.setItem("theme", "skull");
+    window.localStorage.setItem("pre-skull-theme", "light");
+    render(<ThemeProvider><ThemeValue /></ThemeProvider>);
+    expect(screen.getByText("light:light")).toBeInTheDocument();
+    expect(document.documentElement).not.toHaveClass("skull");
+  });
+
+  it("lists Music as a top-level destination immediately after Photo Map", () => {
     const photosIndex = sitemapItems.findIndex((item) => item.id === "photos");
     const photos = sitemapItems[photosIndex];
     const music = sitemapItems[photosIndex + 1];
 
-    expect(photos.children?.map((child) => child.label)).toEqual(["Portfolio", "Map"]);
+    expect(photos).toMatchObject({ label: "Photo Map", href: "/photos/map" });
+    expect(photos.children).toBeUndefined();
     expect(music).toMatchObject({ id: "music", label: "Music", href: "/photos/music" });
   });
 

@@ -2,12 +2,15 @@ import { Component, Suspense, lazy, type ComponentType, type ErrorInfo, type Rea
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Index from "./pages/Index.tsx";
+import AdaptiveHome from "./components/canvas/AdaptiveHome";
+import CanvasDocuments from "./components/canvas/CanvasDocuments";
 import { ThemeProvider, useTheme } from "@/components/ThemeProvider";
 import SkullChrome from "@/components/SkullChrome";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import RouteLoader from "@/components/RouteLoader";
 import ScrollManager from "@/components/ScrollManager";
 import ImagePreloader from "@/components/ImagePreloader";
+import SiteMetadata from "@/components/SiteMetadata";
 import { MOTION_DURATION, MOTION_EASE } from "@/lib/motion";
 
 const isRecoverableChunkError = (error: unknown) => {
@@ -42,8 +45,8 @@ const lazyWithRetry = <T extends { default: ComponentType }>(
   });
 
 const ChatOrb = lazyWithRetry(() => import("@/components/ChatOrb"), "chat-orb");
-const PhotosPage = lazyWithRetry(() => import("./pages/PhotosPage.tsx"), "photos");
 const PhotoMapPage = lazyWithRetry(() => import("./pages/PhotoMapPage.tsx"), "photo-map");
+const WorkPage = lazyWithRetry(() => import("./pages/WorkPage.tsx"), "work");
 const MusicPage = lazyWithRetry(() => import("./pages/MusicPage.tsx"), "music");
 const ProjectDetailPage = lazyWithRetry(() => import("./pages/ProjectDetailPage.tsx"), "project-detail");
 const AIStateGovernmentIndexPage = lazyWithRetry(() => import("./pages/AIStateGovernmentIndexPage.tsx"), "ai-state-government-index");
@@ -93,7 +96,7 @@ const RouteRenderErrorFallback = ({ isMap }: { isMap: boolean }) => (
       </p>
       <button
         type="button"
-        className={`mt-5 rounded-full px-4 py-2 font-mono text-[10px] uppercase tracking-[0.18em] ${isMap ? "bg-white text-neutral-950" : "bg-foreground text-background"}`}
+        className={`mt-5 rounded-[7px] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.18em] ${isMap ? "bg-white text-neutral-950" : "bg-foreground text-background"}`}
         onClick={() => window.location.reload()}
       >
         Refresh
@@ -122,6 +125,11 @@ const SkullRouteFrame = ({ children, path }: { children: ReactNode; path: string
   </main>
 );
 
+const Home = () => {
+  const { theme } = useTheme();
+  return theme === "skull" ? <Index /> : <AdaptiveHome />;
+};
+
 const AnimatedRoutes = () => {
   const location = useLocation();
   const { theme } = useTheme();
@@ -135,12 +143,15 @@ const AnimatedRoutes = () => {
     >
       <Suspense fallback={<RouteFallback />}>
         <Routes location={location}>
-          <Route path="/" element={<Index />} />
-          <Route path="/photos" element={<PhotosPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/classic" element={<Index />} />
+          <Route path="/agents" element={<CanvasDocuments kind="agents" />} />
+          <Route path="/projects/adaptive-portfolio" element={<CanvasDocuments kind="build" />} />
+          <Route path="/photos" element={<Navigate to={{ pathname: "/", search: location.search, hash: location.search ? "" : "#photo-gallery" }} replace />} />
           <Route path="/photos/map" element={<PhotoMapPage />} />
           <Route path="/photos/music" element={<MusicPage />} />
           <Route path="/about" element={<Index />} />
-          <Route path="/work" element={<Index />} />
+          <Route path="/work" element={<WorkPage />} />
           <Route path="/projects" element={<Navigate to="/work" replace />} />
           <Route path="/projects/artificial-intelligence-in-state-government-index" element={<AIStateGovernmentIndexPage />} />
           <Route path="/projects/senior-thesis-local-journalism" element={<SeniorThesisLocalJournalismPage />} />
@@ -182,7 +193,7 @@ const ChatOrbGate = () => {
   const location = useLocation();
   const { theme } = useTheme();
 
-  if (theme === "skull" || location.pathname === "/experience/arcade" || location.pathname === "/strike-tracker") {
+  if (location.pathname !== "/classic" || theme === "skull" || location.pathname === "/experience/arcade" || location.pathname === "/strike-tracker") {
     return null;
   }
 
@@ -197,6 +208,7 @@ const AppShell = () => {
   useScrollReveal();
   return (
     <BrowserRouter>
+      <SiteMetadata />
       <ScrollManager />
       <ImagePreloader />
       <SkullChrome />

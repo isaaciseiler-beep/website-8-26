@@ -292,7 +292,7 @@ export const searchDocuments: SearchDocument[] = [
     title: album.location,
     subtitle: `${album.continent} / ${album.photos.length} photos`,
     description: `Photo album from ${album.location}.`,
-    href: `/photos?album=${encodeURIComponent(album.folder)}`,
+    href: `/?album=${encodeURIComponent(album.folder)}`,
     image: coverFor(album),
     topics: ["photography", "travel", "photo album", album.continent],
     tags: albumMetadata[album.folder] ?? [album.location, album.continent],

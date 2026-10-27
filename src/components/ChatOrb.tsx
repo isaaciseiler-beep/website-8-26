@@ -119,6 +119,7 @@ const AssistantAnswer = ({
   return (
     <div>
       <AnswerText content={message.content} />
+      {message.mode === 'fallback' && <p className="ai-dock-feedback-thanks">Published source summary</p>}
       {showExtras ? <SourceLinks sources={message.sources ?? []} /> : null}
       {showExtras && message.requestId ? (
         <div className="ai-dock-answer-footer">

@@ -30,6 +30,7 @@ const albumCoordinates: Record<Album["folder"], [number, number]> = {
   Vietnam: [105.8342, 21.0278],
   "kz-kyrgz": [74.5698, 42.8746],
   mongolia: [106.9057, 47.8864],
+  "british-columbia": [-122.9574, 50.1163], // Album-level placement near Whistler.
   "washington-state": [-120.7401, 47.7511],
 };
 

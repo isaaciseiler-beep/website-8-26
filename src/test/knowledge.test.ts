@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAssistantGuidance, getKnowledgeChunks, retrieveKnowledge } from "../../api/knowledge";
+import { getAssistantGuidance, getKnowledgeChunks, retrieveKnowledge } from "../../server/knowledge";
 
 describe("assistant knowledge", () => {
   it("keeps private response guidance out of public retrieval", () => {

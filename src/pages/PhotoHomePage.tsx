@@ -1,18 +1,21 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
-import Footer from "@/components/Footer";
+import "./photo-home.css";
+import HomeExplore from "@/components/canvas/HomeExplore";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import PhotoPreview from "@/components/PhotoPreview";
 import { preloadImage, preloadImages, scheduleImagePreloads } from "@/lib/imagePreload";
 import { albums, albumPhotos, coverFor, type Album, type Continent } from "@/lib/photoAlbums";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { HEADER_SCROLL_OFFSET } from "@/lib/scroll";
 import { shouldRestoreInitialScrollFor } from "@/lib/navigationScroll";
 import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
-const continents: ("All" | Continent)[] = ["All", "Asia", "Europe", "Oceania", "United States"];
+const continents: ("All" | Continent)[] = ["All", "Asia", "Europe", "Oceania", "North America"];
 
+const GALLERY_SCROLL_OFFSET = HEADER_SCROLL_OFFSET + 12;
 const EASE = MOTION_EASE_ENTER;
 const EASE_TEXT = MOTION_EASE;
 
@@ -24,6 +27,10 @@ const shuffleArray = <T,>(arr: T[]) => {
   }
   return copy;
 };
+
+// One order per document load; filtering and opening an album never reshuffle it.
+const shuffledAlbums = shuffleArray(albums);
+const shuffledPhotos = new Map(albums.map(album => [album.folder, shuffleArray(albumPhotos(album))]));
 
 const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) => {
   const [hovering, setHovering] = useState(false);
@@ -79,7 +86,11 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
 
   return (
     <div
-      className="relative cursor-pointer overflow-hidden group"
+      role="button"
+      tabIndex={0}
+      aria-label={`Open ${album.location} album`}
+      className="photo-tile relative cursor-pointer overflow-hidden group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+      onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onClick(); } }}
       onClick={onClick}
       onMouseEnter={() => { setHovering(true); prepareAlbum(); }}
       onMouseLeave={() => setHovering(false)}
@@ -103,22 +114,27 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
           />
         ))}
       </div>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 35%)" }} />
-      <div className="absolute bottom-0 left-0 right-0 p-4">
-        <h3 className="text-sm font-medium tracking-tight text-white/90">{album.location}</h3>
-      </div>
+      <span className="photo-hover-label" aria-hidden="true">{album.location}</span>
     </div>
   );
 };
 
-type RowLayout = "full" | "pair" | "offset-right" | "offset-left";
-const layoutPatterns: RowLayout[][] = [
-  ["full", "pair", "offset-right", "full", "pair"],
-  ["pair", "full", "offset-left", "pair", "full"],
-  ["offset-right", "full", "pair", "offset-left", "full"],
-];
+const LocationTabs = ({ filter, onSelect }: { filter: string; onSelect: (location: string) => void }) => (
+  <div className="work-library-tabs" role="tablist" aria-label="Filter albums">
+    {continents.map(location => <button key={location} type="button" role="tab" aria-selected={filter === location} onClick={() => onSelect(location)} className={`pill-tab ${filter === location ? "is-active" : ""}`}>
+      {filter === location && <motion.span layoutId="photos-tab-pill" className="pill-tab-indicator" transition={{ type: "tween", duration: MOTION_DURATION.base, ease: EASE_TEXT }}/>}
+      <span className="pill-tab-label">{location}</span>
+    </button>)}
+  </div>
+);
 
-const PhotosPage = () => {
+const PhotoHomePage = () => {
+  const home = true;
+  const reduceMotion = useReducedMotion();
+  const mainRef = useRef<HTMLElement>(null);
+  const filterScrollFrame = useRef(0);
+  useEffect(() => () => cancelAnimationFrame(filterScrollFrame.current), []);
+  const [photosDominant, setPhotosDominant] = useState(false);
   const [filter, setFilter] = useState("All");
   const [openAlbum, setOpenAlbum] = useState<string | null>(null);
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
@@ -127,9 +143,9 @@ const PhotosPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const isMobile = useIsMobile();
 
-  const filtered = filter === "All" ? albums : albums.filter((a) => a.continent === filter);
+  const filtered = filter === "All" ? shuffledAlbums : shuffledAlbums.filter(album => album.continent === filter);
   const currentAlbum = openAlbum ? albums.find((a) => a.location === openAlbum) : null;
-  const currentAlbumPhotos = useMemo(() => (currentAlbum ? albumPhotos(currentAlbum) : []), [currentAlbum]);
+  const currentAlbumPhotos = useMemo(() => (currentAlbum ? shuffledPhotos.get(currentAlbum.folder) ?? [] : []), [currentAlbum]);
   const albumScrollMountedRef = useRef(false);
   const preserveReloadedAlbumRef = useRef(
     shouldRestoreInitialScrollFor(`${window.location.pathname}${window.location.search}`) && searchParams.has("album"),
@@ -158,23 +174,6 @@ const PhotosPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [openAlbum]);
 
-  const buildRows = (photos: string[], albumIdx: number) => {
-    const pattern = layoutPatterns[albumIdx % layoutPatterns.length];
-    const rows: { layout: RowLayout; photos: string[]; startIdx: number }[] = [];
-    let photoIdx = 0;
-    for (let r = 0; photoIdx < photos.length; r++) {
-      const layout = pattern[r % pattern.length];
-      if (layout === "pair" && photoIdx + 1 < photos.length) {
-        rows.push({ layout, photos: [photos[photoIdx], photos[photoIdx + 1]], startIdx: photoIdx });
-        photoIdx += 2;
-      } else {
-        rows.push({ layout: layout === "pair" ? "full" : layout, photos: [photos[photoIdx]], startIdx: photoIdx });
-        photoIdx += 1;
-      }
-    }
-    return rows;
-  };
-
   const previewImages = currentAlbumPhotos;
 
   useEffect(() => {
@@ -196,6 +195,42 @@ const PhotosPage = () => {
       idleTimeout: isMobile ? 1400 : 900,
     });
   }, [currentAlbum, currentAlbumPhotos, isMobile]);
+
+  useEffect(() => {
+    if (!home || openAlbum) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const gallery = document.getElementById("photo-gallery");
+      if (!gallery) { setPhotosDominant(false); return; }
+      const rect = gallery.getBoundingClientRect();
+      const visibleHeight = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+      // Keep an active filter reachable even when it leaves fewer than one full row.
+      setPhotosDominant(window.scrollY > 0 && (visibleHeight / window.innerHeight > .5 || (filter !== "All" && visibleHeight > 0)));
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const observer = new ResizeObserver(schedule);
+    if (mainRef.current) observer.observe(mainRef.current);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    schedule();
+    return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); };
+  }, [home, openAlbum, filter]);
+
+  const selectLocation = (location: string) => {
+    setFilter(location);
+    setOpenAlbum(null);
+    if (home) {
+      cancelAnimationFrame(filterScrollFrame.current);
+      filterScrollFrame.current = requestAnimationFrame(() => {
+        const gallery = document.getElementById("photo-gallery");
+        if (!gallery) return;
+        const top = Math.max(0, window.scrollY + gallery.getBoundingClientRect().top - GALLERY_SCROLL_OFFSET);
+        window.scrollTo({ top, behavior: reduceMotion ? "instant" : "smooth" });
+      });
+    }
+    if (searchParams.has("album")) { const next = new URLSearchParams(searchParams); next.delete("album"); setSearchParams(next); }
+  };
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);
@@ -231,39 +266,14 @@ const PhotosPage = () => {
         transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
       >
         <motion.main
-          className="pt-28 pb-0"
+          ref={mainRef}
+          className={home && !openAlbum ? "pb-0" : "pt-28 pb-0"}
           initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: MOTION_DURATION.reveal, ease: EASE, delay: 0.04 }}
         >
-          {!openAlbum && (
-            <div className="photos-shell mb-16">
-              <div className="work-library-tabs" role="tablist" aria-label="Filter albums">
-                {continents.map((loc) => {
-                  const active = filter === loc;
-                  return (
-                    <button
-                      key={loc}
-                      type="button"
-                      role="tab"
-                      aria-selected={active}
-                      onClick={() => { setFilter(loc); setOpenAlbum(null); setSearchParams({}); }}
-                      className={`pill-tab ${active ? "is-active" : ""}`}
-                    >
-                      {active ? (
-                        <motion.span
-                          layoutId="photos-tab-pill"
-                          className="pill-tab-indicator"
-                          transition={{ type: "tween", duration: MOTION_DURATION.base, ease: EASE_TEXT }}
-                        />
-                      ) : null}
-                      <span className="pill-tab-label">{loc}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+          {home && !openAlbum && <HomeExplore />}
+
 
           <AnimatePresence mode="wait">
             {openAlbum && currentAlbum ? (
@@ -278,80 +288,43 @@ const PhotosPage = () => {
                 <motion.button
                   type="button"
                   onClick={() => { setOpenAlbum(null); setSearchParams({}); }}
+                  aria-label="All photos"
                   className="pill-back mb-12"
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.04, duration: MOTION_DURATION.fast, ease: EASE }}
                 >
-                  <span>← All photos</span>
+                  <span>{home ? "←" : "← All photos"}</span>
                 </motion.button>
 
-                <div className="site-corner flex flex-col gap-[3px] overflow-hidden">
-                  {buildRows(currentAlbumPhotos, albums.indexOf(currentAlbum)).map((row, rowIdx) => {
-                    if (row.layout === "pair") {
-                      return (
-                        <div key={rowIdx} className="grid grid-cols-2 gap-[3px]">
-                          {row.photos.map((photo, pi) => (
-                            <motion.div
-                              key={photo}
-                              className="cursor-pointer overflow-hidden"
-                              initial={{ opacity: 0, y: 8 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: Math.min((row.startIdx + pi) * 0.025, 0.16), duration: MOTION_DURATION.base, ease: EASE }}
-                              onClick={() => setPreviewIdx(row.startIdx + pi)}
-                            >
-                              <div className="aspect-[4/3] overflow-hidden">
-                                <img
-                                  src={photo}
-                                  alt=""
-                                  loading={row.startIdx + pi < 2 ? "eager" : "lazy"}
-                                  decoding="async"
-                                  fetchpriority={row.startIdx + pi < 2 ? "high" : "low"}
-                                  className="w-full h-full object-cover hover:scale-[1.008] transition-transform [transition-duration:var(--motion-reveal)] [transition-timing-function:var(--motion-ease)]"
-                                />
-                              </div>
-                            </motion.div>
-                          ))}
-                        </div>
-                      );
-                    }
-                    const photo = row.photos[0];
-                    const isOffset = row.layout === "offset-right" || row.layout === "offset-left";
-                    return (
-                      <motion.div
-                        key={photo}
-                        className={`cursor-pointer overflow-hidden ${isOffset ? (row.layout === "offset-right" ? "ml-auto w-[75%]" : "mr-auto w-[75%]") : "w-full"}`}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: Math.min(row.startIdx * 0.025, 0.16), duration: MOTION_DURATION.base, ease: EASE }}
-                        onClick={() => setPreviewIdx(row.startIdx)}
-                      >
-                        <div className="aspect-[4/3] overflow-hidden">
-                          <img
-                            src={photo}
-                            alt=""
-                            loading={row.startIdx < 2 ? "eager" : "lazy"}
-                            decoding="async"
-                            fetchpriority={row.startIdx < 2 ? "high" : "low"}
-                            className="w-full h-full object-cover hover:scale-[1.008] transition-transform [transition-duration:var(--motion-reveal)] [transition-timing-function:var(--motion-ease)]"
-                          />
-                        </div>
-                      </motion.div>
-                    );
-                  })}
+                <div className="site-corner album-photo-grid">
+                  {currentAlbumPhotos.map((photo, index) => (
+                    <button
+                      type="button"
+                      key={photo}
+                      className="photo-tile album-photo-tile"
+                      aria-label={`Open ${currentAlbum.location} photograph ${index + 1}`}
+                      onClick={() => setPreviewIdx(index)}
+                    >
+                      <img src={photo} alt="" loading={index < 2 ? "eager" : "lazy"}
+                        decoding="async" fetchpriority={index < 2 ? "high" : "low"}/>
+                      <span className="photo-hover-label" aria-hidden="true">{currentAlbum.location}</span>
+                    </button>
+                  ))}
                 </div>
 
               </motion.div>
             ) : (
               <motion.div
-                key={`overview-${filter}`}
+                key={home ? "overview" : `overview-${filter}`}
+                style={home ? { minHeight: `calc(100svh - ${GALLERY_SCROLL_OFFSET}px)` } : undefined}
                 initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: MOTION_DURATION.base, ease: EASE }}
-                className="photos-shell"
+                className="photos-shell photo-overview-shell"
               >
-                <div className="site-corner grid grid-cols-2 gap-[3px] overflow-hidden sm:grid-cols-3">
+                <div id="photo-gallery" className="site-corner photo-album-gallery">
                   {filtered.map((album, i) => (
                     <motion.div
                       key={album.location}
@@ -376,8 +349,14 @@ const PhotosPage = () => {
           <div className="h-24" />
         </motion.main>
 
-        <Footer />
+
       </motion.div>
+
+      <AnimatePresence>
+        {home && !openAlbum && photosDominant && !sidebarOpen && !searchOpen && previewIdx === null && <motion.div className="photo-location-ticker" initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reduceMotion ? 0 : 12 }} transition={{ duration: reduceMotion ? 0 : .24, ease: EASE }}>
+          <LocationTabs filter={filter} onSelect={selectLocation}/>
+        </motion.div>}
+      </AnimatePresence>
 
       <PhotoPreview
         images={previewImages}
@@ -397,4 +376,4 @@ const PhotosPage = () => {
   );
 };
 
-export default PhotosPage;
+export default PhotoHomePage;

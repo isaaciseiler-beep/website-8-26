@@ -1,3 +1,5 @@
+import { PROFILE_BIO } from "./siteIdentity.mjs";
+
 const PROJECT_IMG_BASE = "/project-images";
 const PROJECT_FILE_BASE = "https://pub-fa8ebd83ba8d4bf99e2e7f12e394fc2f.r2.dev";
 const CHAT_LAB_ASSET_BASE = "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab";
@@ -83,11 +85,7 @@ export interface ProjectItem {
 
 export const personName = "Isaac Seiler";
 
-export const bioLines = [
-  "I'm Isaac, a Seattle-based strategist leading marketing and communications at Summation.",
-  "Previously, I managed communications for a Member of Congress, published work with OpenAI, helped build a congressional office, and conducted international research on the social and material impacts of AI and the Internet.",
-  "I'm also a Fulbright and Truman Scholar and a member of OpenAI's ChatGPT Lab.",
-];
+export const bioLines = PROFILE_BIO;
 
 const NEWS_IMG_BASE = "https://pub-0f2ac8ec0d4e41b885a39ae5fd004706.r2.dev";
 

@@ -1,88 +1,138 @@
 User-agent: GPTBot
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: OAI-SearchBot
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: ChatGPT-User
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: ClaudeBot
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: Claude-SearchBot
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: Claude-User
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: Google-Extended
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: GoogleOther
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: GoogleOther-Image
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: Googlebot
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: Googlebot-Image
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: Bingbot
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: PerplexityBot
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: Perplexity-User
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: Applebot
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: Applebot-Extended
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
 User-agent: *
 Allow: /
+Allow: /api/public/
+Allow: /api/public-content
 Disallow: /fulbrightmap
+Disallow: /strike-tracker
 Disallow: /api/
 
-Sitemap: https://www.isaacseiler.xyz/sitemap.xml
-Sitemap: https://www.isaacseiler.xyz/image-sitemap.xml
-Host: https://www.isaacseiler.xyz
+Sitemap: https://seiler.page/sitemap.xml
+Sitemap: https://seiler.page/image-sitemap.xml

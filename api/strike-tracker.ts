@@ -1,5 +1,5 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { readJsonBody, sendJson, type ApiRequest, type ApiResponse } from "./http.js";
+import { readJsonBody, sendJson, type ApiRequest, type ApiResponse } from "../server/http.js";
 
 const STRIKE_TRACKER_NAMES = ["Ricky", "Perry", "John", "Yasser", "Isaac"] as const;
 const SUPABASE_TABLE = "strike_tracker_counts";

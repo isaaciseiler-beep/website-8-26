@@ -1,9 +1,7 @@
-export const SITE_URL = "https://www.isaacseiler.xyz";
-export const SITE_NAME = "Isaac Seiler";
-export const SITE_DESCRIPTION =
-  "Isaac Seiler leads marketing and communications at Summation, helping tell the story of how AI is changing the way people work. Based in Seattle, Washington.";
+import { SITE_URL } from "./siteIdentity.mjs";
+export { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, PROFILE_SUMMARY, PROFILE_EXPERTISE } from "./siteIdentity.mjs";
 export const PREVIEW_IMAGE_URL =
-  "https://www.isaacseiler.xyz/webpreview-linkedin.png";
+  `${SITE_URL}/webpreview-linkedin.png`;
 export const PREVIEW_IMAGE_URLS = [PREVIEW_IMAGE_URL];
 
 export const CONTACT_EMAIL = "isaaciseiler@gmail.com";

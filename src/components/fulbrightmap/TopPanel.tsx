@@ -42,7 +42,7 @@ export default function TopPanel({
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <RandomSpotButton disabled={loading} onClick={onRandomSpot} />
         <span
-          className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-xs text-white/75"
+          className="inline-flex items-center gap-1.5 rounded-[7px] border border-white/15 bg-white/10 px-3 py-2 text-xs text-white/75"
           title={
             storageMode === "local"
               ? "Local mode stores pins only in this browser because Supabase env vars are not configured."
@@ -54,7 +54,7 @@ export default function TopPanel({
         </span>
         {locked ? (
           <span
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-xs text-white/75"
+            className="inline-flex items-center gap-1.5 rounded-[7px] border border-white/15 bg-white/10 px-3 py-2 text-xs text-white/75"
             title="Adding and deleting spots are locked."
           >
             <Lock aria-hidden="true" className="h-3.5 w-3.5" />

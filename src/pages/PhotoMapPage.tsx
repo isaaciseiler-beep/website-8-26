@@ -429,7 +429,7 @@ const PhotoMapPage = () => {
   }, [activeEntryId]);
 
   const albumHref = (entry: PhotoMapEntry) =>
-    entry.albumFolder ? `/photos?album=${encodeURIComponent(entry.albumFolder)}` : "/photos";
+    entry.albumFolder ? `/?album=${encodeURIComponent(entry.albumFolder)}` : "/#photo-gallery";
 
   const hasAlbum = (entry: PhotoMapEntry) => Boolean(entry.albumFolder);
 

@@ -2,55 +2,58 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>Work by Isaac Seiler</title>
-    <link>https://www.isaacseiler.xyz/work</link>
-    <description>Isaac Seiler leads marketing and communications at Summation, helping tell the story of how AI is changing the way people work. Based in Seattle, Washington.</description>
+    <link>https://seiler.page/work</link>
+    <description>Isaac Seiler is a tech generalist working across AI, public policy, education, research, and communications. Explore projects and experience across fields.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Sep 2026 12:00:00 GMT</lastBuildDate>
-    <atom:link href="https://www.isaacseiler.xyz/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2026 02:31:55 GMT</lastBuildDate>
+    <atom:link href="https://seiler.page/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Mapping the Rise of AI Across State Government</title>
-      <link>https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/artificial-intelligence-in-state-government-index</guid>
-      <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
-      <category>RESEARCH</category>
-      <description>A public-information benchmark measuring how state and territory governments are actually responding to generative AI.</description>
-      <media:content url="https://www.isaacseiler.xyz/project-images/aiindex.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
+      <title>Leading AI Literacy Efforts in Taiwan</title>
+      <link>https://seiler.page/projects/fulbright-focus-group-sponsored-by-openai</link>
+      <guid isPermaLink="true">https://seiler.page/projects/fulbright-focus-group-sponsored-by-openai</guid>
+      <category>PROJECT</category>
+      <description>I pitched a local program for educators in Taiwan, then led six sessions and shared what we learned through OpenAI&apos;s education newsletter and an international conference.</description>
+      <media:content url="https://seiler.page/project-images/chatlab.jpg" type="image/jpeg" width="1600" height="1200" medium="image" />
     </item>
     <item>
-      <title>Building a Congressional Operation from Scratch</title>
-      <link>https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/congressional-office-setup-100-day-report</guid>
-      <pubDate>Sun, 01 Jan 2023 12:00:00 GMT</pubDate>
-      <category>WORK</category>
-      <description>How I helped launch a congressional office and built its press network across local, statewide, and national media.</description>
-      <media:content url="https://www.isaacseiler.xyz/project-images/caphill.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
+      <title>Mapping the Rise of AI Across State Government</title>
+      <link>https://seiler.page/projects/artificial-intelligence-in-state-government-index</link>
+      <guid isPermaLink="true">https://seiler.page/projects/artificial-intelligence-in-state-government-index</guid>
+      <category>RESEARCH</category>
+      <description>A public-information benchmark measuring how state and territory governments are actually responding to generative AI.</description>
+      <media:content url="https://seiler.page/project-images/aiindex.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
     </item>
     <item>
       <title>Raised $20k for Local St. Louis Organizations</title>
-      <link>https://www.isaacseiler.xyz/projects/stl-immigrant-refugee-support-grant-process</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/stl-immigrant-refugee-support-grant-process</guid>
-      <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
+      <link>https://seiler.page/projects/stl-immigrant-refugee-support-grant-process</link>
+      <guid isPermaLink="true">https://seiler.page/projects/stl-immigrant-refugee-support-grant-process</guid>
       <category>PROJECT</category>
       <description>A student-led philanthropy process that helped move real dollars to St. Louis nonprofits, including immigrant and refugee-serving organizations.</description>
-      <media:content url="https://www.isaacseiler.xyz/project-images/philanthropy-lab.jpg" type="image/jpeg" width="1600" height="1066" medium="image" />
+      <media:content url="https://seiler.page/project-images/philanthropy-lab.jpg" type="image/jpeg" width="1600" height="1066" medium="image" />
     </item>
     <item>
       <title>Investigating AI’s Impact on Journalism in Australia</title>
-      <link>https://www.isaacseiler.xyz/projects/senior-thesis-local-journalism</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/senior-thesis-local-journalism</guid>
-      <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
+      <link>https://seiler.page/projects/senior-thesis-local-journalism</link>
+      <guid isPermaLink="true">https://seiler.page/projects/senior-thesis-local-journalism</guid>
       <category>RESEARCH</category>
       <description>A qualitative honors thesis on the structural decline of local journalism in Australia and its implications for democracy, labor, and media policy.</description>
-      <media:content url="https://www.isaacseiler.xyz/project-images/ainews.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
+      <media:content url="https://seiler.page/project-images/ainews.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
     </item>
     <item>
       <title>Bringing the Boehringer Cares Rebrand to Life</title>
-      <link>https://www.isaacseiler.xyz/projects/boehringer-cares-foundation-rebrand-strategy-shift</link>
-      <guid isPermaLink="true">https://www.isaacseiler.xyz/projects/boehringer-cares-foundation-rebrand-strategy-shift</guid>
-      <pubDate>Wed, 01 Jan 2025 12:00:00 GMT</pubDate>
+      <link>https://seiler.page/projects/boehringer-cares-foundation-rebrand-strategy-shift</link>
+      <guid isPermaLink="true">https://seiler.page/projects/boehringer-cares-foundation-rebrand-strategy-shift</guid>
       <category>WORK</category>
       <description>Implementing a new brand direction across the foundation&apos;s website, employee communications, and volunteering programs.</description>
-      <media:content url="https://www.isaacseiler.xyz/project-images/bicares.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
+      <media:content url="https://seiler.page/project-images/bicares.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
+    </item>
+    <item>
+      <title>Building a Congressional Operation from Scratch</title>
+      <link>https://seiler.page/projects/congressional-office-setup-100-day-report</link>
+      <guid isPermaLink="true">https://seiler.page/projects/congressional-office-setup-100-day-report</guid>
+      <category>WORK</category>
+      <description>How I helped launch a congressional office and built its press network across local, statewide, and national media.</description>
+      <media:content url="https://seiler.page/project-images/caphill.jpg" type="image/jpeg" width="1600" height="900" medium="image" />
     </item>
   </channel>
 </rss>

@@ -25,7 +25,8 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     const storedTheme = window.localStorage.getItem(STORAGE_KEY);
-    if (storedTheme === "dark" || storedTheme === "light" || storedTheme === "skull") return storedTheme;
+    if (storedTheme === "dark" || storedTheme === "light") return storedTheme;
+    if (storedTheme === "skull") return window.localStorage.getItem(PRE_SKULL_THEME_KEY) === "dark" ? "dark" : "light";
     return "dark";
   });
   const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(() =>
@@ -42,10 +43,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     return () => media.removeEventListener("change", updateSystemTheme);
   }, []);
 
-  const applyTheme = (next: Theme) => {
-    if (next === "skull" && theme !== "skull") {
-      window.localStorage.setItem(PRE_SKULL_THEME_KEY, resolvedTheme);
-    }
+  const applyTheme = (requested: Theme) => {
+    const next = requested === "skull" ? "light" : requested;
 
     const root = document.documentElement;
     root.classList.add("theme-crossfade");

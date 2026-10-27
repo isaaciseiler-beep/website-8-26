@@ -1,10 +1,17 @@
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import fs from "node:fs";
 import { componentTagger } from "lovable-tagger";
 import chatHandler from "./api/chat";
+import intentHandler from "./api/intent";
+import composeHandler from "./api/compose";
+import publicHandler, { markdown } from "./api/public-content";
+import mcpHandler from "./api/mcp";
+import { llmsText } from "./api/public-content";
 import chatFeedbackHandler from "./api/chat-feedback";
 import strikeTrackerHandler from "./api/strike-tracker";
+import { topLevelPages, projectPriorityOrder } from "./scripts/seo-data.mjs";
 
 const applyEnv = (key: string, value?: string) => {
   const trimmed = value?.trim();
@@ -15,7 +22,47 @@ const applyEnv = (key: string, value?: string) => {
 
 const localApiPlugin = (mode: string): Plugin => ({
   name: "local-api",
+  configurePreviewServer(server) {
+    const routes = new Set([...topLevelPages.map(page => page.path), ...projectPriorityOrder.map(id => `/projects/${id}`), "/agents"]);
+    server.middlewares.use((request, response, next) => {
+      const pathname = new URL(request.url ?? "/", "http://localhost").pathname.replace(/\/+$/, "") || "/";
+      if (!routes.has(pathname) || !["GET", "HEAD"].includes(request.method ?? "GET")) return next();
+      const file = path.join(server.config.root, server.config.build.outDir, pathname === "/" ? "index.html" : `${pathname}/index.html`);
+      if (!fs.existsSync(file)) return next();
+      response.setHeader("Content-Type", "text/html; charset=utf-8");
+      response.end(request.method === "HEAD" ? "" : fs.readFileSync(file));
+    });
+  },
   configureServer(server) {
+    server.middlewares.use((request, response, next) => {
+      const url = new URL(request.url ?? "/", "http://localhost");
+      if (url.pathname === "/api/compose") {
+        const env = loadEnv(mode, process.cwd(), "");
+        for (const key of ["MISTRAL_API_KEY", "MISTRAL_MODEL", "COMPOSE_DAILY_CALL_LIMIT"]) applyEnv(key, env[key]);
+        void composeHandler(request, response); return;
+      }
+      if (url.pathname === "/api/intent") {
+        const env = loadEnv(mode, process.cwd(), "");
+        for (const key of ["TYPESAFE_API_KEY", "JEV_MODEL", "INTENT_DAILY_CALL_LIMIT"]) applyEnv(key, env[key]);
+        void intentHandler(request, response); return;
+      }
+      if (url.pathname.startsWith("/api/public/")) { publicHandler(request, response); return; }
+      if (url.pathname === "/mcp") { void mcpHandler(request,response); return; }
+      if (url.pathname === "/llms.txt") {
+        response.setHeader("Content-Type", "text/plain; charset=utf-8");
+        response.end(llmsText()); return;
+      }
+      const explicit = url.pathname.endsWith(".md");
+      const accept = (request.headers.accept ?? "").split(",").map(part => { const [mime,...options]=part.trim().split(";"); const quality = options.find(o=>o.trim().startsWith("q=")); return {mime,q:quality?Number(quality.trim().slice(2)):1}; });
+      const mdQ = accept.find(a => a.mime === "text/markdown")?.q ?? 0;
+      const htmlQ = accept.find(a => a.mime === "text/html")?.q ?? 0;
+      if (explicit || mdQ > htmlQ) {
+        const content=markdown(explicit ? url.pathname.slice(0,-3) : url.pathname);
+        response.setHeader("Vary", "Accept"); response.setHeader("Cache-Control", "no-store");
+        response.statusCode=content?200:404;response.setHeader("Content-Type","text/markdown; charset=utf-8");response.end(content ?? "# Not found");return;
+      }
+      next();
+    });
     server.middlewares.use("/api/chat-feedback", (request, response) => {
       const env = loadEnv(mode, process.cwd(), "");
       applyEnv("SUPABASE_URL", env.SUPABASE_URL);

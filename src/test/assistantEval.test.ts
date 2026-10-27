@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { classifyAssistantIntent, normalizePageContext, type AssistantIntent } from "../../api/assistant";
-import { retrieveKnowledgeHybrid } from "../../api/knowledge";
+import { classifyAssistantIntent, normalizePageContext, type AssistantIntent } from "../../server/assistant";
+import { retrieveKnowledgeHybrid } from "../../server/knowledge";
 
 interface EvalCase {
   id: string;

@@ -7,7 +7,7 @@ export default function SetupScreen() {
         <div className="h-44 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2),transparent_34%),linear-gradient(135deg,#2a2a2a,#101010_58%,#050505)] p-6">
           <div className="flex h-full items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
+              <div className="inline-flex items-center gap-2 rounded-[7px] border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
                 <MapPinned aria-hidden="true" className="h-3.5 w-3.5" />
                 Fulbright Map
               </div>

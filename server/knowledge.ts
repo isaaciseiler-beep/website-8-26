@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { PROFILE_SUMMARY, SITE_URL } from "../src/lib/site.js";
 import path from "node:path";
 import { hiddenProjectIds, projectItems, type ProjectItem } from "../src/lib/siteContent.js";
 import type { NormalizedPageContext } from "./assistant.js";
@@ -46,11 +47,11 @@ const PROFILE_CHUNKS: KnowledgeChunk[] = [
     title: "Isaac Seiler — Current Public Profile",
     source: "Canonical public profile",
     content:
-      "Isaac Seiler is a Seattle-based strategist who leads marketing and communications at Summation. His portfolio centers on translating complex technology and public-context work into clear research, strategy, communications, and visual products.",
+      PROFILE_SUMMARY,
     url: "/about",
     metadata: {
       kind: "profile",
-      role: "Seattle-based strategist",
+      role: "Tech generalist",
       skills: ["strategy", "communications", "research", "writing", "AI fluency", "visual communication"],
       tags: ["biography", "about", "current", "Seattle"],
       limitations: ["Do not infer job-search status or private biographical details."],
@@ -75,7 +76,7 @@ const PROFILE_CHUNKS: KnowledgeChunk[] = [
     title: "Public Contact Channels",
     source: "Approved public contact information",
     content:
-      "Public contact routes: email isaaciseiler@gmail.com, LinkedIn https://www.linkedin.com/in/isaacseiler/, GitHub https://github.com/isaaciseiler-beep, Substack https://substack.com/@isaacseiler, and website https://www.isaacseiler.xyz.",
+      `Public contact routes: email isaaciseiler@gmail.com, LinkedIn https://www.linkedin.com/in/isaacseiler/, GitHub https://github.com/isaaciseiler-beep, Substack https://substack.com/@isaacseiler, and website ${SITE_URL}.`,
     url: "mailto:isaaciseiler@gmail.com",
     metadata: {
       kind: "contact",
