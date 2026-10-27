@@ -1,7 +1,7 @@
 import { streamText, Output } from 'ai';
 import { createMistral } from '@ai-sdk/mistral';
 import { AI_LAYOUTS } from '../src/lib/layouts.js';
-import { compositionCacheKey, cachedComposition, cacheComposition, providerFailure, providerLimitDetail } from '../server/composition-policy.js';
+import { compositionCacheKey, cachedComposition, cacheComposition, providerFailure, providerLimitDetail, providerDiagnostics } from '../server/composition-policy.js';
 import { z } from 'zod';
 import { compositionSchema, liveCompositionSchema, isPhotographyRequest, explorationGuidance, validateComposition, reconcileComposition } from '../src/lib/genui.js';
 import { CONTENT_VERSION } from '../src/lib/canvas.js';
@@ -46,7 +46,7 @@ export default async function composeHandler(req:ApiRequest,res:ApiResponse) {
     const disconnect=()=>abort.abort();
     res.on('close',disconnect);
     const started=performance.now();
-
+    
     res.statusCode=200;res.setHeader('Content-Type','application/x-ndjson');res.setHeader('X-Accel-Buffering','no');
     const write=(event:Record<string,unknown>)=>{if(!res.destroyed&&!res.writableEnded)res.write(JSON.stringify({...event,revision:data.revision,contentVersion:CONTENT_VERSION})+'\n');};
     write({type:'start'});
@@ -80,6 +80,6 @@ Choose the exact layout ID from the supplied layouts. Its kind MUST match the mo
       const usage=await result.usage;
       write({type:'composition',composition,partial:false,model,duration:Math.round(performance.now()-started),inputTokens:usage.inputTokens,outputTokens:usage.outputTokens});
       recordProviderResult(request,{status:'healthy',model,duration:Math.round(performance.now()-started),layout:composition.blocks[0].layout});
-    } catch(error) {const failure=providerError??error;const reason=providerFailure(failure);write({type:'unavailable',reason});recordProviderResult(request,{status:'unavailable',model,reason,duration:Math.round(performance.now()-started),httpStatus:(failure as {statusCode?:number})?.statusCode,errorType:failure instanceof Error?failure.name:undefined,limitDetail:providerLimitDetail(failure)});} finally {res.off('close',disconnect);res.end();}
+    } catch(error) {const failure=providerError??error;const reason=providerFailure(failure);write({type:'unavailable',reason});recordProviderResult(request,{status:'unavailable',model,reason,duration:Math.round(performance.now()-started),httpStatus:(failure as {statusCode?:number})?.statusCode,errorType:failure instanceof Error?failure.name:undefined,limitDetail:providerLimitDetail(failure),...providerDiagnostics(failure)});} finally {res.off('close',disconnect);res.end();}
   } catch {return sendJson(res,400,{error:'Invalid composition request'});}
 }
