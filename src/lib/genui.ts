@@ -109,10 +109,20 @@ export function withLayout(block:CanvasBlock, layout:LayoutId):CanvasBlock {
   return next;
 }
 
+/** Reflection questions open the published lesson rather than the first output. */
+function requestedStorySection(text:string,projectId:string):number|undefined {
+  if (!/\b(?:learn(?:ed)?|lessons?|takeaways?|reflections?)\b/i.test(text)) return undefined;
+  return evidenceSections(projectId,'outcomes').find(section=>/\blearn|lessons?|reflection/i.test(section.heading))?.index;
+}
+
 /** Apply public-subject and state constraints once, after either provider. */
 export function reconcileComposition(text:string, proposed:unknown, baseline:Composition, previous?:Composition):Composition|null {
-  const checked=validateComposition(proposed);
-  if(!checked)return null;
+  const valid=validateComposition(proposed);
+  if(!valid)return null;
+  const checked:Composition={blocks:valid.blocks.map(block=>{
+    const section=block.kind==='story'?requestedStorySection(text,block.projectIds[0]):undefined;
+    return section===undefined?block:{...block,section,focus:'outcomes',layout:'project-outcomes'};
+  })};
   const interpreted=interpretPortfolioRequest(text,previousContext(previous));
   // A refinement patches the visible controls; a provider must not reset their focus or section.
   if(interpreted.followup&&previous)return baseline;
@@ -174,7 +184,7 @@ export function composeLocal(text:string,plan:Plan,previous?:Composition|null):C
     if(!id)return {blocks:[blankBlock('collection')]};
     const old=previous?.blocks.find(b=>b.kind==='story'&&b.projectIds[0]===id);
     const focus=requestedFocus(text)??(interpreted.followup?old?.focus:'overview')??'overview';
-    const block:CanvasBlock={...blankBlock('story'),section:evidenceSections(id,focus)[0]?.index??0,...(interpreted.followup?old:{}),projectIds:[id],focus};
+    const block:CanvasBlock={...blankBlock('story'),...(interpreted.followup?old:{}),projectIds:[id],focus,section:requestedStorySection(text,id)??(interpreted.followup?old?.section:undefined)??evidenceSections(id,focus)[0]?.index??0};
     const layout=focus==='process'?'project-process':focus==='outcomes'?'project-outcomes':focus==='evidence'?'project-evidence':interpreted.followup&&old?.layout?old.layout:'project-brief';
     return {blocks:[withLayout(block,layout)]};
   }

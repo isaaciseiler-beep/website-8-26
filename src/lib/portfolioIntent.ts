@@ -9,7 +9,7 @@ export type PortfolioInterpretation = { task: PortfolioTask; projectIds: string[
 const subjects: [string, RegExp][] = [
   [POLICY_ID, /\b(?:ai policy|state governments?|government ai|ai government|ai in government|benchmark|preparedness|ai adoption|government index|genai|policy project|ai scores?|ai evidence|score distribution|score histogram|distribution of (?:ai )?scores|histogram of (?:ai )?scores|score bands?)\b|map(?:ped|ping)?\b.*\bai\b/i],
   [TAIWAN_ID, /\b(?:taiwan|fulbright|teach\w*|educat\w*|workshops?|classrooms?|literacy)\b/i],
-  ['openai-product-testing-and-feedback', /\b(?:openai|product test\w*|product feedback|chatgpt lab|study mode|pulse|atlas|100 chats|group chats)\b/i],
+  ['openai-product-testing-and-feedback', /\b(?:openai|product test\w*|test(?:ing|ed)? (?:ai )?products?|product feedback|chatgpt lab|study mode|pulse|atlas|100 chats|group chats)\b/i],
   ['senior-thesis-local-journalism', /\b(?:journalis\w*|australia\w*|thesis|newsrooms?)\b/i],
   ['congressional-office-setup-100-day-report', /\b(?:congress\w*|scholten|100 days?|congressional office)\b/i],
   ['boehringer-cares-foundation-rebrand-strategy-shift', /\b(?:boehringer|rebrand\w*|brand rollout)\b/i],

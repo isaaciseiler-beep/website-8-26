@@ -136,7 +136,7 @@ export default function HomeExplore() {
     const abort=new AbortController();controller.current=abort;setBusy(true);setPhase('Finding a view…');
     const live=()=>!abort.signal.aborted&&revision.current===rev;
     let next:View={plan:fallback,composition:composeLocal(text,fallback,context?.composition),query:text,generation:{status:'authored'}};
-    if(fallback.layout!=='empty')update(next);else update(null);
+    if(fallback.layout!=='empty')update(next);
     let needsComposition=true;
     const simpleRefinement=Boolean(context?.composition.blocks.some(b=>b.kind==='benchmark'))&&/^(?:use |only |show )?(preparedness|composite|all states|midwest|east|south|west)(?: score)?[.!?]?$/i.test(text.trim());
     if(simpleRefinement){setBusy(false);return;}
@@ -226,7 +226,7 @@ export default function HomeExplore() {
           <ArrowUpRight size={13} aria-hidden="true"/>
         </button>
       </div>}
-      {view&&query!==view.query&&<p className="home-draft-hint">Press Enter to update</p>}
+      {view&&!busy&&query!==view.query&&<p className="home-draft-hint">Press Enter to update</p>}
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel">
