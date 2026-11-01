@@ -1,0 +1,41 @@
+{
+  "records": [
+    {
+      "width": 320,
+      "reducedMotion": "reduce",
+      "status": "pass",
+      "composePosts": 2
+    },
+    {
+      "width": 320,
+      "reducedMotion": "no-preference",
+      "status": "pass",
+      "composePosts": 2
+    },
+    {
+      "width": 768,
+      "reducedMotion": "reduce",
+      "status": "pass",
+      "composePosts": 2
+    },
+    {
+      "width": 768,
+      "reducedMotion": "no-preference",
+      "status": "pass",
+      "composePosts": 2
+    },
+    {
+      "width": 1440,
+      "reducedMotion": "reduce",
+      "status": "pass",
+      "composePosts": 2
+    },
+    {
+      "width": 1440,
+      "reducedMotion": "no-preference",
+      "status": "pass",
+      "composePosts": 2
+    }
+  ],
+  "errors": []
+}

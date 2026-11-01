@@ -27,10 +27,11 @@ describe('composition API',()=>{
     expect(result.events[0]).toMatchObject({status:'unsupported'});
     expect(stream).not.toHaveBeenCalled();
   });
-  it.each(['Show photos from Taiwan','Show pictures from Japan','Show images from Japan'])('keeps photography outside generation: %s',async draft=>{
+  it.each(['Show photos from Taiwan','Show pictures from Japan','Show images from Japan','Show your photography projects','Open the photography project in Taiwan','Tell me about your photography career'])('keeps photography outside generation: %s',async draft=>{
     const result=await call({...request(),draft});
     expect(result.events[0]).toMatchObject({status:'unsupported',reason:'photography_separate'});
     expect(stream).not.toHaveBeenCalled();
+    expect(advice).not.toHaveBeenCalled();
   });
   it('streams validated complete modules with request identity',async()=>{
     stream.mockReturnValue({partialOutputStream:(async function*(){yield {blocks:[{kind:'benchmark'}]};yield spec;})(),output:Promise.resolve(spec),usage:Promise.resolve({inputTokens:100,outputTokens:50})});

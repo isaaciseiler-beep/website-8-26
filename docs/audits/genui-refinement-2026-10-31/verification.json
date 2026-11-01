@@ -56,5 +56,39 @@
     "liveMistralCalls": 0,
     "deployed": false,
     "contentVersion": "canvas-2026-11-01-v12"
+  },
+  "postPushRefinement": {
+    "initialProductionCommit": "776bc2f6d61e1d58ef65be856a4d7f320f05f2a9",
+    "initialDeployment": "dpl_EHJQzj54AENAk3c2UVgQJk8vwrNf",
+    "initialDeploymentState": "READY",
+    "live": {
+      "cases": 22,
+      "passed": 22,
+      "mistralCompositions": 21,
+      "jevAdviceObserved": true,
+      "runtimeErrorScan": "no errors returned"
+    },
+    "refinedSnapshot": {
+      "unitFiles": 42,
+      "unitTestsPassed": 534,
+      "browserScenariosPassed": 13,
+      "seededEditOperations": 2000,
+      "connectionsFlowsPassed": 48,
+      "shareReloadsPassed": 18,
+      "lateStreamAndSyntheticIMECasesPassed": 6,
+      "undoRedoRoundtripsPassed": 72,
+      "staleRevisionAttemptsRejected": 72,
+      "localSemanticTargets": 71,
+      "localSemanticTargetsMet": 65,
+      "build": "passed",
+      "lint": "passed",
+      "typecheck": "passed",
+      "diffCheck": "passed"
+    },
+    "limits": [
+      "Local corpus includes three unsupported within-project product comparisons and three safe phrasing abstentions.",
+      "Synthetic IME events do not establish native operating-system IME behavior.",
+      "Process-local spending safeguards are not distributed limits."
+    ]
   }
 }

@@ -1,0 +1,42 @@
+{
+  "records": [
+    {
+      "width": 320,
+      "reducedMotion": "reduce",
+      "status": "pass",
+      "roundtrips": 12
+    },
+    {
+      "width": 320,
+      "reducedMotion": "no-preference",
+      "status": "pass",
+      "roundtrips": 12
+    },
+    {
+      "width": 768,
+      "reducedMotion": "reduce",
+      "status": "pass",
+      "roundtrips": 12
+    },
+    {
+      "width": 768,
+      "reducedMotion": "no-preference",
+      "status": "pass",
+      "roundtrips": 12
+    },
+    {
+      "width": 1440,
+      "reducedMotion": "reduce",
+      "status": "pass",
+      "roundtrips": 12
+    },
+    {
+      "width": 1440,
+      "reducedMotion": "no-preference",
+      "status": "pass",
+      "roundtrips": 12
+    }
+  ],
+  "roundtrips": 72,
+  "errors": []
+}

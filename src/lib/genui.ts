@@ -1,5 +1,5 @@
 import { connectionIds, connectionForRequest } from './portfolioConnections.js';
-import { careerAnswerIds, careerAnswerFor, careerAnswers } from './careerAnswers.js';
+import { careerAnswerIds, careerAnswerFor, careerAnswers, careerConnectionFor } from './careerAnswers.js';
 import { z } from 'zod';
 import { albums, publicProjects, localPlan, type Plan } from './canvas.js';
 import { aiIndexStates } from './aiStateGovIndex.js';
@@ -32,8 +32,23 @@ export const liveCompositionSchema = z.object({supported:z.boolean().optional(),
   layout:z.enum(liveLayoutIds).optional(),albumIds:z.array(z.string()).max(0),
 })).min(1).max(3)});
 export function isPhotographyRequest(text:string, plan?:Plan):boolean {
-  return (/photo|album|gallery|diptych|contact sheet|\b(?:pictures?|images?)\b/i.test(text)||plan?.layout==='photos')
-    && !/project|research|teaching|lesson|career|policy|government|journalism|congress|rebrand|literacy/i.test(text);
+  const photography=/\b(?:photograph\w*|photos?|photojournalis\w*|albums?|galler(?:y|ies)|diptychs?|contact sheets?|pictures?|images?)\b/i;
+  if(!photography.test(text)&&plan?.layout!=='photos')return false;
+  // A separate request about actual work can accompany a photo request. Generic
+  // words such as "project" or "career" inside the photo request cannot do that.
+  const workTopic=/\b(?:career|experience|background|current role|public service|teaching|educat\w*|literacy|policy|government|journalis\w*|congress\w*|rebrand\w*|boehringer|product testing|product feedback|study mode|pulse|atlas|group chats?|100 chats|publications?|articles?|writing|website|architecture)\b/i;
+  const clauses=text.split(/\b(?:and|also|alongside|plus|as well as|but)\b|[;?]/i);
+  if(clauses.some(clause=>!photography.test(clause)&&workTopic.test(clause)))return false;
+  const illustration=text.match(/\b(?:with|including|illustrated by|accompanied by)\s+(?:(?:some|relevant|a few|the|your|his)\s+)?(?:photos?|photographs?|pictures?|images?)\b/i);
+  if(illustration){
+    const subject=text.slice(0,illustration.index);
+    if(!photography.test(subject)&&(workTopic.test(subject)||/\b(?:projects?|outcomes?|contribution|process|role)\b/i.test(subject)))return false;
+  }
+  const photoAction=/^\s*(?:(?:please|can you|could you|can i|i want to)\s+)*(?:show|open|view|browse|find|see|explore|display)\b[^;?]{0,60}\b(?:photograph\w*|photos?|albums?|galler(?:y|ies)|pictures?|images?)\b/i;
+  if(photoAction.test(text))return true;
+  const professionalSubject=/\b(?:teaching|educat\w*|literacy|policy|government|journalis\w*|congress\w*|rebrand\w*|boehringer|product testing|product feedback|study mode|pulse|atlas|group chats?|100 chats|publications?|articles?|writing|website|architecture)\b/i;
+  const workQuestion=/\b(?:what|how|why|explain|describe|contribut\w*|responsibilit\w*|methodology|outcomes?)\b/i;
+  return !(professionalSubject.test(text)&&workQuestion.test(text));
 }
 /** Requests that need a starting point rather than an inferred project. */
 export function explorationGuidance(text:string, plan?:Plan):'welcome'|'unmatched'|null {
@@ -189,7 +204,7 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
     if(!match)return baseline;
     // Authored career answers and explicitly named roles carry editorial evidence.
     if(interpreted.task==='timeline'&&(baseline.blocks[0]?.answerId||interpreted.roleId)&&!(stateNames(text).length&&requestsGovernmentData(text,interpreted.task))) {
-      const authored=baseline.blocks.map(block=>block.answerId==='connections'&&match.answerId==='connections'&&!connectionForRequest(text)&&match.connectionId?{...block,connectionId:match.connectionId}:block);
+      const authored=baseline.blocks.map(block=>block.answerId==='connections'&&match.answerId==='connections'&&!namedProjects(text).length&&!careerConnectionFor(text)&&match.connectionId?{...block,connectionId:match.connectionId}:block);
       return {blocks:checked.blocks.flatMap(item=>item===match?authored:requestedCompanion(text,item)?[item]:[])};
     }
   }
@@ -273,7 +288,7 @@ export function composeLocal(text:string,plan:Plan,previous?:Composition|null):C
       ??(answerId?careerAnswers[answerId].roles[0]:'summation-ai');
     return {blocks:[{
       ...blankBlock('timeline'),...(interpreted.followup?old:{}),answerId,roleId,
-      connectionId:answerId==='connections'?(connectionForRequest(text)??(interpreted.followup?old?.connectionId:undefined)??'systems'):undefined,
+      connectionId:answerId==='connections'?(careerConnectionFor(text,interpreted.projectIds)??(interpreted.followup?old?.connectionId:undefined)??'systems'):undefined,
       layout:answerId==='chronology'||!answerId&&!/roles|responsibilities/i.test(text)?'experience-timeline':'experience-roles',
       focus:interpreted.focus,
       angle:requestedAngle(text)??(interpreted.followup?old?.angle:undefined),

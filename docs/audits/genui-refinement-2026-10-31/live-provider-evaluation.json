@@ -1,0 +1,248 @@
+{
+  "base": "https://seiler.page",
+  "contentVersion": "canvas-2026-11-01-v12",
+  "cases": 22,
+  "passed": 22,
+  "liveRouting": 0,
+  "liveComposition": 21,
+  "results": [
+    {
+      "id": "taiwan-build",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-brief",
+      "focus": "role",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1736
+    },
+    {
+      "id": "taiwan-third-person",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-brief",
+      "focus": "role",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1406
+    },
+    {
+      "id": "connections",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "experience-roles",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1462
+    },
+    {
+      "id": "current-role",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "experience-roles",
+      "focus": "role",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1581
+    },
+    {
+      "id": "identity",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "experience-roles",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1451
+    },
+    {
+      "id": "strengths",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "experience-roles",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1198
+    },
+    {
+      "id": "summation",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "experience-roles",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1289
+    },
+    {
+      "id": "policy-contribution",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-brief",
+      "focus": "role",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1513
+    },
+    {
+      "id": "policy-method",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-process",
+      "focus": "process",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1366
+    },
+    {
+      "id": "policy-methodology",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-process",
+      "focus": "process",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1280
+    },
+    {
+      "id": "policy-data",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "benchmark-ranking",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1171
+    },
+    {
+      "id": "states",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "benchmark-compare",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1449
+    },
+    {
+      "id": "project-comparison",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-compare",
+      "focus": "role",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1194
+    },
+    {
+      "id": "taiwan-outcomes",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-outcomes",
+      "focus": "outcomes",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1248
+    },
+    {
+      "id": "congress",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-brief",
+      "focus": "role",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1431
+    },
+    {
+      "id": "journalism",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-brief",
+      "focus": "role",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1181
+    },
+    {
+      "id": "rebrand",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-process",
+      "focus": "process",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1200
+    },
+    {
+      "id": "browse",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-index",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1229
+    },
+    {
+      "id": "site",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "site-pipeline",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1163
+    },
+    {
+      "id": "contact",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "contact-card",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 1352
+    },
+    {
+      "id": "unknown",
+      "ok": true,
+      "router": "local",
+      "reason": "direct_composition",
+      "layout": "project-index",
+      "focus": "overview",
+      "composer": "mistral-small-2603",
+      "compositionOk": true,
+      "ms": 903
+    },
+    {
+      "id": "greeting",
+      "ok": true,
+      "router": "local",
+      "guidance": "welcome",
+      "ms": 177
+    }
+  ]
+}

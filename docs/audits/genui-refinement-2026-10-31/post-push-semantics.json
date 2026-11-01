@@ -1,0 +1,2463 @@
+{
+  "time": "2026-11-01T03:38:39.092Z",
+  "scope": "Current local functions after scoped fixes; no provider calls.",
+  "contexts": {
+    "taiwan": {
+      "blocks": [
+        {
+          "kind": "story",
+          "layout": "project-process",
+          "projectIds": [
+            "fulbright-focus-group-sponsored-by-openai"
+          ],
+          "albumIds": [],
+          "states": [],
+          "region": "All",
+          "metric": "compositeScore",
+          "section": 0,
+          "focus": "process",
+          "roleId": "",
+          "search": "",
+          "expanded": false,
+          "band": null
+        }
+      ]
+    },
+    "comparison": {
+      "blocks": [
+        {
+          "kind": "comparison",
+          "layout": "project-compare",
+          "projectIds": [
+            "artificial-intelligence-in-state-government-index",
+            "fulbright-focus-group-sponsored-by-openai"
+          ],
+          "albumIds": [],
+          "states": [],
+          "region": "All",
+          "metric": "compositeScore",
+          "section": 0,
+          "focus": "role",
+          "roleId": "",
+          "search": "",
+          "expanded": false,
+          "band": null
+        }
+      ]
+    }
+  },
+  "count": 71,
+  "passed": 65,
+  "results": [
+    {
+      "id": "connections-1",
+      "group": "connections",
+      "question": "What ties Isaac’s work together?",
+      "expected": {
+        "kind": "timeline",
+        "answerId": "connections"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "overview",
+            "roleId": "csg-ai-index",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "connections",
+            "connectionId": "systems"
+          }
+        ]
+      }
+    },
+    {
+      "id": "connections-2",
+      "group": "connections",
+      "question": "What is the through-line across Isaac’s jobs?",
+      "expected": {
+        "kind": "timeline",
+        "answerId": "connections"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "overview",
+            "roleId": "csg-ai-index",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "connections",
+            "connectionId": "systems"
+          }
+        ]
+      }
+    },
+    {
+      "id": "connections-3",
+      "group": "connections",
+      "question": "How does Isaac turn complexity into something useful?",
+      "expected": {
+        "kind": "timeline",
+        "answerId": "connections"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "overview",
+            "roleId": "csg-ai-index",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "connections",
+            "connectionId": "systems"
+          }
+        ]
+      }
+    },
+    {
+      "id": "connections-4",
+      "group": "connections",
+      "question": "How do listening and research connect his different roles?",
+      "expected": {
+        "kind": "timeline",
+        "answerId": "connections"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "overview",
+            "roleId": "csg-ai-index",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "connections",
+            "connectionId": "listening"
+          }
+        ]
+      }
+    },
+    {
+      "id": "connections-5",
+      "group": "connections",
+      "question": "What connects the policy benchmark, teaching in Taiwan, and congressional communications?",
+      "expected": {
+        "kind": "timeline",
+        "answerId": "connections"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "overview",
+            "roleId": "csg-ai-index",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "connections",
+            "connectionId": "systems"
+          }
+        ]
+      }
+    },
+    {
+      "id": "career-6",
+      "group": "career",
+      "question": "Who is Isaac Seiler?",
+      "expected": {
+        "kind": "timeline"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "summation-ai",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "identity"
+          }
+        ]
+      }
+    },
+    {
+      "id": "career-7",
+      "group": "career",
+      "question": "Tell me about Isaac as a professional.",
+      "expected": {
+        "kind": "timeline"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "summation-ai",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "identity"
+          }
+        ]
+      }
+    },
+    {
+      "id": "career-8",
+      "group": "career",
+      "question": "What does Isaac bring to a team?",
+      "expected": {
+        "kind": "timeline"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "overview",
+            "roleId": "csg-ai-index",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "strengths"
+          }
+        ]
+      }
+    },
+    {
+      "id": "career-9",
+      "group": "career",
+      "question": "Where is Isaac working now?",
+      "expected": {
+        "kind": "timeline"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "summation-ai",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "current"
+          }
+        ]
+      }
+    },
+    {
+      "id": "career-10",
+      "group": "career",
+      "question": "Walk me through Isaac’s career path.",
+      "expected": {
+        "kind": "timeline"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-timeline",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "us-house",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "chronology"
+          }
+        ]
+      }
+    },
+    {
+      "id": "career-11",
+      "group": "career",
+      "question": "Where has Isaac shown leadership?",
+      "expected": {
+        "kind": "timeline"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "overview",
+            "roleId": "fulbright-taiwan",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "leadership",
+            "angle": "leadership"
+          }
+        ]
+      }
+    },
+    {
+      "id": "career-12",
+      "group": "career",
+      "question": "What does public service mean in Isaac’s work?",
+      "expected": {
+        "kind": "timeline"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "timeline",
+            "layout": "experience-roles",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 2,
+            "focus": "overview",
+            "roleId": "us-house",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerId": "service"
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-13",
+      "group": "project",
+      "question": "How did Isaac structure his government AI research?",
+      "expected": {
+        "kind": "story",
+        "project": "artificial-intelligence-in-state-government-index"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "artificial-intelligence-in-state-government-index"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-14",
+      "group": "project",
+      "question": "What did Isaac personally own in the AI preparedness index?",
+      "expected": {
+        "kind": "story",
+        "project": "artificial-intelligence-in-state-government-index"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-brief",
+            "projectIds": [
+              "artificial-intelligence-in-state-government-index"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-15",
+      "group": "project",
+      "question": "Explain Isaac’s method for scoring government AI adoption.",
+      "expected": {
+        "kind": "story",
+        "project": "artificial-intelligence-in-state-government-index"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "artificial-intelligence-in-state-government-index"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-16",
+      "group": "project",
+      "question": "What were the actual findings of the government AI study?",
+      "expected": {
+        "kind": "story",
+        "project": "artificial-intelligence-in-state-government-index"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "artificial-intelligence-in-state-government-index"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-17",
+      "group": "project",
+      "question": "How did teachers influence the Taiwan sessions?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-18",
+      "group": "project",
+      "question": "What did educators change about the program Isaac ran?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-19",
+      "group": "project",
+      "question": "Did the Taiwan program show measured learning gains?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 4,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "angle": "reflection"
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-20",
+      "group": "project",
+      "question": "What would Isaac do differently about the Fulbright program?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-brief",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "angle": "counterfactual"
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-21",
+      "group": "project",
+      "question": "Which responsibilities did Isaac have in Hillary Scholten’s office?",
+      "expected": {
+        "kind": "story",
+        "project": "congressional-office-setup-100-day-report"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-brief",
+            "projectIds": [
+              "congressional-office-setup-100-day-report"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-22",
+      "group": "project",
+      "question": "What did Isaac accomplish on Capitol Hill?",
+      "expected": {
+        "kind": "story",
+        "project": "congressional-office-setup-100-day-report"
+      },
+      "ok": false,
+      "got": {
+        "guidance": "unmatched",
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-23",
+      "group": "project",
+      "question": "What did Isaac do in Washington, D.C.?",
+      "expected": {
+        "kind": "story",
+        "project": "congressional-office-setup-100-day-report"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-brief",
+            "projectIds": [
+              "congressional-office-setup-100-day-report"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-24",
+      "group": "project",
+      "question": "What happened after the child-labor press outreach in Congress?",
+      "expected": {
+        "kind": "story",
+        "project": "congressional-office-setup-100-day-report"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "congressional-office-setup-100-day-report"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 2,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-25",
+      "group": "project",
+      "question": "What did the State of the Union collaboration achieve?",
+      "expected": {
+        "kind": "story",
+        "project": "congressional-office-setup-100-day-report"
+      },
+      "ok": false,
+      "got": {
+        "guidance": "unmatched",
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-26",
+      "group": "project",
+      "question": "Which part of the Boehringer rebrand was Isaac responsible for?",
+      "expected": {
+        "kind": "story",
+        "project": "boehringer-cares-foundation-rebrand-strategy-shift"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-brief",
+            "projectIds": [
+              "boehringer-cares-foundation-rebrand-strategy-shift"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-27",
+      "group": "project",
+      "question": "Did Isaac create the original Boehringer brand strategy?",
+      "expected": {
+        "kind": "story",
+        "project": "boehringer-cares-foundation-rebrand-strategy-shift"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-brief",
+            "projectIds": [
+              "boehringer-cares-foundation-rebrand-strategy-shift"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-28",
+      "group": "project",
+      "question": "What evidence supports the Boehringer volunteering result?",
+      "expected": {
+        "kind": "story",
+        "project": "boehringer-cares-foundation-rebrand-strategy-shift"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-evidence",
+            "projectIds": [
+              "boehringer-cares-foundation-rebrand-strategy-shift"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "evidence",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-29",
+      "group": "project",
+      "question": "How did Isaac recruit and analyze interviews for his thesis?",
+      "expected": {
+        "kind": "story",
+        "project": "senior-thesis-local-journalism"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "senior-thesis-local-journalism"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-30",
+      "group": "project",
+      "question": "What conclusions can I draw from Isaac’s Australian journalism thesis?",
+      "expected": {
+        "kind": "story",
+        "project": "senior-thesis-local-journalism"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "senior-thesis-local-journalism"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-31",
+      "group": "project",
+      "question": "What did Isaac learn from local news research?",
+      "expected": {
+        "kind": "story",
+        "project": "senior-thesis-local-journalism"
+      },
+      "ok": false,
+      "got": {
+        "guidance": "unmatched",
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-32",
+      "group": "project",
+      "question": "What feedback did Isaac send about Pulse while preparing to move to Taiwan?",
+      "expected": {
+        "kind": "story",
+        "project": "openai-product-testing-and-feedback"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "openai-product-testing-and-feedback"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 4,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-33",
+      "group": "project",
+      "question": "What did Isaac want to change in Atlas?",
+      "expected": {
+        "kind": "story",
+        "project": "openai-product-testing-and-feedback"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "openai-product-testing-and-feedback"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 5,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-34",
+      "group": "project",
+      "question": "What did Isaac learn about student learning from testing Study Mode?",
+      "expected": {
+        "kind": "story",
+        "project": "openai-product-testing-and-feedback"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "openai-product-testing-and-feedback"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 2,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "angle": "reflection"
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-35",
+      "group": "project",
+      "question": "What were the results of testing Group Chats?",
+      "expected": {
+        "kind": "story",
+        "project": "openai-product-testing-and-feedback"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "openai-product-testing-and-feedback"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 6,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "project-36",
+      "group": "project",
+      "question": "What was Isaac’s role in the 100 Chats book?",
+      "expected": {
+        "kind": "story",
+        "project": "openai-product-testing-and-feedback"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "openai-product-testing-and-feedback"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparisons-37",
+      "group": "comparisons",
+      "question": "Compare Isaac’s congressional communications with the Boehringer rebrand.",
+      "expected": {
+        "kind": "comparison",
+        "projects": [
+          "congressional-office-setup-100-day-report",
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "comparison",
+            "layout": "project-compare",
+            "projectIds": [
+              "congressional-office-setup-100-day-report",
+              "boehringer-cares-foundation-rebrand-strategy-shift"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparisons-38",
+      "group": "comparisons",
+      "question": "Contrast the methodology of the AI policy research and journalism thesis.",
+      "expected": {
+        "kind": "comparison",
+        "projects": [
+          "artificial-intelligence-in-state-government-index",
+          "senior-thesis-local-journalism"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "comparison",
+            "layout": "project-compare",
+            "projectIds": [
+              "artificial-intelligence-in-state-government-index",
+              "senior-thesis-local-journalism"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparisons-39",
+      "group": "comparisons",
+      "question": "Compare the Taiwan program with Isaac’s OpenAI product testing.",
+      "expected": {
+        "kind": "comparison",
+        "projects": [
+          "fulbright-focus-group-sponsored-by-openai",
+          "openai-product-testing-and-feedback"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "comparison",
+            "layout": "project-compare",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai",
+              "openai-product-testing-and-feedback"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparisons-40",
+      "group": "comparisons",
+      "question": "How do Taiwan and Congress compare in terms of outcomes?",
+      "expected": {
+        "kind": "comparison",
+        "projects": [
+          "fulbright-focus-group-sponsored-by-openai",
+          "congressional-office-setup-100-day-report"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "comparison",
+            "layout": "project-compare",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai",
+              "congressional-office-setup-100-day-report"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparisons-41",
+      "group": "comparisons",
+      "question": "Put Isaac’s journalism and government AI research side by side.",
+      "expected": {
+        "kind": "comparison",
+        "projects": [
+          "senior-thesis-local-journalism",
+          "artificial-intelligence-in-state-government-index"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "comparison",
+            "layout": "project-compare",
+            "projectIds": [
+              "senior-thesis-local-journalism",
+              "artificial-intelligence-in-state-government-index"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "government-data-42",
+      "group": "government-data",
+      "question": "Compare Michigan and California on preparedness.",
+      "expected": {
+        "kind": "benchmark"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "benchmark",
+            "layout": "benchmark-compare",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [
+              "Michigan",
+              "California"
+            ],
+            "region": "All",
+            "metric": "preparednessScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "government-data-43",
+      "group": "government-data",
+      "question": "Show me the highest scoring governments in the AI benchmark.",
+      "expected": {
+        "kind": "benchmark"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "benchmark",
+            "layout": "benchmark-ranking",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "government-data-44",
+      "group": "government-data",
+      "question": "How does Washington compare with Oregon on AI adoption?",
+      "expected": {
+        "kind": "benchmark"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "benchmark",
+            "layout": "benchmark-compare",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [
+              "Washington",
+              "Oregon"
+            ],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "government-data-45",
+      "group": "government-data",
+      "question": "Show the Midwest’s government AI scores.",
+      "expected": {
+        "kind": "benchmark"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "benchmark",
+            "layout": "benchmark-ranking",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "Midwest",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "government-data-46",
+      "group": "government-data",
+      "question": "Which governments had published training programs in the benchmark?",
+      "expected": {
+        "kind": "benchmark"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "benchmark",
+            "layout": "benchmark-ranking",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "excluded-photos-47",
+      "group": "excluded-photos",
+      "question": "Show Taiwan photos.",
+      "expected": {
+        "ignore": true
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": true,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "excluded-photos-48",
+      "group": "excluded-photos",
+      "question": "Browse the Japan album.",
+      "expected": {
+        "ignore": true
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": true,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "excluded-photos-49",
+      "group": "excluded-photos",
+      "question": "I want to see Isaac’s photography.",
+      "expected": {
+        "ignore": true
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": true,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "excluded-photos-50",
+      "group": "excluded-photos",
+      "question": "Open the photo gallery.",
+      "expected": {
+        "ignore": true
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": true,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "excluded-utilities-51",
+      "group": "excluded-utilities",
+      "question": "Plan a lesson for the Taiwan classroom.",
+      "expected": {
+        "forbid": [
+          "workshop",
+          "photos"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 4,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "excluded-utilities-52",
+      "group": "excluded-utilities",
+      "question": "Generate feedback for my students.",
+      "expected": {
+        "forbid": [
+          "workshop",
+          "photos"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": "unmatched",
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "excluded-utilities-53",
+      "group": "excluded-utilities",
+      "question": "Help me practice Mandarin.",
+      "expected": {
+        "forbid": [
+          "workshop",
+          "photos"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": "unmatched",
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "excluded-utilities-54",
+      "group": "excluded-utilities",
+      "question": "Build a lesson planner using Isaac’s Taiwan methods.",
+      "expected": {
+        "forbid": [
+          "workshop",
+          "photos"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 4,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "excluded-utilities-55",
+      "group": "excluded-utilities",
+      "question": "Write a week of homework assignments for primary school.",
+      "expected": {
+        "forbid": [
+          "workshop",
+          "photos"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": "unmatched",
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "collection",
+            "layout": "project-index",
+            "projectIds": [],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "overview",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "taiwan-followup-56",
+      "group": "taiwan-followup",
+      "question": "What did he actually learn?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 4,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "angle": "reflection"
+          }
+        ]
+      }
+    },
+    {
+      "id": "taiwan-followup-57",
+      "group": "taiwan-followup",
+      "question": "How did he make that happen?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "taiwan-followup-58",
+      "group": "taiwan-followup",
+      "question": "What changed as a result?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 2,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "taiwan-followup-59",
+      "group": "taiwan-followup",
+      "question": "And what were the outcomes?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 2,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "taiwan-followup-60",
+      "group": "taiwan-followup",
+      "question": "Only show the outcomes.",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 2,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "taiwan-followup-61",
+      "group": "taiwan-followup",
+      "question": "What is the evidence for that?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-evidence",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "evidence",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "taiwan-followup-62",
+      "group": "taiwan-followup",
+      "question": "What would he do differently?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "angle": "counterfactual"
+          }
+        ]
+      }
+    },
+    {
+      "id": "taiwan-followup-63",
+      "group": "taiwan-followup",
+      "question": "Did it work?",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 4,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "angle": "measurement"
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparison-followup-64",
+      "group": "comparison-followup",
+      "question": "How do they compare on outcomes?",
+      "expected": {
+        "kind": "comparison",
+        "projects": [
+          "artificial-intelligence-in-state-government-index",
+          "fulbright-focus-group-sponsored-by-openai"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "comparison",
+            "layout": "project-compare",
+            "projectIds": [
+              "artificial-intelligence-in-state-government-index",
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparison-followup-65",
+      "group": "comparison-followup",
+      "question": "Tell me more about the latter.",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": true,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparison-followup-66",
+      "group": "comparison-followup",
+      "question": "Open the first project.",
+      "expected": {
+        "kind": "story",
+        "project": "artificial-intelligence-in-state-government-index"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-brief",
+            "projectIds": [
+              "artificial-intelligence-in-state-government-index"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparison-followup-67",
+      "group": "comparison-followup",
+      "question": "How were their methods different?",
+      "expected": {
+        "kind": "comparison",
+        "projects": [
+          "artificial-intelligence-in-state-government-index",
+          "fulbright-focus-group-sponsored-by-openai"
+        ]
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "comparison",
+            "layout": "project-compare",
+            "projectIds": [
+              "artificial-intelligence-in-state-government-index",
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "comparison-followup-68",
+      "group": "comparison-followup",
+      "question": "Show only the Taiwan one.",
+      "expected": {
+        "kind": "story",
+        "project": "fulbright-focus-group-sponsored-by-openai"
+      },
+      "ok": true,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-brief",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 0,
+            "focus": "role",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "same-project-comparison-69",
+      "group": "same-project-comparison",
+      "question": "Compare Atlas with Pulse.",
+      "expected": {
+        "multipleSections": true
+      },
+      "ok": false,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "openai-product-testing-and-feedback"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 4,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "same-project-comparison-70",
+      "group": "same-project-comparison",
+      "question": "Compare Study Mode and Group Chats.",
+      "expected": {
+        "multipleSections": true
+      },
+      "ok": false,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "openai-product-testing-and-feedback"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 2,
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "same-project-comparison-71",
+      "group": "same-project-comparison",
+      "question": "How do Isaac’s Atlas and Pulse lessons differ?",
+      "expected": {
+        "multipleSections": true
+      },
+      "ok": false,
+      "got": {
+        "guidance": null,
+        "ignored": false,
+        "valid": true,
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-outcomes",
+            "projectIds": [
+              "openai-product-testing-and-feedback"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 4,
+            "focus": "outcomes",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "angle": "reflection"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -145,6 +145,32 @@ describe("homepage generative interface", () => {
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
   });
 
+  it.each(['manual control','draft edit','clear and new request'] as const)('ignores delayed clipboard outcomes after %s',async change=>{
+    for(const outcome of ['success','failure'] as const){
+      let finish:()=>void=()=>{};
+      const writeText=vi.fn(()=>new Promise<void>((resolve,reject)=>{finish=()=>outcome==='success'?resolve():reject(new Error('Clipboard denied'));}));
+      vi.stubGlobal('navigator',Object.create(navigator,{clipboard:{value:{writeText},configurable:true}}));
+      vi.stubGlobal('fetch',vi.fn(async()=>success({configured:false})));
+      mount();const input=screen.getByRole('combobox',{name:'Explore'});
+      fireEvent.change(input,{target:{value:'Taiwan teaching'}});
+      await act(async()=>{fireEvent.submit(input.closest('form')!);});
+      fireEvent.click(screen.getByRole('button',{name:'Copy link to this view'}));
+      expect(writeText).toHaveBeenCalledTimes(1);
+      if(change==='manual control')fireEvent.click(screen.getByRole('button',{name:'Evidence',exact:true}));
+      else if(change==='draft edit')fireEvent.change(input,{target:{value:'unfinished question'}});
+      else{
+        fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
+        fireEvent.change(input,{target:{value:'Explore Isaac’s career'}});
+        await act(async()=>{fireEvent.submit(input.closest('form')!);});
+      }
+      await act(async()=>{finish();});
+      expect(screen.getByRole('button',{name:'Copy link to this view'})).toBeInTheDocument();
+      expect(screen.queryByRole('button',{name:'Link copied'})).not.toBeInTheDocument();
+      expect(screen.queryByText('Could not copy the link. Check clipboard permissions.')).not.toBeInTheDocument();
+      cleanup();
+    }
+  });
+
   it("cannot let an older server response replace a newer submitted view", async () => {
     let resolveOld: (data: unknown) => void;
     vi.stubGlobal("fetch", vi.fn(async (_url: string, options?: RequestInit) => {

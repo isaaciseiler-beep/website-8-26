@@ -1,0 +1,110 @@
+[
+  {
+    "width": 320,
+    "lens": "systems",
+    "aspect": "Contribution",
+    "status": "pass"
+  },
+  {
+    "width": 320,
+    "lens": "systems",
+    "aspect": "Process",
+    "status": "pass"
+  },
+  {
+    "width": 320,
+    "lens": "systems",
+    "aspect": "Outcomes",
+    "status": "pass"
+  },
+  {
+    "width": 320,
+    "lens": "listening",
+    "aspect": "Contribution",
+    "status": "pass"
+  },
+  {
+    "width": 320,
+    "lens": "listening",
+    "aspect": "Process",
+    "status": "pass"
+  },
+  {
+    "width": 320,
+    "lens": "listening",
+    "aspect": "Outcomes",
+    "status": "pass"
+  },
+  {
+    "width": 320,
+    "lens": "delivery",
+    "aspect": "Contribution",
+    "status": "pass"
+  },
+  {
+    "width": 320,
+    "lens": "delivery",
+    "aspect": "Process",
+    "status": "pass"
+  },
+  {
+    "width": 320,
+    "lens": "delivery",
+    "aspect": "Outcomes",
+    "status": "pass"
+  },
+  {
+    "width": 1440,
+    "lens": "systems",
+    "aspect": "Contribution",
+    "status": "pass"
+  },
+  {
+    "width": 1440,
+    "lens": "systems",
+    "aspect": "Process",
+    "status": "pass"
+  },
+  {
+    "width": 1440,
+    "lens": "systems",
+    "aspect": "Outcomes",
+    "status": "pass"
+  },
+  {
+    "width": 1440,
+    "lens": "listening",
+    "aspect": "Contribution",
+    "status": "pass"
+  },
+  {
+    "width": 1440,
+    "lens": "listening",
+    "aspect": "Process",
+    "status": "pass"
+  },
+  {
+    "width": 1440,
+    "lens": "listening",
+    "aspect": "Outcomes",
+    "status": "pass"
+  },
+  {
+    "width": 1440,
+    "lens": "delivery",
+    "aspect": "Contribution",
+    "status": "pass"
+  },
+  {
+    "width": 1440,
+    "lens": "delivery",
+    "aspect": "Process",
+    "status": "pass"
+  },
+  {
+    "width": 1440,
+    "lens": "delivery",
+    "aspect": "Outcomes",
+    "status": "pass"
+  }
+]

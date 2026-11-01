@@ -44,6 +44,11 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     await page.getByRole('combobox', { name: 'Benchmark measure' }).selectOption('preparednessScore');
     await expect(page.getByRole('article', { name: 'California score' })).toContainText('75.0');
     await page.getByRole('button', { name: 'Clear exploration' }).click();
+    if(reducedMotion==='no-preference') {
+      await expect(page.locator('.home-genui-reveal')).toHaveAttribute('aria-hidden','true');
+      await expect(page.locator('.home-genui-reveal')).toHaveAttribute('inert','');
+      await expect(page.locator('.home-genui-window')).toHaveClass(/has-results/);
+    }
     await expect(page.locator('.home-genui-stage')).toHaveCount(0);
     await expect(page.locator('.home-genui-window')).not.toHaveClass(/has-results/);
     await contained();
@@ -52,15 +57,19 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     await expect(page.getByRole('heading', { name: 'AI literacy in Taiwan', exact: true })).toBeVisible();
     await page.getByRole('button', { name: 'Process', exact: true }).click();
     await page.getByRole('button', { name: 'Outcomes', exact: true }).click();
-    await page.getByRole('button', { name: 'Back', exact: true }).click();
-    await expect(page.getByRole('button', { name: 'Process', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await page.setViewportSize({ width: width === 320 ? 375 : 1280, height: 900 });
+    await expect(page.getByRole('button', { name: 'Outcomes', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await expect.poll(async () => page.locator('.home-genui-reveal').evaluate(el => {
+      const content=el.querySelector('.home-genui-reveal-content');
+      return content ? Math.abs(el.getBoundingClientRect().height-content.getBoundingClientRect().height) : Infinity;
+    })).toBeLessThan(2);
     await contained();
     // Preference changes apply without a reload.
     await page.emulateMedia({ reducedMotion: reducedMotion === 'reduce' ? 'no-preference' : 'reduce' });
     await page.getByRole('button', { name: 'Clear exploration' }).click();
     await expect(page.locator('.home-genui-stage')).toHaveCount(0);
     await page.getByRole('button', { name: 'Toggle menu', exact: true }).click();
-    await page.getByRole('button', { name: 'Work', exact: true }).click();
+    await page.getByRole('link', { name: 'Work', exact: true }).or(page.getByRole('button', { name: 'Work', exact: true })).click();
     await page.waitForURL('**/work');
     await expect(page.locator('.work-grid')).toBeVisible();
     await page.locator('.work-story a').first().focus();
@@ -72,7 +81,7 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
 
 test('photo viewer holds its image, supports rapid navigation, and restores focus', async ({ page }) => {
   await page.goto('/');
-  const album = page.getByRole('button', { name: /^Open .* album$/ }).first();
+  const album = page.getByRole('link', { name: /^Open .* album$/ }).or(page.getByRole('button', { name: /^Open .* album$/ })).first();
   await album.click();
   const photo = page.getByRole('button', { name: /^Open .* photograph 1$/ });
   await photo.click();

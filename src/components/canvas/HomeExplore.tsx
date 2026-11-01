@@ -234,7 +234,12 @@ export default function HomeExplore() {
     },
     travel:({direction,expectedRevision})=>{if(expectedRevision!==revision.current)throw new Error('The view changed. Read it again before navigating.');flushSync(()=>navigateHistory(direction));return browserControls.current!.inspect();},
   };
-  const shareView=async()=>{if(!current.current)return;try{await navigator.clipboard.writeText(viewUrl(createPortableView(current.current.composition),window.location.origin));setShareStatus('copied');}catch{setShareStatus('failed');}};
+  const shareView=async()=>{
+    const sharedView=current.current;const sharedRevision=revision.current;if(!sharedView)return;
+    const stillCurrent=()=>current.current===sharedView&&revision.current===sharedRevision;
+    try{await navigator.clipboard.writeText(viewUrl(createPortableView(sharedView.composition),window.location.origin));if(stillCurrent())setShareStatus('copied');}
+    catch{if(stillCurrent())setShareStatus('failed');}
+  };
   const recessActive=composerHovered||explorationFocused||Boolean(view||guidance)||busy;
   return <section id="home-genui" className={`home-genui photos-shell${!view?' is-idle':''}`} aria-label="Interactive exploration">
     <div className={`home-genui-window${view||heldExpanded?' has-results':guidance?' has-guidance':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
