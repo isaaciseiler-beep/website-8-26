@@ -89,7 +89,7 @@ describe('answer usefulness before expanding reading',()=>{
     const roles=screen.getByRole('navigation',{name:'Professional roles'});
     expect(within(roles).getAllByRole('button')).toHaveLength(3);
     fireEvent.click(within(roles).getByRole('button',{name:'Teaching teams'}));
-    expect(screen.getByText(/managed a teaching team of 12/)).toBeVisible();
+    expect(within(screen.getByRole('article')).getByText(/managed a teaching team of 12/)).toBeVisible();
   });
   it('offers focused career paths without résumé filtering or metadata',()=>{
     render(<Harness initial={composeLocal('Explore Isaac’s career',initialPlan())}/>);
@@ -99,7 +99,7 @@ describe('answer usefulness before expanding reading',()=>{
     expect(within(roles).getAllByRole('button')).toHaveLength(5);
     fireEvent.click(within(roles).getByRole('button',{name:'Teaching in Taiwan'}));
     expect(screen.getByRole('heading',{name:'Designing around educators’ real work'})).toBeVisible();
-    expect(screen.getByText(/Participant questions changed what I emphasized/)).toBeVisible();
+    expect(screen.getByText(/Participant questions changed what he emphasized/)).toBeVisible();
     fireEvent.click(screen.getByRole('button',{name:'Explore the work',exact:true}));
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeVisible();
     expect(screen.queryByText('Program proposer, designer & facilitator')).not.toBeInTheDocument();

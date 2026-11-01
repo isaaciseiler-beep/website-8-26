@@ -347,3 +347,10 @@
   .photo-location-ticker{bottom:calc(env(safe-area-inset-bottom) + 12px);}
   .photo-location-ticker .pill-tab{min-height:44px;}
 }
+
+/* Primary answers precede optional examples, including on narrow panes. */
+.home-genui-stage .portfolio-answer{margin-top:var(--space-l);max-width:68ch;font-size:var(--size-m);line-height:var(--line-m);}
+.portfolio-chronology{list-style:none;padding:0;margin:var(--space-xl) 0 0;display:grid;gap:var(--space-l);}
+.portfolio-chronology li{display:grid;grid-template-columns:minmax(100px,.6fr) minmax(0,1.4fr);gap:var(--space-l);}
+.portfolio-chronology li>span{font-size:var(--size-xs);line-height:var(--line-s);}
+@media(max-width:640px){.portfolio-career.has-answer .portfolio-career-detail{order:-1;}.portfolio-chronology li{grid-template-columns:1fr;gap:var(--space-xs);}}

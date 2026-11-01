@@ -1,3 +1,4 @@
+import { careerAnswers } from '@/lib/careerAnswers';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import { publicProjects, experienceEntries } from '@/lib/canvas';
 import { blankBlock, type CanvasBlock } from '@/lib/genui';
@@ -17,7 +18,7 @@ export function ProjectStory({ block, onChange }: Props) {
   const focus = block.focus && block.focus !== 'overview' ? block.focus : block.layout === 'project-process' ? 'process' : block.layout === 'project-outcomes' ? 'outcomes' : block.layout === 'project-evidence' ? 'evidence' : 'role';
   const available = evidenceSections(record.project.id, focus);
   const requested = evidenceSections(record.project.id, 'overview').find(section => section.index === block.section);
-  const sections = requested && !available.some(section => section.index === requested.index) ? [...available, requested] : available;
+  const sections = block.angle && requested && !available.some(section => section.index === requested.index) ? [...available, requested] : available;
   const active = sections.find(section => section.index === block.section) ?? sections[0];
   const matched = sections.filter(section => [section.heading, ...section.paragraphs ?? [], ...section.bullets ?? []].join(' ').toLowerCase().includes((block.search ?? '').toLowerCase()));
   const angleAnswer=projectAngleAnswer(record.project.id,block.angle);
@@ -97,18 +98,21 @@ const careerPaths: Record<string, {label:string;title:string}> = {
 };
 
 export function CareerExplorer({ block, onChange }: Props) {
-  const roleIds=block.angle==='leadership'?['fulbright-taiwan','us-house','washu-head-ta']:block.section===2?['us-house','csg-ai-index','fulbright-taiwan','scholten-campaign']:block.section===1?['csg-ai-index','fulbright-taiwan','us-house','summation-ai']:['summation-ai','fulbright-taiwan','csg-ai-index','us-house','openai-chatgpt-lab'];
+  const answer=block.answerId?careerAnswers[block.answerId]:undefined;
+  const roleIds=answer?.roles??(block.angle==='leadership'?['fulbright-taiwan','us-house','washu-head-ta']:block.section===2?['us-house','csg-ai-index','fulbright-taiwan','scholten-campaign']:block.section===1?['csg-ai-index','fulbright-taiwan','us-house','summation-ai']:['summation-ai','fulbright-taiwan','csg-ai-index','us-house','openai-chatgpt-lab']);
   // A specifically requested role remains reachable without turning this into a résumé index.
   const ids=block.roleId&&!roleIds.includes(block.roleId)?[...roleIds,block.roleId]:roleIds;
   const entries=ids.flatMap(id=>experienceEntries.filter(entry=>entry.id===id));
   const active=entries.find(entry=>entry.id===block.roleId)??entries[0];
   const record=active?.projectIds.map(evidenceFor).find(Boolean);
-  const paragraphs=record?[record.contribution,record.practice]:active?.paragraphs??[];
-  return <section className="portfolio-career" aria-label="Role explorer">
-    <h2>{block.angle==='leadership'?'Leadership in practice':block.section===1?'Strengths across the work':block.section===2?'Public service':'Career & experience'}</h2>
-    <div className="portfolio-career-explorer">
+  const paragraphs=record?[record.contribution,record.practice]:active?.id==='summation-ai'?[careerAnswers.current.answer]:active?.id==='washu-head-ta'?['Isaac managed a teaching team of 12, coordinating course delivery and supporting students.']:active?.paragraphs??[];
+  if(block.answerId==='chronology')return <section className="portfolio-career" aria-label="Career timeline"><h2>{answer!.title}</h2><p className="portfolio-answer">{answer!.answer}</p><ol className="portfolio-chronology">{entries.map(entry=><li key={entry.id}><span>{entry.period}</span><div><h3>{entry.organization}</h3><p>{entry.role}</p></div></li>)}</ol></section>;
+  return <section className={`portfolio-career${answer?' has-answer':''}`}  aria-label="Role explorer">
+    <h2>{answer?.title??(block.angle==='leadership'?'Leadership in practice':block.section===1?'Strengths across the work':block.section===2?'Public service':'Career & experience')}</h2>
+    {answer&&<p className="portfolio-answer">{answer.answer}</p>}
+    {block.answerId!=='current'&&<div className="portfolio-career-explorer">
       <div className="portfolio-career-nav"><nav aria-label="Professional roles">{entries.map(entry=><button key={entry.id} aria-pressed={active?.id===entry.id} onClick={()=>onChange({...block,roleId:entry.id,search:undefined})}><strong>{careerPaths[entry.id]?.label??entry.organization}</strong></button>)}</nav></div>
       {active&&<article className="portfolio-career-detail"><h3>{careerPaths[active.id]?.title??active.role}</h3>{paragraphs.map(text=><p key={text}>{text}</p>)}{record&&<button className="portfolio-inline-action" onClick={()=>onChange({...blankBlock('story'),projectIds:[record.project.id],focus:'process',layout:'project-process',section:record.processSections[0]??0})}>Explore the work<ArrowUpRight size={15} aria-hidden="true"/></button>}</article>}
-    </div>
+    </div>}
   </section>;
 }

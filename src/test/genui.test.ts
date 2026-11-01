@@ -51,7 +51,7 @@ describe('interactive composition contracts',()=>{
     const previous=compose('Compare Michigan and California');
     expect(composeLocal('only Midwest',initialPlan(),previous).blocks[0]).toMatchObject({kind:'benchmark',region:'Midwest',states:['Michigan']});
   });
-  it.each(['Tell me about yourself','Why should I hire Isaac?','What is Isaac working on now?'])('offers factual experience for a first-time visitor: %s',prompt=>{
+  it.each(['Tell me about yourself','What is Isaac working on now?'])('offers factual experience for a first-time visitor: %s',prompt=>{
     expect(compose(prompt).blocks[0]).toMatchObject({kind:'timeline',roleId:'summation-ai'});
   });
   it('returns from a state comparison to the requested overview without resetting the measure',()=>{

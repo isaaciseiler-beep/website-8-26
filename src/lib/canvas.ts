@@ -3,7 +3,7 @@ import { albums, albumPhotos } from "./photoAlbums.js";
 import { experienceEntries } from "./experience.js";
 import { SITE_URL, SITE_DESCRIPTION, PROFILE_SUMMARY, PROFILE_EXPERTISE, CONTACT_MAILTO, LINKEDIN_URL, GITHUB_URL } from "./site.js";
 
-export const CONTENT_VERSION = "canvas-2026-10-31-v10";
+export const CONTENT_VERSION = "canvas-2026-11-01-v11";
 export const publicProjects = projectItems.filter(p => !hiddenProjectIds.has(p.id));
 export const publicProfile = { id: "isaac-seiler", name: "Isaac Seiler", headline: "Tech generalist", description: SITE_DESCRIPTION, summary: PROFILE_SUMMARY, expertise: PROFILE_EXPERTISE, bio: bioLines, location: "Seattle", canonicalUrl: `${SITE_URL}/about`, links: { contact: CONTACT_MAILTO, linkedin: LINKEDIN_URL, github: GITHUB_URL }, contentVersion: CONTENT_VERSION };
 export const projectSources = (id: string) => publicProjects.find(p => p.id === id)?.sections.flatMap(s => s.links ?? []) ?? [];

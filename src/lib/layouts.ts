@@ -31,8 +31,8 @@ const ALL_LAYOUTS: readonly LayoutDefinition[] = [
   define('project-evidence','story','Evidence notebook','Search the published sections of one project in place.','Explore Taiwan project evidence'),
   define('project-compare','comparison','Project comparison','Compare two projects by overview, process or outcomes.','Compare AI policy and Taiwan teaching'),
   define('project-index','collection','Work explorer','A compact searchable project list opening interactive briefs.','Explore all projects'),
-  define('experience-timeline','timeline','Career timeline','Chronological professional experience with filters.','Show your career timeline'),
-  define('experience-roles','timeline','Role explorer','Filter roles and inspect their published responsibilities.','Explore your professional roles'),
+  define('experience-timeline','timeline','Career timeline','Selected published roles in chronological order.','Show your career timeline'),
+  define('experience-roles','timeline','Role explorer','Explore focused examples of professional responsibilities.','Explore your professional roles'),
   define('site-pipeline','architecture','Live pipeline','Inspect how the current request was routed and composed.','How does this site work?'),
   define('contact-card','contact','Contact','Public contact methods and a working email action.','How can I contact you?'),
 ];

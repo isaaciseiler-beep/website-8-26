@@ -1,13 +1,16 @@
+import { careerAnswerFor } from './careerAnswers.js';
 /** Authored questions backed by the same published portfolio records as Explore. */
 type Topic='career'|'taiwan'|'congress'|'policy'|'journalism'|'rebrand'|'openai'|'contact'|'work';
 type Aspect='overview'|'role'|'process'|'outcomes'|'lessons'|'measurement'|'tradeoffs'|'leadership'|'strengths'|'service'|'comparison';
 export type ExperiencePrompt={id:string;text:string;keywords:string;topics:readonly Topic[];aspect:Aspect};
-export type SuggestionContext={projectIds:readonly string[];kind?:string;focus?:string};
+export type SuggestionContext={projectIds:readonly string[];kind?:string;focus?:string;answerId?:string;angle?:string;section?:number;question?:string;visitedQuestions?:readonly string[]};
 export const experiencePrompts:readonly ExperiencePrompt[]=[
   {id:'career',text:'Walk me through Isaac’s experience',keywords:'background biography resume cv journey qualifications who about yourself',topics:['career'],aspect:'overview'},
   {id:'taiwan',text:'What did Isaac build in Taiwan?',keywords:'fulbright teachers teaching workshop classroom learning asia',topics:['taiwan'],aspect:'role'},
   {id:'congress',text:'What was Isaac’s role in Congress?',keywords:'scholten politics washington communications',topics:['congress'],aspect:'role'},
   {id:'policy',text:'How did Isaac research AI in government?',keywords:'benchmark index artificial intelligence mapping analysis data methodology',topics:['policy'],aspect:'process'},
+  {id:'policy-role',text:'What did Isaac contribute to the government AI benchmark?',keywords:'ownership personally contribution role research index',topics:['policy'],aspect:'role'},
+  {id:'policy-outcomes',text:'What were the outcomes of Isaac’s government AI research?',keywords:'outputs results roadmap recommendations',topics:['policy'],aspect:'outcomes'},
   {id:'strengths',text:'What are Isaac’s strongest skills?',keywords:'strength strengths skills good well hiring hire qualifications',topics:['career'],aspect:'strengths'},
   {id:'service',text:'Tell me about Isaac’s public service',keywords:'government politics community service',topics:['career'],aspect:'service'},
   {id:'leadership',text:'Which work demonstrates Isaac’s leadership?',keywords:'lead led leading manage management team ownership',topics:['career'],aspect:'leadership'},
@@ -90,8 +93,17 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
   if(!explicit&&context&&(aspect||!tokens.length))topics=[...new Set(context.projectIds.map(id=>projectTopics[id]).filter(Boolean))];
   if(!topics.length&&context?.kind==='timeline'&&(aspect||!tokens.length))topics=['career'];
   if(!tokens.length&&!topics.length)return startingExperiencePrompts.slice(0,count);
+  const answered=new Set((context?.visitedQuestions??[]).map(normalize));
+  if(context?.question)answered.add(normalize(context.question));
+  const alreadyAnswered=(item:ExperiencePrompt)=>{
+    if(answered.has(normalize(item.text)))return true;
+    if(context?.answerId&&item.topics.includes('career')&&careerAnswerFor(item.text)===context.answerId)return true;
+    if(context?.projectIds.includes('fulbright-focus-group-sponsored-by-openai')&&context.section===4&&item.id==='taiwan-lessons')return true;
+    if(context?.projectIds.includes('openai-product-testing-and-feedback')){const sectionPrompts:Record<number,string>={1:'100-chats',2:'study-mode',4:'pulse',5:'atlas',6:'group-chats',7:'openai-lessons'};if(item.id===sectionPrompts[context.section??-1])return true;}
+    return false;
+  };
   if(!tokens.length&&topics.length){
-    const next=compiled.filter(({item})=>item.topics.length===1&&item.topics.some(topic=>topics.includes(topic))&&item.aspect!==context?.focus);
+    const next=compiled.filter(({item})=>!alreadyAnswered(item)).filter(({item})=>item.topics.length===1&&item.topics.some(topic=>topics.includes(topic))&&item.aspect!==context?.focus);
     return next.sort((a,b)=>Number(b.item.aspect==='lessons')-Number(a.item.aspect==='lessons')).slice(0,count).map(row=>row.item);
   }
   const ranked=compiled.flatMap(({item,title,aliases},index)=>{

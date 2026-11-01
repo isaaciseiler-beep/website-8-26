@@ -1,12 +1,13 @@
+import { careerAnswerFor } from './careerAnswers.js';
 import { portfolioCatalog } from './portfolioEvidence.js';
 import type { EvidenceFocus } from './portfolioEvidence.js';
 
 export const POLICY_ID = 'artificial-intelligence-in-state-government-index';
 export const TAIWAN_ID = 'fulbright-focus-group-sponsored-by-openai';
-export const portfolioAngles = ['leadership', 'tradeoffs', 'measurement'] as const;
+export const portfolioAngles = ['leadership', 'tradeoffs', 'measurement', 'reflection', 'counterfactual'] as const;
 export type PortfolioAngle = typeof portfolioAngles[number];
 export function requestedAngle(text:string):PortfolioAngle|undefined {
-  return /\blead(?:ership|ing)|\bled\b/i.test(text)?'leadership':/\btrade.?offs?|\bcompromises?|\bchallenges?|\blimitations?|\bdecisions?\b/i.test(text)?'tradeoffs':/\bmeasur|\bevaluat|\bsuccess|whether.*work|^did .*\bwork\b/i.test(text)?'measurement':undefined;
+  return /differently|would.*change|do over/i.test(text)?'counterfactual':/learn|lessons|takeaways/i.test(text)?'reflection':/\blead(?:ership|ing)|\bled\b/i.test(text)?'leadership':/\btrade.?offs?|\bcompromises?|\bchallenges?|\bfailures?|\blimitations?|\bdecisions?\b/i.test(text)?'tradeoffs':/\bmeasur|\bevaluat|\bsuccess|whether.*work|^did .*\bwork\b/i.test(text)?'measurement':undefined;
 }
 export type PortfolioTask = 'story' | 'benchmark' | 'comparison' | 'timeline' | 'architecture' | 'contact' | 'collection' | 'unknown';
 export type PortfolioInterpretation = { task: PortfolioTask; projectIds: string[]; focus: EvidenceFocus; roleId?: string; followup: boolean; explicit: boolean };
@@ -46,6 +47,7 @@ export function interpretPortfolioRequest(text: string, previous: { projectIds?:
   if (/\b(?:contact|email|linkedin|github)\b|\breach (?:isaac|you|him|out)\b|\bconnect (?:with|to) (?:isaac|you|him)\b/i.test(q)) return result('contact');
   if (/\b(?:site|website|interface)\b.*\b(?:works?|built|architecture|pipeline|made)\b|\b(?:architecture|source code|live pipeline)\b|^how this works[?!.]*$/i.test(q)) return result('architecture');
   if (/\b(?:compare|comparison|contrast|versus|side.by.side)\b|\bvs\b/i.test(q) && (projectIds.length >= 2 || (followup && (previous.projectIds?.length ?? 0) >= 2))) return result('comparison', projectIds.length >= 2 ? projectIds.slice(0, 2) : previous.projectIds!.slice(0, 2));
+  if (!projectIds.length && careerAnswerFor(q)) return result('timeline', [], {roleId:/public service/i.test(q)?'us-house':/summation|current|working on|\bnow\b/i.test(q)?'summation-ai':undefined});
   if (!projectIds.length && /\b(?:career|experience|background|biography|resume|qualifications|strengths|skills|leadership|hir(?:e|ing)|public service|current role|current work|summation|professional roles|responsibilities)\b|\bwho (?:is|are)\b|\bwhat connects\b|\bwhat (?:do|does)\b.*\bdo\b|\btell me about (?:yourself|isaac|him)\b|\bwhat (?:is|are)\b.*\b(?:working on|good at)\b|\btruman\b|\brhodes\b/i.test(q)) return result('timeline', [], { roleId: /public service/i.test(q) ? 'us-house' : /summation|current|\bnow\b/i.test(q) ? 'summation-ai' : undefined });
   if (/^(?:show |rank |list |explore )?(?:all )?governments[.!?]*$/i.test(q)) return result('benchmark', [POLICY_ID]);
   if (/^(?:(?:show|browse|explore|see|view|tell me about)\s+)?(?:me\s+)?(?:all\s+)?(?:your\s+|isaac[’']?s\s+)?(?:work|projects|portfolio|ai work)[.!?]*$/i.test(q) || /all projects|project index|work explorer/i.test(q)) return result('collection', []);

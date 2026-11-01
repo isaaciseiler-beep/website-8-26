@@ -1,3 +1,4 @@
+import { careerAnswerIds, careerAnswerFor, careerAnswers } from './careerAnswers.js';
 import { z } from 'zod';
 import { albums, publicProjects, localPlan, type Plan } from './canvas.js';
 import { aiIndexStates } from './aiStateGovIndex.js';
@@ -17,6 +18,7 @@ export const blockSchema = z.object({
   section: z.number().int().min(0).max(2000),
   focus: z.enum(evidenceFocuses).optional(),
   angle: z.enum(portfolioAngles).optional(),
+  answerId: z.enum(careerAnswerIds).optional(),
   roleId: z.string().max(80).optional(),
   search: z.string().max(120).optional(),
   expanded: z.boolean().optional(),
@@ -52,6 +54,7 @@ export function validateComposition(value: unknown): Composition | null {
     if (b.layout && layoutDefinition(b.layout).kind !== b.kind) return null;
     if (b.layout === 'benchmark-compare' && b.states.length !== 2) return null;
     if (b.layout === 'benchmark-scorecard' && b.states.length !== 1) return null;
+    if (b.answerId && b.kind !== 'timeline') return null;
     if (b.roleId && !experienceEntries.some(entry => entry.id === b.roleId)) return null;
     if (b.projectIds.some(id=>!publicProjects.some(p=>p.id===id)) || b.albumIds.some(id=>!albums.some(a=>a.folder===id)) || b.states.some(name=>!aiIndexStates.some(s=>s.state===name))) return null;
     if (b.kind === 'comparison' && (b.projectIds.length !== 2 || new Set(b.projectIds).size !== 2)) return null;
@@ -107,6 +110,12 @@ export function withLayout(block:CanvasBlock, layout:LayoutId):CanvasBlock {
   if(kind==='workshop'){next.projectIds=[TAIWAN_ID];next.section=['teaching-lesson','teaching-feedback','teaching-language','teaching-sequence'].indexOf(layout);}
   if(layout==='benchmark-scorecard')next.states=next.states.slice(0,1);
   if(kind==='benchmark' && ['benchmark-ranking','benchmark-regions','benchmark-distribution'].includes(layout))next.states=[];
+  if(kind==='story'){
+    const focus=layout==='project-process'?'process':layout==='project-outcomes'?'outcomes':layout==='project-evidence'?'evidence':'role';
+    next.focus=focus;
+    const sections=evidenceSections(next.projectIds[0],focus);
+    if(!sections.some(section=>section.index===next.section))next.section=sections[0]?.index??0;
+  }
   return next;
 }
 
@@ -200,7 +209,16 @@ export function composeLocal(text:string,plan:Plan,previous?:Composition|null):C
   }
   if(interpreted.task==='timeline') {
     const old=previous?.blocks.find(b=>b.kind==='timeline');
-    return {blocks:[{...blankBlock('timeline'),...old,layout:/roles|responsibilities|current|summation|strengths|who (?:is|are)/i.test(text)?'experience-roles':'experience-timeline',focus:interpreted.focus,angle:requestedAngle(text)??(interpreted.followup?old?.angle:undefined),section:/strengths|skills|good at|do well|does well|best at|what connects|hire|hiring|leadership/i.test(text)?1:/public service/i.test(text)?2:interpreted.followup?old?.section??0:0,roleId:interpreted.roleId??(interpreted.followup?old?.roleId:undefined)??(requestedAngle(text)==='leadership'?'fulbright-taiwan':/strengths|skills|good at|do well|does well|best at|what connects/i.test(text)?'csg-ai-index':'summation-ai')}]};
+    const answerId=careerAnswerFor(text)??(interpreted.followup?old?.answerId:undefined);
+    const roleId=interpreted.roleId??(interpreted.followup?old?.roleId:undefined)
+      ??(answerId?careerAnswers[answerId].roles[0]:'summation-ai');
+    return {blocks:[{
+      ...blankBlock('timeline'),...(interpreted.followup?old:{}),answerId,roleId,
+      layout:answerId==='chronology'||!answerId&&!/roles|responsibilities/i.test(text)?'experience-timeline':'experience-roles',
+      focus:interpreted.focus,
+      angle:requestedAngle(text)??(interpreted.followup?old?.angle:undefined),
+      section:answerId==='service'?2:answerId&&['strengths','connections','leadership'].includes(answerId)?1:interpreted.followup?old?.section??0:0,
+    }]};
   }
   return {blocks:[blankBlock(interpreted.task)]};
 }
@@ -209,7 +227,8 @@ export function presetComposition(id:LayoutId):Composition {
   const block=withLayout(blankBlock(definition.kind),id);
   if(block.kind==='benchmark')block.states=id==='benchmark-compare'?['Michigan','California']:['benchmark-scorecard','benchmark-criteria'].includes(id)?['Michigan']:[];
   if(block.kind==='photos')block.albumIds=[albums.find(a=>a.folder==='Japan')?.folder??albums[0].folder];
-  if(block.kind==='story')block.projectIds=[TAIWAN_ID];
+  if(block.kind==='story'){block.projectIds=[TAIWAN_ID];return {blocks:[withLayout(block,id)]};}
+  if(id==='experience-timeline')block.answerId='chronology';
   if(block.kind==='comparison')block.projectIds=[POLICY_ID,TAIWAN_ID];
   if(block.kind==='collection')block.projectIds=publicProjects.slice(0,3).map(p=>p.id);
   return {blocks:[block]};
