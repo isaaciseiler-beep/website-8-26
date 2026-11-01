@@ -43,7 +43,7 @@ export const experiencePrompts:readonly ExperiencePrompt[]=[
 const byId=new Map(experiencePrompts.map(item=>[item.id,item]));
 export const startingExperiencePrompts=['policy','taiwan','congress','career'].map(id=>byId.get(id)!);
 const normalize=(text:string)=>text.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
-const stop=new Set('a an the i me my you your yours he his him they their it its isaac seiler tell show about what how did do does can could would is are was were in on of to for through please with and from this that actually'.split(' '));
+const stop=new Set('a an the i me my you your yours he his him they their it its isaac seiler tell show about what how did do does can could would is are was were in on at of to for through please with and from this that actually'.split(' '));
 /** One insertion/deletion/substitution or adjacent transposition, bounded to meaningful words. */
 function near(a:string,b:string):boolean {
   if(a.length<4||b.length<4||Math.abs(a.length-b.length)>1)return false;
@@ -69,7 +69,7 @@ function queryAspect(query:string):Aspect|undefined {
   if(/\bcompar|\bversus\b|\bvs\b/.test(query))return 'comparison';
   if(/\bpublic service\b/.test(query))return 'service';
   if(/\bleader|\bmanage|\bled\b/.test(query))return 'leadership';
-  if(/\bstrength|\bskills?|\bgood at|\bdo well|\bhir/.test(query))return 'strengths';
+  if(/\bstrength|\bskills?|\bgood at|\bbest at|\bbring to (?:a|the) team|\bdo well|\bhir/.test(query))return 'strengths';
   if(/\bmeasur|\bevaluat|\bsuccess|\bassess/.test(query))return 'measurement';
   if(/\btrade.?off|\bchallenge|\blimitation|\bcompromise|\bdecision/.test(query))return 'tradeoffs';
   if(/\blearn|\blesson|\breflection|\btakeaway/.test(query))return 'lessons';
@@ -88,6 +88,7 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
   if(/study mode|group chats|100 chats/.test(normalized)&&!topics.includes('openai'))topics.push('openai');
   // Public service describes the career, rather than a particular government project.
   if(aspect==='service'&&(!topics.length||topics.every(topic=>topic==='policy'||topic==='career')))topics=['career'];
+  if(!topics.length&&['strengths','leadership','service'].includes(aspect??''))topics=['career'];
   if(/100 days?|100 day report/.test(normalized)&&!topics.includes('congress'))topics.push('congress');
   const explicit=topics.length>0;
   if(!explicit&&context&&(aspect||!tokens.length))topics=[...new Set(context.projectIds.map(id=>projectTopics[id]).filter(Boolean))];

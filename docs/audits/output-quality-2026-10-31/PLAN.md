@@ -153,3 +153,16 @@ Only after that gate should a separately authorized release be deployed and chec
 ## Recommended first work package
 
 Implement Phase 1 plus one complete strengths/connections experience from Phase 2. That would immediately fix the largest gap between what the input promises and what the result delivers. Validate its follow-ups and mobile composition before generalizing the pattern to the remaining outputs. Keep the current visual restraint throughout.
+
+## Implemented first package — October 31
+
+- Added reviewed direct answers for strengths, connections, leadership, public service, identity, current work, and explicit chronology; examples now support the answer rather than substituting for it.
+- Normalized story preset focus/section selection and verified Taiwan Outcomes starts with published use cases.
+- Added evidence-gap responses for undocumented retrospectives, failures, and causal measurement. This does not create missing evidence.
+- Extended suggestions with selected section, semantic answer, current question, and recent question history. Added government contribution/outcome destinations and corrected “best at” matching Atlas.
+- Put the main career answer before secondary navigation on narrow screens. At 390×844 its top is approximately 407px, versus approximately 627px in the initial audit; document width and scroll width both 390px.
+- Converted reviewed project summaries to third person. Original case-study excerpts retain their authored voice; a complete separation of assistant summaries from reading excerpts remains future work.
+- Added rendered answer regressions, paraphrases, evidence-gap checks, and contextual suggestion tests. Current suite: 290 passing tests across 32 files. Build, lint, and typecheck pass.
+- Browser checked strengths, interactive Taiwan drill-down and Outcomes, a Michigan/California comparison, clear, album opening, desktop/narrow rendering, and light/dark appearance. Restored dark mode and desktop viewport. Evidence: `strengths-improved-desktop.png`, `strengths-improved-mobile.png`.
+
+These checks establish local authored behavior. The preview reports AI unavailable; real Jev/Mistral response quality, production behavior, full mobile-device motion/virtual-keyboard qualification, every comparison pair, and the comprehensive editorial release gate above are not established by this package. No release was requested here.

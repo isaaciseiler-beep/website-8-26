@@ -36,6 +36,8 @@ describe('suggestion relevance and useful next questions',()=>{
     ['public service','service'],
     ['leadership','leadership'],
     ['strongest skills','strengths'],
+    ['What is Isaac best at?','strengths'],
+    ['What would Isaac bring to a team?','strengths'],
     ['current job','current'],
     ['study mode feedback','study-mode'],
     ['pulse','pulse'],
