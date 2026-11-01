@@ -1,0 +1,114 @@
+[
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "benchmark-ranking",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "benchmark-scorecard",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "benchmark-compare",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "benchmark-regions",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "benchmark-distribution",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "benchmark-criteria",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "project-brief",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "project-process",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "project-outcomes",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "project-evidence",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "project-compare",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "project-index",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "experience-timeline",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "experience-roles",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "site-pipeline",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  },
+  {
+    "heading": "rgb(255, 255, 255)",
+    "layout": "contact-card",
+    "overflow": 0,
+    "panel": "rgb(20, 20, 20)",
+    "unnamedButtons": 0
+  }
+]

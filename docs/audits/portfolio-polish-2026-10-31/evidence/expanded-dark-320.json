@@ -1,0 +1,98 @@
+[
+  {
+    "layout": "benchmark-ranking",
+    "opened": 0,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "benchmark-scorecard",
+    "opened": 2,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "benchmark-compare",
+    "opened": 2,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "benchmark-regions",
+    "opened": 1,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "benchmark-distribution",
+    "opened": 1,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "benchmark-criteria",
+    "opened": 2,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "project-brief",
+    "opened": 2,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "project-process",
+    "opened": 3,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "project-outcomes",
+    "opened": 3,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "project-evidence",
+    "opened": 8,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "project-compare",
+    "opened": 2,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "project-index",
+    "opened": 1,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "experience-timeline",
+    "opened": 1,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "experience-roles",
+    "opened": 1,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "site-pipeline",
+    "opened": 1,
+    "pageOverflow": 0,
+    "wide": []
+  },
+  {
+    "layout": "contact-card",
+    "opened": 1,
+    "pageOverflow": 0,
+    "wide": []
+  }
+]

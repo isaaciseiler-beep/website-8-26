@@ -47,6 +47,7 @@ export default function WorkPage() {
         transition={navigationMotion}
       >
         <main className="work-page photos-shell" aria-label="Work">
+          <h1 className="sr-only">Work</h1>
           <div className="work-grid">
             {rows.map((row, rowIndex) => (
               <div className={`work-row${rowIndex % 2 ? ' work-row--reverse' : ''}`} key={row[0].id}>

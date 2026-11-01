@@ -1,12 +1,11 @@
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { musicAlbums } from "@/lib/musicAlbums";
-import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";
 import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
 const EASE_TEXT = MOTION_EASE;
@@ -18,16 +17,6 @@ const MusicPage = () => {
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
 
-  useEffect(() => {
-    const [firstAlbum, ...remainingAlbums] = musicAlbums.map((release) => release.image);
-    if (firstAlbum) void preloadImage(firstAlbum, { decode: true, fetchPriority: "high", linkPreload: true });
-    scheduleImagePreloads(remainingAlbums, {
-      batchSize: isMobile ? 2 : 4,
-      decode: false,
-      fetchPriority: "low",
-      idleTimeout: 900,
-    });
-  }, [isMobile]);
 
   const handleSidebarToggle = () => {
     setSearchOpen(false);
@@ -62,7 +51,7 @@ const MusicPage = () => {
         }}
         transition={navigationMotion}
       >
-        <main className="music-page-shell">
+        <main className="music-page-shell photos-shell">
           <motion.h1
             className="music-page-title"
             initial={false}
@@ -92,7 +81,7 @@ const MusicPage = () => {
                 <img
                   src={release.image}
                   alt=""
-                  loading={index < 6 ? "eager" : "lazy"}
+                  loading={index < 2 ? "eager" : "lazy"}
                   decoding="async"
                 />
                 <span className="music-album-overlay" aria-hidden="true">

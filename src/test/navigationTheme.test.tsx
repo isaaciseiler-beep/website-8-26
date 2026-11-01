@@ -28,8 +28,8 @@ describe("navigation and theme defaults", () => {
     delete document.documentElement.dataset.themePreference;
   });
 
-  it("removes About from navigation and migrates the retired theme", () => {
-    expect(sitemapItems.some(item => item.id === "about")).toBe(false);
+  it("keeps About linked directly and migrates the retired theme", () => {
+    expect(sitemapItems.find(item => item.id === "about")).toMatchObject({ href: "/about" });
     window.localStorage.setItem("theme", "skull");
     window.localStorage.setItem("pre-skull-theme", "light");
     render(<ThemeProvider><ThemeValue /></ThemeProvider>);

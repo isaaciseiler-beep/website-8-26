@@ -1,6 +1,5 @@
 .site-back-arrow.site-back-arrow.site-back-arrow { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 24px; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 0; background: transparent; color: hsl(var(--primary)); cursor: pointer; box-shadow: none; transition: none; }
-.site-back-arrow:focus-visible { outline: none; }
-.site-back-arrow:focus-visible svg { opacity: .55; }
+.site-back-arrow:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: var(--site-corner-radius); }
 @media (pointer: coarse) {
   .site-back-arrow.site-back-arrow.site-back-arrow { flex-basis: 44px; width: 44px; height: 44px; margin-left: -10px; }
   .album-photo-header .site-back-arrow { margin-block: -10px; }

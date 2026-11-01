@@ -11,6 +11,12 @@ interface PreloadImageOptions {
   linkPreload?: boolean;
 }
 
+export const isLowDataConnection = () => {
+  if (typeof navigator === 'undefined') return false;
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  return Boolean(connection?.saveData || ['slow-2g', '2g'].includes(connection?.effectiveType ?? ''));
+};
+
 const warmedOrigins = new Set<string>();
 const requestedImages = new Map<string, Promise<boolean>>();
 
@@ -90,10 +96,11 @@ export const preloadImage = (src: string, options: PreloadImageOptions = {}) => 
       }
       resolve(true);
     };
-    image.onerror = () => resolve(false);
+    image.onerror = () => { requestedImages.delete(href); resolve(false); };
     image.src = href;
   });
   requestedImages.set(href, request);
+  if (requestedImages.size > 256) requestedImages.delete(requestedImages.keys().next().value!);
   return request;
 };
 
@@ -104,8 +111,11 @@ export const scheduleImagePreloads = (
   srcs: Iterable<string>,
   options: PreloadImageOptions = {},
 ) => {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined" || isLowDataConnection()) return () => {};
 
+  let cancelled = false;
+  let idleId = 0;
+  let timer = 0;
   const queue = [...new Set([...srcs].filter(Boolean))];
   const batchSize = Math.max(1, options.batchSize ?? 4);
   const fallbackDelay = options.fallbackDelay ?? 160;
@@ -113,6 +123,7 @@ export const scheduleImagePreloads = (
   let index = 0;
 
   const runBatch = () => {
+    if (cancelled) return;
     const batch = queue.slice(index, index + batchSize);
     index += batch.length;
     batch.forEach((src) => void preloadImage(src, options));
@@ -124,11 +135,12 @@ export const scheduleImagePreloads = (
     }).requestIdleCallback;
 
     if (idle) {
-      idle(runBatch, { timeout: idleTimeout });
+      idleId = idle(runBatch, { timeout: idleTimeout });
     } else {
-      window.setTimeout(runBatch, fallbackDelay);
+      timer = window.setTimeout(runBatch, fallbackDelay);
     }
   };
 
   runBatch();
+  return () => { cancelled = true; window.clearTimeout(timer); window.cancelIdleCallback?.(idleId); };
 };

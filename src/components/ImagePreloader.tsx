@@ -1,114 +1,48 @@
-import { useLayoutEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";
+import { useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { isLowDataConnection } from '@/lib/imagePreload';
 
-type PrioritizedImage = HTMLImageElement & { fetchPriority?: "high" | "low" | "auto" };
+type PrioritizedImage = HTMLImageElement & { fetchPriority?: 'high' | 'auto' };
 
-const isSaveDataConnection = () => {
-  const connection = (navigator as Navigator & {
-    connection?: { effectiveType?: string; saveData?: boolean };
-  }).connection;
-  return Boolean(connection?.saveData || connection?.effectiveType === "slow-2g" || connection?.effectiveType === "2g");
-};
-
-const ImagePreloader = () => {
+/** One viewport policy; offscreen images keep native lazy loading. */
+export default function ImagePreloader() {
   const location = useLocation();
-
   useLayoutEffect(() => {
     const seen = new WeakSet<HTMLImageElement>();
-    const deferred = new Set<string>();
+    const cleanup: (() => void)[] = [];
     let frame = 0;
-    let highPriorityCount = 0;
-    let observer: MutationObserver | undefined;
-
-    const markReady = (image: HTMLImageElement) => {
-      if (image.style.opacity || image.dataset.motionImage === "true") return;
-      if (image.dataset.imageState === "loading") image.dataset.imageReveal = "true";
-      image.dataset.imageState = "ready";
-    };
-
-    const prepareImage = (image: HTMLImageElement) => {
-      if (seen.has(image)) return;
+    let priority = 0;
+    const prepare = (image: HTMLImageElement) => {
+      if (seen.has(image) || !image.src) return;
       seen.add(image);
-
-      const src = image.currentSrc || image.src;
-      if (!src) return;
-
-      if (!image.style.opacity && image.dataset.motionImage !== "true") {
-        image.dataset.imageState = image.complete && image.naturalWidth > 0 ? "ready" : "loading";
-        image.addEventListener("load", () => markReady(image), { once: true });
-        image.addEventListener("error", () => markReady(image), { once: true });
-        if (image.dataset.imageState === "loading") {
-          void image.decode()
-            .then(() => markReady(image))
-            .catch(() => {
-              if (image.complete) markReady(image);
-            });
-        }
-      }
-
-      const rect = image.getBoundingClientRect();
-      const nearViewport = rect.bottom >= -160 && rect.top <= window.innerHeight * 1.35;
-
-      if (nearViewport) {
-        const highPriority = highPriorityCount < 2;
-        highPriorityCount += 1;
-        image.loading = "eager";
-        (image as PrioritizedImage).fetchPriority = highPriority ? "high" : "auto";
-        void preloadImage(src, {
-          decode: true,
-          fetchPriority: highPriority ? "high" : "auto",
-          linkPreload: highPriority,
-        });
-        return;
-      }
-
-      deferred.add(src);
+      const animated = Boolean(image.style.opacity) || image.dataset.motionImage === 'true';
+      const ready = () => {
+        if (image.naturalWidth === 0) { image.dataset.imageState = 'error'; return; }
+        if (!animated && image.dataset.imageState === 'loading') image.dataset.imageReveal = 'true';
+        image.dataset.imageState = 'ready';
+      };
+      image.dataset.imageState = image.complete && image.naturalWidth ? 'ready' : 'loading';
+      image.addEventListener('load', ready);
+      image.addEventListener('error', ready);
+      cleanup.push(() => { image.removeEventListener('load', ready); image.removeEventListener('error', ready); });
+      if (image.complete) ready();
+      if (image.style.opacity === '0') return;
+      observer?.observe(image);
     };
-
-    const scan = () => {
-      frame = 0;
-      document.querySelectorAll<HTMLImageElement>("img[src]").forEach(prepareImage);
-
-      if (!isSaveDataConnection() && deferred.size) {
-        scheduleImagePreloads(deferred, {
-          batchSize: 3,
-          decode: false,
-          fetchPriority: "low",
-          idleTimeout: 1200,
-        });
-        deferred.clear();
-      }
-    };
-
-    const scheduleScan = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(scan);
-    };
-
-    const start = () => {
-      scan();
-      observer = new MutationObserver(scheduleScan);
-      observer.observe(document.getElementById("root") ?? document.body, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ["src", "srcset"],
+    const observer = typeof IntersectionObserver === 'undefined' ? null : new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const image = entry.target as PrioritizedImage;
+        image.fetchPriority = priority++ < 2 ? 'high' : 'auto';
+        image.loading = 'eager';
+        observer?.unobserve(image);
       });
-    };
-    const startTimer = location.key === "default"
-      ? undefined
-      : window.setTimeout(start, 240);
-    if (location.key === "default") start();
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      if (startTimer) window.clearTimeout(startTimer);
-      observer?.disconnect();
-    };
+    }, { rootMargin: isLowDataConnection() ? '0px' : '400px 0px' });
+    const scan = () => { frame = 0; document.querySelectorAll<HTMLImageElement>('img[src]').forEach(prepare); };
+    scan();
+    const mutations = new MutationObserver(() => { if (!frame) frame = requestAnimationFrame(scan); });
+    mutations.observe(document.getElementById('root') ?? document.body, { childList: true, subtree: true });
+    return () => { cancelAnimationFrame(frame); observer?.disconnect(); mutations.disconnect(); cleanup.forEach(dispose => dispose()); };
   }, [location.key]);
-
   return null;
-};
-
-export default ImagePreloader;
+}

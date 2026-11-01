@@ -1,5 +1,6 @@
 /** Warm code on navigation intent, without mounting a destination or changing history. */
 const loaders: Record<string, () => Promise<unknown>> = {
+  '/about': () => import('@/pages/AboutPage'),
   '/experience/arcade': () => import('@/pages/ExperienceGamePage'),
   '/fulbrightmap': () => import('@/pages/FulbrightMapPage'),
   '/strike-tracker': () => import('@/pages/StrikeTrackerPage'),

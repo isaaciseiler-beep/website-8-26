@@ -1,3 +1,4 @@
+import PageNotice from "@/components/PageNotice";
 import { motionReduced, useMotionPreference } from "@/hooks/useMotionPreference";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import RouteLoader from "@/components/RouteLoader";
@@ -446,17 +447,7 @@ const PhotoMapPage = () => {
   };
 
   if (!mapboxToken) {
-    return (
-      <main className="flex min-h-[100svh] items-center justify-center bg-background px-6 text-foreground">
-        <div className="max-w-sm text-center">
-          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-foreground/40">Photo Map</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight">Mapbox token missing</h1>
-          <p className="mt-3 text-sm leading-6 text-foreground/60">
-            Add `NEXT_PUBLIC_MAPBOX_TOKEN`, `VITE_MAPBOX_ACCESS_TOKEN`, or `VITE_MAPBOX_TOKEN` to enable the globe.
-          </p>
-        </div>
-      </main>
-    );
+    return <PageNotice title="The map is unavailable" href="/#photo-gallery" action="Browse photographs">You can still explore the photograph collections.</PageNotice>;
   }
 
   return (

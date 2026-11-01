@@ -1,3 +1,4 @@
+import PageNotice from "@/components/PageNotice";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import Footer from "@/components/Footer";
 import { Component, Suspense, lazy, type ComponentType, type ErrorInfo, useEffect, type ReactNode } from "react";
@@ -50,6 +51,7 @@ const lazyWithRetry = <T extends { default: ComponentType }>(
 const ChatOrb = lazyWithRetry(() => import("@/components/ChatOrb"), "chat-orb");
 const PhotoMapPage = lazyWithRetry(() => import("./pages/PhotoMapPage.tsx"), "photo-map");
 const WorkPage = lazyWithRetry(() => import("./pages/WorkPage.tsx"), "work");
+const AboutPage = lazyWithRetry(() => import("./pages/AboutPage.tsx"), "about");
 const WritingPage = lazyWithRetry(() => import("./pages/WritingPage.tsx"), "writing");
 const MusicPage = lazyWithRetry(() => import("./pages/MusicPage.tsx"), "music");
 const ProjectDetailPage = lazyWithRetry(() => import("./pages/ProjectDetailPage.tsx"), "project-detail");
@@ -92,22 +94,11 @@ const RouteFallback = () => {
 
 
 const RouteRenderErrorFallback = ({ isMap }: { isMap: boolean }) => (
-  <main className={`grid min-h-[100svh] place-items-center p-5 text-center ${isMap ? "bg-neutral-950 text-white" : "bg-background text-foreground"}`}>
-    <section className={`max-w-md rounded-[1.25rem] border p-6 shadow-2xl ${isMap ? "border-white/15 bg-neutral-950/80" : "border-foreground/10 bg-background"}`}>
-      <div className="text-lg font-semibold">{isMap ? "The map could not finish loading" : "This page could not finish loading"}</div>
-      <p className={`mt-2 text-sm leading-6 ${isMap ? "text-white/65" : "text-foreground/60"}`}>
-        Refresh the page once. If it still fails, a network request or browser feature may be blocked.
-      </p>
-      <button
-        type="button"
-        className={`mt-5 rounded-[7px] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.18em] ${isMap ? "bg-white text-neutral-950" : "bg-foreground text-background"}`}
-        onClick={() => window.location.reload()}
-      >
-        Refresh
-      </button>
-    </section>
-  </main>
+  <PageNotice title={isMap ? "The map could not load" : "This page could not load"} href={isMap ? "/#photo-gallery" : "/work"} action={isMap ? "Browse photographs" : "Explore the work"} onRetry={() => window.location.reload()}>
+    Something interrupted loading. You can try again or continue exploring.
+  </PageNotice>
 );
+
 
 const SkullRouteFrame = ({ children, path }: { children: ReactNode; path: string }) => (
   <main className="win-shell win-route-desktop">
@@ -153,7 +144,7 @@ const AnimatedRoutes = () => {
           <Route path="/photos/locations" element={<Navigate to={{ pathname: "/", search: location.search, hash: location.search ? "" : "#photo-gallery" }} replace />} />
           <Route path="/photos/map" element={<PhotoMapPage />} />
           <Route path="/photos/music" element={<MusicPage />} />
-          <Route path="/about" element={<Index />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/work" element={<WorkPage />} />
           <Route path="/writing" element={<WritingPage />} />
           <Route path="/writing/:slug" element={<Navigate to="/writing" replace />} />
@@ -176,6 +167,19 @@ const AnimatedRoutes = () => {
   return <PageTransitions>{presented => theme === "skull" && !isSkullHome
     ? <SkullRouteFrame path={presented.pathname}>{renderRoutes(presented)}</SkullRouteFrame>
     : renderRoutes(presented)}</PageTransitions>;
+};
+
+const RouteFontAssets = () => {
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname !== '/classic') return;
+    const sheet = document.createElement('link');
+    sheet.rel = 'stylesheet';
+    sheet.href = 'https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap';
+    document.head.appendChild(sheet);
+    return () => sheet.remove();
+  }, [location.pathname]);
+  return null;
 };
 
 const ChatOrbGate = () => {
@@ -207,6 +211,7 @@ const AppShell = () => {
   return (
     <BrowserRouter>
       <SiteMetadata />
+      <RouteFontAssets />
       <ImagePreloader />
       <SkullChrome />
       <AnimatedRoutes />

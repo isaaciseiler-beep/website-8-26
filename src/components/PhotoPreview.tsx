@@ -88,7 +88,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
           <Dialog.Title className="sr-only">Photograph {currentIndex+1} of {images.length}</Dialog.Title>
           <div className="absolute inset-0" onClick={onClose} style={{ background: "rgba(0,0,0,0.88)", backdropFilter: "blur(40px)", WebkitBackdropFilter: "blur(40px)" }} />
 
-          <button aria-label="Close photograph" onClick={onClose} className="absolute top-6 right-6 z-10 text-white/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition-colors duration-300">
+          <button aria-label="Close photograph" onClick={onClose} className="photo-preview-close">
             <X className="w-4 h-4" />
           </button>
 
@@ -108,7 +108,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
               <motion.button
                 key="prev"
                 aria-label="Previous photograph"
-                className="absolute left-6 top-1/2 -translate-y-1/2 z-10 text-white/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition-colors duration-300"
+                className="photo-preview-nav photo-preview-nav--previous"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -125,7 +125,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
               <motion.button
                 key="next"
                 aria-label="Next photograph"
-                className="absolute right-6 top-1/2 -translate-y-1/2 z-10 text-white/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition-colors duration-300"
+                className="photo-preview-nav photo-preview-nav--next"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

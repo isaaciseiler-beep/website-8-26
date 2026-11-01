@@ -1,9 +1,10 @@
+import { useOverlayFocus } from "@/hooks/useOverlayFocus";
 import { useNavigationMotion, useMotionPreference } from "@/hooks/useMotionPreference";
 import { warmRoute } from "@/lib/routePreload";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, ChevronRight, Mail, Moon, Sun } from "lucide-react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTheme, type Theme } from "@/components/ThemeProvider";
 import SearchTrigger from "@/components/SearchOverlay";
 import { CONTACT_MAILTO, GITHUB_URL, LINKEDIN_URL } from "@/lib/site";
@@ -41,6 +42,14 @@ const ThemeSwitch = () => {
             }`}
             aria-label={opt.label}
             aria-checked={active}
+            tabIndex={active ? 0 : -1}
+            onKeyDown={event => {
+              if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key)) return;
+              event.preventDefault();
+              const next = event.key === 'Home' ? 'light' : event.key === 'End' ? 'dark' : opt.value === 'light' ? 'dark' : 'light';
+              setTheme(next);
+              event.currentTarget.parentElement?.querySelector<HTMLButtonElement>(`[aria-label="${next === 'light' ? 'Light' : 'Dark'}"]`)?.focus();
+            }}
           >
             {active ? (
               <motion.span
@@ -67,6 +76,7 @@ interface SitemapItem {
 }
 
 export const sitemapItems: SitemapItem[] = [
+  { id: "about", label: "About", href: "/about" },
   { id: "projects", label: "Work", href: "/work" },
   { id: "writing", label: "Writing", href: "/writing" },
   { id: "photos", label: "Photo Map", href: "/photos/map" },
@@ -96,6 +106,7 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showToggle = true }: SidebarProps) => {
+  useOverlayFocus(open, "sidebar", onClose ?? onToggle);
   const navigationMotion = useNavigationMotion(open);
   const reduced = useMotionPreference();
   const navigate = useNavigate();
@@ -190,6 +201,8 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
       ) : null}
 
       <motion.nav
+        data-site-overlay="sidebar"
+        aria-label="Main navigation"
         className={`site-sidebar-panel fixed inset-y-0 left-0 z-[45] isolate flex h-[100dvh] w-screen transform-gpu flex-col justify-between overflow-y-auto overscroll-contain px-6 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] pt-20 will-change-transform md:w-[var(--site-panel-width)] md:pb-6 md:pt-20 ${
           open ? "pointer-events-auto" : "pointer-events-none"
         }`}
@@ -212,16 +225,17 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                         initial={false}
                         className="flex items-center gap-2"
                       >
-                        <button
-                          onPointerEnter={() => { if (item.href) warmRoute(item.href); }}
-                          onFocus={() => { if (item.href) warmRoute(item.href); }}
+                        {item.href ? <Link
+                          to={item.href}
+                          onPointerEnter={() => warmRoute(item.href!)}
+                          onFocus={() => warmRoute(item.href!)}
+                          onClick={onClose}
+                          aria-current={active ? "page" : undefined}
+                          className={`sidebar-main-nav-item sidebar-destination origin-left py-1.5 text-left text-foreground ${active ? "is-current" : ""}`}
+                        >{item.label}</Link> : <button
                           onClick={() => handleItemClick(item)}
-                          className={`sidebar-main-nav-item origin-left py-1.5 text-left transition-colors duration-300 ${
-                            active ? "text-foreground" : "text-foreground"
-                          }`}
-                        >
-                          {item.label}
-                        </button>
+                          className="sidebar-main-nav-item origin-left py-1.5 text-left text-foreground"
+                        >{item.label}</button>}
 
                         {hasChildren ? (
                           <motion.button

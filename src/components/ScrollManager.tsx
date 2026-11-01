@@ -33,13 +33,17 @@ export default function ScrollManager({ location: presented, sequence, restoring
       // Restore the disclosure that held the link the visitor actually followed.
       for (let details = link?.closest('details'); details; details = details.parentElement?.closest('details')) details.open = true;
       const max = Math.max(0, document.documentElement.scrollHeight - innerHeight);
-      const y = saved?.y ?? 0;
+      let anchor: HTMLElement | null = null;
+      if (!saved && location.hash) {
+        try { anchor = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch { /* Ignore malformed fragments. */ }
+      }
+      const y = saved?.y ?? (anchor ? Math.max(0, anchor.getBoundingClientRect().top + window.scrollY - 64) : 0);
       window.scrollTo({ top: Math.min(y, max), left: 0, behavior: 'instant' });
       if (max >= y) {
         // Focus the previous content link on return; otherwise announce the new main.
-        const main = document.querySelector<HTMLElement>('main');
-        if (main && !link) main.setAttribute('tabindex', '-1');
-        (link ?? main)?.focus({ preventScroll: true });
+        const subject = document.querySelector<HTMLElement>('main h1') ?? document.querySelector<HTMLElement>('main');
+        if (subject && !link) subject.setAttribute('tabindex', '-1');
+        (link ?? subject)?.focus({ preventScroll: true });
         stop();
       }
     };

@@ -22,7 +22,8 @@ const subscribe = (notify: () => void) => {
 export const useMotionPreference = () => useSyncExternalStore(subscribe, motionReduced, () => true);
 export const useNavigationMotion = (open: boolean) => {
   const reduced = useMotionPreference();
-  return { duration: reduced ? 0 : open ? MOTION_DURATION.base : MOTION_DURATION.fast, ease: MOTION_EASE_ENTER };
+  // Match the mobile page's CSS slide: one quick departure and a quiet settle.
+  return { type: 'tween' as const, duration: reduced ? 0 : open ? MOTION_DURATION.reveal : MOTION_DURATION.panel, ease: MOTION_EASE_ENTER };
 };
 
 const subscribeVisibility = (notify: () => void) => {

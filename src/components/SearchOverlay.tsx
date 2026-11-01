@@ -1,19 +1,18 @@
+import { useOverlayFocus } from "@/hooks/useOverlayFocus";
 import MotionSurface from "@/components/MotionSurface";
 import { useNavigationMotion, useMotionPreference } from "@/hooks/useMotionPreference";
 import { warmRoute } from "@/lib/routePreload";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Search, X } from "lucide-react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import type { SearchGroup, SearchResult } from "@/lib/searchIndex";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { setSiteOverlayOpen } from "@/lib/siteOverlay";
-import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
-import { preloadImage } from "@/lib/imagePreload";
+import { MOTION_DURATION, MOTION_EASE_ENTER } from "@/lib/motion";
 
 const EASE = MOTION_EASE_ENTER;
-const EASE_TEXT = MOTION_EASE;
 
 const EMPTY_SEARCH_GROUPS: SearchGroup[] = [];
 
@@ -37,53 +36,21 @@ interface SearchTriggerProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-const ResultCard = ({
-  index,
-  result,
-  onSelect,
-}: {
-  index: number;
+const ResultRow = ({ result, state, onSelect }: {
   result: SearchResult;
-  onSelect: (result: SearchResult) => void;
-}) => (
-  <motion.button
-    type="button"
-    onClick={() => onSelect(result)}
-    onPointerEnter={() => {
-      if (!result.external) warmRoute(result.href);
-      if (result.image) void preloadImage(result.image, { decode: true, fetchPriority: "high", linkPreload: true });
-    }}
-    onFocus={() => {
-      if (!result.external) warmRoute(result.href);
-      if (result.image) void preloadImage(result.image, { decode: true, fetchPriority: "high", linkPreload: true });
-    }}
-    className="group block w-full text-left"
-    initial={false}
-    animate={{ opacity: 1 }}
-    transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
-  >
-    <div className="site-corner relative aspect-[4/3] w-full overflow-hidden bg-[hsl(var(--image-scrim))]">
-      {result.image ? (
-        <img
-          src={result.image}
-          alt=""
-          className="h-full w-full object-cover"
-          loading="lazy"
-        />
-      ) : null}
-      <div className="absolute inset-0 bg-[linear-gradient(to_top,hsl(var(--image-scrim)/0.94)_0%,hsl(var(--image-scrim)/0.66)_44%,hsl(var(--highlight)/0.10)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 p-3">
-        <p className="text-lg font-semibold leading-none tracking-tight text-white transition-colors duration-300 group-hover:text-[hsl(var(--highlight))]">
-          {result.title}
-        </p>
-      </div>
-      <ArrowUpRight
-        className="absolute right-3 top-3 h-4 w-4 text-white/45 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[hsl(var(--highlight))]"
-        strokeWidth={1.5}
-      />
-    </div>
-  </motion.button>
-);
+  state?: object;
+  onSelect: () => void;
+}) => {
+  const warm = () => { if (!result.external) void warmRoute(result.href); };
+  const content = <>
+    {result.image && <img src={result.image} alt="" width="40" height="40" loading="lazy" decoding="async" />}
+    <span>{result.title}</span>
+    {result.external && <ArrowUpRight size={14} strokeWidth={1.5} aria-label="External link" />}
+  </>;
+  return result.external
+    ? <a className="site-search-result" href={result.href} target="_blank" rel="noopener noreferrer" onClick={onSelect}>{content}</a>
+    : <Link className="site-search-result" to={result.href} state={state} onClick={onSelect} onPointerEnter={warm} onFocus={warm}>{content}</Link>;
+};
 
 interface SearchPanelProps {
   groups: SearchGroup[];
@@ -91,13 +58,12 @@ interface SearchPanelProps {
   hasResults: boolean;
   onClose: () => void;
   onSelect: (result: SearchResult) => void;
+  resultState?: object;
   open: boolean;
   searchReady: boolean;
 }
 
-export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, open, searchReady }: SearchPanelProps) => {
-  const isMobile = useIsMobile();
-  const reduced = useMotionPreference();
+export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, open, searchReady, resultState }: SearchPanelProps) => {
   const navigationMotion = useNavigationMotion(open);
 
   useLayoutEffect(() => {
@@ -107,33 +73,23 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
     };
   }, [open]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open, onClose]);
+
 
   return (
-    <AnimatePresence>
-      {open ? (
-        <>
-          <MotionSurface
-            role="dialog"
-            aria-label="Search"
+    <MotionSurface
+            role="region"
+            aria-label="Search results"
             className="site-sidebar-panel fixed inset-y-0 right-0 z-[85] isolate flex h-[100dvh] w-screen transform-gpu flex-col px-6 pb-0 pt-20 text-foreground will-change-transform md:w-[var(--site-panel-width)] md:py-20 md:pb-0"
-            initial={{ x: reduced ? 0 : isMobile ? "100%" : 200 }}
-            animate={{ x: 0 }}
-            exit={{ x: reduced ? 0 : isMobile ? "100%" : 200, transition: { ...navigationMotion, duration: reduced ? 0 : MOTION_DURATION.fast } }}
+            initial={false}
+            aria-hidden={!open}
+            {...(!open ? { inert: "" } : {})}
+            style={{ pointerEvents: open ? "auto" : "none" }}
+            animate={{ x: open ? 0 : "100%" }}
             transition={navigationMotion}
           >
             <div className="pointer-events-none absolute inset-x-0 top-20 z-10 h-12 bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,hsl(var(--background)/0.82)_34%,hsl(var(--background)/0)_100%)] md:top-20" />
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-10 pt-5 scrollbar-hide md:pb-12 md:pt-8">
-              {!hasQuery ? null : !searchReady ? (
+              {!hasQuery ? <p className="site-search-hint">Search work, writing, and photographs.</p> : !searchReady ? (
                 <div className="grid min-h-[220px] place-items-center">
                   <p className="text-[28px] font-medium leading-none text-foreground/30 md:text-sm md:leading-normal">Searching</p>
                 </div>
@@ -149,12 +105,12 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
                           animate={{ opacity: 1 }}
                           transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
                         >
-                          <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.22em] text-foreground/32">
+                          <p className="site-search-category">
                             {group.label}
                           </p>
                           <div className="space-y-2.5">
                             {group.results.map((result, resultIndex) => (
-                              <ResultCard key={result.id} index={resultIndex} result={result} onSelect={onSelect} />
+                              <ResultRow key={result.id} result={result} state={result.href.startsWith("/projects/") ? resultState : undefined} onSelect={() => onSelect(result)} />
                             ))}
                           </div>
                         </motion.section>
@@ -168,10 +124,7 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
                 </div>
               )}
             </div>
-          </MotionSurface>
-        </>
-      ) : null}
-    </AnimatePresence>
+    </MotionSurface>
   );
 };
 
@@ -187,6 +140,7 @@ const SearchTrigger = ({
 }: SearchTriggerProps) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const searchMotion = useNavigationMotion(Boolean(open ?? internalOpen));
+  const reduced = useMotionPreference();
   const [query, setQuery] = useState("");
   const [searchIndexModule, setSearchIndexModule] = useState<SearchIndexModule | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -203,7 +157,7 @@ const SearchTrigger = ({
   const hasQuery = trimmedQuery.length > 0;
   const hasResults = searchIndexModule ? searchIndexModule.hasSearchResults(groups) : false;
   const firstResult = groups.find((group) => group.results.length)?.results[0];
-  const expandedSearchWidth = isMobile ? "calc(100vw - 3rem)" : "calc(var(--site-panel-width) - 3rem)";
+  const searchWidth = panelOpen ? "var(--site-search-width)" : "var(--site-search-hit)";
 
   const setOpen = (nextOpen: boolean) => {
     if (!isControlled) setInternalOpen(nextOpen);
@@ -213,16 +167,15 @@ const SearchTrigger = ({
   };
 
   const handleOpen = () => {
-    void loadSearchIndex().then(setSearchIndexModule);
+    void loadSearchIndex().catch(() => {});
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setQuery("");
   };
 
-  const handleSelect = (result: SearchResult) => {
+  const handleEnterSelect = (result: SearchResult) => {
     handleClose();
     if (result.external) {
       window.open(result.href, "_blank", "noopener,noreferrer");
@@ -231,8 +184,14 @@ const SearchTrigger = ({
     navigate(result.href, { state: result.href.startsWith('/projects/') ? location.pathname === '/work' ? { fromWork: true } : location.pathname === '/' ? { fromExplore: true } : undefined : undefined });
   };
 
+  useOverlayFocus(Boolean(panelOpen) && variant === "header", "search", handleClose);
+
+  useEffect(() => {
+    if (!panelOpen && reduced) setQuery("");
+  }, [panelOpen, reduced]);
+
   const handleEnter = () => {
-    if (firstResult) handleSelect(firstResult);
+    if (firstResult) handleEnterSelect(firstResult);
   };
 
   useEffect(() => {
@@ -255,7 +214,10 @@ const SearchTrigger = ({
   }, [panelOpen, variant]);
 
   return (
-    <>
+    <div data-site-overlay={variant === "header" && panelOpen ? "search" : undefined}
+      role={variant === "header" && isMobile && panelOpen ? "dialog" : undefined}
+      aria-modal={variant === "header" && isMobile && panelOpen ? true : undefined}
+      aria-label={variant === "header" && isMobile && panelOpen ? "Search" : undefined}>
       {variant === "sidebar" ? (
         <button
           type="button"
@@ -266,39 +228,40 @@ const SearchTrigger = ({
           <Search className="h-5 w-5" strokeWidth={1.5} />
         </button>
       ) : (
-        <AnimatePresence initial={false} mode="wait">
-          {!panelOpen ? (
-            <motion.button
-              key="search-button"
+        <>
+          {/* One glyph follows the fold in both directions. The form stays
+              outside the difference layer so its text never blends. */}
+          <div
+            className={`site-search-xray site-search-track fixed z-[95] ${className ?? ""}`}
+            style={{ ...style, width: searchWidth, transitionDuration: `${searchMotion.duration}s` }}
+          >
+            <button
+              data-overlay-trigger="search"
+              aria-hidden={panelOpen}
+              tabIndex={panelOpen ? -1 : 0}
               type="button"
               onClick={handleOpen}
-              className={`site-search-xray fixed right-6 top-4 z-[60] flex h-[25px] w-[25px] items-center justify-center ${className ?? ""}`}
-              style={style}
+              style={{ pointerEvents: panelOpen ? "none" : "auto" }}
+              className="site-search-icon flex items-center justify-center"
               aria-label="Search"
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 1 }}
-              transition={{ duration: 0.18, ease: EASE }}
             >
               <Search className="h-3.5 w-3.5" strokeWidth={1.65} />
-            </motion.button>
-          ) : (
-            <motion.form
-              key="search-input"
-              onSubmit={(event) => {
-                event.preventDefault();
-                handleEnter();
-              }}
-              className={`site-header-search fixed right-6 top-4 z-[95] flex h-[25px] origin-right items-center gap-2 overflow-hidden will-change-[width] ${className ?? ""}`}
-              style={style}
-              initial={{ width: 25 }}
-              animate={{ width: expandedSearchWidth }}
-              exit={{ width: 25 }}
-              transition={searchMotion}
-            >
-              <span className="flex h-[25px] w-[25px] shrink-0 items-center justify-center">
-                <Search className="h-3.5 w-3.5" strokeWidth={1.65} />
-              </span>
+            </button>
+          </div>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleEnter();
+            }}
+            className={`site-header-search fixed z-[95] overflow-hidden ${className ?? ""}`}
+            style={{ ...style, pointerEvents: "none", width: searchWidth, opacity: panelOpen ? 1 : 0, transitionDuration: `${searchMotion.duration}s, ${reduced ? 0 : MOTION_DURATION.exit}s` }}
+            aria-hidden={!panelOpen}
+            {...(!panelOpen ? { inert: "" } : {})}
+            onTransitionEnd={(event) => {
+              if (event.target === event.currentTarget && event.propertyName === "width" && !panelOpen) setQuery("");
+            }}
+          >
+            <div className="site-search-fields absolute inset-0 flex items-center gap-2" style={{ pointerEvents: panelOpen ? "auto" : "none" }}>
               <input
                 ref={inputRef}
                 value={query}
@@ -310,14 +273,14 @@ const SearchTrigger = ({
               <button
                 type="button"
                 onClick={handleClose}
-                className="flex h-[25px] w-[25px] shrink-0 items-center justify-center text-current/55 transition-opacity duration-200 hover:opacity-80"
+                className="site-search-icon flex shrink-0 items-center justify-center text-current/55 transition-opacity duration-200 hover:opacity-80"
                 aria-label="Close search"
               >
                 <X className="h-3.5 w-3.5" strokeWidth={1.65} />
               </button>
-            </motion.form>
-          )}
-        </AnimatePresence>
+            </div>
+          </form>
+        </>
       )}
       {renderPanel ? (
         <SearchPanel
@@ -325,12 +288,13 @@ const SearchTrigger = ({
           hasQuery={hasQuery}
           hasResults={hasResults}
           onClose={handleClose}
-          onSelect={handleSelect}
+          onSelect={handleClose}
+          resultState={location.pathname === "/work" ? { fromWork: true } : location.pathname === "/" ? { fromExplore: true } : undefined}
           open={panelOpen}
           searchReady={Boolean(searchIndexModule)}
         />
       ) : null}
-    </>
+    </div>
   );
 };
 

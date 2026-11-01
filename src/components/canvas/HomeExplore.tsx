@@ -253,10 +253,7 @@ export default function HomeExplore() {
         {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
       </form></div>
       {!query.trim()&&!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&<div className="home-idle-actions">
-        {cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <>
-          <button className="home-start-example" type="button" onClick={()=>submit(suggestions[0].prompt)}>Try AI in government <ArrowUpRight size={13} aria-hidden="true"/></button>
-          <ExplorePreviewDialog/>
-        </>}
+        {cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <ExplorePreviewDialog/>}
       </div>}
       <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}

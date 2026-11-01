@@ -4,13 +4,13 @@ import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPrefer
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackArrow from "@/components/BackArrow";
-import { useSearchParams, useLocation, useNavigate } from "react-router-dom";
+import { Link, useSearchParams, useLocation, useNavigate } from "react-router-dom";
 import "./photo-home.css";
 import HomeExplore from "@/components/canvas/HomeExplore";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import PhotoPreview from "@/components/PhotoPreview";
-import { preloadImage, preloadImages, scheduleImagePreloads } from "@/lib/imagePreload";
+import { preloadImage, preloadImages, isLowDataConnection } from "@/lib/imagePreload";
 import { albums, albumPhotos, coverFor, type Album, type Continent } from "@/lib/photoAlbums";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { HEADER_SCROLL_OFFSET } from "@/lib/scroll";
@@ -36,7 +36,7 @@ const shuffleArray = <T,>(arr: T[]) => {
 const shuffledAlbums = shuffleArray(albums);
 const shuffledPhotos = new Map(albums.map(album => [album.folder, shuffleArray(albumPhotos(album))]));
 
-const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) => {
+const AlbumCover = ({ album }: { album: Album }) => {
   const [hovering, setHovering] = useState(false);
   const [flashIdx, setFlashIdx] = useState(-1);
   const [decodedSrcs, setDecodedSrcs] = useState<Set<string>>(() => new Set([coverFor(album)]));
@@ -47,10 +47,10 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
   const photoCount = readyHoverPhotos.length;
 
   useEffect(() => {
-    if (!hovering) return;
+    if (!hovering || isLowDataConnection()) return;
 
-    photos.slice(0, 4).forEach((src) => {
-      void preloadImage(src, { decode: false, fetchPriority: "low" }).then((loaded) => {
+    photos.slice(0, 2).forEach((src) => {
+      void preloadImage(src, { decode: true, fetchPriority: "low" }).then((loaded) => {
         if (!loaded) return;
         setDecodedSrcs((current) => {
           if (current.has(src)) return current;
@@ -74,17 +74,15 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
   const uniqueSrcs = [...new Set([cover, ...readyHoverPhotos])];
   const activeImage = !reduced && visible && hovering && flashIdx >= 0 ? readyHoverPhotos[flashIdx] ?? cover : cover;
   const prepareAlbum = () => {
-    void preloadImages(photos.slice(0, 6), { decode: false, fetchPriority: "high" });
+    if (!isLowDataConnection()) void preloadImages(photos.slice(0, 2), { decode: true, fetchPriority: "low" });
   };
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
+    <Link
+      to={`/?album=${encodeURIComponent(album.folder)}`}
+      state={{ fromGallery: true }}
       aria-label={`Open ${album.location} album`}
       className="photo-tile relative cursor-pointer overflow-hidden group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
-      onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onClick(); } }}
-      onClick={onClick}
       onPointerEnter={event => { if (event.pointerType !== "touch") { setHovering(true); prepareAlbum(); } }}
       onFocus={() => { setHovering(true); prepareAlbum(); }}
       onBlur={() => setHovering(false)}
@@ -96,7 +94,8 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
           <img
             key={src}
             src={src}
-            alt={album.location}
+            data-primary-cover={src === cover ? "true" : undefined}
+            alt=""
             className="absolute inset-0 w-full h-full object-cover"
             style={{
               opacity: src === activeImage ? 1 : 0,
@@ -110,18 +109,35 @@ const AlbumCover = ({ album, onClick }: { album: Album; onClick: () => void }) =
         ))}
       </div>
       <span className="photo-hover-label" aria-hidden="true">{album.location}</span>
-    </div>
+    </Link>
   );
 };
 
-const LocationTabs = ({ filter, onSelect }: { filter: string; onSelect: (location: string) => void }) => (
-  <div className="work-library-tabs" role="tablist" aria-label="Filter albums">
-    {continents.map(location => <button key={location} type="button" role="tab" aria-selected={filter === location} onClick={() => onSelect(location)} className={`pill-tab ${filter === location ? "is-active" : ""}`}>
-      {filter === location && <motion.span layoutId="photos-tab-pill" className="pill-tab-indicator" transition={{ type: "tween", duration: MOTION_DURATION.base, ease: EASE_TEXT }}/>}
+const LocationTabs = ({ filter, onSelect }: { filter: string; onSelect: (location: string) => void }) => {
+  const tabs = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+  useEffect(() => {
+    const strip = tabs.current;
+    const selected = strip?.querySelector<HTMLElement>('[aria-selected="true"]');
+    if (!strip || !selected) return;
+    const frame = strip.getBoundingClientRect();
+    const item = selected.getBoundingClientRect();
+    const delta = item.left < frame.left ? item.left - frame.left : item.right > frame.right ? item.right - frame.right : 0;
+    if (delta) strip.scrollTo({ left: strip.scrollLeft + delta, behavior: reducedMotion ? 'instant' : 'smooth' });
+  }, [filter, reducedMotion]);
+  return <div ref={tabs} className="work-library-tabs" role="tablist" aria-label="Filter albums">
+    {continents.map((location, index) => <button key={location} type="button" role="tab" aria-selected={filter === location} tabIndex={filter === location ? 0 : -1}
+      onKeyDown={event => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? continents.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + continents.length) % continents.length;
+        onSelect(continents[next]); tabs.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus({ preventScroll: true });
+      }} onClick={() => onSelect(location)} className={`pill-tab ${filter === location ? "is-active" : ""}`}>
+      {filter === location && <motion.span layoutId="photos-tab-pill" className="pill-tab-indicator" transition={{ type: "tween", duration: reducedMotion ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] }}/>}
       <span className="pill-tab-label">{location}</span>
     </button>)}
-  </div>
-);
+  </div>;
+};
 
 const PhotoHomePage = () => {
   const home = true;
@@ -145,26 +161,6 @@ const PhotoHomePage = () => {
   const currentAlbum = openAlbum ? albums.find((a) => a.location === openAlbum) : null;
   const currentAlbumPhotos = useMemo(() => (currentAlbum ? shuffledPhotos.get(currentAlbum.folder) ?? [] : []), [currentAlbum]);
   const previewImages = currentAlbumPhotos;
-
-  useEffect(() => {
-    scheduleImagePreloads(albums.map(coverFor), {
-      batchSize: isMobile ? 2 : 4,
-      decode: false,
-      fallbackDelay: isMobile ? 240 : 160,
-      fetchPriority: "low",
-      idleTimeout: isMobile ? 1200 : 800,
-    });
-  }, [isMobile]);
-
-  useEffect(() => {
-    if (!currentAlbum) return;
-    scheduleImagePreloads(currentAlbumPhotos.slice(0, isMobile ? 4 : 6), {
-      batchSize: isMobile ? 2 : 3,
-      decode: false,
-      fetchPriority: "low",
-      idleTimeout: isMobile ? 1400 : 900,
-    });
-  }, [currentAlbum, currentAlbumPhotos, isMobile]);
 
   useEffect(() => {
     if (!home || openAlbum) return;
@@ -239,7 +235,7 @@ const PhotoHomePage = () => {
           className={home && !openAlbum ? "pb-0" : "pt-28 pb-0"}
           initial={false}
         >
-          {home && !openAlbum && <HomeExplore />}
+          {home && !openAlbum && <><h1 className="sr-only">Isaac Seiler</h1><HomeExplore /></>}
 
 
           <div className="photo-route-content">
@@ -259,22 +255,19 @@ const PhotoHomePage = () => {
                 </header>
 
                 <div className="album-photo-grid">
-                  {currentAlbumPhotos.map((photo, index) => (
-                    <motion.button
-                      type="button"
-                      key={photo}
-                      initial={reduceMotion ? false : { opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true, amount: 0.02, margin: "0px 0px 60px 0px" }}
-                      transition={{ duration: reduceMotion ? 0 : MOTION_DURATION.reveal, ease: EASE }}
-                      className="photo-tile album-photo-tile"
-                      aria-label={`Open ${currentAlbum.location} photograph ${index + 1}`}
-                      onClick={() => setPreviewIdx(index)}
-                    >
-                      <img src={photo} alt="" loading={index < 2 ? "eager" : "lazy"}
-                        decoding="async" fetchpriority={index < 2 ? "high" : "low"}/>
-                    </motion.button>
-                  ))}
+                  {Array.from({ length: Math.ceil(currentAlbumPhotos.length / 2) }, (_, row) => <div className={`album-photo-row${row % 2 ? ' album-photo-row--reverse' : ''}`} key={row}>
+                    {currentAlbumPhotos.slice(row * 2, row * 2 + 2).map((photo, column) => {
+                      const index = row * 2 + column;
+                      return <motion.button type="button" key={photo} initial={reduceMotion ? false : { opacity: 0 }} whileInView={{ opacity: 1 }}
+                        viewport={{ once: true, amount: 0.02, margin: "0px 0px 60px 0px" }}
+                        transition={{ duration: reduceMotion ? 0 : MOTION_DURATION.reveal, ease: EASE }}
+                        className={`photo-tile album-photo-tile${column === (row % 2 ? 0 : 1) ? ' album-photo-tile--square' : ''}`}
+                        aria-label={`Open ${currentAlbum.location} photograph ${index + 1}`} onClick={() => setPreviewIdx(index)}>
+                        <img src={photo} alt="" loading={index < 2 ? "eager" : "lazy"} decoding="async" fetchpriority={index < 2 ? "high" : "low"}/>
+                        <span className="photo-hover-label" aria-hidden="true">{currentAlbum.location}</span>
+                      </motion.button>;
+                    })}
+                  </div>)}
                 </div>
 
               </motion.div>
@@ -292,12 +285,7 @@ const PhotoHomePage = () => {
                       key={album.location}
                       initial={false}
                     >
-                      <AlbumCover
-                        album={album}
-                        onClick={() => {
-                          setSearchParams({ album: album.folder }, { state: { fromGallery: true } });
-                        }}
-                      />
+                      <AlbumCover album={album} />
                     </motion.div>
                   ))}
                 </div>

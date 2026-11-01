@@ -11,12 +11,12 @@
 .work-story-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform var(--motion-reveal) var(--motion-ease);}
 .work-story a:hover img{transform:scale(1.025);}
 .work-story-image::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(transparent 25%,hsl(var(--image-scrim)/.8));opacity:0;transition:opacity var(--motion-fast) var(--motion-ease);pointer-events:none;}
-.work-story-caption{position:absolute;inset:auto 24px 24px;z-index:2;color:#fff;opacity:0;transform:translateY(6px);transition:opacity var(--motion-fast) var(--motion-ease),transform var(--motion-fast) var(--motion-ease);pointer-events:none;}
+.work-story-caption{position:absolute;inset:auto 16px 16px;z-index:2;color:#fff;opacity:0;transition:opacity var(--motion-fast) var(--motion-ease);pointer-events:none;}
 .work-story-caption h2{font-size:clamp(18px,2vw,32px);font-weight:500;line-height:1.15;letter-spacing:-.02em;text-wrap:pretty;}
-.work-story-caption p{margin-top:12px;font-size:14px;line-height:1.5;color:rgb(255 255 255 / .75);}
+.work-story-caption p{margin-top:12px;font-size:14px;line-height:1.5;color:#fff;}
 .work-story a:hover .work-story-caption,.work-story a:focus-visible .work-story-caption{opacity:1;transform:none;}
 .work-story a:hover .work-story-image::after,.work-story a:focus-visible .work-story-image::after{opacity:1;}
-@media(max-width:700px){.work-page{padding-top:96px;}.work-grid,.work-row{gap:3px;}.work-story-caption{inset:auto 8px 8px;}.work-story-caption h2{font-size:clamp(12px,2.8vw,16px);}.work-story-caption p{font-size:11px;line-height:1.25;margin-top:4px;}}
+@media(max-width:700px){.work-page{padding-top:96px;}.work-grid,.work-row{gap:3px;}.work-story-caption{inset:auto 12px 12px;}.work-story-caption h2{font-size:clamp(12px,2.8vw,16px);}.work-story-caption p{font-size:11px;line-height:1.25;margin-top:4px;}}
 @media(hover:none){.work-story-caption,.work-story-image::after{opacity:1;transform:none;}}
 @media(prefers-reduced-motion:reduce){.work-story-image img,.work-story-caption,.work-story-image::after{transition:none;}.work-story a:hover img{transform:none;}}
 
