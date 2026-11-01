@@ -56,14 +56,13 @@ interface SearchPanelProps {
   groups: SearchGroup[];
   hasQuery: boolean;
   hasResults: boolean;
-  onClose: () => void;
   onSelect: (result: SearchResult) => void;
   resultState?: object;
   open: boolean;
   searchReady: boolean;
 }
 
-export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, open, searchReady, resultState }: SearchPanelProps) => {
+export const SearchPanel = ({ groups, hasQuery, hasResults, onSelect, open, searchReady, resultState }: SearchPanelProps) => {
   const navigationMotion = useNavigationMotion(open);
 
   useLayoutEffect(() => {
@@ -73,57 +72,55 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
     };
   }, [open]);
 
-
-
   return (
     <MotionSurface
-            role="region"
-            aria-label="Search results"
-            className="site-sidebar-panel fixed inset-y-0 right-0 z-[85] isolate flex h-[100dvh] w-screen transform-gpu flex-col px-6 pb-0 pt-20 text-foreground will-change-transform md:w-[var(--site-panel-width)] md:py-20 md:pb-0"
-            initial={false}
-            aria-hidden={!open}
-            {...(!open ? { inert: "" } : {})}
-            style={{ pointerEvents: open ? "auto" : "none" }}
-            animate={{ x: open ? 0 : "100%" }}
-            transition={navigationMotion}
-          >
-            <div className="pointer-events-none absolute inset-x-0 top-20 z-10 h-12 bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,hsl(var(--background)/0.82)_34%,hsl(var(--background)/0)_100%)] md:top-20" />
-            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-10 pt-5 scrollbar-hide md:pb-12 md:pt-8">
-              {!hasQuery ? <p className="site-search-hint">Search work, writing, and photographs.</p> : !searchReady ? (
-                <div className="grid min-h-[220px] place-items-center">
-                  <p className="text-[28px] font-medium leading-none text-foreground/30 md:text-sm md:leading-normal">Searching</p>
-                </div>
-              ) : (
-                <div>
-                  {hasResults ? (
-                    groups.map((group) =>
-                      group.results.length ? (
-                        <motion.section
-                          key={group.category}
-                          className="pb-5 pt-5 first:pt-0 last:pb-6"
-                          initial={false}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
-                        >
-                          <p className="site-search-category">
-                            {group.label}
-                          </p>
-                          <div className="space-y-2.5">
-                            {group.results.map((result, resultIndex) => (
-                              <ResultRow key={result.id} result={result} state={result.href.startsWith("/projects/") ? resultState : undefined} onSelect={() => onSelect(result)} />
-                            ))}
-                          </div>
-                        </motion.section>
-                      ) : null,
-                    )
-                  ) : (
-                    <div className="grid min-h-[220px] place-items-center">
-                      <p className="text-[28px] font-medium leading-none text-foreground/30 md:text-sm md:leading-normal">No matches</p>
+      role="region"
+      aria-label="Search results"
+      className="site-sidebar-panel fixed inset-y-0 right-0 z-[85] isolate flex h-[100dvh] w-screen transform-gpu flex-col px-6 pb-0 pt-20 text-foreground will-change-transform md:w-[var(--site-panel-width)] md:py-20 md:pb-0"
+      initial={false}
+      aria-hidden={!open}
+      {...(!open ? { inert: "" } : {})}
+      style={{ pointerEvents: open ? "auto" : "none" }}
+      animate={{ x: open ? 0 : "100%" }}
+      transition={navigationMotion}
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-20 z-10 h-12 bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,hsl(var(--background)/0.82)_34%,hsl(var(--background)/0)_100%)] md:top-20" />
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-10 pt-5 scrollbar-hide md:pb-12 md:pt-8">
+        {!hasQuery ? <p className="site-search-hint">Search work, writing, and photographs.</p> : !searchReady ? (
+          <div className="grid min-h-[220px] place-items-center">
+            <p className="text-[28px] font-medium leading-none text-foreground/30 md:text-sm md:leading-normal">Searching</p>
+          </div>
+        ) : (
+          <div>
+            {hasResults ? (
+              groups.map((group) =>
+                group.results.length ? (
+                  <motion.section
+                    key={group.category}
+                    className="pb-5 pt-5 first:pt-0 last:pb-6"
+                    initial={false}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
+                  >
+                    <p className="site-search-category">
+                      {group.label}
+                    </p>
+                    <div className="space-y-2.5">
+                      {group.results.map((result) => (
+                        <ResultRow key={result.id} result={result} state={result.href.startsWith("/projects/") ? resultState : undefined} onSelect={() => onSelect(result)} />
+                      ))}
                     </div>
-                  )}
-                </div>
-              )}
-            </div>
+                  </motion.section>
+                ) : null,
+              )
+            ) : (
+              <div className="grid min-h-[220px] place-items-center">
+                <p className="text-[28px] font-medium leading-none text-foreground/30 md:text-sm md:leading-normal">No matches</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </MotionSurface>
   );
 };
@@ -287,7 +284,6 @@ const SearchTrigger = ({
           groups={groups}
           hasQuery={hasQuery}
           hasResults={hasResults}
-          onClose={handleClose}
           onSelect={handleClose}
           resultState={location.pathname === "/work" ? { fromWork: true } : location.pathname === "/" ? { fromExplore: true } : undefined}
           open={panelOpen}
