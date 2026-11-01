@@ -23,7 +23,7 @@ try {
       assert(measure.scroll <= measure.width, `${label}: ${JSON.stringify(measure)}`);
       results.push({ theme, label, ...measure });
     }
-    for (const [width, height] of [[320, 568], [390, 844], [466, 678], [626, 890], [890, 626], [844, 390]]) {
+    for (const [width, height] of [[320, 568], [382, 676], [390, 844], [466, 678], [626, 890], [890, 626], [844, 390]]) {
       await resize({ width, height });
       await page.goto(base, { waitUntil: 'domcontentloaded' });
       const input = page.getByRole('combobox', { name: 'Explore', exact: true });
@@ -74,6 +74,11 @@ try {
       await contained(`${width}x${height}-work`);
       await page.waitForFunction(() => getComputedStyle(document.querySelector('.work-story-caption')).opacity === '1');
       await page.waitForTimeout(350);
+      const unevenPairs = await page.locator('.work-row').evaluateAll(rows => rows.filter(row => {
+        const images = [...row.querySelectorAll('.work-story-image')];
+        return images.length === 2 && Math.abs(images[0].getBoundingClientRect().bottom - images[1].getBoundingClientRect().bottom) > 1;
+      }).map(row => row.textContent));
+      assert.deepEqual(unevenPairs, [], `Uneven Work pair at ${width}`);
       const clippedTitles = await page.locator('.work-story-caption').evaluateAll(captions => captions.filter(caption => {
         const image = caption.parentElement.getBoundingClientRect();
         const box = caption.getBoundingClientRect();

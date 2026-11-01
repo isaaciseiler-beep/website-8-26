@@ -1,12 +1,12 @@
 /* Preserve the site shell gutters, spacing rhythm, and shared corner token. */
 .work-page{padding-top:112px;padding-bottom:96px;}
-.work-grid{display:grid;gap:3px;overflow:hidden;border-radius:var(--site-corner-radius);}
-.work-row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:3px;align-items:start;}
-.work-row--reverse{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);}
+.work-grid{--work-landscape-ratio:1.6;--work-landscape-track:1.6fr;display:grid;gap:3px;overflow:hidden;border-radius:var(--site-corner-radius);}
+.work-row{display:grid;grid-template-columns:minmax(0,var(--work-landscape-track)) minmax(0,1fr);gap:3px;align-items:start;}
+.work-row--reverse{grid-template-columns:minmax(0,1fr) minmax(0,var(--work-landscape-track));}
 .work-story{min-width:0;}
 .work-story a{display:block;color:inherit;text-decoration:none;border-radius:0;}
 .work-story a:focus-visible{outline:2px solid currentColor;outline-offset:-4px;}
-.work-story-image{position:relative;isolation:isolate;aspect-ratio:16/10;overflow:hidden;border-radius:0;background:hsl(var(--muted));}
+.work-story-image{position:relative;isolation:isolate;aspect-ratio:var(--work-landscape-ratio);overflow:hidden;border-radius:0;background:hsl(var(--muted));}
 .work-story--square .work-story-image{aspect-ratio:1;}
 .work-story-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform var(--motion-reveal) var(--motion-ease);}
 .work-story a:hover img{transform:scale(1.025);}
@@ -16,15 +16,14 @@
 .work-story-caption p{margin-top:12px;font-size:14px;line-height:1.5;color:rgb(255 255 255 / .75);}
 .work-story a:hover .work-story-caption,.work-story a:focus-visible .work-story-caption{opacity:1;transform:none;}
 .work-story a:hover .work-story-image::after,.work-story a:focus-visible .work-story-image::after{opacity:1;}
-@media(max-width:700px){.work-page{padding-top:96px;}.work-grid,.work-row{gap:3px;}.work-story-caption{inset:auto 8px 8px;}.work-story-caption h2{font-size:clamp(13px,3.6vw,18px);}.work-story-caption p{font-size:12px;margin-top:6px;}}
+@media(max-width:700px){.work-page{padding-top:96px;}.work-grid,.work-row{gap:3px;}.work-story-caption{inset:auto 8px 8px;}.work-story-caption h2{font-size:clamp(12px,2.8vw,16px);}.work-story-caption p{font-size:11px;line-height:1.25;margin-top:4px;}}
 @media(hover:none){.work-story-caption,.work-story-image::after{opacity:1;transform:none;}}
 @media(prefers-reduced-motion:reduce){.work-story-image img,.work-story-caption,.work-story-image::after{transition:none;}.work-story a:hover img{transform:none;}}
 
 .work-row:has(> :only-child){grid-template-columns:1fr;}
 .work-row > :only-child .work-story-image{aspect-ratio:2/1;}
 
-/* Give long titles enough room without losing the alternating two-image rhythm. */
-@media(max-width:400px){
-  .work-row{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);}
-  .work-row--reverse{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);}
+/* Match each landscape ratio to its column width so pairs share a baseline. */
+@media(max-width:700px){
+  .work-grid{--work-landscape-ratio:1.25;--work-landscape-track:1.25fr;}
 }
