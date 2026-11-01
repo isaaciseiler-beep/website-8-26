@@ -146,7 +146,7 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
   if(interpreted.task==='comparison'&&interpreted.projectIds.length===2) {
     const match=checked.blocks.find(block=>block.kind==='comparison');
     if(!match)return baseline;
-    return {blocks:[{...match,projectIds:interpreted.projectIds,focus:requestedFocus(text)??match.focus??'role'}]};
+    return {blocks:[{...match,projectIds:interpreted.projectIds,focus:baseline.blocks[0]?.focus??requestedFocus(text)??match.focus??'role'}]};
   }
   // Explicit questions about contribution/process/outcomes are project stories, not state rankings.
   if(interpreted.task==='story'&&interpreted.projectIds.length===1) {

@@ -153,3 +153,16 @@ describe('held-out visitor phrasing',()=>{
     expect(composeLocal(text,initialPlan(),compose('Compare AI policy and Taiwan teaching')).blocks[0]).toMatchObject({kind:'story',projectIds:[TAIWAN_ID]});
   });
 });
+
+
+describe('comparison focus across provider boundaries',()=>{
+  it('does not inherit the previous story’s outcome focus into a new comparison',()=>{
+    const previous=compose('What did Isaac discover about local journalism?');
+    const text='Compare Isaac’s AI policy and Taiwan projects';
+    const baseline=composeLocal(text,initialPlan(),previous);
+    const proposed={blocks:[{...baseline.blocks[0],focus:'outcomes' as const}]};
+    expect(reconcileComposition(text,proposed,baseline,previous)?.blocks[0].focus).toBe('role');
+    const followup=composeLocal('What were the results?',initialPlan(),baseline);
+    expect(reconcileComposition('What were the results?',proposed,followup,baseline)?.blocks[0].focus).toBe('outcomes');
+  });
+});
