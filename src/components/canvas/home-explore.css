@@ -1,5 +1,5 @@
 @import './ai-theme.css';
-.home-genui{--window-padding:var(--space-xl);--rest-height:max(220px,calc(70dvh + 1px));min-height:var(--rest-height);padding-top:calc((var(--rest-height) - 58px)/2 - var(--window-padding));padding-bottom:var(--space-xxl);position:relative;color:hsl(var(--foreground));font-family:var(--font-ui);font-size:var(--size-s);line-height:var(--line-s);letter-spacing:var(--tracking-l);text-wrap:pretty;}
+.home-genui{--window-padding:var(--space-xl);--rest-height:max(220px,calc(70svh + 1px));min-height:var(--rest-height);padding-top:calc((var(--rest-height) - 58px)/2 - var(--window-padding));padding-bottom:var(--space-xxl);position:relative;color:hsl(var(--foreground));font-family:var(--font-ui);font-size:var(--size-s);line-height:var(--line-s);letter-spacing:var(--tracking-l);text-wrap:pretty;}
 .home-genui *{font-family:inherit;box-sizing:border-box;}
 .home-genui-window{width:min(608px,100%);padding:var(--window-padding);margin-inline:auto;position:relative;border-radius:var(--radius-xl);transition:width var(--motion-large-duration) var(--motion-large-easing),background-color var(--motion-large-duration) var(--motion-large-easing);}
 .home-genui-window.has-results{width:min(880px,100%);border-radius:var(--radius-xl);background:var(--panel-well-bg);padding:var(--window-padding);}
@@ -317,3 +317,16 @@
 .home-genui .canvas-arrangement-actions button{display:grid;place-items:center;padding:var(--space-xs);}
 .canvas-module{min-width:0;}
 .canvas-module+.canvas-module{padding-top:var(--space-xl);border-top:1px solid var(--neutral-4);}
+
+/* Size by the available pane, including folded and multitasking viewports.
+   Use native-sized form text to avoid Safari zoom without disabling pinch zoom. */
+@media (pointer:coarse), (max-width:767px) {
+  .home-genui input,.home-genui select,.home-genui .canvas-benchmark-controls select{font-size:var(--size-m);line-height:var(--line-m);}
+  .home-genui button,.home-genui select,.home-genui-stage summary{min-height:44px;}
+  .home-genui-composer button{min-width:44px;}
+  .home-genui-tools{flex-wrap:wrap;}
+  .home-view-history{flex-wrap:wrap;gap:var(--space-s);}
+  .home-genui-status{overflow-wrap:anywhere;}
+  .photo-location-ticker{bottom:calc(env(safe-area-inset-bottom) + 12px);}
+  .photo-location-ticker .pill-tab{min-height:44px;}
+}
