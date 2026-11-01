@@ -28,8 +28,8 @@ describe("homepage generative interface", () => {
     expect(screen.getByRole('region',{name:'Work explorer'})).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/}));
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button',{name:'Back'}));
-    expect(screen.getByRole('region',{name:'Work explorer'})).toBeInTheDocument();
+    expect(screen.queryByRole('button',{name:'Back',exact:true})).not.toBeInTheDocument();
+    expect(screen.queryByText('Sources')).not.toBeInTheDocument();
   });
 
   it('keeps committed results while editing, then handles unknown requests without inherited content', async () => {
@@ -44,15 +44,14 @@ describe("homepage generative interface", () => {
     fireEvent.change(input,{target:{value:'zxq nonsense'}});
     await act(async()=>{vi.advanceTimersByTime(5000);});
     expect(screen.getByRole('region',{name:'AI benchmark explorer'})).toBeInTheDocument();
-    expect(screen.getByText('Press Enter to update')).toBeInTheDocument();
+    expect(screen.queryByText('Press Enter to update')).not.toBeInTheDocument();
     expect(fetcher).toHaveBeenCalledTimes(calls);
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     expect(screen.queryByRole('region',{name:'AI benchmark explorer'})).not.toBeInTheDocument();
     expect(screen.getByText('Try one of these starting points.')).toBeInTheDocument();
     expect(fetcher).toHaveBeenCalledTimes(calls+1);
-    fireEvent.click(screen.getByRole('button',{name:'Back',exact:true}));
-    expect(screen.getByRole('region',{name:'AI benchmark explorer'})).toBeInTheDocument();
-    expect(input).toHaveValue('AI in state government');
+    expect(screen.queryByRole('button',{name:'Back',exact:true})).not.toBeInTheDocument();
+    expect(input).toHaveValue('zxq nonsense');
   });
 
   it('offers starting points when an unfamiliar request cannot be composed',async()=>{

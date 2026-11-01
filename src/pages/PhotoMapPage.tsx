@@ -1,3 +1,5 @@
+import { motionReduced, useMotionPreference } from "@/hooks/useMotionPreference";
+import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import RouteLoader from "@/components/RouteLoader";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -227,6 +229,8 @@ const PhotoMapPage = () => {
   const mapboxToken = getMapboxToken();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapboxMap | null>(null);
+  const reduced = useMotionPreference();
+  useEffect(() => { if (reduced) mapRef.current?.stop(); }, [reduced]);
   const mapboxRef = useRef<MapboxGL | null>(null);
   const markerEntriesRef = useRef<Map<string, MarkerEntry>>(new Map());
   const mapLoadedRef = useRef(false);
@@ -234,6 +238,7 @@ const PhotoMapPage = () => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const [mapReady, setMapReady] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState<string | null>(null);
@@ -348,9 +353,9 @@ const PhotoMapPage = () => {
           zoom: view.zoom,
           pitch: view.pitch,
           bearing: view.bearing,
-          duration: 520,
+          duration: motionReduced() ? 0 : 520,
           easing: (t) => 1 - Math.pow(1 - t, 4),
-          essential: true,
+          essential: false,
         });
       }
     }, 120);
@@ -403,9 +408,9 @@ const PhotoMapPage = () => {
           center: entry.coordinates as LngLatLike,
           zoom: Math.max(map.getZoom(), 3.25),
           offset: selectedLocationOffsetRef.current(),
-          duration: 980,
+          duration: motionReduced() ? 0 : 980,
           easing: (t) => 1 - Math.pow(1 - t, 4),
-          essential: true,
+          essential: false,
         });
       });
 
@@ -468,7 +473,7 @@ const PhotoMapPage = () => {
         animate={{
           x: sidebarOpen && !isMobile ? 200 : searchOpen && !isMobile ? -200 : 0,
         }}
-        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
+        transition={navigationMotion}
         className="relative h-[100svh] w-full overflow-hidden bg-background will-change-transform"
       >
         <section className="relative h-full overflow-hidden bg-background">
@@ -486,9 +491,9 @@ const PhotoMapPage = () => {
                 <motion.article
                   key={activeEntry.id}
                   className="site-corner group/photo-panel pointer-events-auto relative flex h-[40svh] min-h-[260px] w-full overflow-hidden border border-white/18 bg-[hsl(var(--image-scrim))] text-white shadow-2xl shadow-black/45 sm:h-full sm:max-w-[350px]"
-                  initial={isMobile ? { opacity: 0, y: 10, filter: "blur(3px)" } : { opacity: 0, x: 12, filter: "blur(3px)" }}
-                  animate={{ opacity: 1, x: 0, y: 0, filter: "blur(0px)" }}
-                  exit={isMobile ? { opacity: 0, y: 10, filter: "blur(3px)" } : { opacity: 0, x: 12, filter: "blur(3px)" }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                   transition={{ duration: MOTION_DURATION.base, ease: EASE }}
                 >
                   <img

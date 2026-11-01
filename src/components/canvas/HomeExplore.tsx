@@ -1,7 +1,10 @@
+import { useRouteNavigation } from "@/lib/routeNavigation";
+import { MOTION_EASE_ENTER } from "@/lib/motion";
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
-import { AnimatePresence, motion, useReducedMotion, useInView, useIsPresent } from 'framer-motion';
-import { ArrowUp, ArrowLeft, ArrowRight, ArrowUpRight, Link, Check, LoaderCircle, X } from 'lucide-react';
+import { AnimatePresence, motion, useInView, useIsPresent } from 'framer-motion';
+import { ArrowUp, ArrowUpRight, Link, Check, LoaderCircle, X } from 'lucide-react';
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
 import { isPhotographyRequest, explorationGuidance, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
@@ -19,24 +22,29 @@ function validIntentPlan(plan:Plan,revision:number):boolean {
   return Boolean(plan&&plan.revision===revision&&plan.contentVersion===CONTENT_VERSION&&layouts.has(plan.layout)&&['local','jev'].includes(plan.source)&&Array.isArray(plan.projectIds)&&plan.projectIds.length<=10&&plan.projectIds.every(id=>publicProjects.some(p=>p.id===id))&&Array.isArray(plan.albumIds)&&plan.albumIds.length<=16&&plan.albumIds.every(id=>albums.some(a=>a.folder===id)));
 }
 type View={plan:Plan;composition:Composition;query:string;generation:GenerationInfo};
-function ExplorationReveal({children}:{children:ReactNode}) {
+type SavedExploration = {query:string;view:View|null;guidance:'welcome'|'unmatched'|null;history:View[];future:View[]};
+const entryExplorations = new Map<string, SavedExploration>();
+function ExplorationReveal({children,restored=false}:{children:ReactNode;restored?:boolean}) {
   const present=useIsPresent();
   const reduceMotion=useReducedMotion();
   const content=useRef<HTMLDivElement>(null);
-  const [height,setHeight]=useState(0);
+  const [height,setHeight]=useState<number|null>(null);
   useLayoutEffect(()=>{
     const node=content.current;if(!node)return;
-    const measure=()=>setHeight(node.getBoundingClientRect().height);
-    measure();const observer=new ResizeObserver(measure);observer.observe(node);
-    return()=>observer.disconnect();
+    let frame=0;
+    const measure=()=>setHeight(Math.ceil(node.getBoundingClientRect().height));
+    measure();const observer=new ResizeObserver(()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(measure);});observer.observe(node);
+    return()=>{observer.disconnect();cancelAnimationFrame(frame);};
   },[]);
   return <motion.div className="home-genui-reveal" aria-hidden={!present} {...(!present?{inert:''}:{})}
-    initial={{height:0,opacity:0}} animate={{height,opacity:1}} exit={{height:0,opacity:0}}
-    transition={{height:{duration:reduceMotion?0:.46,ease:[.22,1,.36,1]},opacity:{duration:reduceMotion ? 0 : present ? 0.24 : 0.14}}}>
+    initial={restored?false:{height:0,opacity:0}} animate={{height:height??(restored?'auto':0),opacity:1}} exit={{height:0,opacity:0}}
+    transition={{height:reduceMotion?{duration:0}:{type:'spring',stiffness:200,damping:28,mass:1,restDelta:.5,restSpeed:8},opacity:{duration:reduceMotion?0:.3,ease:MOTION_EASE_ENTER}}}>
     <div ref={content} className="home-genui-reveal-content">{children}</div>
   </motion.div>;
 }
 export default function HomeExplore() {
+  const routeNavigation=useRouteNavigation();
+  const restored=useRef(routeNavigation?.restoring?entryExplorations.get(routeNavigation.key):undefined).current;
   const reduceMotion=useReducedMotion();
   const composerRef=useRef<HTMLDivElement>(null);
   const composerInView=useInView(composerRef,{amount:0.1});
@@ -50,23 +58,31 @@ export default function HomeExplore() {
   const [explorationFocused,setExplorationFocused]=useState(false);
   const [suggestion,setSuggestion]=useState(0);
   const [paused,setPaused]=useState(false);
-  const [query,setQuery]=useState('');
+  const [query,setQuery]=useState(restored?.query??'');
   const [autocompleteOpen,setAutocompleteOpen]=useState(false);
   const [immediateDismiss,setImmediateDismiss]=useState(false);
-  const [guidance,setGuidance]=useState<'welcome'|'unmatched'|null>(null);
+  const [guidance,setGuidance]=useState<'welcome'|'unmatched'|null>(restored?.guidance??null);
   const [composing,setComposing]=useState(false);
-  const [view,setView]=useState<View|null>(null);
-  const [heldExpanded,setHeldExpanded]=useState(false);
+  const [view,setView]=useState<View|null>(restored?.view??null);
+  const [heldExpanded,setHeldExpanded]=useState(Boolean(restored?.view));
   useEffect(()=>{if(view)setHeldExpanded(true);else if(guidance)setHeldExpanded(false);},[view,guidance]);
   const [busy,setBusy]=useState(false);
   const [phase,setPhase]=useState('Routing…');
   const [reviewLayout,setReviewLayout]=useState<LayoutId>('benchmark-compare');
-  const [history,setHistory]=useState<View[]>([]);
-  const [future,setFuture]=useState<View[]>([]);
+  const [history,setHistory]=useState<View[]>(restored?.history??[]);
+  const [future,setFuture]=useState<View[]>(restored?.future??[]);
   const [shareStatus,setShareStatus]=useState<'idle'|'copied'|'failed'>('idle');
   const [linkError,setLinkError]=useState('');
+  // Per-history-entry, memory-only and bounded; drafts never enter the URL or provider calls.
+  useLayoutEffect(()=>{
+    if(!routeNavigation)return;
+    const savedView=view?.generation.status==='composing'?{...view,generation:{status:'authored' as const}}:view;
+    entryExplorations.delete(routeNavigation.key);
+    entryExplorations.set(routeNavigation.key,{query,view:savedView,guidance,history,future});
+    if(entryExplorations.size>20)entryExplorations.delete(entryExplorations.keys().next().value!);
+  },[routeNavigation,query,view,guidance,history,future]);
   const revision=useRef(0);
-  const current=useRef<View|null>(null);
+  const current=useRef<View|null>(restored?.view??null);
   const controller=useRef<AbortController>();
   const input=useRef<HTMLInputElement>(null);
   const llmConfigured=useRef(false);
@@ -222,22 +238,22 @@ export default function HomeExplore() {
           <ArrowUpRight size={13} aria-hidden="true"/>
         </button>
       </div>}
-      {view&&!busy&&query!==view.query&&<p className="home-draft-hint">Press Enter to update</p>}
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence initial={false} onExitComplete={()=>setHeldExpanded(false)}>
-        {(view||guidance)&&<ExplorationReveal key="exploration-panel">
+        {(view||guidance)&&<ExplorationReveal key="exploration-panel" restored={Boolean(restored?.view||restored?.guidance)}>
           <div className="home-genui-stage" aria-label="Exploration results" aria-busy={busy}>
-            <div className={`home-genui-tools${!history.length&&!view?' is-empty':''}`}>
-              <div className="home-view-history">{history.length>0&&<button aria-label="Back" onClick={()=>navigateHistory('back')}><ArrowLeft size={15}/>Back</button>}{future.length>0&&<button aria-label="Forward" onClick={()=>navigateHistory('forward')}><ArrowRight size={15}/><span className="sr-only">Forward</span></button>}</div>
-              {view&&<button className="home-share-view" aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
-              <span role="status" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
-            </div>
             {guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':'Try one of these starting points.'}</p>
               <div>{[{label:'Explore the work',prompt:'Explore all projects'},{label:'AI in government',prompt:suggestions[0].prompt},{label:'Career & experience',prompt:'Explore Isaac’s career'}].map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowUpRight size={14} aria-hidden="true"/></button>)}</div>
             </div>:view&&<>
               <ExplorationCanvas composition={view.composition} plan={view.plan} generation={view.generation} onChange={changeComposition}/>
             </>}
+            <div className={`home-genui-tools${!view?' is-empty':''}`}>
+
+              {view&&<button className="home-share-view" aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
+              <span role="status" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
+            </div>
+
           </div>
         </ExplorationReveal>}
       </AnimatePresence>

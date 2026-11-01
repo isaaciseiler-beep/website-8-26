@@ -22,7 +22,7 @@ const ImagePreloader = () => {
     let observer: MutationObserver | undefined;
 
     const markReady = (image: HTMLImageElement) => {
-      if (image.style.opacity) return;
+      if (image.style.opacity || image.dataset.motionImage === "true") return;
       if (image.dataset.imageState === "loading") image.dataset.imageReveal = "true";
       image.dataset.imageState = "ready";
     };
@@ -34,7 +34,7 @@ const ImagePreloader = () => {
       const src = image.currentSrc || image.src;
       if (!src) return;
 
-      if (!image.style.opacity) {
+      if (!image.style.opacity && image.dataset.motionImage !== "true") {
         image.dataset.imageState = image.complete && image.naturalWidth > 0 ? "ready" : "loading";
         image.addEventListener("load", () => markReady(image), { once: true });
         image.addEventListener("error", () => markReady(image), { once: true });

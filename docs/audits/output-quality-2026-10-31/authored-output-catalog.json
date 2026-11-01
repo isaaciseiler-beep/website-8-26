@@ -1,0 +1,2836 @@
+[
+  {
+    "id": "benchmark-ranking",
+    "question": "Rank governments by AI preparedness",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "benchmark",
+        "layout": "benchmark-ranking",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI in state government"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "Rankings",
+      "Regions",
+      "Distribution",
+      "01Maryland100.0",
+      "02California87.1",
+      "03Arizona85.3",
+      "04Georgia84.8",
+      "05Pennsylvania83.5",
+      "06Alabama75.6",
+      "07Utah71.8",
+      "Show all governments"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "benchmark-scorecard",
+    "question": "Show Michigan’s AI scorecard",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "benchmark",
+        "layout": "benchmark-scorecard",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [
+          "Michigan"
+        ],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Michigan"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "All governments"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "benchmark-compare",
+    "question": "Compare Michigan and California",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "benchmark",
+        "layout": "benchmark-compare",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [
+          "Michigan",
+          "California"
+        ],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Government comparison"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "All governments"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "benchmark-regions",
+    "question": "Compare regions in the AI benchmark",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "benchmark",
+        "layout": "benchmark-regions",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Regional comparison"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "Rankings",
+      "Regions",
+      "Distribution",
+      "East55.0Mean score · 14 governments",
+      "Midwest35.8Mean score · 11 governments",
+      "South45.9Mean score · 14 governments",
+      "West41.4Mean score · 17 governments"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "benchmark-distribution",
+    "question": "Show the distribution of AI scores",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "benchmark",
+        "layout": "benchmark-distribution",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Score distribution"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "Rankings",
+      "Regions",
+      "Distribution",
+      "100–20",
+      "1420–40",
+      "1540–60",
+      "1260–80",
+      "580–100",
+      "01Maryland100.0",
+      "02California87.1",
+      "03Arizona85.3",
+      "04Georgia84.8",
+      "05Pennsylvania83.5",
+      "06Alabama75.6",
+      "07Utah71.8",
+      "Show all governments"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "benchmark-criteria",
+    "question": "Show Michigan AI evidence criteria",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "benchmark",
+        "layout": "benchmark-criteria",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [
+          "Michigan"
+        ],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Michigan"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "All governments"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "project-brief",
+    "question": "Give me a brief on the Taiwan project",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-brief",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan"
+    ],
+    "paragraphs": [
+      "I pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.",
+      "I turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "Explore how it happened"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "How did educators shape the Taiwan program?",
+      "What were the outcomes of Isaac’s Taiwan project?"
+    ]
+  },
+  {
+    "id": "project-process",
+    "question": "Show the Taiwan project process",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan",
+      "From the Idea to the Lab"
+    ],
+    "paragraphs": [
+      "Many people in my community were either skeptical of AI or unsure how to use it well.",
+      "I was already participating in OpenAI's ChatGPT Lab, so I pitched the team on extending that work into a local program for educators in Taiwan. With support from OpenAI and ChatGPT for Education, it became one of the first Local Labs to run."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01Proposing the Lab",
+      "02Learning together"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "How did educators shape the Taiwan program?",
+      "What were the outcomes of Isaac’s Taiwan project?"
+    ]
+  },
+  {
+    "id": "project-outcomes",
+    "question": "Show outcomes from the Taiwan project",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan",
+      "From the Idea to the Lab"
+    ],
+    "paragraphs": [
+      "Many people in my community were either skeptical of AI or unsure how to use it well.",
+      "I was already participating in OpenAI's ChatGPT Lab, so I pitched the team on extending that work into a local program for educators in Taiwan. With support from OpenAI and ChatGPT for Education, it became one of the first Local Labs to run."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01Nine published use cases",
+      "02Conference workshop",
+      "03Lessons learned",
+      "04Proposing the Lab"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "How did educators shape the Taiwan program?",
+      "What were the outcomes of Isaac’s Taiwan project?"
+    ]
+  },
+  {
+    "id": "project-evidence",
+    "question": "Explore Taiwan project evidence",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-evidence",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan"
+    ],
+    "paragraphs": [
+      "Many people in my community were either skeptical of AI or unsure how to use it well.",
+      "I was already participating in OpenAI's ChatGPT Lab, so I pitched the team on extending that work into a local program for educators in Taiwan. With support from OpenAI and ChatGPT for Education, it became one of the first Local Labs to run.",
+      "My first goal was to create a space where educators could learn from one another. Then I wanted to tell the story of what we learned so others could benefit.",
+      "I designed the Lab as six sessions covering AI fundamentals. We focused on work educators already had in front of them: preparing lessons, giving feedback, supporting language learning, and deciding when an AI tool would create more problems than it solved.",
+      "I paid attention to where people saw immediate value, where they became skeptical, and which examples still made sense.",
+      "Participant questions changed what I emphasized in later sessions. We spent less time talking about ChatGPT in the abstract and more time on when and how educators should choose to use it.",
+      "By the final sessions, the program reflected more than the structure I had started with. It reflected the concerns and experience of the educators who participated in the program.",
+      "I reviewed the use cases I had gathered and turned them into nine practical ChatGPT use cases that could apply across different educational environments.",
+      "I wrote the final piece, which OpenAI's ChatGPT for Education Substack published.",
+      "What started as a conversation among a small group of English educators in Taiwan became something others could read, debate, add to, and adapt for themselves.",
+      "After the program concluded, I used what I learned to build an LLM fundamentals and alignment workshop for an international education conference in Taiwan with more than 250 attendees.",
+      "The Lab had given people six sessions to experiment, come back, and build trust with one another. At the conference, I had one workshop to give a much broader audience enough context to understand both the possibilities and the limits.",
+      "I focused on the questions that had surfaced most often: how language models work and how educators can use them without handing over their own judgment. For the latter, I directly cited uses identified by Lab participants.",
+      "Ultimately, I learned two big lessons.",
+      "First, the best learning happens in community, with people learning from one another. If I had designed the workshops as a lecture series, the value would have ended when the workshops did.",
+      "Second, the program reinforced my belief that durable AI adoption starts from the bottom up. Lab participants represented opinions from across the spectrum, from early AI adopters to AI skeptics. By the end of the program, participants had found ways to use AI in their work to improve their impact."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "How did educators shape the Taiwan program?",
+      "What were the outcomes of Isaac’s Taiwan project?"
+    ]
+  },
+  {
+    "id": "project-compare",
+    "question": "Compare AI policy and Taiwan teaching",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "comparison",
+        "layout": "project-compare",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index",
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Contributions, side by side",
+      "AI in state government",
+      "AI literacy in Taiwan"
+    ],
+    "paragraphs": [
+      "The government project centers on research and benchmark design; the Taiwan project centers on proposing, designing and facilitating a program. Both make AI adoption easier to understand, at institutional and classroom scales.",
+      "I built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.",
+      "I pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.",
+      "A 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.",
+      "I turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "How did Isaac research AI in government?",
+      "How did educators shape the Taiwan program?"
+    ]
+  },
+  {
+    "id": "project-index",
+    "question": "Explore all projects",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "collection",
+        "layout": "project-index",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index",
+          "congressional-office-setup-100-day-report",
+          "senior-thesis-local-journalism"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Explore work"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "2025Mapping the Rise of AI Across State Government",
+      "2023Building a Congressional Operation from Scratch",
+      "2025Investigating AI’s Impact on Journalism in Australia",
+      "2025Leading AI Literacy Efforts in Taiwan",
+      "2025Bringing the Boehringer Cares Rebrand to Life",
+      "2025–PresentHelping Shape OpenAI's Products Before Launch"
+    ],
+    "links": [],
+    "suggestions": [
+      "What was Isaac’s role in Congress?",
+      "How did Isaac research AI in government?",
+      "What did Isaac discover about local journalism?",
+      "How did Isaac create the 100 Day Report?"
+    ]
+  },
+  {
+    "id": "experience-timeline",
+    "question": "Show your career timeline",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Career & experience",
+      "Making complex technology useful"
+    ],
+    "paragraphs": [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on."
+    ],
+    "buttons": [
+      "AI & communications",
+      "Teaching in Taiwan",
+      "Research & policy",
+      "Public service",
+      "Product feedback"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "experience-roles",
+    "question": "Explore your professional roles",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-roles",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Career & experience",
+      "Making complex technology useful"
+    ],
+    "paragraphs": [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on."
+    ],
+    "buttons": [
+      "AI & communications",
+      "Teaching in Taiwan",
+      "Research & policy",
+      "Public service",
+      "Product feedback"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "site-pipeline",
+    "question": "How does this site work?",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "architecture",
+        "layout": "site-pipeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "How this interface works",
+      "Understand"
+    ],
+    "paragraphs": [
+      "Local matching selected an interface direction for this request."
+    ],
+    "buttons": [
+      "01Understand",
+      "02Retrieve",
+      "03Compose",
+      "04Interact"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "contact-card",
+    "question": "How can I contact you?",
+    "preset": true,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "contact",
+        "layout": "contact-card",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Get in touch"
+    ],
+    "paragraphs": [],
+    "buttons": [],
+    "links": [
+      "Email",
+      "LinkedIn",
+      "GitHub"
+    ],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "career",
+    "question": "Walk me through Isaac’s experience",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "summation-ai",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Career & experience",
+      "Making complex technology useful"
+    ],
+    "paragraphs": [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on."
+    ],
+    "buttons": [
+      "AI & communications",
+      "Teaching in Taiwan",
+      "Research & policy",
+      "Public service",
+      "Product feedback"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "taiwan",
+    "question": "What did Isaac build in Taiwan?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-brief",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan"
+    ],
+    "paragraphs": [
+      "I pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.",
+      "I turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "Explore how it happened"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "How did educators shape the Taiwan program?",
+      "What were the outcomes of Isaac’s Taiwan project?",
+      "How did Isaac evaluate the Taiwan program?"
+    ]
+  },
+  {
+    "id": "congress",
+    "question": "What was Isaac’s role in Congress?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-brief",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Building a congressional office"
+    ],
+    "paragraphs": [
+      "I helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.",
+      "The work connected a new office with local and national audiences and made its first 100 days of service understandable. Constituent-service totals describe the whole office’s work."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "Explore how it happened"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac create the 100 Day Report?",
+      "What did the congressional office accomplish?"
+    ]
+  },
+  {
+    "id": "policy",
+    "question": "How did Isaac research AI in government?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 1,
+        "focus": "process",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI in state government",
+      "What I Built"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes"
+    ],
+    "links": [],
+    "suggestions": []
+  },
+  {
+    "id": "strengths",
+    "question": "What are Isaac’s strongest skills?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 1,
+        "focus": "overview",
+        "roleId": "csg-ai-index",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Strengths across the work",
+      "Making government AI comparable"
+    ],
+    "paragraphs": [
+      "I built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.",
+      "I looked for concrete adoption signals: employee guidance, training, sandboxes, pilots, governance structures, and transparency."
+    ],
+    "buttons": [
+      "Research & policy",
+      "Teaching in Taiwan",
+      "Public service",
+      "AI & communications",
+      "Explore the work"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "service",
+    "question": "Tell me about Isaac’s public service",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 2,
+        "focus": "overview",
+        "roleId": "us-house",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Public service",
+      "Building a communications function"
+    ],
+    "paragraphs": [
+      "I helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.",
+      "For the child-labor story in West Michigan, I developed the message, pitched reporters, prepared interviews, and connected the local reporting to proposed federal action."
+    ],
+    "buttons": [
+      "Public service",
+      "Research & policy",
+      "Teaching in Taiwan",
+      "Scholten for Congress",
+      "Explore the work"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "leadership",
+    "question": "Which work demonstrates Isaac’s leadership?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 1,
+        "focus": "overview",
+        "roleId": "fulbright-taiwan",
+        "search": "",
+        "expanded": false,
+        "band": null,
+        "angle": "leadership"
+      }
+    ],
+    "headings": [
+      "Leadership in practice",
+      "Designing around educators’ real work"
+    ],
+    "paragraphs": [
+      "I pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.",
+      "Participant questions changed what I emphasized in later sessions. We spent less time on ChatGPT in the abstract and more time on when and how educators should use it."
+    ],
+    "buttons": [
+      "Teaching in Taiwan",
+      "Public service",
+      "Teaching teams",
+      "Explore the work"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "roles",
+    "question": "Explore Isaac’s roles and responsibilities",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-roles",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "summation-ai",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Career & experience",
+      "Making complex technology useful"
+    ],
+    "paragraphs": [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on."
+    ],
+    "buttons": [
+      "AI & communications",
+      "Teaching in Taiwan",
+      "Research & policy",
+      "Public service",
+      "Product feedback"
+    ],
+    "links": [],
+    "suggestions": [
+      "Walk me through Isaac’s experience",
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?"
+    ]
+  },
+  {
+    "id": "current",
+    "question": "What is Isaac working on now?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "summation-ai",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Career & experience",
+      "Making complex technology useful"
+    ],
+    "paragraphs": [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on."
+    ],
+    "buttons": [
+      "AI & communications",
+      "Teaching in Taiwan",
+      "Research & policy",
+      "Public service",
+      "Product feedback"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "journalism",
+    "question": "What did Isaac’s journalism research explore?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-brief",
+        "projectIds": [
+          "senior-thesis-local-journalism"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI, platforms & local journalism"
+    ],
+    "paragraphs": [
+      "I authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.",
+      "An original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "Explore how it happened"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac’s journalism research explore?",
+      "What did Isaac discover about local journalism?"
+    ]
+  },
+  {
+    "id": "journalism-findings",
+    "question": "What did Isaac discover about local journalism?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "senior-thesis-local-journalism"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 1,
+        "focus": "outcomes",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI, platforms & local journalism",
+      "Research themes & outputs"
+    ],
+    "paragraphs": [
+      "The published project summary identifies labor precarity, newsroom contraction and platform dependence as research themes. It does not provide the thesis’s detailed conclusions."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac’s journalism research explore?"
+    ]
+  },
+  {
+    "id": "taiwan-process",
+    "question": "How did educators shape the Taiwan program?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 1,
+        "focus": "process",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan",
+      "Building a Program Where People Learned From Each Other"
+    ],
+    "paragraphs": [
+      "I designed the Lab as six sessions covering AI fundamentals. We focused on work educators already had in front of them: preparing lessons, giving feedback, supporting language learning, and deciding when an AI tool would create more problems than it solved.",
+      "Participant questions changed what I emphasized in later sessions. We spent less time talking about ChatGPT in the abstract and more time on when and how educators should choose to use it."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01Proposing the Lab",
+      "02Learning together",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "What were the outcomes of Isaac’s Taiwan project?",
+      "How did Isaac evaluate the Taiwan program?"
+    ]
+  },
+  {
+    "id": "taiwan-lessons",
+    "question": "What did Isaac learn in Taiwan?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 4,
+        "focus": "outcomes",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan",
+      "What I Learned"
+    ],
+    "paragraphs": [
+      "First, the best learning happens in community, with people learning from one another. If I had designed the workshops as a lecture series, the value would have ended when the workshops did.",
+      "Second, the program reinforced my belief that durable AI adoption starts from the bottom up. Lab participants represented opinions from across the spectrum, from early AI adopters to AI skeptics. By the end of the program, participants had found ways to use AI in their work to improve their impact."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01Nine published use cases",
+      "02Conference workshop",
+      "03Lessons learned",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "How did educators shape the Taiwan program?",
+      "How did Isaac evaluate the Taiwan program?"
+    ]
+  },
+  {
+    "id": "taiwan-outcomes",
+    "question": "What were the outcomes of Isaac’s Taiwan project?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 2,
+        "focus": "outcomes",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan",
+      "Turning What We Learned Into Public Value"
+    ],
+    "paragraphs": [
+      "I reviewed the use cases I had gathered and turned them into nine practical ChatGPT use cases that could apply across different educational environments.",
+      "I wrote the final piece, which OpenAI's ChatGPT for Education Substack published."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01Nine published use cases",
+      "02Conference workshop",
+      "03Lessons learned",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "How did educators shape the Taiwan program?",
+      "How did Isaac evaluate the Taiwan program?"
+    ]
+  },
+  {
+    "id": "taiwan-measurement",
+    "question": "How did Isaac evaluate the Taiwan program?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 4,
+        "focus": "outcomes",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null,
+        "angle": "measurement"
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan",
+      "What I Learned"
+    ],
+    "paragraphs": [
+      "The published account documents six sessions, nine use cases and a subsequent conference workshop. It describes participants finding uses for AI in their work, but does not report pre/post assessment scores or a measured causal improvement.",
+      "First, the best learning happens in community, with people learning from one another. If I had designed the workshops as a lecture series, the value would have ended when the workshops did.",
+      "Second, the program reinforced my belief that durable AI adoption starts from the bottom up. Lab participants represented opinions from across the spectrum, from early AI adopters to AI skeptics. By the end of the program, participants had found ways to use AI in their work to improve their impact."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01Nine published use cases",
+      "02Conference workshop",
+      "03Lessons learned",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "How did educators shape the Taiwan program?",
+      "How did Isaac evaluate the Taiwan program?"
+    ]
+  },
+  {
+    "id": "taiwan-tradeoffs",
+    "question": "What were the tradeoffs in the Taiwan program?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 1,
+        "focus": "process",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null,
+        "angle": "tradeoffs"
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan",
+      "Building a Program Where People Learned From Each Other"
+    ],
+    "paragraphs": [
+      "Isaac adapted the sessions to educators’ questions rather than delivering a fixed lecture series. The central judgment was when AI helped with real classroom work and when it created more problems than it solved.",
+      "I designed the Lab as six sessions covering AI fundamentals. We focused on work educators already had in front of them: preparing lessons, giving feedback, supporting language learning, and deciding when an AI tool would create more problems than it solved.",
+      "Participant questions changed what I emphasized in later sessions. We spent less time talking about ChatGPT in the abstract and more time on when and how educators should choose to use it."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01Proposing the Lab",
+      "02Learning together",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "What were the outcomes of Isaac’s Taiwan project?",
+      "How did Isaac evaluate the Taiwan program?"
+    ]
+  },
+  {
+    "id": "report",
+    "question": "How did Isaac create the 100 Day Report?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 5,
+        "focus": "process",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Building a congressional office",
+      "Making the first 100 days measurable"
+    ],
+    "paragraphs": [
+      "Isaac also led the creation of the office's 100 Day Report. He collected and checked information from across the office, chose which results to highlight, wrote the narrative, designed the report, and coordinated its release to reporters and stakeholders.",
+      "The numbers belonged to the full team. Isaac's job was to make sure they were accurate, understandable, and available to the public. The report gave his growing press network a useful account of the office's first months and gave constituents a direct way to evaluate its work."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01Building the press network",
+      "02Child-labor coverage",
+      "03Reaching different audiences",
+      "04Bipartisan collaboration",
+      "05The 100 Day Report"
+    ],
+    "links": [],
+    "suggestions": [
+      "What was Isaac’s role in Congress?",
+      "What did the congressional office accomplish?"
+    ]
+  },
+  {
+    "id": "congress-outcomes",
+    "question": "What did the congressional office accomplish?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 5,
+        "focus": "outcomes",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Building a congressional office",
+      "Making the first 100 days measurable"
+    ],
+    "paragraphs": [
+      "Isaac also led the creation of the office's 100 Day Report. He collected and checked information from across the office, chose which results to highlight, wrote the narrative, designed the report, and coordinated its release to reporters and stakeholders.",
+      "The numbers belonged to the full team. Isaac's job was to make sure they were accurate, understandable, and available to the public. The report gave his growing press network a useful account of the office's first months and gave constituents a direct way to evaluate its work."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01The 100 Day Report",
+      "02Public recognition"
+    ],
+    "links": [],
+    "suggestions": [
+      "What was Isaac’s role in Congress?",
+      "How did Isaac create the 100 Day Report?"
+    ]
+  },
+  {
+    "id": "rebrand",
+    "question": "What was Isaac’s role in the Boehringer rebrand?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-brief",
+        "projectIds": [
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Bringing Boehringer Cares to life"
+    ],
+    "paragraphs": [
+      "I helped carry the team’s approved rebrand into the foundation’s website, communications assets, company-wide newsletter, and volunteering communications.",
+      "During the 2025 rollout, annual employee volunteering increased by 25%; the newsletter reached an 80% open rate, alongside more than 25 communications assets."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "Explore how it happened"
+    ],
+    "links": [],
+    "suggestions": [
+      "What were the results of Isaac’s Boehringer project?"
+    ]
+  },
+  {
+    "id": "rebrand-outcomes",
+    "question": "What were the results of Isaac’s Boehringer project?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 3,
+        "focus": "outcomes",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Bringing Boehringer Cares to life",
+      "Results"
+    ],
+    "paragraphs": [
+      "During the 2025 rollout, annual employee volunteering increased by 25%. The company-wide newsletter reached an 80% open rate and became a reliable way to share opportunities, updates, and impact stories.",
+      "The result was a rebrand that showed up consistently in the foundation's public presence and in the communications employees received throughout the year."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes"
+    ],
+    "links": [],
+    "suggestions": [
+      "What was Isaac’s role in the Boehringer rebrand?"
+    ]
+  },
+  {
+    "id": "openai",
+    "question": "What did Isaac contribute to OpenAI product testing?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-brief",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Inside the ChatGPT Lab"
+    ],
+    "paragraphs": [
+      "In OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.",
+      "My contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "Explore how it happened"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn from testing ChatGPT?",
+      "What feedback did Isaac give on Study Mode?",
+      "What feedback did Isaac give on Pulse?",
+      "What feedback did Isaac give on Atlas?"
+    ]
+  },
+  {
+    "id": "openai-lessons",
+    "question": "What did Isaac learn from testing ChatGPT?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 7,
+        "focus": "outcomes",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Inside the ChatGPT Lab",
+      "What I learned from the Lab"
+    ],
+    "paragraphs": [
+      "Before the Lab, I thought product feedback mostly meant finding bugs or asking for features. I learned that the more valuable work is often translation: connecting what a team built to the messy way a person is actually trying to learn, plan, or make a decision.",
+      "The products were different, but my questions stayed consistent. Does this make the user more capable? Is the source of the answer visible? Does the interface help someone understand what to do next? And does the launch story match the real experience?"
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01100 Chats",
+      "02Lessons from the Lab",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn from testing ChatGPT?",
+      "What did Isaac contribute to OpenAI product testing?",
+      "What feedback did Isaac give on Study Mode?",
+      "What feedback did Isaac give on Pulse?"
+    ]
+  },
+  {
+    "id": "study-mode",
+    "question": "What feedback did Isaac give on Study Mode?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 2,
+        "focus": "process",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Inside the ChatGPT Lab",
+      "Study Mode: making ChatGPT teach, not answer"
+    ],
+    "paragraphs": [
+      "I used the early experience to think through graduate school and a five-year career plan. I liked that it made me supply the substance instead of pretending the model knew what I wanted. My biggest push was about the ending: good Socratic questions still need to help a user land the plane.",
+      "When Study Mode launched, OpenAI highlighted my use case in its student storytelling. It was satisfying to see a product move toward the kind of critical engagement I had wanted from it in testing."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01100 Chats",
+      "02Study Mode",
+      "03Back to School",
+      "04Pulse",
+      "05Atlas",
+      "06Group Chats",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn from testing ChatGPT?",
+      "What did Isaac contribute to OpenAI product testing?",
+      "What did Isaac contribute to the 100 Chats book?"
+    ]
+  },
+  {
+    "id": "pulse",
+    "question": "What feedback did Isaac give on Pulse?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 4,
+        "focus": "process",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Inside the ChatGPT Lab",
+      "Pulse: when ChatGPT starts the conversation"
+    ],
+    "paragraphs": [
+      "The moments of real personalization felt like magic. My feedback focused on making those moments easier to find and trust: a more visible home for Pulse, compact cards, clearer sources, better preference controls, and fewer canned acknowledgements.",
+      "OpenAI's launch story featured my experience using calendar context to catch an unused day of PTO and turn it into a plan. That small example captured the promise for me: proactive AI should help me act, not just give me more to scroll."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01100 Chats",
+      "02Study Mode",
+      "03Back to School",
+      "04Pulse",
+      "05Atlas",
+      "06Group Chats",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn from testing ChatGPT?",
+      "What did Isaac contribute to OpenAI product testing?",
+      "What did Isaac contribute to the 100 Chats book?"
+    ]
+  },
+  {
+    "id": "atlas",
+    "question": "What feedback did Isaac give on Atlas?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 5,
+        "focus": "process",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Inside the ChatGPT Lab",
+      "Atlas: rethinking the browser"
+    ],
+    "paragraphs": [
+      "For OpenAI's browser work, I tested a basic premise: what changes when the assistant understands the page you are already on? I used early builds for travel research, translating Mandarin-language pages, comparing options, and turning scattered findings into an itinerary or map.",
+      "I kept coming back to the seam between browsing and chatting. I wanted fewer moments where the two felt like separate products, more control over the model doing the work, and recommendations that looked useful rather than ad-like."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01100 Chats",
+      "02Study Mode",
+      "03Back to School",
+      "04Pulse",
+      "05Atlas",
+      "06Group Chats",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn from testing ChatGPT?",
+      "What did Isaac contribute to OpenAI product testing?",
+      "What did Isaac contribute to the 100 Chats book?"
+    ]
+  },
+  {
+    "id": "group-chats",
+    "question": "What feedback did Isaac give on group chats?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 6,
+        "focus": "process",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Inside the ChatGPT Lab",
+      "Group Chats: learning when AI should speak"
+    ],
+    "paragraphs": [
+      "I tested the experience as a group facilitator and pushed on the assistant's social judgment. It often participated too little or sounded too canned. I wanted people to be able to tune how active it was—to make ChatGPT a useful collaborator without letting it take over the conversation.",
+      "That work reinforced something I saw across every product: intelligence is only part of the design problem. Timing, restraint, and a clear role matter just as much."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01100 Chats",
+      "02Study Mode",
+      "03Back to School",
+      "04Pulse",
+      "05Atlas",
+      "06Group Chats",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn from testing ChatGPT?",
+      "What did Isaac contribute to OpenAI product testing?",
+      "What did Isaac contribute to the 100 Chats book?"
+    ]
+  },
+  {
+    "id": "100-chats",
+    "question": "What did Isaac contribute to the 100 Chats book?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-process",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 1,
+        "focus": "process",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Inside the ChatGPT Lab",
+      "100 Chats: turning behavior into a book"
+    ],
+    "paragraphs": [
+      "The first big project asked a deceptively simple question: what are college students actually using ChatGPT for? Together, the Lab built a collection of 100 real workflows—less a prompt library than a snapshot of how students were learning, creating, researching, and getting unstuck.",
+      "My contributions came from the places I was already using ChatGPT: research, writing, policy, and the small technical problems that can derail a day. I helped turn those examples into a public book and story that other students could recognize themselves in."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01100 Chats",
+      "02Study Mode",
+      "03Back to School",
+      "04Pulse",
+      "05Atlas",
+      "06Group Chats"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn from testing ChatGPT?",
+      "What did Isaac contribute to OpenAI product testing?",
+      "What did Isaac contribute to the 100 Chats book?"
+    ]
+  },
+  {
+    "id": "work",
+    "question": "Explore all projects",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "collection",
+        "layout": "project-index",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Explore work"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "2025Mapping the Rise of AI Across State Government",
+      "2023Building a Congressional Operation from Scratch",
+      "2025Investigating AI’s Impact on Journalism in Australia",
+      "2025Leading AI Literacy Efforts in Taiwan",
+      "2025Bringing the Boehringer Cares Rebrand to Life",
+      "2025–PresentHelping Shape OpenAI's Products Before Launch"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "compare",
+    "question": "Compare Isaac’s AI policy and Taiwan projects",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "comparison",
+        "layout": "project-compare",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index",
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Contributions, side by side",
+      "AI in state government",
+      "AI literacy in Taiwan"
+    ],
+    "paragraphs": [
+      "The government project centers on research and benchmark design; the Taiwan project centers on proposing, designing and facilitating a program. Both make AI adoption easier to understand, at institutional and classroom scales.",
+      "I built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.",
+      "I pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.",
+      "A 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.",
+      "I turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "How did Isaac research AI in government?",
+      "How did educators shape the Taiwan program?",
+      "What were the outcomes of Isaac’s Taiwan project?"
+    ]
+  },
+  {
+    "id": "compare-comms",
+    "question": "Compare Isaac’s Congress and Boehringer work",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "comparison",
+        "layout": "project-compare",
+        "projectIds": [
+          "congressional-office-setup-100-day-report",
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Contributions, side by side",
+      "Building a congressional office",
+      "Bringing Boehringer Cares to life"
+    ],
+    "paragraphs": [
+      "In Congress, Isaac helped establish a new office’s communications function. At Boehringer, he helped implement an approved rebrand across existing channels. Both involved communications operations, with different starting points and audiences.",
+      "I helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.",
+      "I helped carry the team’s approved rebrand into the foundation’s website, communications assets, company-wide newsletter, and volunteering communications.",
+      "The work connected a new office with local and national audiences and made its first 100 days of service understandable. Constituent-service totals describe the whole office’s work.",
+      "During the 2025 rollout, annual employee volunteering increased by 25%; the newsletter reached an 80% open rate, alongside more than 25 communications assets."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac create the 100 Day Report?",
+      "What did the congressional office accomplish?",
+      "What were the results of Isaac’s Boehringer project?"
+    ]
+  },
+  {
+    "id": "compare-research",
+    "question": "Compare Isaac’s OpenAI and journalism work",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "comparison",
+        "layout": "project-compare",
+        "projectIds": [
+          "openai-product-testing-and-feedback",
+          "senior-thesis-local-journalism"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Contributions, side by side",
+      "Inside the ChatGPT Lab",
+      "AI, platforms & local journalism"
+    ],
+    "paragraphs": [
+      "In the ChatGPT Lab, Isaac contributed product feedback from real workflows. In the journalism thesis, he led an independent qualitative study. Both examine technology through people’s experience, with different levels of research ownership.",
+      "In OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.",
+      "I authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.",
+      "My contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.",
+      "An original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn from testing ChatGPT?",
+      "What did Isaac’s journalism research explore?",
+      "What did Isaac discover about local journalism?",
+      "What feedback did Isaac give on Study Mode?"
+    ]
+  },
+  {
+    "id": "contact",
+    "question": "How can I contact Isaac?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "contact",
+        "layout": "contact-card",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Get in touch"
+    ],
+    "paragraphs": [],
+    "buttons": [],
+    "links": [
+      "Email",
+      "LinkedIn",
+      "GitHub"
+    ],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "probe-0",
+    "question": "What connects all this work?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 1,
+        "focus": "overview",
+        "roleId": "csg-ai-index",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Strengths across the work",
+      "Making government AI comparable"
+    ],
+    "paragraphs": [
+      "I built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.",
+      "I looked for concrete adoption signals: employee guidance, training, sandboxes, pilots, governance structures, and transparency."
+    ],
+    "buttons": [
+      "Research & policy",
+      "Teaching in Taiwan",
+      "Public service",
+      "AI & communications",
+      "Explore the work"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "probe-1",
+    "question": "Why should I hire Isaac?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 1,
+        "focus": "overview",
+        "roleId": "summation-ai",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Strengths across the work",
+      "Making complex technology useful"
+    ],
+    "paragraphs": [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on."
+    ],
+    "buttons": [
+      "Research & policy",
+      "Teaching in Taiwan",
+      "Public service",
+      "AI & communications"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "probe-2",
+    "question": "What is Isaac best at?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "collection",
+        "layout": "project-index",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Explore work"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "2025Mapping the Rise of AI Across State Government",
+      "2023Building a Congressional Operation from Scratch",
+      "2025Investigating AI’s Impact on Journalism in Australia",
+      "2025Leading AI Literacy Efforts in Taiwan",
+      "2025Bringing the Boehringer Cares Rebrand to Life",
+      "2025–PresentHelping Shape OpenAI's Products Before Launch"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "probe-3",
+    "question": "Who is Isaac?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-roles",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "summation-ai",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Career & experience",
+      "Making complex technology useful"
+    ],
+    "paragraphs": [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on."
+    ],
+    "buttons": [
+      "AI & communications",
+      "Teaching in Taiwan",
+      "Research & policy",
+      "Public service",
+      "Product feedback"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "probe-4",
+    "question": "What is Isaac working on now?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "summation-ai",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Career & experience",
+      "Making complex technology useful"
+    ],
+    "paragraphs": [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on."
+    ],
+    "buttons": [
+      "AI & communications",
+      "Teaching in Taiwan",
+      "Research & policy",
+      "Public service",
+      "Product feedback"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "probe-5",
+    "question": "What were the challenges in the Boehringer rebrand?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-brief",
+        "projectIds": [
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null,
+        "angle": "tradeoffs"
+      }
+    ],
+    "headings": [
+      "Bringing Boehringer Cares to life"
+    ],
+    "paragraphs": [
+      "I helped carry the team’s approved rebrand into the foundation’s website, communications assets, company-wide newsletter, and volunteering communications.",
+      "During the 2025 rollout, annual employee volunteering increased by 25%; the newsletter reached an 80% open rate, alongside more than 25 communications assets."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "Explore how it happened"
+    ],
+    "links": [],
+    "suggestions": [
+      "What was Isaac’s role in the Boehringer rebrand?",
+      "What were the results of Isaac’s Boehringer project?"
+    ]
+  },
+  {
+    "id": "probe-6",
+    "question": "How did Isaac measure the government index’s impact?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "outcomes",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null,
+        "angle": "measurement"
+      }
+    ],
+    "headings": [
+      "AI in state government",
+      "Overview"
+    ],
+    "paragraphs": [
+      "This work, published with the Council of State Governments, translates the GenAI hype cycle into a measurable picture of how state and territory governments are actually responding.",
+      "I built a public-information benchmark that scores all states and territories on concrete adoption signals including employee guidance, training, sandboxes, pilots, governance structures, and transparency, then paired the index with a policy roadmap for what leaders should do next."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01Research context",
+      "02Scoring framework",
+      "Continue reading"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?"
+    ]
+  },
+  {
+    "id": "probe-7",
+    "question": "What did Isaac learn in Congress?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-outcomes",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 5,
+        "focus": "outcomes",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Building a congressional office",
+      "Making the first 100 days measurable"
+    ],
+    "paragraphs": [
+      "Isaac also led the creation of the office's 100 Day Report. He collected and checked information from across the office, chose which results to highlight, wrote the narrative, designed the report, and coordinated its release to reporters and stakeholders.",
+      "The numbers belonged to the full team. Isaac's job was to make sure they were accurate, understandable, and available to the public. The report gave his growing press network a useful account of the office's first months and gave constituents a direct way to evaluate its work."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "01The 100 Day Report",
+      "02Public recognition"
+    ],
+    "links": [],
+    "suggestions": [
+      "What was Isaac’s role in Congress?",
+      "How did Isaac create the 100 Day Report?"
+    ]
+  },
+  {
+    "id": "probe-8",
+    "question": "What would Isaac do differently in Taiwan?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-brief",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "AI literacy in Taiwan"
+    ],
+    "paragraphs": [
+      "I pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.",
+      "I turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "Explore how it happened"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac build in Taiwan?",
+      "How did educators shape the Taiwan program?",
+      "What were the outcomes of Isaac’s Taiwan project?"
+    ]
+  },
+  {
+    "id": "probe-9",
+    "question": "What were the failures in the OpenAI work?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "story",
+        "layout": "project-brief",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Inside the ChatGPT Lab"
+    ],
+    "paragraphs": [
+      "In OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.",
+      "My contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes",
+      "Explore how it happened"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn from testing ChatGPT?",
+      "What did Isaac contribute to OpenAI product testing?",
+      "What feedback did Isaac give on Study Mode?",
+      "What feedback did Isaac give on Pulse?"
+    ]
+  },
+  {
+    "id": "probe-10",
+    "question": "Compare Taiwan and journalism",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "comparison",
+        "layout": "project-compare",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai",
+          "senior-thesis-local-journalism"
+        ],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "role",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Contributions, side by side",
+      "AI literacy in Taiwan",
+      "AI, platforms & local journalism"
+    ],
+    "paragraphs": [
+      "I pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.",
+      "I authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.",
+      "I turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.",
+      "An original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI."
+    ],
+    "buttons": [
+      "Contribution",
+      "Process",
+      "Outcomes"
+    ],
+    "links": [],
+    "suggestions": [
+      "What did Isaac learn in Taiwan?",
+      "What did Isaac’s journalism research explore?",
+      "What did Isaac discover about local journalism?",
+      "How did educators shape the Taiwan program?"
+    ]
+  },
+  {
+    "id": "probe-11",
+    "question": "Show Isaac’s career timeline",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "summation-ai",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Career & experience",
+      "Making complex technology useful"
+    ],
+    "paragraphs": [
+      "I lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.",
+      "The role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on."
+    ],
+    "buttons": [
+      "AI & communications",
+      "Teaching in Taiwan",
+      "Research & policy",
+      "Public service",
+      "Product feedback"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  },
+  {
+    "id": "probe-12",
+    "question": "What did Isaac personally do versus the team?",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "collection",
+        "layout": "project-index",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 0,
+        "focus": "overview",
+        "roleId": "",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Explore work"
+    ],
+    "paragraphs": [],
+    "buttons": [
+      "2025Mapping the Rise of AI Across State Government",
+      "2023Building a Congressional Operation from Scratch",
+      "2025Investigating AI’s Impact on Journalism in Australia",
+      "2025Leading AI Literacy Efforts in Taiwan",
+      "2025Bringing the Boehringer Cares Rebrand to Life",
+      "2025–PresentHelping Shape OpenAI's Products Before Launch"
+    ],
+    "links": [],
+    "suggestions": [
+      "How did Isaac research AI in government?",
+      "What did Isaac build in Taiwan?",
+      "What was Isaac’s role in Congress?",
+      "Walk me through Isaac’s experience"
+    ]
+  },
+  {
+    "id": "probe-13",
+    "question": "Tell me about Isaac’s public service",
+    "preset": false,
+    "guidance": null,
+    "blocks": [
+      {
+        "kind": "timeline",
+        "layout": "experience-timeline",
+        "projectIds": [],
+        "albumIds": [],
+        "states": [],
+        "region": "All",
+        "metric": "compositeScore",
+        "section": 2,
+        "focus": "overview",
+        "roleId": "us-house",
+        "search": "",
+        "expanded": false,
+        "band": null
+      }
+    ],
+    "headings": [
+      "Public service",
+      "Building a communications function"
+    ],
+    "paragraphs": [
+      "I helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.",
+      "For the child-labor story in West Michigan, I developed the message, pitched reporters, prepared interviews, and connected the local reporting to proposed federal action."
+    ],
+    "buttons": [
+      "Public service",
+      "Research & policy",
+      "Teaching in Taiwan",
+      "Scholten for Congress",
+      "Explore the work"
+    ],
+    "links": [],
+    "suggestions": [
+      "What are Isaac’s strongest skills?",
+      "Tell me about Isaac’s public service",
+      "Which work demonstrates Isaac’s leadership?",
+      "Explore Isaac’s roles and responsibilities"
+    ]
+  }
+]

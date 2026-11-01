@@ -1,0 +1,546 @@
+{
+  "base": "https://seiler.page",
+  "contentVersion": "canvas-2026-10-31-v10",
+  "capturedAt": "2026-11-01T01:35:09.036Z",
+  "errors": [],
+  "results": [
+    {
+      "id": "career",
+      "prompt": "What are Isaac’s strongest skills?",
+      "settledMs": 467,
+      "observed": {
+        "text": "Explore\nShare\nStrengths across the work\n\nIsaac combines research, communication and program delivery: he built a public-information AI benchmark, designed and led six educator sessions in Taiwan, and helped launch a congressional office’s communications function.\n\nFilter roles\nCouncil of State Governments\nJun 2025-Jul 2025\nFulbright Taiwan\nAug 2025-Aug 2026\nU.S. House of Representatives\nNov 2022-Jun 2023\nSummation\n2026-Present\nJun 2025-Jul 2025\nAI Adoption Research\n\nI built a 900-input index measuring AI adoption and preparedness across 56 U.S. states and territories.\n\nI created a normalized scoring rubric, collected and cleaned data, and helped turn a messy policy landscape into something easier to compare and act on.\n\nI also supported planning for an AI policy summit by mapping 50+ technology partners and structuring outreach.\n\nExplore the work\nSources",
+        "headings": [
+          "Strengths across the work",
+          "AI Adoption Research"
+        ],
+        "selected": [
+          "Council of State GovernmentsJun 2025-Jul 2025"
+        ],
+        "layout": [
+          "experience-timeline"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"timeline\",\"title\":\"Ideas turned into things.\",\"projectIds\":[],\"albumIds\":[],\"revision\":2,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":139,\"confidence\":0.99},\"composition\":{\"blocks\":[{\"kind\":\"timeline\",\"layout\":\"experience-timeline\",\"projectIds\":[],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":1,\"focus\":\"overview\",\"roleId\":\"csg-ai-index\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":false,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"a8e22f27-c742-418d-b14d-a1d8850ebf26\"}"
+        }
+      ]
+    },
+    {
+      "id": "public-service",
+      "prompt": "Tell me about Isaac’s public service",
+      "settledMs": 454,
+      "observed": {
+        "text": "Explore\nBack\nShare\nPublic service\n\nIsaac’s public-service experience spans congressional communications, state-government AI research and educator support through Fulbright Taiwan. Select a role to explore his responsibilities and the published work.\n\nFilter roles\nU.S. House of Representatives\nNov 2022-Jun 2023\nCouncil of State Governments\nJun 2025-Jul 2025\nFulbright Taiwan\nAug 2025-Aug 2026\nScholten for Congress\nJun 2022-Nov 2022\nNov 2022-Jun 2023\nCommunications Strategy and Operations\n\nI helped build the communications function for a new congressional office from the ground up.\n\nI created workflows, managed press outreach, organized events and official travel, and helped the office reach 350,000 people weekly.\n\nI secured 34+ interviews with national outlets including The New York Times, CNN, and MSNBC.\n\nExplore the work\nSources",
+        "headings": [
+          "Public service",
+          "Communications Strategy and Operations"
+        ],
+        "selected": [
+          "U.S. House of RepresentativesNov 2022-Jun 2023"
+        ],
+        "layout": [
+          "experience-timeline"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"timeline\",\"title\":\"Ideas turned into things.\",\"projectIds\":[],\"albumIds\":[],\"revision\":4,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":68,\"confidence\":0.99},\"composition\":{\"blocks\":[{\"kind\":\"timeline\",\"layout\":\"experience-timeline\",\"projectIds\":[],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":2,\"focus\":\"overview\",\"roleId\":\"us-house\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":false,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"b808646f-fccf-4c04-9194-0c2089b26e66\"}"
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "prompt": "How did Isaac create the 100 Day Report?",
+      "settledMs": 1730,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\nContribution\nProcess\nOutcomes\nEvidence\n01\nBuilding the press network\n02\nChild-labor coverage\n03\nReaching different audiences\n04\nBipartisan collaboration\n05\nThe 100 Day Report\nMaking the first 100 days measurable\n\nIsaac also led the creation of the office's 100 Day Report. He collected and checked information from across the office, chose which results to highlight, wrote the narrative, designed the report, and coordinated its release to reporters and stakeholders.\n\nThe numbers belonged to the full team. Isaac's job was to make sure they were accurate, understandable, and available to the public. The report gave his growing press network a useful account of the office's first months and gave constituents a direct way to evaluate its work.\n\nreturned to constituents\n$4M+\nconstituent cases opened\n550\nconstituent responses\n9,569\nmeetings and site visits\n300+\nbills cosponsored\n51\nExplore another project\nSources",
+        "headings": [
+          "Building a congressional office",
+          "Making the first 100 days measurable"
+        ],
+        "selected": [
+          "Process",
+          "05The 100 Day Report"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"congressional-office-setup-100-day-report\"],\"albumIds\":[],\"revision\":6,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":73,\"confidence\":0.99},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"congressional-office-setup-100-day-report\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":5,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"df01ddee-9871-4630-aea9-98161cd95e1c\"}"
+        }
+      ]
+    },
+    {
+      "id": "office-outcomes",
+      "prompt": "What did the congressional office accomplish?",
+      "settledMs": 3059,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\nContribution\nProcess\nOutcomes\nEvidence\n01\nThe 100 Day Report\n02\nPublic recognition\nMaking the first 100 days measurable\n\nIsaac also led the creation of the office's 100 Day Report. He collected and checked information from across the office, chose which results to highlight, wrote the narrative, designed the report, and coordinated its release to reporters and stakeholders.\n\nThe numbers belonged to the full team. Isaac's job was to make sure they were accurate, understandable, and available to the public. The report gave his growing press network a useful account of the office's first months and gave constituents a direct way to evaluate its work.\n\nreturned to constituents\n$4M+\nconstituent cases opened\n550\nconstituent responses\n9,569\nmeetings and site visits\n300+\nbills cosponsored\n51\nExplore another project\nSources",
+        "headings": [
+          "Building a congressional office",
+          "Making the first 100 days measurable"
+        ],
+        "selected": [
+          "Outcomes",
+          "01The 100 Day Report"
+        ],
+        "layout": [
+          "project-outcomes"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"congressional-office-setup-100-day-report\"],\"albumIds\":[],\"revision\":8,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":54,\"confidence\":0.99},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-outcomes\",\"projectIds\":[\"congressional-office-setup-100-day-report\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":5,\"focus\":\"outcomes\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"a85a5e56-1887-4e99-a6e8-51ec644077c1\"}"
+        }
+      ]
+    },
+    {
+      "id": "study-mode",
+      "prompt": "What feedback did Isaac give on Study Mode?",
+      "settledMs": 1387,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nStudy Mode\n03\nBack to School\n04\nPulse\n05\nAtlas\n06\nGroup Chats\nStudy Mode: making ChatGPT teach, not answer\n\nI used the early experience to think through graduate school and a five-year career plan. I liked that it made me supply the substance instead of pretending the model knew what I wanted. My biggest push was about the ending: good Socratic questions still need to help a user land the plane.\n\nWhen Study Mode launched, OpenAI highlighted my use case in its student storytelling. It was satisfying to see a product move toward the kind of critical engagement I had wanted from it in testing.\n\nContinue reading\nExplore another project\nSources",
+        "headings": [
+          "Inside the ChatGPT Lab",
+          "Study Mode: making ChatGPT teach, not answer"
+        ],
+        "selected": [
+          "Process",
+          "02Study Mode"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"revision\":10,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":83,\"confidence\":0.73},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":2,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.76,\"confidence\":0.73,\"requestId\":\"9becd135-95c7-4a84-8c9c-67a809ec5d98\"}"
+        }
+      ]
+    },
+    {
+      "id": "pulse",
+      "prompt": "What feedback did Isaac give on Pulse?",
+      "settledMs": 1187,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nStudy Mode\n03\nBack to School\n04\nPulse\n05\nAtlas\n06\nGroup Chats\nPulse: when ChatGPT starts the conversation\n\nThe moments of real personalization felt like magic. My feedback focused on making those moments easier to find and trust: a more visible home for Pulse, compact cards, clearer sources, better preference controls, and fewer canned acknowledgements.\n\nOpenAI's launch story featured my experience using calendar context to catch an unused day of PTO and turn it into a plan. That small example captured the promise for me: proactive AI should help me act, not just give me more to scroll.\n\nContinue reading\nExplore another project\nSources",
+        "headings": [
+          "Inside the ChatGPT Lab",
+          "Pulse: when ChatGPT starts the conversation"
+        ],
+        "selected": [
+          "Process",
+          "04Pulse"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"revision\":12,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":52,\"confidence\":0.98},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":4,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.98,\"confidence\":0.98,\"requestId\":\"7e4ccdb4-0208-4012-8bec-d8769c77b2ff\"}"
+        }
+      ]
+    },
+    {
+      "id": "atlas",
+      "prompt": "What feedback did Isaac give on Atlas?",
+      "settledMs": 1273,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nStudy Mode\n03\nBack to School\n04\nPulse\n05\nAtlas\n06\nGroup Chats\nAtlas: rethinking the browser\n\nFor OpenAI's browser work, I tested a basic premise: what changes when the assistant understands the page you are already on? I used early builds for travel research, translating Mandarin-language pages, comparing options, and turning scattered findings into an itinerary or map.\n\nI kept coming back to the seam between browsing and chatting. I wanted fewer moments where the two felt like separate products, more control over the model doing the work, and recommendations that looked useful rather than ad-like.\n\nContinue reading\nExplore another project\nSources",
+        "headings": [
+          "Inside the ChatGPT Lab",
+          "Atlas: rethinking the browser"
+        ],
+        "selected": [
+          "Process",
+          "05Atlas"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"revision\":14,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":53,\"confidence\":0.97},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":5,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.97,\"confidence\":0.97,\"requestId\":\"57ef1d66-9ce4-456a-89af-7475989f2b04\"}"
+        }
+      ]
+    },
+    {
+      "id": "group-chats",
+      "prompt": "What feedback did Isaac give on group chats?",
+      "settledMs": 1347,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nStudy Mode\n03\nBack to School\n04\nPulse\n05\nAtlas\n06\nGroup Chats\nGroup Chats: learning when AI should speak\n\nI tested the experience as a group facilitator and pushed on the assistant's social judgment. It often participated too little or sounded too canned. I wanted people to be able to tune how active it was—to make ChatGPT a useful collaborator without letting it take over the conversation.\n\nThat work reinforced something I saw across every product: intelligence is only part of the design problem. Timing, restraint, and a clear role matter just as much.\n\nContinue reading\nExplore another project\nSources",
+        "headings": [
+          "Inside the ChatGPT Lab",
+          "Group Chats: learning when AI should speak"
+        ],
+        "selected": [
+          "Process",
+          "06Group Chats"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"revision\":16,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":55,\"confidence\":0.92},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":6,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.93,\"confidence\":0.92,\"requestId\":\"445d9d33-2426-466b-b416-83c7b9d1f7b9\"}"
+        },
+        {
+          "url": "/api/compose",
+          "status": 200,
+          "body": "{\"type\":\"start\",\"revision\":16,\"contentVersion\":\"canvas-2026-10-31-v10\"}\n{\"type\":\"composition\",\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":6,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"partial\":false,\"model\":\"mistral-small-2603\",\"duration\":872,\"inputTokens\":3939,\"outputTokens\":92,\"revision\":16,\"contentVersion\":\"canvas-2026-10-31-v10\"}\n"
+        }
+      ]
+    },
+    {
+      "id": "taiwan-lessons",
+      "prompt": "What did Isaac learn in Taiwan?",
+      "settledMs": 1226,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\n01\nNine published use cases\n02\nConference workshop\n03\nLessons learned\nWhat I Learned\n\nFirst, the best learning happens in community, with people learning from one another. If I had designed the workshops as a lecture series, the value would have ended when the workshops did.\n\nSecond, the program reinforced my belief that durable AI adoption starts from the bottom up. Lab participants represented opinions from across the spectrum, from early AI adopters to AI skeptics. By the end of the program, participants had found ways to use AI in their work to improve their impact.\n\nContinue reading\nExplore another project\nSources",
+        "headings": [
+          "AI literacy in Taiwan",
+          "What I Learned"
+        ],
+        "selected": [
+          "Outcomes",
+          "03Lessons learned"
+        ],
+        "layout": [
+          "project-outcomes"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Taiwan, in a few different ways.\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":18,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"local\",\"confidence\":0.92},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-outcomes\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":4,\"focus\":\"outcomes\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"reason\":\"uncertain\",\"requestId\":\"a644d8db-9a89-43c0-a746-c2f71364d539\",\"routing\":{\"choice\":\"story\",\"probability\":0.62,\"confidence\":0.57}}"
+        }
+      ]
+    },
+    {
+      "id": "educator-influence",
+      "prompt": "How did educators shape the Taiwan program?",
+      "settledMs": 1228,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\n01\nProposing the Lab\n02\nLearning together\nBuilding a Program Where People Learned From Each Other\n\nI designed the Lab as six sessions covering AI fundamentals. We focused on work educators already had in front of them: preparing lessons, giving feedback, supporting language learning, and deciding when an AI tool would create more problems than it solved.\n\nParticipant questions changed what I emphasized in later sessions. We spent less time talking about ChatGPT in the abstract and more time on when and how educators should choose to use it.\n\nContinue reading\nExplore another project\nSources",
+        "headings": [
+          "AI literacy in Taiwan",
+          "Building a Program Where People Learned From Each Other"
+        ],
+        "selected": [
+          "Process",
+          "02Learning together"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Making AI useful in the classroom.\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":20,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.99,\"model\":\"jev-1.14.0\",\"duration\":63},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":1,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"18b2d107-1f3b-4a79-bb47-0a7b9fc522b4\"}"
+        }
+      ]
+    },
+    {
+      "id": "journalism-findings",
+      "prompt": "What did Isaac discover about local journalism?",
+      "settledMs": 1447,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nPrincipal qualitative researcher\n2025\n\nAI, platforms & local journalism\nContribution\nProcess\nOutcomes\nEvidence\nResearch themes & outputs\n\nThe published project summary identifies labor precarity, newsroom contraction and platform dependence as research themes. It does not provide the thesis’s detailed conclusions; the full thesis is linked in Sources.\n\nAn original qualitative dataset with 17 semi-structured interviews and verified transcripts.\nFlexible coding and thematic synthesis on labor precarity, newsroom contraction, and platform dependence.\nComparative evaluation of print, digital, hybrid, nonprofit, and subscription-based business models.\nPolicy and platform assessment spanning bargaining codes, broadcasting, subsidies, and digital training programs.\nExplore another project\nSources",
+        "headings": [
+          "AI, platforms & local journalism",
+          "Research themes & outputs"
+        ],
+        "selected": [
+          "Outcomes"
+        ],
+        "layout": [
+          "project-outcomes"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Research, reporting & published work.\",\"projectIds\":[\"senior-thesis-local-journalism\"],\"albumIds\":[],\"revision\":22,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.76,\"model\":\"jev-1.14.0\",\"duration\":52},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-outcomes\",\"projectIds\":[\"senior-thesis-local-journalism\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":1,\"focus\":\"outcomes\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.79,\"confidence\":0.76,\"requestId\":\"844f6333-901e-4746-a65d-9f1d0a07cb60\"}"
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "prompt": "Compare Isaac’s AI policy and Taiwan projects",
+      "settledMs": 1388,
+      "observed": {
+        "text": "Explore\nBack\nShare\nWhat the work produced\n\nThe government work produced a dated benchmark and policy roadmap; the Taiwan work produced nine use cases and a conference workshop. One supports comparison across institutions, while the other shares what educators learned through practice.\n\nContribution\nProcess\nOutcomes\n2025\nAI in state government\n2025\nAI literacy in Taiwan\nPublished outcome\n\nA 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.\n\nI turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.\n\nEvidence\n\nThis work, published with the Council of State Governments, translates the GenAI hype cycle into a measurable picture of how state and territory governments are actually responding.\n\nI reviewed the use cases I had gathered and turned them into nine practical ChatGPT use cases that could apply across different educational environments.\n\nChange projects\nSources",
+        "headings": [
+          "What the work produced",
+          "AI in state government",
+          "AI literacy in Taiwan"
+        ],
+        "selected": [
+          "Outcomes"
+        ],
+        "layout": [
+          "project-compare"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"comparison\",\"title\":\"Two approaches. One closer look.\",\"projectIds\":[\"artificial-intelligence-in-state-government-index\",\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":24,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.89,\"model\":\"jev-1.14.0\",\"duration\":95},\"composition\":{\"blocks\":[{\"kind\":\"comparison\",\"layout\":\"project-compare\",\"projectIds\":[\"artificial-intelligence-in-state-government-index\",\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"outcomes\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.9,\"confidence\":0.89,\"requestId\":\"c1779df0-2174-49c3-9a6c-d4ad96b71c14\"}"
+        }
+      ]
+    },
+    {
+      "id": "ordinal",
+      "prompt": "Show me the second one",
+      "settledMs": 1303,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nI turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.\n\nExplore how it happened\nExplore another project\nSources",
+        "headings": [
+          "AI literacy in Taiwan"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":26,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"local\",\"confidence\":0.89},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"overview\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"reason\":\"uncertain\",\"requestId\":\"44014186-1c89-4462-b07c-9b06742f0dc8\",\"routing\":{\"choice\":\"comparison\",\"probability\":0.56,\"confidence\":0.5}}"
+        }
+      ]
+    },
+    {
+      "id": "more",
+      "prompt": "Tell me more",
+      "settledMs": 1392,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\n01\nProposing the Lab\n02\nLearning together\nFrom the Idea to the Lab\n\nMany people in my community were either skeptical of AI or unsure how to use it well.\n\nI was already participating in OpenAI's ChatGPT Lab, so I pitched the team on extending that work into a local program for educators in Taiwan. With support from OpenAI and ChatGPT for Education, it became one of the first Local Labs to run.\n\nExplore another project\nSources",
+        "headings": [
+          "AI literacy in Taiwan",
+          "From the Idea to the Lab"
+        ],
+        "selected": [
+          "Process",
+          "01Proposing the Lab"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Project\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":28,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.91,\"model\":\"jev-1.14.0\",\"duration\":32},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":true,\"band\":null}]},\"needsComposition\":true,\"probability\":0.92,\"confidence\":0.91,\"requestId\":\"3146563e-0bd4-485a-96f5-59cd0cdff184\"}"
+        }
+      ]
+    },
+    {
+      "id": "comparison-comms",
+      "prompt": "Compare Isaac’s Congress and Boehringer work",
+      "settledMs": 436,
+      "observed": {
+        "text": "Explore\nBack\nShare\nInteractive view · AI unavailable\nTwo approaches to the work\n\nThe congressional work connected district stories to reporters and federal policy; the Boehringer rollout coordinated website content, brand colleagues and employee communications. Both required consistent messaging across several channels.\n\nContribution\nProcess\nOutcomes\n2023\nBuilding a congressional office\n2025\nBringing Boehringer Cares to life\nApproach\n\nI built relationships across local, statewide, and national media, connected district stories to federal policy, and gathered and checked the office’s results for its 100 Day Report.\n\nI organized the rollout content, worked with UX and brand colleagues on the public website, and extended the approved direction into employee newsletters and volunteering communications.\n\nWork in practice\n\nFor the child-labor story in West Michigan, I developed the message, pitched reporters, prepared interviews, and connected the local reporting to proposed federal action.\n\nI applied the approved direction to updated web pages and more than 25 communications assets, then carried the same voice into the company-wide newsletter.\n\nChange projects\nSources",
+        "headings": [
+          "Two approaches to the work",
+          "Building a congressional office",
+          "Bringing Boehringer Cares to life"
+        ],
+        "selected": [
+          "Process"
+        ],
+        "layout": [
+          "project-compare"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"comparison\",\"title\":\"Two approaches. One closer look.\",\"projectIds\":[\"congressional-office-setup-100-day-report\",\"boehringer-cares-foundation-rebrand-strategy-shift\"],\"albumIds\":[],\"revision\":30,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.98,\"model\":\"jev-1.14.0\",\"duration\":48},\"composition\":{\"blocks\":[{\"kind\":\"comparison\",\"layout\":\"project-compare\",\"projectIds\":[\"congressional-office-setup-100-day-report\",\"boehringer-cares-foundation-rebrand-strategy-shift\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.98,\"confidence\":0.98,\"requestId\":\"887d5d95-4a32-4612-a6b2-945033d25126\"}"
+        }
+      ]
+    },
+    {
+      "id": "comparison-research",
+      "prompt": "Compare Isaac’s OpenAI and journalism work",
+      "settledMs": 389,
+      "observed": {
+        "text": "Explore\nBack\nShare\nInteractive view · AI unavailable\nTwo approaches to the work\n\nProduct testing used early builds to identify problems and discuss changes with product teams. The thesis used 17 interviews, verified transcripts and thematic coding. One informed product conversations; the other organized evidence for an academic study.\n\nContribution\nProcess\nOutcomes\n2025–Present\nInside the ChatGPT Lab\n2025\nAI, platforms & local journalism\nApproach\n\nI tested early products in real workflows, documented where the experience broke down, and brought specific feedback into product discussions and launch storytelling.\n\nI carried out the literature review, recruited interviewees, verified transcripts, coded the material, and synthesized themes across 17 interviews.\n\nWork in practice\n\nFor Pulse, I asked for clearer sources and preference controls. For Group Chats, I pushed on when the assistant should speak and how people could control its participation.\n\nThe analysis compared print, digital, hybrid, nonprofit, and subscription models alongside policy options such as bargaining codes, subsidies, and training.\n\nChange projects\nSources",
+        "headings": [
+          "Two approaches to the work",
+          "Inside the ChatGPT Lab",
+          "AI, platforms & local journalism"
+        ],
+        "selected": [
+          "Process"
+        ],
+        "layout": [
+          "project-compare"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"comparison\",\"title\":\"Two approaches. One closer look.\",\"projectIds\":[\"openai-product-testing-and-feedback\",\"senior-thesis-local-journalism\"],\"albumIds\":[],\"revision\":32,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.76,\"model\":\"jev-1.14.0\",\"duration\":30},\"composition\":{\"blocks\":[{\"kind\":\"comparison\",\"layout\":\"project-compare\",\"projectIds\":[\"openai-product-testing-and-feedback\",\"senior-thesis-local-journalism\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.79,\"confidence\":0.76,\"requestId\":\"7168b9da-98cd-48c4-82a4-6ebb0151e7c2\"}"
+        }
+      ]
+    },
+    {
+      "id": "career-connections",
+      "prompt": "What connects Isaac’s different roles?",
+      "settledMs": 429,
+      "observed": {
+        "text": "Explore\nBack\nShare\nInteractive view · AI unavailable\nStrengths across the work\n\nIsaac combines research, communication and program delivery: he built a public-information AI benchmark, designed and led six educator sessions in Taiwan, and helped launch a congressional office’s communications function.\n\nFilter roles\nCouncil of State Governments\nJun 2025-Jul 2025\nFulbright Taiwan\nAug 2025-Aug 2026\nU.S. House of Representatives\nNov 2022-Jun 2023\nSummation\n2026-Present\nJun 2025-Jul 2025\nAI Adoption Research\n\nI built a 900-input index measuring AI adoption and preparedness across 56 U.S. states and territories.\n\nI created a normalized scoring rubric, collected and cleaned data, and helped turn a messy policy landscape into something easier to compare and act on.\n\nI also supported planning for an AI policy summit by mapping 50+ technology partners and structuring outreach.\n\nExplore the work\nSources",
+        "headings": [
+          "Strengths across the work",
+          "AI Adoption Research"
+        ],
+        "selected": [
+          "Council of State GovernmentsJun 2025-Jul 2025"
+        ],
+        "layout": [
+          "experience-roles"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"timeline\",\"title\":\"Let’s make something useful.\",\"projectIds\":[],\"albumIds\":[],\"revision\":34,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.99,\"model\":\"jev-1.14.0\",\"duration\":65},\"composition\":{\"blocks\":[{\"kind\":\"timeline\",\"layout\":\"experience-roles\",\"projectIds\":[],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":1,\"focus\":\"overview\",\"roleId\":\"csg-ai-index\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"117e434f-f058-4c05-bfc3-57dae4cee79f\"}"
+        }
+      ]
+    },
+    {
+      "id": "taiwan-tradeoffs",
+      "prompt": "What were the tradeoffs in the Taiwan program?",
+      "settledMs": 435,
+      "observed": {
+        "text": "Explore\nBack\nShare\nInteractive view · AI unavailable\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nIsaac adapted the sessions to educators’ questions rather than delivering a fixed lecture series. The central judgment was when AI helped with real classroom work and when it created more problems than it solved.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nProposing the Lab\n02\nLearning together\nBuilding a Program Where People Learned From Each Other\n\nI designed the Lab as six sessions covering AI fundamentals. We focused on work educators already had in front of them: preparing lessons, giving feedback, supporting language learning, and deciding when an AI tool would create more problems than it solved.\n\nParticipant questions changed what I emphasized in later sessions. We spent less time talking about ChatGPT in the abstract and more time on when and how educators should choose to use it.\n\nContinue reading\nExplore another project\nSources",
+        "headings": [
+          "AI literacy in Taiwan",
+          "Building a Program Where People Learned From Each Other"
+        ],
+        "selected": [
+          "Process",
+          "02Learning together"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"AI, out in the real world.\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":36,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.99,\"model\":\"jev-1.14.0\",\"duration\":62},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":1,\"focus\":\"process\",\"angle\":\"tradeoffs\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"7cf28e15-f462-47ed-8483-6912c8300750\"}"
+        }
+      ]
+    },
+    {
+      "id": "taiwan-measurement",
+      "prompt": "How did Isaac measure whether the Taiwan program worked?",
+      "settledMs": 502,
+      "observed": {
+        "text": "Explore\nBack\nShare\nInteractive view · AI unavailable\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nThe published account documents six sessions, nine use cases and a subsequent conference workshop. It describes participants finding uses for AI in their work, but does not report pre/post assessment scores or a measured causal improvement.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nNine published use cases\n02\nConference workshop\n03\nLessons learned\nWhat I Learned\n\nFirst, the best learning happens in community, with people learning from one another. If I had designed the workshops as a lecture series, the value would have ended when the workshops did.\n\nSecond, the program reinforced my belief that durable AI adoption starts from the bottom up. Lab participants represented opinions from across the spectrum, from early AI adopters to AI skeptics. By the end of the program, participants had found ways to use AI in their work to improve their impact.\n\nContinue reading\nExplore another project\nSources",
+        "headings": [
+          "AI literacy in Taiwan",
+          "What I Learned"
+        ],
+        "selected": [
+          "Outcomes",
+          "03Lessons learned"
+        ],
+        "layout": [
+          "project-outcomes"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"AI, out in the real world.\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":38,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.99,\"model\":\"jev-1.14.0\",\"duration\":58},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-outcomes\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":4,\"focus\":\"outcomes\",\"angle\":\"measurement\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"380af440-15b4-4fab-a573-68a8b9b984fa\"}"
+        }
+      ]
+    },
+    {
+      "id": "leadership",
+      "prompt": "Which work best demonstrates Isaac’s leadership?",
+      "settledMs": 298,
+      "observed": {
+        "text": "Explore\nBack\nShare\nLeadership in practice\n\nIn Taiwan, Isaac proposed and led a six-session AI literacy program for educators. In Congress, he helped establish a new office’s communications function. As head teaching assistant, he managed a teaching team of 12. These examples show program ownership, operational setup and team coordination.\n\nFilter roles\nFulbright Taiwan\nAug 2025-Aug 2026\nU.S. House of Representatives\nNov 2022-Jun 2023\nWashington University in St. Louis\nJan 2024-May 2024; Jan 2025-Apr 2025\nAug 2025-Aug 2026\nFulbright Scholar\n\nI created and led an OpenAI-supported AI literacy program for educators in Taiwan, focused on helping non-technical users understand and apply AI in real classroom workflows.\n\nI designed six applied sessions on AI use cases, prompt design, LLM basics, and safe adoption, then led an LLM fundamentals and alignment workshop at a 250+ person international education conference.\n\nAlongside the AI education work, I coach elementary school soccer and teach English in local schools.\n\nExplore the work\nSources",
+        "headings": [
+          "Leadership in practice",
+          "Fulbright Scholar"
+        ],
+        "selected": [
+          "Fulbright TaiwanAug 2025-Aug 2026"
+        ],
+        "layout": [
+          "experience-timeline"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"timeline\",\"title\":\"Ideas turned into things.\",\"projectIds\":[],\"albumIds\":[],\"revision\":40,\"contentVersion\":\"canvas-2026-10-31-v10\",\"source\":\"jev\",\"confidence\":0.83,\"model\":\"jev-1.14.0\",\"duration\":39},\"composition\":{\"blocks\":[{\"kind\":\"timeline\",\"layout\":\"experience-timeline\",\"projectIds\":[],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":1,\"focus\":\"overview\",\"roleId\":\"fulbright-taiwan\",\"search\":\"\",\"expanded\":false,\"band\":null,\"angle\":\"leadership\"}]},\"needsComposition\":false,\"probability\":0.85,\"confidence\":0.83,\"requestId\":\"51eefed7-c492-4cab-b5d5-83969a8f110a\"}"
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,10 @@
+import BackArrow from "@/components/BackArrow";
+import useProjectReturn from "@/hooks/useProjectReturn";
+import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, Image as ImageIcon, Play } from "lucide-react";
+import { ArrowUpRight, Image as ImageIcon, Play } from "lucide-react";
 import ProjectSourceLinks from "@/components/ProjectSourceLinks";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -237,8 +240,10 @@ const ProjectMediaBlock = ({
 const ProjectDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { back: backToWork, label: backLabel } = useProjectReturn();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const isMobile = useIsMobile();
   const bodyRef = useRef<HTMLDivElement | null>(null);
 
@@ -280,7 +285,7 @@ const ProjectDetailPage = () => {
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        <button onClick={() => navigate("/?section=projects")} className="pill-back">← Back to work</button>
+        <BackArrow onClick={backToWork} label={backLabel} />
       </div>
     );
   }
@@ -309,18 +314,13 @@ const ProjectDetailPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
+        transition={navigationMotion}
       >
         <motion.main
           className="pt-28 pb-24 px-6 content-measure"
-          initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.04 }}
+          initial={false}
         >
-          <button type="button" onClick={() => navigate("/?section=projects")} className="pill-back mb-10">
-            <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
-            <span>Back to work</span>
-          </button>
+          <BackArrow onClick={backToWork} label={backLabel} className="mb-10" />
 
           <div className="article-shell">
             <div>

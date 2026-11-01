@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import MotionSurface from "@/components/MotionSurface";
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { preloadImage } from "@/lib/imagePreload";
@@ -12,6 +14,34 @@ interface PhotoPreviewProps {
   currentIndex: number | null;
   onClose: () => void;
   onNavigate: (index: number) => void;
+}
+
+/** The outgoing photograph stays visible until the latest requested image decodes. */
+function DecodedPhoto({ src, reduced }: { src: string; reduced: boolean }) {
+  const [displayed, setDisplayed] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    let active = true;
+    const image = new Image();
+    setFailed(false);
+    image.decoding = 'async';
+    image.onload = async () => {
+      try { await image.decode(); } catch { /* Loaded images can still be usable after decode rejects. */ }
+      if (active) setDisplayed(src);
+    };
+    image.onerror = () => { if (active) setFailed(true); };
+    image.src = src;
+    return () => { active = false; image.onload = null; image.onerror = null; };
+  }, [src]);
+  return <div className="photo-preview-stage" aria-busy={!failed && displayed !== src}>
+    <AnimatePresence initial={false}>
+      {displayed && <motion.img key={displayed} src={displayed} alt="" data-motion-image="true"
+        className="site-corner photo-preview-image" initial={{ opacity: reduced ? 1 : 0 }}
+        animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        transition={{ duration: reduced ? 0 : MOTION_DURATION.fast, ease: EASE }} />}
+    </AnimatePresence>
+    {failed && <p role="status" className="photo-preview-error">This photograph could not load. Try another photograph.</p>}
+  </div>;
 }
 
 const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPreviewProps) => {
@@ -48,7 +78,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
         <Dialog.Portal forceMount><Dialog.Content forceMount asChild aria-describedby={undefined}
           onOpenAutoFocus={()=>{opener.current=document.activeElement as HTMLElement;}}
           onCloseAutoFocus={event=>{event.preventDefault();opener.current?.focus({preventScroll:true});}}>
-        <motion.div
+        <MotionSurface
           className="fixed inset-0 z-[100] flex items-center justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -71,19 +101,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
             />
           </div>
 
-          <motion.img
-            key={currentIndex}
-            src={images[currentIndex]}
-            alt=""
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-            className="site-corner relative z-10 max-w-[90vw] max-h-[85vh] object-contain"
-            initial={{ opacity: 0, scale: reduceMotion?1:0.99 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: reduceMotion?1:0.99 }}
-            transition={{ duration: reduceMotion?0:MOTION_DURATION.base, ease: EASE }}
-          />
+          <DecodedPhoto src={images[currentIndex]} reduced={reduceMotion} />
 
           <AnimatePresence>
             {currentIndex > 0 && (
@@ -118,7 +136,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
               </motion.button>
             )}
           </AnimatePresence>
-        </motion.div>
+        </MotionSurface>
         </Dialog.Content></Dialog.Portal>
       )}
     </AnimatePresence>

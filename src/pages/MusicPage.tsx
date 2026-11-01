@@ -1,4 +1,6 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { useNavigationMotion } from "@/hooks/useMotionPreference";
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -12,6 +14,7 @@ const EASE_TEXT = MOTION_EASE;
 const MusicPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
 
@@ -57,12 +60,12 @@ const MusicPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
+        transition={navigationMotion}
       >
         <main className="music-page-shell">
           <motion.h1
             className="music-page-title"
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
           >
@@ -78,7 +81,7 @@ const MusicPage = () => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Listen to ${release.album} by ${release.artist} on Spotify`}
-                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                initial={false}
                 animate={{ opacity: 1 }}
                 transition={{
                   duration: prefersReducedMotion ? 0 : MOTION_DURATION.base,

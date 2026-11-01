@@ -1,3 +1,4 @@
+import { motionReduced } from "@/hooks/useMotionPreference";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp, Check, ExternalLink, ThumbsDown, ThumbsUp } from "lucide-react";
@@ -242,7 +243,7 @@ const ChatOrb = () => {
 
   useEffect(() => {
     const list = listRef.current;
-    if (list) list.scrollTo({ top: list.scrollHeight, behavior: "smooth" });
+    if (list) list.scrollTo({ top: list.scrollHeight, behavior: motionReduced() ? "instant" : "smooth" });
   }, [messages, isLoading, open]);
 
   useEffect(() => {

@@ -1,6 +1,9 @@
+import useProjectReturn from "@/hooks/useProjectReturn";
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
+import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { type ComponentType, type ReactNode, type RefObject, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left.js";
+import BackArrow from "@/components/BackArrow";
 import Bot from "lucide-react/dist/esm/icons/bot.js";
 import FileText from "lucide-react/dist/esm/icons/file-text.js";
 import Newspaper from "lucide-react/dist/esm/icons/newspaper.js";
@@ -19,8 +22,8 @@ const FULL_TEXT_LINK = "https://drive.google.com/file/d/1Z6-RR1Zw7z2RieJwVHdk0yO
 const FULL_TEXT_SOURCES = [{ label: "Read the full thesis", href: FULL_TEXT_LINK }];
 const EDITORIAL_GRID = "grid gap-8 md:grid-cols-[minmax(0,0.3fr)_minmax(0,0.7fr)] md:items-start";
 const CARD_REVEAL = {
-  hidden: { opacity: 0, y: 10, filter: "blur(3px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)" },
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
 };
 
 type ReportIcon = ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -167,8 +170,8 @@ const TextReveal = ({
 }) => (
   <motion.div
     className={className}
-    initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
-    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+    initial={false}
+    whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.38 }}
     transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay }}
   >
@@ -197,39 +200,31 @@ const RevealSection = ({
     <motion.section
       ref={sectionRef}
       className={`relative overflow-hidden ${className ?? ""}`}
-      initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={false}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.16 }}
       transition={{ duration: 0.5, ease: MOTION_EASE_ENTER }}
     >
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-x-5 top-0 h-px origin-left bg-foreground/12 sm:inset-x-8"
-        style={{ scaleX: ruleX }}
+
       />
-      <motion.div className="relative z-10" style={{ y: contentY }}>
+      <motion.div className="relative z-10" >
         {children}
       </motion.div>
     </motion.section>
   );
 };
 
-const BackButton = ({ onClick }: { onClick: () => void }) => (
-  <button
-      type="button"
-      onClick={onClick}
-      className="pill-back "
-    >
-      <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
-      <span>Back to work</span>
-    </button>
-);
 
 const SeniorThesisLocalJournalismPage = () => {
   const navigate = useNavigate();
+  const { back: backToWork, label: backLabel } = useProjectReturn();
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const pageScrollRef = useRef<HTMLDivElement | null>(null);
   const handleSidebarToggle = () => {
     setSearchOpen(false);
@@ -265,18 +260,16 @@ const SeniorThesisLocalJournalismPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
+        transition={navigationMotion}
       >
         <motion.main
           className="pb-24"
-          initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.04 }}
+          initial={false}
         >
           <section className="relative bg-background">
             <div className="px-6 pt-28">
               <div className="content-measure">
-                <BackButton onClick={() => navigate("/?section=projects")} />
+                <BackArrow onClick={backToWork} label={backLabel} />
 
                 <div className="article-meta mt-10">
                   <span>2025</span>
@@ -302,7 +295,7 @@ const SeniorThesisLocalJournalismPage = () => {
                   <div className="space-y-6">
                     <motion.p
                       className="text-xl leading-relaxed text-foreground/78 sm:text-2xl"
-                      initial={{ opacity: 0, y: 8 }}
+                      initial={false}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.75 }}
                       transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
@@ -312,10 +305,10 @@ const SeniorThesisLocalJournalismPage = () => {
                     </motion.p>
                     <motion.p
                       className="text-base leading-relaxed text-foreground/64"
-                      initial={{ opacity: 0, y: 8 }}
+                      initial={false}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.75 }}
-                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.05 }}
+                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                     >
                       Drawing on qualitative interviews with 17 Australian journalists, former journalists, and industry
                       experts, I examine how economic and social pressures, digital transformation, workforce
@@ -324,10 +317,10 @@ const SeniorThesisLocalJournalismPage = () => {
                     </motion.p>
                     <motion.p
                       className="text-base leading-relaxed text-foreground/64"
-                      initial={{ opacity: 0, y: 8 }}
+                      initial={false}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.75 }}
-                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.1 }}
+                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                     >
                       This study focuses on Australia because it is an international leader in legislative fixes to
                       journalism decline, and because, like the United States, it has wide swaths of rural, marginalized
@@ -342,8 +335,8 @@ const SeniorThesisLocalJournalismPage = () => {
           <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
             <div className={`content-measure ${EDITORIAL_GRID}`}>
               <motion.div
-                initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
-                whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                initial={false}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
               >
@@ -363,11 +356,11 @@ const SeniorThesisLocalJournalismPage = () => {
                   <motion.div
                     key={question}
                     className="site-corner grid gap-5 bg-card p-5 sm:grid-cols-[64px_minmax(0,1fr)]"
-                    initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
-                    whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                    initial={false}
+                    whileInView={{ opacity: 1, x: 0 }}
                     whileHover={{ x: 2 }}
                     viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: index * 0.04 }}
+                    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                   >
                     <div className="text-4xl font-semibold text-foreground/22">{index + 1}</div>
                     <p className="text-xl leading-snug text-foreground/78">{question}</p>
@@ -380,8 +373,8 @@ const SeniorThesisLocalJournalismPage = () => {
           <RevealSection className="bg-background px-6 py-10" scrollContainerRef={pageScrollRef}>
             <div className={`content-measure ${EDITORIAL_GRID}`}>
               <motion.div
-                initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
-                whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                initial={false}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
               >
@@ -402,11 +395,11 @@ const SeniorThesisLocalJournalismPage = () => {
                     key={step.title}
                     className="site-corner bg-card p-5"
                     variants={CARD_REVEAL}
-                    initial="hidden"
-                    whileInView="show"
+                    initial={false}
+                    animate="show"
                     whileHover={{ y: -2 }}
                     viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: index * 0.035 }}
+                    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                   >
                     <div className="flex items-start gap-4">
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background text-lg font-semibold text-foreground/32">
@@ -427,8 +420,8 @@ const SeniorThesisLocalJournalismPage = () => {
             <div className="content-measure">
               <div className={EDITORIAL_GRID}>
                 <motion.div
-                  initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
-                  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  initial={false}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.35 }}
                   transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                 >
@@ -449,11 +442,11 @@ const SeniorThesisLocalJournalismPage = () => {
                       key={theme.title}
                       className="site-corner overflow-hidden bg-card"
                       variants={CARD_REVEAL}
-                      initial="hidden"
-                      whileInView="show"
+                      initial={false}
+                      animate="show"
                       whileHover={{ y: -2 }}
                       viewport={{ once: true, amount: 0.24 }}
-                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: index * 0.035 }}
+                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                     >
                       <div className="grid">
                         <div
@@ -463,28 +456,28 @@ const SeniorThesisLocalJournalismPage = () => {
                           <div className="flex items-start justify-between gap-5">
                             <motion.span
                               className="text-5xl font-semibold leading-none text-white/30"
-                              initial={{ opacity: 0, y: -12 }}
+                              initial={false}
                               whileInView={{ opacity: 1, y: 0 }}
                               viewport={{ once: true, amount: 0.65 }}
-                              transition={{ duration: MOTION_DURATION.base, ease: EASE_TEXT, delay: 0.04 }}
+                              transition={{ duration: MOTION_DURATION.base, ease: EASE_TEXT }}
                             >
                               {index + 1}
                             </motion.span>
                             <motion.div
-                              initial={{ opacity: 0 }}
+                              initial={false}
                               whileInView={{ opacity: 1 }}
                               viewport={{ once: true, amount: 0.65 }}
-                              transition={{ duration: MOTION_DURATION.base, ease: EASE_TEXT, delay: 0.06 }}
+                              transition={{ duration: MOTION_DURATION.base, ease: EASE_TEXT }}
                             >
                               <theme.icon className="h-6 w-6 text-white/72" strokeWidth={1.5} />
                             </motion.div>
                           </div>
                           <motion.p
                             className="max-w-4xl text-3xl font-semibold leading-tight tracking-normal sm:text-4xl"
-                            initial={{ opacity: 0, y: 10 }}
+                            initial={false}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.65 }}
-                            transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.08 }}
+                            transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                           >
                             "{theme.line}"
                           </motion.p>
@@ -493,28 +486,28 @@ const SeniorThesisLocalJournalismPage = () => {
                         <div className="p-5 sm:p-6">
                           <motion.h3
                             className="max-w-3xl text-3xl font-semibold leading-tight tracking-normal"
-                            initial={{ opacity: 0, y: 8 }}
+                            initial={false}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.65 }}
-                            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER, delay: 0.03 }}
+                            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER }}
                           >
                             {theme.title}
                           </motion.h3>
                           <motion.p
                             className="mt-4 max-w-3xl text-base leading-relaxed text-foreground/68"
-                            initial={{ opacity: 0, y: 8 }}
+                            initial={false}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.65 }}
-                            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER, delay: 0.06 }}
+                            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER }}
                           >
                             {theme.summary}
                           </motion.p>
                           <motion.p
                             className="mt-5 max-w-3xl text-sm leading-relaxed text-foreground/62"
-                            initial={{ opacity: 0, y: 8 }}
+                            initial={false}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.65 }}
-                            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER, delay: 0.09 }}
+                            transition={{ duration: MOTION_DURATION.base, ease: MOTION_EASE_ENTER }}
                           >
                             {theme.reading}
                           </motion.p>
@@ -524,10 +517,10 @@ const SeniorThesisLocalJournalismPage = () => {
                               <motion.span
                                 key={signal}
                                 className="site-corner border border-foreground/10 bg-background px-3 py-2 text-xs font-medium text-foreground/58"
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={false}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0.65 }}
-                                transition={{ duration: MOTION_DURATION.base, ease: EASE_TEXT, delay: 0.1 + signalIndex * 0.03 }}
+                                transition={{ duration: MOTION_DURATION.base, ease: EASE_TEXT }}
                               >
                                 {signal}
                               </motion.span>
@@ -546,8 +539,8 @@ const SeniorThesisLocalJournalismPage = () => {
             <div className="content-measure">
               <div className={EDITORIAL_GRID}>
                 <motion.div
-                  initial={{ opacity: 0, x: -10, filter: "blur(3px)" }}
-                  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  initial={false}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.35 }}
                   transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                 >
@@ -567,11 +560,11 @@ const SeniorThesisLocalJournalismPage = () => {
                     <motion.article
                       key={finding.category}
                       className="grid gap-5 border-t border-foreground/12 py-5 md:grid-cols-[minmax(0,0.3fr)_minmax(0,0.7fr)]"
-                      initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
-                      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      initial={false}
+                      whileInView={{ opacity: 1, y: 0 }}
                       whileHover={{ x: 2 }}
                       viewport={{ once: true, amount: 0.35 }}
-                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: index * 0.035 }}
+                      transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                     >
                       <div className="flex items-baseline gap-3">
                         <span className="text-3xl font-semibold leading-none text-foreground/22">{index + 1}</span>
@@ -592,8 +585,8 @@ const SeniorThesisLocalJournalismPage = () => {
               <motion.div
                 className="site-corner bg-card p-5 sm:p-6 lg:p-7"
                 variants={CARD_REVEAL}
-                initial="hidden"
-                whileInView="show"
+                initial={false}
+                animate="show"
                 viewport={{ once: true, amount: 0.28 }}
                 transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
               >

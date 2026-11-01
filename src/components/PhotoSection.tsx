@@ -1,5 +1,6 @@
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useRef, useState, useEffect, useMemo } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import { albums, albumPhotos } from "@/lib/photoAlbums";
 import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";

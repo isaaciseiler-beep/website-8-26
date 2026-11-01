@@ -20,7 +20,6 @@ export default function BenchmarkExplorer({block,onChange}:{block:CanvasBlock;on
   };
   return <section className="canvas-benchmark" aria-label="AI benchmark explorer">
     <div className="canvas-heading"><div><span className="canvas-eyebrow">State AI benchmark · August 2025</span><h2>{layout==='benchmark-regions'?'Regional comparison':layout==='benchmark-distribution'?'Score distribution':selected.length>1?'Government comparison':selected.length===1?selected[0].state:'AI in state government'}</h2></div></div>
-    {!selected.length&&<p className="canvas-caption">Explore public evidence of AI policies, training, and adoption.</p>}
     {!selected.length&&layout!=='benchmark-criteria'&&<div className="portfolio-tabs" aria-label="Explore benchmark">{([{id:'benchmark-ranking',label:'Rankings'},{id:'benchmark-regions',label:'Regions'},{id:'benchmark-distribution',label:'Distribution'}] as const).map(view=><button key={view.id} aria-pressed={layout===view.id} onClick={()=>onChange({...block,layout:view.id,band:null})}>{view.label}</button>)}</div>}
     <div className="canvas-benchmark-controls">
       <label><span className="sr-only">Measure</span><select aria-label="Benchmark measure" value={block.metric} onChange={e=>onChange({...block,metric:e.target.value as CanvasBlock['metric']})}><option value="compositeScore">Composite score</option><option value="preparednessScore">Preparedness</option></select></label>

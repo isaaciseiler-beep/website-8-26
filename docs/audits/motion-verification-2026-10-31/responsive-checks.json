@@ -1,0 +1,26 @@
+[
+  {
+    "controlsContained": true,
+    "panelWidth": 272,
+    "scrollWidth": 320,
+    "width": 320
+  },
+  {
+    "controlsContained": true,
+    "panelWidth": 342,
+    "scrollWidth": 390,
+    "width": 390
+  },
+  {
+    "controlsContained": true,
+    "panelWidth": 708.703125,
+    "scrollWidth": 768,
+    "width": 768
+  },
+  {
+    "controlsContained": true,
+    "panelWidth": 856.8125,
+    "scrollWidth": 1440,
+    "width": 1440
+  }
+]

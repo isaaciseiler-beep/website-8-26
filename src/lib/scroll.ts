@@ -1,3 +1,4 @@
+import { motionReduced } from "@/hooks/useMotionPreference";
 export const HEADER_SCROLL_OFFSET = 56;
 
 const anchorForSection = (id: string) => {
@@ -17,7 +18,7 @@ export const scrollToPageSection = (id: string) => {
     if (!anchor) return null;
 
     const top = Math.max(0, window.scrollY + anchor.getBoundingClientRect().top - HEADER_SCROLL_OFFSET);
-    window.scrollTo({ top, behavior: "smooth" });
+    window.scrollTo({ top, behavior: motionReduced() ? "instant" : "smooth" });
     return top;
   };
 
@@ -31,7 +32,7 @@ export const scrollToPageSection = (id: string) => {
 
     const refinedTop = Math.max(0, window.scrollY + anchor.getBoundingClientRect().top - HEADER_SCROLL_OFFSET);
     if (Math.abs(refinedTop - window.scrollY) > 18) {
-      window.scrollTo({ top: refinedTop, behavior: "smooth" });
+      window.scrollTo({ top: refinedTop, behavior: motionReduced() ? "instant" : "smooth" });
     }
   }, 420);
 };

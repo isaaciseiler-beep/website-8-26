@@ -1,3 +1,4 @@
+import { motionReduced } from "@/hooks/useMotionPreference";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUp } from "lucide-react";
@@ -213,7 +214,7 @@ const IsaacAISection = () => {
   useEffect(() => {
     const list = messageListRef.current;
     if (!list) return;
-    list.scrollTo({ top: list.scrollHeight, behavior: "smooth" });
+    list.scrollTo({ top: list.scrollHeight, behavior: motionReduced() ? "instant" : "smooth" });
   }, [messages, isLoading]);
 
   const clearFocusRestoreTimers = useCallback(() => {
@@ -239,9 +240,9 @@ const IsaacAISection = () => {
     const safeTop = buffer;
 
     if (rect.bottom > safeBottom) {
-      window.scrollBy({ top: rect.bottom - safeBottom, behavior: "smooth" });
+      window.scrollBy({ top: rect.bottom - safeBottom, behavior: motionReduced() ? "instant" : "smooth" });
     } else if (rect.top < safeTop) {
-      window.scrollBy({ top: rect.top - safeTop, behavior: "smooth" });
+      window.scrollBy({ top: rect.top - safeTop, behavior: motionReduced() ? "instant" : "smooth" });
     }
   }, []);
 

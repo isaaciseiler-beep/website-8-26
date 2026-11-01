@@ -1,5 +1,7 @@
+import { usePageVisible } from "@/hooks/useMotionPreference";
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { type PointerEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowLeft, Eye, Map as MapIcon, MousePointer2, Pause, Play, RotateCcw } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -554,6 +556,7 @@ const ExperienceGamePage = () => {
   });
   const imageCacheRef = useRef<Map<string, HTMLImageElement>>(new Map());
   const prefersReducedMotion = useReducedMotion();
+  const visible = usePageVisible();
   const [started, setStarted] = useState(false);
   const [paused, setPaused] = useState(false);
   const [hud, setHud] = useState<HudState>(() => snapshotRuntime(runtimeRef.current));
@@ -648,7 +651,7 @@ const ExperienceGamePage = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const mapCanvas = mapCanvasRef.current;
-    if (!canvas || !mapCanvas) return undefined;
+    if (!canvas || !mapCanvas || !visible) return undefined;
 
     const context = canvas.getContext("2d");
     const mapContext = mapCanvas.getContext("2d");
@@ -669,6 +672,8 @@ const ExperienceGamePage = () => {
     observer.observe(canvas);
 
     let frame = 0;
+    let idleTimer = 0;
+    runtimeRef.current.lastTime = 0;
     const loop = (time: number) => {
       const runtime = runtimeRef.current;
       const dt = runtime.lastTime ? Math.min(0.04, (time - runtime.lastTime) / 1000) : 0.016;
@@ -688,7 +693,8 @@ const ExperienceGamePage = () => {
         setHud(snapshotRuntime(runtime));
       }
 
-      frame = window.requestAnimationFrame(loop);
+      if (runtime.started && !runtime.paused) frame = window.requestAnimationFrame(loop);
+      else idleTimer = window.setTimeout(() => { frame = window.requestAnimationFrame(loop); }, 250);
     };
 
     frame = window.requestAnimationFrame(loop);
@@ -696,8 +702,9 @@ const ExperienceGamePage = () => {
     return () => {
       observer.disconnect();
       window.cancelAnimationFrame(frame);
+      window.clearTimeout(idleTimer);
     };
-  }, [prefersReducedMotion, world]);
+  }, [prefersReducedMotion, world, visible, started, paused]);
 
   const handlePointerDown = (event: PointerEvent<HTMLCanvasElement>) => {
     canvasRef.current?.setPointerCapture(event.pointerId);

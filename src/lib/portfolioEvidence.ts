@@ -116,6 +116,10 @@ export function comparisonInsight(ids: string[], focus: EvidenceFocus): string {
     role: 'The government project centers on research and benchmark design; the Taiwan project centers on proposing, designing and facilitating a program. Both make AI adoption easier to understand, at institutional and classroom scales.',
     process: 'The government index compares publicly verifiable adoption signals; the Taiwan Lab adapts sessions to educators’ questions. Both turn questions about AI into a practical framework, using different kinds of evidence.',
     outcomes: 'The government work produced a dated benchmark and policy roadmap; the Taiwan work produced nine use cases and a conference workshop. One supports comparison across institutions, while the other shares what educators learned through practice.',
+  } : pair('fulbright-focus-group-sponsored-by-openai', 'congressional-office-setup-100-day-report') ? {
+    role: 'In Taiwan, Isaac built a program around educators’ questions. In Congress, he helped build a new office’s communications function. Both required turning an open-ended assignment into something people could use.',
+    process: 'The Taiwan program evolved through participant questions; congressional communications connected local stories with reporters and federal policy. Both started with listening to the audience, then adapting the work.',
+    outcomes: 'Taiwan produced nine use cases and a conference workshop. The congressional work produced press outreach and the 100 Day Report. These are published outputs; the office’s constituent-service totals reflect the whole team’s work.',
   } : pair('congressional-office-setup-100-day-report', 'boehringer-cares-foundation-rebrand-strategy-shift') ? {
     role: 'In Congress, Isaac helped establish a new office’s communications function. At Boehringer, he helped implement an approved rebrand across existing channels. Both involved communications operations, with different starting points and audiences.',
     process: 'The congressional work connected district stories to reporters and federal policy; the Boehringer rollout coordinated website content, brand colleagues and employee communications. Both required consistent messaging across several channels.',
@@ -126,8 +130,7 @@ export function comparisonInsight(ids: string[], focus: EvidenceFocus): string {
     outcomes: 'The Lab contributions fed into product feedback, the 100 Chats book and public launch stories. The thesis produced an original interview dataset and qualitative analysis. These are different kinds of published output, rather than comparable impact scores.',
   } : null;
   if (insights) return insights[focus === 'process' || focus === 'outcomes' ? focus : 'role'];
-  const records = ids.map(evidenceFor);
-  return records[0] && records[1] ? `${records[0].title} centers on ${records[0].role.toLowerCase()}, while ${records[1].title} centers on ${records[1].role.toLowerCase()}. Explore the responsibilities, methods and published outputs below.` : '';
+  return '';
 }
 
 

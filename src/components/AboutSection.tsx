@@ -1,5 +1,6 @@
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useLayoutEffect, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
 import { profilePhotoUrl } from "@/lib/tileImages";
 import { MOTION_DURATION, MOTION_EASE_ENTER } from "@/lib/motion";

@@ -44,9 +44,10 @@ describe('website agent and shared-view integration', () => {
     expect(inspect().view.composition.blocks[0].focus).toBe('outcomes');
     expect(await change({ type: 'open_project', projectId: POLICY_ID }, result.revision)).toMatchObject({ isError: true });
     expect(inspect().view.composition.blocks[0].projectIds).toEqual([TAIWAN_ID]);
-    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    expect(screen.queryByRole('button', { name: 'Back',exact:true })).not.toBeInTheDocument();
+    await act(async()=>{tools.get('navigate_portfolio_history')!.execute({direction:'back',expectedRevision:inspect().revision,contentVersion:CONTENT_VERSION});});
     expect(inspect().view.composition.blocks[0].focus).toBe('process');
-    fireEvent.click(screen.getByRole('button', { name: 'Forward' }));
+    await act(async()=>{tools.get('navigate_portfolio_history')!.execute({direction:'forward',expectedRevision:inspect().revision,contentVersion:CONTENT_VERSION});});
     expect(inspect().view.composition.blocks[0].focus).toBe('outcomes');
   });
   it('cancels an in-flight provider response when an agent opens a view', async () => {

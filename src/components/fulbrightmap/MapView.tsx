@@ -1,5 +1,7 @@
 "use client";
 
+import { motionReduced, useMotionPreference } from "@/hooks/useMotionPreference";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import type {
@@ -96,6 +98,8 @@ export default function MapView({
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapboxMap | null>(null);
+  const reduced = useMotionPreference();
+  useEffect(() => { if (reduced) mapRef.current?.stop(); }, [reduced]);
   const mapboxRef = useRef<MapboxGL | null>(null);
   const suppressMapClickRef = useRef(false);
   const markerEntriesRef = useRef<Map<string, MarkerEntry>>(new Map());
@@ -261,8 +265,9 @@ export default function MapView({
         padding,
         retainPadding: false,
         speed: 0.75,
+        ...(motionReduced() ? { duration: 0 } : {}),
         curve: 1.25,
-        essential: true,
+        essential: false,
       });
       return;
     }
@@ -271,9 +276,9 @@ export default function MapView({
       center,
       padding,
       retainPadding: false,
-      duration: 650,
+      duration: motionReduced() ? 0 : 650,
       easing: (time) => 1 - Math.pow(1 - time, 3),
-      essential: true,
+      essential: false,
     });
   }, []);
 

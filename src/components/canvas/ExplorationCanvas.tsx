@@ -1,9 +1,10 @@
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
-import { useAnimate, useReducedMotion } from 'framer-motion';
+import { motion, useAnimate } from 'framer-motion';
+import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2, ArrowUpRight } from 'lucide-react';
-import { publicProjects, projectSources, albums, albumPhotos, experienceEntries, type Plan } from '@/lib/canvas';
-import { POLICY_ID, TAIWAN_ID, type Composition, type CanvasBlock } from '@/lib/genui';
-import { aiIndexSources } from '@/lib/aiStateGovIndex';
+import { albums, albumPhotos, experienceEntries, type Plan } from '@/lib/canvas';
+import { type Composition, type CanvasBlock } from '@/lib/genui';
 import { CONTACT_MAILTO, LINKEDIN_URL, GITHUB_URL } from '@/lib/site';
 import BenchmarkExplorer from './BenchmarkExplorer';
 import { PhotoLayouts, ProjectIndex, SessionSequence } from './LayoutViews';
@@ -71,21 +72,19 @@ function SelectionModule({block,children}:{block:CanvasBlock;children:ReactNode}
     const style=getComputedStyle(node);
     const duration=style.getPropertyValue('--motion-duration').trim();
     const curve=style.getPropertyValue('--motion-easing').match(/[\d.]+/g)?.map(Number);
-    const animation=animate(node,{opacity:[0,1]},{
-      duration:parseFloat(duration)/(duration.endsWith('ms')?1000:1),
+    // Controls and headings remain stable; only the replaced evidence/detail settles.
+    const regions = Array.from(node.querySelectorAll<HTMLElement>('.portfolio-section-text,.portfolio-role-summary,.portfolio-evidence,.portfolio-career-detail,.portfolio-comparison-rows,.canvas-flow-detail'));
+    const animations = regions.map(region => animate(region,{opacity:[0.15,1]},{
+      duration:Math.max(.3,parseFloat(duration)/(duration.endsWith('ms')?1000:1)),
       ease:curve?.length===4?curve as [number,number,number,number]:'easeOut',
-    });
-    return ()=>{animation.stop();node.style.opacity='';};
+    }));
+    return ()=>{ animations.forEach(animation=>animation.stop()); regions.forEach(region=>{region.style.opacity='';}); };
   },[selection,reduceMotion,animate,scope]);
-  return <div ref={scope} className="canvas-module" data-layout={block.layout??defaultLayout[block.kind]}>{children}</div>;
+  return <motion.div ref={scope} className="canvas-module" data-layout={block.layout??defaultLayout[block.kind]} initial={{opacity:reduceMotion?1:.15}} animate={{opacity:1}} transition={{duration:reduceMotion?0:MOTION_DURATION.base,ease:MOTION_EASE_ENTER}}>{children}</motion.div>;
 }
 
 export default function ExplorationCanvas({composition,plan,generation,onChange,onAction}:{composition:Composition;plan:Plan;generation:GenerationInfo;onChange:(c:Composition)=>void;onAction?:(action:PortfolioAction)=>void}) {
-  const career=composition.blocks.find(block=>block.kind==='timeline');
-  const role=career?experienceEntries.find(entry=>entry.id===career.roleId)??experienceEntries[0]:null;
-  const ids=[...new Set(composition.blocks.flatMap(b=>b.kind==='benchmark'?[POLICY_ID]:b.kind==='timeline'?(career?.section===1||career?.section===2?experienceEntries.filter(entry=>['csg-ai-index','fulbright-taiwan','us-house'].includes(entry.id)).flatMap(entry=>entry.projectIds):role?.projectIds??[]).filter(id=>publicProjects.some(project=>project.id===id)):b.projectIds))];
-  const sources=[...ids.flatMap(id=>id===POLICY_ID?aiIndexSources:projectSources(id)),...(role?[{label:'Published experience',href:'/about'},...(role.organizationUrl?[{label:role.organization,href:role.organizationUrl}]:[])]:[])];
-  return <><div className="canvas-modules">{composition.blocks.map((block,i)=><SelectionModule block={block} key={`${i}-${block.kind}`}><CanvasModule block={block} onChange={next=>onChange({blocks:composition.blocks.map((b,n)=>n===i?next:b)})} plan={plan} generation={generation}/>{import.meta.env.DEV&&new URLSearchParams(window.location.search).has('layouts')&&AI_LAYOUTS.filter(l=>l.kind===block.kind).length>1&&<div className="canvas-layout-control"><label><span className="sr-only">View style {i+1}</span><select aria-label={`View style ${i+1}`} value={block.layout??defaultLayout[block.kind]} onChange={e=>onChange({blocks:composition.blocks.map((b,n)=>n===i?withLayout(b,e.target.value as LayoutId):b)})}>{AI_LAYOUTS.filter(l=>l.kind===block.kind).map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></label></div>}</SelectionModule>)}</div><details className="canvas-sources"><summary>Sources</summary><div>{sources.filter((s,i,a)=>a.findIndex(v=>v.href===s.href)===i).map(s=><a href={s.href} key={s.href} target="_blank" rel="noreferrer">{s.label}<ArrowUpRight size={12}/></a>)}{ids.map(id=><a key={id} href={`/projects/${id}`}>Full project · {publicProjects.find(p=>p.id===id)?.title}<ArrowUpRight size={12}/></a>)}{import.meta.env.DEV&&<details><summary>Development diagnostics</summary><p>{plan.source==='jev'?'Jev routing':'Local matching'} · {generation.status==='generated'?`Composed with ${generation.model??'LLM'}`:generation.status==='composing'?'Composing…':generation.status==='unavailable'?generation.reason==='unconfigured'?'Authored view · Mistral is not configured in this environment':'Authored view · Mistral unavailable':'Authored view'}</p>{generation.cached&&<p>Reused a validated composition.</p>}{generation.inputTokens!==undefined&&<p>{generation.inputTokens} input / {generation.outputTokens??0} output tokens</p>}{generation.duration!==undefined&&<p>Composition: {(generation.duration/1000).toFixed(1)}s</p>}</details>}</div></details>{import.meta.env.DEV&&<ViewCompositionControls composition={composition} onAction={onAction??(action=>onChange(applyPortfolioAction(createPortableView(composition),action).composition))}/>}</>;
+  return <><div className="canvas-modules">{composition.blocks.map((block,i)=><SelectionModule block={block} key={`${i}-${block.kind}`}><CanvasModule block={block} onChange={next=>onChange({blocks:composition.blocks.map((b,n)=>n===i?next:b)})} plan={plan} generation={generation}/>{import.meta.env.DEV&&new URLSearchParams(window.location.search).has('layouts')&&AI_LAYOUTS.filter(l=>l.kind===block.kind).length>1&&<div className="canvas-layout-control"><label><span className="sr-only">View style {i+1}</span><select aria-label={`View style ${i+1}`} value={block.layout??defaultLayout[block.kind]} onChange={e=>onChange({blocks:composition.blocks.map((b,n)=>n===i?withLayout(b,e.target.value as LayoutId):b)})}>{AI_LAYOUTS.filter(l=>l.kind===block.kind).map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></label></div>}</SelectionModule>)}</div>{import.meta.env.DEV&&new URLSearchParams(window.location.search).has('layouts')&&<ViewCompositionControls composition={composition} onAction={onAction??(action=>onChange(applyPortfolioAction(createPortableView(composition),action).composition))}/>}</>;
 }
 function CanvasModule(props:BlockProps&{plan:Plan;generation:GenerationInfo}) {
   if(['photo-grid','photo-diptych','photo-collections'].includes(props.block.layout??''))return <PhotoLayouts {...props}/>;

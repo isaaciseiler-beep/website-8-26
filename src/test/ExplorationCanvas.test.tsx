@@ -88,6 +88,23 @@ describe('answer usefulness before expanding reading',()=>{
     expect(screen.getByRole('heading',{name:'Leadership in practice'})).toBeVisible();
     const roles=screen.getByRole('navigation',{name:'Professional roles'});
     expect(within(roles).getAllByRole('button')).toHaveLength(3);
+    fireEvent.click(within(roles).getByRole('button',{name:'Teaching teams'}));
     expect(screen.getByText(/managed a teaching team of 12/)).toBeVisible();
   });
+  it('offers focused career paths without résumé filtering or metadata',()=>{
+    render(<Harness initial={composeLocal('Explore Isaac’s career',initialPlan())}/>);
+    expect(screen.queryByPlaceholderText('Find a role or skill')).not.toBeInTheDocument();
+    expect(screen.queryByText('Sources')).not.toBeInTheDocument();
+    const roles=screen.getByRole('navigation',{name:'Professional roles'});
+    expect(within(roles).getAllByRole('button')).toHaveLength(5);
+    fireEvent.click(within(roles).getByRole('button',{name:'Teaching in Taiwan'}));
+    expect(screen.getByRole('heading',{name:'Designing around educators’ real work'})).toBeVisible();
+    expect(screen.getByText(/Participant questions changed what I emphasized/)).toBeVisible();
+    fireEvent.click(screen.getByRole('button',{name:'Explore the work',exact:true}));
+    expect(screen.getByRole('region',{name:'Project explorer'})).toBeVisible();
+    expect(screen.queryByText('Program proposer, designer & facilitator')).not.toBeInTheDocument();
+    expect(screen.queryByText('2025')).not.toBeInTheDocument();
+    expect(screen.queryByText('Sources')).not.toBeInTheDocument();
+  });
+
 });

@@ -1,0 +1,365 @@
+{
+  "mode": "Local authored results; responsive viewport emulation, not physical iPhone Duo verification",
+  "results": [
+    {
+      "theme": "light",
+      "label": "320x568-idle",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "theme": "light",
+      "label": "320x568-comparison",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "theme": "light",
+      "label": "320-resized-active",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "light",
+      "label": "320x568-taiwan",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "theme": "light",
+      "label": "320x568-work",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "theme": "light",
+      "label": "390x844-idle",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "light",
+      "label": "390x844-comparison",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "light",
+      "label": "390-resized-active",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "light",
+      "label": "390x844-taiwan",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "light",
+      "label": "390x844-work",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "light",
+      "label": "466x678-idle",
+      "width": 466,
+      "scroll": 466
+    },
+    {
+      "theme": "light",
+      "label": "466x678-comparison",
+      "width": 466,
+      "scroll": 466
+    },
+    {
+      "theme": "light",
+      "label": "466-resized-active",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "light",
+      "label": "466x678-taiwan",
+      "width": 466,
+      "scroll": 466
+    },
+    {
+      "theme": "light",
+      "label": "466x678-work",
+      "width": 466,
+      "scroll": 466
+    },
+    {
+      "theme": "light",
+      "label": "626x890-idle",
+      "width": 626,
+      "scroll": 626
+    },
+    {
+      "theme": "light",
+      "label": "626x890-comparison",
+      "width": 626,
+      "scroll": 626
+    },
+    {
+      "theme": "light",
+      "label": "626-resized-active",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "light",
+      "label": "626x890-taiwan",
+      "width": 626,
+      "scroll": 626
+    },
+    {
+      "theme": "light",
+      "label": "626x890-work",
+      "width": 626,
+      "scroll": 626
+    },
+    {
+      "theme": "light",
+      "label": "890x626-idle",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "light",
+      "label": "890x626-comparison",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "light",
+      "label": "890-resized-active",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "light",
+      "label": "890x626-taiwan",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "light",
+      "label": "890x626-work",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "light",
+      "label": "844x390-idle",
+      "width": 844,
+      "scroll": 844
+    },
+    {
+      "theme": "light",
+      "label": "844x390-comparison",
+      "width": 844,
+      "scroll": 844
+    },
+    {
+      "theme": "light",
+      "label": "844-resized-active",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "light",
+      "label": "844x390-taiwan",
+      "width": 844,
+      "scroll": 844
+    },
+    {
+      "theme": "light",
+      "label": "844x390-work",
+      "width": 844,
+      "scroll": 844
+    },
+    {
+      "theme": "dark",
+      "label": "320x568-idle",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "theme": "dark",
+      "label": "320x568-comparison",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "theme": "dark",
+      "label": "320-resized-active",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "dark",
+      "label": "320x568-taiwan",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "theme": "dark",
+      "label": "320x568-work",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "theme": "dark",
+      "label": "390x844-idle",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "dark",
+      "label": "390x844-comparison",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "dark",
+      "label": "390-resized-active",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "dark",
+      "label": "390x844-taiwan",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "dark",
+      "label": "390x844-work",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "dark",
+      "label": "466x678-idle",
+      "width": 466,
+      "scroll": 466
+    },
+    {
+      "theme": "dark",
+      "label": "466x678-comparison",
+      "width": 466,
+      "scroll": 466
+    },
+    {
+      "theme": "dark",
+      "label": "466-resized-active",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "dark",
+      "label": "466x678-taiwan",
+      "width": 466,
+      "scroll": 466
+    },
+    {
+      "theme": "dark",
+      "label": "466x678-work",
+      "width": 466,
+      "scroll": 466
+    },
+    {
+      "theme": "dark",
+      "label": "626x890-idle",
+      "width": 626,
+      "scroll": 626
+    },
+    {
+      "theme": "dark",
+      "label": "626x890-comparison",
+      "width": 626,
+      "scroll": 626
+    },
+    {
+      "theme": "dark",
+      "label": "626-resized-active",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "dark",
+      "label": "626x890-taiwan",
+      "width": 626,
+      "scroll": 626
+    },
+    {
+      "theme": "dark",
+      "label": "626x890-work",
+      "width": 626,
+      "scroll": 626
+    },
+    {
+      "theme": "dark",
+      "label": "890x626-idle",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "dark",
+      "label": "890x626-comparison",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "dark",
+      "label": "890-resized-active",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "dark",
+      "label": "890x626-taiwan",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "dark",
+      "label": "890x626-work",
+      "width": 890,
+      "scroll": 890
+    },
+    {
+      "theme": "dark",
+      "label": "844x390-idle",
+      "width": 844,
+      "scroll": 844
+    },
+    {
+      "theme": "dark",
+      "label": "844x390-comparison",
+      "width": 844,
+      "scroll": 844
+    },
+    {
+      "theme": "dark",
+      "label": "844-resized-active",
+      "width": 390,
+      "scroll": 390
+    },
+    {
+      "theme": "dark",
+      "label": "844x390-taiwan",
+      "width": 844,
+      "scroll": 844
+    },
+    {
+      "theme": "dark",
+      "label": "844x390-work",
+      "width": 844,
+      "scroll": 844
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "base": "http://127.0.0.1:8080",
+  "contentVersion": "canvas-2026-10-31-v10",
+  "cases": 22,
+  "passed": 22,
+  "liveRouting": 0,
+  "liveComposition": 0,
+  "results": [
+    {
+      "id": "taiwan-build",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-brief",
+      "focus": "role",
+      "requestId": "90d393bd-d8c3-4e44-b6f3-146075198c45",
+      "ms": 3
+    },
+    {
+      "id": "taiwan-third-person",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-brief",
+      "focus": "role",
+      "requestId": "59c891dd-569d-4332-80ab-f5fa681e0e36",
+      "ms": 2
+    },
+    {
+      "id": "connections",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "experience-timeline",
+      "focus": "overview",
+      "requestId": "bdec6a4e-f420-4543-a183-1f58393dadfe",
+      "ms": 1
+    },
+    {
+      "id": "current-role",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "experience-roles",
+      "focus": "role",
+      "requestId": "1a758412-b20a-46a7-98c5-f9eabb986515",
+      "ms": 1
+    },
+    {
+      "id": "identity",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "experience-roles",
+      "focus": "overview",
+      "requestId": "44350d26-60ec-4f40-b253-c28321dc16fe",
+      "ms": 1
+    },
+    {
+      "id": "strengths",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "experience-roles",
+      "focus": "overview",
+      "requestId": "30717c4d-e4ac-4fe5-bc24-978cc1b201a0",
+      "ms": 4
+    },
+    {
+      "id": "summation",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "experience-roles",
+      "focus": "overview",
+      "requestId": "08effd9c-d7b6-4dd0-8f44-d20e88f61b10",
+      "ms": 4
+    },
+    {
+      "id": "policy-contribution",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-brief",
+      "focus": "role",
+      "requestId": "11464185-dc5a-4c87-bac8-44e083b88937",
+      "ms": 2
+    },
+    {
+      "id": "policy-method",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-process",
+      "focus": "process",
+      "requestId": "3d15d22f-c279-4cba-91dc-86d66d8015fe",
+      "ms": 2
+    },
+    {
+      "id": "policy-methodology",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-process",
+      "focus": "process",
+      "requestId": "8a3705d2-6402-4c99-a63c-caf20d32dd6f",
+      "ms": 2
+    },
+    {
+      "id": "policy-data",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "benchmark-ranking",
+      "focus": "overview",
+      "requestId": "2381f94b-f87b-466c-9222-e62d90358294",
+      "ms": 5
+    },
+    {
+      "id": "states",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "benchmark-compare",
+      "focus": "overview",
+      "requestId": "e36e7909-dad6-4c10-b311-aaba6091a7df",
+      "ms": 3
+    },
+    {
+      "id": "project-comparison",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-compare",
+      "focus": "role",
+      "requestId": "f4f998ee-10b8-461e-9911-92c888af26b4",
+      "ms": 3
+    },
+    {
+      "id": "taiwan-outcomes",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-outcomes",
+      "focus": "outcomes",
+      "requestId": "5f2972fe-cbe3-400c-81c8-17a2965ef82b",
+      "ms": 4
+    },
+    {
+      "id": "congress",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-brief",
+      "focus": "role",
+      "requestId": "8f2e2341-06c8-4e39-849f-38f1ad341e93",
+      "ms": 6
+    },
+    {
+      "id": "journalism",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-brief",
+      "focus": "overview",
+      "requestId": "7f55f463-02a3-4c0b-8ad5-8c60cfefdc45",
+      "ms": 3
+    },
+    {
+      "id": "rebrand",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-process",
+      "focus": "process",
+      "requestId": "a1ea3a0a-9741-455c-9b4f-83df89555194",
+      "ms": 4
+    },
+    {
+      "id": "browse",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "project-index",
+      "focus": "overview",
+      "requestId": "b26b6587-5ba0-447d-803f-a1e93496ebad",
+      "ms": 4
+    },
+    {
+      "id": "site",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "site-pipeline",
+      "focus": "overview",
+      "requestId": "9ff3f418-0b2e-42b6-8cf2-c2ac955733c5",
+      "ms": 4
+    },
+    {
+      "id": "contact",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "layout": "contact-card",
+      "focus": "overview",
+      "requestId": "0f593eb4-a7d3-4e98-9819-736d6e281c4e",
+      "ms": 3
+    },
+    {
+      "id": "unknown",
+      "ok": true,
+      "router": "local",
+      "reason": "unconfigured",
+      "guidance": "unmatched",
+      "requestId": "3fc05da8-a2a2-4743-ae67-6eac90e29504",
+      "ms": 3
+    },
+    {
+      "id": "greeting",
+      "ok": true,
+      "router": "local",
+      "guidance": "welcome",
+      "ms": 4
+    }
+  ]
+}

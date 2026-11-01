@@ -1,5 +1,6 @@
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useRef, ReactNode } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface ParallaxSectionProps {
   children: ReactNode;

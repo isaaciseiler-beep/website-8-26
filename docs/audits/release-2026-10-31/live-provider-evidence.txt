@@ -1,0 +1,28 @@
+## Runtime Logs
+
+**Project:** prj_4VlB5duCfYDdo7ndqqKyUkFtHdZX
+**Deployment:** dpl_BHQ1Z5Yp9Rb4VZX7p1aU3Ekbd7uJ
+**Time range:** 2026-11-01T01:27:34.852Z → 2026-11-01T01:37:34.852Z
+
+### 2026-11-01T01:36:33.636Z POST /api/intent [info/function]
+dep=dpl_BHQ1Z5Yp9Rb4VZX7p1aU3Ekbd7uJ branch=main request=7f8np-1793496992975-943334eaef9f domain=seiler.page environment=production region=pdx1 runtime=nodejs24.x stream=stdout
+    {"event":"portfolio.provider","requestId":"d847632b-304e-4c4f-bd96-cbfe8a60ff9b","provider":"jev","questionHash":"b13c9b38e1942884","status":"healthy","model":"jev-1.14.0","duration":173,"layout":"experience-timeline"}
+
+
+## Runtime Logs
+
+**Project:** prj_4VlB5duCfYDdo7ndqqKyUkFtHdZX
+**Deployment:** dpl_BHQ1Z5Yp9Rb4VZX7p1aU3Ekbd7uJ
+**Time range:** 2026-11-01T01:27:34.957Z → 2026-11-01T01:37:34.957Z
+
+### 2026-11-01T01:36:48.975Z POST /api/compose [info/function]
+dep=dpl_BHQ1Z5Yp9Rb4VZX7p1aU3Ekbd7uJ branch=main request=zrl7q-1793497008038-358493c52c82 domain=seiler.page environment=production region=pdx1 runtime=nodejs24.x stream=stdout
+    {"event":"portfolio.provider","requestId":"31bb8aeb-1dbf-471a-8f6b-1527c2c4504a","provider":"mistral","questionHash":"0cdb5a727414a7b4","status":"healthy","model":"mistral-small-2603","duration":884,"layout":"project-brief"}
+
+### 2026-11-01T01:36:47.504Z POST /api/compose [info/function]
+dep=dpl_BHQ1Z5Yp9Rb4VZX7p1aU3Ekbd7uJ branch=main request=zrl7q-1793497006603-fa121c0300d2 domain=seiler.page environment=production region=pdx1 runtime=nodejs24.x stream=stdout
+    {"event":"portfolio.provider","requestId":"3d839369-4b0c-429b-937a-ac194a00fe57","provider":"mistral","questionHash":"93b37f1277986dc1","status":"healthy","model":"mistral-small-2603","duration":855,"layout":"project-compare"}
+
+### 2026-11-01T01:36:46.192Z POST /api/compose [info/function]
+dep=dpl_BHQ1Z5Yp9Rb4VZX7p1aU3Ekbd7uJ branch=main request=zrl7q-1793497005346-cbed8aa82897 domain=seiler.page environment=production region=pdx1 runtime=nodejs24.x stream=stdout
+    {"event":"portfolio.provider","requestId":"ccc7e52b-3f7a-474b-81b6-9820b7727d11","provider":"mistral","questionHash":"4052bf62b5ad7cca","status":"healthy","model":"mistral-small-2603","duration":802,"layout":"project-outcomes"}

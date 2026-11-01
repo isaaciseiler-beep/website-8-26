@@ -47,7 +47,7 @@
     --motion-fast: 220ms;
     --motion-base: 340ms;
     --motion-reveal: 460ms;
-    --motion-panel: 580ms;
+    --motion-panel: 340ms;
     --work-copy-font-size: clamp(1.25rem, 1.8vw, 2rem);
 
     --site-corner-radius: 10px;
@@ -3454,34 +3454,18 @@ html:not(.skull) *:not(.mapboxgl-ctrl *) {
 }
 
 /* ============ Seamless theme crossfade ============ */
-html.theme-crossfade,
-html.theme-crossfade body,
-html.theme-crossfade body * {
-  transition:
-    background-color var(--motion-reveal) var(--motion-ease),
-    color var(--motion-reveal) var(--motion-ease),
-    fill var(--motion-reveal) var(--motion-ease),
-    filter var(--motion-reveal) var(--motion-ease),
-    border-color var(--motion-reveal) var(--motion-ease),
-    box-shadow var(--motion-reveal) var(--motion-ease) !important;
-}
-
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: var(--motion-reveal);
+  animation-duration: var(--motion-fast);
   animation-timing-function: var(--motion-ease);
 }
 
 /* ============ Scroll reveal ============ */
 .reveal {
   opacity: 0;
-  transform: translate3d(0, 10px, 0);
-  filter: blur(3px);
+
   transition:
-    opacity var(--motion-reveal) var(--motion-ease-enter),
-    transform var(--motion-reveal) var(--motion-ease-enter),
-    filter var(--motion-reveal) var(--motion-ease-enter);
-  will-change: opacity, transform;
+    opacity var(--motion-base) var(--motion-ease-enter);
 }
 
 .reveal.is-revealed {
@@ -5747,4 +5731,39 @@ body::-webkit-scrollbar,
   .site-sidebar-panel .theme-switch { height: 44px; min-width: 176px; }
   .site-sidebar-panel .sidebar-main-nav-item { min-height: 44px; }
   .site-sidebar-panel button.sidebar-main-nav-item { min-width: 44px; }
+}
+
+/* Motion preference applies to CSS primitives and portals as well as Motion. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
+}
+
+.photo-preview-stage { position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; }
+.photo-preview-image { grid-area:1 / 1; position:relative; max-width:90vw; max-height:85vh; object-fit:contain; pointer-events:auto; }
+.photo-preview-error { position:absolute; bottom:52px; color:white; font-size:13px; }
+
+/* Crossfade viewport snapshots at their natural scale in both navigation directions. */
+html[data-route-transition]::view-transition { pointer-events: none; }
+html[data-route-transition]::view-transition-group(root) { animation: none; }
+html[data-route-transition]::view-transition-image-pair(root) { isolation: isolate; }
+html[data-route-transition]::view-transition-old(root) {
+  animation: site-route-leave var(--motion-base) var(--motion-ease) both;
+  mix-blend-mode: normal;
+  z-index: 2;
+}
+html[data-route-transition]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+  z-index: 1;
+}
+@keyframes site-route-leave { from { opacity: 1; } to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html[data-route-transition]::view-transition-old(root),
+  html[data-route-transition]::view-transition-new(root) { animation: none !important; }
 }

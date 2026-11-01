@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
+import { motion } from "framer-motion";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { albums, coverFor } from "@/lib/photoAlbums";

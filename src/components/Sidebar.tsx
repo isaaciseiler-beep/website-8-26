@@ -1,3 +1,5 @@
+import { useNavigationMotion, useMotionPreference } from "@/hooks/useMotionPreference";
+import { warmRoute } from "@/lib/routePreload";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, ChevronRight, Mail, Moon, Sun } from "lucide-react";
@@ -94,6 +96,8 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showToggle = true }: SidebarProps) => {
+  const navigationMotion = useNavigationMotion(open);
+  const reduced = useMotionPreference();
   const navigate = useNavigate();
   const location = useLocation();
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
@@ -168,7 +172,6 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
     return location.pathname === child.href;
   };
 
-  let flatIndex = 0;
 
   return (
     <>
@@ -190,46 +193,28 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
         className={`site-sidebar-panel fixed inset-y-0 left-0 z-[45] isolate flex h-[100dvh] w-screen transform-gpu flex-col justify-between overflow-y-auto overscroll-contain px-6 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] pt-20 will-change-transform md:w-[var(--site-panel-width)] md:pb-6 md:pt-20 ${
           open ? "pointer-events-auto" : "pointer-events-none"
         }`}
-        initial={{ x: open ? 0 : "-100%" }}
+        initial={false}
+        aria-hidden={!open}
+        {...(!open ? { inert: "" } : {})}
         animate={{ x: open ? 0 : "-100%" }}
-        transition={{ duration: MOTION_DURATION.panel, ease: MOTION_EASE_ENTER }}
+        transition={navigationMotion}
       >
-        <AnimatePresence>
-          {open && (
-            <div className="mt-4 block flex-none">
+        <div className="mt-4 block flex-none">
               <div className="relative flex flex-col gap-0.5">
                 <SearchTrigger variant="sidebar" renderPanel={false} onOpen={onSearchOpen} />
                 {sitemapItems.map((item) => {
-                  const idx = flatIndex++;
                   const active = isItemActive(item);
                   const hasChildren = Boolean(item.children?.length);
                   const expanded = Boolean(expandedItems[item.id]);
                   return (
                     <div key={item.id}>
                       <motion.div
-                        initial="hidden"
-                        animate="shown"
-                        exit="hiddenExit"
-                        variants={{
-                          hidden: { opacity: 0, y: 14, scale: 0.985, filter: "blur(7px)" },
-                          shown: {
-                            opacity: 1,
-                            y: 0,
-                            scale: 1,
-                            filter: "blur(0px)",
-                            transition: { delay: 0.06 + idx * 0.028, duration: MOTION_DURATION.reveal, ease: EASE },
-                          },
-                          hiddenExit: {
-                            opacity: 0,
-                            y: -8,
-                            scale: 0.985,
-                            filter: "blur(5px)",
-                            transition: { duration: 0.28, ease: EASE_TEXT },
-                          },
-                        }}
+                        initial={false}
                         className="flex items-center gap-2"
                       >
                         <button
+                          onPointerEnter={() => { if (item.href) warmRoute(item.href); }}
+                          onFocus={() => { if (item.href) warmRoute(item.href); }}
                           onClick={() => handleItemClick(item)}
                           className={`sidebar-main-nav-item origin-left py-1.5 text-left transition-colors duration-300 ${
                             active ? "text-foreground" : "text-foreground"
@@ -249,7 +234,7 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                               active ? "text-foreground" : "text-foreground"
                             }`}
                             animate={{ rotate: expanded ? 90 : 0 }}
-                            transition={{ duration: 0.42, ease: EASE_TEXT }}
+                            transition={{ duration: reduced ? 0 : MOTION_DURATION.fast, ease: EASE_TEXT }}
                           >
                             <ChevronRight className="h-[0.5625em] w-[0.5625em]" strokeWidth={1.65} />
                           </motion.button>
@@ -264,16 +249,16 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                             initial={{ height: 0, opacity: 0, y: -4 }}
                             animate={{ height: "auto", opacity: 1, y: 0 }}
                             exit={{ height: 0, opacity: 0, y: -5 }}
-                            transition={{ duration: 0.44, ease: EASE_TEXT }}
+                            transition={{ duration: reduced ? 0 : MOTION_DURATION.base, ease: EASE_TEXT }}
                           >
                             {item.children?.map((child) => {
                               const childActive = isChildActive(child);
                               return (
                                 <motion.button
                                   key={child.id}
-                                  initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
-                                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                  exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
+                                  initial={false}
+                                  animate={{ opacity: 1 }}
+                                  exit={{ opacity: 0 }}
                                   transition={{ duration: 0.34, ease: EASE }}
                                   onClick={() => handleChildClick(child)}
                                   className={`sidebar-main-nav-item block origin-left py-1.5 pl-6 text-left transition-colors duration-300 md:pl-4 ${
@@ -292,33 +277,10 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                 })}
               </div>
             </div>
-          )}
-        </AnimatePresence>
 
-        <AnimatePresence>
-          {open && (
             <motion.div
               className="mt-auto block pt-10"
-              initial="hidden"
-              animate="shown"
-              exit="hiddenExit"
-              variants={{
-                hidden: { opacity: 0, y: 16, scale: 0.94, filter: "blur(6px)" },
-                shown: {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  filter: "blur(0px)",
-                  transition: { delay: 0.14, duration: MOTION_DURATION.reveal, ease: EASE, filter: { duration: MOTION_DURATION.reveal, delay: 0.16 } },
-                },
-                hiddenExit: {
-                  opacity: 0,
-                  y: 10,
-                  scale: 0.97,
-                  filter: "blur(5px)",
-                  transition: { duration: 0.3, ease: EASE_TEXT },
-                },
-              }}
+              initial={false}
             >
               <div>
                 <p className="sidebar-section-label">Get in Touch</p>
@@ -353,8 +315,6 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
                 </div>
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
       </motion.nav>
     </>
   );

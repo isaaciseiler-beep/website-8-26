@@ -2,12 +2,11 @@ import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import { publicProjects, experienceEntries } from '@/lib/canvas';
 import { blankBlock, type CanvasBlock } from '@/lib/genui';
 import { evidenceFor, evidenceSections, comparisonInsight, sectionPreview, projectAngleAnswer, type EvidenceFocus } from '@/lib/portfolioEvidence';
-import { experienceIntro } from '@/lib/experience';
 
 type Props = { block: CanvasBlock; onChange: (block: CanvasBlock) => void };
 const facets: { value: EvidenceFocus; label: string }[] = [
   { value: 'role', label: 'Contribution' }, { value: 'process', label: 'Process' },
-  { value: 'outcomes', label: 'Outcomes' }, { value: 'evidence', label: 'Evidence' },
+  { value: 'outcomes', label: 'Outcomes' },
 ];
 const layoutFor = (focus: EvidenceFocus) => focus === 'process' ? 'project-process' : focus === 'outcomes' ? 'project-outcomes' : focus === 'evidence' ? 'project-evidence' : 'project-brief';
 
@@ -29,7 +28,6 @@ export function ProjectStory({ block, onChange }: Props) {
   return <section className="portfolio-story" aria-label="Project explorer">
     <div className="portfolio-lead">
       <div>
-        <p className="portfolio-meta">{record.role}<span>{record.project.year}</span></p>
         <h2>{record.title}</h2>
         {deck && <p className="portfolio-deck">{deck}</p>}
       </div>
@@ -43,7 +41,7 @@ export function ProjectStory({ block, onChange }: Props) {
       {matched.map(section => <details key={section.id}><summary>{section.heading}</summary>{section.paragraphs?.map(text => <p key={text}>{text}</p>)}{section.bullets && <ul>{section.bullets.map(text => <li key={text}>{text}</li>)}</ul>}</details>)}
       {!matched.length && <p>No matching evidence in this project.</p>}
     </div> : focus === 'role' ? <div className="portfolio-role-summary">
-      <span className="portfolio-label">What came from it</span><p>{record.outcome}</p>
+      <p>{record.outcome}</p>
       <button className="portfolio-inline-action" onClick={() => selectFocus('process')}>Explore how it happened<ArrowUpRight size={15} aria-hidden="true" /></button>
     </div> : active && <div className={`portfolio-section-explorer${sections.length===1?' is-single':''}`}>
       {sections.length>1&&<nav className="portfolio-section-nav" aria-label={focus === 'outcomes' ? 'Published outcomes' : 'Project process steps'}>
@@ -51,7 +49,7 @@ export function ProjectStory({ block, onChange }: Props) {
       </nav>}
       <article className="portfolio-section-text">
         <h3>{record.project.id==='senior-thesis-local-journalism'&&active.index===1?active.label:active.heading}</h3>
-        {record.project.id==='senior-thesis-local-journalism'&&focus==='outcomes'&&<p>The published project summary identifies labor precarity, newsroom contraction and platform dependence as research themes. It does not provide the thesis’s detailed conclusions; the full thesis is linked in Sources.</p>}
+        {record.project.id==='senior-thesis-local-journalism'&&focus==='outcomes'&&<p>The published project summary identifies labor precarity, newsroom contraction and platform dependence as research themes. It does not provide the thesis’s detailed conclusions.</p>}
         {(block.expanded?active.paragraphs:previewParagraphs)?.map(text => <p key={text}>{text}</p>)}
         {active.stats && <dl className="portfolio-results">{active.stats.map(stat=><div key={stat.label}><dt>{stat.label}</dt><dd>{stat.value}</dd></div>)}</dl>}
         {active.bullets && <ul>{active.bullets.map(text => <li key={text}>{text}</li>)}</ul>}
@@ -79,28 +77,38 @@ export function ProjectComparison({ block, onChange }: Props) {
   }
   return <section className="portfolio-comparison" aria-label="Project comparison">
     <h2>{focus === 'role' ? 'Contributions, side by side' : focus === 'process' ? 'Two approaches to the work' : 'What the work produced'}</h2>
-    <p className="portfolio-deck">{comparisonInsight(block.projectIds,focus)}</p>
+    {comparisonInsight(block.projectIds,focus)&&<p className="portfolio-deck">{comparisonInsight(block.projectIds,focus)}</p>}
     <div className="portfolio-tabs" aria-label="Comparison aspect">{(['role', 'process', 'outcomes'] as const).map(value => <button key={value} aria-pressed={focus === value} onClick={() => onChange({ ...block, focus: value })}>{value === 'role' ? 'Contribution' : value === 'process' ? 'Process' : 'Outcomes'}</button>)}</div>
-    <div className="portfolio-comparison-titles">{projects.map(record => <div key={record.project.id}><span className="portfolio-meta">{record.project.year}</span><h3>{record.title}</h3></div>)}</div>
+    <div className="portfolio-comparison-titles">{projects.map(record => <div key={record.project.id}><h3>{record.title}</h3></div>)}</div>
     <div className="portfolio-comparison-rows">{rows.map(row => <div className="portfolio-comparison-row" key={row}><h4>{row}</h4>{projects.map((record, index) => <div key={record.project.id}><span className="portfolio-mobile-project">{record.title}</span><p>{cell(index, row)}</p></div>)}</div>)}</div>
     <details className="portfolio-change-project"><summary>Change projects</summary><div className="portfolio-comparison-selects">{projects.map((record, index) => <label key={index}><span className="sr-only">Comparison project {index + 1}</span><select aria-label={`Comparison project ${index + 1}`} value={record.project.id} onChange={event => onChange({ ...block, projectIds: block.projectIds.map((id, position) => position === index ? event.target.value : id) })}>{publicProjects.filter(project => project.id !== block.projectIds[1 - index]).map(project => <option key={project.id} value={project.id}>{project.title}</option>)}</select></label>)}</div></details>
   </section>;
 }
 
+const careerPaths: Record<string, {label:string;title:string}> = {
+  'summation-ai': {label:'AI & communications',title:'Making complex technology useful'},
+  'fulbright-taiwan': {label:'Teaching in Taiwan',title:'Designing around educators’ real work'},
+  'csg-ai-index': {label:'Research & policy',title:'Making government AI comparable'},
+  'us-house': {label:'Public service',title:'Building a communications function'},
+  'openai-chatgpt-lab': {label:'Product feedback',title:'Turning product use into useful feedback'},
+  'washu-head-ta': {label:'Teaching teams',title:'Coordinating a teaching team'},
+  'boehringer-communications-strategy': {label:'Brand & strategy',title:'Carrying a rebrand into practice'},
+  'washu-ai-journalism': {label:'Journalism research',title:'Understanding a changing news industry'},
+};
+
 export function CareerExplorer({ block, onChange }: Props) {
-  const roleIds=block.angle==='leadership'?['fulbright-taiwan','us-house','washu-head-ta']:block.section===2?['us-house','csg-ai-index','fulbright-taiwan','scholten-campaign']:block.section===1?['csg-ai-index','fulbright-taiwan','us-house','summation-ai']:null;
-  const relevant=roleIds?roleIds.flatMap(id=>experienceEntries.filter(entry=>entry.id===id)):experienceEntries;
-  const entries = relevant.filter(entry => (entry.organization + ' ' + entry.role + ' ' + entry.focus.join(' ')).toLowerCase().includes((block.search ?? '').toLowerCase()));
-  const active = entries.find(entry => entry.id === block.roleId) ?? entries[0];
+  const roleIds=block.angle==='leadership'?['fulbright-taiwan','us-house','washu-head-ta']:block.section===2?['us-house','csg-ai-index','fulbright-taiwan','scholten-campaign']:block.section===1?['csg-ai-index','fulbright-taiwan','us-house','summation-ai']:['summation-ai','fulbright-taiwan','csg-ai-index','us-house','openai-chatgpt-lab'];
+  // A specifically requested role remains reachable without turning this into a résumé index.
+  const ids=block.roleId&&!roleIds.includes(block.roleId)?[...roleIds,block.roleId]:roleIds;
+  const entries=ids.flatMap(id=>experienceEntries.filter(entry=>entry.id===id));
+  const active=entries.find(entry=>entry.id===block.roleId)??entries[0];
+  const record=active?.projectIds.map(evidenceFor).find(Boolean);
+  const paragraphs=record?[record.contribution,record.practice]:active?.paragraphs??[];
   return <section className="portfolio-career" aria-label="Role explorer">
     <h2>{block.angle==='leadership'?'Leadership in practice':block.section===1?'Strengths across the work':block.section===2?'Public service':'Career & experience'}</h2>
-    {block.section===1&&block.angle!=='leadership'&&<p className="portfolio-deck">Isaac combines research, communication and program delivery: he built a public-information AI benchmark, designed and led six educator sessions in Taiwan, and helped launch a congressional office’s communications function.</p>}
-    {block.angle==='leadership'&&<p className="portfolio-deck">In Taiwan, Isaac proposed and led a six-session AI literacy program for educators. In Congress, he helped establish a new office’s communications function. As head teaching assistant, he managed a teaching team of 12. These examples show program ownership, operational setup and team coordination.</p>}
-    {block.section===2&&<p className="portfolio-deck">Isaac’s public-service experience spans congressional communications, state-government AI research and educator support through Fulbright Taiwan. Select a role to explore his responsibilities and the published work.</p>}
-    {block.section===0&&(!block.focus||block.focus==='overview')&&<p className="portfolio-deck">{experienceIntro.paragraphs[1]}</p>}
     <div className="portfolio-career-explorer">
-      <div className="portfolio-career-nav"><label><span className="sr-only">Filter roles</span><input type="search" maxLength={120} value={block.search ?? ''} onChange={event => onChange({ ...block, search: event.target.value.slice(0, 120) })} placeholder="Find a role or skill" /></label><nav aria-label="Professional roles">{entries.map(entry => <button key={entry.id} aria-pressed={active?.id === entry.id} onClick={() => onChange({ ...block, roleId: entry.id })}><strong>{entry.organization}</strong><span>{entry.period}</span></button>)}</nav></div>
-      {active ? <article className="portfolio-career-detail"><span className="portfolio-meta">{active.period}</span><h3>{active.role}</h3>{active.paragraphs.map(text => <p key={text}>{text}</p>)}{active.projectIds.filter(id => evidenceFor(id)).map(id => <button className="portfolio-inline-action" key={id} onClick={() => onChange({ ...blankBlock('story'), projectIds: [id], focus: 'role' })}>Explore the work<ArrowUpRight size={15} aria-hidden="true" /></button>)}</article> : <p>No matching roles.</p>}
+      <div className="portfolio-career-nav"><nav aria-label="Professional roles">{entries.map(entry=><button key={entry.id} aria-pressed={active?.id===entry.id} onClick={()=>onChange({...block,roleId:entry.id,search:undefined})}><strong>{careerPaths[entry.id]?.label??entry.organization}</strong></button>)}</nav></div>
+      {active&&<article className="portfolio-career-detail"><h3>{careerPaths[active.id]?.title??active.role}</h3>{paragraphs.map(text=><p key={text}>{text}</p>)}{record&&<button className="portfolio-inline-action" onClick={()=>onChange({...blankBlock('story'),projectIds:[record.project.id],focus:'process',layout:'project-process',section:record.processSections[0]??0})}>Explore the work<ArrowUpRight size={15} aria-hidden="true"/></button>}</article>}
     </div>
   </section>;
 }

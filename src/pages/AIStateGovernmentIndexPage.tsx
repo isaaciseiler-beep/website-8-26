@@ -1,7 +1,10 @@
+import BackArrow from "@/components/BackArrow";
+import useProjectReturn from "@/hooks/useProjectReturn";
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
+import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { type ReactNode, type RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useScroll, useTransform } from "framer-motion";
 import {
-  ArrowLeft,
   ArrowUpRight,
   Bot,
   CheckCircle2,
@@ -128,8 +131,8 @@ const StatPanel = ({
 }) => (
   <motion.div
     className="ai-index-stat-card site-corner border border-foreground/10 bg-card p-4"
-    initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
-    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+    initial={false}
+    whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.35 }}
     transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay }}
   >
@@ -152,8 +155,8 @@ const TextReveal = ({
 }) => (
   <motion.div
     className={className}
-    initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
-    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+    initial={false}
+    whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.42 }}
     transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay }}
   >
@@ -259,17 +262,17 @@ const RevealSection = ({
     <motion.section
       ref={sectionRef}
       className={`relative overflow-hidden ${className ?? ""}`}
-      initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: 0.5, ease: MOTION_EASE_ENTER }}
     >
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(ellipse_at_center,hsl(var(--foreground)/0.045),transparent_68%)]"
-        style={{ y: washY }}
+
       />
-      <motion.div className="relative z-10" style={{ y: contentY }}>
+      <motion.div className="relative z-10" >
         {children}
       </motion.div>
     </motion.section>
@@ -315,27 +318,28 @@ const ChartReveal = ({
 }) => {
   const revealRef = useRef<HTMLDivElement | null>(null);
   const inView = useInView(revealRef, { amount: 0.7, once: true, root: scrollContainerRef });
+  const reduced = useReducedMotion();
   const [hasEntered, setHasEntered] = useState(false);
 
   useEffect(() => {
-    if (inView) {
+    if (inView || reduced) {
       setHasEntered(true);
     }
-  }, [inView]);
+  }, [inView, reduced]);
 
   return (
     <motion.div
       ref={revealRef}
       className={className}
       style={{ minHeight }}
-      initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
-      animate={hasEntered ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
+      initial={false}
+      animate={hasEntered ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay }}
     >
       <motion.div
         className="h-full"
-        initial={reveal === "left" ? { clipPath: "inset(0 100% 0 0)" } : undefined}
-        animate={hasEntered && reveal === "left" ? { clipPath: "inset(0 0% 0 0)" } : undefined}
+        initial={false}
+
         transition={{ duration: 0.56, ease: EASE_TEXT, delay: delay + 0.04 }}
       >
         {hasEntered ? children : null}
@@ -379,22 +383,22 @@ const TopPerformersVisual = ({ states }: { states: RankedState[] }) => {
             <motion.div
               key={state.state}
               className="relative min-h-[72px] overflow-hidden rounded-[6px] bg-background sm:min-h-[82px]"
-              initial={{ opacity: 0, filter: "blur(5px)" }}
-              animate={{ opacity: 1, filter: "blur(0px)" }}
-              transition={{ duration: 0.42, ease: EASE_TEXT, delay: index * 0.05 }}
+              initial={false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.42, ease: EASE_TEXT }}
             >
               <motion.div
                 className="absolute inset-y-0 left-0 origin-left bg-foreground"
                 style={{ width: `${score}%`, backgroundColor: TOP_PERFORMER_GREEN }}
-                initial={{ scaleX: 0 }}
+                initial={false}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 0.58, ease: EASE_TEXT, delay: 0.06 + index * 0.04 }}
+                transition={{ duration: 0.58, ease: EASE_TEXT }}
               />
               <motion.div
                 className="relative z-10 flex h-full min-h-[72px] items-center justify-between gap-3 px-3 py-3 text-background sm:min-h-[82px] sm:gap-4 sm:px-5"
-                initial={{ opacity: 0, x: -12 }}
+                initial={false}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.36, ease: EASE_TEXT, delay: 0.38 + index * 0.04 }}
+                transition={{ duration: 0.36, ease: EASE_TEXT }}
               >
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-background/62">#{state.rank}</p>
@@ -403,9 +407,9 @@ const TopPerformersVisual = ({ states }: { states: RankedState[] }) => {
                 <motion.p
                   className="shrink-0 text-xl font-semibold tracking-tight tabular-nums sm:text-2xl"
                   style={{ color: scoreColor }}
-                  initial={{ opacity: 0, x: 10 }}
+                  initial={false}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.34, ease: EASE_TEXT, delay: 0.44 + index * 0.04 }}
+                  transition={{ duration: 0.34, ease: EASE_TEXT }}
                 >
                   {score}
                 </motion.p>
@@ -437,10 +441,13 @@ const ResourceTooltip = ({ active, payload }: ResourceTooltipProps) => {
 };
 
 const AIStateGovernmentIndexPage = () => {
+  const reduced = useReducedMotion();
   const navigate = useNavigate();
+  const { back: backToWork, label: backLabel } = useProjectReturn();
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const [selectedRegion, setSelectedRegion] = useState<AiIndexRegion | "All">("All");
   const [selectedParty, setSelectedParty] = useState<AiIndexParty | "All">("All");
   const [query, setQuery] = useState("");
@@ -537,25 +544,16 @@ const AIStateGovernmentIndexPage = () => {
                 ? "calc(100% - 200px)"
                 : "100%",
         }}
-        transition={{ duration: MOTION_DURATION.reveal, ease: EASE_TEXT }}
+        transition={navigationMotion}
       >
         <motion.main
           className="pb-24"
-          initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: 0.04 }}
+          initial={false}
         >
           <section className="relative bg-background">
             <div className="px-6 pt-28">
               <div className="content-measure">
-                <button
-                  type="button"
-                  onClick={() => navigate("/?section=projects")}
-                  className="pill-back"
-                >
-                  <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.75} />
-                  <span>Back to work</span>
-                </button>
+                <BackArrow onClick={backToWork} label={backLabel} />
 
                 <div className="article-meta mt-10">
                   <span>2025</span>
@@ -600,7 +598,7 @@ const AIStateGovernmentIndexPage = () => {
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.5, ease: MOTION_EASE_ENTER, delay: 0.04 }}
+                  transition={{ duration: 0.5, ease: MOTION_EASE_ENTER }}
                 >
                   <ChartReveal minHeight={500} scrollContainerRef={pageScrollRef}>
                     <TopPerformersVisual states={topStates} />
@@ -796,9 +794,9 @@ const AIStateGovernmentIndexPage = () => {
                         dataKey="compositeScore"
                         name="Composite score"
                         radius={[5, 5, 0, 0]}
-                        isAnimationActive
+                        isAnimationActive={!reduced}
                         animationBegin={0}
-                        animationDuration={900}
+                        animationDuration={340}
                         animationEasing="ease-out"
                       >
                         {rankedStates.map((state) => (
@@ -952,9 +950,9 @@ const AIStateGovernmentIndexPage = () => {
                       <Scatter
                         data={scatterData}
                         name="Governments"
-                        isAnimationActive
+                        isAnimationActive={!reduced}
                         animationBegin={80}
-                        animationDuration={850}
+                        animationDuration={340}
                         animationEasing="ease-out"
                       >
                         {scatterData.map((state) => (
@@ -1032,10 +1030,10 @@ const AIStateGovernmentIndexPage = () => {
                     key={item.title}
                     className="site-corner min-h-44 p-5 text-white"
                     style={{ backgroundColor: item.color }}
-                    initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
-                    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    initial={false}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER, delay: Math.min(index * 0.035, 0.14) }}
+                    transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE_ENTER }}
                   >
                     <item.icon className="h-5 w-5 text-white/75" strokeWidth={1.6} />
                     <h3 className="mt-4 text-xl font-semibold tracking-tight">{item.title}</h3>

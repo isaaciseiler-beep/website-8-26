@@ -1,8 +1,11 @@
+import MotionSurface from "@/components/MotionSurface";
+import { useNavigationMotion, useMotionPreference } from "@/hooks/useMotionPreference";
+import { warmRoute } from "@/lib/routePreload";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Search, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import type { SearchGroup, SearchResult } from "@/lib/searchIndex";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { setSiteOverlayOpen } from "@/lib/siteOverlay";
@@ -11,7 +14,7 @@ import { preloadImage } from "@/lib/imagePreload";
 
 const EASE = MOTION_EASE_ENTER;
 const EASE_TEXT = MOTION_EASE;
-const SEARCH_BAR_TRANSITION = { duration: MOTION_DURATION.panel, ease: MOTION_EASE_ENTER };
+
 const EMPTY_SEARCH_GROUPS: SearchGroup[] = [];
 
 type SearchIndexModule = typeof import("@/lib/searchIndex");
@@ -47,15 +50,17 @@ const ResultCard = ({
     type="button"
     onClick={() => onSelect(result)}
     onPointerEnter={() => {
+      if (!result.external) warmRoute(result.href);
       if (result.image) void preloadImage(result.image, { decode: true, fetchPriority: "high", linkPreload: true });
     }}
     onFocus={() => {
+      if (!result.external) warmRoute(result.href);
       if (result.image) void preloadImage(result.image, { decode: true, fetchPriority: "high", linkPreload: true });
     }}
     className="group block w-full text-left"
-    initial={{ opacity: 0, x: 18, filter: "blur(6px)" }}
-    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-    transition={{ delay: 0.04 + index * 0.03, duration: MOTION_DURATION.reveal, ease: EASE }}
+    initial={false}
+    animate={{ opacity: 1 }}
+    transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
   >
     <div className="site-corner relative aspect-[4/3] w-full overflow-hidden bg-[hsl(var(--image-scrim))]">
       {result.image ? (
@@ -92,6 +97,8 @@ interface SearchPanelProps {
 
 export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, open, searchReady }: SearchPanelProps) => {
   const isMobile = useIsMobile();
+  const reduced = useMotionPreference();
+  const navigationMotion = useNavigationMotion(open);
 
   useLayoutEffect(() => {
     setSiteOverlayOpen("search", open);
@@ -115,14 +122,14 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
     <AnimatePresence>
       {open ? (
         <>
-          <motion.div
+          <MotionSurface
             role="dialog"
             aria-label="Search"
             className="site-sidebar-panel fixed inset-y-0 right-0 z-[85] isolate flex h-[100dvh] w-screen transform-gpu flex-col px-6 pb-0 pt-20 text-foreground will-change-transform md:w-[var(--site-panel-width)] md:py-20 md:pb-0"
-            initial={{ x: isMobile ? "100%" : 200 }}
-            animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-            exit={{ x: isMobile ? "100%" : 200 }}
-            transition={{ duration: MOTION_DURATION.panel, ease: MOTION_EASE_ENTER }}
+            initial={{ x: reduced ? 0 : isMobile ? "100%" : 200 }}
+            animate={{ x: 0 }}
+            exit={{ x: reduced ? 0 : isMobile ? "100%" : 200, transition: { ...navigationMotion, duration: reduced ? 0 : MOTION_DURATION.fast } }}
+            transition={navigationMotion}
           >
             <div className="pointer-events-none absolute inset-x-0 top-20 z-10 h-12 bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,hsl(var(--background)/0.82)_34%,hsl(var(--background)/0)_100%)] md:top-20" />
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-10 pt-5 scrollbar-hide md:pb-12 md:pt-8">
@@ -138,9 +145,9 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
                         <motion.section
                           key={group.category}
                           className="pb-5 pt-5 first:pt-0 last:pb-6"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.58, ease: EASE, delay: 0.05 }}
+                          initial={false}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
                         >
                           <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.22em] text-foreground/32">
                             {group.label}
@@ -161,7 +168,7 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onClose, onSelect, o
                 </div>
               )}
             </div>
-          </motion.div>
+          </MotionSurface>
         </>
       ) : null}
     </AnimatePresence>
@@ -179,10 +186,12 @@ const SearchTrigger = ({
   onOpenChange,
 }: SearchTriggerProps) => {
   const [internalOpen, setInternalOpen] = useState(false);
+  const searchMotion = useNavigationMotion(Boolean(open ?? internalOpen));
   const [query, setQuery] = useState("");
   const [searchIndexModule, setSearchIndexModule] = useState<SearchIndexModule | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const isMobile = useIsMobile();
   const isControlled = typeof open === "boolean";
   const panelOpen = isControlled ? open : internalOpen;
@@ -219,7 +228,7 @@ const SearchTrigger = ({
       window.open(result.href, "_blank", "noopener,noreferrer");
       return;
     }
-    navigate(result.href);
+    navigate(result.href, { state: result.href.startsWith('/projects/') ? location.pathname === '/work' ? { fromWork: true } : location.pathname === '/' ? { fromExplore: true } : undefined : undefined });
   };
 
   const handleEnter = () => {
@@ -241,7 +250,7 @@ const SearchTrigger = ({
 
   useEffect(() => {
     if (!panelOpen || variant !== "header") return;
-    const timer = window.setTimeout(() => inputRef.current?.focus(), 160);
+    const timer = window.setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 0);
     return () => window.clearTimeout(timer);
   }, [panelOpen, variant]);
 
@@ -285,7 +294,7 @@ const SearchTrigger = ({
               initial={{ width: 25 }}
               animate={{ width: expandedSearchWidth }}
               exit={{ width: 25 }}
-              transition={SEARCH_BAR_TRANSITION}
+              transition={searchMotion}
             >
               <span className="flex h-[25px] w-[25px] shrink-0 items-center justify-center">
                 <Search className="h-3.5 w-3.5" strokeWidth={1.65} />

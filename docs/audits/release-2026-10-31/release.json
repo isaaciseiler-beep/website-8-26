@@ -1,0 +1,11 @@
+{
+  "commit": "e5ce7ed7ec8969dc091b84b490ffd9c16527ff15",
+  "deploymentId": "dpl_BHQ1Z5Yp9Rb4VZX7p1aU3Ekbd7uJ",
+  "state": "READY",
+  "url": "https://seiler.page",
+  "contentVersion": "canvas-2026-10-31-v10",
+  "unitTests": 267,
+  "liveAcceptance": 20,
+  "liveSuggestionChecks": 24,
+  "liveJourneyChecks": 20
+}

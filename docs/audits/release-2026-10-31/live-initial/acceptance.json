@@ -1,0 +1,170 @@
+{
+  "base": "https://seiler.page",
+  "contentVersion": "canvas-2026-10-31-v10",
+  "cases": 20,
+  "passed": 17,
+  "results": [
+    {
+      "id": "career",
+      "ok": true,
+      "headings": [
+        "Strengths across the work",
+        "AI Adoption Research"
+      ]
+    },
+    {
+      "id": "public-service",
+      "ok": true,
+      "headings": [
+        "Public service",
+        "Communications Strategy and Operations"
+      ]
+    },
+    {
+      "id": "report",
+      "ok": true,
+      "headings": [
+        "Building a congressional office",
+        "Making the first 100 days measurable"
+      ]
+    },
+    {
+      "id": "office-outcomes",
+      "ok": true,
+      "headings": [
+        "Building a congressional office",
+        "Making the first 100 days measurable"
+      ]
+    },
+    {
+      "id": "study-mode",
+      "ok": true,
+      "headings": [
+        "Inside the ChatGPT Lab",
+        "Study Mode: making ChatGPT teach, not answer"
+      ]
+    },
+    {
+      "id": "pulse",
+      "ok": true,
+      "headings": [
+        "Inside the ChatGPT Lab",
+        "Pulse: when ChatGPT starts the conversation"
+      ]
+    },
+    {
+      "id": "atlas",
+      "ok": true,
+      "headings": [
+        "Inside the ChatGPT Lab",
+        "Atlas: rethinking the browser"
+      ]
+    },
+    {
+      "id": "group-chats",
+      "ok": true,
+      "headings": [
+        "Inside the ChatGPT Lab",
+        "Group Chats: learning when AI should speak"
+      ]
+    },
+    {
+      "id": "taiwan-lessons",
+      "ok": true,
+      "headings": [
+        "AI literacy in Taiwan",
+        "What I Learned"
+      ]
+    },
+    {
+      "id": "educator-influence",
+      "ok": true,
+      "headings": [
+        "AI literacy in Taiwan",
+        "Building a Program Where People Learned From Each Other"
+      ]
+    },
+    {
+      "id": "journalism-findings",
+      "ok": true,
+      "headings": [
+        "AI, platforms & local journalism",
+        "Research themes & outputs"
+      ]
+    },
+    {
+      "id": "comparison",
+      "ok": false,
+      "headings": [
+        "What the work produced",
+        "AI in state government",
+        "AI literacy in Taiwan"
+      ]
+    },
+    {
+      "id": "ordinal",
+      "ok": true,
+      "headings": [
+        "AI literacy in Taiwan"
+      ]
+    },
+    {
+      "id": "more",
+      "ok": true,
+      "headings": [
+        "AI literacy in Taiwan",
+        "From the Idea to the Lab"
+      ]
+    },
+    {
+      "id": "comparison-comms",
+      "ok": false,
+      "headings": [
+        "Two approaches to the work",
+        "Building a congressional office",
+        "Bringing Boehringer Cares to life"
+      ]
+    },
+    {
+      "id": "comparison-research",
+      "ok": false,
+      "headings": [
+        "Two approaches to the work",
+        "Inside the ChatGPT Lab",
+        "AI, platforms & local journalism"
+      ]
+    },
+    {
+      "id": "career-connections",
+      "ok": true,
+      "headings": [
+        "Strengths across the work",
+        "AI Adoption Research"
+      ]
+    },
+    {
+      "id": "taiwan-tradeoffs",
+      "ok": true,
+      "headings": [
+        "AI literacy in Taiwan",
+        "Building a Program Where People Learned From Each Other"
+      ]
+    },
+    {
+      "id": "taiwan-measurement",
+      "ok": true,
+      "headings": [
+        "AI literacy in Taiwan",
+        "What I Learned"
+      ]
+    },
+    {
+      "id": "leadership",
+      "ok": true,
+      "headings": [
+        "Leadership in practice",
+        "Fulbright Scholar"
+      ]
+    }
+  ]
+}

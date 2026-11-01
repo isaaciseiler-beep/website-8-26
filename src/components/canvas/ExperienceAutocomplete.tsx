@@ -1,5 +1,6 @@
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useId, useState, type ReactNode, type RefObject } from 'react';
-import { AnimatePresence, motion, useIsPresent, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { ArrowUpLeft } from 'lucide-react';
 import { suggestExperiencePrompts, type SuggestionContext } from '@/lib/experiencePrompts';
 
@@ -34,8 +35,7 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
         else if(e.key==='Tab')toggle(false);
       }}/>
     <AnimatePresence initial={false} custom={immediateDismiss}>{visible&&<SuggestionPanel key="suggestions">
-      <span className="experience-autocomplete-label" id={`${id}-label`}>{context&&!value.trim()?'Keep exploring':'Questions about Isaac’s work'}</span>
-      <ul id={id} role="listbox" aria-labelledby={`${id}-label`}>
+      <ul id={id} role="listbox" aria-label="Suggested questions">
         {items.map((item,index)=><li id={`${id}-${item.id}`} key={item.id} role="option" aria-selected={active===index} onPointerMove={()=>setActive(index)} onClick={()=>select(item.text)}>
           <span>{item.text}</span><ArrowUpLeft size={14} aria-hidden="true"/>
         </li>)}

@@ -1,3 +1,4 @@
+import { motionReduced } from "@/hooks/useMotionPreference";
 import { type PointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useScroll, useSpring } from "framer-motion";
 import { ArrowUpRight, Download, FileText } from "lucide-react";
@@ -385,7 +386,7 @@ const ExperiencePage = () => {
   }, []);
 
   const scrollToEntry = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById(id)?.scrollIntoView({ behavior: motionReduced() ? "instant" : "smooth", block: "start" });
   };
 
   const handleSidebarToggle = () => {

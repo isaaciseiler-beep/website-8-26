@@ -1,4 +1,6 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { flushSync } from "react-dom";
+import { motionReduced } from "@/hooks/useMotionPreference";
+import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 export type Theme = "dark" | "light" | "system" | "skull";
 type ResolvedTheme = "dark" | "light";
@@ -43,20 +45,23 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     return () => media.removeEventListener("change", updateSystemTheme);
   }, []);
 
+  const themeTransition = useRef<{ skipTransition: () => void; finished: Promise<void> } | null>(null);
+  useEffect(() => () => themeTransition.current?.skipTransition(), []);
   const applyTheme = (requested: Theme) => {
     const next = requested === "skull" ? "light" : requested;
 
-    const root = document.documentElement;
-    root.classList.add("theme-crossfade");
-    window.setTimeout(() => root.classList.remove("theme-crossfade"), 700);
+    themeTransition.current?.skipTransition();
+    const commit = () => flushSync(() => setTheme(next));
     const start = (document as Document & {
-      startViewTransition?: (cb: () => void) => void;
+      startViewTransition?: (cb: () => void) => { skipTransition: () => void; finished: Promise<void> };
     }).startViewTransition;
-    if (typeof start === "function") {
-      start.call(document, () => setTheme(next));
-      return;
-    }
-    setTheme(next);
+    if (!motionReduced() && typeof start === "function") {
+      const transition = start.call(document, commit);
+      themeTransition.current = transition;
+      void transition.finished.catch(() => {}).finally(() => {
+        if (themeTransition.current === transition) themeTransition.current = null;
+      });
+    } else commit();
   };
 
   const exitSkullMode = () => {
@@ -65,7 +70,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     applyTheme(previousTheme === "dark" ? "dark" : "light");
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, theme);
     const root = document.documentElement;
 

@@ -1,6 +1,7 @@
+import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import Footer from "@/components/Footer";
-import { Component, Suspense, lazy, type ComponentType, type ErrorInfo, type ReactNode } from "react";
-import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
+import { Component, Suspense, lazy, type ComponentType, type ErrorInfo, useEffect, type ReactNode } from "react";
+import { MotionConfig } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Index from "./pages/Index.tsx";
 import AdaptiveHome from "./components/canvas/AdaptiveHome";
@@ -9,9 +10,10 @@ import { ThemeProvider, useTheme } from "@/components/ThemeProvider";
 import SkullChrome from "@/components/SkullChrome";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import RouteLoader from "@/components/RouteLoader";
-import ScrollManager from "@/components/ScrollManager";
+import PageTransitions from "@/components/PageTransitions";
 import ImagePreloader from "@/components/ImagePreloader";
 import SiteMetadata from "@/components/SiteMetadata";
+import { warmRoute } from "@/lib/routePreload";
 import { MOTION_DURATION, MOTION_EASE } from "@/lib/motion";
 
 const isRecoverableChunkError = (error: unknown) => {
@@ -135,16 +137,14 @@ const Home = () => {
 const AnimatedRoutes = () => {
   const location = useLocation();
   const { theme } = useTheme();
-  const prefersReducedMotion = useReducedMotion();
   const isSkullHome = location.pathname === "/" || location.pathname === "/about" || location.pathname === "/work";
 
-  const routes = (
+  const renderRoutes = (presented: typeof location) => (
     <RouteErrorBoundary
-      resetKey={location.pathname}
-      fallback={<RouteRenderErrorFallback isMap={location.pathname === "/fulbrightmap" || location.pathname === "/photos/map"} />}
+      resetKey={presented.pathname}
+      fallback={<RouteRenderErrorFallback isMap={presented.pathname === "/fulbrightmap" || presented.pathname === "/photos/map"} />}
     >
-      <Suspense fallback={<RouteFallback />}>
-        <Routes location={location}>
+        <Routes location={presented}>
           <Route path="/" element={<Home />} />
           <Route path="/classic" element={<Index />} />
           <Route path="/agents" element={<CanvasDocuments kind="agents" />} />
@@ -170,29 +170,12 @@ const AnimatedRoutes = () => {
           <Route path="/strike-tracker" element={<StrikeTrackerPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Suspense>
     </RouteErrorBoundary>
   );
 
-  return (
-    <AnimatePresence initial={false} mode="wait">
-      <motion.div
-        key={location.pathname}
-        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-        animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1 }}
-        exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-        transition={{
-          duration: prefersReducedMotion ? 0 : MOTION_DURATION.fast,
-          ease: MOTION_EASE,
-        }}
-      >
-        {theme === "skull" && !isSkullHome
-          ? <SkullRouteFrame path={location.pathname}>{routes}</SkullRouteFrame>
-          : routes}
-        <Footer />
-      </motion.div>
-    </AnimatePresence>
-  );
+  return <PageTransitions>{presented => theme === "skull" && !isSkullHome
+    ? <SkullRouteFrame path={presented.pathname}>{renderRoutes(presented)}</SkullRouteFrame>
+    : renderRoutes(presented)}</PageTransitions>;
 };
 
 const ChatOrbGate = () => {
@@ -212,21 +195,32 @@ const ChatOrbGate = () => {
 
 const AppShell = () => {
   useScrollReveal();
+  useEffect(() => {
+    const warm = (event: Event) => {
+      const anchor = event.target instanceof Element ? event.target.closest('a[href]') as HTMLAnchorElement | null : null;
+      if (anchor?.origin === window.location.origin) warmRoute(anchor.pathname);
+    };
+    document.addEventListener('pointerover', warm, { passive: true });
+    document.addEventListener('focusin', warm);
+    return () => { document.removeEventListener('pointerover', warm); document.removeEventListener('focusin', warm); };
+  }, []);
   return (
     <BrowserRouter>
       <SiteMetadata />
-      <ScrollManager />
       <ImagePreloader />
       <SkullChrome />
       <AnimatedRoutes />
+      <Footer />
       <ChatOrbGate />
     </BrowserRouter>
   );
 };
 
-const App = () => (
+const App = () => {
+  const reduced = useReducedMotion();
+  return (
   <MotionConfig
-    reducedMotion="user"
+    reducedMotion={reduced ? "always" : "never"}
     transition={{ type: "tween", duration: MOTION_DURATION.base, ease: MOTION_EASE }}
   >
     <ThemeProvider>
@@ -234,5 +228,6 @@ const App = () => (
     </ThemeProvider>
   </MotionConfig>
 );
+};
 
 export default App;

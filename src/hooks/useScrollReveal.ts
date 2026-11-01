@@ -1,46 +1,42 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-/**
- * Observes every [data-reveal] element in the document (including lazily
- * mounted ones) and adds `is-revealed` when it scrolls into view.
- */
+/** Observe newly mounted sections once; never rescan the document on each text update. */
 export const useScrollReveal = () => {
   useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return;
-
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-revealed");
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.06 },
-    );
-
-    const scan = () => {
-      document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
-        if (el.dataset.revealBound) return;
-        el.dataset.revealBound = "1";
-        if (prefersReduced) {
-          el.classList.add("is-revealed");
-          return;
-        }
-        el.classList.add("reveal");
-        observer.observe(el);
-      });
+    if (typeof IntersectionObserver === 'undefined') return;
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const seen = new WeakSet<Element>();
+    const waiting = new Set<Element>();
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('is-revealed');
+        waiting.delete(entry.target);
+        observer.unobserve(entry.target);
+      }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    const bind = (element: Element) => {
+      if (seen.has(element)) return;
+      seen.add(element);
+      element.classList.add('reveal');
+      if (media.matches) element.classList.add('is-revealed');
+      else { waiting.add(element); observer.observe(element); }
     };
-
-    scan();
-    const mutation = new MutationObserver(scan);
-    mutation.observe(document.body, { childList: true, subtree: true });
-
-    return () => {
-      mutation.disconnect();
+    const scan = (node: Node) => {
+      if (!(node instanceof Element)) return;
+      if (node.matches('[data-reveal]')) bind(node);
+      node.querySelectorAll('[data-reveal]').forEach(bind);
+    };
+    const preferenceChanged = () => {
+      if (!media.matches) return;
+      waiting.forEach(element => element.classList.add('is-revealed'));
+      waiting.clear();
       observer.disconnect();
     };
+    scan(document.getElementById('root') ?? document.body);
+    const mutation = new MutationObserver(records => records.forEach(record => record.addedNodes.forEach(scan)));
+    mutation.observe(document.getElementById('root') ?? document.body, { childList: true, subtree: true });
+    media.addEventListener('change', preferenceChanged);
+    return () => { mutation.disconnect(); observer.disconnect(); media.removeEventListener('change', preferenceChanged); };
   }, []);
 };

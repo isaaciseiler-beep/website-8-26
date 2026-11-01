@@ -1,3 +1,4 @@
+import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -27,6 +28,7 @@ const ModernIndex = () => {
     () => Boolean((location.state as { sidebarOpen?: boolean } | null)?.sidebarOpen),
   );
   const [searchOpen, setSearchOpen] = useState(false);
+  const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const [activeSection, setActiveSection] = useState("hero");
   const isMobile = useIsMobile();
   const firstSectionScrollRef = useRef(true);
@@ -139,7 +141,7 @@ const ModernIndex = () => {
               ? "calc(100% - 200px)"
               : "100%",
         }}
-        transition={{ duration: MOTION_DURATION.reveal, ease: MOTION_EASE }}
+        transition={navigationMotion}
       >
         <main>
           <Suspense fallback={<SectionFallback />}>
