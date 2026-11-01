@@ -3,11 +3,12 @@ import { MOTION_EASE_ENTER } from "@/lib/motion";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
-import { AnimatePresence, motion, useInView, useIsPresent } from 'framer-motion';
+import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { ArrowUp, ArrowUpRight, Link, Check, LoaderCircle, X } from 'lucide-react';
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
 import { isPhotographyRequest, explorationGuidance, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
+import ExplorePreviewDialog from './ExplorePreviewDialog';
 import { startingExperiencePrompts } from '@/lib/experiencePrompts';
 import ExplorationCanvas, { type GenerationInfo } from './ExplorationCanvas';
 import './home-explore.css';
@@ -47,17 +48,8 @@ export default function HomeExplore() {
   const restored=useRef(routeNavigation?.restoring?entryExplorations.get(routeNavigation.key):undefined).current;
   const reduceMotion=useReducedMotion();
   const composerRef=useRef<HTMLDivElement>(null);
-  const composerInView=useInView(composerRef,{amount:0.1});
-  const [pageVisible,setPageVisible]=useState(()=>!document.hidden);
-  useEffect(()=>{
-    const updateVisibility=()=>setPageVisible(!document.hidden);
-    document.addEventListener('visibilitychange',updateVisibility);
-    return()=>document.removeEventListener('visibilitychange',updateVisibility);
-  },[]);
   const [composerHovered,setComposerHovered]=useState(false);
   const [explorationFocused,setExplorationFocused]=useState(false);
-  const [suggestion,setSuggestion]=useState(0);
-  const [paused,setPaused]=useState(false);
   const [query,setQuery]=useState(restored?.query??'');
   const [autocompleteOpen,setAutocompleteOpen]=useState(false);
   const [immediateDismiss,setImmediateDismiss]=useState(false);
@@ -120,11 +112,6 @@ export default function HomeExplore() {
       travel:input=>browserControls.current!.travel(input),
     });
   },[]);
-  useEffect(()=>{
-    if(query.trim()||reduceMotion||paused||!composerInView||!pageVisible)return;
-    const interval=setInterval(()=>{if(!document.hidden)setSuggestion(i=>(i+1)%suggestions.length);},5600);
-    return()=>clearInterval(interval);
-  },[query,reduceMotion,paused,composerInView,pageVisible]);
   useEffect(()=>{
     const abort=new AbortController();
     void fetch('/api/compose',{signal:abort.signal}).then(r=>r.json()).then(data=>{llmConfigured.current=Boolean(data.configured);}).catch(()=>{});
@@ -227,17 +214,7 @@ export default function HomeExplore() {
         <ExperienceAutocomplete context={view?{projectIds:view.composition.blocks.flatMap(block=>block.projectIds),kind:view.composition.blocks[0]?.kind,focus:view.composition.blocks[0]?.focus,answerId:view.composition.blocks[0]?.answerId,angle:view.composition.blocks[0]?.angle,section:view.composition.blocks[0]?.section,question:view.query,visitedQuestions:history.slice(-8).map(item=>item.query)}:undefined} inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
         {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
       </form></div>
-      {!query.trim()&&!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&<div className="home-genui-suggestion" onPointerEnter={()=>setPaused(true)} onPointerLeave={()=>setPaused(false)} onFocusCapture={()=>setPaused(true)} onBlurCapture={()=>setPaused(false)}>
-        <button type="button" aria-label={suggestions[suggestion].label} onClick={()=>{submit(suggestions[suggestion].prompt);}}>
-          <span className="home-suggestion-viewport" aria-hidden="true">
-            {suggestions.map(item=><span className="home-suggestion-size" key={item.label}>{item.label}</span>)}
-            <AnimatePresence initial={false}>
-              <motion.span className="home-suggestion-label" key={suggestion} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:reduceMotion?0:.55,ease:[.22,1,.36,1]}}>{suggestions[suggestion].label}</motion.span>
-            </AnimatePresence>
-          </span>
-          <ArrowUpRight size={13} aria-hidden="true"/>
-        </button>
-      </div>}
+      {!query.trim()&&!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&<ExplorePreviewDialog/>}
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel" restored={Boolean(restored?.view||restored?.guidance)}>
