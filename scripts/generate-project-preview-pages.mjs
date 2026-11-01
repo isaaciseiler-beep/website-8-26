@@ -721,6 +721,7 @@ const renderProjectFallback = (project) => `
         <section>
           <h2>${escapeHtml(section.heading)}</h2>
           ${(section.paragraphs ?? []).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}
+          ${section.stats?.length ? `<dl>${section.stats.map(stat => `<div><dt>${escapeHtml(stat.label)}</dt><dd>${escapeHtml(stat.value)}</dd></div>`).join("")}</dl>` : ""}
           ${
             section.bullets?.length
               ? `<ul>${section.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}</ul>`
@@ -970,7 +971,7 @@ writeGeneratedPublicFile("work.md", `# Work by Isaac Seiler\n\nCanonical: ${SITE
 writeGeneratedPublicFile("photos/map.md", `# Photo Map\n\nCanonical: ${SITE_URL}/photos/map\n\n${topPageByPath.get("/photos/map").description}\n`);
 writeGeneratedPublicFile("llms.txt", `# Isaac Seiler — Tech Generalist\n\n> ${PROFILE_SUMMARY}\n\nCanonical website: ${SITE_URL}/\n\n## Profile and evidence\n- [About Isaac Seiler](${SITE_URL}/about.md)\n- [Selected work](${SITE_URL}/work.md)\n- [Writing](${SITE_URL}/writing.md): Coming soon.\n- [Public profile JSON](${SITE_URL}/api/public/profile)\n- [Agent guide](${SITE_URL}/agents)\n- [Interactive MCP endpoint](${SITE_URL}/mcp): Streamable HTTP; approved view tools and an MCP App.\n\n## Projects\n${enrichedProjects.map((project) => `- [${project.title}](${projectUrl(project)}.md): ${project.seoDescription}`).join("\n")}\n\n## Attribution\nThe government AI benchmark is an August 2025 snapshot. OpenAI program participation, collaboration, and product feedback are distinct from employment. Project pages link to published evidence.\n`);
 enrichedProjects.forEach((project) => {
-  const sections = (project.sections ?? []).map((section) => `## ${section.heading}\n\n${(section.paragraphs ?? []).join("\n\n")}\n\n${(section.bullets ?? []).map((bullet) => `- ${bullet}`).join("\n")}\n\n${(section.links ?? []).map((link) => `- [${link.label}](${link.href})`).join("\n")}`).join("\n\n");
+  const sections = (project.sections ?? []).map((section) => `## ${section.heading}\n\n${(section.paragraphs ?? []).join("\n\n")}\n\n${(section.bullets ?? []).map((bullet) => `- ${bullet}`).join("\n")}${section.stats?.length ? "\n\n" + section.stats.map(stat => `- ${stat.label}: ${stat.value}`).join("\n") : ""}\n\n${(section.links ?? []).map((link) => `- [${link.label}](${link.href})`).join("\n")}`).join("\n\n");
   writeGeneratedPublicFile(`projects/${project.id}.md`, `# ${project.title}\n\nCanonical: ${projectUrl(project)}\nYear: ${project.year}\nAuthor: Isaac Seiler\n\n${project.seoDescription}\n\n${sections}\n`);
 });
 

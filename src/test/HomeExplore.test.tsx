@@ -32,6 +32,23 @@ describe("homepage generative interface", () => {
     expect(screen.queryByText('Sources')).not.toBeInTheDocument();
   });
 
+  it('hands keyboard focus into an opened project and back to its filtered project button',async()=>{
+    vi.stubGlobal('fetch',vi.fn(async()=>success({configured:false})));
+    mount();
+    const input=screen.getByRole('combobox',{name:'Explore'});
+    fireEvent.change(input,{target:{value:'Explore all projects'}});
+    await act(async()=>{fireEvent.submit(input.closest('form')!);});
+    fireEvent.change(screen.getByRole('searchbox',{name:'Find a project'}),{target:{value:'Taiwan'}});
+    const project=screen.getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/});
+    act(()=>project.focus());fireEvent.click(project);
+    expect(screen.getByRole('heading',{name:'AI literacy in Taiwan',exact:true})).toHaveFocus();
+    fireEvent.click(screen.getByRole('button',{name:'Process',exact:true}));
+    const back=screen.getByRole('button',{name:'Back to projects',exact:true});
+    act(()=>back.focus());fireEvent.click(back);
+    expect(screen.getByRole('searchbox',{name:'Find a project'})).toHaveValue('Taiwan');
+    expect(screen.getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/})).toHaveFocus();
+  });
+
   it('keeps committed results while editing, then handles unknown requests without inherited content', async () => {
     const fetcher=vi.fn(async()=>success({configured:false}));
     vi.stubGlobal('fetch',fetcher);
@@ -109,6 +126,23 @@ describe("homepage generative interface", () => {
     expect(screen.queryByRole('link',{name:'gallery below'})).not.toBeInTheDocument();
     expect(screen.queryByRole('region',{name:'Photo explorer'})).not.toBeInTheDocument();
     expect(fetcher).toHaveBeenCalledTimes(1);
+  });
+
+  it('announces pending work outside the busy results and stops when a draft cancels it', async () => {
+    vi.stubGlobal('fetch',vi.fn(async (_url:string,options?:RequestInit)=>{
+      if(!options?.body)return success({configured:false});
+      return new Promise(()=>{});
+    }));
+    mount();
+    const input=screen.getByRole('combobox',{name:'Explore'});
+    fireEvent.change(input,{target:{value:'Taiwan teaching'}});
+    await act(async()=>{fireEvent.submit(input.closest('form')!);});
+    const status=screen.getByRole('status');
+    expect(status).toHaveTextContent('Finding a view');
+    expect(status.closest('[aria-busy="true"]')).toBeNull();
+    fireEvent.change(input,{target:{value:'a different question'}});
+    expect(status).toBeEmptyDOMElement();
+    expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
   });
 
   it("cannot let an older server response replace a newer submitted view", async () => {

@@ -11,6 +11,9 @@ export const experiencePrompts:readonly ExperiencePrompt[]=[
   {id:'policy',text:'How did Isaac research AI in government?',keywords:'benchmark index artificial intelligence mapping analysis data methodology',topics:['policy'],aspect:'process'},
   {id:'policy-role',text:'What did Isaac contribute to the government AI benchmark?',keywords:'ownership personally contribution role research index',topics:['policy'],aspect:'role'},
   {id:'policy-outcomes',text:'What were the outcomes of Isaac’s government AI research?',keywords:'outputs results roadmap recommendations',topics:['policy'],aspect:'outcomes'},
+  {id:'policy-benchmark',text:'Explore the government AI benchmark',keywords:'state states territory territories rankings scores preparedness adoption data criteria',topics:['policy'],aspect:'overview'},
+  {id:'connections',text:'What connects Isaac’s work across fields?',keywords:'common thread throughline connects connection together technology people systems',topics:['career'],aspect:'overview'},
+  {id:'timeline',text:'Show Isaac’s career timeline',keywords:'chronology chronological timeline career path journey history dates',topics:['career'],aspect:'overview'},
   {id:'strengths',text:'What are Isaac’s strongest skills?',keywords:'strength strengths skills good well hiring hire qualifications',topics:['career'],aspect:'strengths'},
   {id:'service',text:'Tell me about Isaac’s public service',keywords:'government politics community service',topics:['career'],aspect:'service'},
   {id:'leadership',text:'Which work demonstrates Isaac’s leadership?',keywords:'lead led leading manage management team ownership',topics:['career'],aspect:'leadership'},
@@ -55,7 +58,7 @@ function near(a:string,b:string):boolean {
 const topicWords:Record<Topic,string[]>={
   career:['career','experience','background','resume','skills','strengths','leadership','summation'],
   taiwan:['taiwan','fulbright','educators','teachers','teaching','classroom','literacy'],
-  congress:['congress','congressional','scholten'],policy:['policy','government','governments','benchmark','index'],
+  congress:['congress','congressional','scholten'],policy:['policy','government','governments','benchmark','index','states','territories'],
   journalism:['journalism','journalists','thesis','australia','newsroom'],rebrand:['boehringer','rebrand','branding'],
   openai:['openai','chatgpt','pulse','atlas','socratic'],contact:['contact','email','linkedin'],work:['portfolio','projects'],
 };
@@ -81,17 +84,26 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
   const count=Math.max(0,Math.min(4,Math.floor(limit)||0));if(!count)return [];
   const normalized=normalize(query.slice(0,500));
   if(/\b(?:photos?|photography|albums?|gallery|pictures?)\b/.test(normalized))return [];
-  const tokens=[...new Set(normalized.split(' ').filter(token=>token&&!stop.has(token)))].slice(0,24);
+  const continuation=Boolean(context)&&/^(?:what else|what next|what s next|tell me more|show me more|go deeper|more|next)(?: about (?:this|it|that))?$/.test(normalized);
+  const tokens=continuation?[]:[...new Set(normalized.split(' ').filter(token=>token&&!stop.has(token)))].slice(0,24);
   const aspect=queryAspect(normalized);
+  const specificProduct=/\b(?:pulse|atlas|study mode|group chats|100 chats)\b/.test(normalized);
   const subjectTokens=[...tokens,...tokens.slice(0,-1).map((token,index)=>token+tokens[index+1])];
   let topics=(Object.keys(topicWords) as Topic[]).filter(topic=>subjectTokens.some(token=>topicWords[topic].some(word=>token===word||(token.length>=3&&word.startsWith(token))||near(token,word))));
-  if(/study mode|group chats|100 chats/.test(normalized)&&!topics.includes('openai'))topics.push('openai');
+  // OpenAI supported the Taiwan program; that mention does not imply a second
+  // request about product testing in the ChatGPT Lab.
+  if(topics.includes('taiwan')&&topics.includes('openai')&&aspect!=='comparison'){
+    if(specificProduct)topics=topics.filter(topic=>topic!=='taiwan');
+    else if(!/product test|product feedback/.test(normalized))topics=topics.filter(topic=>topic!=='openai');
+  }
+  if(specificProduct&&!topics.includes('openai'))topics.push('openai');
   // Public service describes the career, rather than a particular government project.
   if(aspect==='service'&&(!topics.length||topics.every(topic=>topic==='policy'||topic==='career')))topics=['career'];
   if(!topics.length&&['strengths','leadership','service'].includes(aspect??''))topics=['career'];
   if(/100 days?|100 day report/.test(normalized)&&!topics.includes('congress'))topics.push('congress');
   const explicit=topics.length>0;
   if(!explicit&&context&&(aspect||!tokens.length))topics=[...new Set(context.projectIds.map(id=>projectTopics[id]).filter(Boolean))];
+  if(!topics.length&&context?.kind==='benchmark'&&(aspect||!tokens.length))topics=['policy'];
   if(!topics.length&&context?.kind==='timeline'&&(aspect||!tokens.length))topics=['career'];
   if(!tokens.length&&!topics.length)return startingExperiencePrompts.slice(0,count);
   const answered=new Set((context?.visitedQuestions??[]).map(normalize));
@@ -108,6 +120,9 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
     return next.sort((a,b)=>Number(b.item.aspect==='lessons')-Number(a.item.aspect==='lessons')).slice(0,count).map(row=>row.item);
   }
   const ranked=compiled.flatMap(({item,title,aliases},index)=>{
+    // A broad subject query is a chance to explore further. An explicit aspect or
+    // full question still lets a visitor deliberately revisit an earlier answer.
+    if(alreadyAnswered(item)&&!aspect&&!specificProduct&&normalized!==normalize(item.text))return [];
     const overlap=item.topics.filter(topic=>topics.includes(topic)).length;
     if(topics.length&&!overlap)return [];
     if(item.aspect==='comparison'&&aspect!=='comparison')return [];

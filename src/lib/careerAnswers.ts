@@ -1,10 +1,12 @@
+import { connectionForRequest } from './portfolioConnections.js';
 /** Reviewed interpretations of published experience, never model-written claims. */
 export const careerAnswerIds = ['connections','strengths','leadership','service','identity','current','chronology'] as const;
 export type CareerAnswerId = typeof careerAnswerIds[number];
 export function careerAnswerFor(question:string):CareerAnswerId|undefined {
   if (/timeline|chronolog|career (?:path|journey)/i.test(question)) return 'chronology';
-  if (/what connects|common thread|through.?line|ties .*together/i.test(question)) return 'connections';
-  if (/strength|skills|best at|good at|do(?:es)? well|hire|hiring|bring to (?:a|the) team/i.test(question)) return 'strengths';
+  if (connectionForRequest(question)) return 'connections';
+  if (/what connects|common thread|through.?line|ties .*together|learning from people|ideas into practice|carrying ideas|making complexity usable/i.test(question)) return 'connections';
+  if (/strength|skills|best at|good at|do(?:es)? well|\bhir(?:e|ed|ing)\b|bring to (?:a|the) team/i.test(question)) return 'strengths';
   if (/leadership|led|leading|manage/i.test(question)) return 'leadership';
   if (/public service/i.test(question)) return 'service';
   if (/current|working on|\bnow\b|summation/i.test(question)) return 'current';

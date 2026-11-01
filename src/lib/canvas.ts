@@ -3,12 +3,12 @@ import { albums, albumPhotos } from "./photoAlbums.js";
 import { experienceEntries } from "./experience.js";
 import { SITE_URL, SITE_DESCRIPTION, PROFILE_SUMMARY, PROFILE_EXPERTISE, CONTACT_MAILTO, LINKEDIN_URL, GITHUB_URL } from "./site.js";
 
-export const CONTENT_VERSION = "canvas-2026-11-01-v11";
+export const CONTENT_VERSION = "canvas-2026-11-01-v12";
 export const publicProjects = projectItems.filter(p => !hiddenProjectIds.has(p.id));
 export const publicProfile = { id: "isaac-seiler", name: "Isaac Seiler", headline: "Tech generalist", description: SITE_DESCRIPTION, summary: PROFILE_SUMMARY, expertise: PROFILE_EXPERTISE, bio: bioLines, location: "Seattle", canonicalUrl: `${SITE_URL}/about`, links: { contact: CONTACT_MAILTO, linkedin: LINKEDIN_URL, github: GITHUB_URL }, contentVersion: CONTENT_VERSION };
 export const projectSources = (id: string) => publicProjects.find(p => p.id === id)?.sections.flatMap(s => s.links ?? []) ?? [];
 export const records = [
-  ...publicProjects.map(p => ({ id: p.id, type: "project", title: p.title, summary: p.summary, year: p.year, image: p.image, canonicalUrl: `${SITE_URL}/projects/${p.id}`, body: p.sections.map(s => [s.heading, ...(s.paragraphs ?? []), ...(s.bullets ?? [])].join("\n\n")).join("\n\n"), sources: projectSources(p.id), contentVersion: CONTENT_VERSION })),
+  ...publicProjects.map(p => ({ id: p.id, type: "project", title: p.title, summary: p.summary, year: p.year, image: p.image, canonicalUrl: `${SITE_URL}/projects/${p.id}`, body: p.sections.map(s => [s.heading, ...(s.paragraphs ?? []), ...(s.bullets ?? []), ...(s.stats ?? []).map(stat => `${stat.label}: ${stat.value}`)].join("\n\n")).join("\n\n"), sources: projectSources(p.id), contentVersion: CONTENT_VERSION })),
   ...albums.map(a => ({ id: `album-${a.folder}`, type: "album", title: a.location, summary: `${a.photos.length} photographs · ${a.continent}`, year: "", image: albumPhotos(a)[0], canonicalUrl: `${SITE_URL}/?album=${encodeURIComponent(a.folder)}`, body: `${a.location} photography collection. Dates and individual photograph locations are not documented.`, sources: [], contentVersion: CONTENT_VERSION })),
 ];
 export type Layout = "overview" | "work" | "detail" | "comparison" | "photos" | "mixed" | "architecture" | "contact" | "timeline" | "writing" | "empty";

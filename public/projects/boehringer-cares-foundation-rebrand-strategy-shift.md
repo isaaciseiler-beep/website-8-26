@@ -46,6 +46,10 @@ The result was a rebrand that showed up consistently in the foundation's public 
 
 
 
+- increase in annual employee volunteering: 25%
+- company-wide newsletter open rate: 80%
+- cross-functional communications assets shipped: 25+
+
 
 
 ## See the work

@@ -2,8 +2,131 @@ import { describe, expect, it } from 'vitest';
 import { blankBlock, reconcileComposition, composeLocal, resolveCanvasPlan, validateComposition, POLICY_ID, TAIWAN_ID } from '@/lib/genui';
 import { AI_LAYOUTS } from '@/lib/layouts';
 import { initialPlan } from '@/lib/canvas';
+import { aiIndexStates } from '@/lib/aiStateGovIndex';
 const compose=(text:string)=>composeLocal(text,resolveCanvasPlan(text,initialPlan(),1));
 describe('interactive composition contracts',()=>{
+  it('matches West Virginia without also selecting Virginia',()=>{
+    expect(compose('Explore West Virginia').blocks[0]).toMatchObject({states:['West Virginia'],layout:'benchmark-scorecard'});
+    expect(compose('Compare Virginia and West Virginia').blocks[0]).toMatchObject({states:['Virginia','West Virginia'],layout:'benchmark-compare'});
+    expect(compose('Compare West Virginia and Virginia').blocks[0].states).toEqual(['West Virginia','Virginia']);
+  });
+  it.each(['Washington DC','Washington, D.C.','Washington D.C.'])('identifies the district rather than Washington state: %s',subject=>{
+    expect(compose(`Explore ${subject}`).blocks[0]).toMatchObject({states:['District of Columbia'],layout:'benchmark-scorecard'});
+    expect(compose(`Compare ${subject} and Washington`).blocks[0].states).toEqual(['District of Columbia','Washington']);
+  });
+  it('does not interpret West Virginia as a hidden West region filter',()=>{
+    const previous=compose('Explore West Virginia');
+    expect(previous.blocks[0].region).toBe('All');
+    expect(composeLocal('Show rankings',initialPlan(),previous).blocks[0]).toMatchObject({region:'All',states:[],layout:'benchmark-ranking'});
+    const proposed={blocks:[{...previous.blocks[0],region:'West' as const}]};
+    expect(reconcileComposition('Explore West Virginia',proposed,previous)?.blocks[0]).toMatchObject({region:'All',states:['West Virginia']});
+  });
+  it('selects each published government exactly once without a hidden region filter',()=>{
+    for(const {state} of aiIndexStates){
+      const result=compose(`Explore ${state}`);
+      expect(result.blocks[0],state).toMatchObject({kind:'benchmark',states:[state],region:'All'});
+      expect(validateComposition(result),state).not.toBeNull();
+    }
+  });
+  it.each([
+    ['What did Isaac do in Washington DC?','congressional-office-setup-100-day-report'],
+    ['Explain the government index methodology in Michigan',POLICY_ID],
+    ['What feedback did Isaac give on Pulse while moving to Taiwan?','openai-product-testing-and-feedback'],
+  ])('keeps personal project evidence ahead of incidental places: %s',(text,id)=>{
+    const baseline=compose(text);
+    expect(baseline.blocks).toHaveLength(1);
+    expect(baseline.blocks[0]).toMatchObject({kind:'story',projectIds:[id]});
+    expect(reconcileComposition(text,baseline,baseline)?.blocks[0]).toMatchObject({kind:'story',projectIds:[id]});
+  });
+  it('lets the model interpret unfamiliar personal work wording containing a state',()=>{
+    const text='What did Isaac research while living in Michigan?';
+    const proposed={blocks:[{...blankBlock('story'),projectIds:[POLICY_ID],focus:'process' as const,layout:'project-process' as const,section:1}]};
+    expect(reconcileComposition(text,proposed,compose(text))?.blocks[0]).toMatchObject({kind:'story',projectIds:[POLICY_ID]});
+  });
+  it.each([
+    'How did Isaac calculate Michigan’s benchmark score?',
+    'What did Isaac contribute to AI adoption in California?',
+  ])('keeps a personal methodology question in its project even with government data terms: %s',text=>{
+    const baseline=compose(text);
+    expect(baseline.blocks[0]).toMatchObject({kind:'story',projectIds:[POLICY_ID]});
+    expect(reconcileComposition(text,baseline,baseline)?.blocks[0].kind).toBe('story');
+  });
+  it.each(['Compare Michigan and California scores','Compare Michigan and California scores and show Isaac’s current role'])('preserves actual score comparisons despite other personal context: %s',text=>{
+    expect(compose(text).blocks[0]).toMatchObject({kind:'benchmark',states:['Michigan','California']});
+  });
+  it.each(['What were outcomes of Isaac’s child-labor press work in Congress?','What were outcomes of Isaac’s State of the Union work in Congress?'])('preserves a specifically requested congressional passage through the focus view: %s',text=>{
+    const baseline=compose(text);
+    const section=/child/.test(text)?2:4;
+    expect(baseline.blocks[0]).toMatchObject({kind:'story',section});
+    expect(reconcileComposition(text,baseline,baseline)?.blocks[0].section).toBe(section);
+  });
+  it('keeps a model-selected relevant section when no authored rule pins it',()=>{
+    const text='How did Isaac reach different audiences in Congress?';
+    const baseline=compose(text);
+    const proposed={blocks:[{...baseline.blocks[0],section:3}]};
+    expect(reconcileComposition(text,proposed,baseline)?.blocks[0].section).toBe(3);
+  });
+  it('accepts distinct project stories together and rejects repeated subjects',()=>{
+    const text='Explain the processes behind Taiwan teaching and AI policy';
+    const taiwan={...blankBlock('story'),projectIds:[TAIWAN_ID]};
+    const policy={...blankBlock('story'),projectIds:[POLICY_ID]};
+    expect(reconcileComposition(text,{blocks:[taiwan,policy]},compose(text))?.blocks).toHaveLength(2);
+    expect(reconcileComposition(text,{blocks:[taiwan,taiwan]},compose(text))).toBeNull();
+    expect(compose(text).blocks.map(block=>block.projectIds[0])).toEqual([TAIWAN_ID,POLICY_ID]);
+  });
+  it('retains a requested project story alongside a government scorecard',()=>{
+    const text='Explain Taiwan teaching alongside Michigan AI scores';
+    const taiwan={...blankBlock('story'),projectIds:[TAIWAN_ID]};
+    const benchmark={...blankBlock('benchmark'),states:['California']};
+    const output=reconcileComposition(text,{blocks:[taiwan,benchmark]},compose(text));
+    expect(output?.blocks).toHaveLength(2);
+    expect(output?.blocks[0]).toMatchObject({kind:'story',projectIds:[TAIWAN_ID]});
+    expect(output?.blocks[1]).toMatchObject({kind:'benchmark',states:['Michigan'],layout:'benchmark-scorecard'});
+  });
+  it('retains an explicitly requested career view alongside a project story',()=>{
+    const text='Explain the Taiwan program and show Isaac’s career';
+    const story=compose('Taiwan teaching').blocks[0];
+    const timeline=compose('Show Isaac’s career').blocks[0];
+    expect(reconcileComposition(text,{blocks:[story,timeline]},compose(text))?.blocks.map(block=>block.kind)).toEqual(['story','timeline']);
+    expect(reconcileComposition('Explain the Taiwan program',{blocks:[story,timeline]},compose(text))?.blocks.map(block=>block.kind)).toEqual(['story']);
+  });
+  it('keeps an actual government comparison alongside an explicitly requested career view',()=>{
+    const text='Compare Michigan and California and show Isaac’s career';
+    const benchmark=compose('Compare Michigan and California').blocks[0];
+    const timeline=compose('Show Isaac’s career').blocks[0];
+    const result=reconcileComposition(text,{blocks:[benchmark,timeline]},compose(text));
+    expect(result?.blocks.map(block=>block.kind)).toEqual(['benchmark','timeline']);
+    expect(result?.blocks[0].states).toEqual(['Michigan','California']);
+  });
+  it('preserves other modules while applying a local benchmark refinement',()=>{
+    const previous={blocks:[{...blankBlock('story'),projectIds:[TAIWAN_ID],section:1,search:'community'},...compose('Compare Michigan and California').blocks]};
+    const next=composeLocal('use preparedness',initialPlan(),previous);
+    expect(next.blocks).toHaveLength(2);
+    expect(next.blocks[0]).toEqual(previous.blocks[0]);
+    expect(next.blocks[1]).toMatchObject({metric:'preparednessScore',states:['Michigan','California']});
+  });
+  it('applies a general outcomes follow-up to both displayed stories',()=>{
+    const previous=compose('Explain the processes behind Taiwan teaching and AI policy');
+    const text='What were the results?';
+    const baseline=composeLocal(text,resolveCanvasPlan(text,initialPlan(),2,previous),previous);
+    expect(baseline.blocks.map(block=>block.projectIds[0])).toEqual([TAIWAN_ID,POLICY_ID]);
+    expect(baseline.blocks.every(block=>block.focus==='outcomes')).toBe(true);
+    expect(reconcileComposition(text,{blocks:[blankBlock('contact')]},baseline,previous)).toEqual(baseline);
+    expect(composeLocal('Open the second one',initialPlan(),previous).blocks.map(block=>block.projectIds[0])).toEqual([POLICY_ID]);
+  });
+  it('lets a new focus select evidence while preserving unrelated current controls',()=>{
+    const previous=compose('How did Isaac reach different audiences in Congress?');
+    previous.blocks[0]={...previous.blocks[0],section:2,search:'local',expanded:true};
+    const text='Show the outcomes';
+    const baseline=composeLocal(text,initialPlan(),previous);
+    const generated={blocks:[{...baseline.blocks[0],section:6,search:'',expanded:false}]};
+    expect(reconcileComposition(text,generated,baseline,previous)?.blocks[0]).toMatchObject({section:6,focus:'outcomes',search:'local',expanded:true});
+    generated.blocks[0].section=0;
+    expect(reconcileComposition(text,generated,baseline,previous)?.blocks[0].section).toBe(baseline.blocks[0].section);
+  });
+  it('does not let a provider introduce an unsolicited project index',()=>{
+    expect(reconcileComposition('What did Isaac build in Taiwan?',{blocks:[blankBlock('collection')]},compose('Taiwan teaching'))).toBeNull();
+  });
   it.each([
     ['How are state governments using AI?', 'benchmark-ranking'],
     ['Explore your AI literacy project in Taiwan', 'project-brief'],
@@ -77,6 +200,7 @@ describe('interactive composition contracts',()=>{
     expect(validateComposition({blocks:[{...blankBlock('story'),projectIds:[TAIWAN_ID],section:199}]})).toBeNull();
     expect(validateComposition({blocks:[{...blankBlock('comparison'),projectIds:[TAIWAN_ID]}]})).toBeNull();
     expect(validateComposition({blocks:[{...blankBlock('benchmark'),states:['Atlantis']}]})).toBeNull();
+    expect(validateComposition({blocks:[{...blankBlock('benchmark'),layout:'benchmark-compare',states:['Michigan','Michigan']}]})).toBeNull();
   });
 });
 
@@ -87,6 +211,8 @@ describe('live audit answer regressions',()=>{
     ['What did Isaac learn from testing ChatGPT?', 'openai-product-testing-and-feedback',7],
     ['How did Isaac create the 100 Day Report?', 'congressional-office-setup-100-day-report',5],
     ['What did the congressional office accomplish?', 'congressional-office-setup-100-day-report',5],
+    ['What did Isaac learn in Congress?', 'congressional-office-setup-100-day-report',1],
+    ['Tell me about the nine use cases in Taiwan', TAIWAN_ID,2],
     ['What did Isaac do with Study Mode?', 'openai-product-testing-and-feedback',2],
     ['Tell me about Pulse', 'openai-product-testing-and-feedback',4],
     ['What was Isaac’s role testing Atlas?', 'openai-product-testing-and-feedback',5],
@@ -121,6 +247,12 @@ describe('live audit answer regressions',()=>{
 
 
 describe('questions beyond the first audit wording',()=>{
+  it.each([
+    ['What were the tradeoffs in the OpenAI product testing?','process','project-process'],
+    ['How was success evaluated in Congress?','outcomes','project-outcomes'],
+  ])('opens supporting evidence for the requested aspect: %s',(text,focus,layout)=>{
+    expect(compose(text).blocks[0]).toMatchObject({focus,layout});
+  });
   it.each([
     ['Which work best demonstrates Isaac’s leadership?','timeline','leadership'],
     ['How did Isaac measure whether the Taiwan program worked?','story','measurement'],

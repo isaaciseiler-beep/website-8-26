@@ -23,9 +23,12 @@ const subjects: [string, RegExp][] = [
 
 export function namedProjects(text: string): string[] {
   const matches = subjects.flatMap(([id, pattern]) => { const match = pattern.exec(text); return match ? [{ id, position: match.index }] : []; });
+  const namedProduct=/\b(?:study mode|pulse|atlas|group chats?|100 chats)\b/i.test(text);
+  const comparison=/compare|versus|\bvs\b/i.test(text);
+  const teachingSubject=/fulbright|teach\w*|educat\w*|workshops?|classrooms?|literacy|taiwan (?:program|lab|sessions?)/i.test(text);
   // OpenAI supports the Taiwan program; its name alone does not introduce a second project.
-  const filtered = matches.some(m => m.id === TAIWAN_ID) && !/product test|product feedback|compare|versus|\bvs\b/i.test(text)
-    ? matches.filter(m => m.id !== 'openai-product-testing-and-feedback') : matches;
+  const filtered=namedProduct&&!comparison&&!teachingSubject?matches.filter(m=>m.id!==TAIWAN_ID)
+    :matches.some(m=>m.id===TAIWAN_ID)&&!namedProduct&&!comparison&&!/product test|product feedback/i.test(text)?matches.filter(m=>m.id!=='openai-product-testing-and-feedback'):matches;
   return filtered.sort((a, b) => a.position - b.position).map(m => m.id);
 }
 
@@ -35,6 +38,13 @@ export function requestedFocus(text: string): EvidenceFocus | null {
   if (/\b(?:process|steps?|methodology|methods?|approach|calculated)\b|\bhow\b.*\b(?:did|built|build|map|design|work)\b/i.test(text)) return 'process';
   if (/\b(?:role|personally|contribut\w*|responsibilit\w*|own(?:ed)?)\b|\bwhat\b.*\b(?:did|built|build)\b/i.test(text)) return 'role';
   return null;
+}
+/** A named person's methods and contribution concern their work, even when
+ * the project's subject is scoring or government adoption. */
+export function personalProjectFocus(text:string):EvidenceFocus|null {
+  const primary=text.split(/\b(?:and|alongside|plus|as well as)\b/i)[0];
+  const focus=requestedFocus(primary);
+  return (focus==='process'||focus==='role')&&/\b(?:isaac|you|your|he|his)\b/i.test(primary)?focus:null;
 }
 
 export function interpretPortfolioRequest(text: string, previous: { projectIds?: string[]; task?: PortfolioTask; focus?: EvidenceFocus } = {}): PortfolioInterpretation {
@@ -46,6 +56,7 @@ export function interpretPortfolioRequest(text: string, previous: { projectIds?:
   const result = (task: PortfolioTask, ids = projectIds, extra: Partial<PortfolioInterpretation> = {}): PortfolioInterpretation => ({ task, projectIds: ids, focus, followup, explicit: projectIds.length > 0, ...extra });
   if (/\b(?:contact|email|linkedin|github)\b|\breach (?:isaac|you|him|out)\b|\bconnect (?:with|to) (?:isaac|you|him)\b/i.test(q)) return result('contact');
   if (/\b(?:site|website|interface)\b.*\b(?:works?|built|architecture|pipeline|made)\b|\b(?:architecture|source code|live pipeline)\b|^how this works[?!.]*$/i.test(q)) return result('architecture');
+  if(!projectIds.length&&/\bwashington(?:\s*,\s*|\s+)d\.?\s*c\.?\b/i.test(q)&&/\b(?:isaac|you|your|he|his)\b/i.test(q)&&/\b(?:did|do|work|role|contribut\w*|responsibilit\w*|learn\w*)\b/i.test(q)&&!/\b(?:scores?|rank\w*|preparedness|criteria|adoption)\b/i.test(q))return result('story',['congressional-office-setup-100-day-report']);
   if (/\b(?:compare|comparison|contrast|versus|side.by.side)\b|\bvs\b/i.test(q) && (projectIds.length >= 2 || (followup && (previous.projectIds?.length ?? 0) >= 2))) return result('comparison', projectIds.length >= 2 ? projectIds.slice(0, 2) : previous.projectIds!.slice(0, 2));
   if (!projectIds.length && careerAnswerFor(q)) return result('timeline', [], {roleId:/public service/i.test(q)?'us-house':/summation|current|working on|\bnow\b/i.test(q)?'summation-ai':undefined});
   if (!projectIds.length && /\b(?:career|experience|background|biography|resume|qualifications|strengths|skills|leadership|hir(?:e|ing)|public service|current role|current work|summation|professional roles|responsibilities)\b|\bwho (?:is|are)\b|\bwhat connects\b|\bwhat (?:do|does)\b.*\bdo\b|\btell me about (?:yourself|isaac|him)\b|\bwhat (?:is|are)\b.*\b(?:working on|good at)\b|\btruman\b|\brhodes\b/i.test(q)) return result('timeline', [], { roleId: /public service/i.test(q) ? 'us-house' : /summation|current|\bnow\b/i.test(q) ? 'summation-ai' : undefined });
@@ -54,10 +65,11 @@ export function interpretPortfolioRequest(text: string, previous: { projectIds?:
   if (projectIds.length) {
     const projectQuestion = /\b(?:role|personally|contribut\w*|methodology|methods?|approach|process|built|build|outcomes?|results?|learned|project|research|map|mapped)\b|\bhow\b/i.test(q);
     const dataQuestion = /\b(?:rank\w*|scores?|scorecard|criteria|checklist|distribution|histogram|regions?|preparedness|compare|using|adopt\w*)\b/i.test(q);
-    return result(projectIds[0] === POLICY_ID && (dataQuestion || !projectQuestion) ? 'benchmark' : 'story');
+    return result(projectIds[0] === POLICY_ID && (dataQuestion || !projectQuestion)&&!personalProjectFocus(q) ? 'benchmark' : 'story');
   }
   if (followup && previous.projectIds?.length) {
     if (previous.task === 'comparison' && previous.projectIds.length === 2 && !/\b(?:first|second|former|latter)\b/i.test(q)) return result('comparison', previous.projectIds);
+    if (previous.task === 'story' && previous.projectIds.length > 1 && !/\b(?:first|second|former|latter)\b/i.test(q)) return result('story', previous.projectIds);
     const index = /second|latter/.test(q) ? 1 : 0;
     return result('story', [previous.projectIds[index] ?? previous.projectIds[0]]);
   }

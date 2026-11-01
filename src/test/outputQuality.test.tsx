@@ -16,7 +16,8 @@ describe('visitor answer quality regressions',()=>{
   });
   it('connects multiple bodies of work before offering examples',()=>{
     render(<CareerExplorer block={compose('What connects all this work?').blocks[0]} onChange={()=>{}}/>);
-    expect(screen.getByText(/turns complicated systems.*government AI adoption.*educators.*congressional office/)).toBeVisible();
+    expect(screen.getByText(/make a complicated system understandable enough/)).toBeVisible();
+    for(const title of ['AI in state government','AI literacy in Taiwan','Building a congressional office']) expect(screen.getByRole('heading',{name:title})).toBeVisible();
   });
   it('opens the Outcomes preset on outcomes rather than the proposal',()=>{
     render(<ProjectStory block={presetComposition('project-outcomes').blocks[0]} onChange={()=>{}}/>);

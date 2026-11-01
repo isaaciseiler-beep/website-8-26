@@ -104,7 +104,7 @@ describe('answer usefulness before expanding reading',()=>{
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeVisible();
     expect(screen.queryByText('Program proposer, designer & facilitator')).not.toBeInTheDocument();
     expect(screen.queryByText('2025')).not.toBeInTheDocument();
-    expect(screen.queryByText('Sources')).not.toBeInTheDocument();
+    expect(screen.getByText('Sources').closest('details')).not.toHaveAttribute('open');
   });
 
 });

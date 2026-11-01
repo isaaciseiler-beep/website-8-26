@@ -11,7 +11,7 @@ export type ModuleKind = 'benchmark'|'photos'|'workshop'|'story'|'comparison'|'t
 export type LayoutDefinition = {id:LayoutId;kind:ModuleKind;name:string;description:string;prompt:string};
 const define=(id:LayoutId,kind:ModuleKind,name:string,description:string,prompt:string):LayoutDefinition=>({id,kind,name,description,prompt});
 const ALL_LAYOUTS: readonly LayoutDefinition[] = [
-  define('benchmark-ranking','benchmark','Ranking','Rank governments by their published AI score.','Rank governments by AI preparedness'),
+  define('benchmark-ranking','benchmark','Ranking','Rank governments by their published August 2025 AI score.','Rank governments by AI preparedness'),
   define('benchmark-scorecard','benchmark','Scorecard','One government: score, rank and evidence.','Show Michigan’s AI scorecard'),
   define('benchmark-compare','benchmark','State comparison','Two governments with aligned scores and criteria.','Compare Michigan and California'),
   define('benchmark-regions','benchmark','Regional overview','Regional averages and drill-down to governments.','Compare regions in the AI benchmark'),
@@ -31,10 +31,10 @@ const ALL_LAYOUTS: readonly LayoutDefinition[] = [
   define('project-evidence','story','Evidence notebook','Search the published sections of one project in place.','Explore Taiwan project evidence'),
   define('project-compare','comparison','Project comparison','Compare two projects by overview, process or outcomes.','Compare AI policy and Taiwan teaching'),
   define('project-index','collection','Work explorer','A compact searchable project list opening interactive briefs.','Explore all projects'),
-  define('experience-timeline','timeline','Career timeline','Selected published roles in chronological order.','Show your career timeline'),
-  define('experience-roles','timeline','Role explorer','Explore focused examples of professional responsibilities.','Explore your professional roles'),
+  define('experience-timeline','timeline','Career timeline','Selected published roles in chronological order.','Show Isaac’s career timeline'),
+  define('experience-roles','timeline','Role explorer','Explore focused examples of professional responsibilities.','Explore Isaac’s professional roles'),
   define('site-pipeline','architecture','Live pipeline','Inspect how the current request was routed and composed.','How does this site work?'),
-  define('contact-card','contact','Contact','Public contact methods and a working email action.','How can I contact you?'),
+  define('contact-card','contact','Contact','Public contact methods and a working email action.','How can I contact Isaac?'),
 ];
 // Live exploration explains Isaac’s work; photo and classroom utilities are not offered.
 export const AI_LAYOUTS = ALL_LAYOUTS.filter(layout => layout.kind !== 'photos' && layout.kind !== 'workshop');

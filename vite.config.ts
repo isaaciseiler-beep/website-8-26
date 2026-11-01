@@ -44,7 +44,7 @@ const localApiPlugin = (mode: string): Plugin => ({
       }
       if (url.pathname === "/api/intent") {
         const env = loadEnv(mode, process.cwd(), "");
-        for (const key of ["TYPESAFE_API_KEY", "JEV_MODEL", "INTENT_DAILY_CALL_LIMIT"]) applyEnv(key, env[key]);
+        for (const key of ["TYPESAFE_API_KEY", "JEV_MODEL", "INTENT_DAILY_CALL_LIMIT", "MISTRAL_API_KEY"]) applyEnv(key, env[key]);
         void intentHandler(request, response); return;
       }
       if (url.pathname.startsWith("/api/public/")) { publicHandler(request, response); return; }

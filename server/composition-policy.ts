@@ -4,6 +4,11 @@ import { CONTENT_VERSION } from '../src/lib/canvas.js';
 
 // Small, bounded process-local cache. No raw visitor queries or credentials retained.
 const cache=new Map<string,{expires:number;composition:Composition}>();
+/** Invalid configuration must not silently disable process-local call budgets. */
+export function providerCallLimit(value:string|undefined,fallback:number){
+  const parsed=value?.trim()?Number(value):NaN;
+  return Number.isSafeInteger(parsed)&&parsed>=0?parsed:fallback;
+}
 export function compositionCacheKey(draft:string,current:Composition,proposed:Composition,model:string){
   return createHash('sha256').update(JSON.stringify({draft:draft.trim().replace(/\s+/g,' '),current,proposed,model,version:CONTENT_VERSION})).digest('hex');
 }

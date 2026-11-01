@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-31",
+  "checkout": "/Users/isaacseiler/Desktop/personal/website-8-26",
+  "unit": {
+    "files": 37,
+    "passed": 435
+  },
+  "browser": {
+    "targetedScenariosPassed": 11,
+    "presetCasesPassed": 96,
+    "disclosureCasesPassed": 96,
+    "targetedStabilityReplaysPassed": 12
+  },
+  "http": {
+    "passed": 22,
+    "cases": 22,
+    "liveRouting": 0,
+    "liveComposition": 0
+  },
+  "checks": {
+    "build": "passed",
+    "lint": "passed",
+    "typecheck": "passed",
+    "diffCheck": "passed"
+  },
+  "soak": {
+    "start": "2026-11-01T02:46:59.215Z",
+    "end": "2026-11-01T03:09:01.285Z",
+    "cycles": 697,
+    "actions": 6640,
+    "pageErrors": [],
+    "automationTimeouts": 1,
+    "note": "One career-button click-stability timeout at cycle 332; recovered on reload. Twelve targeted replays showed stable rects and no height oscillation. Root cause unproven."
+  },
+  "liveProviderVerified": false,
+  "pushOrDeployPerformedByThisPass": false,
+  "concurrentAboutAndPreviewChanges": "preserved",
+  "researchFollowUp": {
+    "unit": {
+      "files": 39,
+      "passed": 455
+    },
+    "browser": {
+      "linkedEvidenceMatrixCases": 54,
+      "overflowFailures": 0,
+      "pageErrors": 0,
+      "generatedAndMotionScenariosPassed": 13
+    },
+    "checks": {
+      "build": "passed",
+      "lint": "passed",
+      "typecheck": "passed",
+      "diffCheck": "passed"
+    },
+    "liveJevCalls": 0,
+    "liveMistralCalls": 0,
+    "deployed": false,
+    "contentVersion": "canvas-2026-11-01-v12"
+  }
+}

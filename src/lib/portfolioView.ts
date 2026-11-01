@@ -1,3 +1,4 @@
+import { portfolioConnections } from './portfolioConnections.js';
 import { z } from 'zod';
 import { CONTENT_VERSION, initialPlan, publicProjects, type Plan } from './canvas.js';
 import { blankBlock, blockSchema, validateComposition, type Composition } from './genui.js';
@@ -141,6 +142,7 @@ export function portfolioViewCatalog() {
   return {
     contentVersion: CONTENT_VERSION,
     projects: portfolioCatalog,
+    connections: portfolioConnections,
     layouts: AI_LAYOUTS.map(({ id, kind, name, description }) => ({ id, kind, name, description })),
     governments: aiIndexStates.map(({ state, region }) => ({ state, region })),
     roles: experienceEntries.map(({ id, organization, role }) => ({ id, organization, role })),

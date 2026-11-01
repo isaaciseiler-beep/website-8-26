@@ -24,10 +24,12 @@ Homepage suggestions must make sense before a visitor knows the projects. Introd
 - `src/pages/WorkPage.tsx`, `src/pages/work-page.css`: editorial Work index.
 - `src/lib/layouts.ts`: the 16 live portfolio layout IDs, names, prompts, and kinds.
 - `src/lib/genui.ts`: bounded schema, local composition, layout selection, reference validation.
+- `src/lib/portfolioConnections.ts`, `ConnectionsExplorer.tsx`: reviewed cross-project threads; one shared contribution/process/outcomes lens, published supporting passages, portable `connectionId` control.
+- `server/jev-composition-advice.ts`: optional closed-set Jev hints for Mistral, with a 750ms deadline and fail-open behavior.
 - `src/lib/canvas.ts`: public project/album records, request revisions, content version, routing.
 - `src/components/canvas/HomeExplore.tsx`: composer, request cancellation, history, streamed results.
 - `ExplorationCanvas.tsx`, `BenchmarkExplorer.tsx`, `LayoutViews.tsx`: interactive views.
-- `api/intent.ts`: Typesafe/Jev chooses content/layout and whether Mistral is useful.
+- `api/intent.ts`: local preview and control routing; direct Mistral composition when configured, with Typesafe/Jev as the optional routing fallback.
 - `api/compose.ts`: Mistral returns a validated composition, never executable UI code.
 - `api/public-content.ts`, `api/mcp.ts`: public read-only representations and tools.
 
@@ -39,7 +41,7 @@ The homepage uses server-side `TYPESAFE_API_KEY` and `MISTRAL_API_KEY`; optional
 
 The owner keeps provider keys in Vercel. OpenAI and Typesafe keys were explicitly removed from local `.env.local`; do not restore them without instruction. Never display secret values, put them in VITE-prefixed variables, commit them, or infer live service health from mere key presence. `/api/compose` GET reports configuration only.
 
-Typing only edits the draft. Enter, the submit button, or a suggestion commits a request; Jev routes and Mistral may compose if needed. Greetings and unmatched requests offer starting points instead of inheriting a project. Keep the composer vertically anchored while results expand below it, preserve committed results while editing, and provide Back when opening a project from the work explorer. Local controls update without a model. Process-local caches and quotas are bounded development safeguards, not distributed spending limits. Local authored UI, mocked provider checks, live provider behavior, and deployed behavior are separate verification claims.
+Typing only edits the draft. Enter, the submit button, or a suggestion commits a request. Local matching supplies an immediate preview; configured Mistral interprets and composes directly. Jev can supply optional, time-bounded advice on known evidence, experience kinds, and cross-project connections; Mistral may disagree and continues when that advice is unavailable. Jev provides optional routing when Mistral is not configured. Greetings and unmatched requests offer starting points instead of inheriting a project. Keep the composer vertically anchored while results expand below it, preserve committed results while editing, and provide Back when opening a project from the work explorer. Local controls update without a model. Process-local caches and quotas are bounded development safeguards, not distributed spending limits. Local authored UI, mocked provider checks, live provider behavior, and deployed behavior are separate verification claims.
 
 ## Working and verifying
 

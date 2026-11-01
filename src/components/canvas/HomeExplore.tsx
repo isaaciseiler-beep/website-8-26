@@ -4,9 +4,9 @@ import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPrefer
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
-import { ArrowUp, ArrowUpRight, Link, Check, LoaderCircle, X } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, ArrowLeft, Link, Check, LoaderCircle, X } from 'lucide-react';
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
-import { isPhotographyRequest, explorationGuidance, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
+import { isPhotographyRequest, explorationGuidance, isLocalCompositionRefinement, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
 import ExplorePreviewDialog from './ExplorePreviewDialog';
 import { startingExperiencePrompts } from '@/lib/experiencePrompts';
@@ -22,7 +22,7 @@ const layouts=new Set(['overview','work','detail','comparison','photos','mixed',
 function validIntentPlan(plan:Plan,revision:number):boolean {
   return Boolean(plan&&plan.revision===revision&&plan.contentVersion===CONTENT_VERSION&&layouts.has(plan.layout)&&['local','jev'].includes(plan.source)&&Array.isArray(plan.projectIds)&&plan.projectIds.length<=10&&plan.projectIds.every(id=>publicProjects.some(p=>p.id===id))&&Array.isArray(plan.albumIds)&&plan.albumIds.length<=16&&plan.albumIds.every(id=>albums.some(a=>a.folder===id)));
 }
-type View={plan:Plan;composition:Composition;query:string;generation:GenerationInfo};
+type View={plan:Plan;composition:Composition;query:string;generation:GenerationInfo;returnToExploration?:View};
 type SavedExploration = {query:string;view:View|null;guidance:'welcome'|'unmatched'|null;history:View[];future:View[]};
 const entryExplorations = new Map<string, SavedExploration>();
 function ExplorationReveal({children,restored=false}:{children:ReactNode;restored?:boolean}) {
@@ -48,6 +48,8 @@ export default function HomeExplore() {
   const restored=useRef(routeNavigation?.restoring?entryExplorations.get(routeNavigation.key):undefined).current;
   const reduceMotion=useReducedMotion();
   const composerRef=useRef<HTMLDivElement>(null);
+  const resultsRef=useRef<HTMLDivElement>(null);
+  const pendingResultFocus=useRef<{kind:'heading'}|{kind:'project';id:string}|null>(null);
   const [composerHovered,setComposerHovered]=useState(false);
   const [explorationFocused,setExplorationFocused]=useState(false);
   const [query,setQuery]=useState(restored?.query??'');
@@ -57,7 +59,21 @@ export default function HomeExplore() {
   const [composing,setComposing]=useState(false);
   const [view,setView]=useState<View|null>(restored?.view??null);
   const [heldExpanded,setHeldExpanded]=useState(Boolean(restored?.view));
+  useLayoutEffect(()=>{
+    const pending=pendingResultFocus.current;
+    const results=resultsRef.current;
+    if(!pending||!view||!results)return;
+    pendingResultFocus.current=null;
+    const target=pending.kind==='project'
+      ?[...results.querySelectorAll<HTMLButtonElement>('[data-project-id]')].find(button=>button.dataset.projectId===pending.id)
+      :null;
+    const heading=results.querySelector<HTMLElement>('h2');
+    if(!target&&heading)heading.tabIndex=-1;
+    (target??heading)?.focus({preventScroll:true});
+  },[view]);
   useEffect(()=>{if(view)setHeldExpanded(true);else if(guidance)setHeldExpanded(false);},[view,guidance]);
+  const [cleared,setCleared]=useState<SavedExploration|null>(null);
+  useEffect(()=>{if(!cleared)return;const timer=window.setTimeout(()=>setCleared(null),10000);return()=>clearTimeout(timer);},[cleared]);
   const [busy,setBusy]=useState(false);
   const [phase,setPhase]=useState('Routing…');
   const [reviewLayout,setReviewLayout]=useState<LayoutId>('benchmark-compare');
@@ -78,7 +94,12 @@ export default function HomeExplore() {
   const controller=useRef<AbortController>();
   const input=useRef<HTMLInputElement>(null);
   const llmConfigured=useRef(false);
-  const update=useCallback((next:View|null)=>{current.current=next;setView(next);setShareStatus('idle');},[]);
+  const update=useCallback((next:View|null)=>{
+    const previous=current.current;
+    // Keep the return path while refining the project opened from the explorer.
+    if(next&&!next.returnToExploration&&previous?.returnToExploration&&next.composition.blocks.length===1&&previous.composition.blocks.length===1&&next.composition.blocks[0].kind==='story'&&previous.composition.blocks[0].kind==='story'&&next.composition.blocks[0].projectIds[0]===previous.composition.blocks[0].projectIds[0])next={...next,returnToExploration:previous.returnToExploration};
+    current.current=next;setView(next);setShareStatus('idle');
+  },[]);
   const cancel=useCallback(()=>{controller.current?.abort();setBusy(false);if(current.current?.generation.status==='composing')update({...current.current,generation:{status:'authored'}});return ++revision.current;},[update]);
   const remember=(previous:View)=>{setHistory(h=>[...h.slice(-19),previous]);setFuture([]);};
   const revealStart=()=>{
@@ -117,7 +138,7 @@ export default function HomeExplore() {
     void fetch('/api/compose',{signal:abort.signal}).then(r=>r.json()).then(data=>{llmConfigured.current=Boolean(data.configured);}).catch(()=>{});
     return()=>{abort.abort();controller.current?.abort();};
   },[]);
-  function clear(){cancel();setImmediateDismiss(true);setQuery('');setGuidance(null);setHistory([]);setFuture([]);setLinkError('');update(null);input.current?.focus({preventScroll:true});setAutocompleteOpen(false);if(window.location.hash.startsWith('#view=')){window.history.replaceState(window.history.state,'',window.location.pathname+window.location.search);}}
+  function clear(){if(view)setCleared({query,view,history,future,guidance});cancel();setImmediateDismiss(true);setQuery('');setGuidance(null);setHistory([]);setFuture([]);setLinkError('');update(null);input.current?.focus({preventScroll:true});setAutocompleteOpen(false);if(window.location.hash.startsWith('#view=')){window.history.replaceState(window.history.state,'',window.location.pathname+window.location.search);}}
   async function resolve(text:string,rev:number,allowModel=false){
     const context=current.current;
     setGuidance(null);
@@ -137,7 +158,8 @@ export default function HomeExplore() {
     let next:View={plan:fallback,composition:composeLocal(text,fallback,context?.composition),query:text,generation:{status:'authored'}};
     if(fallback.layout!=='empty')update(next);
     let needsComposition=true;
-    const simpleRefinement=Boolean(context?.composition.blocks.some(b=>b.kind==='benchmark'))&&/^(?:use |only |show )?(preparedness|composite|all states|midwest|east|south|west)(?: score)?[.!?]?$/i.test(text.trim());
+    let composerConfigured=llmConfigured.current;
+    const simpleRefinement=Boolean(context&&isLocalCompositionRefinement(text,context.composition));
     if(simpleRefinement){setBusy(false);return;}
     try {
       try {
@@ -148,12 +170,15 @@ export default function HomeExplore() {
           const plan:Plan=data.plan;
           next={...next,plan,composition:validateComposition(data.composition)??composeLocal(text,plan,context?.composition)};
           needsComposition=data.needsComposition!==false;
+          // The direct route already knows the server configuration; do not let
+          // an earlier, slower configuration probe suppress this generation.
+          if(data.composerConfigured===true)composerConfigured=true;
         }
       } catch { /* Keep the authored view when routing is unavailable. */ }
       if(!live())return;
       if(next.plan.layout!=='empty')update(next);
       if(!allowModel||!needsComposition)return;
-      if(!llmConfigured.current){if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update({...next,generation:{status:'unavailable',reason:'unconfigured'}});return;}
+      if(!composerConfigured&&!llmConfigured.current){if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update({...next,generation:{status:'unavailable',reason:'unconfigured'}});return;}
       setPhase('Preparing your view…');
       next={...next,generation:{status:'composing'}};if(next.plan.layout!=='empty')update(next);
       const response=await fetch('/api/compose',{method:'POST',headers:{'Content-Type':'application/json'},signal:AbortSignal.any([abort.signal,AbortSignal.timeout(22000)]),body:JSON.stringify({draft:text,revision:rev,contentVersion:CONTENT_VERSION,current:context?.composition??next.composition,proposed:next.composition})});
@@ -168,12 +193,12 @@ export default function HomeExplore() {
         if(event.type==='guidance'&&event.guidance==='unmatched'){completed=true;setGuidance('unmatched');update(null);return;}
         if(event.type==='unavailable'){next={...next,generation:{status:'unavailable',reason:typeof event.reason==='string'?event.reason:'provider_unavailable'}};throw new Error('Composition unavailable');}
         const spec=event.type==='composition'?validateComposition(event.composition):null;
-        if(spec&&!event.partial){completed=true;next={...next,composition:spec,generation:{status:event.partial?'composing':'generated',model:typeof event.model==='string'?event.model:undefined,duration:typeof event.duration==='number'?event.duration:undefined,cached:event.cached===true,inputTokens:typeof event.inputTokens==='number'?event.inputTokens:undefined,outputTokens:typeof event.outputTokens==='number'?event.outputTokens:undefined}};update(next);}
+        if(spec&&!event.partial){completed=true;next={...next,plan:viewPlan(createPortableView(spec),rev),composition:spec,generation:{status:event.local===true?'authored':'generated',model:typeof event.model==='string'?event.model:undefined,duration:typeof event.duration==='number'?event.duration:undefined,cached:event.cached===true,inputTokens:typeof event.inputTokens==='number'?event.inputTokens:undefined,outputTokens:typeof event.outputTokens==='number'?event.outputTokens:undefined}};update(next);}
       };
       try {while(live()){const {done,value}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});const lines=buffer.split('\n');buffer=lines.pop()??'';lines.forEach(accept);}if(buffer.trim())accept(buffer);if(live()&&!completed)throw new Error('Incomplete composition');} finally {await reader.cancel().catch(()=>{});}
     } catch {if(live()){if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update({...next,generation:{...next.generation,status:'unavailable'}});}} finally {if(live())setBusy(false);}
   }
-  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&current.current?.query===text))return;const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
+  const submit=(text:string)=>{setCleared(null);if(composing||!text.trim()||(busy&&current.current?.query===text))return;const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
   const navigateHistory=(direction:'back'|'forward')=>{
     if(direction==='back'?!history.length:!future.length)return;
     cancel();setGuidance(null);setImmediateDismiss(true);setAutocompleteOpen(false);
@@ -187,8 +212,16 @@ export default function HomeExplore() {
     const previous=current.current;
     const opensSubject=previous.composition.blocks.some((block,i)=>block.kind!==composition.blocks[i]?.kind||(block.kind==='story'&&block.projectIds[0]!==composition.blocks[i]?.projectIds[0]));
     if(JSON.stringify(previous.composition)!==JSON.stringify(checked))remember(previous);
+    if(previous.composition.blocks.length===1&&(previous.composition.blocks[0].kind==='collection'||previous.composition.blocks[0].answerId==='connections')&&checked.blocks.length===1&&checked.blocks[0].kind==='story'&&resultsRef.current?.contains(document.activeElement))pendingResultFocus.current={kind:'heading'};
     if(opensSubject)revealStart();
-    update({...previous,composition:checked,plan:{...viewPlan(createPortableView(checked),revision.current)},generation:{status:'authored'}});
+    update({...previous,...(previous.composition.blocks.length===1&&(previous.composition.blocks[0].kind==='collection'||previous.composition.blocks[0].answerId==='connections')?{returnToExploration:previous}:{}),composition:checked,plan:{...viewPlan(createPortableView(checked),revision.current)},generation:{status:'authored'}});
+  };
+  const backToExploration=()=>{
+    const parent=current.current?.returnToExploration;if(!parent)return;
+    pendingResultFocus.current=parent.composition.blocks[0]?.answerId==='connections'?{kind:'heading'}:{kind:'project',id:current.current?.composition.blocks[0]?.projectIds[0]??''};
+    cancel();setGuidance(null);setImmediateDismiss(true);setAutocompleteOpen(false);
+    if(current.current)remember(current.current);
+    setQuery(parent.query);update({...parent,plan:{...parent.plan,revision:revision.current}});revealStart();
   };
   const inspectView=()=>({contentVersion:CONTENT_VERSION,revision:revision.current,view:current.current?createPortableView(current.current.composition):null,canGoBack:history.length>0,canGoForward:future.length>0,shareUrl:current.current?viewUrl(createPortableView(current.current.composition),window.location.origin):null});
   browserControls.current={
@@ -211,14 +244,20 @@ export default function HomeExplore() {
       {reviewMode&&<div className="canvas-review"><label htmlFor="layout-review">Layout review · {AI_LAYOUTS.length} authored views</label><select id="layout-review" value={reviewLayout} onChange={e=>{const id=e.target.value as LayoutId;setReviewLayout(id);cancel();const recipe=AI_LAYOUTS.find(l=>l.id===id)!;setQuery(recipe.prompt);update({query:recipe.prompt,plan:resolveCanvasPlan(recipe.prompt,initialPlan(),revision.current),composition:presetComposition(id),generation:{status:'authored'}});}}>{AI_LAYOUTS.map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></div>}<div ref={composerRef} className="home-genui-composer">
 
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
-        <ExperienceAutocomplete context={view?{projectIds:view.composition.blocks.flatMap(block=>block.projectIds),kind:view.composition.blocks[0]?.kind,focus:view.composition.blocks[0]?.focus,answerId:view.composition.blocks[0]?.answerId,angle:view.composition.blocks[0]?.angle,section:view.composition.blocks[0]?.section,question:view.query,visitedQuestions:history.slice(-8).map(item=>item.query)}:undefined} inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
+        <ExperienceAutocomplete context={view?{projectIds:view.composition.blocks.flatMap(block=>block.projectIds),kind:view.composition.blocks[0]?.kind,focus:view.composition.blocks[0]?.focus,answerId:view.composition.blocks[0]?.answerId,angle:view.composition.blocks[0]?.angle,section:view.composition.blocks[0]?.section,question:view.query,visitedQuestions:history.slice(-8).map(item=>item.query)}:undefined} inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
         {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
       </form></div>
-      {!query.trim()&&!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&<ExplorePreviewDialog/>}
+      {!query.trim()&&!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&<div className="home-idle-actions">
+        {cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <>
+          <button className="home-start-example" type="button" onClick={()=>submit(suggestions[0].prompt)}>Try AI in government <ArrowUpRight size={13} aria-hidden="true"/></button>
+          <ExplorePreviewDialog/>
+        </>}
+      </div>}
+      <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel" restored={Boolean(restored?.view||restored?.guidance)}>
-          <div className="home-genui-stage" aria-label="Exploration results" aria-busy={busy}>
+          <div ref={resultsRef} className="home-genui-stage" aria-label="Exploration results" aria-busy={busy}>
             {guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':'Try one of these starting points.'}</p>
               <div>{[{label:'Explore the work',prompt:'Explore all projects'},{label:'AI in government',prompt:suggestions[0].prompt},{label:'Career & experience',prompt:'Explore Isaac’s career'}].map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowUpRight size={14} aria-hidden="true"/></button>)}</div>
@@ -227,8 +266,10 @@ export default function HomeExplore() {
             </>}
             <div className={`home-genui-tools${!view?' is-empty':''}`}>
 
+              {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={view.returnToExploration.composition.blocks[0]?.answerId==='connections'?'Back to connections':'Back to projects'} onClick={backToExploration}><ArrowLeft size={14} aria-hidden="true"/><span>{view.returnToExploration.composition.blocks[0]?.answerId==='connections'?'Back to connections':'Back to projects'}</span></button>}
+              {view&&history.length>0&&!view.returnToExploration&&<button aria-label="Previous exploration" onClick={()=>navigateHistory('back')}><ArrowLeft size={14} aria-hidden="true"/><span>Back</span></button>}
               {view&&<button className="home-share-view" aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
-              <span role="status" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
+
             </div>
 
           </div>

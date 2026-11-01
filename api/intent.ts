@@ -1,17 +1,18 @@
 import { z } from 'zod';
-import { initialPlan, CONTENT_VERSION, publicProjects, type Plan } from '../src/lib/canvas.js';
-import { isPhotographyRequest, explorationGuidance, resolveCanvasPlan, composeLocal, compositionSchema, validateComposition, withLayout, blankBlock, inferLayout, reconcileComposition, type Composition } from '../src/lib/genui.js';
+import { createHash } from 'node:crypto';
+import { initialPlan, CONTENT_VERSION, publicProjects, albums, type Plan } from '../src/lib/canvas.js';
+import { isPhotographyRequest, explorationGuidance, isLocalCompositionRefinement, resolveCanvasPlan, composeLocal, compositionSchema, validateComposition, withLayout, blankBlock, inferLayout, reconcileComposition, type Composition } from '../src/lib/genui.js';
 import { AI_LAYOUTS, defaultLayout, type LayoutId, type ModuleKind } from '../src/lib/layouts.js';
 import { portfolioCatalog, evidenceFocuses } from '../src/lib/portfolioEvidence.js';
 import { interpretPortfolioRequest } from '../src/lib/portfolioIntent.js';
-import { providerFailure } from '../server/composition-policy.js';
+import { providerCallLimit, providerFailure } from '../server/composition-policy.js';
 import { providerHealth, providerRequest, recordProviderResult } from '../server/provider-observability.js';
 import { sendJson, type ApiRequest, type ApiResponse } from '../server/http.js';
 
 const input=z.object({
-  draft:z.string().min(1).max(500),revision:z.number().int().nonnegative(),contentVersion:z.literal(CONTENT_VERSION),
+  draft:z.string().trim().min(1).max(500),revision:z.number().int().nonnegative(),contentVersion:z.literal(CONTENT_VERSION),
   pins:z.array(z.string()).max(2).default([]),filter:z.string().max(20).default('All'),composition:compositionSchema.optional(),
-  current:z.object({layout:z.enum(['overview','work','detail','comparison','photos','mixed','architecture','contact','timeline','writing','empty']),projectIds:z.array(z.string()).max(10),albumIds:z.array(z.string()).max(16)}).passthrough().optional(),
+  current:z.object({layout:z.enum(['overview','work','detail','comparison','photos','mixed','architecture','contact','timeline','writing','empty']),projectIds:z.array(z.string().refine(id=>publicProjects.some(project=>project.id===id))).max(10),albumIds:z.array(z.string().refine(id=>albums.some(album=>album.folder===id))).max(16)}).optional(),
 });
 const answer=z.object({choice:z.string().optional(),probabilities:z.record(z.number().min(0).max(1)).optional(),confidence:z.number().min(0).max(1).optional(),noul:z.number().min(0).max(1).optional()});
 const rates=new Map<string,{time:number;count:number}>();
@@ -28,17 +29,22 @@ export default async function intentHandler(req:ApiRequest,res:ApiResponse){
     if(req.headers.origin&&new URL(req.headers.origin).host!==req.headers.host)return sendJson(res,403,{error:'Origin not allowed'});
     let body=req.body;
     if(!body){const chunks:Buffer[]=[];let size=0;for await(const chunk of req){size+=Buffer.byteLength(chunk);if(size>16000)return sendJson(res,413,{error:'Request too large'});chunks.push(Buffer.from(chunk));}body=JSON.parse(Buffer.concat(chunks).toString()||'{}');}
-    if(typeof body==='string'){if(body.length>16000)return sendJson(res,413,{error:'Request too large'});body=JSON.parse(body);}
+    if(typeof body==='string'){if(Buffer.byteLength(body)>16000)return sendJson(res,413,{error:'Request too large'});body=JSON.parse(body);}
+    if(body&&typeof body==='object'&&Buffer.byteLength(JSON.stringify(body))>16000)return sendJson(res,413,{error:'Request too large'});
     const data=input.parse(body);
     if(data.composition&&!validateComposition(data.composition))return sendJson(res,400,{error:'Unknown content reference'});
     const current={...initialPlan(),...data.current} as Plan;
     const fallback=resolveCanvasPlan(data.draft,current,data.revision,data.composition);
     const local=composeLocal(data.draft,fallback,data.composition);
-    const request=providerRequest('jev',data.draft);
-    let routing:{choice?:string;probability?:number;confidence?:number}|undefined;
     const guidance=explorationGuidance(data.draft);
     if(guidance)return sendJson(res,200,{plan:fallback,composition:null,needsComposition:false,guidance});
     if(isPhotographyRequest(data.draft))return sendJson(res,200,{plan:fallback,composition:null,needsComposition:false,reason:'photography_separate'});
+    if(isLocalCompositionRefinement(data.draft,data.composition))return sendJson(res,200,{plan:fallback,composition:local,needsComposition:false,reason:'local_control'});
+    // The composer can interpret a question and choose its evidence in one pass.
+    // Jev remains a routing fallback when generation is unavailable, never a gate.
+    if(process.env.MISTRAL_API_KEY?.trim())return sendJson(res,200,{plan:fallback,composition:local,needsComposition:true,composerConfigured:true,reason:'direct_composition'});
+    const request=providerRequest('jev',data.draft);
+    let routing:{choice?:string;probability?:number;confidence?:number}|undefined;
     const fallbackResponse=(reason:string)=>{
       const unmatched=fallback.layout==='empty'&&!process.env.MISTRAL_API_KEY;
       return sendJson(res,200,{plan:fallback,composition:unmatched?null:local,needsComposition:!unmatched,reason,...(unmatched?{guidance:'unmatched'}:{}),requestId:request.requestId,routing});
@@ -48,13 +54,14 @@ export default async function intentHandler(req:ApiRequest,res:ApiResponse){
     for(const [key,rate] of rates)if(now-rate.time>60000)rates.delete(key);
     const rate=rates.get(network)??{time:now,count:0};
     if(rate.count>=60)return fallbackResponse('rate_limit');
+    if(!rates.has(network)&&rates.size>=2048)rates.delete(rates.keys().next().value!);
     rate.count++;rates.set(network,rate);
-    const cacheKey=JSON.stringify({draft:data.draft.trim().toLowerCase(),composition:data.composition,version:CONTENT_VERSION,model});
+    const cacheKey=createHash('sha256').update(JSON.stringify({draft:data.draft.trim().toLowerCase(),composition:data.composition,current:data.current,version:CONTENT_VERSION,model})).digest('hex');
     const cached=cache.get(cacheKey);
     if(cached&&cached.expires>now)return sendJson(res,200,{plan:{...cached.plan,revision:data.revision},composition:cached.composition,needsComposition:cached.needsComposition,cached:true,requestId:request.requestId});
     const date=new Date().toISOString().slice(0,10);
     if(daily.date!==date)daily={date,calls:0};
-    if(daily.calls>=Number(process.env.INTENT_DAILY_CALL_LIMIT??1000))return fallbackResponse('daily_limit');
+    if(daily.calls>=providerCallLimit(process.env.INTENT_DAILY_CALL_LIMIT,1000))return fallbackResponse('daily_limit');
     daily.calls++;
     const started=performance.now();
     try{

@@ -83,6 +83,12 @@ The numbers belonged to the full team. Isaac's job was to make sure they were ac
 
 
 
+- returned to constituents: $4M+
+- constituent cases opened: 550
+- constituent responses: 9,569
+- meetings and site visits: 300+
+- bills cosponsored: 51
+
 - [Read the 100 Day Report](https://drive.google.com/file/d/1gdSr7RjjmidqJkLTWkyIbesVPIkECizn/view)
 
 ## What the work added up to
