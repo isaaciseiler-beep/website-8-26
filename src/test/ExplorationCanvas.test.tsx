@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import ExplorationCanvas from '@/components/canvas/ExplorationCanvas';
 import HomeExplore from '@/components/canvas/HomeExplore';
-import { blankBlock, TAIWAN_ID, presetComposition, validateComposition, type Composition } from '@/lib/genui';
+import { blankBlock, composeLocal, TAIWAN_ID, presetComposition, validateComposition, type Composition } from '@/lib/genui';
 import { AI_LAYOUTS } from '@/lib/layouts';
 import { initialPlan, localPlan, CONTENT_VERSION } from '@/lib/canvas';
 function Harness({initial}:{initial:Composition}){const [value,setValue]=useState(initial);return <ExplorationCanvas composition={value} onChange={setValue} plan={initialPlan()} generation={{status:'authored'}}/>;}
@@ -65,5 +65,29 @@ describe('interactive canvas',()=>{
     await act(async()=>{deliver!(new Response(JSON.stringify({type:'composition',revision:2,contentVersion:CONTENT_VERSION,composition:{blocks:[blankBlock('contact')]},partial:false})+'\n',{headers:{'Content-Type':'application/x-ndjson'}}));});
     expect(within(screen.getByRole('article',{name:'Michigan score'})).getByText(/10\.0/)).toBeInTheDocument();
     expect(screen.queryByRole('region',{name:'Contact'})).not.toBeInTheDocument();
+  });
+});
+
+
+describe('answer usefulness before expanding reading',()=>{
+  it('shows both Taiwan lessons before Continue reading',()=>{
+    render(<Harness initial={composeLocal('What did Isaac learn in Taiwan?',initialPlan())}/>);
+    expect(screen.getByText(/First, the best learning happens in community/)).toBeVisible();
+    expect(screen.getByText(/Second, the program reinforced my belief/)).toBeVisible();
+  });
+  it('shows how participants changed the program without asking for more',()=>{
+    render(<Harness initial={composeLocal('How did educators shape the Taiwan program?',initialPlan())}/>);
+    expect(screen.getByText(/Participant questions changed what I emphasized/)).toBeVisible();
+  });
+  it('answers measurement honestly rather than implying measured learning gains',()=>{
+    render(<Harness initial={composeLocal('How did Isaac measure whether the Taiwan program worked?',initialPlan())}/>);
+    expect(screen.getByText(/does not report pre\/post assessment scores/)).toBeVisible();
+  });
+  it('keeps leadership examples and role choices aligned',()=>{
+    render(<Harness initial={composeLocal('Which work best demonstrates Isaac’s leadership?',initialPlan())}/>);
+    expect(screen.getByRole('heading',{name:'Leadership in practice'})).toBeVisible();
+    const roles=screen.getByRole('navigation',{name:'Professional roles'});
+    expect(within(roles).getAllByRole('button')).toHaveLength(3);
+    expect(screen.getByText(/managed a teaching team of 12/)).toBeVisible();
   });
 });

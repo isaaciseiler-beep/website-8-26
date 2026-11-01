@@ -1,0 +1,23 @@
+{
+  "baseCommit": "5fc6825b10b032313d3693b8b16d8f7da4d0348a",
+  "contentVersion": "canvas-2026-10-31-v9",
+  "files": {
+    "index.html": "d273ee9f66935d2d78f7be7e723a82182ec11b7eaf9c78b89a0be63d2cc19245",
+    "src/components/PhotoPreview.tsx": "ff63065ad0efc7557144327367dc30d6cd6e1d213fdb4eca80c4098aa7dbb084",
+    "src/components/canvas/ExplorationCanvas.tsx": "517caeeb298820f9743e7ef837edf6ee5de2070fca091ead80962bb6cd57930c",
+    "src/components/canvas/PortfolioViews.tsx": "4fa2dad5985657751a0e5cb8fb767259c82d490d0d46e109c05c3d55338ecc1c",
+    "src/components/canvas/home-explore.css": "2e1d27304b83f67f82243f13b24a0de629ec27d61fa4352fb3cff641c273d36a",
+    "src/index.css": "e7689b76241a12de9978b1cc958a5ed73fd0eb68969c78d7c18cfc7173de40d7",
+    "src/lib/canvas.ts": "71aacef4ae9fa88fffc013f3209e25d186936d7ad9afe97c65de33f4e473170f",
+    "src/lib/genui.ts": "662671e7f1fa57706e846d9b02a13224975181e33e65f84cce5d1d3fa4720cdc",
+    "src/lib/portfolioEvidence.ts": "e768bd7e47a0d239f96a987e6bf8261d12fb17e600e3ab9af2ef375d9aaccf97",
+    "src/lib/portfolioIntent.ts": "25bf8b24a434a21f6a56df33dcf43bc48e7e599a410b5822466851d0e4e6f30c",
+    "src/pages/work-page.css": "6259d36fefca0a86b273410391298b43a2a9bb1267c1cc5abf0d86311c49ab30",
+    "src/test/ExplorationCanvas.test.tsx": "c2562f5b1a607f056cdeb35777ac21f65785eb1ad4c87fb8128f011d264c596e",
+    "src/test/genui.test.ts": "a2a925979210d80aebe6475a1d1bce8747aee5a8987c5c29051daeba25721706",
+    "scripts/audit-live-portfolio.mjs": "bca329919e54ea96b8f7eb0f8593d11a7195af2fc8bac0b1f4b4c6c7ea795657",
+    "scripts/verify-portfolio-fixes.mjs": "ee5f2bb6b35ac19a124ca18f496fdf1876fef2ab4110ef9d139a9415f66e4da4",
+    "scripts/verify-portfolio-journeys.mjs": "27aaa79ea028f5097b1baed5ef86128093bcf2bca5c837d9594b9b523efcdfb5",
+    "scripts/verify-portfolio-production.mjs": "38b2a3834e45ef98311ad27c782d48a595ce9a5ebcf297cdefbb513e44c8cb8c"
+  }
+}

@@ -4,7 +4,7 @@ import { aiIndexStates } from './aiStateGovIndex.js';
 import { layoutIds, liveLayoutIds, layoutDefinition, defaultLayout, type LayoutId } from './layouts.js';
 import { evidenceFocuses, evidenceSections } from './portfolioEvidence.js';
 import { experienceEntries } from './experience.js';
-import { interpretPortfolioRequest, namedProjects, requestedFocus } from './portfolioIntent.js';
+import { interpretPortfolioRequest, namedProjects, requestedFocus, requestedAngle, portfolioAngles } from './portfolioIntent.js';
 
 export const blockSchema = z.object({
   kind: z.enum(['benchmark', 'photos', 'workshop', 'story', 'comparison', 'timeline', 'architecture', 'contact', 'collection']),
@@ -16,6 +16,7 @@ export const blockSchema = z.object({
   metric: z.enum(['compositeScore', 'preparednessScore']),
   section: z.number().int().min(0).max(2000),
   focus: z.enum(evidenceFocuses).optional(),
+  angle: z.enum(portfolioAngles).optional(),
   roleId: z.string().max(80).optional(),
   search: z.string().max(120).optional(),
   expanded: z.boolean().optional(),
@@ -109,10 +110,15 @@ export function withLayout(block:CanvasBlock, layout:LayoutId):CanvasBlock {
   return next;
 }
 
-/** Reflection questions open the published lesson rather than the first output. */
-function requestedStorySection(text:string,projectId:string):number|undefined {
-  if (!/\b(?:learn(?:ed)?|lessons?|takeaways?|reflections?)\b/i.test(text)) return undefined;
-  return evidenceSections(projectId,'outcomes').find(section=>/\blearn|lessons?|reflection/i.test(section.heading))?.index;
+/** Named subjects resolve to published sections before either provider can choose a view. */
+export function requestedStorySection(text:string,projectId:string):number|undefined {
+  const rules:Record<string,[RegExp,number][]>={
+    [TAIWAN_ID]: [[/measur|evaluat|success|whether.*work|^did .*\bwork\b/i,4],[/trade.?offs?|compromises?|challenge|limitation|decisions?/i,1],[/educators?.*(?:shape|influence|change)|participants?.*(?:shape|influence|change)/i,1],[/learn(?:ed)?|lessons?|takeaways?|reflection/i,4],[/nine|9 use|use cases/i,2],[/conference|alignment/i,3]],
+    'openai-product-testing-and-feedback': [[/study mode/i,2],[/pulse/i,4],[/atlas/i,5],[/group chats?/i,6],[/100 chats|book/i,1],[/back to school/i,3],[/learn(?:ed)?|lessons?|takeaways?/i,7]],
+    'congressional-office-setup-100-day-report': [[/100 days?|accomplish|constituent|office.*results/i,5],[/child.labou?r|local stories|national news/i,2],[/press list|press network/i,1],[/state of the union|bipartisan/i,4]],
+    'senior-thesis-local-journalism': [[/findings?|discover|learn|results?|conclusions?/i,1]],
+  };
+  return rules[projectId]?.find(([pattern])=>pattern.test(text))?.[1];
 }
 
 /** Apply public-subject and state constraints once, after either provider. */
@@ -121,7 +127,7 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
   if(!valid)return null;
   const checked:Composition={blocks:valid.blocks.map(block=>{
     const section=block.kind==='story'?requestedStorySection(text,block.projectIds[0]):undefined;
-    return section===undefined?block:{...block,section,focus:'outcomes',layout:'project-outcomes'};
+    return section===undefined?block:{...block,section};
   })};
   const interpreted=interpretPortfolioRequest(text,previousContext(previous));
   // A refinement patches the visible controls; a provider must not reset their focus or section.
@@ -129,7 +135,7 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
   if(['contact','architecture','timeline'].includes(interpreted.task)) {
     const match=checked.blocks.find(block=>block.kind===interpreted.task);
     if(!match)return baseline;
-    if(interpreted.task==='timeline'&&interpreted.roleId)return {blocks:[{...match,roleId:interpreted.roleId}]};
+    if(interpreted.task==='timeline')return baseline;
   }
   if(stateNames(text).length){
     const match=checked.blocks.find(block=>block.kind==='benchmark');
@@ -146,9 +152,9 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
   if(interpreted.task==='story'&&interpreted.projectIds.length===1) {
     const match=checked.blocks.find(block=>block.kind==='story');
     if(!match)return baseline;
-    const focus=requestedFocus(text)??match.focus??'overview';
+    const focus=baseline.blocks[0]?.focus??requestedFocus(text)??match.focus??'overview';
     const old=previous?.blocks.find(block=>block.kind==='story'&&block.projectIds[0]===interpreted.projectIds[0]);
-    const block={...match,projectIds:interpreted.projectIds,focus,...(interpreted.followup&&old?{search:old.search,expanded:old.expanded,section:old.section}:{})};
+    const block={...match,projectIds:interpreted.projectIds,focus,angle:baseline.blocks[0]?.angle,section:requestedStorySection(text,interpreted.projectIds[0])??baseline.blocks[0]?.section??match.section,...(interpreted.followup&&old?{search:old.search,expanded:old.expanded,section:old.section}:{})};
     return validateComposition({blocks:[withLayout(block,focus==='process'?'project-process':focus==='outcomes'?'project-outcomes':focus==='evidence'?'project-evidence':'project-brief')]});
   }
   if(interpreted.followup&&previous&&baseline.blocks[0]?.kind===checked.blocks[0]?.kind) {
@@ -183,14 +189,18 @@ export function composeLocal(text:string,plan:Plan,previous?:Composition|null):C
     const id=interpreted.projectIds[0]??plan.projectIds[0];
     if(!id)return {blocks:[blankBlock('collection')]};
     const old=previous?.blocks.find(b=>b.kind==='story'&&b.projectIds[0]===id);
-    const focus=requestedFocus(text)??(interpreted.followup?old?.focus:'overview')??'overview';
-    const block:CanvasBlock={...blankBlock('story'),...(interpreted.followup?old:{}),projectIds:[id],focus,section:requestedStorySection(text,id)??(interpreted.followup?old?.section:undefined)??evidenceSections(id,focus)[0]?.index??0};
+    const selectedSection=requestedStorySection(text,id);
+    const angle=requestedAngle(text)??(interpreted.followup?old?.angle:undefined);
+    const more=interpreted.followup&&/tell me more|expand|details/i.test(text);
+    const askedFocus=requestedFocus(text);
+    const focus=(angle==='measurement'&&id===TAIWAN_ID?'outcomes':selectedSection!==undefined&&(!askedFocus||askedFocus==='role')?'process':askedFocus)??(selectedSection!==undefined?'process':more&&(!old||old.focus==='overview'||old.focus==='role')?'process':interpreted.followup?old?.focus:'overview')??'overview';
+    const block:CanvasBlock={...blankBlock('story'),...(interpreted.followup?old:{}),projectIds:[id],focus,angle,section:selectedSection??(interpreted.followup?old?.section:undefined)??evidenceSections(id,focus)[0]?.index??0,expanded:more||Boolean(interpreted.followup&&old?.expanded)};
     const layout=focus==='process'?'project-process':focus==='outcomes'?'project-outcomes':focus==='evidence'?'project-evidence':interpreted.followup&&old?.layout?old.layout:'project-brief';
     return {blocks:[withLayout(block,layout)]};
   }
   if(interpreted.task==='timeline') {
     const old=previous?.blocks.find(b=>b.kind==='timeline');
-    return {blocks:[{...blankBlock('timeline'),...old,layout:/roles|responsibilities|current|summation|strengths|who (?:is|are)/i.test(text)?'experience-roles':'experience-timeline',focus:interpreted.focus,roleId:interpreted.roleId??old?.roleId??'summation-ai'}]};
+    return {blocks:[{...blankBlock('timeline'),...old,layout:/roles|responsibilities|current|summation|strengths|who (?:is|are)/i.test(text)?'experience-roles':'experience-timeline',focus:interpreted.focus,angle:requestedAngle(text)??(interpreted.followup?old?.angle:undefined),section:/strengths|skills|good at|do well|does well|best at|what connects|hire|hiring|leadership/i.test(text)?1:/public service/i.test(text)?2:interpreted.followup?old?.section??0:0,roleId:interpreted.roleId??(interpreted.followup?old?.roleId:undefined)??(requestedAngle(text)==='leadership'?'fulbright-taiwan':/strengths|skills|good at|do well|does well|best at|what connects/i.test(text)?'csg-ai-index':'summation-ai')}]};
   }
   return {blocks:[blankBlock(interpreted.task)]};
 }

@@ -5,18 +5,14 @@ import { ArrowUp, ArrowLeft, ArrowRight, ArrowUpRight, Link, Check, LoaderCircle
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
 import { isPhotographyRequest, explorationGuidance, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
+import { startingExperiencePrompts } from '@/lib/experiencePrompts';
 import ExplorationCanvas, { type GenerationInfo } from './ExplorationCanvas';
 import './home-explore.css';
 import { AI_LAYOUTS, type LayoutId } from '@/lib/layouts';
 import { applyPortfolioAction, createPortableView, decodeView, portfolioActionForRequest, travelHistory, viewPlan, viewTitle, viewUrl } from '@/lib/portfolioView';
 import { registerPortfolioTools, type BrowserToolRegistry } from '@/lib/portfolioWebMcp';
 
-const suggestions=[
-  'How did Isaac map AI in government?',
-  'What did Isaac build in Taiwan?',
-  'What was Isaac’s role in Congress?',
-  'Walk me through Isaac’s experience',
-].map(label=>({label,prompt:label}));
+const suggestions=startingExperiencePrompts.map(({text})=>({label:text,prompt:text}));
 const reviewMode=import.meta.env.DEV&&new URLSearchParams(window.location.search).has('layouts');
 const layouts=new Set(['overview','work','detail','comparison','photos','mixed','architecture','contact','timeline','writing','empty']);
 function validIntentPlan(plan:Plan,revision:number):boolean {
@@ -212,7 +208,7 @@ export default function HomeExplore() {
       {reviewMode&&<div className="canvas-review"><label htmlFor="layout-review">Layout review · {AI_LAYOUTS.length} authored views</label><select id="layout-review" value={reviewLayout} onChange={e=>{const id=e.target.value as LayoutId;setReviewLayout(id);cancel();const recipe=AI_LAYOUTS.find(l=>l.id===id)!;setQuery(recipe.prompt);update({query:recipe.prompt,plan:resolveCanvasPlan(recipe.prompt,initialPlan(),revision.current),composition:presetComposition(id),generation:{status:'authored'}});}}>{AI_LAYOUTS.map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></div>}<div ref={composerRef} className="home-genui-composer">
 
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
-        <ExperienceAutocomplete inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
+        <ExperienceAutocomplete context={view?{projectIds:view.composition.blocks.flatMap(block=>block.projectIds),kind:view.composition.blocks[0]?.kind,focus:view.composition.blocks[0]?.focus}:undefined} inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
         {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
       </form></div>
       {!query.trim()&&!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&<div className="home-genui-suggestion" onPointerEnter={()=>setPaused(true)} onPointerLeave={()=>setPaused(false)} onFocusCapture={()=>setPaused(true)} onBlurCapture={()=>setPaused(false)}>

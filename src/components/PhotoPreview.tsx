@@ -1,5 +1,6 @@
-import { useCallback, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useCallback, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { preloadImage } from "@/lib/imagePreload";
 import { MOTION_DURATION, MOTION_EASE_ENTER } from "@/lib/motion";
@@ -14,12 +15,13 @@ interface PhotoPreviewProps {
 }
 
 const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPreviewProps) => {
+  const opener=useRef<HTMLElement|null>(null);
+  const reduceMotion=useReducedMotion();
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (currentIndex === null) return;
-    if (e.key === "Escape") onClose();
     if (e.key === "ArrowRight" && currentIndex < images.length - 1) onNavigate(currentIndex + 1);
     if (e.key === "ArrowLeft" && currentIndex > 0) onNavigate(currentIndex - 1);
-  }, [currentIndex, images.length, onClose, onNavigate]);
+  }, [currentIndex, images.length, onNavigate]);
 
   useEffect(() => {
     if (currentIndex === null) return;
@@ -40,18 +42,23 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
   const progress = currentIndex !== null ? (currentIndex + 1) / images.length : 0;
 
   return (
+    <Dialog.Root open={currentIndex!==null} onOpenChange={open=>{if(!open)onClose();}}>
     <AnimatePresence>
       {currentIndex !== null && (
+        <Dialog.Portal forceMount><Dialog.Content forceMount asChild aria-describedby={undefined}
+          onOpenAutoFocus={()=>{opener.current=document.activeElement as HTMLElement;}}
+          onCloseAutoFocus={event=>{event.preventDefault();opener.current?.focus({preventScroll:true});}}>
         <motion.div
           className="fixed inset-0 z-[100] flex items-center justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
+          transition={{ duration: reduceMotion?0:MOTION_DURATION.fast, ease: EASE }}
         >
+          <Dialog.Title className="sr-only">Photograph {currentIndex+1} of {images.length}</Dialog.Title>
           <div className="absolute inset-0" onClick={onClose} style={{ background: "rgba(0,0,0,0.88)", backdropFilter: "blur(40px)", WebkitBackdropFilter: "blur(40px)" }} />
 
-          <button onClick={onClose} className="absolute top-6 right-6 z-10 text-white/20 hover:text-white/50 transition-colors duration-300">
+          <button aria-label="Close photograph" onClick={onClose} className="absolute top-6 right-6 z-10 text-white/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition-colors duration-300">
             <X className="w-4 h-4" />
           </button>
 
@@ -60,7 +67,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
             <motion.div
               className="h-full bg-white/40"
               animate={{ width: `${progress * 100}%` }}
-              transition={{ duration: MOTION_DURATION.fast, ease: EASE }}
+              transition={{ duration: reduceMotion?0:MOTION_DURATION.fast, ease: EASE }}
             />
           </div>
 
@@ -72,21 +79,22 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
             decoding="async"
             fetchpriority="high"
             className="site-corner relative z-10 max-w-[90vw] max-h-[85vh] object-contain"
-            initial={{ opacity: 0, scale: 0.99 }}
+            initial={{ opacity: 0, scale: reduceMotion?1:0.99 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.99 }}
-            transition={{ duration: MOTION_DURATION.base, ease: EASE }}
+            exit={{ opacity: 0, scale: reduceMotion?1:0.99 }}
+            transition={{ duration: reduceMotion?0:MOTION_DURATION.base, ease: EASE }}
           />
 
           <AnimatePresence>
             {currentIndex > 0 && (
               <motion.button
                 key="prev"
-                className="absolute left-6 top-1/2 -translate-y-1/2 z-10 text-white/20 hover:text-white/50 transition-colors duration-300"
+                aria-label="Previous photograph"
+                className="absolute left-6 top-1/2 -translate-y-1/2 z-10 text-white/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition-colors duration-300"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: reduceMotion?0:0.2 }}
                 onClick={() => onNavigate(currentIndex - 1)}
               >
                 <ChevronLeft className="w-5 h-5" strokeWidth={1.5} />
@@ -98,11 +106,12 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
             {currentIndex < images.length - 1 && (
               <motion.button
                 key="next"
-                className="absolute right-6 top-1/2 -translate-y-1/2 z-10 text-white/20 hover:text-white/50 transition-colors duration-300"
+                aria-label="Next photograph"
+                className="absolute right-6 top-1/2 -translate-y-1/2 z-10 text-white/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition-colors duration-300"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: reduceMotion?0:0.2 }}
                 onClick={() => onNavigate(currentIndex + 1)}
               >
                 <ChevronRight className="w-5 h-5" strokeWidth={1.5} />
@@ -110,8 +119,10 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
             )}
           </AnimatePresence>
         </motion.div>
+        </Dialog.Content></Dialog.Portal>
       )}
     </AnimatePresence>
+    </Dialog.Root>
   );
 };
 

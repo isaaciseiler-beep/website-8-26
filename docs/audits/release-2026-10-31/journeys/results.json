@@ -1,0 +1,126 @@
+{
+  "base": "http://127.0.0.1:8081",
+  "checks": 20,
+  "results": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "menu → Work → keyboard project opening",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "album → modal → next → Escape → focus restored",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "Explore local controls → Back → Forward",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "draft preserves committed answer",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "normal-motion Clear folds without overflow",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "menu → Work → keyboard project opening",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "album → modal → next → Escape → focus restored",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "Explore local controls → Back → Forward",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "draft preserves committed answer",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "normal-motion Clear folds without overflow",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "menu → Work → keyboard project opening",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "album → modal → next → Escape → focus restored",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "Explore local controls → Back → Forward",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "draft preserves committed answer",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "normal-motion Clear folds without overflow",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "menu → Work → keyboard project opening",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "album → modal → next → Escape → focus restored",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "Explore local controls → Back → Forward",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "draft preserves committed answer",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "normal-motion Clear folds without overflow",
+      "ok": true
+    }
+  ]
+}

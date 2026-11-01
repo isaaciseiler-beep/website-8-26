@@ -49,7 +49,7 @@ export const projectEvidence: Record<string, {
     outcome: 'An original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI.',
     process: 'I carried out the literature review, recruited interviewees, verified transcripts, coded the material, and synthesized themes across 17 interviews.',
     practice: 'The analysis compared print, digital, hybrid, nonprofit, and subscription models alongside policy options such as bargaining codes, subsidies, and training.',
-    sectionLabels: ['Research design', 'Findings & outputs'],
+    sectionLabels: ['Research design', 'Research themes & outputs'],
     processSections: [0, 1], outcomeSections: [1],
   },
   'boehringer-cares-foundation-rebrand-strategy-shift': {
@@ -108,3 +108,41 @@ export const portfolioCatalog = projectItems.filter(item => !hiddenProjectIds.ha
   };
 });
 export const roleCatalog = experienceEntries.map(({ id, organization, role, period, paragraphs, focus }) => ({ id, organization, role, period, paragraphs, focus }));
+
+/** Editorial comparison of published responsibilities and methods, independent of display order. */
+export function comparisonInsight(ids: string[], focus: EvidenceFocus): string {
+  const pair = (a: string, b: string) => ids.includes(a) && ids.includes(b);
+  const insights = pair('artificial-intelligence-in-state-government-index', 'fulbright-focus-group-sponsored-by-openai') ? {
+    role: 'The government project centers on research and benchmark design; the Taiwan project centers on proposing, designing and facilitating a program. Both make AI adoption easier to understand, at institutional and classroom scales.',
+    process: 'The government index compares publicly verifiable adoption signals; the Taiwan Lab adapts sessions to educators’ questions. Both turn questions about AI into a practical framework, using different kinds of evidence.',
+    outcomes: 'The government work produced a dated benchmark and policy roadmap; the Taiwan work produced nine use cases and a conference workshop. One supports comparison across institutions, while the other shares what educators learned through practice.',
+  } : pair('congressional-office-setup-100-day-report', 'boehringer-cares-foundation-rebrand-strategy-shift') ? {
+    role: 'In Congress, Isaac helped establish a new office’s communications function. At Boehringer, he helped implement an approved rebrand across existing channels. Both involved communications operations, with different starting points and audiences.',
+    process: 'The congressional work connected district stories to reporters and federal policy; the Boehringer rollout coordinated website content, brand colleagues and employee communications. Both required consistent messaging across several channels.',
+    outcomes: 'The congressional work made a new office’s first months of service visible through press outreach and the 100 Day Report. The Boehringer rollout delivered web and communications assets, an employee newsletter and volunteering communications. Office service totals and company participation figures describe broader team outcomes.',
+  } : pair('openai-product-testing-and-feedback', 'senior-thesis-local-journalism') ? {
+    role: 'In the ChatGPT Lab, Isaac contributed product feedback from real workflows. In the journalism thesis, he led an independent qualitative study. Both examine technology through people’s experience, with different levels of research ownership.',
+    process: 'Product testing used early builds to identify problems and discuss changes with product teams. The thesis used 17 interviews, verified transcripts and thematic coding. One informed product conversations; the other organized evidence for an academic study.',
+    outcomes: 'The Lab contributions fed into product feedback, the 100 Chats book and public launch stories. The thesis produced an original interview dataset and qualitative analysis. These are different kinds of published output, rather than comparable impact scores.',
+  } : null;
+  if (insights) return insights[focus === 'process' || focus === 'outcomes' ? focus : 'role'];
+  const records = ids.map(evidenceFor);
+  return records[0] && records[1] ? `${records[0].title} centers on ${records[0].role.toLowerCase()}, while ${records[1].title} centers on ${records[1].role.toLowerCase()}. Explore the responsibilities, methods and published outputs below.` : '';
+}
+
+
+/** Choose the paragraphs carrying the answer; keep the entire passage available on expansion. */
+export function sectionPreview(id:string,section:number):number[] {
+  const selected:Record<string,Record<number,number[]>>={
+    'fulbright-focus-group-sponsored-by-openai': {1:[1,3],4:[1,2]},
+    'openai-product-testing-and-feedback': {2:[1,2],4:[1,2],5:[1,0],6:[1,2]},
+  };
+  return selected[id]?.[section]??[0,1];
+}
+
+export function projectAngleAnswer(id:string,angle?:string):string|undefined {
+  if(id!=='fulbright-focus-group-sponsored-by-openai')return undefined;
+  if(angle==='measurement')return 'The published account documents six sessions, nine use cases and a subsequent conference workshop. It describes participants finding uses for AI in their work, but does not report pre/post assessment scores or a measured causal improvement.';
+  if(angle==='tradeoffs')return 'Isaac adapted the sessions to educators’ questions rather than delivering a fixed lecture series. The central judgment was when AI helped with real classroom work and when it created more problems than it solved.';
+  if(angle==='leadership')return 'Isaac proposed the program to OpenAI, designed and led six sessions, adapted them to participant questions, and turned the learning into public use cases and a conference workshop.';
+}

@@ -1,0 +1,154 @@
+{
+  "base": "https://seiler.page",
+  "checks": 24,
+  "results": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "menu → Work → keyboard project opening",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "photo viewer has modal semantics and named controls",
+      "ok": false,
+      "detail": "No accessible dialog exposed by the live viewer."
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "legacy album viewer opens and keyboard Escape closes",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "Explore local controls → Back → Forward",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "draft preserves committed answer",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "name": "normal-motion Clear folds without overflow",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "menu → Work → keyboard project opening",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "photo viewer has modal semantics and named controls",
+      "ok": false,
+      "detail": "No accessible dialog exposed by the live viewer."
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "legacy album viewer opens and keyboard Escape closes",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "Explore local controls → Back → Forward",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "draft preserves committed answer",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "normal-motion Clear folds without overflow",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "menu → Work → keyboard project opening",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "photo viewer has modal semantics and named controls",
+      "ok": false,
+      "detail": "No accessible dialog exposed by the live viewer."
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "legacy album viewer opens and keyboard Escape closes",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "Explore local controls → Back → Forward",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "draft preserves committed answer",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "name": "normal-motion Clear folds without overflow",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "menu → Work → keyboard project opening",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "photo viewer has modal semantics and named controls",
+      "ok": false,
+      "detail": "No accessible dialog exposed by the live viewer."
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "legacy album viewer opens and keyboard Escape closes",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "Explore local controls → Back → Forward",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "draft preserves committed answer",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "normal-motion Clear folds without overflow",
+      "ok": true
+    }
+  ]
+}

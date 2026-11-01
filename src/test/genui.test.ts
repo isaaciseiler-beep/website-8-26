@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { blankBlock, composeLocal, resolveCanvasPlan, validateComposition, POLICY_ID, TAIWAN_ID } from '@/lib/genui';
+import { blankBlock, reconcileComposition, composeLocal, resolveCanvasPlan, validateComposition, POLICY_ID, TAIWAN_ID } from '@/lib/genui';
 import { AI_LAYOUTS } from '@/lib/layouts';
 import { initialPlan } from '@/lib/canvas';
 const compose=(text:string)=>composeLocal(text,resolveCanvasPlan(text,initialPlan(),1));
@@ -77,5 +77,79 @@ describe('interactive composition contracts',()=>{
     expect(validateComposition({blocks:[{...blankBlock('story'),projectIds:[TAIWAN_ID],section:199}]})).toBeNull();
     expect(validateComposition({blocks:[{...blankBlock('comparison'),projectIds:[TAIWAN_ID]}]})).toBeNull();
     expect(validateComposition({blocks:[{...blankBlock('benchmark'),states:['Atlantis']}]})).toBeNull();
+  });
+});
+
+
+describe('live audit answer regressions',()=>{
+  it.each([
+    ['How did educators shape the Taiwan program?', TAIWAN_ID,1],
+    ['What did Isaac learn from testing ChatGPT?', 'openai-product-testing-and-feedback',7],
+    ['How did Isaac create the 100 Day Report?', 'congressional-office-setup-100-day-report',5],
+    ['What did the congressional office accomplish?', 'congressional-office-setup-100-day-report',5],
+    ['What did Isaac do with Study Mode?', 'openai-product-testing-and-feedback',2],
+    ['Tell me about Pulse', 'openai-product-testing-and-feedback',4],
+    ['What was Isaac’s role testing Atlas?', 'openai-product-testing-and-feedback',5],
+    ['What did Isaac contribute to Group Chats?', 'openai-product-testing-and-feedback',6],
+    ['What did Isaac learn in Taiwan?', TAIWAN_ID,4],
+    ['What did the journalism research discover?', 'senior-thesis-local-journalism',1],
+  ])('opens the relevant published passage: %s',(prompt,id,section)=>{
+    const baseline=compose(prompt);
+    expect(baseline.blocks[0]).toMatchObject({kind:'story',projectIds:[id],section});
+    expect(['process','outcomes']).toContain(baseline.blocks[0].focus);
+    const wrong={blocks:[{...blankBlock('story'),projectIds:[id]}]};
+    expect(reconcileComposition(prompt,wrong,baseline)?.blocks[0]).toMatchObject({projectIds:[id],section,focus:baseline.blocks[0].focus});
+  });
+  it('expands the displayed story and preserves manual selections',()=>{
+    const previous=compose('Taiwan teaching');
+    previous.blocks[0].section=1;
+    const more=composeLocal('Tell me more',initialPlan(),previous);
+    expect(more.blocks[0]).toMatchObject({projectIds:[TAIWAN_ID],focus:'process',section:1,expanded:true});
+    expect(reconcileComposition('Tell me more',{blocks:[blankBlock('contact')]},more,previous)).toEqual(more);
+  });
+  it('resolves ordinal references after the visible comparison is reordered',()=>{
+    const previous=compose('Compare Taiwan teaching and AI policy');
+    expect(composeLocal('Show me the second one',initialPlan(),previous).blocks[0].projectIds).toEqual([POLICY_ID]);
+    previous.blocks[0].projectIds.reverse();
+    expect(composeLocal('Tell me more about the second project',initialPlan(),previous).blocks[0].projectIds).toEqual([TAIWAN_ID]);
+  });
+  it('separates career synthesis and public service from the default current job',()=>{
+    expect(compose('What are Isaac’s strengths?').blocks[0]).toMatchObject({kind:'timeline',section:1});
+    expect(compose('Tell me about Isaac’s public service').blocks[0]).toMatchObject({kind:'timeline',section:2,roleId:'us-house'});
+  });
+});
+
+
+describe('questions beyond the first audit wording',()=>{
+  it.each([
+    ['Which work best demonstrates Isaac’s leadership?','timeline','leadership'],
+    ['How did Isaac measure whether the Taiwan program worked?','story','measurement'],
+    ['What were the tradeoffs in the Taiwan program?','story','tradeoffs'],
+    ['What connects Isaac’s different roles?','timeline',undefined],
+  ])('keeps the requested question in the answer: %s',(text,kind,angle)=>{
+    const baseline=compose(text);
+    expect(baseline.blocks[0]).toMatchObject({kind,angle});
+    const proposed={blocks:[{...baseline.blocks[0],angle:undefined,section:0,focus:'role' as const}]};
+    expect(reconcileComposition(text,proposed,baseline)?.blocks[0]).toMatchObject({kind,angle,section:baseline.blocks[0].section});
+  });
+});
+
+
+describe('held-out visitor phrasing',()=>{
+  it.each([
+    ['Tell me about the compromises Isaac made while teaching in Taiwan','tradeoffs',1],
+    ['Did the program in Taiwan actually work?','measurement',4],
+    ['What did participants change about the Taiwan sessions?',undefined,1],
+  ])('opens the appropriate evidence for %s',(text,angle,section)=>{
+    expect(compose(text).blocks[0]).toMatchObject({kind:'story',projectIds:[TAIWAN_ID],angle,section});
+  });
+  it('keeps evaluation questions in the outcomes view',()=>{
+    expect(compose('Did the program in Taiwan actually work?').blocks[0]).toMatchObject({focus:'outcomes',angle:'measurement'});
+  });
+  it('answers do-well questions through specific career evidence',()=>{
+    expect(compose('What does Isaac do well?').blocks[0]).toMatchObject({kind:'timeline',section:1,roleId:'csg-ai-index'});
+  });
+  it.each(['Can I see the second project?','Open the latter project'])('resolves the displayed comparison order: %s',text=>{
+    expect(composeLocal(text,initialPlan(),compose('Compare AI policy and Taiwan teaching')).blocks[0]).toMatchObject({kind:'story',projectIds:[TAIWAN_ID]});
   });
 });

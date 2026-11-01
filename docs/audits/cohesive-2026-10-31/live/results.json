@@ -1,0 +1,547 @@
+{
+  "base": "https://seiler.page",
+  "contentVersion": "canvas-2026-10-22-v7",
+  "capturedAt": "2026-11-01T01:13:06.562Z",
+  "errors": [],
+  "results": [
+    {
+      "id": "career",
+      "prompt": "What are Isaac’s strongest skills?",
+      "settledMs": 464,
+      "observed": {
+        "text": "Explore\nShare\nCareer & experience\nFilter roles\nSummation\n2026-Present\nFulbright Taiwan\nAug 2025-Aug 2026\nCouncil of State Governments\nJun 2025-Jul 2025\nOpenAI\nMar 2025-Present\nWashington University in St. Louis\nJan 2024-May 2024; Jan 2025-Apr 2025\nBoehringer Ingelheim\nMay 2024-Aug 2025\nWashington University in St. Louis\nMar 2024-May 2025\nIsaac Seiler Strategies\nJan 2024-Apr 2025\nWashington University in St. Louis\nSep 2023-Apr 2025\nU.S. House of Representatives\nNov 2022-Jun 2023\nScholten for Congress\nJun 2022-Nov 2022\nProgressive Turnout Project\nAug 2022-Nov 2022\nDCCC\nJun 2022-Aug 2022\nInstitute for Nonprofit News\nDec 2021-Sep 2022\n2026-Present\nMarketing and Communications\n\nI lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.\n\nThe role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on.\n\nSources\nAdjust view",
+        "headings": [
+          "Career & experience",
+          "Marketing and Communications"
+        ],
+        "selected": [
+          "Summation2026-Present"
+        ],
+        "layout": [
+          "experience-timeline"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"timeline\",\"title\":\"Ideas turned into things.\",\"projectIds\":[],\"albumIds\":[],\"revision\":2,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":149,\"confidence\":0.99},\"composition\":{\"blocks\":[{\"kind\":\"timeline\",\"layout\":\"experience-timeline\",\"projectIds\":[],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"summation-ai\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":false,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"dd272673-fe62-4000-89eb-a76a69019115\"}"
+        }
+      ]
+    },
+    {
+      "id": "public-service",
+      "prompt": "Tell me about Isaac’s public service",
+      "settledMs": 363,
+      "observed": {
+        "text": "Explore\nBack\nShare\nCareer & experience\nFilter roles\nSummation\n2026-Present\nFulbright Taiwan\nAug 2025-Aug 2026\nCouncil of State Governments\nJun 2025-Jul 2025\nOpenAI\nMar 2025-Present\nWashington University in St. Louis\nJan 2024-May 2024; Jan 2025-Apr 2025\nBoehringer Ingelheim\nMay 2024-Aug 2025\nWashington University in St. Louis\nMar 2024-May 2025\nIsaac Seiler Strategies\nJan 2024-Apr 2025\nWashington University in St. Louis\nSep 2023-Apr 2025\nU.S. House of Representatives\nNov 2022-Jun 2023\nScholten for Congress\nJun 2022-Nov 2022\nProgressive Turnout Project\nAug 2022-Nov 2022\nDCCC\nJun 2022-Aug 2022\nInstitute for Nonprofit News\nDec 2021-Sep 2022\n2026-Present\nMarketing and Communications\n\nI lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.\n\nThe role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on.\n\nSources\nAdjust view",
+        "headings": [
+          "Career & experience",
+          "Marketing and Communications"
+        ],
+        "selected": [
+          "Summation2026-Present"
+        ],
+        "layout": [
+          "experience-timeline"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"timeline\",\"title\":\"Ideas turned into things.\",\"projectIds\":[],\"albumIds\":[],\"revision\":4,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":79,\"confidence\":0.99},\"composition\":{\"blocks\":[{\"kind\":\"timeline\",\"layout\":\"experience-timeline\",\"projectIds\":[],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"summation-ai\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":false,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"979aa041-450d-4b6a-b5be-6d620db91617\"}"
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "prompt": "How did Isaac create the 100 Day Report?",
+      "settledMs": 1408,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\n\nI built relationships across local, statewide, and national media, connected district stories to federal policy, and gathered and checked the office’s results for its 100 Day Report.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nBuilding the press network\n02\nChild-labor coverage\n03\nReaching different audiences\n04\nBipartisan collaboration\n05\nThe 100 Day Report\nBuilding the press list\n\nThe new office began without a network of trusted press relationships. Isaac started building one immediately.\n\nHe reached local television producers in Grand Rapids, statewide political journalists, Washington correspondents, national policy reporters, trade publications, Spanish-language media, and journalists covering subjects such as immigration, labor, infrastructure, and small business.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "Building a congressional office",
+          "Building the press list"
+        ],
+        "selected": [
+          "Process",
+          "01Building the press network"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"congressional-office-setup-100-day-report\"],\"albumIds\":[],\"revision\":6,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":49,\"confidence\":0.99},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"congressional-office-setup-100-day-report\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":1,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"36a83875-4524-4369-ab9b-d0f1b945d615\"}"
+        },
+        {
+          "url": "/api/compose",
+          "status": 200,
+          "body": "{\"type\":\"start\",\"revision\":6,\"contentVersion\":\"canvas-2026-10-22-v7\"}\n{\"type\":\"composition\",\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"congressional-office-setup-100-day-report\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":1,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"partial\":false,\"model\":\"mistral-small-2603\",\"duration\":957,\"inputTokens\":3948,\"outputTokens\":97,\"revision\":6,\"contentVersion\":\"canvas-2026-10-22-v7\"}\n"
+        }
+      ]
+    },
+    {
+      "id": "office-outcomes",
+      "prompt": "What did the congressional office accomplish?",
+      "settledMs": 334,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nCommunications & office-launch contributor\n2023\n\nBuilding a congressional office\n\nI helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nThe work connected a new office with local and national audiences and made its first 100 days of service understandable. Constituent-service totals describe the whole office’s work.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "Building a congressional office"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"congressional-office-setup-100-day-report\"],\"albumIds\":[],\"revision\":8,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":56,\"confidence\":0.99},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"congressional-office-setup-100-day-report\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":false,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"80be8193-b521-40c2-951d-37f6ffd847af\"}"
+        }
+      ]
+    },
+    {
+      "id": "study-mode",
+      "prompt": "What feedback did Isaac give on Study Mode?",
+      "settledMs": 1360,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "Inside the ChatGPT Lab"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"revision\":10,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":44,\"confidence\":0.76},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.79,\"confidence\":0.76,\"requestId\":\"8e8ed1f7-15fc-4afa-8923-a401097ca98e\"}"
+        },
+        {
+          "url": "/api/compose",
+          "status": 200,
+          "body": "{\"type\":\"start\",\"revision\":10,\"contentVersion\":\"canvas-2026-10-22-v7\"}\n{\"type\":\"composition\",\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":2,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"partial\":false,\"model\":\"mistral-small-2603\",\"duration\":895,\"inputTokens\":3948,\"outputTokens\":92,\"revision\":10,\"contentVersion\":\"canvas-2026-10-22-v7\"}\n"
+        }
+      ]
+    },
+    {
+      "id": "pulse",
+      "prompt": "What feedback did Isaac give on Pulse?",
+      "settledMs": 322,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "Inside the ChatGPT Lab"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"revision\":12,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":56,\"confidence\":0.98},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":false,\"probability\":0.98,\"confidence\":0.98,\"requestId\":\"3dd1b9f9-f500-4c6c-8183-db5322bfcd0a\"}"
+        }
+      ]
+    },
+    {
+      "id": "atlas",
+      "prompt": "What feedback did Isaac give on Atlas?",
+      "settledMs": 317,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "Inside the ChatGPT Lab"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"revision\":14,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":56,\"confidence\":0.97},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":false,\"probability\":0.97,\"confidence\":0.97,\"requestId\":\"dc0f94f5-8fab-4d40-888a-c0827ffd2dad\"}"
+        }
+      ]
+    },
+    {
+      "id": "group-chats",
+      "prompt": "What feedback did Isaac give on group chats?",
+      "settledMs": 349,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProduct tester & feedback contributor\n2025–Present\n\nInside the ChatGPT Lab\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "Inside the ChatGPT Lab"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Ideas turned into things.\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"revision\":16,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"model\":\"jev-1.14.0\",\"duration\":67,\"confidence\":0.91},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"openai-product-testing-and-feedback\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":false,\"probability\":0.92,\"confidence\":0.91,\"requestId\":\"138e81fa-9355-469e-9aa1-966934577dbf\"}"
+        }
+      ]
+    },
+    {
+      "id": "taiwan-lessons",
+      "prompt": "What did Isaac learn in Taiwan?",
+      "settledMs": 1277,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\n01\nNine published use cases\n02\nConference workshop\n03\nLessons learned\nTurning What We Learned Into Public Value\n\nI reviewed the use cases I had gathered and turned them into nine practical ChatGPT use cases that could apply across different educational environments.\n\nI wrote the final piece, which OpenAI's ChatGPT for Education Substack published.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "AI literacy in Taiwan",
+          "Turning What We Learned Into Public Value"
+        ],
+        "selected": [
+          "Outcomes",
+          "01Nine published use cases"
+        ],
+        "layout": [
+          "project-outcomes"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Taiwan, in a few different ways.\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":18,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"local\",\"confidence\":0.91},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-outcomes\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":2,\"focus\":\"outcomes\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"reason\":\"uncertain\",\"requestId\":\"f93d18c6-0aee-4113-a95f-b6dee72df0dc\",\"routing\":{\"choice\":\"story\",\"probability\":0.4,\"confidence\":0.31}}"
+        },
+        {
+          "url": "/api/compose",
+          "status": 200,
+          "body": "{\"type\":\"start\",\"revision\":18,\"contentVersion\":\"canvas-2026-10-22-v7\"}\n{\"type\":\"composition\",\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-outcomes\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":2,\"focus\":\"outcomes\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"partial\":false,\"model\":\"mistral-small-2603\",\"duration\":846,\"inputTokens\":3943,\"outputTokens\":91,\"revision\":18,\"contentVersion\":\"canvas-2026-10-22-v7\"}\n"
+        }
+      ]
+    },
+    {
+      "id": "educator-influence",
+      "prompt": "How did educators shape the Taiwan program?",
+      "settledMs": 1398,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI proposed the Lab, designed six sessions around educators’ real work, and adapted later sessions to the questions and concerns participants raised.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nProposing the Lab\n02\nLearning together\nBuilding a Program Where People Learned From Each Other\n\nMy first goal was to create a space where educators could learn from one another. Then I wanted to tell the story of what we learned so others could benefit.\n\nI designed the Lab as six sessions covering AI fundamentals. We focused on work educators already had in front of them: preparing lessons, giving feedback, supporting language learning, and deciding when an AI tool would create more problems than it solved.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "AI literacy in Taiwan",
+          "Building a Program Where People Learned From Each Other"
+        ],
+        "selected": [
+          "Process",
+          "02Learning together"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Making AI useful in the classroom.\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":20,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"confidence\":0.99,\"model\":\"jev-1.14.0\",\"duration\":52},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"7b45f791-6571-48c4-b70c-bdbe16c60c71\"}"
+        }
+      ]
+    },
+    {
+      "id": "journalism-findings",
+      "prompt": "What did Isaac discover about local journalism?",
+      "settledMs": 1303,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nPrincipal qualitative researcher\n2025\n\nAI, platforms & local journalism\n\nI authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nAn original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "AI, platforms & local journalism"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"Research, reporting & published work.\",\"projectIds\":[\"senior-thesis-local-journalism\"],\"albumIds\":[],\"revision\":22,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"local\",\"confidence\":0.99},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"senior-thesis-local-journalism\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"reason\":\"uncertain\",\"requestId\":\"afa8af62-55e4-4001-9b55-bb135bd2625c\",\"routing\":{\"choice\":\"story\",\"probability\":0.74,\"confidence\":0.7}}"
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "prompt": "Compare Isaac’s AI policy and Taiwan projects",
+      "settledMs": 1374,
+      "observed": {
+        "text": "Explore\nBack\nShare\nContributions, side by side\nContribution\nProcess\nOutcomes\n2025\nAI in state government\n2025\nAI literacy in Taiwan\nRole\n\nResearcher & benchmark designer\n\nProgram proposer, designer & facilitator\n\nContribution\n\nI built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.\n\nI pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.\n\nPublished outcome\n\nA 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.\n\nI turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.\n\nChange projects\nSources\nAdjust view",
+        "headings": [
+          "Contributions, side by side",
+          "AI in state government",
+          "AI literacy in Taiwan"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-compare"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"comparison\",\"title\":\"Two approaches. One closer look.\",\"projectIds\":[\"artificial-intelligence-in-state-government-index\",\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":24,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"confidence\":0.81,\"model\":\"jev-1.14.0\",\"duration\":48},\"composition\":{\"blocks\":[{\"kind\":\"comparison\",\"layout\":\"project-compare\",\"projectIds\":[\"artificial-intelligence-in-state-government-index\",\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.83,\"confidence\":0.81,\"requestId\":\"7ccfca42-c662-4891-9802-363622fb4904\"}"
+        }
+      ]
+    },
+    {
+      "id": "ordinal",
+      "prompt": "Show me the second one",
+      "settledMs": 1474,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nResearcher & benchmark designer\n2025\n\nAI in state government\n\nI built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nA 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "AI in state government"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"empty\",\"title\":\"A different starting point?\",\"projectIds\":[],\"albumIds\":[],\"revision\":26,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"local\",\"confidence\":0.81},\"composition\":{\"blocks\":[{\"kind\":\"collection\",\"layout\":\"project-index\",\"projectIds\":[],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"overview\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"reason\":\"uncertain\",\"requestId\":\"14b93518-1bf9-4d85-9bda-9374ed44c62b\",\"routing\":{\"choice\":\"comparison\",\"probability\":0.61,\"confidence\":0.55}}"
+        }
+      ]
+    },
+    {
+      "id": "more",
+      "prompt": "Tell me more",
+      "settledMs": 1357,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nResearcher & benchmark designer\n2025\n\nAI in state government\n\nI built a public-information benchmark of AI adoption across U.S. states and territories, then paired the index with a policy roadmap.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nA 15-criteria framework, state-by-state rankings, and recommendations grounded in the gaps the research exposed. The published benchmark is an August 2025 snapshot.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "AI in state government"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"A different starting point?\",\"projectIds\":[\"artificial-intelligence-in-state-government-index\"],\"albumIds\":[],\"revision\":28,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"confidence\":0.74,\"model\":\"jev-1.14.0\",\"duration\":42},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"artificial-intelligence-in-state-government-index\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"overview\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.77,\"confidence\":0.74,\"requestId\":\"9d350890-4823-4521-8268-f6e3b122b9aa\"}"
+        },
+        {
+          "url": "/api/compose",
+          "status": 200,
+          "body": "{\"type\":\"start\",\"revision\":28,\"contentVersion\":\"canvas-2026-10-22-v7\"}\n{\"type\":\"composition\",\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"artificial-intelligence-in-state-government-index\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"overview\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"partial\":false,\"model\":\"mistral-small-2603\",\"duration\":954,\"inputTokens\":3939,\"outputTokens\":95,\"revision\":28,\"contentVersion\":\"canvas-2026-10-22-v7\"}\n"
+        }
+      ]
+    },
+    {
+      "id": "comparison-comms",
+      "prompt": "Compare Isaac’s Congress and Boehringer work",
+      "settledMs": 1649,
+      "observed": {
+        "text": "Explore\nBack\nShare\nContributions, side by side\nContribution\nProcess\nOutcomes\n2023\nBuilding a congressional office\n2025\nBringing Boehringer Cares to life\nRole\n\nCommunications & office-launch contributor\n\nRebrand implementation & communications\n\nContribution\n\nI helped build the communications function for a new congressional office: press outreach, workflows, events, official travel, and the 100 Day Report.\n\nI helped carry the team’s approved rebrand into the foundation’s website, communications assets, company-wide newsletter, and volunteering communications.\n\nPublished outcome\n\nThe work connected a new office with local and national audiences and made its first 100 days of service understandable. Constituent-service totals describe the whole office’s work.\n\nDuring the 2025 rollout, annual employee volunteering increased by 25%; the newsletter reached an 80% open rate, alongside more than 25 communications assets.\n\nChange projects\nSources\nAdjust view",
+        "headings": [
+          "Contributions, side by side",
+          "Building a congressional office",
+          "Bringing Boehringer Cares to life"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-compare"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"comparison\",\"title\":\"Two approaches. One closer look.\",\"projectIds\":[\"congressional-office-setup-100-day-report\",\"boehringer-cares-foundation-rebrand-strategy-shift\"],\"albumIds\":[],\"revision\":30,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"confidence\":0.98,\"model\":\"jev-1.14.0\",\"duration\":61},\"composition\":{\"blocks\":[{\"kind\":\"comparison\",\"layout\":\"project-compare\",\"projectIds\":[\"congressional-office-setup-100-day-report\",\"boehringer-cares-foundation-rebrand-strategy-shift\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"overview\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.98,\"confidence\":0.98,\"requestId\":\"d26f2c33-96c9-443d-89a5-074ac55c2c4d\"}"
+        }
+      ]
+    },
+    {
+      "id": "comparison-research",
+      "prompt": "Compare Isaac’s OpenAI and journalism work",
+      "settledMs": 1290,
+      "observed": {
+        "text": "Explore\nBack\nShare\nContributions, side by side\nContribution\nProcess\nOutcomes\n2025–Present\nInside the ChatGPT Lab\n2025\nAI, platforms & local journalism\nRole\n\nProduct tester & feedback contributor\n\nPrincipal qualitative researcher\n\nContribution\n\nIn OpenAI’s first ChatGPT Lab cohort, I tested products before release and brought a student and early-career perspective to product and go-to-market conversations.\n\nI authored an honors thesis on AI, digital platforms, and local journalism, drawing on 17 in-depth interviews with Australian journalists and policy experts.\n\nPublished outcome\n\nMy contributions included real workflows for the 100 Chats book, product feedback, launch campaigns, and public stories about how students use ChatGPT.\n\nAn original qualitative study of journalism as a public good, platform incentives, economic decline, and uncertainty around generative AI.\n\nChange projects\nSources\nAdjust view",
+        "headings": [
+          "Contributions, side by side",
+          "Inside the ChatGPT Lab",
+          "AI, platforms & local journalism"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-compare"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"comparison\",\"title\":\"Two approaches. One closer look.\",\"projectIds\":[\"openai-product-testing-and-feedback\",\"senior-thesis-local-journalism\"],\"albumIds\":[],\"revision\":32,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"confidence\":0.84,\"model\":\"jev-1.14.0\",\"duration\":52},\"composition\":{\"blocks\":[{\"kind\":\"comparison\",\"layout\":\"project-compare\",\"projectIds\":[\"openai-product-testing-and-feedback\",\"senior-thesis-local-journalism\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.86,\"confidence\":0.84,\"requestId\":\"7c85fa63-5295-440c-8baa-f5494b1dd423\"}"
+        }
+      ]
+    },
+    {
+      "id": "career-connections",
+      "prompt": "What connects Isaac’s different roles?",
+      "settledMs": 2157,
+      "observed": {
+        "text": "Explore\nBack\nShare\nCareer & experience\nFilter roles\nSummation\n2026-Present\nFulbright Taiwan\nAug 2025-Aug 2026\nCouncil of State Governments\nJun 2025-Jul 2025\nOpenAI\nMar 2025-Present\nWashington University in St. Louis\nJan 2024-May 2024; Jan 2025-Apr 2025\nBoehringer Ingelheim\nMay 2024-Aug 2025\nWashington University in St. Louis\nMar 2024-May 2025\nIsaac Seiler Strategies\nJan 2024-Apr 2025\nWashington University in St. Louis\nSep 2023-Apr 2025\nU.S. House of Representatives\nNov 2022-Jun 2023\nScholten for Congress\nJun 2022-Nov 2022\nProgressive Turnout Project\nAug 2022-Nov 2022\nDCCC\nJun 2022-Aug 2022\nInstitute for Nonprofit News\nDec 2021-Sep 2022\n2026-Present\nMarketing and Communications\n\nI lead marketing and communications at Summation, a decision-grade AI company that connects to live business data and helps enterprise teams understand what changed, why it happened, and what to do next.\n\nThe role brings together my experience in AI, strategy, writing, and translating complex technology into language people can trust and act on.\n\nSources\nAdjust view",
+        "headings": [
+          "Career & experience",
+          "Marketing and Communications"
+        ],
+        "selected": [
+          "Summation2026-Present"
+        ],
+        "layout": [
+          "experience-roles"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"timeline\",\"title\":\"Let’s make something useful.\",\"projectIds\":[],\"albumIds\":[],\"revision\":34,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"confidence\":0.99,\"model\":\"jev-1.14.0\",\"duration\":92},\"composition\":{\"blocks\":[{\"kind\":\"timeline\",\"layout\":\"experience-roles\",\"projectIds\":[],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"summation-ai\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"30e797ce-887f-42ac-9389-80bf8259d47d\"}"
+        }
+      ]
+    },
+    {
+      "id": "taiwan-tradeoffs",
+      "prompt": "What were the tradeoffs in the Taiwan program?",
+      "settledMs": 1358,
+      "observed": {
+        "text": "Explore\nBack\nShare\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\n01\nNine published use cases\n02\nConference workshop\n03\nLessons learned\nWhat I Learned\n\nUltimately, I learned two big lessons.\n\nFirst, the best learning happens in community, with people learning from one another. If I had designed the workshops as a lecture series, the value would have ended when the workshops did.\n\nContinue reading\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "AI literacy in Taiwan",
+          "What I Learned"
+        ],
+        "selected": [
+          "Outcomes",
+          "03Lessons learned"
+        ],
+        "layout": [
+          "project-outcomes"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"AI, out in the real world.\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":36,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"confidence\":0.98,\"model\":\"jev-1.14.0\",\"duration\":63},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-outcomes\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"outcomes\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.98,\"confidence\":0.98,\"requestId\":\"4afd3493-4ab0-4997-b87c-598fc5f80de2\"}"
+        }
+      ]
+    },
+    {
+      "id": "taiwan-measurement",
+      "prompt": "How did Isaac measure whether the Taiwan program worked?",
+      "settledMs": 416,
+      "observed": {
+        "text": "Explore\nBack\nShare\nInteractive view · AI unavailable\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI proposed the Lab, designed six sessions around educators’ real work, and adapted later sessions to the questions and concerns participants raised.\n\nContribution\nProcess\nOutcomes\nEvidence\n01\nProposing the Lab\n02\nLearning together\nFrom the Idea to the Lab\n\nMany people in my community were either skeptical of AI or unsure how to use it well.\n\nI was already participating in OpenAI's ChatGPT Lab, so I pitched the team on extending that work into a local program for educators in Taiwan. With support from OpenAI and ChatGPT for Education, it became one of the first Local Labs to run.\n\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "AI literacy in Taiwan",
+          "From the Idea to the Lab"
+        ],
+        "selected": [
+          "Process",
+          "01Proposing the Lab"
+        ],
+        "layout": [
+          "project-process"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"AI, out in the real world.\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":38,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"confidence\":0.99,\"model\":\"jev-1.14.0\",\"duration\":47},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-process\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"process\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.99,\"confidence\":0.99,\"requestId\":\"4f7eb34c-8b7d-4bf6-bcdd-f90f45f8255d\"}"
+        }
+      ]
+    },
+    {
+      "id": "leadership",
+      "prompt": "Which work best demonstrates Isaac’s leadership?",
+      "settledMs": 549,
+      "observed": {
+        "text": "Explore\nBack\nShare\nInteractive view · AI unavailable\n\nProgram proposer, designer & facilitator\n2025\n\nAI literacy in Taiwan\n\nI pitched and led a six-session AI literacy program for educators in Taiwan, with support from OpenAI and ChatGPT for Education.\n\nContribution\nProcess\nOutcomes\nEvidence\nWhat came from it\n\nI turned what participants taught me into nine published use cases and an LLM fundamentals and alignment workshop for an international education conference.\n\nExplore how it happened\nExplore another project\nSources\nAdjust view",
+        "headings": [
+          "AI literacy in Taiwan"
+        ],
+        "selected": [
+          "Contribution"
+        ],
+        "layout": [
+          "project-brief"
+        ],
+        "overflow": false
+      },
+      "events": [
+        {
+          "url": "/api/intent",
+          "status": 200,
+          "body": "{\"plan\":{\"layout\":\"detail\",\"title\":\"A different starting point?\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"revision\":40,\"contentVersion\":\"canvas-2026-10-22-v7\",\"source\":\"jev\",\"confidence\":0.82,\"model\":\"jev-1.14.0\",\"duration\":100},\"composition\":{\"blocks\":[{\"kind\":\"story\",\"layout\":\"project-brief\",\"projectIds\":[\"fulbright-focus-group-sponsored-by-openai\"],\"albumIds\":[],\"states\":[],\"region\":\"All\",\"metric\":\"compositeScore\",\"section\":0,\"focus\":\"role\",\"roleId\":\"\",\"search\":\"\",\"expanded\":false,\"band\":null}]},\"needsComposition\":true,\"probability\":0.84,\"confidence\":0.82,\"requestId\":\"77f32740-0d84-412c-8314-c0932df1656d\"}"
+        }
+      ]
+    }
+  ]
+}

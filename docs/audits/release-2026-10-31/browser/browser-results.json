@@ -1,0 +1,665 @@
+{
+  "base": "http://127.0.0.1:8081",
+  "mode": "local authored routing; providers unconfigured",
+  "checks": 110,
+  "results": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "case": "idle",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What are Isaac’s strongest skills?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "How did Isaac create the 100 Day Report?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What did the congressional office accomplish?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What feedback did Isaac give on Study Mode?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What feedback did Isaac give on Atlas?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What feedback did Isaac give on group chats?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What did Isaac discover about local journalism?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "Which work best demonstrates Isaac’s leadership?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What were the tradeoffs in the Taiwan program?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "How did Isaac measure whether the Taiwan program worked?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "What does Isaac do well?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "prompt": "Compare Isaac’s AI policy and Taiwan projects",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "case": "second-project-and-more",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "case": "photo-request-no-provider",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "case": "idle",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What are Isaac’s strongest skills?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "How did Isaac create the 100 Day Report?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What did the congressional office accomplish?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What feedback did Isaac give on Study Mode?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What feedback did Isaac give on Atlas?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What feedback did Isaac give on group chats?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What did Isaac discover about local journalism?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "Which work best demonstrates Isaac’s leadership?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What were the tradeoffs in the Taiwan program?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "How did Isaac measure whether the Taiwan program worked?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "What does Isaac do well?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "prompt": "Compare Isaac’s AI policy and Taiwan projects",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "case": "second-project-and-more",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "case": "photo-request-no-provider",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "case": "idle",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What are Isaac’s strongest skills?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "How did Isaac create the 100 Day Report?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What did the congressional office accomplish?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What feedback did Isaac give on Study Mode?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What feedback did Isaac give on Atlas?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What feedback did Isaac give on group chats?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What did Isaac discover about local journalism?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "Which work best demonstrates Isaac’s leadership?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What were the tradeoffs in the Taiwan program?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "How did Isaac measure whether the Taiwan program worked?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "What does Isaac do well?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "prompt": "Compare Isaac’s AI policy and Taiwan projects",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "case": "second-project-and-more",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "case": "photo-request-no-provider",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "case": "album-and-photo-map",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "case": "idle",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What are Isaac’s strongest skills?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "How did Isaac create the 100 Day Report?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What did the congressional office accomplish?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What feedback did Isaac give on Study Mode?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What feedback did Isaac give on Atlas?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What feedback did Isaac give on group chats?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What did Isaac discover about local journalism?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "Which work best demonstrates Isaac’s leadership?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What were the tradeoffs in the Taiwan program?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "How did Isaac measure whether the Taiwan program worked?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "What does Isaac do well?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "prompt": "Compare Isaac’s AI policy and Taiwan projects",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "case": "second-project-and-more",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "case": "photo-request-no-provider",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "case": "idle",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What are Isaac’s strongest skills?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "How did Isaac create the 100 Day Report?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What did the congressional office accomplish?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What feedback did Isaac give on Study Mode?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What feedback did Isaac give on Atlas?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What feedback did Isaac give on group chats?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What did Isaac discover about local journalism?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "Which work best demonstrates Isaac’s leadership?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What were the tradeoffs in the Taiwan program?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "How did Isaac measure whether the Taiwan program worked?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "What does Isaac do well?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "prompt": "Compare Isaac’s AI policy and Taiwan projects",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "case": "second-project-and-more",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "case": "photo-request-no-provider",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "case": "idle",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What are Isaac’s strongest skills?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "How did Isaac create the 100 Day Report?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What did the congressional office accomplish?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What feedback did Isaac give on Study Mode?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What feedback did Isaac give on Atlas?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What feedback did Isaac give on group chats?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What did Isaac discover about local journalism?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "Which work best demonstrates Isaac’s leadership?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What were the tradeoffs in the Taiwan program?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "How did Isaac measure whether the Taiwan program worked?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "What does Isaac do well?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "prompt": "Compare Isaac’s AI policy and Taiwan projects",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "case": "second-project-and-more",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "case": "photo-request-no-provider",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "case": "album-and-photo-map",
+      "ok": true
+    }
+  ]
+}

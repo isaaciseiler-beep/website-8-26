@@ -1,0 +1,166 @@
+{
+  "base": "http://127.0.0.1:8081",
+  "checks": 24,
+  "results": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "draft": "taiwan lessons",
+      "expected": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "draft": "public service",
+      "expected": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "draft": "pulse feedback",
+      "expected": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "draft": "tawian",
+      "expected": "What did Isaac build in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "case": "drafts and keyboard highlighting never call a provider or replace the draft",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "case": "committed suggestion opens exact evidence; follow-up suggestions retain the visible subject",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "draft": "taiwan lessons",
+      "expected": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "draft": "public service",
+      "expected": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "draft": "pulse feedback",
+      "expected": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "draft": "tawian",
+      "expected": "What did Isaac build in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "case": "drafts and keyboard highlighting never call a provider or replace the draft",
+      "ok": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "case": "committed suggestion opens exact evidence; follow-up suggestions retain the visible subject",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "draft": "taiwan lessons",
+      "expected": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "draft": "public service",
+      "expected": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "draft": "pulse feedback",
+      "expected": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "draft": "tawian",
+      "expected": "What did Isaac build in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "case": "drafts and keyboard highlighting never call a provider or replace the draft",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "case": "committed suggestion opens exact evidence; follow-up suggestions retain the visible subject",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "draft": "taiwan lessons",
+      "expected": "What did Isaac learn in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "draft": "public service",
+      "expected": "Tell me about Isaac’s public service",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "draft": "pulse feedback",
+      "expected": "What feedback did Isaac give on Pulse?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "draft": "tawian",
+      "expected": "What did Isaac build in Taiwan?",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "case": "drafts and keyboard highlighting never call a provider or replace the draft",
+      "ok": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "case": "committed suggestion opens exact evidence; follow-up suggestions retain the visible subject",
+      "ok": true
+    }
+  ]
+}
