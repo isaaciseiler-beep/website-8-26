@@ -355,7 +355,7 @@ const sanitizeAnswerLinks = (answer: string, retrieved: RetrievedChunk[]) => {
 
 const sourcePayload = (retrieved: RetrievedChunk[], evidenceIds: string[]) => {
   const selected = evidenceIds.length
-    ? evidenceIds.map((id) => retrieved.find((chunk) => chunk.id === id)).filter(Boolean)
+    ? evidenceIds.map((id) => retrieved.find((chunk) => chunk.id === id)).filter((chunk): chunk is RetrievedChunk => Boolean(chunk))
     : retrieved.slice(0, 2);
   return selected.map((chunk) => ({
     id: chunk.id,

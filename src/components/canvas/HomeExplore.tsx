@@ -4,7 +4,7 @@ import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPrefer
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
-import { ArrowUp, ArrowUpRight, ArrowLeft, Link, Check, LoaderCircle, X } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, ArrowLeft, ArrowRight, Link, Check, LoaderCircle, X } from 'lucide-react';
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
 import { isPhotographyRequest, explorationGuidance, isLocalCompositionRefinement, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
@@ -201,6 +201,7 @@ export default function HomeExplore() {
   const submit=(text:string)=>{setCleared(null);if(composing||!text.trim()||(busy&&current.current?.query===text))return;const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
   const navigateHistory=(direction:'back'|'forward')=>{
     if(direction==='back'?!history.length:!future.length)return;
+    if(resultsRef.current?.contains(document.activeElement))pendingResultFocus.current={kind:'heading'};
     cancel();setGuidance(null);setImmediateDismiss(true);setAutocompleteOpen(false);
     const next=travelHistory<View|null>({past:history,present:current.current,future},direction);
     setHistory(next.past.filter((item):item is View=>Boolean(item)));setFuture(next.future.filter((item):item is View=>Boolean(item)));
@@ -270,6 +271,7 @@ export default function HomeExplore() {
 
               {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={view.returnToExploration.composition.blocks[0]?.answerId==='connections'?'Back to connections':'Back to projects'} onClick={backToExploration}><ArrowLeft size={14} aria-hidden="true"/><span>{view.returnToExploration.composition.blocks[0]?.answerId==='connections'?'Back to connections':'Back to projects'}</span></button>}
               {view&&history.length>0&&!view.returnToExploration&&<button aria-label="Previous exploration" onClick={()=>navigateHistory('back')}><ArrowLeft size={14} aria-hidden="true"/><span>Back</span></button>}
+              {view&&future.length>0&&!view.returnToExploration&&<button aria-label="Next exploration" onClick={()=>navigateHistory('forward')}><span>Forward</span><ArrowRight size={14} aria-hidden="true"/></button>}
               {view&&<button className="home-share-view" aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
 
             </div>

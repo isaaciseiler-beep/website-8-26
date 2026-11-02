@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { matchesPortfolioSearch } from '@/lib/portfolioSearch';
 import { evidenceFor } from '@/lib/portfolioEvidence';
+import { sectionSearchParts } from '@/lib/portfolioRetrieval';
 import { ArrowDown, ArrowUp, ArrowUpRight } from 'lucide-react';
 import { albums, albumPhotos, publicProjects, experienceEntries } from '@/lib/canvas';
 import { blankBlock, type CanvasBlock } from '@/lib/genui';
@@ -37,7 +38,7 @@ export function ProjectIndex({block,onChange}:LayoutProps){
   const query=block.search??'';
   const filtered=publicProjects.filter(project=>{
     const evidence=evidenceFor(project.id);
-    return matchesPortfolioSearch(query,[project.title,project.summary,evidence?.role,evidence?.contribution,evidence?.process,evidence?.practice,evidence?.outcome,...project.sections.flatMap(section=>[section.heading,...section.paragraphs??[],...section.bullets??[],...section.stats?.flatMap(stat=>[stat.label,stat.value])??[]])]);
+    return matchesPortfolioSearch(query,[project.title,project.summary,evidence?.role,evidence?.contribution,evidence?.process,evidence?.practice,evidence?.outcome,...project.sections.flatMap(sectionSearchParts)]);
   });
   return <section aria-label="Work explorer"><h2>Explore work</h2><label className="canvas-field"><span className="sr-only">Find a project</span><input type="search" maxLength={120} placeholder="Find a project" value={query} onChange={e=>{onChange({...block,search:e.target.value.slice(0,120)});}}/></label><div className="canvas-project-list">{filtered.map(p=><button key={p.id} data-project-id={p.id} onClick={()=>onChange({...blankBlock('story'),projectIds:[p.id]})}><span>{p.year}</span><strong>{p.title}</strong><ArrowUpRight size={18}/></button>)}{!filtered.length&&<p>No matching projects.</p>}</div></section>;
 }

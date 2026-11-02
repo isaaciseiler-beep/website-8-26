@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { CONTENT_VERSION, initialPlan, publicProjects, type Plan } from './canvas.js';
 import { blankBlock, blockSchema, validateComposition, type Composition } from './genui.js';
 import { AI_LAYOUTS, liveLayoutIds } from './layouts.js';
-import { evidenceFocuses, portfolioCatalog } from './portfolioEvidence.js';
+import { evidenceFocuses, evidenceSections, portfolioCatalog } from './portfolioEvidence.js';
 import { aiIndexStates } from './aiStateGovIndex.js';
 import { experienceEntries } from './experience.js';
 import { namedProjects, requestedFocus } from './portfolioIntent.js';
@@ -57,7 +57,8 @@ export function applyPortfolioAction(view: PortableView | null, input: unknown):
   let composition: Composition;
   switch (action.type) {
     case 'open_project': {
-      const block = { ...blankBlock('story'), projectIds: [action.projectId], focus: action.focus ?? 'role', layout: storyLayout(action.focus) };
+      const focus = action.focus ?? 'role';
+      const block = { ...blankBlock('story'), projectIds: [action.projectId], focus, layout: storyLayout(focus), section: evidenceSections(action.projectId, focus)[0]?.index ?? 0 };
       composition = { blocks: action.append ? [...blocks, block] : [block] };
       break;
     }
@@ -65,11 +66,26 @@ export function applyPortfolioAction(view: PortableView | null, input: unknown):
       composition = { blocks: [{ ...blankBlock('comparison'), projectIds: [action.projectIds[0], action.projectIds[1]], focus: action.focus ?? 'role' }] };
       break;
     case 'compose':
-      composition = { blocks: action.modules.map(module => ({ ...blankBlock(module.kind), ...module, ...normalizeControls(module.kind, module), albumIds: [] })) };
+      composition = { blocks: action.modules.map(module => {
+        const controls = normalizeControls(module.kind, module);
+        return { ...blankBlock(module.kind), ...module, ...controls, albumIds: [], section: module.section ?? (module.kind === 'story' ? evidenceSections(module.projectIds?.[0] ?? '', controls.focus ?? 'role')[0]?.index ?? 0 : 0) };
+      }) };
       break;
     case 'update_module':
       if (!blocks[action.index]) throw new Error('Choose a module that is present in this view.');
-      composition = { blocks: blocks.map((block, index) => index === action.index ? { ...block, ...normalizeControls(block.kind, action.changes) } : block) };
+      composition = { blocks: blocks.map((block, index) => {
+        if(index!==action.index)return block;
+        const controls=normalizeControls(block.kind,action.changes);
+        const changedSubject=controls.projectIds!==undefined&&JSON.stringify(controls.projectIds)!==JSON.stringify(block.projectIds);
+        const changedFocus=controls.focus!==undefined&&controls.focus!==block.focus||controls.layout!==undefined&&controls.layout!==block.layout;
+        const changedSection=controls.section!==undefined&&controls.section!==block.section;
+        return { ...block,
+          ...(changedSubject||changedFocus||changedSection?{paragraphIndices:undefined}:{}),
+          ...controls,
+          ...(block.kind==='story'&&controls.section===undefined&&(changedSubject||changedFocus)
+            ?{section:evidenceSections(controls.projectIds?.[0]??block.projectIds[0],controls.focus??block.focus??'role')[0]?.index??0}:{}),
+        };
+      }) };
       break;
     case 'remove_module':
       if (!blocks[action.index] || blocks.length < 2) throw new Error('Keep at least one module in the view.');

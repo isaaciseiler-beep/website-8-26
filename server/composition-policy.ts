@@ -19,9 +19,19 @@ export function cacheComposition(key:string,composition:Composition){
 }
 export function clearCompositionCache(){cache.clear();}
 export function providerFailure(error:unknown):string {
-  const status=(error as {statusCode?:number})?.statusCode;
-  const message=error instanceof Error?error.message:'';
-  return /credits|insufficient.quota|billing/i.test(message)?'credits':status===401||status===403?'authentication':status===402?'credits':status===429?'rate_limit':status===400?'invalid_request':status===404?'model_unavailable':error instanceof Error&&/timeout|abort/i.test(error.name)?'timeout':/invalid.*composition|schema|validation/i.test(message)?'invalid_output':'provider_unavailable';
+  // SDK errors can wrap the actual provider/timeout failure in `cause`. Inspect
+  // a bounded chain, but return categories only; no raw text reaches visitors.
+  const failures: {name?:unknown;message?:unknown;statusCode?:unknown;cause?:unknown}[]=[];
+  const seen=new Set<unknown>();
+  for(let current=error;current&&typeof current==='object'&&failures.length<5&&!seen.has(current);){
+    seen.add(current);
+    const failure=current as typeof failures[number];
+    failures.push(failure);current=failure.cause;
+  }
+  const status=failures.find(failure=>typeof failure.statusCode==='number')?.statusCode;
+  const message=failures.map(failure=>typeof failure.message==='string'?failure.message:'').join(' ');
+  const names=failures.map(failure=>typeof failure.name==='string'?failure.name:'').join(' ');
+  return /credits|insufficient.quota|billing/i.test(message)?'credits':status===401||status===403?'authentication':status===402?'credits':status===429?'rate_limit':status===400?'invalid_request':status===404?'model_unavailable':/timeout|abort/i.test(names)?'timeout':/invalid.*(?:composition|provider output)|schema|validation|no object generated|no output generated/i.test(message)||/NoObjectGenerated|NoOutputGenerated|TypeValidation|JSONParse/i.test(names)?'invalid_output':'provider_unavailable';
 }
 
 /** Log only recognized diagnostic categories, never provider bodies or visitor text. */

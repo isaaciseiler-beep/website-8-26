@@ -28,7 +28,7 @@ describe("homepage generative interface", () => {
     expect(screen.getByRole('region',{name:'Work explorer'})).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/}));
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
-    expect(screen.queryByRole('button',{name:'Back',exact:true})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button',{name:'Back'})).not.toBeInTheDocument();
     expect(screen.queryByText('Sources')).not.toBeInTheDocument();
   });
 
@@ -41,9 +41,9 @@ describe("homepage generative interface", () => {
     fireEvent.change(screen.getByRole('searchbox',{name:'Find a project'}),{target:{value:'Taiwan'}});
     const project=screen.getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/});
     act(()=>project.focus());fireEvent.click(project);
-    expect(screen.getByRole('heading',{name:'AI literacy in Taiwan',exact:true})).toHaveFocus();
-    fireEvent.click(screen.getByRole('button',{name:'Process',exact:true}));
-    const back=screen.getByRole('button',{name:'Back to projects',exact:true});
+    expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toHaveFocus();
+    fireEvent.click(screen.getByRole('button',{name:'Process'}));
+    const back=screen.getByRole('button',{name:'Back to projects'});
     act(()=>back.focus());fireEvent.click(back);
     expect(screen.getByRole('searchbox',{name:'Find a project'})).toHaveValue('Taiwan');
     expect(screen.getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/})).toHaveFocus();
@@ -67,7 +67,7 @@ describe("homepage generative interface", () => {
     expect(screen.queryByRole('region',{name:'AI benchmark explorer'})).not.toBeInTheDocument();
     expect(screen.getByText('Try one of these starting points.')).toBeInTheDocument();
     expect(fetcher).toHaveBeenCalledTimes(calls+1);
-    expect(screen.queryByRole('button',{name:'Back',exact:true})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button',{name:'Back'})).not.toBeInTheDocument();
     expect(input).toHaveValue('zxq nonsense');
   });
 
@@ -156,7 +156,7 @@ describe("homepage generative interface", () => {
       await act(async()=>{fireEvent.submit(input.closest('form')!);});
       fireEvent.click(screen.getByRole('button',{name:'Copy link to this view'}));
       expect(writeText).toHaveBeenCalledTimes(1);
-      if(change==='manual control')fireEvent.click(screen.getByRole('button',{name:'Evidence',exact:true}));
+      if(change==='manual control')fireEvent.click(screen.getByRole('button',{name:'Evidence'}));
       else if(change==='draft edit')fireEvent.change(input,{target:{value:'unfinished question'}});
       else{
         fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));

@@ -18,7 +18,7 @@ afterEach(()=>{vi.unstubAllEnvs();vi.unstubAllGlobals();vi.useRealTimers();});
 
 describe('optional Jev composition advice',()=>{
   it('returns only known evidence, experience and connection IDs with uncertainty',async()=>{
-    const fetcher=vi.fn(async()=>response());vi.stubGlobal('fetch',fetcher);
+    const fetcher=vi.fn(async(_input:RequestInfo|URL,_init?:RequestInit)=>response());vi.stubGlobal('fetch',fetcher);
     const result=await advise('What connects Isaac’s work?',current,new AbortController().signal);
     expect(result).toMatchObject({provider:'jev',model:'mock-jev',evidence:{projectId:portfolioCatalog[0].id,section:0,probability:.7,confidence:.4},experience:{kind:'timeline'},connection:{connectionId:'systems'}});
     const body=JSON.parse(fetcher.mock.calls[0][1]!.body as string);
@@ -53,7 +53,7 @@ describe('optional Jev composition advice',()=>{
   });
   it('bounds latency even if an evaluator transport ignores its abort signal',async()=>{
     vi.useFakeTimers();
-    const fetcher=vi.fn(()=>new Promise<Response>(()=>{}));vi.stubGlobal('fetch',fetcher);
+    const fetcher=vi.fn((_input:RequestInfo|URL,_init?:RequestInit)=>new Promise<Response>(()=>{}));vi.stubGlobal('fetch',fetcher);
     const pending=advise('A slow advisory question',current,new AbortController().signal);
     await vi.advanceTimersByTimeAsync(751);
     expect(await pending).toBeNull();
@@ -69,7 +69,7 @@ describe('optional Jev composition advice',()=>{
     expect(fetcher).toHaveBeenCalledTimes(2);
   });
   it('reuses successful advice but treats changed control context as a different request',async()=>{
-    const fetcher=vi.fn(async()=>response());vi.stubGlobal('fetch',fetcher);
+    const fetcher=vi.fn(async(_input:RequestInfo|URL,_init?:RequestInit)=>response());vi.stubGlobal('fetch',fetcher);
     await advise('Question',current,new AbortController().signal);
     await advise('Question',current,new AbortController().signal);
     await advise('Question',{blocks:[{...current.blocks[0],focus:'outcomes'}]},new AbortController().signal);

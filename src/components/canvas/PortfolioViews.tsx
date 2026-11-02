@@ -6,6 +6,7 @@ import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import { publicProjects, experienceEntries } from '@/lib/canvas';
 import { blankBlock, type CanvasBlock } from '@/lib/genui';
 import { evidenceFor, evidenceSections, comparisonInsight, sectionPreview, projectAngleAnswer, type EvidenceFocus } from '@/lib/portfolioEvidence';
+import { sectionSearchParts } from '@/lib/portfolioRetrieval';
 
 type Props = { block: CanvasBlock; onChange: (block: CanvasBlock) => void };
 const facets: { value: EvidenceFocus; label: string }[] = [
@@ -21,25 +22,30 @@ function ProjectSources({ links }: { links: ProjectLink[] }) {
 }
 
 function ProjectPassage({section,paragraphs=section.paragraphs}:{section:ProjectSection;paragraphs?:string[]}) {
-  return <>{paragraphs?.map(text=><p key={text}>{text}</p>)}{section.stats&&<dl className="portfolio-results">{section.stats.map(stat=><div key={stat.label}><dt>{stat.label}</dt><dd>{stat.value}</dd></div>)}</dl>}{section.bullets&&<ul>{section.bullets.map(text=><li key={text}>{text}</li>)}</ul>}</>;
+  const quote=section.pullQuote&&!paragraphs?.some(text=>text.includes(section.pullQuote!))?section.pullQuote:null;
+  const stats=section.stats?.filter(stat=>!paragraphs?.some(text=>text.includes(stat.value)));
+  return <>{paragraphs?.map(text=><p key={text}>{text}</p>)}{quote&&<blockquote>{quote}</blockquote>}{Boolean(stats?.length)&&<dl className="portfolio-results">{stats!.map(stat=><div key={stat.label}><dt>{stat.label}</dt><dd>{stat.value}</dd></div>)}</dl>}{section.bullets&&<ul>{section.bullets.map(text=><li key={text}>{text}</li>)}</ul>}</>;
 }
 
 export function ProjectStory({ block, onChange }: Props) {
   const record = evidenceFor(block.projectIds[0]);
   if (!record) return null;
-  const image=record.project.sections.flatMap(section=>section.media??[]).find(media=>media.type==='image'&&media.src);
   const focus = block.focus && block.focus !== 'overview' ? block.focus : block.layout === 'project-process' ? 'process' : block.layout === 'project-outcomes' ? 'outcomes' : block.layout === 'project-evidence' ? 'evidence' : 'role';
   const available = evidenceSections(record.project.id, focus);
   const requested = evidenceSections(record.project.id, 'overview').find(section => section.index === block.section);
-  const sections = block.angle && requested && !available.some(section => section.index === requested.index) ? [...available, requested] : available;
+  const sections = requested && !available.some(section => section.index === requested.index) ? [...available, requested] : available;
   const active = sections.find(section => section.index === block.section) ?? sections[0];
-  const matched = sections.filter(section => matchesPortfolioSearch(block.search ?? '', [section.heading,section.label,...section.paragraphs??[],...section.bullets??[],...section.stats?.flatMap(stat=>[stat.label,stat.value])??[],...section.links?.map(link=>link.label)??[]]));
+  const image=active?.media?.flatMap(media=>media.type==='image'&&media.src?[{src:media.src,alt:media.alt}]:media.images?.map(image=>({src:image.src,alt:image.alt}))??(media.poster?[{src:media.poster,alt:media.title}]:[]))[0]
+    ??record.project.sections.flatMap(section=>section.media??[]).find(media=>media.type==='image'&&media.src);
+  const matched = sections.filter(section => matchesPortfolioSearch(block.search ?? '', [section.label,...sectionSearchParts(section)]))
+    .sort((a,b)=>block.expanded?Number(b.index===block.section)-Number(a.index===block.section):0);
   const materialLinks=record.project.sections.filter(section=>!section.paragraphs?.length&&!section.bullets?.length).flatMap(section=>section.links??[]);
   const angleAnswer=projectAngleAnswer(record.project.id,block.angle,block.section);
-  const preview=sectionPreview(record.project.id,active?.index??0,focus,block.angle);
+  const preview=block.paragraphIndices?.length&&active?.index===block.section?block.paragraphIndices:sectionPreview(record.project.id,active?.index??0,focus,block.angle);
   const previewParagraphs=active?.paragraphs?.filter((_,index)=>preview.includes(index))??[];
-  const deck = angleAnswer??(focus === 'role' ? record.contribution : null);
-  const selectFocus = (value: EvidenceFocus) => onChange({ ...block, focus: value, layout: layoutFor(value), section: evidenceSections(record.project.id, value)[0]?.index ?? 0, expanded: false, angle: undefined });
+  const focusedRole=focus==='role'&&active&&(Boolean(block.paragraphIndices?.length)||block.section!==0||!active.paragraphs?.length);
+  const deck = angleAnswer??(focus === 'role'&&!focusedRole ? record.contribution : null);
+  const selectFocus = (value: EvidenceFocus) => onChange({ ...block, focus: value, layout: layoutFor(value), section: evidenceSections(record.project.id, value)[0]?.index ?? 0, expanded: false, angle: undefined, paragraphIndices: undefined });
   return <section className="portfolio-story" aria-label="Project explorer">
     <div className="portfolio-lead">
       <div>
@@ -54,15 +60,18 @@ export function ProjectStory({ block, onChange }: Props) {
     </div>
     {focus === 'evidence' ? <div className="portfolio-evidence">
       <label className="canvas-field"><span className="sr-only">Find in this project</span><input type="search" maxLength={120} value={block.search ?? ''} onChange={event => onChange({ ...block, search: event.target.value.slice(0, 120) })} placeholder="Find in the published evidence" /></label>
-      {matched.map(section => <details key={section.id}><summary>{section.heading}</summary><ProjectPassage section={section}/></details>)}
+      {matched.map(section => <details key={section.id} open={block.expanded&&section.index===block.section||undefined}><summary>{section.heading}</summary><ProjectPassage section={section}/>{Boolean(section.links?.length)&&<div className="portfolio-evidence-links">{section.links!.map(link=><a key={link.href} href={link.href} target="_blank" rel="noreferrer">{link.label}<ArrowUpRight size={14} aria-hidden="true"/></a>)}</div>}{section.media?.map((media,index)=>{
+        const href=media.href??media.src;
+        if(media.images?.length)return <div className="portfolio-evidence-media" key={`${section.id}:media:${index}`}>{media.images.map(image=><figure key={image.src}><a href={image.src} target="_blank" rel="noreferrer"><img src={image.src} alt={image.alt} loading="lazy"/></a>{image.caption&&<figcaption>{image.caption}</figcaption>}</figure>)}</div>;
+        return href&&media.type!=='placeholder'?<a className="portfolio-inline-action" key={`${section.id}:media:${index}`} href={href} target="_blank" rel="noreferrer">{media.title??media.caption??media.alt??'View published material'}<ArrowUpRight size={14} aria-hidden="true"/></a>:media.caption?<p key={`${section.id}:media:${index}`}>{media.caption}</p>:null;
+      })}</details>)}
       {!matched.length && <p>No matching evidence in this project.</p>}
-      <ProjectSources key={'sources:'+record.project.id} links={record.project.sections.flatMap(section=>section.links??[])} />
     </div> : focus === 'role' ? <div className="portfolio-role-summary">
-      {!angleAnswer&&<p>{record.outcome}</p>}
+      {!angleAnswer&&(focusedRole?<article className="portfolio-section-text"><h3>{active!.heading}</h3><ProjectPassage section={active!} paragraphs={block.expanded?active!.paragraphs:previewParagraphs}/>{active!.paragraphs?.some((_,index)=>!preview.includes(index))&&<button className="portfolio-inline-action" onClick={()=>onChange({...block,expanded:!block.expanded})}>{block.expanded?'Show less':'Continue reading'}<ChevronDown size={14} aria-hidden="true"/></button>}<ProjectSources key={'sources:'+record.project.id} links={[...active!.links??[],...materialLinks]}/></article>:<p>{record.outcome}</p>)}
       <button className="portfolio-inline-action" onClick={() => selectFocus('process')}>Explore how it happened<ArrowUpRight size={15} aria-hidden="true" /></button>
     </div> : active && <div className={`portfolio-section-explorer${sections.length===1?' is-single':''}`}>
       {sections.length>1&&<nav className="portfolio-section-nav" aria-label={focus === 'outcomes' ? 'Published outcomes' : 'Project process steps'}>
-        {sections.map((section, index) => <button key={section.id} aria-pressed={active.index === section.index} onClick={() => onChange({ ...block, section: section.index, expanded: false, angle: undefined })}><span>{String(index + 1).padStart(2, '0')}</span>{section.label}</button>)}
+        {sections.map((section, index) => <button key={section.id} aria-pressed={active.index === section.index} onClick={() => onChange({ ...block, section: section.index, expanded: false, angle: undefined, paragraphIndices: undefined })}><span>{String(index + 1).padStart(2, '0')}</span>{section.label}</button>)}
       </nav>}
       <article className="portfolio-section-text">
         <h3>{record.project.id==='senior-thesis-local-journalism'&&active.index===1?active.label:active.heading}</h3>
@@ -74,7 +83,7 @@ export function ProjectStory({ block, onChange }: Props) {
         <ProjectSources key={'sources:'+record.project.id} links={[...active.links??[],...materialLinks]} />
       </article>
     </div>}
-    <details className="portfolio-change-project"><summary>Explore another project</summary><label><span className="sr-only">Project</span><select aria-label="Project" value={record.project.id} onChange={event => onChange({ ...blankBlock('story'), projectIds: [event.target.value] })}>{publicProjects.map(project => <option key={project.id} value={project.id}>{project.title}</option>)}</select></label></details>
+    <details className="portfolio-change-project"><summary>Explore another project</summary><label><span className="sr-only">Project</span><select aria-label="Project" value={record.project.id} onChange={event => onChange({ ...blankBlock('story'), projectIds: [event.target.value], focus, layout: layoutFor(focus), section: evidenceSections(event.target.value,focus)[0]?.index??0 })}>{publicProjects.map(project => <option key={project.id} value={project.id}>{project.title}</option>)}</select></label></details>
   </section>;
 }
 
@@ -116,7 +125,7 @@ const careerPaths: Record<string, {label:string;title:string}> = {
 export function CareerExplorer({ block, onChange }: Props) {
   if (block.answerId === 'connections') return <ConnectionsExplorer block={block} onChange={onChange} />;
   const answer=block.answerId?careerAnswers[block.answerId]:undefined;
-  const roleIds=answer?.roles??(block.angle==='leadership'?['fulbright-taiwan','us-house','washu-head-ta']:block.section===2?['us-house','csg-ai-index','fulbright-taiwan','scholten-campaign']:block.section===1?['csg-ai-index','fulbright-taiwan','us-house','summation-ai']:['summation-ai','fulbright-taiwan','csg-ai-index','us-house','openai-chatgpt-lab']);
+  const roleIds=answer?.roles??(block.angle==='leadership'?['fulbright-taiwan','us-house','washu-head-ta']:block.section===2?['us-house','csg-ai-index','fulbright-taiwan','scholten-campaign']:block.section===1?['csg-ai-index','fulbright-taiwan','us-house','summation-ai']:Object.keys(careerPaths));
   // A specifically requested role remains reachable without turning this into a résumé index.
   const ids=block.roleId&&!roleIds.includes(block.roleId)?[...roleIds,block.roleId]:roleIds;
   const entries=ids.flatMap(id=>experienceEntries.filter(entry=>entry.id===id));

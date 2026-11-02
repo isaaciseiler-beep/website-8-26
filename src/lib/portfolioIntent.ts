@@ -1,13 +1,14 @@
 import { careerAnswerFor, careerConnectionFor } from './careerAnswers.js';
 import { portfolioCatalog } from './portfolioEvidence.js';
 import type { EvidenceFocus } from './portfolioEvidence.js';
+import { findPublishedProject } from './portfolioRetrieval.js';
 
 export const POLICY_ID = 'artificial-intelligence-in-state-government-index';
 export const TAIWAN_ID = 'fulbright-focus-group-sponsored-by-openai';
 export const portfolioAngles = ['leadership', 'tradeoffs', 'measurement', 'reflection', 'counterfactual'] as const;
 export type PortfolioAngle = typeof portfolioAngles[number];
 export function requestedAngle(text:string):PortfolioAngle|undefined {
-  return /differently|would.*change|do over/i.test(text)?'counterfactual':/learn|lessons|takeaways/i.test(text)?'reflection':/\blead(?:ership|ing)|\bled\b/i.test(text)?'leadership':/\btrade.?offs?|\bcompromises?|\bchallenges?|\bfailures?|\blimitations?|\bdecisions?\b/i.test(text)?'tradeoffs':/\bmeasur|\bevaluat|\bsuccess|whether.*work|^did .*\bwork\b/i.test(text)?'measurement':undefined;
+  return /differently|would.*change|do over/i.test(text)?'counterfactual':/learn|lessons|takeaways|\b(?:teach|taught) (?:isaac|you|him|me)\b/i.test(text)?'reflection':/\blead(?:ership|ing)|\bled\b/i.test(text)?'leadership':/\btrade.?offs?|\bcompromises?|\bchallenges?|\bfailures?|\blimitations?|\b(?:what|which) decisions?\b|\bdecid(?:e|ed)\b/i.test(text)?'tradeoffs':/\bmeasur|\bevaluat|\bsuccess|whether.*work|^did .*\bwork\b/i.test(text)?'measurement':undefined;
 }
 export type PortfolioTask = 'story' | 'benchmark' | 'comparison' | 'timeline' | 'architecture' | 'contact' | 'collection' | 'unknown';
 export type PortfolioInterpretation = { task: PortfolioTask; projectIds: string[]; focus: EvidenceFocus; roleId?: string; followup: boolean; explicit: boolean };
@@ -15,25 +16,26 @@ export type PortfolioInterpretation = { task: PortfolioTask; projectIds: string[
 const subjects: [string, RegExp][] = [
   [POLICY_ID, /\b(?:ai policy|state governments?|government ai|ai government|ai in government|benchmark|preparedness|ai adoption|government index|genai|policy project|ai scores?|ai evidence|score distribution|score histogram|distribution of (?:ai )?scores|histogram of (?:ai )?scores|score bands?)\b|map(?:ped|ping)?\b.*\bai\b/i],
   [TAIWAN_ID, /\b(?:taiwan|fulbright|teach\w*|educat\w*|workshops?|classrooms?|literacy)\b/i],
-  ['openai-product-testing-and-feedback', /\b(?:openai|product test\w*|test(?:ing|ed)? (?:ai )?products?|product feedback|chatgpt(?: lab)?|study mode|pulse|atlas|100 chats|group chats)\b/i],
-  ['senior-thesis-local-journalism', /\b(?:journalis\w*|australia\w*|thesis|newsrooms?)\b/i],
+  ['openai-product-testing-and-feedback', /\b(?:openai|product test\w*|test(?:ing|ed)? (?:ai )?products?|product feedback|chatgpt(?: lab)?|study mode|pulse|atlas|100 chats|group chats|back to school)\b/i],
+  ['senior-thesis-local-journalism', /\b(?:journalism|journalistic|australia\w*|thesis|newsrooms?|news business models?|bargaining codes?|qualitative interviews?|verified transcripts?)\b/i],
   ['congressional-office-setup-100-day-report', /\b(?:congress\w*|scholten|100 days?|congressional office)\b/i],
   ['boehringer-cares-foundation-rebrand-strategy-shift', /\b(?:boehringer|rebrand\w*|brand rollout)\b/i],
 ];
 
 export function namedProjects(text: string): string[] {
   const matches = subjects.flatMap(([id, pattern]) => { const match = pattern.exec(text); return match ? [{ id, position: match.index }] : []; });
-  const namedProduct=/\b(?:study mode|pulse|atlas|group chats?|100 chats)\b/i.test(text);
+  const namedProduct=/\b(?:study mode|pulse|atlas|group chats?|100 chats|back to school)\b/i.test(text);
   const comparison=/compare|versus|\bvs\b/i.test(text);
   const teachingSubject=/fulbright|teach\w*|educat\w*|workshops?|classrooms?|literacy|taiwan (?:program|lab|sessions?)/i.test(text);
+  const productLesson=/product test\w*|product feedback|chatgpt lab/i.test(text)&&!/taiwan|fulbright|educators?|teachers?|workshops?|classrooms?|literacy/i.test(text);
   // OpenAI supports the Taiwan program; its name alone does not introduce a second project.
-  const filtered=namedProduct&&!comparison&&!teachingSubject?matches.filter(m=>m.id!==TAIWAN_ID)
+  const filtered=(namedProduct&&!teachingSubject||productLesson)&&!comparison?matches.filter(m=>m.id!==TAIWAN_ID)
     :matches.some(m=>m.id===TAIWAN_ID)&&!namedProduct&&!comparison&&!/product test|product feedback/i.test(text)?matches.filter(m=>m.id!=='openai-product-testing-and-feedback'):matches;
   return filtered.sort((a, b) => a.position - b.position).map(m => m.id);
 }
 
 export function requestedFocus(text: string): EvidenceFocus | null {
-  if (/\b(?:evidence|sources?|proof|notebook)\b/i.test(text)) return 'evidence';
+  if (/\b(?:evidence|sources?|proof|notebook|materials|slides|downloads?)\b|\bread\b.*\b(?:report|thesis|paper)\b|^where\b.*\b(?:methodology|spreadsheet|recommendations|report|thesis|workspace|website)\b/i.test(text)) return 'evidence';
   if (/\b(?:outcomes?|results?|impact|takeaways?|learn(?:ed)?|lessons?|findings?|discover\w*|accomplish\w*|achievements?)\b|\bwhat changed\b.*\b(?:result|because)\b/i.test(text)) return 'outcomes';
   if (/\b(?:process|steps?|methodology|methods?|approach|calculated)\b|\bhow\b.*\b(?:did|built|build|map|design|work|make|made|deliver|execute)\b/i.test(text)) return 'process';
   if (/\b(?:role|personally|contribut\w*|responsibilit\w*|own(?:ed)?)\b|\bwhat\b.*\b(?:did|built|build)\b/i.test(text)) return 'role';
@@ -44,13 +46,14 @@ export function requestedFocus(text: string): EvidenceFocus | null {
 export function personalProjectFocus(text:string):EvidenceFocus|null {
   const primary=text.split(/\b(?:and|alongside|plus|as well as)\b/i)[0];
   const focus=requestedFocus(primary);
-  return (focus==='process'||focus==='role')&&/\b(?:isaac|you|your|he|his)\b/i.test(primary)?focus:null;
+  if(!/\b(?:isaac|you|your|he|his)\b/i.test(primary))return null;
+  return focus==='process'||focus==='role'?focus:/\b(?:describe|characteriz\w*)\b/i.test(primary)?'role':null;
 }
 
 export function interpretPortfolioRequest(text: string, previous: { projectIds?: string[]; task?: PortfolioTask; focus?: EvidenceFocus } = {}): PortfolioInterpretation {
   const q = text.toLowerCase().trim();
   const projectIds = namedProjects(q);
-  const contextualQuestion = /^(?:and )?(?:what (?:were|are|was|is) (?:the |his |your |its |their )?(?:results?|outcomes?|impact|takeaways?|role|contribution|responsibilities|process|approach)|what did (?:he|you|they) (?:learn|contribute|build)|how did (?:he|you|they) (?:do (?:it|this|that)|approach (?:it|this|that)|build (?:it|this|that))|(?:show|explain)(?: me)? (?:the |his |your )?(?:results?|outcomes?|process|evidence|contribution)|(?:the )?(?:results?|outcomes?|process|evidence|contribution))[?.!]*$/i.test(q);
+  const contextualQuestion = /^(?:and )?(?:what (?:were|are|was|is) (?:the |his |your |its |their )?(?:results?|outcomes?|impact|takeaways?|role|contribution|responsibilities|process|approach|findings?|sources?|materials|evidence)|what did (?:he|you|they) (?:learn|contribute|build)|how did (?:he|you|they) (?:do (?:it|this|that)|approach (?:it|this|that)|build (?:it|this|that))|(?:show|explain)(?: me)? (?:the |his |your )?(?:results?|outcomes?|process|evidence|contribution|findings?|sources?|materials)|(?:the )?(?:results?|outcomes?|process|evidence|contribution|findings?|sources?|materials))[?.!]*$/i.test(q);
   const shortFollowup=/^(?:what did (?:he|you|they) (?:actually |really )?(?:learn|contribute|build|change)(?: from (?:it|this|that))?|how did (?:he|you|they) make (?:it|this|that) happen|what changed as a result|what (?:is|was) the evidence for (?:it|this|that)|what would (?:he|you|they) (?:do differently|change)|did (?:it|this|that|the program) (?:actually |really )?work|how do (?:they|these|those|the two) compare(?: (?:on|in terms of) (?:outcomes?|results?|methods?|process|contributions?))?|how (?:were|are) (?:their|the) (?:methods|approaches|outcomes|results) different)[?.!]*$/i.test(q);
   const followup = (!projectIds.length || projectIds.every(id=>previous.projectIds?.includes(id))) && (contextualQuestion || shortFollowup || /^(?:tell me more|more about|expand|details|(?:show|open)(?: me)? (?:the )?(?:first|second|former|latter)(?: one| project)?|(?:can|could) i (?:see|open) (?:the )?(?:first|second|former|latter)(?: one| project)?|the first|the second|first one|second one|compare (?:these|those|them)|what about (?:this|that|the process|the outcomes|the role|the evidence)|why(?:[?.!]*$| (?:this|that|those|these)\b)|and\b|only\b|use\b|show (?:the )?(?:process|outcomes|evidence)|(?:the )?(?:process|outcomes|contribution|evidence)\b)/i.test(q));
   const focus = requestedFocus(q) ?? (followup ? previous.focus ?? 'overview' : 'overview');
@@ -80,5 +83,7 @@ export function interpretPortfolioRequest(text: string, previous: { projectIds?:
   const words = q.match(/[a-z]{4,}/g)?.filter(word => !['what','does','your','isaac','about','tell','please','would','could','have','from','with','that','this','work','project','projects','really','there','which'].includes(word)) ?? [];
   const ranked = portfolioCatalog.map(p => ({ id: p.id, hits: words.filter(word => `${p.title} ${p.role}`.toLowerCase().includes(word)).length })).sort((a,b) => b.hits-a.hits);
   if (ranked[0]?.hits >= 2 && ranked[0].hits > (ranked[1]?.hits ?? 0)) return result('story', [ranked[0].id]);
+  const retrieved = findPublishedProject(q);
+  if (retrieved) return result('story', [retrieved], { explicit: true });
   return result('unknown', []);
 }

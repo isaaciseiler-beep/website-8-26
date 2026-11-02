@@ -1,38 +1,72 @@
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createServer } from 'vite';
+import { portfolioSectionQuestions } from '../evals/portfolio-section-cases.mjs';
+import { evaluateAuthored, evaluateDeployment, evaluationOptions } from './portfolio-evaluation.mjs';
 
-const base=(process.env.PORTFOLIO_EVAL_URL||'http://127.0.0.1:8080').replace(/\/$/,'');
-const cases=JSON.parse(fs.readFileSync(new URL('../evals/portfolio-cases.json',import.meta.url),'utf8')).slice(0,Number(process.env.PORTFOLIO_EVAL_LIMIT)||Infinity);
-const requireLive=process.env.PORTFOLIO_REQUIRE_LIVE==='1';
-const compose=process.env.PORTFOLIO_EVAL_COMPOSE==='1'||requireLive;
-const interval=Number(process.env.PORTFOLIO_EVAL_INTERVAL_MS??(requireLive?5500:1100));
-const composeLimit=Number(process.env.PORTFOLIO_EVAL_COMPOSE_LIMIT??(requireLive?Infinity:1));
-const content=await fetch(base+'/api/public/profile').then(response=>response.json());
-if(!content.contentVersion)throw new Error('No public content version at this deployment');
-const results=[];
-function matches(test,block){return Boolean(block&&block.kind===test.kind&&(!test.project||block.projectIds.includes(test.project))&&(!test.projects||JSON.stringify(block.projectIds)===JSON.stringify(test.projects))&&(!test.states||JSON.stringify(block.states)===JSON.stringify(test.states))&&(!test.focus||block.focus===test.focus)&&(!test.roleId||block.roleId===test.roleId));}
-for(const [index,test] of cases.entries()){
-  if(index>0&&interval>0)await new Promise(resolve=>setTimeout(resolve,interval));
-  const started=performance.now();
-  try{
-    const response=await fetch(base+'/api/intent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({draft:test.question,revision:index+1,contentVersion:content.contentVersion})});
-    const routed=await response.json();
-    const ok=response.ok&&(test.guidance?routed.guidance===test.guidance:matches(test,routed.composition?.blocks?.[0]));
-    const row={id:test.id,ok,router:routed.plan?.source,reason:routed.reason,guidance:routed.guidance,layout:routed.composition?.blocks?.[0]?.layout,focus:routed.composition?.blocks?.[0]?.focus,requestId:routed.requestId,routing:routed.routing};
-    if(compose&&(test.kind||test.guidance==='unmatched')&&index<composeLimit&&routed.needsComposition!==false){
-      const generated=await fetch(base+'/api/compose',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({draft:test.question,revision:index+1,contentVersion:content.contentVersion,current:routed.composition,proposed:routed.composition})});
-      const text=await generated.text();
-      const events=text.trim().split('\n').filter(Boolean).map(line=>JSON.parse(line));
-      const last=events.findLast(event=>event.type==='composition'&&!event.partial);
-      const guidance=events.findLast(event=>event.type==='guidance');
-      row.composer=last?.model??guidance?.model;row.compositionOk=test.guidance?guidance?.guidance===test.guidance:Boolean(last&&matches(test,last.composition.blocks[0]));row.compositionReason=events.find(event=>event.type==='unavailable')?.reason;
-      if(!row.compositionOk)row.ok=false;
-      else row.ok=response.ok;
+const help = `Portfolio evaluation
+
+Default: offline authored routing, no network or model calls.
+  npm run eval:portfolio
+  npm run eval:portfolio -- --corpus=sections
+
+After deployment, one explicitly authorized live case (may also call optional Jev):
+  PORTFOLIO_EVAL_MODE=live PORTFOLIO_EVAL_ALLOW_MODEL_CALLS=1 PORTFOLIO_EVAL_URL=https://seiler.page npm run eval:portfolio -- --corpus=sections
+
+Run all 32 live section cases deliberately:
+  PORTFOLIO_EVAL_MODE=live PORTFOLIO_EVAL_ALLOW_MODEL_CALLS=1 PORTFOLIO_EVAL_URL=https://seiler.page PORTFOLIO_EVAL_LIMIT=32 npm run eval:portfolio -- --corpus=sections
+
+Options (environment variables):
+  PORTFOLIO_EVAL_CORPUS=routing|sections (default routing)
+  PORTFOLIO_EVAL_LIMIT (offline: full corpus; live: 1; 0 makes no model requests)
+  PORTFOLIO_EVAL_COMPOSE_LIMIT (live: selected cases)
+  PORTFOLIO_EVAL_MAX_POST_REQUESTS (live: twice selected cases)
+  PORTFOLIO_EVAL_INTERVAL_MS (live: 6000, offline: 0)
+  PORTFOLIO_EVAL_TIMEOUT_MS (default 25000 per HTTP request)
+  PORTFOLIO_REQUIRE_LIVE=1 (also requires the explicit model-call opt-in; cached or authored responses do not satisfy fresh execution)
+  PORTFOLIO_EVAL_OUTPUT=/path/to/report.json (optional; stdout always contains JSON)
+
+POST budgets count endpoints, not upstream calls: /intent may call Jev and /compose may call both Mistral and optional Jev advice. No automatic retries.
+Configuration GETs are not counted as provider health or execution evidence.
+`;
+
+async function main() {
+  const env = { ...process.env };
+  for (const argument of process.argv.slice(2)) {
+    if (argument === '--help' || argument === '-h') { console.log(help); return; }
+    if (argument.startsWith('--corpus=')) env.PORTFOLIO_EVAL_CORPUS = argument.slice('--corpus='.length);
+    else throw new Error('Unknown option. Use --help for supported options.');
+  }
+  const corpus = env.PORTFOLIO_EVAL_CORPUS || 'routing';
+  if (!['routing', 'sections'].includes(corpus)) throw new Error('PORTFOLIO_EVAL_CORPUS must be routing or sections.');
+  const cases = corpus === 'sections' ? portfolioSectionQuestions : JSON.parse(fs.readFileSync(new URL('../evals/portfolio-cases.json', import.meta.url), 'utf8'));
+  const options = evaluationOptions(env, cases.length);
+  // Load the site's actual pure planning functions without starting HTTP/HMR,
+  // loading environment files, or importing any API/provider implementations.
+  const root = fileURLToPath(new URL('../', import.meta.url));
+  const server = await createServer({ root, configFile: false, envFile: false, appType: 'custom', server: { middlewareMode: true, hmr: false, ws: false }, optimizeDeps: { noDiscovery: true, include: [] }, logLevel: 'error' });
+  try {
+    const canvas = await server.ssrLoadModule('/src/lib/canvas.ts');
+    const genui = await server.ssrLoadModule('/src/lib/genui.ts');
+    const runtime = {
+      contentVersion: canvas.CONTENT_VERSION,
+      plan: (question, revision) => genui.resolveCanvasPlan(question, canvas.initialPlan(), revision),
+      compose: (question, revision) => genui.composeLocal(question, genui.resolveCanvasPlan(question, canvas.initialPlan(), revision)),
+      guidance: question => genui.explorationGuidance(question),
+      validate: value => genui.validateComposition(value),
+    };
+    const result = options.mode === 'live' ? await evaluateDeployment(cases, runtime, options) : evaluateAuthored(cases, runtime, options);
+    const report = { corpus, capturedAt: new Date().toISOString(), ...result };
+    const json = JSON.stringify(report, null, 2) + '\n';
+    if (env.PORTFOLIO_EVAL_OUTPUT) {
+      const destination = path.resolve(env.PORTFOLIO_EVAL_OUTPUT);
+      fs.mkdirSync(path.dirname(destination), { recursive: true });
+      fs.writeFileSync(destination, json);
     }
-    // A configured direct-composition route is not live evidence by itself.
-    if(requireLive&&test.guidance!=='welcome'&&routed.plan?.source!=='jev'&&!(row.composer&&row.compositionOk))row.ok=false;
-    results.push({...row,ms:Math.round(performance.now()-started)});
-  }catch(error){results.push({id:test.id,ok:false,error:error instanceof Error?error.message:String(error)});}
+    console.log(json);
+    if (report.failed || report.error || report.skipped) process.exitCode = 1;
+  } finally { await server.close(); }
 }
-const summary={base,contentVersion:content.contentVersion,cases:results.length,passed:results.filter(row=>row.ok).length,liveRouting:results.filter(row=>row.router==='jev').length,liveComposition:results.filter(row=>row.composer).length,results};
-console.log(JSON.stringify(summary,null,2));
-if(summary.passed!==summary.cases)process.exitCode=1;
+
+main().catch(error => { console.error(`Portfolio evaluation: ${error instanceof Error ? error.message : 'Evaluation failed'}`); process.exitCode = 1; });

@@ -5,6 +5,20 @@ import { applyPortfolioAction, changeHistory, createPortableView, decodeView, en
 
 const story = () => applyPortfolioAction(null, { type: 'open_project', projectId: TAIWAN_ID, focus: 'process' });
 describe('portable portfolio views', () => {
+  it('opens the requested focus section and preserves explicit section choices', () => {
+    const projectId = 'boehringer-cares-foundation-rebrand-strategy-shift';
+    const opened = applyPortfolioAction(null, { type: 'open_project', projectId, focus: 'outcomes' });
+    expect(opened.composition.blocks[0]).toMatchObject({ focus: 'outcomes', section: 3 });
+    const composed = applyPortfolioAction(null, { type: 'compose', modules: [{ kind: 'story', projectIds: [projectId], focus: 'outcomes' }] });
+    expect(composed.composition.blocks[0].section).toBe(3);
+    const explicit = applyPortfolioAction(null, { type: 'compose', modules: [{ kind: 'story', projectIds: [projectId], focus: 'outcomes', section: 2 }] });
+    expect(explicit.composition.blocks[0].section).toBe(2);
+    expect(applyPortfolioAction(opened, { type: 'update_module', index: 0, changes: { focus: 'process' } }).composition.blocks[0].section).toBe(1);
+    expect(applyPortfolioAction(opened, { type: 'update_module', index: 0, changes: { focus: 'process', section: 2 } }).composition.blocks[0].section).toBe(2);
+    const passage = applyPortfolioAction(null, { type: 'compose', modules: [{ kind: 'story', projectIds: [projectId], focus: 'process', section: 2, paragraphIndices: [0] }] });
+    expect(applyPortfolioAction(passage, { type: 'update_module', index: 0, changes: { layout: 'project-outcomes' } }).composition.blocks[0]).toMatchObject({ section: 3, paragraphIndices: undefined });
+    expect(applyPortfolioAction(passage, { type: 'update_module', index: 0, changes: { projectIds: [projectId], focus: 'process', layout: 'project-process', expanded: true } }).composition.blocks[0]).toMatchObject({ section: 2, paragraphIndices: [0], expanded: true });
+  });
   it('preserves the first module and its controls through append, reorder, edit and remove', () => {
     const original = applyPortfolioAction(null, { type: 'compose', modules: [{ kind: 'benchmark', states: ['Michigan', 'California'], layout: 'benchmark-compare', metric: 'preparednessScore' }] });
     const appended = applyPortfolioAction(original, { type: 'open_project', projectId: TAIWAN_ID, append: true });

@@ -82,12 +82,20 @@ describe('interactive composition contracts',()=>{
     expect(output?.blocks).toHaveLength(2);
     expect(output?.blocks[0]).toMatchObject({kind:'story',projectIds:[TAIWAN_ID]});
     expect(output?.blocks[1]).toMatchObject({kind:'benchmark',states:['Michigan'],layout:'benchmark-scorecard'});
+    expect(compose(text).blocks.map(block=>block.kind)).toEqual(['story','benchmark']);
+    expect(compose(text).blocks[1]).toMatchObject({states:['Michigan'],layout:'benchmark-scorecard'});
+    const previous=compose(text);
+    const followup=composeLocal('Show sources',initialPlan(),previous);
+    expect(followup.blocks).toHaveLength(2);
+    expect(followup.blocks[0]).toMatchObject({kind:'story',focus:'evidence'});
+    expect(followup.blocks[1]).toEqual(previous.blocks[1]);
   });
   it('retains an explicitly requested career view alongside a project story',()=>{
     const text='Explain the Taiwan program and show Isaac’s career';
     const story=compose('Taiwan teaching').blocks[0];
     const timeline=compose('Show Isaac’s career').blocks[0];
     expect(reconcileComposition(text,{blocks:[story,timeline]},compose(text))?.blocks.map(block=>block.kind)).toEqual(['story','timeline']);
+    expect(compose(text).blocks.map(block=>block.kind)).toEqual(['story','timeline']);
     expect(reconcileComposition('Explain the Taiwan program',{blocks:[story,timeline]},compose(text))?.blocks.map(block=>block.kind)).toEqual(['story']);
   });
   it('keeps an actual government comparison alongside an explicitly requested career view',()=>{
@@ -97,6 +105,36 @@ describe('interactive composition contracts',()=>{
     const result=reconcileComposition(text,{blocks:[benchmark,timeline]},compose(text));
     expect(result?.blocks.map(block=>block.kind)).toEqual(['benchmark','timeline']);
     expect(result?.blocks[0].states).toEqual(['Michigan','California']);
+    expect(compose(text).blocks.map(block=>block.kind)).toEqual(['benchmark','timeline']);
+    expect(compose(text).blocks[0].states).toEqual(['Michigan','California']);
+  });
+  it('does not split ordinary conjunctions, duplicate modules, or unsupported companion requests',()=>{
+    expect(compose('Compare Michigan and California').blocks).toHaveLength(1);
+    expect(compose('Show Taiwan alongside Taiwan').blocks).toHaveLength(1);
+    expect(compose('Explain Taiwan teaching alongside a dinner recipe').blocks).toHaveLength(1);
+    expect(compose('Explain Taiwan teaching and show contact details and explain the site architecture').blocks.map(block=>block.kind)).toEqual(['story','contact','architecture']);
+  });
+  it.each([
+    'Explain Taiwan teaching; show Isaac’s current role',
+    'Explain Taiwan teaching alongside what Isaac learned in the ChatGPT Lab',
+    'Explain Congress press outreach alongside what Isaac learned in Taiwan',
+    'Compare Taiwan and OpenAI product testing and show Isaac’s current role',
+  ])('reconciles each requested subject against its own clause: %s',text=>{
+    const baseline=compose(text);
+    expect(baseline.blocks).toHaveLength(2);
+    const result=reconcileComposition(text,baseline,baseline);
+    expect(result?.blocks.map(block=>({kind:block.kind,projectIds:block.projectIds,section:block.section,answerId:block.answerId}))).toEqual(baseline.blocks.map(block=>({kind:block.kind,projectIds:block.projectIds,section:block.section,answerId:block.answerId})));
+  });
+  it.each([
+    'Show photos from Taiwan alongside show Isaac’s current role',
+    'Show photos from Taiwan and Isaac’s current role',
+    'Show Isaac’s current role and photos from Taiwan',
+  ])('does not borrow a work subject from an excluded photo clause: %s',text=>{
+    const baseline=compose(text);
+    expect(baseline.blocks).toHaveLength(1);
+    expect(baseline.blocks[0]).toMatchObject({kind:'timeline',answerId:'current'});
+    expect(reconcileComposition(text,{blocks:[{...blankBlock('story'),projectIds:[TAIWAN_ID]}]},baseline)).toEqual(baseline);
+    expect(resolveCanvasPlan(text,initialPlan(),1).layout).toBe('timeline');
   });
   it('preserves other modules while applying a local benchmark refinement',()=>{
     const previous={blocks:[{...blankBlock('story'),projectIds:[TAIWAN_ID],section:1,search:'community'},...compose('Compare Michigan and California').blocks]};

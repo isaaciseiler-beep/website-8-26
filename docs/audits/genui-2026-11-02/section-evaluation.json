@@ -1,0 +1,1101 @@
+{
+  "corpus": "sections",
+  "capturedAt": "2026-11-02T20:03:22.260Z",
+  "mode": "authored",
+  "contentVersion": "canvas-2026-11-02-v13",
+  "postRequests": 0,
+  "compositionRequests": 0,
+  "providerClaims": "Offline local composition only. No network requests, provider calls, or model-quality claims.",
+  "cases": 32,
+  "selected": 32,
+  "notSelected": 0,
+  "evaluated": 32,
+  "passed": 32,
+  "failed": 0,
+  "skipped": 0,
+  "selectionMatches": 32,
+  "sectionMatches": 32,
+  "paragraphAnyMatches": 24,
+  "paragraphFullMatches": 12,
+  "strictMatches": 18,
+  "provenance": {
+    "local_authored": 32
+  },
+  "coverage": [
+    {
+      "projectId": "artificial-intelligence-in-state-government-index",
+      "expectedSections": [
+        0,
+        1,
+        2
+      ],
+      "evaluatedSections": [
+        0,
+        1,
+        2
+      ],
+      "matchedSections": [
+        0,
+        1,
+        2
+      ],
+      "providerReportedSections": [],
+      "expectedParagraphs": [
+        "0:2"
+      ],
+      "matchedParagraphs": [
+        "0:2"
+      ],
+      "providerReportedParagraphs": []
+    },
+    {
+      "projectId": "congressional-office-setup-100-day-report",
+      "expectedSections": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "evaluatedSections": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "matchedSections": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "providerReportedSections": [],
+      "expectedParagraphs": [
+        "0:1",
+        "1:3",
+        "2:1",
+        "2:2",
+        "3:2",
+        "3:3",
+        "4:0",
+        "4:1",
+        "5:0",
+        "5:1",
+        "6:0"
+      ],
+      "matchedParagraphs": [
+        "0:1",
+        "1:3",
+        "2:1",
+        "3:2",
+        "4:0",
+        "5:0",
+        "5:1",
+        "6:0"
+      ],
+      "providerReportedParagraphs": []
+    },
+    {
+      "projectId": "senior-thesis-local-journalism",
+      "expectedSections": [
+        0,
+        1,
+        2
+      ],
+      "evaluatedSections": [
+        0,
+        1,
+        2
+      ],
+      "matchedSections": [
+        0,
+        1,
+        2
+      ],
+      "providerReportedSections": [],
+      "expectedParagraphs": [
+        "0:1",
+        "0:2"
+      ],
+      "matchedParagraphs": [
+        "0:2"
+      ],
+      "providerReportedParagraphs": []
+    },
+    {
+      "projectId": "fulbright-focus-group-sponsored-by-openai",
+      "expectedSections": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "evaluatedSections": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "matchedSections": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "providerReportedSections": [],
+      "expectedParagraphs": [
+        "0:1",
+        "1:3",
+        "1:4",
+        "2:0",
+        "2:1",
+        "3:1",
+        "3:2",
+        "4:1",
+        "4:2"
+      ],
+      "matchedParagraphs": [
+        "0:1",
+        "1:3",
+        "3:1",
+        "4:2"
+      ],
+      "providerReportedParagraphs": []
+    },
+    {
+      "projectId": "boehringer-cares-foundation-rebrand-strategy-shift",
+      "expectedSections": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "evaluatedSections": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "matchedSections": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "providerReportedSections": [],
+      "expectedParagraphs": [
+        "0:0",
+        "1:0",
+        "1:1",
+        "2:0",
+        "2:1",
+        "3:0",
+        "3:1"
+      ],
+      "matchedParagraphs": [
+        "0:0",
+        "1:1",
+        "2:0",
+        "3:0"
+      ],
+      "providerReportedParagraphs": []
+    },
+    {
+      "projectId": "openai-product-testing-and-feedback",
+      "expectedSections": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "evaluatedSections": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "matchedSections": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "providerReportedSections": [],
+      "expectedParagraphs": [
+        "0:0",
+        "0:1",
+        "1:1",
+        "2:1",
+        "3:1",
+        "4:1",
+        "5:1",
+        "6:1",
+        "7:0",
+        "7:1"
+      ],
+      "matchedParagraphs": [
+        "0:0",
+        "2:1",
+        "3:1",
+        "4:1",
+        "5:1",
+        "6:1",
+        "7:0"
+      ],
+      "providerReportedParagraphs": []
+    }
+  ],
+  "results": [
+    {
+      "id": "artificial-intelligence-in-state-government-index:section:0",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index"
+        ],
+        "section": 0,
+        "paragraphIndices": [
+          2
+        ],
+        "layout": "project-outcomes",
+        "focus": "outcomes",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 9
+    },
+    {
+      "id": "artificial-intelligence-in-state-government-index:section:1",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index"
+        ],
+        "section": 1,
+        "paragraphIndices": [],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 3
+    },
+    {
+      "id": "artificial-intelligence-in-state-government-index:section:2",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index"
+        ],
+        "section": 2,
+        "paragraphIndices": [],
+        "layout": "project-evidence",
+        "focus": "evidence",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 8
+    },
+    {
+      "id": "congressional-office-setup-100-day-report:section:0",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "section": 0,
+        "paragraphIndices": [
+          1
+        ],
+        "layout": "project-evidence",
+        "focus": "evidence",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "congressional-office-setup-100-day-report:section:1",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "section": 1,
+        "paragraphIndices": [
+          3
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "congressional-office-setup-100-day-report:section:2",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "section": 2,
+        "paragraphIndices": [
+          1,
+          3
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 5
+    },
+    {
+      "id": "congressional-office-setup-100-day-report:section:3",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "section": 3,
+        "paragraphIndices": [
+          2
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "congressional-office-setup-100-day-report:section:4",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "section": 4,
+        "paragraphIndices": [
+          0
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 4
+    },
+    {
+      "id": "congressional-office-setup-100-day-report:section:5",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "section": 5,
+        "paragraphIndices": [
+          0,
+          1
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 4
+    },
+    {
+      "id": "congressional-office-setup-100-day-report:section:6",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "section": 6,
+        "paragraphIndices": [
+          0
+        ],
+        "layout": "project-outcomes",
+        "focus": "outcomes",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "senior-thesis-local-journalism:section:0",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "senior-thesis-local-journalism"
+        ],
+        "section": 0,
+        "paragraphIndices": [
+          2
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "senior-thesis-local-journalism:section:1",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "senior-thesis-local-journalism"
+        ],
+        "section": 1,
+        "paragraphIndices": [],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "senior-thesis-local-journalism:section:2",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "senior-thesis-local-journalism"
+        ],
+        "section": 2,
+        "paragraphIndices": [],
+        "layout": "project-evidence",
+        "focus": "evidence",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "fulbright-focus-group-sponsored-by-openai:section:0",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 0,
+        "paragraphIndices": [
+          1
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "fulbright-focus-group-sponsored-by-openai:section:1",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 1,
+        "paragraphIndices": [
+          3
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "fulbright-focus-group-sponsored-by-openai:section:2",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": false,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 2,
+        "paragraphIndices": [
+          2
+        ],
+        "layout": "project-outcomes",
+        "focus": "outcomes",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "fulbright-focus-group-sponsored-by-openai:section:3",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 3,
+        "paragraphIndices": [
+          1
+        ],
+        "layout": "project-outcomes",
+        "focus": "outcomes",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "fulbright-focus-group-sponsored-by-openai:section:4",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 4,
+        "paragraphIndices": [
+          2
+        ],
+        "layout": "project-outcomes",
+        "focus": "outcomes",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "fulbright-focus-group-sponsored-by-openai:section:5",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 5,
+        "paragraphIndices": [],
+        "layout": "project-evidence",
+        "focus": "evidence",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "boehringer-cares-foundation-rebrand-strategy-shift:section:0",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "section": 0,
+        "paragraphIndices": [
+          0
+        ],
+        "layout": "project-evidence",
+        "focus": "evidence",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "boehringer-cares-foundation-rebrand-strategy-shift:section:1",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "section": 1,
+        "paragraphIndices": [
+          1
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "boehringer-cares-foundation-rebrand-strategy-shift:section:2",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "section": 2,
+        "paragraphIndices": [
+          0
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "boehringer-cares-foundation-rebrand-strategy-shift:section:3",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "section": 3,
+        "paragraphIndices": [
+          0
+        ],
+        "layout": "project-outcomes",
+        "focus": "outcomes",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "boehringer-cares-foundation-rebrand-strategy-shift:section:4",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "section": 4,
+        "paragraphIndices": [],
+        "layout": "project-evidence",
+        "focus": "evidence",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "openai-product-testing-and-feedback:section:0",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "section": 0,
+        "paragraphIndices": [
+          0
+        ],
+        "layout": "project-evidence",
+        "focus": "evidence",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 2
+    },
+    {
+      "id": "openai-product-testing-and-feedback:section:1",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": false,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "section": 1,
+        "paragraphIndices": [
+          0
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "openai-product-testing-and-feedback:section:2",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "section": 2,
+        "paragraphIndices": [
+          1
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "openai-product-testing-and-feedback:section:3",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "section": 3,
+        "paragraphIndices": [
+          1
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "openai-product-testing-and-feedback:section:4",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "section": 4,
+        "paragraphIndices": [
+          1
+        ],
+        "layout": "project-evidence",
+        "focus": "evidence",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "openai-product-testing-and-feedback:section:5",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "section": 5,
+        "paragraphIndices": [
+          1
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "openai-product-testing-and-feedback:section:6",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": true,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "section": 6,
+        "paragraphIndices": [
+          1
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "openai-product-testing-and-feedback:section:7",
+      "ok": true,
+      "strictOk": false,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": true,
+      "paragraphMatch": false,
+      "paragraphAnyMatch": true,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "openai-product-testing-and-feedback"
+        ],
+        "section": 7,
+        "paragraphIndices": [
+          0
+        ],
+        "layout": "project-outcomes",
+        "focus": "outcomes",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ChatOrb from "@/components/ChatOrb";
@@ -18,6 +18,7 @@ describe("ChatOrb", () => {
   });
 
   afterEach(() => {
+    cleanup();
     document.body.removeAttribute("data-site-sidebar-open");
     document.body.removeAttribute("data-site-search-open");
     vi.restoreAllMocks();
@@ -58,7 +59,7 @@ describe("ChatOrb", () => {
   });
 
   it("sends the current rendered page content with each question", async () => {
-    const fetchMock = vi.fn(async () =>
+    const fetchMock = vi.fn(async (_input: RequestInfo | URL, _init?: RequestInit) =>
       new Response(JSON.stringify({ message: "A short summary.", sources: [] }), {
         status: 200,
         headers: { "Content-Type": "application/json" },

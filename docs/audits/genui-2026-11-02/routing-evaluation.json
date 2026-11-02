@@ -1,0 +1,517 @@
+{
+  "corpus": "routing",
+  "capturedAt": "2026-11-02T20:03:22.233Z",
+  "mode": "authored",
+  "contentVersion": "canvas-2026-11-02-v13",
+  "postRequests": 0,
+  "compositionRequests": 0,
+  "providerClaims": "Offline local composition only. No network requests, provider calls, or model-quality claims.",
+  "cases": 22,
+  "selected": 22,
+  "notSelected": 0,
+  "evaluated": 22,
+  "passed": 22,
+  "failed": 0,
+  "skipped": 0,
+  "selectionMatches": 20,
+  "sectionMatches": 0,
+  "paragraphAnyMatches": 0,
+  "paragraphFullMatches": 0,
+  "strictMatches": 22,
+  "provenance": {
+    "local_authored": 22
+  },
+  "coverage": [],
+  "results": [
+    {
+      "id": "taiwan-build",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "project-brief",
+        "focus": "role",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 8
+    },
+    {
+      "id": "taiwan-third-person",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "project-brief",
+        "focus": "role",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "connections",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "timeline",
+        "projectIds": [],
+        "section": 1,
+        "paragraphIndices": [],
+        "layout": "experience-roles",
+        "focus": "overview",
+        "states": [],
+        "roleId": "csg-ai-index"
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "current-role",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "timeline",
+        "projectIds": [],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "experience-roles",
+        "focus": "role",
+        "states": [],
+        "roleId": "summation-ai"
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "identity",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "timeline",
+        "projectIds": [],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "experience-roles",
+        "focus": "overview",
+        "states": [],
+        "roleId": "summation-ai"
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "strengths",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "timeline",
+        "projectIds": [],
+        "section": 1,
+        "paragraphIndices": [],
+        "layout": "experience-roles",
+        "focus": "overview",
+        "states": [],
+        "roleId": "csg-ai-index"
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "summation",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "timeline",
+        "projectIds": [],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "experience-roles",
+        "focus": "overview",
+        "states": [],
+        "roleId": "summation-ai"
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "policy-contribution",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index"
+        ],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "project-brief",
+        "focus": "role",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "policy-method",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index"
+        ],
+        "section": 1,
+        "paragraphIndices": [],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 1
+    },
+    {
+      "id": "policy-methodology",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index"
+        ],
+        "section": 1,
+        "paragraphIndices": [],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "policy-data",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "benchmark",
+        "projectIds": [],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "benchmark-ranking",
+        "focus": "overview",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "states",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "benchmark",
+        "projectIds": [],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "benchmark-compare",
+        "focus": "overview",
+        "states": [
+          "Michigan",
+          "California"
+        ],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 4
+    },
+    {
+      "id": "project-comparison",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "comparison",
+        "projectIds": [
+          "artificial-intelligence-in-state-government-index",
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "project-compare",
+        "focus": "role",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "taiwan-outcomes",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "section": 2,
+        "paragraphIndices": [],
+        "layout": "project-outcomes",
+        "focus": "outcomes",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "congress",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "congressional-office-setup-100-day-report"
+        ],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "project-brief",
+        "focus": "role",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 7
+    },
+    {
+      "id": "journalism",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "senior-thesis-local-journalism"
+        ],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "project-brief",
+        "focus": "role",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "rebrand",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "story",
+        "projectIds": [
+          "boehringer-cares-foundation-rebrand-strategy-shift"
+        ],
+        "section": 1,
+        "paragraphIndices": [],
+        "layout": "project-process",
+        "focus": "process",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "browse",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "collection",
+        "projectIds": [],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "project-index",
+        "focus": "overview",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "site",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "architecture",
+        "projectIds": [],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "site-pipeline",
+        "focus": "overview",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "contact",
+      "ok": true,
+      "strictOk": true,
+      "support": "supported",
+      "selectionMatch": true,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": {
+        "kind": "contact",
+        "projectIds": [],
+        "section": 0,
+        "paragraphIndices": [],
+        "layout": "contact-card",
+        "focus": "overview",
+        "states": [],
+        "roleId": ""
+      },
+      "provenance": "local_authored",
+      "ms": 0
+    },
+    {
+      "id": "unknown",
+      "ok": true,
+      "strictOk": true,
+      "support": "unsupported",
+      "selectionMatch": false,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": null,
+      "provenance": "local_authored",
+      "ms": 4
+    },
+    {
+      "id": "greeting",
+      "ok": true,
+      "strictOk": true,
+      "support": "unsupported",
+      "selectionMatch": false,
+      "sectionMatch": null,
+      "paragraphMatch": null,
+      "paragraphAnyMatch": null,
+      "selected": null,
+      "provenance": "local_authored",
+      "ms": 1
+    }
+  ]
+}

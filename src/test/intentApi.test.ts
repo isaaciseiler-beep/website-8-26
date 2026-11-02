@@ -3,18 +3,21 @@ import handler from '../../api/intent';
 import { CONTENT_VERSION } from '@/lib/canvas';
 import { blankBlock, TAIWAN_ID } from '@/lib/genui';
 import type { ApiRequest, ApiResponse } from '../../server/http';
+import { EventEmitter } from 'node:events';
+import { providerHealth } from '../../server/provider-observability';
 
-async function call(draft:string,composition?:unknown,extra:Record<string,unknown>={}){
-  let output='';const response={statusCode:0,setHeader:vi.fn(),end:(value:string)=>{output=value;}};
+async function call(draft:string,composition?:unknown,extra:Record<string,unknown>={},setup?:(response:EventEmitter)=>void){
+  let output='';const response=Object.assign(new EventEmitter(),{statusCode:0,setHeader:vi.fn(),end:(value:string)=>{output=value;}});
+  setup?.(response);
   await handler({method:'POST',body:{draft,revision:4,contentVersion:CONTENT_VERSION,composition,...extra},headers:{host:'localhost'},socket:{remoteAddress:'intent-test'}} as unknown as ApiRequest,response as unknown as ApiResponse);
-  return {status:response.statusCode,data:JSON.parse(output)};
+  return {status:response.statusCode,data:output?JSON.parse(output):null};
 }
 function mockRouter(layout:string,project=TAIWAN_ID){
   vi.stubEnv('TYPESAFE_API_KEY','test-only');
   const fetcher=vi.fn(async()=>new Response(JSON.stringify({model:'mock-jev',answers:{layout:{choice:layout,probabilities:{[layout]:.98},confidence:.97},project:{choice:project},focus:{choice:'role'},needsComposition:{noul:.01}}}),{status:200}));
   vi.stubGlobal('fetch',fetcher);return fetcher;
 }
-afterEach(()=>{vi.unstubAllEnvs();vi.unstubAllGlobals();});
+afterEach(()=>{vi.unstubAllEnvs();vi.unstubAllGlobals();vi.useRealTimers();});
 describe('provider interpretation boundaries',()=>{
   it('rejects oversized parsed bodies and whitespace-only drafts before routing',async()=>{
     const fetcher=mockRouter('project-brief');
@@ -89,5 +92,53 @@ describe('provider interpretation boundaries',()=>{
     const fetcher=mockRouter('project-brief');
     expect((await call('hello')).data.guidance).toBe('welcome');
     expect(fetcher).not.toHaveBeenCalled();
+  });
+  it('rejects a stale content version without routing',async()=>{
+    const fetcher=mockRouter('story');
+    expect((await call('Taiwan teaching',undefined,{contentVersion:'old-version'})).status).toBe(400);
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+  it('bounds routing latency even when a transport ignores its abort signal',async()=>{
+    vi.useFakeTimers();vi.stubEnv('TYPESAFE_API_KEY','test-only');vi.stubEnv('MISTRAL_API_KEY','');
+    const fetcher=vi.fn((_url:string,_init?:RequestInit)=>new Promise<Response>(()=>{}));vi.stubGlobal('fetch',fetcher);
+    const pending=call('How did Isaac start the educator program in Taiwan?');
+    await vi.advanceTimersByTimeAsync(5001);
+    expect((await pending).data).toMatchObject({reason:'timeout'});
+    expect(fetcher.mock.calls[0][1]!.signal!.aborted).toBe(true);
+  });
+  it('bounds an upstream body that stalls after the response headers',async()=>{
+    vi.useFakeTimers();vi.stubEnv('TYPESAFE_API_KEY','test-only');vi.stubEnv('MISTRAL_API_KEY','');
+    vi.stubGlobal('fetch',vi.fn(async()=>new Response(new ReadableStream())));
+    const pending=call('What did Isaac do in the educator community in Taiwan?');
+    await vi.advanceTimersByTimeAsync(5001);
+    expect((await pending).data).toMatchObject({reason:'timeout'});
+  });
+  it('does not update provider health or cache a routing result after visitor cancellation',async()=>{
+    vi.stubEnv('TYPESAFE_API_KEY','test-only');vi.stubEnv('MISTRAL_API_KEY','');
+    let disconnect=()=>{};
+    let release!:(response:Response)=>void;
+    const fetcher=vi.fn(()=>new Promise<Response>(resolve=>{release=resolve;}));vi.stubGlobal('fetch',fetcher);
+    const before=providerHealth('jev');
+    const pending=call('Explain the Taiwan community learning program',undefined,{},response=>{disconnect=()=>response.emit('close');});
+    disconnect();
+    expect((await pending).data).toBeNull();
+    release(new Response(JSON.stringify({answers:{}})));
+    await Promise.resolve();
+    expect(providerHealth('jev')).toEqual(before);
+    const next=mockRouter('story');
+    await call('Explain the Taiwan community learning program');
+    expect(next).toHaveBeenCalledOnce();
+  });
+  it('rejects oversized upstream JSON without echoing the body or the credential',async()=>{
+    vi.stubEnv('TYPESAFE_API_KEY','private-test-key');vi.stubEnv('MISTRAL_API_KEY','');
+    vi.stubGlobal('fetch',vi.fn(async()=>new Response(JSON.stringify({padding:'sensitive'.repeat(8000),answers:{}}))));
+    const result=await call('How did Isaac teach the Taiwan educator community?');
+    expect(result.data).toMatchObject({reason:'invalid_output'});
+    expect(JSON.stringify(result.data)).not.toMatch(/sensitive|private-test-key/);
+  });
+  it('does not start routing when the response was already disconnected',async()=>{
+    const fetcher=mockRouter('story');
+    const result=await call('What did Isaac build in Taiwan?',undefined,{},response=>Object.assign(response,{destroyed:true}));
+    expect(result.data).toBeNull();expect(fetcher).not.toHaveBeenCalled();
   });
 });

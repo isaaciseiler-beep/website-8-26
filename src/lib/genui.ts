@@ -1,11 +1,12 @@
 import { connectionIds, connectionForRequest } from './portfolioConnections.js';
 import { careerAnswerIds, careerAnswerFor, careerAnswers, careerConnectionFor } from './careerAnswers.js';
 import { z } from 'zod';
-import { albums, publicProjects, localPlan, type Plan } from './canvas.js';
+import { albums, publicProjects, localPlan, initialPlan, type Plan } from './canvas.js';
 import { aiIndexStates } from './aiStateGovIndex.js';
 import { layoutIds, liveLayoutIds, layoutDefinition, defaultLayout, type LayoutId } from './layouts.js';
 import { evidenceFocuses, evidenceSections } from './portfolioEvidence.js';
 import { experienceEntries } from './experience.js';
+import { findPublishedSection, findPublishedParagraphs } from './portfolioRetrieval.js';
 import { interpretPortfolioRequest, namedProjects, requestedFocus, personalProjectFocus, requestedAngle, portfolioAngles } from './portfolioIntent.js';
 
 export const blockSchema = z.object({
@@ -17,6 +18,7 @@ export const blockSchema = z.object({
   region: z.enum(['All', 'East', 'Midwest', 'South', 'West']),
   metric: z.enum(['compositeScore', 'preparednessScore']),
   section: z.number().int().min(0).max(2000),
+  paragraphIndices: z.array(z.number().int().min(0).max(2000)).max(3).optional(),
   focus: z.enum(evidenceFocuses).optional(),
   angle: z.enum(portfolioAngles).optional(),
   answerId: z.enum(careerAnswerIds).optional(),
@@ -49,6 +51,12 @@ export function isPhotographyRequest(text:string, plan?:Plan):boolean {
   const professionalSubject=/\b(?:teaching|educat\w*|literacy|policy|government|journalis\w*|congress\w*|rebrand\w*|boehringer|product testing|product feedback|study mode|pulse|atlas|group chats?|100 chats|publications?|articles?|writing|website|architecture)\b/i;
   const workQuestion=/\b(?:what|how|why|explain|describe|contribut\w*|responsibilit\w*|methodology|outcomes?)\b/i;
   return !(professionalSubject.test(text)&&workQuestion.test(text));
+}
+/** A country named only in a photo clause must not become a work subject. */
+function withoutPhotoClauses(text:string):string {
+  const clauses=text.split(/\b(?:and|also|alongside|plus|as well as|but)\b|[;?]/i).map(clause=>clause.trim()).filter(Boolean);
+  const work=clauses.filter(clause=>!isPhotographyRequest(clause));
+  return work.length>0&&work.length<clauses.length&&work.every(clause=>interpretPortfolioRequest(clause).task!=='unknown')?work.join(' alongside '):text;
 }
 /** Requests that need a starting point rather than an inferred project. */
 export function explorationGuidance(text:string, plan?:Plan):'welcome'|'unmatched'|null {
@@ -92,6 +100,7 @@ export function validateComposition(value: unknown): Composition | null {
     if (b.kind === 'architecture' && b.section > 3) return null;
     if (b.kind === 'photos' && b.section >= (albums.find(a=>a.folder===b.albumIds[0])?.photos.length ?? 0)) return null;
     if (b.kind === 'story' && b.section >= (publicProjects.find(p=>p.id===b.projectIds[0])?.sections.length ?? 0)) return null;
+    if (b.paragraphIndices?.length && (b.kind !== 'story' || new Set(b.paragraphIndices).size !== b.paragraphIndices.length || b.paragraphIndices.some(index => index >= (publicProjects.find(p=>p.id===b.projectIds[0])?.sections[b.section]?.paragraphs?.length ?? 0)))) return null;
   }
   return result.data;
 }
@@ -124,6 +133,10 @@ function previousContext(previous?: Composition | null) {
   return {projectIds:previous?.blocks.flatMap(b=>b.projectIds)??[],task:block?.kind==='photos'||block?.kind==='workshop'?undefined:block?.kind,focus:block?.focus};
 }
 export function resolveCanvasPlan(text: string, current: Plan, revision: number, composition?: Composition): Plan {
+  if(!isPhotographyRequest(text)){
+    const work=withoutPhotoClauses(text);
+    if(work!==text)return resolveCanvasPlan(work,current,revision,composition);
+  }
   const base=localPlan(text,current,[],revision);
   if(isPhotographyRequest(text))return {...base,layout:'photos',albumIds:[]};
   const interpretation=interpretPortfolioRequest(text,previousContext(composition));
@@ -151,7 +164,7 @@ export function inferLayout(text:string, block:CanvasBlock):LayoutId {
     default:return defaultLayout[block.kind];
   }
 }
-export function withLayout(block:CanvasBlock, layout:LayoutId):CanvasBlock {
+export function withLayout(block:CanvasBlock, layout:LayoutId, preserveSection=false):CanvasBlock {
   const kind=layoutDefinition(layout).kind;
   const next={...blankBlock(kind),...block,kind,layout};
   if(kind==='workshop'){next.projectIds=[TAIWAN_ID];next.section=['teaching-lesson','teaching-feedback','teaching-language','teaching-sequence'].indexOf(layout);}
@@ -161,31 +174,73 @@ export function withLayout(block:CanvasBlock, layout:LayoutId):CanvasBlock {
     const focus=layout==='project-process'?'process':layout==='project-outcomes'?'outcomes':layout==='project-evidence'?'evidence':'role';
     next.focus=focus;
     const sections=evidenceSections(next.projectIds[0],focus);
-    if(!sections.some(section=>section.index===next.section))next.section=sections[0]?.index??0;
+    if(!sections.some(section=>section.index===next.section)&&!(preserveSection&&publicProjects.find(project=>project.id===next.projectIds[0])?.sections[next.section])){next.section=sections[0]?.index??0;next.paragraphIndices=undefined;}
   }
   return next;
 }
 
 /** Named subjects resolve to published sections before either provider can choose a view. */
-export function requestedStorySection(text:string,projectId:string):number|undefined {
+function explicitStorySection(text:string,projectId:string):number|undefined {
   const rules:Record<string,[RegExp,number][]>={
     [TAIWAN_ID]: [[/measur|evaluat|success|whether.*work|^did .*\bwork\b/i,4],[/trade.?offs?|compromises?|challenge|limitation|decisions?/i,1],[/educators?.*(?:shape|influence|change)|participants?.*(?:shape|influence|change)/i,1],[/learn(?:ed)?|lessons?|takeaways?|reflection/i,4],[/nine|9 use|use cases/i,2],[/conference|alignment/i,3]],
-    'openai-product-testing-and-feedback': [[/study mode/i,2],[/pulse/i,4],[/atlas/i,5],[/group chats?/i,6],[/100 chats|book/i,1],[/back to school/i,3],[/learn(?:ed)?|lessons?|takeaways?/i,7]],
+    'openai-product-testing-and-feedback': [[/study mode/i,2],[/pulse/i,4],[/atlas/i,5],[/group chats?/i,6],[/100 chats|book/i,1],[/back to school/i,3],[/learn(?:ed)?|lessons?|takeaways?|\b(?:teach|taught) (?:isaac|you|him|me)\b/i,7]],
     'congressional-office-setup-100-day-report': [[/100 days?|accomplish|constituent|office.*results/i,5],[/child.labou?r|local stories|national news/i,2],[/press list|press network|learn(?:ed)?|lessons?|reflection/i,1],[/state of the union|bipartisan/i,4]],
     'senior-thesis-local-journalism': [[/findings?|discover|learn|results?|conclusions?/i,1]],
   };
   return rules[projectId]?.find(([pattern])=>pattern.test(text))?.[1];
 }
+export function requestedStorySection(text:string,projectId:string,currentSection?:number):number|undefined {
+  const focus=requestedFocus(text);
+  const candidates=focus==='process'||focus==='outcomes'?evidenceSections(projectId,focus).map(section=>section.index):undefined;
+  const selected=explicitStorySection(text,projectId) ?? findPublishedSection(text,projectId) ?? findPublishedSection(text,projectId,candidates);
+  if(selected!==undefined)return selected;
+  if(focus==='evidence'&&/\b(?:sources?|materials)\b/i.test(text)){
+    const project=publicProjects.find(project=>project.id===projectId);
+    if(currentSection!==undefined&&project?.sections[currentSection]?.links?.length)return currentSection;
+    const materials=project?.sections.findIndex(section=>section.links?.length&&!section.paragraphs?.length&&!section.bullets?.length)??-1;
+    const linked=materials>=0?materials:project?.sections.findIndex(section=>section.links?.length)??-1;
+    if(linked>=0)return linked;
+  }
+  return undefined;
+}
+const blockSubject=(block:CanvasBlock)=>block.kind==='story'?`${block.kind}:${block.projectIds[0]}`:block.kind;
+function independentRequests(text:string,previous?:Composition|null):string[]|null {
+  const clauses=text.split(/\b(?:alongside|plus|as well as)\b|;|\band\s+(?=(?:show|explain|explore|open|include|describe)\b)/i).map(clause=>clause.trim()).filter(Boolean);
+  if(clauses.length<2||clauses.length>3)return null;
+  if(interpretPortfolioRequest(text,previousContext(previous)).task==='comparison'&&!clauses.some(clause=>interpretPortfolioRequest(clause,previousContext(previous)).task==='comparison'))return null;
+  return clauses.every(clause=>{
+    if(isPhotographyRequest(clause))return false;
+    const item=interpretPortfolioRequest(clause,previousContext(previous));
+    return item.task!=='collection'&&(item.task!=='unknown'||stateNames(clause).length>0&&/\b(?:compare|scores?|rank\w*|preparedness|composite|criteria)\b/i.test(clause));
+  })?clauses:null;
+}
 
 /** Apply public-subject and state constraints once, after either provider. */
 export function reconcileComposition(text:string, proposed:unknown, baseline:Composition, previous?:Composition):Composition|null {
+  if(!isPhotographyRequest(text)){
+    const work=withoutPhotoClauses(text);
+    if(work!==text)return reconcileComposition(work,proposed,baseline,previous);
+  }
   const valid=validateComposition(proposed);
   if(!valid)return null;
   const subjects=valid.blocks.map(block=>block.kind==='story'?`${block.kind}:${block.projectIds[0]}`:block.kind);
   if(new Set(subjects).size!==subjects.length)return null;
+  const clauses=independentRequests(text,previous);
+  if(clauses){
+    const clauseBaselines=clauses.map(clause=>composeSingleLocal(clause,resolveCanvasPlan(clause,initialPlan(),0,previous??undefined),previous));
+    const expected=clauseBaselines.flatMap(composition=>composition.blocks);
+    if(validateComposition({blocks:expected})&&new Set(expected.map(blockSubject)).size===expected.length){
+      const blocks=clauses.flatMap((clause,index)=>{
+        const local=clauseBaselines[index];
+        const proposed=valid.blocks.filter(block=>local.blocks.some(expected=>blockSubject(expected)===blockSubject(block)));
+        return (reconcileComposition(clause,proposed.length?{blocks:proposed}:local,local,previous)??local).blocks;
+      });
+      return validateComposition({blocks});
+    }
+  }
   const checked:Composition={blocks:valid.blocks.map(block=>{
-    const section=block.kind==='story'?requestedStorySection(text,block.projectIds[0]):undefined;
-    return section===undefined?block:{...block,section};
+    const section=block.kind==='story'?explicitStorySection(text,block.projectIds[0]):undefined;
+    return section===undefined?block:{...block,section,paragraphIndices:section===block.section?block.paragraphIndices:findPublishedParagraphs(text,block.projectIds[0],section)};
   })};
   const interpreted=interpretPortfolioRequest(text,previousContext(previous));
   if(checked.blocks.some(block=>block.kind==='collection')&&interpreted.task!=='collection')return null;
@@ -194,9 +249,10 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
   if(interpreted.followup&&previous){
     if(!requestedFocus(text))return baseline;
     return {blocks:baseline.blocks.map(block=>{
-      if(block.kind!=='story'||requestedStorySection(text,block.projectIds[0])!==undefined)return block;
+      if(block.kind!=='story'||explicitStorySection(text,block.projectIds[0])!==undefined)return block;
       const match=checked.blocks.find(item=>item.kind==='story'&&item.projectIds[0]===block.projectIds[0]);
-      return match&&evidenceSections(block.projectIds[0],block.focus??'overview').some(section=>section.index===match.section)?{...block,section:match.section}:block;
+      const relevant=match&&(evidenceSections(block.projectIds[0],block.focus??'overview').some(section=>section.index===match.section)||Boolean(match.paragraphIndices?.length)||findPublishedSection(text,block.projectIds[0])===match.section);
+      return relevant?{...block,section:match.section,paragraphIndices:match.paragraphIndices}:block;
     })};
   }
   if(['contact','architecture','timeline'].includes(interpreted.task)) {
@@ -226,16 +282,38 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
   if(interpreted.task==='story'&&interpreted.projectIds.length===1) {
     const match=checked.blocks.find(block=>block.kind==='story'&&block.projectIds[0]===interpreted.projectIds[0]);
     if(!match)return baseline;
-    const pinnedSection=requestedStorySection(text,interpreted.projectIds[0]);
+    const pinnedSection=explicitStorySection(text,interpreted.projectIds[0]);
     const focus=(baseline.blocks[0]?.angle||pinnedSection!==undefined?baseline.blocks[0]?.focus:requestedFocus(text))??match.focus??baseline.blocks[0]?.focus??'overview';
     const block={...match,projectIds:interpreted.projectIds,focus,angle:baseline.blocks[0]?.angle,section:pinnedSection??match.section};
-    const story=withLayout(block,focus==='process'?'project-process':focus==='outcomes'?'project-outcomes':focus==='evidence'?'project-evidence':'project-brief');
+    const story=withLayout(block,focus==='process'?'project-process':focus==='outcomes'?'project-outcomes':focus==='evidence'?'project-evidence':'project-brief',true);
     return validateComposition({blocks:checked.blocks.flatMap(item=>item===match?[story]:requestedCompanion(text,item)?[item]:[])});
   }
   // Distinct project stories can answer a multi-subject question together.
   return checked;
 }
 export function composeLocal(text:string,plan:Plan,previous?:Composition|null):Composition {
+  if(isPhotographyRequest(text))return previous??{blocks:[blankBlock('collection')]};
+  const work=withoutPhotoClauses(text);
+  if(work!==text)return composeLocal(work,plan,previous);
+  // Explicitly separate requests can use the same bounded multi-view contract
+  // offline. Keep ordinary conjunctions (including two-government comparisons)
+  // together, and leave ambiguous or unsupported clauses to the normal planner.
+  const clauses=independentRequests(text,previous);
+  if(clauses){
+    const blocks=clauses.flatMap(clause=>composeSingleLocal(clause,resolveCanvasPlan(clause,plan,plan.revision,previous??undefined),previous).blocks);
+    const subjects=blocks.map(blockSubject);
+    const composition=validateComposition({blocks});
+    if(composition&&new Set(subjects).size===subjects.length)return composition;
+  }
+  const composition=composeSingleLocal(text,plan,previous);
+  const interpretation=interpretPortfolioRequest(text,previousContext(previous));
+  if(previous&&previous.blocks.length>1&&interpretation.followup&&interpretation.task==='story'&&!/\b(?:first|second|former|latter)\b/i.test(text)){
+    const blocks=previous.blocks.map(block=>block.kind==='story'?composition.blocks.find(next=>next.kind==='story'&&next.projectIds[0]===block.projectIds[0])??block:block);
+    return validateComposition({blocks})??composition;
+  }
+  return composition;
+}
+function composeSingleLocal(text:string,plan:Plan,previous?:Composition|null):Composition {
   if(isPhotographyRequest(text))return previous??{blocks:[blankBlock('collection')]};
   const q=text.toLowerCase();
   const interpreted=interpretPortfolioRequest(text,previousContext(previous));
@@ -263,22 +341,23 @@ export function composeLocal(text:string,plan:Plan,previous?:Composition|null):C
     if(!ids.length)return {blocks:[blankBlock('collection')]};
     return {blocks:ids.map(id=>{
       const old=previous?.blocks.find(b=>b.kind==='story'&&b.projectIds[0]===id);
-      const selectedSection=requestedStorySection(text,id);
-      const angle=requestedAngle(text)??(interpreted.followup?old?.angle:undefined);
-      const more=interpreted.followup&&/tell me more|expand|details/i.test(text);
+      const selectedSection=requestedStorySection(text,id,interpreted.followup?old?.section:undefined);
       const askedFocus=requestedFocus(text);
+      const angle=requestedAngle(text)??(interpreted.followup&&!askedFocus?old?.angle:undefined);
+      const more=interpreted.followup&&/tell me more|expand|details/i.test(text);
       let sectionFocus=askedFocus;
       if(selectedSection!==undefined&&(!askedFocus||askedFocus==='role'||!evidenceSections(id,askedFocus).some(section=>section.index===selectedSection))){
-        sectionFocus=evidenceSections(id,'process').some(section=>section.index===selectedSection)?'process':evidenceSections(id,'outcomes').some(section=>section.index===selectedSection)?'outcomes':askedFocus;
+        sectionFocus=evidenceSections(id,'process').some(section=>section.index===selectedSection)?'process':evidenceSections(id,'outcomes').some(section=>section.index===selectedSection)?'outcomes':'evidence';
       }
       const focus=(angle==='measurement'&&id===TAIWAN_ID?'outcomes':sectionFocus)
         ??(selectedSection!==undefined?'process':undefined)
         ??(angle==='measurement'?'outcomes':angle==='tradeoffs'?'process':undefined)
         ??(more&&(!old||old.focus==='overview'||old.focus==='role')?'process':undefined)
         ??(interpreted.followup?old?.focus:undefined)??'overview';
-      const block:CanvasBlock={...blankBlock('story'),...(interpreted.followup?old:{}),projectIds:[id],focus,angle,section:selectedSection??(interpreted.followup?old?.section:undefined)??evidenceSections(id,focus)[0]?.index??0,expanded:more||Boolean(interpreted.followup&&old?.expanded)};
+      const block:CanvasBlock={...blankBlock('story'),...(interpreted.followup?old:{}),projectIds:[id],focus,angle,section:selectedSection??(interpreted.followup?old?.section:undefined)??evidenceSections(id,focus)[0]?.index??0,expanded:more||focus==='evidence'&&selectedSection!==undefined||Boolean(interpreted.followup&&old?.expanded)};
+      block.paragraphIndices=findPublishedParagraphs(text,id,block.section)??(interpreted.followup&&block.section===old?.section?old.paragraphIndices:undefined);
       const layout=focus==='process'?'project-process':focus==='outcomes'?'project-outcomes':focus==='evidence'?'project-evidence':interpreted.followup&&old?.layout?old.layout:'project-brief';
-      return withLayout(block,layout);
+      return withLayout(block,layout,selectedSection!==undefined);
     })};
   }
   if(interpreted.task==='timeline') {

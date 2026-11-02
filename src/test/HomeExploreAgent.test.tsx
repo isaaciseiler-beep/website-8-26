@@ -44,7 +44,7 @@ describe('website agent and shared-view integration', () => {
     expect(inspect().view.composition.blocks[0].focus).toBe('outcomes');
     expect(await change({ type: 'open_project', projectId: POLICY_ID }, result.revision)).toMatchObject({ isError: true });
     expect(inspect().view.composition.blocks[0].projectIds).toEqual([TAIWAN_ID]);
-    expect(screen.queryByRole('button', { name: 'Back',exact:true })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Back' })).not.toBeInTheDocument();
     await act(async()=>{tools.get('navigate_portfolio_history')!.execute({direction:'back',expectedRevision:inspect().revision,contentVersion:CONTENT_VERSION});});
     expect(inspect().view.composition.blocks[0].focus).toBe('process');
     await act(async()=>{tools.get('navigate_portfolio_history')!.execute({direction:'forward',expectedRevision:inspect().revision,contentVersion:CONTENT_VERSION});});

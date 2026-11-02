@@ -1,5 +1,6 @@
 import { projectItems, hiddenProjectIds } from './siteContent.js';
 import { experienceEntries } from './experience.js';
+import { hasPublishedMaterial } from './portfolioRetrieval.js';
 
 export const evidenceFocuses = ['overview', 'role', 'process', 'outcomes', 'evidence'] as const;
 export type EvidenceFocus = typeof evidenceFocuses[number];
@@ -94,7 +95,7 @@ export function evidenceSections(id: string, focus: EvidenceFocus) {
   const record = evidenceFor(id);
   if (!record) return [];
   const indices = focus === 'process' ? record.processSections : focus === 'outcomes' ? record.outcomeSections : record.project.sections.map((_, index) => index);
-  return indices.filter(index => { const section = record.project.sections[index]; return section && Boolean(section.paragraphs?.length || section.bullets?.length); }).map(index => ({ ...record.project.sections[index], label: record.sectionLabels[index] ?? record.project.sections[index].heading, index, id: `${id}:section:${index}` }));
+  return indices.filter(index => { const section = record.project.sections[index]; return section && hasPublishedMaterial(section); }).map(index => ({ ...record.project.sections[index], label: record.sectionLabels[index] ?? record.project.sections[index].heading, index, id: `${id}:section:${index}` }));
 }
 
 /** Shared public evidence catalog for both the interface planner and the legacy answer service. */

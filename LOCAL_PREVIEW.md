@@ -1,6 +1,6 @@
 # Adaptive portfolio local preview
 
-Run `npm install` then `npm run dev -- --host 127.0.0.1 --port 8080`.
+The canonical website is https://seiler.page; this checkout is `isaaciseiler-beep/website-8-26`. Run `npm ci` then `npm run dev -- --host 127.0.0.1 --port 8080` (choose an unused port when needed).
 
 - `/`: adaptive canvas and permanent photographic gallery.
 - `/classic`: previous homepage for comparison and rollback.
@@ -16,7 +16,7 @@ Run `npm install` then `npm run dev -- --host 127.0.0.1 --port 8080`.
 
 The owner keeps `TYPESAFE_API_KEY` and `MISTRAL_API_KEY` in Vercel. They are not available to this local preview. OpenAI and Typesafe keys were explicitly removed from `.env.local`; do not restore them without instruction.
 
-Jev selects a known layout and content. Explicit submission can invoke Mistral when composition is useful. Local controls update immediately without a model. The homepage composer uses `mistral-small-2603` by default and has no OpenAI fallback. Local mode uses authored results. Production Jev routing has been verified; Mistral composition currently returns HTTP 429. Provider configuration alone is not a health check.
+Jev selects a known layout and content. Explicit submission can invoke Mistral when composition is useful. Local controls update immediately without a model. The homepage composer uses `mistral-small-2603` by default and has no OpenAI fallback. Local mode uses authored results. Provider configuration alone is not a health check. The November 2 coverage work used offline planning and mocked provider contracts; it did not invoke or assess current live provider quality.
 
 ## Design and agent guide
 
@@ -26,13 +26,17 @@ Read `AGENTS.md` and `GUI.md`. The AI window uses the supplied theme tokens, Sat
 
 The response compositions now lead with the requested contribution, process, outcome, or evidence. Published editorial records live in `src/lib/portfolioEvidence.ts`; `src/lib/portfolioIntent.ts` supplies one interpretation shared by local results and server routing. Comparisons use aligned questions and a distinct mobile arrangement. Project, role, search, comparison-focus, and benchmark selections are serialized in the composition. The ordinary visitor interface does not expose the development layout selector.
 
-Run `npm run eval:portfolio` against the local server for the 22 visitor-question cases. To verify a deployment, use `PORTFOLIO_EVAL_URL=https://<deployment> PORTFOLIO_REQUIRE_LIVE=1 PORTFOLIO_EVAL_COMPOSE=1 npm run eval:portfolio`. This requires actual Jev responses and tests one actual Mistral composition by default; set PORTFOLIO_EVAL_COMPOSE_LIMIT=6 to test six. Requests are spaced by PORTFOLIO_EVAL_INTERVAL_MS (1100 by default). It does not count fallback responses as live model success.
+Run `npm run eval:portfolio` for 22 visitor-question cases, or `npm run eval:portfolio -- --corpus=sections` for all 32 published sections across six projects. Both run offline with zero network/model calls. See `evals/README.md` for explicit, bounded live-deployment opt-ins and provenance reporting. A deployment running an older content version is rejected before model-capable requests.
 
-The intent/composition endpoints log hashed question IDs, provider, accepted layout, duration, and sanitized failure categories. Their GET responses distinguish configuration from the last observed health result in that process. These observations are not a global uptime check or a distributed quota.
+The intent/composition endpoints log hashed question IDs, provider, validated public project/section/layout references, duration, and sanitized failure categories. They do not log raw visitor questions or source excerpts. Their GET responses distinguish configuration from the last observed health result in that process. These observations are not a global uptime check or a distributed quota.
 
 `npm run typecheck`
 
-`npm run test -- src/test/canvas.test.ts`
+`npm run test`
+
+`npm run build`
+
+Typechecking covers both application and Node/server TypeScript projects. The corpus and rendered-output tests check section and paragraph selection, full evidence/source reachability, follow-ups, portable views, and provider reconciliation. Backend tests also cover request/response size limits, cancellation, timeouts, strict structured selections, evaluator provenance, and telemetry sanitization.
 
 The new tests exercise stale revision/content rejection, committed history, pins, reset, clear, and supported local layouts. The preview endpoints have also been exercised over HTTP, including all five MCP tool calls and HTML/Markdown Accept preference ordering.
 

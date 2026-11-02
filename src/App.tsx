@@ -186,7 +186,7 @@ const ChatOrbGate = () => {
   const location = useLocation();
   const { theme } = useTheme();
 
-  if (location.pathname !== "/classic" || theme === "skull" || location.pathname === "/experience/arcade" || location.pathname === "/strike-tracker") {
+  if (location.pathname !== "/classic" || theme === "skull") {
     return null;
   }
 

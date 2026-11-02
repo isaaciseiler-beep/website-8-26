@@ -14,10 +14,10 @@ describe('linked portfolio evidence',()=>{
   it('changes every project against one lens and keeps the chosen thread',()=>{
     render(<Explorer/>);
     fireEvent.change(screen.getByRole('combobox',{name:'Connection to explore'}),{target:{value:'listening'}});
-    fireEvent.click(screen.getByRole('button',{name:'Process',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'Process'}));
     for(const id of portfolioConnections.listening.projectIds)expect(screen.getByText(evidenceFor(id)!.practice)).toBeVisible();
     expect(screen.getByRole('combobox')).toHaveValue('listening');
-    expect(screen.getByRole('button',{name:'Process',exact:true})).toHaveAttribute('aria-pressed','true');
+    expect(screen.getByRole('button',{name:'Process'})).toHaveAttribute('aria-pressed','true');
     expect(screen.queryByRole('heading',{name:'Building a congressional office'})).not.toBeInTheDocument();
   });
   it('shows original supporting passages on demand, then closes them on a lens change',()=>{
@@ -27,7 +27,7 @@ describe('linked portfolio evidence',()=>{
     fireEvent.click(within(disclosure!).getByText('Supporting evidence',{exact:false}));
     expect(disclosure?.open).toBe(true);
     expect(within(disclosure!).getByRole('button',{name:'Explore this project'})).toBeVisible();
-    fireEvent.click(screen.getByRole('button',{name:'Outcomes',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'Outcomes'}));
     expect(screen.getAllByText(/Supporting evidence/,{selector:'summary'}).every(summary=>!summary.closest('details')!.open)).toBe(true);
   });
   it.each(connectionIds)('grounds the %s thread in published projects and passages',id=>{

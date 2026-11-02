@@ -21,7 +21,7 @@ describe('visitor answer quality regressions',()=>{
   });
   it('opens the Outcomes preset on outcomes rather than the proposal',()=>{
     render(<ProjectStory block={presetComposition('project-outcomes').blocks[0]} onChange={()=>{}}/>);
-    expect(screen.getByRole('button',{name:'Outcomes',exact:true})).toHaveAttribute('aria-pressed','true');
+    expect(screen.getByRole('button',{name:'Outcomes'})).toHaveAttribute('aria-pressed','true');
     expect(screen.queryByText('From the Idea to the Lab')).not.toBeInTheDocument();
     expect(screen.getByText(/turned them into nine practical ChatGPT use cases/)).toBeVisible();
   });

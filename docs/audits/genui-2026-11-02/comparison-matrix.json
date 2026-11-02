@@ -1,0 +1,413 @@
+{
+  "contentVersion": "canvas-2026-11-02-v13",
+  "mode": "offline-authored",
+  "cases": 45,
+  "passed": 45,
+  "results": [
+    {
+      "question": "Compare Isaac’s AI policy and Taiwan teaching contributions",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "fulbright-focus-group-sponsored-by-openai"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and Taiwan teaching process",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "fulbright-focus-group-sponsored-by-openai"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and Taiwan teaching outcomes",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "fulbright-focus-group-sponsored-by-openai"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and Congress contributions",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "congressional-office-setup-100-day-report"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and Congress process",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "congressional-office-setup-100-day-report"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and Congress outcomes",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "congressional-office-setup-100-day-report"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and journalism contributions",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "senior-thesis-local-journalism"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and journalism process",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "senior-thesis-local-journalism"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and journalism outcomes",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "senior-thesis-local-journalism"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and Boehringer contributions",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and Boehringer process",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and Boehringer outcomes",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and OpenAI product testing contributions",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and OpenAI product testing process",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s AI policy and OpenAI product testing outcomes",
+      "wanted": [
+        "artificial-intelligence-in-state-government-index",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and Congress contributions",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "congressional-office-setup-100-day-report"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and Congress process",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "congressional-office-setup-100-day-report"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and Congress outcomes",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "congressional-office-setup-100-day-report"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and journalism contributions",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "senior-thesis-local-journalism"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and journalism process",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "senior-thesis-local-journalism"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and journalism outcomes",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "senior-thesis-local-journalism"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and Boehringer contributions",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and Boehringer process",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and Boehringer outcomes",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and OpenAI product testing contributions",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and OpenAI product testing process",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Taiwan teaching and OpenAI product testing outcomes",
+      "wanted": [
+        "fulbright-focus-group-sponsored-by-openai",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Congress and journalism contributions",
+      "wanted": [
+        "congressional-office-setup-100-day-report",
+        "senior-thesis-local-journalism"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Congress and journalism process",
+      "wanted": [
+        "congressional-office-setup-100-day-report",
+        "senior-thesis-local-journalism"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Congress and journalism outcomes",
+      "wanted": [
+        "congressional-office-setup-100-day-report",
+        "senior-thesis-local-journalism"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Congress and Boehringer contributions",
+      "wanted": [
+        "congressional-office-setup-100-day-report",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Congress and Boehringer process",
+      "wanted": [
+        "congressional-office-setup-100-day-report",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Congress and Boehringer outcomes",
+      "wanted": [
+        "congressional-office-setup-100-day-report",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Congress and OpenAI product testing contributions",
+      "wanted": [
+        "congressional-office-setup-100-day-report",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Congress and OpenAI product testing process",
+      "wanted": [
+        "congressional-office-setup-100-day-report",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Congress and OpenAI product testing outcomes",
+      "wanted": [
+        "congressional-office-setup-100-day-report",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s journalism and Boehringer contributions",
+      "wanted": [
+        "senior-thesis-local-journalism",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s journalism and Boehringer process",
+      "wanted": [
+        "senior-thesis-local-journalism",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s journalism and Boehringer outcomes",
+      "wanted": [
+        "senior-thesis-local-journalism",
+        "boehringer-cares-foundation-rebrand-strategy-shift"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s journalism and OpenAI product testing contributions",
+      "wanted": [
+        "senior-thesis-local-journalism",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s journalism and OpenAI product testing process",
+      "wanted": [
+        "senior-thesis-local-journalism",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s journalism and OpenAI product testing outcomes",
+      "wanted": [
+        "senior-thesis-local-journalism",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Boehringer and OpenAI product testing contributions",
+      "wanted": [
+        "boehringer-cares-foundation-rebrand-strategy-shift",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "role",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Boehringer and OpenAI product testing process",
+      "wanted": [
+        "boehringer-cares-foundation-rebrand-strategy-shift",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "process",
+      "ok": true
+    },
+    {
+      "question": "Compare Isaac’s Boehringer and OpenAI product testing outcomes",
+      "wanted": [
+        "boehringer-cares-foundation-rebrand-strategy-shift",
+        "openai-product-testing-and-feedback"
+      ],
+      "focus": "outcomes",
+      "ok": true
+    }
+  ]
+}

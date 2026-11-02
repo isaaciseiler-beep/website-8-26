@@ -1,0 +1,836 @@
+{
+  "target": "seiler.page",
+  "preview": "http://127.0.0.1:8093/",
+  "mode": "local-authored",
+  "layoutChecks": [
+    {
+      "width": 1440,
+      "expected": "benchmark-ranking",
+      "escaped": [],
+      "heading": "AI in state government",
+      "layout": "benchmark-ranking",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "benchmark-scorecard",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-scorecard",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "benchmark-compare",
+      "escaped": [],
+      "heading": "Government comparison",
+      "layout": "benchmark-compare",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "benchmark-regions",
+      "escaped": [],
+      "heading": "Regional comparison",
+      "layout": "benchmark-regions",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "benchmark-distribution",
+      "escaped": [],
+      "heading": "Score distribution",
+      "layout": "benchmark-distribution",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "benchmark-criteria",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-criteria",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "project-brief",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-brief",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "project-process",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-process",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "project-outcomes",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-outcomes",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "project-evidence",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-evidence",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "project-compare",
+      "escaped": [],
+      "heading": "Contributions, side by side",
+      "layout": "project-compare",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "project-index",
+      "escaped": [],
+      "heading": "Explore work",
+      "layout": "project-index",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "experience-timeline",
+      "escaped": [],
+      "heading": "Career path",
+      "layout": "experience-timeline",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "experience-roles",
+      "escaped": [],
+      "heading": "Career & experience",
+      "layout": "experience-roles",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "site-pipeline",
+      "escaped": [],
+      "heading": "How this interface works",
+      "layout": "site-pipeline",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 1440,
+      "expected": "contact-card",
+      "escaped": [],
+      "heading": "Get in touch",
+      "layout": "contact-card",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "benchmark-ranking",
+      "escaped": [],
+      "heading": "AI in state government",
+      "layout": "benchmark-ranking",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "benchmark-scorecard",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-scorecard",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "benchmark-compare",
+      "escaped": [],
+      "heading": "Government comparison",
+      "layout": "benchmark-compare",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "benchmark-regions",
+      "escaped": [],
+      "heading": "Regional comparison",
+      "layout": "benchmark-regions",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "benchmark-distribution",
+      "escaped": [],
+      "heading": "Score distribution",
+      "layout": "benchmark-distribution",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "benchmark-criteria",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-criteria",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "project-brief",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-brief",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "project-process",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-process",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "project-outcomes",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-outcomes",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "project-evidence",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-evidence",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "project-compare",
+      "escaped": [],
+      "heading": "Contributions, side by side",
+      "layout": "project-compare",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "project-index",
+      "escaped": [],
+      "heading": "Explore work",
+      "layout": "project-index",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "experience-timeline",
+      "escaped": [],
+      "heading": "Career path",
+      "layout": "experience-timeline",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "experience-roles",
+      "escaped": [],
+      "heading": "Career & experience",
+      "layout": "experience-roles",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "site-pipeline",
+      "escaped": [],
+      "heading": "How this interface works",
+      "layout": "site-pipeline",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "expected": "contact-card",
+      "escaped": [],
+      "heading": "Get in touch",
+      "layout": "contact-card",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "benchmark-ranking",
+      "escaped": [],
+      "heading": "AI in state government",
+      "layout": "benchmark-ranking",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "benchmark-scorecard",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-scorecard",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "benchmark-compare",
+      "escaped": [],
+      "heading": "Government comparison",
+      "layout": "benchmark-compare",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "benchmark-regions",
+      "escaped": [],
+      "heading": "Regional comparison",
+      "layout": "benchmark-regions",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "benchmark-distribution",
+      "escaped": [],
+      "heading": "Score distribution",
+      "layout": "benchmark-distribution",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "benchmark-criteria",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-criteria",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "project-brief",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-brief",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "project-process",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-process",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "project-outcomes",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-outcomes",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "project-evidence",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-evidence",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "project-compare",
+      "escaped": [],
+      "heading": "Contributions, side by side",
+      "layout": "project-compare",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "project-index",
+      "escaped": [],
+      "heading": "Explore work",
+      "layout": "project-index",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "experience-timeline",
+      "escaped": [],
+      "heading": "Career path",
+      "layout": "experience-timeline",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "experience-roles",
+      "escaped": [],
+      "heading": "Career & experience",
+      "layout": "experience-roles",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "site-pipeline",
+      "escaped": [],
+      "heading": "How this interface works",
+      "layout": "site-pipeline",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "expected": "contact-card",
+      "escaped": [],
+      "heading": "Get in touch",
+      "layout": "contact-card",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "benchmark-ranking",
+      "escaped": [],
+      "heading": "AI in state government",
+      "layout": "benchmark-ranking",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "benchmark-scorecard",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-scorecard",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "benchmark-compare",
+      "escaped": [],
+      "heading": "Government comparison",
+      "layout": "benchmark-compare",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "benchmark-regions",
+      "escaped": [],
+      "heading": "Regional comparison",
+      "layout": "benchmark-regions",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "benchmark-distribution",
+      "escaped": [],
+      "heading": "Score distribution",
+      "layout": "benchmark-distribution",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "benchmark-criteria",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-criteria",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "project-brief",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-brief",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "project-process",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-process",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "project-outcomes",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-outcomes",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "project-evidence",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-evidence",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "project-compare",
+      "escaped": [],
+      "heading": "Contributions, side by side",
+      "layout": "project-compare",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "project-index",
+      "escaped": [],
+      "heading": "Explore work",
+      "layout": "project-index",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "experience-timeline",
+      "escaped": [],
+      "heading": "Career path",
+      "layout": "experience-timeline",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "experience-roles",
+      "escaped": [],
+      "heading": "Career & experience",
+      "layout": "experience-roles",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "site-pipeline",
+      "escaped": [],
+      "heading": "How this interface works",
+      "layout": "site-pipeline",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "expected": "contact-card",
+      "escaped": [],
+      "heading": "Get in touch",
+      "layout": "contact-card",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "benchmark-ranking",
+      "escaped": [],
+      "heading": "AI in state government",
+      "layout": "benchmark-ranking",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "benchmark-scorecard",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-scorecard",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "benchmark-compare",
+      "escaped": [],
+      "heading": "Government comparison",
+      "layout": "benchmark-compare",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "benchmark-regions",
+      "escaped": [],
+      "heading": "Regional comparison",
+      "layout": "benchmark-regions",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "benchmark-distribution",
+      "escaped": [],
+      "heading": "Score distribution",
+      "layout": "benchmark-distribution",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "benchmark-criteria",
+      "escaped": [],
+      "heading": "Michigan",
+      "layout": "benchmark-criteria",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "project-brief",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-brief",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "project-process",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-process",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "project-outcomes",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-outcomes",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "project-evidence",
+      "escaped": [],
+      "heading": "AI literacy in Taiwan",
+      "layout": "project-evidence",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "project-compare",
+      "escaped": [],
+      "heading": "Contributions, side by side",
+      "layout": "project-compare",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "project-index",
+      "escaped": [],
+      "heading": "Explore work",
+      "layout": "project-index",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "experience-timeline",
+      "escaped": [],
+      "heading": "Career path",
+      "layout": "experience-timeline",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "experience-roles",
+      "escaped": [],
+      "heading": "Career & experience",
+      "layout": "experience-roles",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "site-pipeline",
+      "escaped": [],
+      "heading": "How this interface works",
+      "layout": "site-pipeline",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "expected": "contact-card",
+      "escaped": [],
+      "heading": "Get in touch",
+      "layout": "contact-card",
+      "overflow": false
+    }
+  ],
+  "questionChecks": [
+    {
+      "question": "How did Isaac approach employee volunteering communications?",
+      "expected": "Bringing Boehringer Cares to life",
+      "detail": "Employee communications",
+      "overflow": false,
+      "text": "Bringing Boehringer Cares to life\nContribution\nProcess\nOutcomes\nEvidence\n01\nWebsite & rollout\n02\nEmployee communications\nCarrying the rebrand inside the company\n\nThe website was only one part of the rollout. I also built a company-wide newsletter and updated internal messaging around volunteering so employees encountered the same voice and visual direction after the launch.\n\nThis ongoing work helped keep the rebrand consistent across announcements, program updates, volunteering communications, and impact stories.\n\nSources\nExplore another project\nBack\nShare"
+    },
+    {
+      "question": "How did Isaac handle journalists working on deadline in Congress?",
+      "expected": "Building a congressional office",
+      "detail": "Building the press network",
+      "overflow": false,
+      "text": "Building a congressional office\nContribution\nProcess\nOutcomes\nEvidence\n01\nBuilding the press network\n02\nChild-labor coverage\n03\nReaching different audiences\n04\nBipartisan collaboration\n05\nThe 100 Day Report\nBuilding the press list\n\nHe learned what individual reporters covered, what made a useful pitch, and how quickly they needed answers. He became a dependable contact for journalists working on deadline while also bringing them stories, interviews, and events. Within a few months, the office had an active press network stretching from West Michigan to Washington.\n\nIsaac built a press network designed to move local stories through regional, statewide, and national outlets while preserving their context.\nContinue reading\nExplore another project\nBack\nShare"
+    },
+    {
+      "question": "How did Isaac verify transcripts for his journalism thesis?",
+      "expected": "AI, platforms & local journalism",
+      "detail": "Research design",
+      "overflow": false,
+      "text": "AI, platforms & local journalism\nContribution\nProcess\nOutcomes\nEvidence\n01\nResearch design\n02\nResearch themes & outputs\nOverview\n\nI designed and executed the research end-to-end, including literature review, interview recruitment, transcription verification, qualitative coding, and thematic analysis.\n\nContinue reading\nSources\nExplore another project\nBack\nShare"
+    },
+    {
+      "question": "Show the Taiwan program materials",
+      "expected": "AI literacy in Taiwan",
+      "detail": "Program materials",
+      "overflow": false,
+      "text": "AI literacy in Taiwan\nContribution\nProcess\nOutcomes\nEvidence\nFind in this project\nProgram materials\nExplore the program workspace\nSee the program introduction\nView the conference workshop\nFrom the Idea to the Lab\nBuilding a Program Where People Learned From Each Other\nTurning What We Learned Into Public Value\nDelivering What We Learned to a Broader Audience\nWhat I Learned\nExplore another project\nBack\nShare"
+    },
+    {
+      "question": "Where can I read the government AI methodology and recommendations?",
+      "expected": "AI in state government",
+      "detail": "",
+      "overflow": false,
+      "text": "AI in state government\n\nAugust 2025 snapshot\n\nContribution\nProcess\nOutcomes\nEvidence\nFind in this project\nFinal Products\nThe GenAI Benchmark\nStudy Methodology and Background\nRecommendations to State Lawmakers\nExecutive Summary Presentation\nOverview\nWhat I Built\nExplore another project\nBack\nShare"
+    },
+    {
+      "question": "How did Isaac work on Back to School?",
+      "expected": "Inside the ChatGPT Lab",
+      "detail": "Back to School",
+      "overflow": false,
+      "text": "Inside the ChatGPT Lab\nContribution\nProcess\nOutcomes\nEvidence\n01\n100 Chats\n02\nStudy Mode\n03\nBack to School\n04\nPulse\n05\nAtlas\n06\nGroup Chats\nBack to School: translating a product into campus life\n\nThe Back-to-School work was separate from Study Mode. This was not about changing how the product reasoned; it was about making the broader campaign feel like it understood what students were actually trying to do.\n\nI reviewed campaign concepts and prompt cards, pushed for more career and professional-development examples, and contributed a real prompt about finding a policy internship in Washington, D.C. I also gave feedback on how physical campus activations could feel participatory instead of promotional.\n\nContinue reading\nSources\nExplore another project\nBack\nShare"
+    }
+  ],
+  "manualChecks": [
+    "Back and Forward restore selected controls and heading focus",
+    "Shared view restores Congress section 1 paragraph 3 without serializing visitor draft",
+    "Manual Outcomes change clears excerpt; switching to Boehringer preserves Outcomes and selects Results",
+    "Taiwan album opens; lightbox advances and closes; All photos restores 17 album links",
+    "Deep work search reaches each of six different projects; opening Boehringer Evidence exposes all five sections; Back restores volunteering search"
+  ],
+  "appearanceRestored": "light",
+  "viewportRestored": true,
+  "workSearchChecks": [
+    {
+      "term": "volunteering",
+      "matches": [
+        {
+          "id": "boehringer-cares-foundation-rebrand-strategy-shift",
+          "title": "Bringing the Boehringer Cares Rebrand to Life"
+        }
+      ]
+    },
+    {
+      "term": "deadline",
+      "matches": [
+        {
+          "id": "congressional-office-setup-100-day-report",
+          "title": "Building a Congressional Operation from Scratch"
+        }
+      ]
+    },
+    {
+      "term": "subscription",
+      "matches": [
+        {
+          "id": "senior-thesis-local-journalism",
+          "title": "Investigating AI’s Impact on Journalism in Australia"
+        }
+      ]
+    },
+    {
+      "term": "Socratic",
+      "matches": [
+        {
+          "id": "openai-product-testing-and-feedback",
+          "title": "Helping Shape OpenAI's Products Before Launch"
+        }
+      ]
+    },
+    {
+      "term": "fundamentals",
+      "matches": [
+        {
+          "id": "fulbright-focus-group-sponsored-by-openai",
+          "title": "Leading AI Literacy Efforts in Taiwan"
+        }
+      ]
+    },
+    {
+      "term": "sandboxes",
+      "matches": [
+        {
+          "id": "artificial-intelligence-in-state-government-index",
+          "title": "Mapping the Rise of AI Across State Government"
+        }
+      ]
+    }
+  ]
+}

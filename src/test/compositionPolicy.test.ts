@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { blankBlock } from '@/lib/genui';
-import { cacheComposition, cachedComposition, clearCompositionCache, compositionCacheKey, providerCallLimit } from '../../server/composition-policy';
+import { cacheComposition, cachedComposition, clearCompositionCache, compositionCacheKey, providerCallLimit, providerFailure } from '../../server/composition-policy';
 
 const composition={blocks:[blankBlock('benchmark')]};
 describe('bounded composition safeguards',()=>{
@@ -29,5 +29,16 @@ describe('bounded composition safeguards',()=>{
     expect(key).toMatch(/^[a-f0-9]{64}$/);
     const edited={blocks:[{...composition.blocks[0],region:'Midwest' as const}]};
     expect(compositionCacheKey('A private visitor question',edited,composition,'model')).not.toBe(key);
+  });
+  it('recognizes schema failures and nested provider errors without returning raw details',()=>{
+    expect(providerFailure(Object.assign(new Error('Failed to generate'),{name:'AI_NoObjectGeneratedError'}))).toBe('invalid_output');
+    expect(providerFailure(Object.assign(new Error('No result'),{cause:Object.assign(new Error('private upstream details'),{statusCode:429})}))).toBe('rate_limit');
+    expect(providerFailure(Object.assign(new Error('No result'),{cause:Object.assign(new Error('private upstream details'),{name:'TimeoutError'})}))).toBe('timeout');
+    expect(providerFailure(Object.assign(new Error('No result'),{cause:Object.assign(new Error('private upstream details'),{statusCode:401})}))).toBe('authentication');
+  });
+  it('bounds inspection of malformed or cyclic provider errors',()=>{
+    const error:Error&{cause?:unknown}=new Error('private upstream details');error.cause=error;
+    expect(providerFailure(error)).toBe('provider_unavailable');
+    expect(providerFailure(null)).toBe('provider_unavailable');
   });
 });

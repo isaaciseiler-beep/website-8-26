@@ -26,14 +26,14 @@ describe('published evidence discovery', () => {
   });
   it('keeps comparison sources collapsed rather than repeating the outcome as evidence', () => {
     render(<ProjectComparison block={{ ...blankBlock('comparison'), focus: 'outcomes', projectIds: ['congressional-office-setup-100-day-report','boehringer-cares-foundation-rebrand-strategy-shift'] }} onChange={() => {}} />);
-    expect(screen.queryByRole('heading', { name: 'Evidence', exact: true })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Evidence' })).not.toBeInTheDocument();
     expect(screen.getAllByText('Sources')).toHaveLength(2);
     expect(screen.getAllByText(/25%/)).toHaveLength(1);
     screen.getAllByText('Sources').forEach(source => expect(source.closest('details')!.open).toBe(false));
   });
   it('makes evidence searchable from the project without a special request', () => {
     render(<Story initial={{ ...blankBlock('story'), projectIds: [TAIWAN_ID] }} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Evidence', exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: 'Evidence' }));
     fireEvent.change(screen.getByRole('searchbox', { name: 'Find in this project' }), { target: { value: ' QUESTIONS    participants ' } });
     expect(screen.getByText('Delivering What We Learned to a Broader Audience')).toBeVisible();
     expect(screen.queryByText('No matching evidence in this project.')).not.toBeInTheDocument();

@@ -1,0 +1,40 @@
+{
+  "target": "https://seiler.page",
+  "repository": "isaaciseiler-beep/website-8-26",
+  "baseCommit": "cc11d6924c7271d1548255aa1e84a0ac5b98d535",
+  "contentVersion": "canvas-2026-11-02-v13",
+  "verifiedAt": "2026-11-02T20:12:57.919Z",
+  "tests": {
+    "passed": 732,
+    "failed": 0,
+    "files": 51
+  },
+  "checks": {
+    "eslint": "passed",
+    "appTypeScript": "passed",
+    "nodeTypeScript": "passed",
+    "productionBuild": "passed",
+    "mcpBuild": "passed",
+    "diffWhitespace": "passed"
+  },
+  "evaluation": {
+    "mode": "offline",
+    "routing": "22/22",
+    "sections": "32/32",
+    "paragraphAnyTarget": "24/26",
+    "comparisons": "45/45",
+    "networkRequests": 0,
+    "modelCalls": 0
+  },
+  "browser": {
+    "layoutChecks": 80,
+    "overflowFailures": 0,
+    "escapingControlFailures": 0,
+    "consoleErrorsAtFinalCheck": 0,
+    "appearanceRestored": "light",
+    "viewportRestored": true
+  },
+  "deployment": "not performed",
+  "liveProviderEvaluation": "not performed",
+  "generatedAssets": "Reviewed; feed timestamp-only change reverted. Sitemap files unchanged."
+}

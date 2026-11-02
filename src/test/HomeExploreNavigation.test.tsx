@@ -7,7 +7,7 @@ import { blankBlock, resolveCanvasPlan, TAIWAN_ID } from '@/lib/genui';
 
 const mount = () => render(<MemoryRouter><HomeExplore /></MemoryRouter>);
 async function submit(text: string) {
-  const input=screen.getByRole('combobox',{name:'Explore',exact:true});
+  const input=screen.getByRole('combobox',{name:'Explore'});
   fireEvent.change(input,{target:{value:text}});
   await act(async()=>{fireEvent.submit(input.closest('form')!);});
 }
@@ -19,13 +19,13 @@ describe('exploration navigation',()=>{
     vi.stubGlobal('fetch',fetcher);mount();
     await submit('What connects Isaac’s work across fields?');
     fireEvent.change(screen.getByRole('combobox',{name:'Connection to explore'}),{target:{value:'delivery'}});
-    fireEvent.click(screen.getByRole('button',{name:'Outcomes',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'Outcomes'}));
     const calls=fetcher.mock.calls.length;
     fireEvent.click(screen.getAllByText(/Supporting evidence/,{selector:'summary'})[0]);
     fireEvent.click(screen.getAllByRole('button',{name:'Explore this project'})[0]);
     fireEvent.click(screen.getByRole('button',{name:'Back to connections'}));
     expect(screen.getByRole('combobox',{name:'Connection to explore'})).toHaveValue('delivery');
-    expect(screen.getByRole('button',{name:'Outcomes',exact:true})).toHaveAttribute('aria-pressed','true');
+    expect(screen.getByRole('button',{name:'Outcomes'})).toHaveAttribute('aria-pressed','true');
     expect(fetcher).toHaveBeenCalledTimes(calls);
   });
   it('returns to the exact project search after opening and refining a project without another request',async()=>{
@@ -36,9 +36,9 @@ describe('exploration navigation',()=>{
     const calls=fetcher.mock.calls.length;
     const matches=within(screen.getByRole('region',{name:'Work explorer'})).getAllByRole('button').length;
     fireEvent.click(within(screen.getByRole('region',{name:'Work explorer'})).getByRole('button',{name:/Leading AI Literacy/}));
-    fireEvent.click(screen.getByRole('button',{name:'Process',exact:true}));
-    fireEvent.click(screen.getByRole('button',{name:'Outcomes',exact:true}));
-    fireEvent.click(screen.getByRole('button',{name:'Back to projects',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'Process'}));
+    fireEvent.click(screen.getByRole('button',{name:'Outcomes'}));
+    fireEvent.click(screen.getByRole('button',{name:'Back to projects'}));
     expect(screen.getByRole('searchbox',{name:'Find a project'})).toHaveValue('Taiwan');
     expect(within(screen.getByRole('region',{name:'Work explorer'})).getAllByRole('button')).toHaveLength(matches);
     expect(fetcher).toHaveBeenCalledTimes(calls);
@@ -49,10 +49,10 @@ describe('exploration navigation',()=>{
     await submit('Explore all projects');
     fireEvent.click(screen.getByRole('button',{name:/Leading AI Literacy/}));
     await submit('Show the process');
-    expect(screen.getByRole('button',{name:'Back to projects',exact:true})).toBeInTheDocument();
+    expect(screen.getByRole('button',{name:'Back to projects'})).toBeInTheDocument();
     await submit('How can I contact Isaac?');
     expect(screen.getByRole('region',{name:'Contact'})).toBeInTheDocument();
-    expect(screen.queryByRole('button',{name:'Back to projects',exact:true})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button',{name:'Back to projects'})).not.toBeInTheDocument();
   });
 
   it('uses server-confirmed composer availability while the configuration probe is still pending',async()=>{

@@ -96,11 +96,11 @@ describe('answer usefulness before expanding reading',()=>{
     expect(screen.queryByPlaceholderText('Find a role or skill')).not.toBeInTheDocument();
     expect(screen.queryByText('Sources')).not.toBeInTheDocument();
     const roles=screen.getByRole('navigation',{name:'Professional roles'});
-    expect(within(roles).getAllByRole('button')).toHaveLength(5);
+    expect(within(roles).getAllByRole('button')).toHaveLength(8);
     fireEvent.click(within(roles).getByRole('button',{name:'Teaching in Taiwan'}));
     expect(screen.getByRole('heading',{name:'Designing around educators’ real work'})).toBeVisible();
     expect(screen.getByText(/Participant questions changed what he emphasized/)).toBeVisible();
-    fireEvent.click(screen.getByRole('button',{name:'Explore the work',exact:true}));
+    fireEvent.click(screen.getByRole('button',{name:'Explore the work'}));
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeVisible();
     expect(screen.queryByText('Program proposer, designer & facilitator')).not.toBeInTheDocument();
     expect(screen.queryByText('2025')).not.toBeInTheDocument();

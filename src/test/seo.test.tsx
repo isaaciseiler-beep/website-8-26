@@ -35,7 +35,7 @@ describe("search and answer engine identity", () => {
   it("serves the public profile through the production rewrite target", () => {
     let output = "";
     const response = { statusCode: 0, setHeader() {}, end(value = "") { output += value; } };
-    handler({ method: "GET", url: "/api/public-content?path=profile" } as ApiRequest, response as ApiResponse);
+    handler({ method: "GET", url: "/api/public-content?path=profile" } as ApiRequest, response as unknown as ApiResponse);
     expect(response.statusCode).toBe(200);
     expect(JSON.parse(output)).toMatchObject({ name: "Isaac Seiler", headline: "Tech generalist" });
   });
