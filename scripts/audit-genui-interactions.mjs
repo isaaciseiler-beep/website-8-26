@@ -9,7 +9,7 @@ if(!Number.isSafeInteger(duration)||duration<1000||duration>3600000)throw new Er
 await mkdir(out,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH});
 let page;const started=Date.now();const errors=[];const samples=[];let operations=0;
-const prompts=['Tell me about the ChatGPT Lab','Compare AI policy and teaching in Taiwan','Rank governments by AI preparedness','What connects Isaac’s work across fields?','Explore Isaac’s career','How does this website work?','What did Isaac learn in Taiwan?','Compare California and Washington'];
+const prompts=['Explore all projects','Tell me about the ChatGPT Lab','Compare AI policy and teaching in Taiwan','Rank governments by AI preparedness','What connects Isaac’s work across fields?','Explore Isaac’s career','How does this website work?','What did Isaac learn in Taiwan?','Compare California and Washington'];
 try {
  const context=await browser.newContext({viewport:{width:1280,height:900}});
  await context.addInitScript(()=>localStorage.setItem('theme','light'));
@@ -19,6 +19,7 @@ try {
  await page.goto(base);
  const input=page.getByRole('combobox',{name:'Explore',exact:true});await input.waitFor();
  async function settled(label){
+  await page.mouse.move(0,0);
   await page.waitForTimeout(900);
   const observation=await page.evaluate(()=>{
    const root=document.querySelector('.home-genui');const panel=root.querySelector('.home-genui-window').getBoundingClientRect();
@@ -27,13 +28,14 @@ try {
    // decoded image may also be in its bounded arrival fade, not stranded.
    const pendingImages=[...root.querySelectorAll('img')].filter(e=>!e.complete||!e.naturalWidth).length;
    const faded=[...root.querySelectorAll('p,img')].filter(visible).filter(e=>!(e instanceof HTMLImageElement)||e.complete&&e.naturalWidth>0&&!e.getAnimations().some(a=>a.playState==='running')).filter(e=>Number(getComputedStyle(e).opacity)<.99).map(e=>(e.textContent||e.getAttribute('alt')||'image').slice(0,50));
+   const labelOverflow=[...root.querySelectorAll('.portfolio-tab-label')].filter(visible).filter(e=>{const a=e.getBoundingClientRect(),b=e.parentElement.getBoundingClientRect();return a.left<b.left-.5||a.right>b.right+.5;}).map(e=>e.textContent);
    const groups=[...root.querySelectorAll('.portfolio-tabs')].filter(visible).map(e=>({selected:e.querySelectorAll('button[aria-pressed="true"]').length,markers:e.querySelectorAll('.portfolio-tab-indicator').length}));
    const escaped=[...root.querySelectorAll('button,select,input')].filter(visible).filter(e=>{const r=e.getBoundingClientRect();return r.left<panel.left-1||r.right>panel.right+1;}).map(e=>e.getAttribute('aria-label')||e.textContent);
-   return {pendingImages,width:innerWidth,scroll:document.documentElement.scrollWidth,faded,groups,escaped,animations:root.getAnimations({subtree:true}).filter(a=>a.playState==='running').length,heap:performance.memory?.usedJSHeapSize};
+   return {labelOverflow,pendingImages,width:innerWidth,scroll:document.documentElement.scrollWidth,faded,groups,escaped,animations:root.getAnimations({subtree:true}).filter(a=>a.playState==='running').length,heap:performance.memory?.usedJSHeapSize};
   });
   samples.push({seconds:Math.round((Date.now()-started)/1000),label,...observation});
   assert(observation.scroll<=observation.width,JSON.stringify(observation));
-  assert.deepEqual(observation.faded,[],label);assert.deepEqual(observation.escaped,[],label);
+  assert.deepEqual(observation.labelOverflow,[],label);assert.deepEqual(observation.faded,[],label);assert.deepEqual(observation.escaped,[],label);
   assert(observation.groups.every(g=>g.selected===1&&g.markers===1),label);
   assert.equal(errors.length,0,errors.join('\n'));
  }
@@ -44,6 +46,14 @@ try {
    const prompt=prompts[(i+cycle)%prompts.length];
    await input.fill(prompt);await input.press('Escape');await input.press('Enter');operations++;
    await page.locator('.home-genui-stage').waitFor();
+   if(await page.getByRole('searchbox',{name:'Find a project',exact:true}).count()){
+    const filter=page.getByRole('searchbox',{name:'Find a project',exact:true});
+    for(const value of ['Tai','AI','Taiwan','']){await filter.fill(value);await page.waitForTimeout(45);operations++;}
+    await filter.fill('Taiwan');await page.waitForTimeout(300);
+    await page.getByRole('button',{name:'Leading AI Literacy Efforts in Taiwan',exact:true}).click();operations++;
+    await page.waitForTimeout(100);
+    await page.getByRole('button',{name:'Back to projects',exact:true}).click();operations++;
+   }
    const groups=page.locator('.portfolio-tabs');
    for(let group=0;group<await groups.count();group++){
     const buttons=groups.nth(group).locator('button');const total=await buttons.count();
@@ -51,6 +61,10 @@ try {
    }
    if(await page.getByRole('combobox',{name:'Lab work to explore'}).count()){
     await page.getByRole('combobox',{name:'Lab work to explore'}).selectOption('4');operations++;
+   }
+   const further=page.locator('.home-next-questions>summary');
+   if((i+cycle)%3===0&&await further.count()){
+    await further.click();await page.waitForTimeout(45);await further.click();await page.waitForTimeout(45);await further.click();operations+=3;
    }
    await settled(`cycle-${cycle}-prompt-${i}`);
    // Exercise a state replacement before the clear fold completes.

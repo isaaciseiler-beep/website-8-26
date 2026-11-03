@@ -1,0 +1,157 @@
+{
+  "note": "Diagnostic only: artificial 4x CPU throttling, concurrent stress audit, one local machine. Not a device or frame-rate guarantee.",
+  "cases": [
+    {
+      "width": 1440,
+      "theme": "light",
+      "label": "open",
+      "cpuThrottle": 4,
+      "samples": 82,
+      "p50": 16.699999999999932,
+      "p95": 16.700000000000045,
+      "max": 50.10000000000002,
+      "longTasks": [
+        {
+          "start": 497.19999998807907,
+          "duration": 62
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "label": "refine",
+      "cpuThrottle": 4,
+      "samples": 83,
+      "p50": 16.699999999999818,
+      "p95": 16.799999999999955,
+      "max": 33.200000000000045,
+      "longTasks": []
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "label": "clear",
+      "cpuThrottle": 4,
+      "samples": 84,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000273,
+      "max": 16.800000000000182,
+      "longTasks": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "label": "open",
+      "cpuThrottle": 4,
+      "samples": 81,
+      "p50": 16.700000000000045,
+      "p95": 16.800000000000182,
+      "max": 50,
+      "longTasks": [
+        {
+          "start": 421.59999999403954,
+          "duration": 60
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "label": "refine",
+      "cpuThrottle": 4,
+      "samples": 83,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000273,
+      "max": 33.299999999999955,
+      "longTasks": []
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "label": "clear",
+      "cpuThrottle": 4,
+      "samples": 84,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000728,
+      "max": 16.800000000000182,
+      "longTasks": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "label": "open",
+      "cpuThrottle": 4,
+      "samples": 81,
+      "p50": 16.699999999999932,
+      "p95": 16.700000000000045,
+      "max": 50,
+      "longTasks": [
+        {
+          "start": 414.09999999403954,
+          "duration": 55
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "label": "refine",
+      "cpuThrottle": 4,
+      "samples": 83,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000273,
+      "max": 33.299999999999955,
+      "longTasks": []
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "label": "clear",
+      "cpuThrottle": 4,
+      "samples": 84,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000273,
+      "max": 16.800000000000182,
+      "longTasks": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "label": "open",
+      "cpuThrottle": 4,
+      "samples": 83,
+      "p50": 16.700000000000045,
+      "p95": 16.700000000000273,
+      "max": 50,
+      "longTasks": [
+        {
+          "start": 770.3000000119209,
+          "duration": 55
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "label": "refine",
+      "cpuThrottle": 4,
+      "samples": 83,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000273,
+      "max": 33.40000000000009,
+      "longTasks": []
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "label": "clear",
+      "cpuThrottle": 4,
+      "samples": 84,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000728,
+      "max": 16.800000000000182,
+      "longTasks": []
+    }
+  ]
+}

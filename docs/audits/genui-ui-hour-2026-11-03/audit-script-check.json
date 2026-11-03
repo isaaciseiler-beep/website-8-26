@@ -1,0 +1,532 @@
+{
+  "started": "2026-11-03T21:42:46.634Z",
+  "elapsedSeconds": 41,
+  "operations": 138,
+  "errors": [],
+  "samples": [
+    {
+      "seconds": 2,
+      "label": "cycle-0-prompt-0",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 12059170
+    },
+    {
+      "seconds": 3,
+      "label": "cycle-0-prompt-1",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 9703233
+    },
+    {
+      "seconds": 4,
+      "label": "cycle-0-prompt-2",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 13138480
+    },
+    {
+      "seconds": 5,
+      "label": "cycle-0-clear-reverse",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 12382134
+    },
+    {
+      "seconds": 7,
+      "label": "cycle-0-prompt-3",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 11478526
+    },
+    {
+      "seconds": 8,
+      "label": "cycle-0-prompt-4",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 10641396
+    },
+    {
+      "seconds": 9,
+      "label": "cycle-0-prompt-5",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 14499817
+    },
+    {
+      "seconds": 11,
+      "label": "cycle-0-undo",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 11791564
+    },
+    {
+      "seconds": 13,
+      "label": "cycle-0-prompt-6",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 11954035
+    },
+    {
+      "seconds": 14,
+      "label": "cycle-0-prompt-7",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 13060257
+    },
+    {
+      "seconds": 15,
+      "label": "cycle-0-prompt-8",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 320,
+      "scroll": 320,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 11333192
+    },
+    {
+      "seconds": 16,
+      "label": "cycle-1-prompt-0",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 11622110
+    },
+    {
+      "seconds": 17,
+      "label": "cycle-1-prompt-1",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 13114459
+    },
+    {
+      "seconds": 18,
+      "label": "cycle-1-prompt-2",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 14861937
+    },
+    {
+      "seconds": 19,
+      "label": "cycle-1-clear-reverse",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 14762980
+    },
+    {
+      "seconds": 20,
+      "label": "cycle-1-prompt-3",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 15434517
+    },
+    {
+      "seconds": 21,
+      "label": "cycle-1-prompt-4",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 18656258
+    },
+    {
+      "seconds": 22,
+      "label": "cycle-1-prompt-5",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 16380952
+    },
+    {
+      "seconds": 23,
+      "label": "cycle-1-undo",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 17931331
+    },
+    {
+      "seconds": 24,
+      "label": "cycle-1-prompt-6",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 17382345
+    },
+    {
+      "seconds": 25,
+      "label": "cycle-1-prompt-7",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 13192494
+    },
+    {
+      "seconds": 27,
+      "label": "cycle-1-prompt-8",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 390,
+      "scroll": 390,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 16702986
+    },
+    {
+      "seconds": 28,
+      "label": "cycle-2-prompt-0",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 17935546
+    },
+    {
+      "seconds": 29,
+      "label": "cycle-2-prompt-1",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 14037878
+    },
+    {
+      "seconds": 30,
+      "label": "cycle-2-prompt-2",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 12821169
+    },
+    {
+      "seconds": 31,
+      "label": "cycle-2-clear-reverse",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 15732573
+    },
+    {
+      "seconds": 32,
+      "label": "cycle-2-prompt-3",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 18094783
+    },
+    {
+      "seconds": 34,
+      "label": "cycle-2-prompt-4",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 22456140
+    },
+    {
+      "seconds": 35,
+      "label": "cycle-2-prompt-5",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 13069275
+    },
+    {
+      "seconds": 37,
+      "label": "cycle-2-undo",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 17495473
+    },
+    {
+      "seconds": 38,
+      "label": "cycle-2-prompt-6",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 20495666
+    },
+    {
+      "seconds": 39,
+      "label": "cycle-2-prompt-7",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [],
+      "escaped": [],
+      "animations": 0,
+      "heap": 13446210
+    },
+    {
+      "seconds": 41,
+      "label": "cycle-2-prompt-8",
+      "labelOverflow": [],
+      "pendingImages": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "faded": [],
+      "groups": [
+        {
+          "selected": 1,
+          "markers": 1
+        }
+      ],
+      "escaped": [],
+      "animations": 0,
+      "heap": 24140701
+    }
+  ]
+}

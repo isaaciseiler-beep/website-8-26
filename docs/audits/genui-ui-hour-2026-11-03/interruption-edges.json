@@ -1,0 +1,58 @@
+[
+  {
+    "width": 1440,
+    "theme": "light",
+    "id": "openai-product-testing-and-feedback",
+    "scrollDrift": 0,
+    "focus": true,
+    "settled": {
+      "transform": "none",
+      "opacity": "1",
+      "reading": "none"
+    },
+    "fastTabs": 20,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "theme": "dark",
+    "id": "openai-product-testing-and-feedback",
+    "scrollDrift": 0,
+    "focus": true,
+    "settled": {
+      "transform": "none",
+      "opacity": "1",
+      "reading": "none"
+    },
+    "fastTabs": 20,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "light",
+    "id": "openai-product-testing-and-feedback",
+    "scrollDrift": 0,
+    "focus": true,
+    "settled": {
+      "transform": "none",
+      "opacity": "1",
+      "reading": "none"
+    },
+    "fastTabs": 20,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "id": "openai-product-testing-and-feedback",
+    "scrollDrift": 0,
+    "focus": true,
+    "settled": {
+      "transform": "none",
+      "opacity": "1",
+      "reading": "none"
+    },
+    "fastTabs": 20,
+    "errors": []
+  }
+]

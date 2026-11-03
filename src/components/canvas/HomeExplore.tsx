@@ -1,3 +1,4 @@
+import { useDisclosureMotion } from '@/hooks/useDisclosureMotion';
 import { useRouteNavigation } from "@/lib/routeNavigation";
 import { MOTION_DURATION, MOTION_EASE_ENTER } from "@/lib/motion";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
@@ -35,10 +36,11 @@ function returnLabel(view:View):string {
 }
 type SavedExploration = {query:string;view:View|null;guidance:'welcome'|'unmatched'|'ambiguous'|null;history:View[];future:View[]};
 const entryExplorations = new Map<string, SavedExploration>();
-function ExplorationReveal({children,restored=false,onSettled}:{children:ReactNode;restored?:boolean;onSettled?:()=>void}) {
+function ExplorationReveal({children,restored=false,onSettled,contentRevision}:{children:ReactNode;restored?:boolean;onSettled?:()=>void;contentRevision:number}) {
   const present=useIsPresent();
   const reduceMotion=useReducedMotion();
   const content=useRef<HTMLDivElement>(null);
+  const disclosure=useDisclosureMotion(content,contentRevision,reduceMotion);
   const [height,setHeight]=useState<number|null>(null);
   useLayoutEffect(()=>{
     const node=content.current;if(!node)return;
@@ -53,9 +55,9 @@ function ExplorationReveal({children,restored=false,onSettled}:{children:ReactNo
     return()=>{observer.disconnect();cancelAnimationFrame(frame);};
   },[]);
   return <motion.div className="home-genui-reveal" data-state={present?'open':'closing'} aria-hidden={!present} {...(!present?{inert:''}:{})}
-    initial={restored?false:{height:0,opacity:1}} animate={{height:height??(restored?'auto':0),opacity:1}} exit={{height:0,opacity:0}}
-    onAnimationComplete={onSettled} transition={{height:{duration:reduceMotion?0:present?MOTION_DURATION.reveal:MOTION_DURATION.panel,ease:MOTION_EASE_ENTER},opacity:{duration:reduceMotion?0:present?MOTION_DURATION.base:MOTION_DURATION.exit,ease:MOTION_EASE_ENTER}}}>
-    <div ref={content} className="home-genui-reveal-content">{children}</div>
+    initial={restored?false:{height:0,opacity:1}} animate={{height:present&&disclosure.following?'auto':height??(restored?'auto':0),opacity:1}} exit={{height:0,opacity:0}}
+    onAnimationComplete={onSettled} transition={{height:{duration:reduceMotion||present&&disclosure.following?0:present?MOTION_DURATION.reveal:MOTION_DURATION.panel,ease:MOTION_EASE_ENTER},opacity:{duration:reduceMotion?0:present?MOTION_DURATION.base:MOTION_DURATION.exit,delay:reduceMotion||present?0:MOTION_DURATION.panel-MOTION_DURATION.exit,ease:MOTION_EASE_ENTER}}}>
+    <div ref={content} className="home-genui-reveal-content" onClickCapture={disclosure.onClickCapture}>{children}</div>
   </motion.div>;
 }
 function RequestProgress({children}:{children:ReactNode}) {
@@ -352,7 +354,7 @@ export default function HomeExplore() {
       <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
-        {(view||guidance)&&<ExplorationReveal key="exploration-panel" restored={Boolean(restored?.view||restored?.guidance)} onSettled={restoreReadingPosition}>
+        {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} onSettled={restoreReadingPosition}>
           <div ref={resultsRef} className="home-genui-stage" aria-label="Exploration results" aria-busy={busy} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
             {guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>

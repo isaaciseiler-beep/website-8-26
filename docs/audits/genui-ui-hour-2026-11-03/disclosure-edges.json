@@ -1,0 +1,24 @@
+{
+  "prevented": {
+    "open": true,
+    "inert": 0
+  },
+  "programmaticClose": {
+    "open": false,
+    "inert": 1
+  },
+  "programmaticOpen": {
+    "open": true,
+    "inert": 0
+  },
+  "nestedClosed": {
+    "outer": true,
+    "inner": false,
+    "innerInert": false,
+    "innerContentInert": 1
+  },
+  "nestedReopened": {
+    "inert": 0
+  },
+  "errors": []
+}

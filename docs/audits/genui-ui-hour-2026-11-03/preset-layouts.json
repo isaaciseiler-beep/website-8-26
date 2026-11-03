@@ -1,0 +1,773 @@
+{
+  "rows": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "benchmark-ranking",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "benchmark-scorecard",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "benchmark-compare",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "benchmark-regions",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "benchmark-distribution",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "benchmark-criteria",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "project-brief",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "project-process",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "project-outcomes",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "project-evidence",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "project-compare",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "project-index",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "experience-timeline",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "experience-roles",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "site-pipeline",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "layout": "contact-card",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "benchmark-ranking",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "benchmark-scorecard",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "benchmark-compare",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "benchmark-regions",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "benchmark-distribution",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "benchmark-criteria",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "project-brief",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "project-process",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "project-outcomes",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "project-evidence",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "project-compare",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "project-index",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "experience-timeline",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "experience-roles",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "site-pipeline",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "layout": "contact-card",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "benchmark-ranking",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "benchmark-scorecard",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "benchmark-compare",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "benchmark-regions",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "benchmark-distribution",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "benchmark-criteria",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "project-brief",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "project-process",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "project-outcomes",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "project-evidence",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "project-compare",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "project-index",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "experience-timeline",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "experience-roles",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "site-pipeline",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "layout": "contact-card",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "benchmark-ranking",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "benchmark-scorecard",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "benchmark-compare",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "benchmark-regions",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "benchmark-distribution",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "benchmark-criteria",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "project-brief",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "project-process",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "project-outcomes",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "project-evidence",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "project-compare",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "project-index",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "experience-timeline",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "experience-roles",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "site-pipeline",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "layout": "contact-card",
+      "scroll": 1440,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "benchmark-ranking",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "benchmark-scorecard",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "benchmark-compare",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "benchmark-regions",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "benchmark-distribution",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "benchmark-criteria",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "project-brief",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "project-process",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "project-outcomes",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "project-evidence",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "project-compare",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "project-index",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "experience-timeline",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "experience-roles",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "site-pipeline",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "layout": "contact-card",
+      "scroll": 390,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "benchmark-ranking",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "benchmark-scorecard",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "benchmark-compare",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "benchmark-regions",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "benchmark-distribution",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "benchmark-criteria",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "project-brief",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "project-process",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "project-outcomes",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "project-evidence",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "project-compare",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "project-index",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "experience-timeline",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "experience-roles",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "site-pipeline",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "layout": "contact-card",
+      "scroll": 320,
+      "escaped": [],
+      "labelOverflow": []
+    }
+  ],
+  "errors": []
+}

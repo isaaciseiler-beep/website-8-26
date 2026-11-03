@@ -1,0 +1,4442 @@
+[
+  {
+    "width": 1440,
+    "reduced": false,
+    "label": "open",
+    "samples": [
+      {
+        "t": -0.9139999761580384,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 15.800000023841903,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 32.40000002384181,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 49.00000002384195,
+        "open": true,
+        "height": 64,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 738.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 65.70000002384177,
+        "open": true,
+        "height": 86.4375,
+        "pseudo": "22.4375px",
+        "pane": 761.21875,
+        "inner": 761.21875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 82.3000000238419,
+        "open": true,
+        "height": 106.015625,
+        "pseudo": "42.0156px",
+        "pane": 780.796875,
+        "inner": 780.796875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 99.00000002384195,
+        "open": true,
+        "height": 122.5625,
+        "pseudo": "58.5625px",
+        "pane": 797.34375,
+        "inner": 797.34375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 115.70000002384177,
+        "open": true,
+        "height": 135.890625,
+        "pseudo": "71.8906px",
+        "pane": 810.671875,
+        "inner": 810.671875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 132.4000000238418,
+        "open": true,
+        "height": 146.265625,
+        "pseudo": "82.2656px",
+        "pane": 821.046875,
+        "inner": 821.046875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 149.00000002384195,
+        "open": true,
+        "height": 154.125,
+        "pseudo": "90.125px",
+        "pane": 828.90625,
+        "inner": 828.90625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 165.8000000238419,
+        "open": true,
+        "height": 160.109375,
+        "pseudo": "96.1094px",
+        "pane": 834.890625,
+        "inner": 834.890625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 182.4000000238418,
+        "open": true,
+        "height": 164.515625,
+        "pseudo": "100.516px",
+        "pane": 839.296875,
+        "inner": 839.296875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 199.00000002384195,
+        "open": true,
+        "height": 167.78125,
+        "pseudo": "103.781px",
+        "pane": 842.5625,
+        "inner": 842.5625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 215.70000002384177,
+        "open": true,
+        "height": 170.203125,
+        "pseudo": "106.203px",
+        "pane": 844.984375,
+        "inner": 844.984375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 232.4000000238418,
+        "open": true,
+        "height": 171.984375,
+        "pseudo": "107.984px",
+        "pane": 846.765625,
+        "inner": 846.765625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 249.00000002384195,
+        "open": true,
+        "height": 173.265625,
+        "pseudo": "109.266px",
+        "pane": 848.046875,
+        "inner": 848.046875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 265.70000002384177,
+        "open": true,
+        "height": 174.203125,
+        "pseudo": "110.203px",
+        "pane": 848.984375,
+        "inner": 848.984375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 282.4000000238418,
+        "open": true,
+        "height": 174.84375,
+        "pseudo": "110.844px",
+        "pane": 849.625,
+        "inner": 849.625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 299.00000002384195,
+        "open": true,
+        "height": 175.296875,
+        "pseudo": "111.297px",
+        "pane": 850.078125,
+        "inner": 850.078125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 315.70000002384177,
+        "open": true,
+        "height": 175.59375,
+        "pseudo": "111.594px",
+        "pane": 850.375,
+        "inner": 850.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 332.4000000238418,
+        "open": true,
+        "height": 175.796875,
+        "pseudo": "111.797px",
+        "pane": 850.578125,
+        "inner": 850.578125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 349.00000002384195,
+        "open": true,
+        "height": 175.90625,
+        "pseudo": "111.906px",
+        "pane": 850.6875,
+        "inner": 850.6875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 365.70000002384177,
+        "open": true,
+        "height": 175.953125,
+        "pseudo": "111.953px",
+        "pane": 850.734375,
+        "inner": 850.734375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 382.4000000238418,
+        "open": true,
+        "height": 175.984375,
+        "pseudo": "111.984px",
+        "pane": 850.765625,
+        "inner": 850.765625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 399.00000002384195,
+        "open": true,
+        "height": 175.984375,
+        "pseudo": "111.984px",
+        "pane": 850.765625,
+        "inner": 850.765625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 415.70000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 432.4000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 449.00000002384195,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 465.70000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 482.4000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 499.00000002384195,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 515.7000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.703125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 532.4000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.625,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 549.000000023842,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.5625,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 565.7000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.515625,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 582.3000000238419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.484375,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 599.000000023842,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.453125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 615.7000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.4375,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 632.4000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.421875,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 649.000000023842,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.40625,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 665.7000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.40625,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "label": "close",
+    "samples": [
+      {
+        "t": 12.200000005960419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.390625,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 28.800000005960555,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.375,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 45.50000000596037,
+        "open": false,
+        "height": 160,
+        "pseudo": "112px",
+        "pane": 834.78125,
+        "inner": 834.78125,
+        "focus": "<button type=\"button\">What did Isaac learn in Taiwan?<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" st"
+      },
+      {
+        "t": 62.20000000596042,
+        "open": false,
+        "height": 137.546875,
+        "pseudo": "89.5469px",
+        "pane": 812.328125,
+        "inner": 812.328125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 78.90000000596046,
+        "open": false,
+        "height": 117.859375,
+        "pseudo": "69.8594px",
+        "pane": 792.640625,
+        "inner": 792.640625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 95.50000000596037,
+        "open": false,
+        "height": 101.421875,
+        "pseudo": "53.4219px",
+        "pane": 776.203125,
+        "inner": 776.203125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 112.10000000596051,
+        "open": false,
+        "height": 88.171875,
+        "pseudo": "40.1719px",
+        "pane": 762.953125,
+        "inner": 762.953125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 128.80000000596056,
+        "open": false,
+        "height": 77.78125,
+        "pseudo": "29.7812px",
+        "pane": 752.5625,
+        "inner": 752.5625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 145.50000000596037,
+        "open": false,
+        "height": 69.859375,
+        "pseudo": "21.8594px",
+        "pane": 744.640625,
+        "inner": 744.640625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 162.20000000596065,
+        "open": false,
+        "height": 63.90625,
+        "pseudo": "15.9062px",
+        "pane": 738.6875,
+        "inner": 738.6875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 178.80000000596056,
+        "open": false,
+        "height": 59.5,
+        "pseudo": "11.5px",
+        "pane": 734.28125,
+        "inner": 734.28125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 195.50000000596037,
+        "open": false,
+        "height": 56.203125,
+        "pseudo": "8.20312px",
+        "pane": 730.984375,
+        "inner": 730.984375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 212.20000000596065,
+        "open": false,
+        "height": 53.78125,
+        "pseudo": "5.78125px",
+        "pane": 728.5625,
+        "inner": 728.5625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 228.80000000596056,
+        "open": false,
+        "height": 52.015625,
+        "pseudo": "4.01562px",
+        "pane": 726.796875,
+        "inner": 726.796875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 245.50000000596037,
+        "open": false,
+        "height": 50.71875,
+        "pseudo": "2.71875px",
+        "pane": 725.5,
+        "inner": 725.5,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 262.20000000596065,
+        "open": false,
+        "height": 49.78125,
+        "pseudo": "1.78125px",
+        "pane": 724.5625,
+        "inner": 724.5625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 278.80000000596056,
+        "open": false,
+        "height": 49.140625,
+        "pseudo": "1.14062px",
+        "pane": 723.921875,
+        "inner": 723.921875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 295.5000000059604,
+        "open": false,
+        "height": 48.6875,
+        "pseudo": "0.6875px",
+        "pane": 723.46875,
+        "inner": 723.46875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 312.1000000059603,
+        "open": false,
+        "height": 48.390625,
+        "pseudo": "0.390625px",
+        "pane": 723.171875,
+        "inner": 723.171875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 328.80000000596056,
+        "open": false,
+        "height": 48.203125,
+        "pseudo": "0.203125px",
+        "pane": 722.984375,
+        "inner": 722.984375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 345.40000000596046,
+        "open": false,
+        "height": 48.078125,
+        "pseudo": "0.078125px",
+        "pane": 722.859375,
+        "inner": 722.859375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 362.1000000059603,
+        "open": false,
+        "height": 48.03125,
+        "pseudo": "0.03125px",
+        "pane": 722.8125,
+        "inner": 722.8125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 378.80000000596056,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 395.40000000596046,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 412.1000000059603,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 428.80000000596056,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 445.40000000596046,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 462.1000000059603,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 478.80000000596056,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.796875,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 495.5000000059604,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.875,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 512.1000000059603,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.9375,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 528.8000000059606,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.984375,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 545.5000000059604,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.03125,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 562.2000000059606,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.0625,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 578.8000000059606,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.078125,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 595.5000000059604,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.109375,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 612.1000000059603,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.109375,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 628.8000000059606,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.125,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 645.5000000059604,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.140625,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 662.1000000059603,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.140625,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "label": "reverse",
+    "samples": [
+      {
+        "t": 12.600000017881484,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.15625,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 29.200000017881393,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 723.15625,
+        "inner": 722.78125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 45.90000001788121,
+        "open": true,
+        "height": 64,
+        "pseudo": "0px",
+        "pane": 738.78125,
+        "inner": 738.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 62.600000017881484,
+        "open": true,
+        "height": 86.4375,
+        "pseudo": "22.4375px",
+        "pane": 761.21875,
+        "inner": 761.21875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 79.3000000178813,
+        "open": true,
+        "height": 106.125,
+        "pseudo": "42.125px",
+        "pane": 780.90625,
+        "inner": 780.90625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 95.90000001788121,
+        "open": true,
+        "height": 122.5625,
+        "pseudo": "58.5625px",
+        "pane": 797.34375,
+        "inner": 797.34375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 112.60000001788148,
+        "open": true,
+        "height": 135.890625,
+        "pseudo": "71.8906px",
+        "pane": 810.671875,
+        "inner": 810.671875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 129.3000000178813,
+        "open": true,
+        "height": 146.265625,
+        "pseudo": "82.2656px",
+        "pane": 821.046875,
+        "inner": 821.046875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 145.9000000178812,
+        "open": false,
+        "height": 130.265625,
+        "pseudo": "82.2656px",
+        "pane": 805.046875,
+        "inner": 805.046875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 162.60000001788148,
+        "open": false,
+        "height": 108.296875,
+        "pseudo": "60.2969px",
+        "pane": 783.078125,
+        "inner": 783.078125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 179.2000000178814,
+        "open": false,
+        "height": 90.390625,
+        "pseudo": "42.3906px",
+        "pane": 765.171875,
+        "inner": 765.171875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 195.9000000178812,
+        "open": false,
+        "height": 76.75,
+        "pseudo": "28.75px",
+        "pane": 751.53125,
+        "inner": 751.53125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 212.60000001788148,
+        "open": false,
+        "height": 67.046875,
+        "pseudo": "19.0469px",
+        "pane": 741.828125,
+        "inner": 741.828125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 229.2000000178814,
+        "open": false,
+        "height": 60.453125,
+        "pseudo": "12.4531px",
+        "pane": 735.234375,
+        "inner": 735.234375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 245.9000000178812,
+        "open": true,
+        "height": 76.453125,
+        "pseudo": "12.4531px",
+        "pane": 751.234375,
+        "inner": 751.234375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 262.5000000178816,
+        "open": true,
+        "height": 98.609375,
+        "pseudo": "34.6094px",
+        "pane": 773.390625,
+        "inner": 773.390625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 279.2000000178814,
+        "open": true,
+        "height": 117.734375,
+        "pseudo": "53.7344px",
+        "pane": 792.515625,
+        "inner": 792.515625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 295.9000000178812,
+        "open": true,
+        "height": 133.265625,
+        "pseudo": "69.2656px",
+        "pane": 808.046875,
+        "inner": 808.046875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 312.6000000178815,
+        "open": true,
+        "height": 145.25,
+        "pseudo": "81.25px",
+        "pane": 820.03125,
+        "inner": 820.03125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 329.2000000178814,
+        "open": true,
+        "height": 154.140625,
+        "pseudo": "90.1406px",
+        "pane": 828.921875,
+        "inner": 828.921875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 346.0000000178816,
+        "open": true,
+        "height": 160.703125,
+        "pseudo": "96.7031px",
+        "pane": 835.484375,
+        "inner": 835.484375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 362.6000000178815,
+        "open": true,
+        "height": 165.359375,
+        "pseudo": "101.359px",
+        "pane": 840.140625,
+        "inner": 840.140625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 379.3000000178813,
+        "open": true,
+        "height": 168.703125,
+        "pseudo": "104.703px",
+        "pane": 843.484375,
+        "inner": 843.484375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 395.9000000178812,
+        "open": true,
+        "height": 171.078125,
+        "pseudo": "107.078px",
+        "pane": 845.859375,
+        "inner": 845.859375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 412.6000000178815,
+        "open": true,
+        "height": 172.75,
+        "pseudo": "108.75px",
+        "pane": 847.53125,
+        "inner": 847.53125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 429.2000000178814,
+        "open": true,
+        "height": 173.90625,
+        "pseudo": "109.906px",
+        "pane": 848.6875,
+        "inner": 848.6875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 445.9000000178812,
+        "open": true,
+        "height": 174.71875,
+        "pseudo": "110.719px",
+        "pane": 849.5,
+        "inner": 849.5,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 462.6000000178815,
+        "open": true,
+        "height": 175.25,
+        "pseudo": "111.25px",
+        "pane": 850.03125,
+        "inner": 850.03125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 479.2000000178814,
+        "open": true,
+        "height": 175.59375,
+        "pseudo": "111.594px",
+        "pane": 850.375,
+        "inner": 850.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 495.9000000178812,
+        "open": true,
+        "height": 175.796875,
+        "pseudo": "111.797px",
+        "pane": 850.578125,
+        "inner": 850.578125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 512.6000000178815,
+        "open": true,
+        "height": 175.90625,
+        "pseudo": "111.906px",
+        "pane": 850.6875,
+        "inner": 850.6875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 529.3000000178813,
+        "open": true,
+        "height": 175.96875,
+        "pseudo": "111.969px",
+        "pane": 850.75,
+        "inner": 850.75,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 545.9000000178812,
+        "open": true,
+        "height": 175.984375,
+        "pseudo": "111.984px",
+        "pane": 850.765625,
+        "inner": 850.765625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 562.5000000178816,
+        "open": true,
+        "height": 175.984375,
+        "pseudo": "111.984px",
+        "pane": 850.765625,
+        "inner": 850.765625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 579.3000000178813,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 595.9000000178812,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 612.5000000178816,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 629.3000000178813,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 645.9000000178812,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 662.5000000178816,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "label": "open",
+    "samples": [
+      {
+        "t": -6.383999976158066,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 10.200000023841767,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 26.900000023841812,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 43.50000002384195,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 722.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 60.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 722.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 76.8000000238419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 93.60000002384186,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 110.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 126.90000002384181,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 143.60000002384186,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 160.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 176.9000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 193.50000002384195,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 210.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 226.9000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 243.50000002384195,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 260.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 276.8000000238419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 293.50000002384195,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 310.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 326.9000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 343.50000002384195,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 360.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 376.8000000238419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 393.50000002384195,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 410.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 426.8000000238419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 443.50000002384195,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 460.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 476.8000000238419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 493.60000002384186,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 510.20000002384177,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 526.9000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 543.6000000238419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 560.2000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 576.9000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 593.500000023842,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 610.2000000238418,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 626.8000000238419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 643.500000023842,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 660.1000000238419,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "label": "close",
+    "samples": [
+      {
+        "t": 13.400000023841812,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 30.100000023841858,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 46.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 850.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 63.3000000238419,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 850.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 80.00000002384195,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 850.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 96.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 113.3000000238419,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 130.00000002384195,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 146.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 163.4000000238418,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 180.00000002384195,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 196.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 213.3000000238419,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 230.00000002384195,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 246.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 263.3000000238417,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 280.00000002384195,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 296.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 313.3000000238417,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 330.00000002384195,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 346.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 363.3000000238417,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 380.00000002384195,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 396.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 413.40000002384204,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 430.00000002384195,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 446.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 463.3000000238417,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 480.00000002384195,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 496.70000002384177,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 513.3000000238417,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 530.000000023842,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 546.7000000238418,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 563.3000000238417,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 580.000000023842,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 596.6000000238419,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 613.400000023842,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 630.000000023842,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 646.7000000238418,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 663.3000000238417,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "label": "reverse",
+    "samples": [
+      {
+        "t": 13.800000005960555,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 30.400000005960464,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 47.10000000596028,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 722.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 63.800000005960555,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 722.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 80.50000000596037,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 722.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 97.10000000596028,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 113.80000000596056,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 130.50000000596037,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 850.78125,
+        "inner": 722.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 147.10000000596028,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 850.78125,
+        "inner": 722.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 163.80000000596056,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 850.78125,
+        "inner": 722.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 180.40000000596046,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 197.10000000596028,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 213.80000000596056,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 722.78125,
+        "inner": 722.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 230.40000000596046,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 722.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 247.10000000596028,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 722.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 263.80000000596056,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 722.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 280.40000000596046,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 297.1000000059603,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 313.70000000596065,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 330.40000000596046,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 347.1000000059603,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 363.80000000596056,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 380.5000000059604,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 397.1000000059603,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 413.80000000596056,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 430.40000000596046,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 447.1000000059603,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 463.80000000596056,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 480.5000000059604,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 497.1000000059603,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 513.8000000059606,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 530.4000000059605,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 547.1000000059603,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 563.8000000059606,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 580.4000000059605,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 597.1000000059603,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 613.7000000059606,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 630.5000000059604,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 647.1000000059603,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 663.8000000059606,
+        "open": true,
+        "height": 176,
+        "pseudo": "112px",
+        "pane": 850.78125,
+        "inner": 850.78125,
+        "focus": "<summary>Explore further</summary>"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "label": "open",
+    "samples": [
+      {
+        "t": -13.04600000000005,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 3.599999999999909,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 20.299999999999955,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 36.90000000000009,
+        "open": true,
+        "height": 64,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 946.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 53.5,
+        "open": true,
+        "height": 90.296875,
+        "pseudo": "26.2969px",
+        "pane": 972.671875,
+        "inner": 972.671875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 70.20000000000005,
+        "open": true,
+        "height": 113.53125,
+        "pseudo": "49.5312px",
+        "pane": 995.90625,
+        "inner": 995.90625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 86.90000000000009,
+        "open": true,
+        "height": 133.015625,
+        "pseudo": "69.0156px",
+        "pane": 1015.390625,
+        "inner": 1015.390625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 103.5,
+        "open": true,
+        "height": 148.640625,
+        "pseudo": "84.6406px",
+        "pane": 1031.015625,
+        "inner": 1031.015625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 120.20000000000005,
+        "open": true,
+        "height": 160.890625,
+        "pseudo": "96.8906px",
+        "pane": 1043.265625,
+        "inner": 1043.265625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 136.9000000000001,
+        "open": true,
+        "height": 170.234375,
+        "pseudo": "106.234px",
+        "pane": 1052.609375,
+        "inner": 1052.609375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 153.5999999999999,
+        "open": true,
+        "height": 177.234375,
+        "pseudo": "113.234px",
+        "pane": 1059.609375,
+        "inner": 1059.609375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 170.20000000000005,
+        "open": true,
+        "height": 182.4375,
+        "pseudo": "118.438px",
+        "pane": 1064.8125,
+        "inner": 1064.8125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 186.9000000000001,
+        "open": true,
+        "height": 186.3125,
+        "pseudo": "122.312px",
+        "pane": 1068.6875,
+        "inner": 1068.6875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 203.5999999999999,
+        "open": true,
+        "height": 189.171875,
+        "pseudo": "125.172px",
+        "pane": 1071.546875,
+        "inner": 1071.546875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 220.29999999999995,
+        "open": true,
+        "height": 191.265625,
+        "pseudo": "127.266px",
+        "pane": 1073.640625,
+        "inner": 1073.640625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 236.9000000000001,
+        "open": true,
+        "height": 192.78125,
+        "pseudo": "128.781px",
+        "pane": 1075.15625,
+        "inner": 1075.15625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 253.5,
+        "open": true,
+        "height": 193.875,
+        "pseudo": "129.875px",
+        "pane": 1076.25,
+        "inner": 1076.25,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 270.20000000000005,
+        "open": true,
+        "height": 194.640625,
+        "pseudo": "130.641px",
+        "pane": 1077.015625,
+        "inner": 1077.015625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 286.9000000000001,
+        "open": true,
+        "height": 195.171875,
+        "pseudo": "131.172px",
+        "pane": 1077.546875,
+        "inner": 1077.546875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 303.5999999999999,
+        "open": true,
+        "height": 195.53125,
+        "pseudo": "131.531px",
+        "pane": 1077.90625,
+        "inner": 1077.90625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 320.29999999999995,
+        "open": true,
+        "height": 195.75,
+        "pseudo": "131.75px",
+        "pane": 1078.125,
+        "inner": 1078.125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 336.9000000000001,
+        "open": true,
+        "height": 195.890625,
+        "pseudo": "131.891px",
+        "pane": 1078.265625,
+        "inner": 1078.265625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 353.5,
+        "open": true,
+        "height": 195.953125,
+        "pseudo": "131.953px",
+        "pane": 1078.328125,
+        "inner": 1078.328125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 370.20000000000005,
+        "open": true,
+        "height": 195.984375,
+        "pseudo": "131.984px",
+        "pane": 1078.359375,
+        "inner": 1078.359375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 386.79999999999995,
+        "open": true,
+        "height": 195.984375,
+        "pseudo": "131.984px",
+        "pane": 1078.359375,
+        "inner": 1078.359375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 403.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 420.20000000000005,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 436.9000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 453.5999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 470.20000000000005,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 486.9000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 503.5999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.328125,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 520.3,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.28125,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 536.9000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.234375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 553.5999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.21875,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 570.2,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.1875,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 586.9000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.171875,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 603.5999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.15625,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 620.2,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.15625,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 636.9000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.140625,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 653.5999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.140625,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "label": "close",
+    "samples": [
+      {
+        "t": 13.399999988079117,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.125,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 30.099999988079162,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.125,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 46.69999998807907,
+        "open": false,
+        "height": 180,
+        "pseudo": "132px",
+        "pane": 1062.375,
+        "inner": 1062.375,
+        "focus": "<button type=\"button\">What did Isaac learn in Taiwan?<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" st"
+      },
+      {
+        "t": 63.39999998807912,
+        "open": false,
+        "height": 153.546875,
+        "pseudo": "105.547px",
+        "pane": 1035.921875,
+        "inner": 1035.921875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 79.99999998807903,
+        "open": false,
+        "height": 130.453125,
+        "pseudo": "82.4531px",
+        "pane": 1012.828125,
+        "inner": 1012.828125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 96.69999998807907,
+        "open": false,
+        "height": 110.96875,
+        "pseudo": "62.9688px",
+        "pane": 993.34375,
+        "inner": 993.34375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 113.39999998807912,
+        "open": false,
+        "height": 95.265625,
+        "pseudo": "47.2656px",
+        "pane": 977.640625,
+        "inner": 977.640625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 130.09999998807916,
+        "open": false,
+        "height": 83.03125,
+        "pseudo": "35.0312px",
+        "pane": 965.40625,
+        "inner": 965.40625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 146.79999998807898,
+        "open": false,
+        "height": 73.703125,
+        "pseudo": "25.7031px",
+        "pane": 956.078125,
+        "inner": 956.078125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 163.39999998807912,
+        "open": false,
+        "height": 66.75,
+        "pseudo": "18.75px",
+        "pane": 949.125,
+        "inner": 949.125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 180.09999998807916,
+        "open": false,
+        "height": 61.515625,
+        "pseudo": "13.5156px",
+        "pane": 943.890625,
+        "inner": 943.890625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 196.79999998807898,
+        "open": false,
+        "height": 57.65625,
+        "pseudo": "9.65625px",
+        "pane": 940.03125,
+        "inner": 940.03125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 213.39999998807912,
+        "open": false,
+        "height": 54.8125,
+        "pseudo": "6.8125px",
+        "pane": 937.1875,
+        "inner": 937.1875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 229.99999998807903,
+        "open": false,
+        "height": 52.71875,
+        "pseudo": "4.71875px",
+        "pane": 935.09375,
+        "inner": 935.09375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 246.79999998807898,
+        "open": false,
+        "height": 51.1875,
+        "pseudo": "3.1875px",
+        "pane": 933.5625,
+        "inner": 933.5625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 263.3999999880791,
+        "open": false,
+        "height": 50.109375,
+        "pseudo": "2.10938px",
+        "pane": 932.484375,
+        "inner": 932.484375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 280.09999998807916,
+        "open": false,
+        "height": 49.34375,
+        "pseudo": "1.34375px",
+        "pane": 931.71875,
+        "inner": 931.71875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 296.69999998807907,
+        "open": false,
+        "height": 48.8125,
+        "pseudo": "0.8125px",
+        "pane": 931.1875,
+        "inner": 931.1875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 313.3999999880789,
+        "open": false,
+        "height": 48.453125,
+        "pseudo": "0.453125px",
+        "pane": 930.828125,
+        "inner": 930.828125,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 330.09999998807916,
+        "open": false,
+        "height": 48.234375,
+        "pseudo": "0.234375px",
+        "pane": 930.609375,
+        "inner": 930.609375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 346.69999998807907,
+        "open": false,
+        "height": 48.09375,
+        "pseudo": "0.09375px",
+        "pane": 930.46875,
+        "inner": 930.46875,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 363.3999999880789,
+        "open": false,
+        "height": 48.03125,
+        "pseudo": "0.03125px",
+        "pane": 930.40625,
+        "inner": 930.40625,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 380.09999998807916,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 396.69999998807907,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 413.3999999880789,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 429.99999998807925,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 446.69999998807907,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 463.3999999880789,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 480.09999998807916,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.390625,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 496.799999988079,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.4375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 513.3999999880789,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.46875,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 530.0999999880792,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.5,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 546.799999988079,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.515625,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 563.3999999880789,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.546875,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 579.9999999880793,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.5625,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 596.799999988079,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.5625,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 613.3999999880789,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.578125,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 629.9999999880793,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.578125,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 646.6999999880791,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.578125,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 663.299999988079,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.59375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "label": "reverse",
+    "samples": [
+      {
+        "t": 9.400000000000091,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.59375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 26,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.59375,
+        "inner": 930.375,
+        "focus": "<body>\n    <div id=\"root\"><div class=\"route-scene\" data-route-path=\"/\"><div class=\"relative min-h-screen bg-background text-foreground overflow-x-clip"
+      },
+      {
+        "t": 42.69999999999982,
+        "open": true,
+        "height": 64,
+        "pseudo": "0px",
+        "pane": 946.375,
+        "inner": 946.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 59.30000000000018,
+        "open": true,
+        "height": 90.296875,
+        "pseudo": "26.2969px",
+        "pane": 972.671875,
+        "inner": 972.671875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 76,
+        "open": true,
+        "height": 113.53125,
+        "pseudo": "49.5312px",
+        "pane": 995.90625,
+        "inner": 995.90625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 92.69999999999982,
+        "open": true,
+        "height": 133.015625,
+        "pseudo": "69.0156px",
+        "pane": 1015.390625,
+        "inner": 1015.390625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 109.30000000000018,
+        "open": true,
+        "height": 148.640625,
+        "pseudo": "84.6406px",
+        "pane": 1031.015625,
+        "inner": 1031.015625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 126,
+        "open": true,
+        "height": 160.890625,
+        "pseudo": "96.8906px",
+        "pane": 1043.265625,
+        "inner": 1043.265625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 142.69999999999982,
+        "open": false,
+        "height": 144.890625,
+        "pseudo": "96.8906px",
+        "pane": 1027.265625,
+        "inner": 1027.265625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 159.4000000000001,
+        "open": false,
+        "height": 119,
+        "pseudo": "71px",
+        "pane": 1001.375,
+        "inner": 1001.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 176,
+        "open": false,
+        "height": 97.90625,
+        "pseudo": "49.9062px",
+        "pane": 980.28125,
+        "inner": 980.28125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 192.69999999999982,
+        "open": false,
+        "height": 81.84375,
+        "pseudo": "33.8438px",
+        "pane": 964.21875,
+        "inner": 964.21875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 209.30000000000018,
+        "open": false,
+        "height": 70.46875,
+        "pseudo": "22.4688px",
+        "pane": 952.84375,
+        "inner": 952.84375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 226,
+        "open": false,
+        "height": 62.640625,
+        "pseudo": "14.6406px",
+        "pane": 945.015625,
+        "inner": 945.015625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 242.69999999999982,
+        "open": true,
+        "height": 78.640625,
+        "pseudo": "14.6406px",
+        "pane": 961.015625,
+        "inner": 961.015625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 259.3000000000002,
+        "open": true,
+        "height": 104.75,
+        "pseudo": "40.75px",
+        "pane": 987.125,
+        "inner": 987.125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 276,
+        "open": true,
+        "height": 127.3125,
+        "pseudo": "63.3125px",
+        "pane": 1009.6875,
+        "inner": 1009.6875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 292.6999999999998,
+        "open": true,
+        "height": 145.609375,
+        "pseudo": "81.6094px",
+        "pane": 1027.984375,
+        "inner": 1027.984375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 309.3000000000002,
+        "open": true,
+        "height": 159.671875,
+        "pseudo": "95.6719px",
+        "pane": 1042.046875,
+        "inner": 1042.046875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 326,
+        "open": true,
+        "height": 170.21875,
+        "pseudo": "106.219px",
+        "pane": 1052.59375,
+        "inner": 1052.59375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 342.6999999999998,
+        "open": true,
+        "height": 177.90625,
+        "pseudo": "113.906px",
+        "pane": 1060.28125,
+        "inner": 1060.28125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 359.3000000000002,
+        "open": true,
+        "height": 183.421875,
+        "pseudo": "119.422px",
+        "pane": 1065.796875,
+        "inner": 1065.796875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 376,
+        "open": true,
+        "height": 187.375,
+        "pseudo": "123.375px",
+        "pane": 1069.75,
+        "inner": 1069.75,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 392.6999999999998,
+        "open": true,
+        "height": 190.1875,
+        "pseudo": "126.188px",
+        "pane": 1072.5625,
+        "inner": 1072.5625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 409.4000000000001,
+        "open": true,
+        "height": 192.171875,
+        "pseudo": "128.172px",
+        "pane": 1074.546875,
+        "inner": 1074.546875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 426.0999999999999,
+        "open": true,
+        "height": 193.546875,
+        "pseudo": "129.547px",
+        "pane": 1075.921875,
+        "inner": 1075.921875,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 442.6999999999998,
+        "open": true,
+        "height": 194.484375,
+        "pseudo": "130.484px",
+        "pane": 1076.859375,
+        "inner": 1076.859375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 459.4000000000001,
+        "open": true,
+        "height": 195.109375,
+        "pseudo": "131.109px",
+        "pane": 1077.484375,
+        "inner": 1077.484375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 476,
+        "open": true,
+        "height": 195.515625,
+        "pseudo": "131.516px",
+        "pane": 1077.890625,
+        "inner": 1077.890625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 492.5999999999999,
+        "open": true,
+        "height": 195.75,
+        "pseudo": "131.75px",
+        "pane": 1078.125,
+        "inner": 1078.125,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 509.3000000000002,
+        "open": true,
+        "height": 195.890625,
+        "pseudo": "131.891px",
+        "pane": 1078.265625,
+        "inner": 1078.265625,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 526,
+        "open": true,
+        "height": 195.96875,
+        "pseudo": "131.969px",
+        "pane": 1078.34375,
+        "inner": 1078.34375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 542.6999999999998,
+        "open": true,
+        "height": 195.984375,
+        "pseudo": "131.984px",
+        "pane": 1078.359375,
+        "inner": 1078.359375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 559.4000000000001,
+        "open": true,
+        "height": 195.984375,
+        "pseudo": "131.984px",
+        "pane": 1078.359375,
+        "inner": 1078.359375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 576,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 592.5999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 609.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 626,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 642.5999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 659.3000000000002,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "label": "open",
+    "samples": [
+      {
+        "t": -2.8019999999999072,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 954.375,
+        "inner": 954.375,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 13.799999999999955,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 954.375,
+        "inner": 954.375,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 30.5,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 954.375,
+        "inner": 954.375,
+        "focus": "<input id=\"home-explore\" type=\"search\" enterkeyhint=\"search\" role=\"combobox\" aria-autocomplete=\"list\" aria-expanded=\"false\" autocomplete=\"off\" placeho"
+      },
+      {
+        "t": 47.200000000000045,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 954.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 63.799999999999955,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 954.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 80.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 97.20000000000005,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 113.79999999999995,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 130.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 147.20000000000005,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 163.9000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 180.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 197.20000000000005,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1102.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 213.9000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 230.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 247.20000000000005,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1102.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 263.79999999999995,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 280.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 297.20000000000005,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 313.79999999999995,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 330.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 347.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 363.79999999999995,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 380.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 397.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 413.79999999999995,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 430.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 447.20000000000005,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 463.79999999999995,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 480.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 497.20000000000005,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 513.8,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 530.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 547.2,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 563.8,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 580.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 597.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 613.8,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 630.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 647.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 663.8,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "label": "close",
+    "samples": [
+      {
+        "t": 13.599999994039536,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 30.29999999403958,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 46.89999999403949,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 1078.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 63.599999994039536,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 1078.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 80.19999999403944,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 1078.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 96.89999999403949,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 113.49999999403963,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 130.19999999403944,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 146.8999999940395,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 163.59999999403954,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 180.29999999403958,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 196.8999999940395,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 213.59999999403954,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 230.29999999403958,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 246.8999999940395,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 263.59999999403954,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 280.29999999403935,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 296.8999999940397,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 313.59999999403954,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 330.19999999403944,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 346.8999999940397,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 363.4999999940396,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 380.19999999403944,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 396.8999999940397,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 413.59999999403954,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 430.19999999403944,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 446.79999999403935,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 463.4999999940396,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 480.29999999403935,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 496.8999999940397,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 513.5999999940395,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 530.1999999940394,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 546.7999999940394,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 563.4999999940396,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 580.2999999940394,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 596.8999999940397,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 613.5999999940395,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 630.1999999940394,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 646.7999999940394,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 663.4999999940396,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "label": "reverse",
+    "samples": [
+      {
+        "t": 14.099999999999909,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 30.800000000000182,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<button class=\"home-share-view\" aria-label=\"Copy link to this view\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\""
+      },
+      {
+        "t": 47.40000000000009,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 930.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 64.09999999999991,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 930.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 80.80000000000018,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 930.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 97.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 114.09999999999991,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 130.80000000000018,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 1078.375,
+        "inner": 930.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 147.5,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 1078.375,
+        "inner": 930.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 164.0999999999999,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 1078.375,
+        "inner": 930.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 180.69999999999982,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 197.4000000000001,
+        "open": false,
+        "height": 48,
+        "pseudo": "0px",
+        "pane": 930.375,
+        "inner": 930.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 214.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 930.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 230.80000000000018,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 930.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 247.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 930.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 264.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 280.8000000000002,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 297.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 314.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 330.6999999999998,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 347.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 364.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 380.8000000000002,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 397.5,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 414.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 430.8000000000002,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 447.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 464.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 480.6999999999998,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 497.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 514.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 530.6999999999998,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 547.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 564.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 580.8000000000002,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 597.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 614,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 630.6999999999998,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 647.4000000000001,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      },
+      {
+        "t": 664.0999999999999,
+        "open": true,
+        "height": 196,
+        "pseudo": "132px",
+        "pane": 1078.375,
+        "inner": 1078.375,
+        "focus": "<summary>Explore further</summary>"
+      }
+    ]
+  }
+]

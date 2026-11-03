@@ -1,0 +1,1155 @@
+{
+  "rows": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "id": "lab",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 355.265625,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "id": "taiwan",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "id": "comparison",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "id": "career",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "id": "ranking",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 302.203125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "id": "lab",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 355.265625,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "id": "taiwan",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "id": "comparison",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "id": "career",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "id": "ranking",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 302.203125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "id": "lab",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 355.265625,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "id": "taiwan",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "id": "comparison",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "id": "career",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "id": "ranking",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 302.203125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "lab",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "24px",
+          "height": 32
+        }
+      ],
+      "groups": [
+        {
+          "width": 310,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "taiwan",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "24px",
+          "height": 32
+        }
+      ],
+      "groups": [
+        {
+          "width": 310,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "comparison",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 310,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "career",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "ranking",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 310,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "lab",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "24px",
+          "height": 64
+        }
+      ],
+      "groups": [
+        {
+          "width": 240,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "taiwan",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "24px",
+          "height": 64
+        }
+      ],
+      "groups": [
+        {
+          "width": 240,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "comparison",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 240,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "career",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "ranking",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 240,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(255, 255, 255)",
+              "paint": "rgb(0, 0, 0)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "id": "lab",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 355.265625,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "id": "taiwan",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "id": "comparison",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "id": "career",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "id": "ranking",
+      "scroll": 1440,
+      "panewidth": 1120,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 302.203125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "id": "lab",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 355.265625,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "id": "taiwan",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "id": "comparison",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "id": "career",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "id": "ranking",
+      "scroll": 1024,
+      "panewidth": 976,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 302.203125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "id": "lab",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 355.265625,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "id": "taiwan",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "36px",
+          "height": 40
+        }
+      ],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "id": "comparison",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 413.125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "id": "career",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "id": "ranking",
+      "scroll": 768,
+      "panewidth": 720,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 302.203125,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "lab",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "24px",
+          "height": 32
+        }
+      ],
+      "groups": [
+        {
+          "width": 310,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "taiwan",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "24px",
+          "height": 32
+        }
+      ],
+      "groups": [
+        {
+          "width": 310,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "comparison",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 310,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "career",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "ranking",
+      "scroll": 390,
+      "panewidth": 342,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 310,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "lab",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "Inside the ChatGPT Lab",
+          "size": "24px",
+          "height": 64
+        }
+      ],
+      "groups": [
+        {
+          "width": 240,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "taiwan",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [
+        {
+          "text": "AI literacy in Taiwan",
+          "size": "24px",
+          "height": 64
+        }
+      ],
+      "groups": [
+        {
+          "width": 240,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "comparison",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 240,
+          "height": 100,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "career",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "ranking",
+      "scroll": 320,
+      "panewidth": 272,
+      "escaped": [],
+      "labelOverflow": [],
+      "titles": [],
+      "groups": [
+        {
+          "width": 240,
+          "height": 52,
+          "markers": 1,
+          "selected": [
+            {
+              "ink": "rgb(0, 0, 0)",
+              "paint": "rgb(255, 255, 255)"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

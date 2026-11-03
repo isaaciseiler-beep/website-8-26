@@ -1,0 +1,49 @@
+{
+  "startedAt": "2026-11-03T20:53:38Z",
+  "baseCommit": "7a2b30b14172fb9618ee68bbc7cf1875bbabf873",
+  "unitTests": 1050,
+  "unitFiles": 71,
+  "browserCases": 23,
+  "resultLayoutChecks": 50,
+  "presetChecks": 96,
+  "claudeCheckIns": 4,
+  "livePortfolioProviderCalls": 0,
+  "stress": {
+    "candidate": {
+      "operations": 2070,
+      "seconds": 613
+    },
+    "final": {
+      "operations": 414,
+      "seconds": 121
+    },
+    "reproducibleScript": {
+      "operations": 138,
+      "seconds": 41
+    }
+  },
+  "keyboardAndRestoration": {
+    "fastCloseAndTabSequences": 80,
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "widths": [
+      1440,
+      390
+    ],
+    "maximumScrollDrift": 0
+  },
+  "checks": [
+    "typecheck passed",
+    "production build passed",
+    "lint passed without warnings",
+    "git diff --check passed"
+  ],
+  "limitations": [
+    "Browser visual checks used installed Chrome, not physical mobile hardware.",
+    "Native disclosure height motion is a progressive enhancement; unsupported browsers retain native disclosure behavior.",
+    "CPU diagnostics are an artificial local stress condition, not a frame-rate guarantee."
+  ],
+  "panelLifecycleCases": 36
+}

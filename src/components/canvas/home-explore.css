@@ -234,11 +234,16 @@
 @media(max-width:360px){.canvas-benchmark-controls{grid-template-columns:1fr;}.canvas-distribution button>span:last-child{font-size:var(--size-xxs);line-height:var(--line-xxs);}.home-genui .portfolio-story>.portfolio-tabs{gap:var(--space-xxs);justify-content:space-between;}}
 
 .home-draft-hint { animation: canvas-enter .18s var(--motion-easing); }
-/* Disclosure geometry belongs to the measured outer reveal. An independent
-   block-size transition here would make that reveal chase a moving target. */
-.home-genui .canvas-sources::details-content { overflow: hidden; }
-.home-genui .canvas-sources[open]::details-content { animation:canvas-enter var(--motion-duration) var(--motion-easing); }
-@media(prefers-reduced-motion:reduce){.home-genui .canvas-sources::details-content{transition:none;}}
+/* Only visitor-operated disclosures animate. History restoration and a new
+   answer keep their native geometry; the shell follows these local frames. */
+@supports (interpolate-size:allow-keywords) and selector(details::details-content){
+  .home-genui details{interpolate-size:allow-keywords;}
+  .home-genui details::details-content{display:flow-root;height:0;overflow:clip;transition:height var(--motion-large-duration) var(--motion-large-easing),content-visibility var(--motion-large-duration) allow-discrete;}
+  .home-genui details[open]::details-content{height:auto;}
+  .home-genui [data-disclosure-instant] details::details-content{transition:none;}
+}
+@media(prefers-reduced-motion:reduce){.home-genui details::details-content{transition:none!important;}}
+
 
 /* Shared text tone; inverse actions retain legible labels. */
 .home-genui [aria-pressed=true] :is(small,span,p){color:inherit;}
@@ -259,14 +264,14 @@
 .home-genui-stage .portfolio-lead h2,.home-genui-stage .portfolio-comparison>h2,.home-genui-stage .portfolio-career>h2{font-size:var(--size-xl);line-height:var(--line-xl);letter-spacing:var(--tracking-s);font-weight:var(--weight-medium);max-width:22ch;}
 .home-genui-stage .portfolio-deck{font-size:var(--size-m);line-height:var(--line-m);margin-top:var(--space-l);max-width:55ch;}
 .portfolio-project-image{display:block;width:100%;aspect-ratio:16/7;max-height:340px;object-fit:contain;border-radius:var(--site-corner-radius);}
-.portfolio-tabs{display:flex;flex-wrap:wrap;gap:var(--space-l);margin-block:var(--space-xl) var(--space-l);box-shadow:0 1px 0 var(--neutral-4);}
-.home-genui .portfolio-tabs button{position:relative;padding:var(--space-s) 0;border-radius:var(--radius-zero);background:transparent;font-size:var(--size-s);font-weight:var(--weight-regular);}
-.home-genui .portfolio-tabs button{display:grid;}
+.portfolio-tabs{position:relative;isolation:isolate;display:flex;flex-wrap:wrap;gap:var(--space-xxs);width:fit-content;max-width:100%;padding:var(--space-xxs);margin-block:var(--space-xl) var(--space-l);background:var(--neutral-4-transparent);border-radius:var(--radius-m);}
+.home-genui .portfolio-tabs button{position:relative;isolation:isolate;display:grid;padding:var(--space-s) var(--space-m);border-radius:var(--radius-s);background:transparent;font-size:var(--size-s);font-weight:var(--weight-regular);}
 .home-genui .portfolio-tabs button:not(:disabled):active{transform:none;}
-.home-genui .portfolio-tab-label,.home-genui .portfolio-tab-measure{grid-area:1/1;}
+.home-genui .portfolio-tab-label,.home-genui .portfolio-tab-measure{position:relative;z-index:1;grid-area:1/1;}
 .home-genui .portfolio-tab-measure{visibility:hidden;font-weight:var(--weight-heavy);}
-.home-genui .portfolio-tabs button[aria-pressed=true]{font-weight:var(--weight-heavy);}
-.home-genui .portfolio-tab-indicator{position:absolute;inset:auto 0 -2px;height:2px;background:currentColor;pointer-events:none;}
+.home-genui .portfolio-tabs button[aria-pressed=true]{font-weight:var(--weight-heavy);color:var(--neutral-1);}
+.home-genui .portfolio-tabs button[aria-pressed=true]:hover{background:transparent;}
+.home-genui .portfolio-tab-indicator{position:absolute;inset:0;border-radius:inherit;background:var(--neutral-10);pointer-events:none;}
 .portfolio-role-summary{max-width:68ch;padding-block:var(--space-s);}
 .portfolio-label{font-size:var(--size-xs);line-height:var(--line-s);}
 .home-genui .portfolio-inline-action{display:inline-flex;align-items:center;gap:var(--space-xs);justify-self:start;padding:var(--space-xs) 0;background:transparent;border-radius:var(--radius-zero);font-size:var(--size-xs);font-weight:var(--weight-medium);}
@@ -319,8 +324,8 @@
   .portfolio-project-image{max-height:260px;aspect-ratio:4/3;object-position:center;}
   .home-genui-stage .portfolio-lead h2,.home-genui-stage .portfolio-comparison>h2,.home-genui-stage .portfolio-career>h2{font-size:var(--size-l);line-height:var(--line-l);}
   .home-genui-stage .canvas-benchmark>.canvas-heading h2{font-size:var(--size-l);line-height:var(--line-l);}
-  .portfolio-tabs{gap:var(--space-m);margin-block:var(--space-l);}
-  .home-genui .portfolio-tabs button{font-size:var(--size-xs);}
+  .portfolio-tabs{gap:var(--space-xxs);margin-block:var(--space-l);}
+  .home-genui .portfolio-tabs button{padding:var(--space-s);font-size:var(--size-xs);}
   .portfolio-role-summary,.portfolio-section-explorer,.portfolio-career-explorer{grid-template-columns:1fr;gap:var(--space-m);}
   .portfolio-role-summary>.portfolio-inline-action{grid-column:auto;}
   .portfolio-section-nav{display:flex;flex-wrap:wrap;gap:var(--space-xs) var(--space-m);padding-bottom:var(--space-s);}
@@ -491,7 +496,7 @@
 .portfolio-connection-image{margin-bottom:var(--space-l);}
 .portfolio-career-image{max-height:280px;margin-block:var(--space-l);}
 .canvas-benchmark-period{margin-top:var(--space-l);}
-.home-genui .canvas-project-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-l);}
+.home-genui .canvas-project-list{position:relative;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-l);}
 .home-genui .canvas-project-list button{grid-template-columns:minmax(0,1fr) auto;gap:var(--space-s);padding:0 0 var(--space-m);align-items:start;min-width:0;}
 .canvas-project-list button>img{grid-column:1/-1;display:block;width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:var(--site-corner-radius);}
 .home-genui .canvas-project-list-copy{display:grid;gap:var(--space-xs);min-width:0;color:var(--neutral-8);}
@@ -500,7 +505,7 @@
 .home-genui .portfolio-work-browser>.canvas-field{margin-block:0 var(--space-l);max-width:360px;}
 .home-genui .portfolio-work-browser>.canvas-field input{padding-inline:0;background:transparent;border-radius:0;box-shadow:0 1px 0 var(--neutral-4);}
 .home-genui .portfolio-work-browser .canvas-project-list{gap:var(--space-xl) var(--space-xs);}
-.home-genui .portfolio-work-browser .canvas-project-list button{row-gap:var(--space-m);padding-bottom:0;}
+.home-genui .portfolio-work-browser .canvas-project-list button{row-gap:var(--space-m);padding-bottom:0;transition-property:background-color;}
 .home-genui .portfolio-work-browser .canvas-project-list button:hover{background:transparent;}
 .canvas-project-list-visual{display:block;grid-column:1/-1;overflow:hidden;aspect-ratio:3/2;border-radius:var(--site-corner-radius);background:var(--neutral-3);}
 .canvas-project-list-visual img{display:block;width:100%;height:100%;object-fit:cover;transition:opacity var(--motion-large-duration) var(--motion-large-easing);}

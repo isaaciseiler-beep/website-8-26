@@ -157,3 +157,72 @@ for(const width of [320,390])test(`submitted questions wrap and resize without c
   await expect(input).toHaveValue(question);expect(posts).toBe(1);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
+
+for(const reducedMotion of ['no-preference','reduce'] as const)test(`project image handoff preserves reading and the searched return path: ${reducedMotion}`,async({page})=>{
+  await page.setViewportSize({width:1280,height:900});await page.emulateMedia({reducedMotion});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  await input.fill('Explore all projects');await input.press('Escape');await input.press('Enter');
+  const search=page.getByRole('searchbox',{name:'Find a project',exact:true});await search.fill('Taiwan');
+  const tile=page.getByRole('button',{name:'Leading AI Literacy Efforts in Taiwan',exact:true});
+  await expect(tile).toBeVisible();await expect.poll(()=>tile.evaluate(el=>getComputedStyle(el).transform)).toBe('none');
+  const samples=page.evaluate(async()=>{
+    const frames:{image:string;reading:string}[]=[];
+    for(let i=0;i<45;i++)await new Promise<void>(resolve=>requestAnimationFrame(()=>{
+      const image=document.querySelector('.portfolio-workbench-visual>a');const reading=document.querySelector('.portfolio-workbench-reader');
+      if(image&&reading)frames.push({image:getComputedStyle(image).transform,reading:getComputedStyle(reading).transform});resolve();
+    }));return frames;
+  });
+  await tile.click();
+  const title=page.getByRole('heading',{name:'AI literacy in Taiwan',exact:true});
+  await expect(title).toBeVisible();await expect(title).toHaveCSS('clip-path','none');
+  const frames=await samples;expect(frames.length).toBeGreaterThan(0);expect(frames.every(frame=>frame.reading==='none')).toBe(true);
+  expect(frames.some(frame=>frame.image!=='none')).toBe(reducedMotion==='no-preference');
+  await expect.poll(()=>page.locator('.portfolio-workbench-visual>a').evaluate(el=>getComputedStyle(el).transform)).toBe('none');
+  await page.getByRole('button',{name:'Back to projects',exact:true}).click();await expect(search).toHaveValue('Taiwan');await expect(tile).toBeFocused();
+});
+
+for(const width of [320,390])test(`project facets keep every label within its selected surface at ${width}px`,async({page})=>{
+  await page.setViewportSize({width,height:844});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  await input.fill('Taiwan teaching');await input.press('Escape');await input.press('Enter');
+  const facets=page.getByRole('group',{name:'Explore project',exact:true});
+  await expect.poll(()=>facets.locator('.portfolio-tab-label').evaluateAll(labels=>labels.every(label=>{
+    const text=label.getBoundingClientRect(),button=label.parentElement!.getBoundingClientRect();return text.left>=button.left&&text.right<=button.right;
+  }))).toBe(true);
+  await facets.getByRole('button',{name:'Outcomes',exact:true}).click();
+  await page.getByRole('combobox',{name:'Project',exact:true}).selectOption('openai-product-testing-and-feedback');
+  await expect(page.getByRole('heading',{name:'Inside the ChatGPT Lab',exact:true})).toBeVisible();
+  await expect(page.getByRole('button',{name:'Published',exact:true})).toHaveAttribute('aria-pressed','true');
+  await input.fill('Rank governments by AI preparedness');await input.press('Escape');await input.press('Enter');
+  const benchmark=page.getByRole('group',{name:'Explore benchmark',exact:true});await benchmark.getByRole('button',{name:'Distribution',exact:true}).click();
+  await expect.poll(()=>benchmark.locator('.portfolio-tab-label').evaluateAll(labels=>labels.every(label=>{
+    const text=label.getBoundingClientRect(),button=label.parentElement!.getBoundingClientRect();return text.left>=button.left&&text.right<=button.right;
+  }))).toBe(true);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+
+for(const reducedMotion of ['no-preference','reduce'] as const)test(`native disclosures fold smoothly and release keyboard focus immediately: ${reducedMotion}`,async({page})=>{
+  await page.setViewportSize({width:390,height:844});await page.emulateMedia({reducedMotion});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  await input.fill('Taiwan teaching');await input.press('Escape');await input.press('Enter');
+  await expect.poll(()=>page.locator('.home-genui-reveal-content').getAttribute('data-disclosure-instant')).toBeNull();
+  const disclosure=page.locator('.home-next-questions');const summary=disclosure.locator('summary');
+  await summary.click();await expect(disclosure).toHaveAttribute('open','');
+  await expect.poll(()=>page.locator('.home-genui-reveal').evaluate(el=>Math.abs(el.getBoundingClientRect().height-el.querySelector('.home-genui-reveal-content')!.getBoundingClientRect().height))).toBeLessThan(1);
+  await summary.click();await page.keyboard.press('Tab');
+  await expect(page.getByRole('button',{name:'Copy link to this view'})).toBeFocused();
+  await expect(disclosure).not.toHaveAttribute('open','');
+  await summary.click();await expect(disclosure.locator('[data-disclosure-inert]')).toHaveCount(0);
+  await page.getByRole('button',{name:'Clear exploration'}).click();
+  await expect(page.locator('.home-genui-stage')).toHaveCount(0);
+  await page.getByRole('button',{name:'Undo clear'}).click();
+  await expect(disclosure).toHaveAttribute('open','');
+  await expect(disclosure.locator('[data-disclosure-inert]')).toHaveCount(0);
+});

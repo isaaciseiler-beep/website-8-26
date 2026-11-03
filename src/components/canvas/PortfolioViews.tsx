@@ -1,3 +1,6 @@
+import { motion } from 'framer-motion';
+import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
+import { useProjectVisualId } from '@/lib/projectVisualMotion';
 import { PortfolioFacets } from './PortfolioFacets';
 import { ConnectionsExplorer } from './ConnectionsExplorer';
 import { matchesPortfolioSearch } from '@/lib/portfolioSearch';
@@ -29,6 +32,7 @@ function ProjectPassage({section,paragraphs=section.paragraphs}:{section:Project
 }
 
 export function ProjectStory({ block, onChange }: Props) {
+  const visualId=useProjectVisualId(block.projectIds[0]);
   const record = evidenceFor(block.projectIds[0]);
   if (!record) return null;
   const isLab=record.project.id==='openai-product-testing-and-feedback';
@@ -62,10 +66,11 @@ export function ProjectStory({ block, onChange }: Props) {
     onChange({...block,section,focus:nextFocus,layout:layoutFor(nextFocus),answerPlan:undefined,expanded:nextFocus==='evidence',angle:undefined,search:undefined,paragraphIndices:nextFocus==='process'?productPreview(section):undefined});
   };
   return <section className="portfolio-story portfolio-workbench" aria-label="Project explorer">
-    <h2 className="sr-only">{record.title}</h2>
-    <PortfolioFacets label="Explore project" choices={projectFacets} value={focus} onChange={selectFocus}/>
+    <div className="portfolio-project-heading"><h2 className="portfolio-project-title">{record.title}<ChevronDown size={18} aria-hidden="true"/></h2><select className="portfolio-project-native" aria-label="Project" value={record.project.id} onChange={event=>onChange({...blankBlock('story'),projectIds:[event.target.value],focus,layout:layoutFor(focus),section:evidenceSections(event.target.value,focus)[0]?.index??0})}>{publicProjects.map(project=><option key={project.id} value={project.id}>{project.title}</option>)}</select></div>
+    <div className="portfolio-workbench-toolbar"><PortfolioFacets label="Explore project" choices={projectFacets} value={focus} onChange={selectFocus}/></div>
+    <div className={`portfolio-workbench-body${isLab?' has-product-choice':''}`}>
     {isLab&&<nav className="portfolio-workbench-section-choice portfolio-lab-product-choice" aria-label="ChatGPT Lab work"><label className="portfolio-native-choice"><span className="portfolio-native-label" aria-hidden="true"><span>{active?.index===0?'Lab overview':active?.label}</span><ChevronDown size={14}/></span><span className="sr-only">Lab work to explore</span><select className="portfolio-native-control" aria-label="Lab work to explore" value={active?.index??0} onChange={event=>selectLabWork(Number(event.target.value))}>{labWork.map(section=><option key={section.id} value={section.index}>{section.index===0?'Lab overview':section.label}</option>)}</select></label></nav>}
-    <div className="portfolio-workbench-body"><div className="portfolio-workbench-reader">
+    <div className="portfolio-workbench-reader">
 
     {!isLab&&!hasAnswerPlan&&focus!=='role'&&focus!=='evidence'&&sections.length>1&&<nav className="portfolio-workbench-section-choice" aria-label={focus==='outcomes'?'Published outcomes':'Project process steps'}><label className="portfolio-native-choice"><span className="portfolio-native-label" aria-hidden="true"><span>{active?.label}</span><ChevronDown size={14}/></span><span className="sr-only">Project section</span><select className="portfolio-native-control" aria-label="Project section" value={active?.index} onChange={event=>onChange({...block,section:Number(event.target.value),expanded:false,answerPlan:undefined,angle:undefined,paragraphIndices:undefined})}>{sections.map(section=><option key={section.id} value={section.index}>{section.label}</option>)}</select></label></nav>}
     {deck&&<p className="portfolio-deck portfolio-direct-answer">{deck}</p>}
@@ -93,10 +98,10 @@ export function ProjectStory({ block, onChange }: Props) {
       </article>
     </div>}
     </div><aside className="portfolio-workbench-rail">
-      <ResolvedProjectImage visual={image}>{(imageProps,displayed)=><figure className="portfolio-workbench-visual" data-presentation={displayed.presentation}><a href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`} title="Open original image in a new tab"><img {...imageProps} className="portfolio-project-image"/><ArrowUpRight size={16} aria-hidden="true"/></a><figcaption>{isLab&&active&&active.index>0?active.label:record.title}{displayed.note&&<span className="sr-only">{displayed.note}</span>}{record.project.id==='artificial-intelligence-in-state-government-index'&&<span>August 2025 snapshot</span>}</figcaption></figure>}</ResolvedProjectImage>
+      <ResolvedProjectImage visual={image}>{(imageProps,displayed)=><figure className="portfolio-workbench-visual" data-presentation={displayed.presentation}><motion.a layoutId={visualId} transition={{duration:MOTION_DURATION.reveal,ease:MOTION_EASE_ENTER}} href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`} title="Open original image in a new tab"><img {...imageProps} className="portfolio-project-image"/><ArrowUpRight size={16} aria-hidden="true"/></motion.a><figcaption>{isLab&&active&&active.index>0?active.label:null}{displayed.note&&<span className="sr-only">{displayed.note}</span>}{record.project.id==='artificial-intelligence-in-state-government-index'&&<span>August 2025 snapshot</span>}</figcaption></figure>}</ResolvedProjectImage>
 
     </aside></div>
-    <details className="portfolio-change-project"><summary>Explore another project</summary><label><span className="sr-only">Project</span><select aria-label="Project" value={record.project.id} onChange={event => onChange({ ...blankBlock('story'), projectIds: [event.target.value], focus, layout: layoutFor(focus), section: evidenceSections(event.target.value,focus)[0]?.index??0 })}>{publicProjects.map(project => <option key={project.id} value={project.id}>{project.title}</option>)}</select></label></details>
+
   </section>;
 }
 

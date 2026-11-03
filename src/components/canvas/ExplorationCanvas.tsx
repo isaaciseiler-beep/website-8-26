@@ -1,4 +1,5 @@
 import { lazy, Suspense, type ReactNode } from 'react';
+import { ProjectVisualMotion } from './ProjectVisualMotion';
 import { useEvidenceTransition } from '@/hooks/useEvidenceTransition';
 import { ChevronRight, ArrowUpRight } from 'lucide-react';
 import { type Plan } from '@/lib/canvas';
@@ -32,7 +33,7 @@ function LegacyModule(props:BlockProps) {
 
 export default function ExplorationCanvas({composition,plan,generation,onChange,onAction}:{composition:Composition;plan:Plan;generation:GenerationInfo;onChange:(c:Composition)=>void;onAction?:(action:PortfolioAction)=>void}) {
   const reviewing=import.meta.env.DEV&&typeof window!=='undefined'&&new URLSearchParams(window.location.search).has('layouts');
-  return <><div className="canvas-modules">{composition.blocks.map((block,i)=><SelectionModule block={block} key={`${i}-${block.kind}`}><CanvasModule block={block} onChange={next=>onChange({blocks:composition.blocks.map((b,n)=>n===i?next:b)})} plan={plan} generation={generation}/>{reviewing&&AI_LAYOUTS.filter(l=>l.kind===block.kind).length>1&&<div className="canvas-layout-control"><label><span className="sr-only">View style {i+1}</span><select aria-label={`View style ${i+1}`} value={block.layout??defaultLayout[block.kind]} onChange={e=>onChange({blocks:composition.blocks.map((b,n)=>n===i?withLayout(b,e.target.value as LayoutId):b)})}>{AI_LAYOUTS.filter(l=>l.kind===block.kind).map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></label></div>}</SelectionModule>)}</div>{reviewing&&<ViewCompositionControls composition={composition} onAction={onAction??(action=>onChange(applyPortfolioAction(createPortableView(composition),action).composition))}/>}</>;
+  return <ProjectVisualMotion enabled={composition.blocks.length===1}><div className="canvas-modules">{composition.blocks.map((block,i)=><SelectionModule block={block} key={`${i}-${block.kind}`}><CanvasModule block={block} onChange={next=>onChange({blocks:composition.blocks.map((b,n)=>n===i?next:b)})} plan={plan} generation={generation}/>{reviewing&&AI_LAYOUTS.filter(l=>l.kind===block.kind).length>1&&<div className="canvas-layout-control"><label><span className="sr-only">View style {i+1}</span><select aria-label={`View style ${i+1}`} value={block.layout??defaultLayout[block.kind]} onChange={e=>onChange({blocks:composition.blocks.map((b,n)=>n===i?withLayout(b,e.target.value as LayoutId):b)})}>{AI_LAYOUTS.filter(l=>l.kind===block.kind).map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></label></div>}</SelectionModule>)}</div>{reviewing&&<ViewCompositionControls composition={composition} onAction={onAction??(action=>onChange(applyPortfolioAction(createPortableView(composition),action).composition))}/>}</ProjectVisualMotion>;
 }
 function CanvasModule(props:BlockProps&{plan:Plan;generation:GenerationInfo}) {
   if(['photo-grid','photo-diptych','photo-collections'].includes(props.block.layout??''))return <LegacyModule {...props}/>;
