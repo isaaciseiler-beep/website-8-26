@@ -20,6 +20,7 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
   const [active,setActive]=useState(-1);
   const reduced=useReducedMotion();
   const measure=useRef<HTMLSpanElement>(null);
+  const list=useRef<HTMLUListElement>(null);
   const [height,setHeight]=useState(42);
   useLayoutEffect(()=>{
     const node=measure.current;if(!node)return;
@@ -33,6 +34,21 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
   const shortcuts=!value.trim()&&!context?[{id:'help',text:'How to explore',label:'How to explore'},{id:'browse',text:'Explore all projects',label:'Browse work'}]:[];
   const options=[...items,...shortcuts];
   const visible=open&&!composing&&options.length>0;
+  useLayoutEffect(()=>{
+    const node=list.current;
+    const selected=node?.querySelector<HTMLElement>('[aria-selected="true"]');
+    if(!visible||!node||!selected)return;
+    // Scroll only the constrained list. scrollIntoView can also move the page
+    // and dislodge the composer while a visitor navigates with the keyboard.
+    const reveal=()=>{
+      const bounds=node.getBoundingClientRect(),row=selected.getBoundingClientRect();
+      if(row.top<bounds.top)node.scrollTop+=row.top-bounds.top;
+      else if(row.bottom>bounds.bottom)node.scrollTop+=row.bottom-bounds.bottom;
+    };
+    reveal();
+    const observer=new ResizeObserver(reveal);observer.observe(node);observer.observe(selected);
+    return()=>observer.disconnect();
+  },[active,visible]);
   const toggle=(next:boolean)=>{onOpenChange(next);if(!next)setActive(-1);};
   const select=(text:string)=>{if(!text.trim())return;toggle(false);onSubmit(text);};
   const finishComposition=()=>{
@@ -60,7 +76,7 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
     </motion.div>
     <span id={`${id}-instructions`} className="sr-only">Enter to explore; Shift plus Enter adds a line. When suggestions are open, use arrow keys to choose. Escape dismisses suggestions so arrow keys can move through your question. Alt plus Down opens suggestions again.</span>
     <AnimatePresence initial={false} custom={immediateDismiss}>{visible&&<SuggestionPanel key="suggestions">
-      <ul id={id} role="listbox" aria-label="Suggested questions">
+      <ul ref={list} id={id} role="listbox" aria-label="Suggested questions">
         {items.map((item,index)=><li id={`${id}-${item.id}`} key={item.id} role="option" aria-selected={active===index} onClick={()=>select(item.text)}>
           <span>{item.text}</span><ArrowRight size={14} aria-hidden="true"/>
         </li>)}

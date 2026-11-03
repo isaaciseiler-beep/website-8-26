@@ -382,3 +382,37 @@ for(const [draft,feature] of [['pul','Pulse'],['stduy mode','Study Mode'],['back
     expect(posts).toBe(0);
   });
 }
+
+for(const reducedMotion of ['no-preference','reduce'] as const){
+  test(`short landscape ${reducedMotion}: keyboard suggestions stay visible without scrolling the page`,async({page})=>{
+    await page.setViewportSize({width:844,height:390});
+    await page.emulateMedia({reducedMotion});
+    let posts=0;
+    await page.route('**/api/compose',route=>{if(route.request().method()==='POST')posts++;return route.fulfill({json:{configured:false}});});
+    await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
+    await page.goto('/');
+    const input=page.getByRole('textbox',{name:'Explore',exact:true});
+    await input.focus();
+    const list=page.getByRole('listbox',{name:'Suggested questions'});
+    await expect.poll(()=>list.evaluate(node=>node.parentElement!.getBoundingClientRect().height>=node.getBoundingClientRect().height-1)).toBe(true);
+    const initial=await input.evaluate(node=>({top:node.getBoundingClientRect().top,pageY:scrollY}));
+    const selectedIsVisible=()=>list.evaluate(node=>{
+      const selected=node.querySelector<HTMLElement>('[aria-selected="true"]');
+      if(!selected)return false;
+      const row=selected.getBoundingClientRect(),bounds=node.getBoundingClientRect();
+      return row.top>=bounds.top-1&&row.bottom<=bounds.bottom+1;
+    });
+    // Up reaches the final shortcut first; Down then wraps and visits every row.
+    await input.press('ArrowUp');await expect.poll(selectedIsVisible).toBe(true);
+    expect(await list.evaluate(node=>node.scrollTop)).toBeGreaterThan(0);
+    for(let index=0;index<6;index++){await input.press('ArrowDown');await expect.poll(selectedIsVisible).toBe(true);}
+    // Reflowing an already selected row must keep it in the visible list too.
+    await page.addStyleTag({content:'.experience-autocomplete [role=option]{font-size:24px;line-height:36px}'});
+    await expect.poll(selectedIsVisible).toBe(true);
+    const final=await input.evaluate(node=>({top:node.getBoundingClientRect().top,pageY:scrollY}));
+    expect(final).toEqual(initial);
+    expect(posts).toBe(0);
+    await input.press('Enter');
+    await expect(page.getByRole('heading',{name:'Explore work',exact:true})).toBeAttached();
+  });
+}

@@ -1,0 +1,34 @@
+{
+  "viewport": {
+    "width": 844,
+    "height": 390
+  },
+  "before": {
+    "list": [
+      157,
+      313
+    ],
+    "active": [
+      321,
+      353
+    ],
+    "scrollTop": 0,
+    "activeVisible": false,
+    "pageY": 0
+  },
+  "after": {
+    "list": [
+      157,
+      313
+    ],
+    "active": [
+      281,
+      313
+    ],
+    "scrollTop": 40,
+    "activeVisible": true,
+    "pageY": 0
+  },
+  "browserCases": 2,
+  "autocompleteUnitTests": 6
+}

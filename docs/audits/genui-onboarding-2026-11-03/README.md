@@ -46,3 +46,9 @@ The first pushed checkpoint is confirmed live at https://seiler.page/: the nativ
 A subsequent frame audit found that shared-image layout projection briefly stretched new screenshots when switching between square Pulse and widescreen Study Mode images. Six of 24 transitions showed more than 2% anisotropic scaling, peaking at about 26%. Both ends of the shared image handoff now use Motion’s aspect-preserving layout mode: equal-shape images can still grow into the reader, while changed shapes animate position without stretching their pixels. Native image nodes and their fallback handling remain mounted.
 
 The expanded check covers 60 transitions across all eight Lab sections, at 1440/768/390px, with normal and reduced motion. None exceeded 2% anisotropic scaling on visible frames. See `image-transition-frames.json`. Thirteen motion browser cases passed, including four new deterministic square/widescreen regression cases. Typecheck, lint, and production build passed. These checks establish Chrome rendering, not mobile Safari or live model accuracy.
+
+## Short-window keyboard refinement
+
+At 844×390, the suggestion list is deliberately height-constrained. Previously Arrow Up could select “Browse work” below its clipped edge (selected row y321–353, visible list y157–313, scrollTop 0). Selection now scrolls only the list, keeping the active row visible (y281–313, scrollTop 40) and the page at scrollY 0. A ResizeObserver preserves visibility when the selected row reflows. The field itself does not move.
+
+Two browser regressions passed with normal/reduced motion, all six keyboard options, and 24px suggestion text. The six autocomplete unit tests, typecheck, lint, and production build also passed.
