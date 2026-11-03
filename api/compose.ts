@@ -23,6 +23,7 @@ export default async function composeHandler(req:ApiRequest,res:ApiResponse) {
   res.setHeader('Cache-Control','no-store');
   const key=process.env.MISTRAL_API_KEY?.trim();
   const model=process.env.MISTRAL_MODEL||'mistral-small-2603';
+  const largeModel=/^mistral-large-4(?:-0)?$/.test(model);
   if(req.method==='GET') return sendJson(res,200,{configured:Boolean(key),provider:'mistral',model,health:providerHealth('mistral')});
   if(req.method!=='POST') {res.setHeader('Allow','GET, POST');return sendJson(res,405,{error:'Method not allowed'});}
   try {
@@ -64,7 +65,7 @@ export default async function composeHandler(req:ApiRequest,res:ApiResponse) {
     const deadline=new AbortController();
     const providerAbort=new AbortController();
     const signal=AbortSignal.any([abort.signal,deadline.signal,providerAbort.signal]);
-    const timer=setTimeout(()=>deadline.abort(Object.assign(new Error('Composition deadline exceeded'),{name:'TimeoutError'})),18000);
+    const timer=setTimeout(()=>deadline.abort(Object.assign(new Error('Composition deadline exceeded'),{name:'TimeoutError'})),largeModel?35000:18000);
 
     res.statusCode=200;res.setHeader('Content-Type','application/x-ndjson');res.setHeader('X-Accel-Buffering','no');
     const write=(event:Record<string,unknown>)=>{if(!res.destroyed&&!res.writableEnded)res.write(JSON.stringify({...event,revision:data.revision,contentVersion:CONTENT_VERSION})+'\n');};
@@ -77,9 +78,9 @@ export default async function composeHandler(req:ApiRequest,res:ApiResponse) {
         model:createCompositionModel(model,{apiKey:key}),
         // Large 4 uses model-default sampling and a bounded low-effort bridge.
         // Keep Small's existing deterministic, non-reasoning configuration.
-        ...(/^mistral-large-4(?:-0)?$/.test(model)?{}:{reasoning:'none' as const,temperature:0}),
+        ...(largeModel?{}:{reasoning:'none' as const,temperature:0}),
         output:Output.object({schema:generationSchema}),
-        maxOutputTokens:1800,maxRetries:0,
+        maxOutputTokens:largeModel?4096:1800,maxRetries:0,
         abortSignal:signal,
         providerOptions:{mistral:{strictJsonSchema:true}},
         onError:event=>{providerError=event.error;providerAbort.abort(event.error);},
