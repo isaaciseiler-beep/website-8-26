@@ -2,7 +2,7 @@ import { useOverlayFocus } from "@/hooks/useOverlayFocus";
 import { useSiteChrome } from "@/lib/siteChrome";
 import { useNavigationMotion, useMotionPreference } from "@/hooks/useMotionPreference";
 import { warmRoute } from "@/lib/routePreload";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, ChevronRight, Mail, Moon, Sun } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -10,7 +10,7 @@ import { useTheme, type Theme } from "@/components/ThemeProvider";
 import SearchTrigger from "@/components/SearchOverlay";
 import { CONTACT_MAILTO, GITHUB_URL, LINKEDIN_URL } from "@/lib/site";
 import { scrollToPageSection } from "@/lib/scroll";
-import { setSiteOverlayOpen } from "@/lib/siteOverlay";
+import { isSiteOverlayOpen, setSiteOverlayOpen } from "@/lib/siteOverlay";
 import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 
 const EASE = MOTION_EASE_ENTER;
@@ -113,9 +113,58 @@ export const SidebarSurface = ({ open, onToggle, onClose, onSearchOpen, activeSe
   const navigate = useNavigate();
   const location = useLocation();
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+  const [handoff, setHandoff] = useState<'waiting' | 'fade' | 'park' | null>(null);
+  const pendingNavigation = useRef(false);
+  const previousOpen = useRef(open);
+  const close = useRef(onClose ?? onToggle);
+  close.current = onClose ?? onToggle;
   const isOnPhotos = location.pathname === "/photos" || location.pathname === "/photos/map";
   const isOnMusic = location.pathname === "/photos/music";
   const isOnProjects = location.pathname === "/work" || location.pathname.startsWith("/projects");
+
+  useEffect(() => {
+    const prepare = () => {
+      // Keep the full-width menu in place until the destination is ready
+      // beneath it. Ordinary dismissal retains its own motion.
+      pendingNavigation.current = true;
+      setHandoff('waiting');
+    };
+    const ready = () => {
+      if (!pendingNavigation.current) return;
+      pendingNavigation.current = false;
+      if (window.innerWidth >= 768) { setHandoff(null); return; }
+      setHandoff('fade');
+      close.current();
+      requestAnimationFrame(() => {
+        if (isSiteOverlayOpen()) return;
+        const subject = document.querySelector<HTMLElement>('main h1') ?? document.querySelector<HTMLElement>('main');
+        subject?.setAttribute('tabindex', '-1');
+        subject?.focus({ preventScroll: true });
+      });
+    };
+    window.addEventListener('site-sidebar-navigation', prepare);
+    window.addEventListener('site-page-ready', ready);
+    return () => {
+      window.removeEventListener('site-sidebar-navigation', prepare);
+      window.removeEventListener('site-page-ready', ready);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    document.body.toggleAttribute('data-sidebar-navigation-fade', handoff !== null);
+    return () => document.body.removeAttribute('data-sidebar-navigation-fade');
+  }, [handoff]);
+
+  useEffect(() => {
+    const reopened = open && !previousOpen.current;
+    previousOpen.current = open;
+    if (!open && handoff === 'waiting') {
+      pendingNavigation.current = false;
+      setHandoff('fade');
+    } else if (reopened && (handoff === 'fade' || handoff === 'park')) {
+      setHandoff(null);
+    }
+  }, [open, handoff]);
 
   useLayoutEffect(() => {
     setSiteOverlayOpen("sidebar", open);
@@ -210,8 +259,14 @@ export const SidebarSurface = ({ open, onToggle, onClose, onSearchOpen, activeSe
         initial={false}
         aria-hidden={!open}
         {...(!open ? { inert: "" } : {})}
-        animate={{ x: open ? 0 : "-100%" }}
-        transition={navigationMotion}
+        animate={{ x: handoff === 'fade' || handoff === 'waiting' ? 0 : open ? 0 : "-100%", opacity: handoff === 'fade' || handoff === 'park' ? 0 : 1 }}
+        transition={handoff === 'park' ? { duration: 0 } : handoff ? { type: 'tween', duration: reduced ? 0 : MOTION_DURATION.panel, ease: EASE } : navigationMotion}
+        onAnimationComplete={() => {
+          // Park the invisible menu offscreen before restoring its ordinary
+          // slide state, so finishing the fade cannot reveal a sliding panel.
+          if (handoff === 'fade') setHandoff('park');
+          else if (handoff === 'park') setHandoff(null);
+        }}
       >
         <div className="mt-4 block flex-none">
               <div className="relative flex flex-col gap-0.5">

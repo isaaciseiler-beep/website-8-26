@@ -85,6 +85,26 @@ export default function HomeExplore() {
   const [composing,setComposing]=useState(false);
   const [view,setView]=useState<View|null>(restored?.view??null);
   const [heldExpanded,setHeldExpanded]=useState(Boolean(restored?.view));
+  const [revealEpoch,setRevealEpoch]=useState(0);
+  // Interrupted exits can finish visually without Presence reporting completion.
+  // Recover only a folded pane; never release its width during the vertical fold.
+  useEffect(()=>{
+    if(view||guidance||!heldExpanded)return;
+    let checks=0;
+    let timer:ReturnType<typeof setTimeout>;
+    const releaseFoldedPane=()=>{
+      if(current.current)return;
+      const pane=resultsRef.current?.closest('.home-genui-reveal');
+      if(pane&&pane.getBoundingClientRect().height>1){
+        if(checks++<10)timer=setTimeout(releaseFoldedPane,MOTION_DURATION.exit*1000);
+        return;
+      }
+      setRevealEpoch(epoch=>epoch+1);
+      setHeldExpanded(false);
+    };
+    timer=setTimeout(releaseFoldedPane,reduceMotion?0:(MOTION_DURATION.panel+MOTION_DURATION.exit)*1000);
+    return()=>clearTimeout(timer);
+  },[view,guidance,heldExpanded,reduceMotion]);
   useLayoutEffect(()=>{
     if(view&&requestMetric.current?.revision===revision.current)requestMetric.current.timing.contentCommitted();
     if(pendingReadingState.current&&resultsRef.current)restoreReadingState(resultsRef.current,pendingReadingState.current,false);
@@ -323,7 +343,7 @@ export default function HomeExplore() {
       {reviewMode&&<div className="canvas-review"><label htmlFor="layout-review">Layout review · {AI_LAYOUTS.length} authored views</label><select id="layout-review" value={reviewLayout} onChange={e=>{const id=e.target.value as LayoutId;setReviewLayout(id);cancel();const recipe=AI_LAYOUTS.find(l=>l.id===id)!;setQuery(recipe.prompt);update({query:recipe.prompt,plan:resolveCanvasPlan(recipe.prompt,initialPlan(),revision.current),composition:presetComposition(id),generation:{status:'authored'}});}}>{AI_LAYOUTS.map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></div>}<div ref={composerRef} className="home-genui-composer">
 
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
-        <ExperienceAutocomplete context={suggestionContext} inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
+        <ExperienceAutocomplete committed={Boolean(query.trim()&&(view?.query===query||guidance||busy))} context={suggestionContext} inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
         {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
       </form><AnimatePresence initial={false}>{busy&&<RequestProgress key="request-status"><div className="home-request-state"><span>{phase}</span><button type="button" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button></div></RequestProgress>}</AnimatePresence></div>
       {!query.trim()&&!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&<div className="home-idle-actions">
@@ -331,7 +351,7 @@ export default function HomeExplore() {
       </div>}
       <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
-      <AnimatePresence initial={false} onExitComplete={()=>setHeldExpanded(false)}>
+      <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel" restored={Boolean(restored?.view||restored?.guidance)} onSettled={restoreReadingPosition}>
           <div ref={resultsRef} className="home-genui-stage" aria-label="Exploration results" aria-busy={busy} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
             {guidance?<div className="home-entry" aria-label="Choose a starting point">

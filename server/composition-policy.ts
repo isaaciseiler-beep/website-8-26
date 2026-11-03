@@ -12,7 +12,7 @@ export function providerCallLimit(value:string|undefined,fallback:number){
   return Number.isSafeInteger(parsed)&&parsed>=0?parsed:fallback;
 }
 export function compositionCacheKey(draft:string,current:Composition,proposed:Composition,model:string,evidenceVersion=COMPOSITION_EVIDENCE_VERSION){
-  return createHash('sha256').update(JSON.stringify({draft:draft.trim().replace(/\s+/g,' '),current,proposed,model,version:CONTENT_VERSION,evidenceVersion,policy:COMPOSITION_POLICY_VERSION,advisory:process.env.TYPESAFE_API_KEY?.trim()?(process.env.JEV_MODEL||'jev-latest'):'disabled'})).digest('hex');
+  return createHash('sha256').update(JSON.stringify({draft:draft.trim().replace(/\s+/g,' '),current,proposed,model,version:CONTENT_VERSION,evidenceVersion,policy:COMPOSITION_POLICY_VERSION,advisory:process.env.JEV_COMPOSITION_ADVICE!=='off'&&process.env.TYPESAFE_API_KEY?.trim()?(process.env.JEV_MODEL||'jev-latest'):'disabled'})).digest('hex');
 }
 export function cachedComposition(key:string){const hit=cache.get(key);if(hit&&hit.expires>Date.now())return structuredClone(hit.composition);cache.delete(key);return null;}
 export function cacheComposition(key:string,composition:Composition){

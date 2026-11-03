@@ -1,3 +1,4 @@
+import { reserveProviderCapacity } from '../server/provider-capacity.js';
 import { streamText, Output } from 'ai';
 import { createCompositionModel } from '../server/mistral-client.js';
 import { AI_LAYOUTS } from '../src/lib/layouts.js';
@@ -57,22 +58,25 @@ export default async function composeHandler(req:ApiRequest,res:ApiResponse) {
     const date=new Date().toISOString().slice(0,10);
     if(daily.date!==date)daily={date,count:0};
     if(daily.count>=providerCallLimit(process.env.COMPOSE_DAILY_CALL_LIMIT,250))return sendJson(res,429,{error:'Daily composition limit reached'});
+    const releaseCapacity=reserveProviderCapacity('mistral',process.env.COMPOSE_CONCURRENT_CALL_LIMIT);
+    if(!releaseCapacity){res.setHeader('Retry-After','1');return sendJson(res,503,{error:'Composition is busy. Please try again shortly.'});}
     daily.count++;
     const abort=new AbortController();
     const disconnect=()=>abort.abort();
-    res.on('close',disconnect);
     const started=performance.now();
     const deadline=new AbortController();
     const providerAbort=new AbortController();
     const signal=AbortSignal.any([abort.signal,deadline.signal,providerAbort.signal]);
-    const timer=setTimeout(()=>deadline.abort(Object.assign(new Error('Composition deadline exceeded'),{name:'TimeoutError'})),largeModel?35000:18000);
+    let timer:ReturnType<typeof setTimeout>|undefined;
 
-    res.statusCode=200;res.setHeader('Content-Type','application/x-ndjson');res.setHeader('X-Accel-Buffering','no');
     const write=(event:Record<string,unknown>)=>{if(!res.destroyed&&!res.writableEnded)res.write(JSON.stringify({...event,revision:data.revision,contentVersion:CONTENT_VERSION})+'\n');};
-    write({type:'start'});
     let providerError:unknown;
     const timings:{adviceMs?:number;firstSelectionMs?:number;providerMs?:number;totalMs?:number}={};
     try {
+      res.on('close',disconnect);
+      timer=setTimeout(()=>deadline.abort(Object.assign(new Error('Composition deadline exceeded'),{name:'TimeoutError'})),largeModel?35000:18000);
+      res.statusCode=200;res.setHeader('Content-Type','application/x-ndjson');res.setHeader('X-Accel-Buffering','no');
+      write({type:'start'});
       const advisory=await waitForProvider(jevCompositionAdvice(data.draft,data.current,signal).catch(()=>null),signal);
       if(abort.signal.aborted||res.destroyed)return;
       timings.adviceMs=Math.round(performance.now()-started);
@@ -120,6 +124,6 @@ Choose the exact layout ID from the supplied layouts. Its kind MUST match the mo
       cacheComposition(cacheKey,composition);
       write({type:'composition',composition,partial:false,model,duration:Math.round(performance.now()-started),inputTokens:usage.inputTokens,outputTokens:usage.outputTokens,timings});
       recordProviderResult(request,{status:'healthy',model,duration:Math.round(performance.now()-started),layout:composition.blocks[0].layout,timings,...compositionLogEvidence(composition)});
-    } catch(error) {if(abort.signal.aborted)return;const failure=providerError??error;const reason=providerFailure(failure);write({type:'unavailable',reason});recordProviderResult(request,{status:'unavailable',model,reason,duration:Math.round(performance.now()-started),httpStatus:(failure as {statusCode?:number})?.statusCode,errorType:failure instanceof Error?failure.name:undefined,limitDetail:providerLimitDetail(failure),...providerDiagnostics(failure)});} finally {clearTimeout(timer);deadline.abort();res.off('close',disconnect);res.end();}
+    } catch(error) {if(abort.signal.aborted)return;const failure=providerError??error;const reason=providerFailure(failure);write({type:'unavailable',reason});recordProviderResult(request,{status:'unavailable',model,reason,duration:Math.round(performance.now()-started),httpStatus:(failure as {statusCode?:number})?.statusCode,errorType:failure instanceof Error?failure.name:undefined,limitDetail:providerLimitDetail(failure),...providerDiagnostics(failure)});} finally {releaseCapacity();clearTimeout(timer);deadline.abort();res.off('close',disconnect);res.end();}
   } catch {return sendJson(res,400,{error:'Invalid composition request'});}
 }

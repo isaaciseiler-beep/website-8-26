@@ -34,6 +34,16 @@ describe('bounded composition safeguards',()=>{
     const edited={blocks:[{...composition.blocks[0],region:'Midwest' as const}]};
     expect(compositionCacheKey('A private visitor question',edited,composition,'model')).not.toBe(key);
   });
+  it('does not reuse advice-enabled compositions when advisory calls are disabled',()=>{
+    vi.stubEnv('TYPESAFE_API_KEY','test-only');vi.stubEnv('JEV_COMPOSITION_ADVICE',undefined);
+    const enabled=compositionCacheKey('Same question',composition,composition,'model');
+    vi.stubEnv('JEV_COMPOSITION_ADVICE','off');
+    const disabled=compositionCacheKey('Same question',composition,composition,'model');
+    expect(disabled).not.toBe(enabled);
+    vi.stubEnv('TYPESAFE_API_KEY',undefined);
+    expect(compositionCacheKey('Same question',composition,composition,'model')).toBe(disabled);
+    vi.unstubAllEnvs();
+  });
   it('recognizes schema failures and nested provider errors without returning raw details',()=>{
     expect(providerFailure(Object.assign(new Error('Failed to generate'),{name:'AI_NoObjectGeneratedError'}))).toBe('invalid_output');
     expect(providerFailure(Object.assign(new Error('No result'),{cause:Object.assign(new Error('private upstream details'),{statusCode:429})}))).toBe('rate_limit');

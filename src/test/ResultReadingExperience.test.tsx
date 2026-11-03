@@ -86,22 +86,21 @@ describe('answer reading and evidence provenance',()=>{
     expect(screen.getByText(/first ChatGPT Lab cohort/)).toBeVisible();
     expect(screen.getByRole('button',{name:'Explore the products'})).toBeVisible();
   });
-  it('recovers failed Atlas media through its reviewed poster and local cover without losing the selected product',()=>{
+  it('opens the reviewed Atlas poster directly and retains the local cover fallback without losing the selected product',()=>{
     const lab=publicProjects.find(project=>project.id==='openai-product-testing-and-feedback')!;
     const atlas=representativeProjectImage(lab,5);
-    const reviewedPoster=lab.sections[5].media!.find(media=>media.fallbackPoster)!.fallbackPoster!;
-    expect(atlas.fallbacks[0].src).toBe(reviewedPoster);
+    const reviewedPoster=lab.sections[5].media!.find(media=>media.type==='video')!.poster!;
+    expect(atlas.src).toBe(reviewedPoster);
+    expect(atlas.fallbacks[0].src).toBe(lab.image);
     render(<Story initial={{...blankBlock('story'),projectIds:[lab.id],focus:'process',layout:'project-process',section:5}}/>);
     const product=screen.getByRole('combobox',{name:'Lab work to explore'});
     const image=document.querySelector('.portfolio-project-image') as HTMLImageElement;
-    image.dataset.imageState='error'; // The global preloader marks a failed asset.
-    fireEvent.error(image);
     expect(image).toHaveAttribute('src',reviewedPoster);
     expect(image.closest('a')).toHaveAttribute('href',reviewedPoster);
     expect(image).not.toHaveAttribute('data-image-state','error');
-    expect(screen.getByText('Video poster')).toHaveClass('sr-only');
     expect(image.closest('figure')?.querySelector('figcaption')).toHaveTextContent('Atlas');
     expect(product).toHaveValue('5');
+    image.dataset.imageState='error'; // The global preloader marks a failed asset.
     fireEvent.error(image);
     expect(image).toHaveAttribute('src',lab.image);
     expect(image.closest('a')).toHaveAttribute('href',lab.image);

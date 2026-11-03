@@ -39,7 +39,7 @@ const localApiPlugin = (mode: string): Plugin => ({
       const url = new URL(request.url ?? "/", "http://localhost");
       if (url.pathname === "/api/compose") {
         const env = loadEnv(mode, process.cwd(), "");
-        for (const key of ["MISTRAL_API_KEY", "MISTRAL_MODEL", "COMPOSE_DAILY_CALL_LIMIT"]) applyEnv(key, env[key]);
+        for (const key of ["MISTRAL_API_KEY", "MISTRAL_MODEL", "COMPOSE_DAILY_CALL_LIMIT", "COMPOSE_CONCURRENT_CALL_LIMIT"]) applyEnv(key, env[key]);
         void composeHandler(request, response); return;
       }
       if (url.pathname === "/api/intent") {

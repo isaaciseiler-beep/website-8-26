@@ -1,3 +1,4 @@
+import { PortfolioFacets } from './PortfolioFacets';
 import { ConnectionsExplorer } from './ConnectionsExplorer';
 import { matchesPortfolioSearch } from '@/lib/portfolioSearch';
 import type { ProjectSection } from '@/lib/siteContent';
@@ -62,11 +63,10 @@ export function ProjectStory({ block, onChange }: Props) {
   };
   return <section className="portfolio-story portfolio-workbench" aria-label="Project explorer">
     <h2 className="sr-only">{record.title}</h2>
-    <div className="portfolio-tabs" role="group" aria-label="Explore project">
-      {projectFacets.map(facet => <button key={facet.value} aria-pressed={focus === facet.value} onClick={() => selectFocus(facet.value)}>{facet.label}</button>)}
-    </div>
-    <div className="portfolio-workbench-body"><div className="portfolio-workbench-reader">
+    <PortfolioFacets label="Explore project" choices={projectFacets} value={focus} onChange={selectFocus}/>
     {isLab&&<nav className="portfolio-workbench-section-choice portfolio-lab-product-choice" aria-label="ChatGPT Lab work"><label className="portfolio-native-choice"><span className="portfolio-native-label" aria-hidden="true"><span>{active?.index===0?'Lab overview':active?.label}</span><ChevronDown size={14}/></span><span className="sr-only">Lab work to explore</span><select className="portfolio-native-control" aria-label="Lab work to explore" value={active?.index??0} onChange={event=>selectLabWork(Number(event.target.value))}>{labWork.map(section=><option key={section.id} value={section.index}>{section.index===0?'Lab overview':section.label}</option>)}</select></label></nav>}
+    <div className="portfolio-workbench-body"><div className="portfolio-workbench-reader">
+
     {!isLab&&!hasAnswerPlan&&focus!=='role'&&focus!=='evidence'&&sections.length>1&&<nav className="portfolio-workbench-section-choice" aria-label={focus==='outcomes'?'Published outcomes':'Project process steps'}><label className="portfolio-native-choice"><span className="portfolio-native-label" aria-hidden="true"><span>{active?.label}</span><ChevronDown size={14}/></span><span className="sr-only">Project section</span><select className="portfolio-native-control" aria-label="Project section" value={active?.index} onChange={event=>onChange({...block,section:Number(event.target.value),expanded:false,answerPlan:undefined,angle:undefined,paragraphIndices:undefined})}>{sections.map(section=><option key={section.id} value={section.index}>{section.label}</option>)}</select></label></nav>}
     {deck&&<p className="portfolio-deck portfolio-direct-answer">{deck}</p>}
     {hasAnswerPlan?<ProjectAnswer key={JSON.stringify(block.answerPlan)} block={block} onChange={onChange} title={record.title}/>:isLab&&focus==='evidence'&&active&&active.index>0?<div className="portfolio-lab-source-view"><PublishedSources context={active.label} links={active.links??[]} open/><details key={`lab-account:${active.index}`} className="portfolio-supporting-passage"><summary>Read the published account</summary><ProjectPassage section={active}/></details></div>:focus === 'evidence' ? <div className="portfolio-evidence">
@@ -115,7 +115,7 @@ export function ProjectComparison({ block, onChange }: Props) {
   }
   return <section className="portfolio-comparison" aria-label="Project comparison">
     <h2 className="sr-only">{focus === 'evidence' ? 'The published sources' : focus === 'role' ? 'Contributions, side by side' : focus === 'process' ? 'Two approaches to the work' : 'What the work produced'}</h2>
-    <div className="portfolio-tabs" role="group" aria-label="Comparison aspect">{facets.map(({value,label}) => <button key={value} aria-pressed={focus === value} onClick={() => onChange({ ...block, focus: value })}>{label}</button>)}</div>
+    <PortfolioFacets label="Comparison aspect" choices={facets} value={focus} onChange={focus=>onChange({...block,focus})}/>
     <div className="portfolio-comparison-media">{projects.map((record,index)=>{const visual=representativeProjectImage(record.project);return <ResolvedProjectImage key={index} visual={visual}>{(imageProps,displayed)=><figure data-presentation={displayed.presentation}><a href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`}><img {...imageProps}/></a><figcaption>{displayed.note&&<span className="portfolio-image-note">{displayed.note}</span>}<label className="portfolio-comparison-choice"><span className="portfolio-comparison-name" aria-hidden="true"><span>{record.title}</span><ChevronDown size={14}/></span><select className="portfolio-comparison-native" aria-label={`Comparison project ${index+1}`} value={record.project.id} onChange={event=>onChange({...block,projectIds:block.projectIds.map((id,position)=>position===index?event.target.value:id)})}>{publicProjects.filter(project=>project.id!==block.projectIds[1-index]).map(project=><option key={project.id} value={project.id}>{evidenceFor(project.id)?.title??project.title}</option>)}</select></label></figcaption></figure>}</ResolvedProjectImage>;})}</div>
     {focus!=='evidence'&&comparisonInsight(block.projectIds,focus)&&<p className="portfolio-deck">{comparisonInsight(block.projectIds,focus)}</p>}
     {rows.length>0?<table className="portfolio-comparison-table" role="table" aria-label="Published project comparison">

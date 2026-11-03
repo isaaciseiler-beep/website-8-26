@@ -26,6 +26,15 @@ describe('autocomplete interaction',()=>{
   fireEvent.click(screen.getByRole('option',{name:'Walk me through Isaac’s experience'}));
   expect(submit).toHaveBeenCalledWith('Walk me through Isaac’s experience');
  });
+ it('commits a custom wrapped question on Enter without inserting a newline',()=>{
+  const submit=vi.fn();render(<Harness submit={submit}/>);const input=screen.getByRole('combobox');
+  fireEvent.change(input,{target:{value:'How did Isaac turn participant feedback into changes in Taiwan?'}});
+  fireEvent.keyDown(input,{key:'Escape'});
+  fireEvent.keyDown(input,{key:'Enter'});
+  expect(submit).toHaveBeenCalledOnce();
+  expect(submit).toHaveBeenCalledWith('How did Isaac turn participant feedback into changes in Taiwan?');
+  expect(input).toHaveValue('How did Isaac turn participant feedback into changes in Taiwan?');
+ });
  it('closes on Tab or blur without replacing custom text',()=>{
   const submit=vi.fn();render(<Harness submit={submit}/>);const input=screen.getByRole('combobox');fireEvent.focus(input);fireEvent.change(input,{target:{value:'my own question'}});
   fireEvent.keyDown(input,{key:'Tab'});expect(screen.queryByRole('listbox')).not.toBeInTheDocument();expect(input).toHaveValue('my own question');expect(submit).not.toHaveBeenCalled();

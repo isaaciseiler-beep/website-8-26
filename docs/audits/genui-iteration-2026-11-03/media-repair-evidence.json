@@ -1,0 +1,19 @@
+{
+  "initialHeadChecks": {
+    "uniqueRemoteAssets": 11,
+    "reachable": 10,
+    "unavailable": [
+      {
+        "url": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/atlas.webp",
+        "status": 404
+      }
+    ]
+  },
+  "replacement": {
+    "url": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+    "status": 200,
+    "contentType": "image/jpeg",
+    "provenance": "Already-authored reviewed fallback poster, promoted to primary."
+  },
+  "localAssetFilesMissing": 0
+}

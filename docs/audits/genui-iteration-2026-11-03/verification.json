@@ -1,0 +1,43 @@
+{
+  "unitTests": {
+    "passed": 1036,
+    "files": 70
+  },
+  "browserTests": {
+    "passed": 17
+  },
+  "layoutChecks": {
+    "passed": 96,
+    "finalSource": true
+  },
+  "releaseGate": {
+    "passed": true,
+    "failures": [],
+    "p95Ms": 13,
+    "qualityCases": 21,
+    "completeAnswers": 21,
+    "scope": "Offline authored regression gate; does not establish live model quality."
+  },
+  "published": false,
+  "stress": {
+    "firstCompletedPass": {
+      "operations": 2610,
+      "checks": 870,
+      "elapsedSeconds": 902
+    },
+    "finalBuildPass": {
+      "passed": true,
+      "operations": 360,
+      "checks": 120,
+      "elapsedSeconds": 123,
+      "errors": []
+    },
+    "initialExploratoryTimeout": "Reproduced at operation 263: collapsed exit remained mounted. Repaired with recovery gated on zero-height fold."
+  },
+  "finalCssVerification": "passed",
+  "portfolioProviderCalls": 0,
+  "claudeReviewPasses": 4,
+  "finalSourceTypecheck": "passed",
+  "finalSourceLint": "passed",
+  "finalSourceBuild": "passed"
+}

@@ -1,3 +1,4 @@
+import { PortfolioFacets } from './PortfolioFacets';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import { portfolioConnections, connectionIds } from '@/lib/portfolioConnections';
 import { blankBlock, type CanvasBlock } from '@/lib/genui';
@@ -15,7 +16,7 @@ export function ConnectionsExplorer({ block, onChange }: {block: CanvasBlock; on
     <div className="portfolio-connection-controls"><label className="portfolio-connection-select portfolio-native-choice"><span className="portfolio-native-label" aria-hidden="true"><span>{connection.label}</span><ChevronDown size={14}/></span><span className="sr-only">Connection to explore</span><select className="portfolio-native-control" value={block.connectionId ?? 'systems'} onChange={event => onChange({...block, connectionId: event.target.value as NonNullable<CanvasBlock['connectionId']>})}>
       {connectionIds.map(id => <option key={id} value={id}>{portfolioConnections[id].label}</option>)}
     </select></label>
-    <div className="portfolio-tabs" role="group" aria-label="Connection aspect">{(['role', 'process', 'outcomes', 'evidence'] as const).map(value => <button key={value} aria-pressed={focus === value} onClick={() => onChange({...block, focus: value})}>{value === 'role' ? 'Contribution' : value === 'process' ? 'Process' : value === 'evidence' ? 'Evidence' : 'Outcomes'}</button>)}</div></div>
+    <PortfolioFacets label="Connection aspect" choices={(['role','process','outcomes','evidence'] as const).map(value=>({value,label:value==='role'?'Contribution':value==='process'?'Process':value==='evidence'?'Evidence':'Outcomes'}))} value={focus} onChange={focus=>onChange({...block,focus})}/></div>
     {focus!=='evidence'&&<p className="portfolio-connection-insight">{connection[focus]}</p>}
     <div className="portfolio-connection-grid">{connection.projectIds.map(id => {
       const record = evidenceFor(id);

@@ -23,7 +23,9 @@ export default function PageTransitions({ children }: { children: (location: Loc
   useLayoutEffect(() => { current.current = frame; }, [frame]);
 
   const committed = useCallback((ticket: number) => {
-    if (ticket !== serial.current || motionReduced() || !scene.current?.animate) return;
+    if (ticket !== serial.current) return;
+    window.dispatchEvent(new CustomEvent('site-page-ready'));
+    if (motionReduced() || !scene.current?.animate) return;
     animation.current?.cancel();
     animation.current = scene.current.animate([{ opacity: 0.72 }, { opacity: 1 }], {
       duration: MOTION_DURATION.panel * 1000,
@@ -37,11 +39,13 @@ export default function PageTransitions({ children }: { children: (location: Loc
     animation.current?.cancel();
     if (requested === current.current.location) return;
     const previous = current.current.location;
+    const fullMenu = window.innerWidth < 768 && document.body.hasAttribute('data-site-sidebar-open');
+    if (fullMenu) window.dispatchEvent(new CustomEvent('site-sidebar-navigation'));
     const albumChanged = requested.pathname === '/' && new URLSearchParams(requested.search).get('album') !== new URLSearchParams(previous.search).get('album');
     // Drafts, hash sharing and query controls keep their own lifecycle.
     if (requested.pathname === previous.pathname && !albumChanged) {
       saveNavigationPosition(previous);
-      setFrame(value => ({ ...value, location: requested }));
+      setFrame(value => ({ ...value, location: requested, arrival: fullMenu ? ticket : value.arrival }));
       return;
     }
     const restoring = navigationType === 'POP' || requested.state?.restoreWork === true || requested.state?.restoreGallery === true;

@@ -1,0 +1,618 @@
+{
+  "sections": 32,
+  "candidates": 54,
+  "uniqueAssets": 16,
+  "missing": [],
+  "externalUnchecked": [
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 0,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 0,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 1,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 1,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 2,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 2,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 3,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 3,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 4,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/3ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 4,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 5,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 5,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 6,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 0,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 1,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 2,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 3,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 4,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 4,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse3.webp",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 5,
+      "primary": true,
+      "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 6,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 7,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    }
+  ],
+  "records": [
+    {
+      "project": "artificial-intelligence-in-state-government-index",
+      "section": 0,
+      "primary": true,
+      "src": "/project-images/aiindex.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "artificial-intelligence-in-state-government-index",
+      "section": 1,
+      "primary": true,
+      "src": "/project-images/aiindex.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "artificial-intelligence-in-state-government-index",
+      "section": 2,
+      "primary": true,
+      "src": "/project-images/aiindex.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 0,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 0,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 1,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 1,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 2,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 2,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 3,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 3,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 4,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/3ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 4,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 5,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/1ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 5,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 6,
+      "primary": true,
+      "src": "/project-images/caphill.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "congressional-office-setup-100-day-report",
+      "section": 6,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/capcomms/0ch.jpeg",
+      "presentation": "photograph",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "senior-thesis-local-journalism",
+      "section": 0,
+      "primary": true,
+      "src": "/project-images/ainews.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "senior-thesis-local-journalism",
+      "section": 1,
+      "primary": true,
+      "src": "/project-images/ainews.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "senior-thesis-local-journalism",
+      "section": 2,
+      "primary": true,
+      "src": "/project-images/ainews.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 0,
+      "primary": true,
+      "src": "/project-images/ai-classroom.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 0,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 1,
+      "primary": true,
+      "src": "/project-images/ai-classroom.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 1,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 2,
+      "primary": true,
+      "src": "/project-images/ai-classroom.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 2,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 3,
+      "primary": true,
+      "src": "/project-images/ai-classroom.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 3,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 4,
+      "primary": true,
+      "src": "/project-images/ai-classroom.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 4,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 5,
+      "primary": true,
+      "src": "/project-images/ai-classroom.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "fulbright-focus-group-sponsored-by-openai",
+      "section": 5,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "boehringer-cares-foundation-rebrand-strategy-shift",
+      "section": 0,
+      "primary": true,
+      "src": "/project-images/bicares.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "boehringer-cares-foundation-rebrand-strategy-shift",
+      "section": 1,
+      "primary": true,
+      "src": "/project-images/bicares.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "boehringer-cares-foundation-rebrand-strategy-shift",
+      "section": 2,
+      "primary": true,
+      "src": "/project-images/bicares.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "boehringer-cares-foundation-rebrand-strategy-shift",
+      "section": 3,
+      "primary": true,
+      "src": "/project-images/bicares.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "boehringer-cares-foundation-rebrand-strategy-shift",
+      "section": 4,
+      "primary": true,
+      "src": "/project-images/bicares.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 0,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 0,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 1,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 1,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 2,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 2,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 3,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 3,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 4,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 4,
+      "primary": false,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse3.webp",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 4,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 5,
+      "primary": true,
+      "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 5,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 6,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 6,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 7,
+      "primary": true,
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+      "presentation": "artifact",
+      "availability": "external-unchecked"
+    },
+    {
+      "project": "openai-product-testing-and-feedback",
+      "section": 7,
+      "primary": false,
+      "src": "/project-images/chatlab.jpg",
+      "presentation": "photograph",
+      "availability": "present"
+    }
+  ]
+}

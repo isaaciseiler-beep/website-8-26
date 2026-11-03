@@ -1,0 +1,965 @@
+{
+  "results": [
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "benchmark-ranking",
+      "label": "Ranking",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "benchmark-scorecard",
+      "label": "Scorecard",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "benchmark-compare",
+      "label": "State comparison",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "benchmark-regions",
+      "label": "Regional overview",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "benchmark-distribution",
+      "label": "Score distribution",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "benchmark-criteria",
+      "label": "Evidence checklist",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "project-brief",
+      "label": "Project brief",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "project-process",
+      "label": "Process steps",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "project-outcomes",
+      "label": "Outcomes",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "project-evidence",
+      "label": "Evidence notebook",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "project-compare",
+      "label": "Project comparison",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "project-index",
+      "label": "Work explorer",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "experience-timeline",
+      "label": "Career timeline",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "experience-roles",
+      "label": "Role explorer",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "site-pipeline",
+      "label": "Live pipeline",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 1280,
+      "id": "contact-card",
+      "label": "Contact",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "benchmark-ranking",
+      "label": "Ranking",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "benchmark-scorecard",
+      "label": "Scorecard",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "benchmark-compare",
+      "label": "State comparison",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "benchmark-regions",
+      "label": "Regional overview",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "benchmark-distribution",
+      "label": "Score distribution",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "benchmark-criteria",
+      "label": "Evidence checklist",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "project-brief",
+      "label": "Project brief",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "project-process",
+      "label": "Process steps",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "project-outcomes",
+      "label": "Outcomes",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "project-evidence",
+      "label": "Evidence notebook",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "project-compare",
+      "label": "Project comparison",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "project-index",
+      "label": "Work explorer",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "experience-timeline",
+      "label": "Career timeline",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "experience-roles",
+      "label": "Role explorer",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "site-pipeline",
+      "label": "Live pipeline",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "id": "contact-card",
+      "label": "Contact",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "benchmark-ranking",
+      "label": "Ranking",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "benchmark-scorecard",
+      "label": "Scorecard",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "benchmark-compare",
+      "label": "State comparison",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "benchmark-regions",
+      "label": "Regional overview",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "benchmark-distribution",
+      "label": "Score distribution",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "benchmark-criteria",
+      "label": "Evidence checklist",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "project-brief",
+      "label": "Project brief",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "project-process",
+      "label": "Process steps",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "project-outcomes",
+      "label": "Outcomes",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "project-evidence",
+      "label": "Evidence notebook",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "project-compare",
+      "label": "Project comparison",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "project-index",
+      "label": "Work explorer",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "experience-timeline",
+      "label": "Career timeline",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "experience-roles",
+      "label": "Role explorer",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "site-pipeline",
+      "label": "Live pipeline",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "id": "contact-card",
+      "label": "Contact",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "benchmark-ranking",
+      "label": "Ranking",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "benchmark-scorecard",
+      "label": "Scorecard",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "benchmark-compare",
+      "label": "State comparison",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "benchmark-regions",
+      "label": "Regional overview",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "benchmark-distribution",
+      "label": "Score distribution",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "benchmark-criteria",
+      "label": "Evidence checklist",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "project-brief",
+      "label": "Project brief",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "project-process",
+      "label": "Process steps",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "project-outcomes",
+      "label": "Outcomes",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "project-evidence",
+      "label": "Evidence notebook",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "project-compare",
+      "label": "Project comparison",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "project-index",
+      "label": "Work explorer",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "experience-timeline",
+      "label": "Career timeline",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "experience-roles",
+      "label": "Role explorer",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "site-pipeline",
+      "label": "Live pipeline",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 1280,
+      "id": "contact-card",
+      "label": "Contact",
+      "viewport": 1280,
+      "scroll": 1280,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "benchmark-ranking",
+      "label": "Ranking",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "benchmark-scorecard",
+      "label": "Scorecard",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "benchmark-compare",
+      "label": "State comparison",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "benchmark-regions",
+      "label": "Regional overview",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "benchmark-distribution",
+      "label": "Score distribution",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "benchmark-criteria",
+      "label": "Evidence checklist",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "project-brief",
+      "label": "Project brief",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "project-process",
+      "label": "Process steps",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "project-outcomes",
+      "label": "Outcomes",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "project-evidence",
+      "label": "Evidence notebook",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "project-compare",
+      "label": "Project comparison",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "project-index",
+      "label": "Work explorer",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "experience-timeline",
+      "label": "Career timeline",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "experience-roles",
+      "label": "Role explorer",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "site-pipeline",
+      "label": "Live pipeline",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "id": "contact-card",
+      "label": "Contact",
+      "viewport": 390,
+      "scroll": 390,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "benchmark-ranking",
+      "label": "Ranking",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "benchmark-scorecard",
+      "label": "Scorecard",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "benchmark-compare",
+      "label": "State comparison",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "benchmark-regions",
+      "label": "Regional overview",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "benchmark-distribution",
+      "label": "Score distribution",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "benchmark-criteria",
+      "label": "Evidence checklist",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "project-brief",
+      "label": "Project brief",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "project-process",
+      "label": "Process steps",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "project-outcomes",
+      "label": "Outcomes",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "project-evidence",
+      "label": "Evidence notebook",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "project-compare",
+      "label": "Project comparison",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "project-index",
+      "label": "Work explorer",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "experience-timeline",
+      "label": "Career timeline",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "experience-roles",
+      "label": "Role explorer",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "site-pipeline",
+      "label": "Live pipeline",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "id": "contact-card",
+      "label": "Contact",
+      "viewport": 320,
+      "scroll": 320,
+      "escaped": [],
+      "invisible": []
+    }
+  ],
+  "errors": []
+}

@@ -13,9 +13,11 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     page.on('pageerror', e => errors.push(e.message));
     const contained = async () => {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-      expect(await page.locator('.home-genui-window').evaluate(el => {
+      // Destination-width content is deliberately clipped while the shell opens.
+      // Containment is a settled-state assertion, not an intermediate-frame invariant.
+      await expect.poll(() => page.locator('.home-genui-window').evaluate(el => {
         const panel = el.getBoundingClientRect();
-        return [...el.querySelectorAll('button,select,input')].every(control => {
+        return [...el.querySelectorAll('button,select,input,textarea')].every(control => {
           const rect = control.getBoundingClientRect();
           return rect.width === 0 || rect.left >= panel.left - 1 && rect.right <= panel.right + 1;
         });
@@ -72,6 +74,8 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     await page.getByRole('link', { name: 'Work', exact: true }).or(page.getByRole('button', { name: 'Work', exact: true })).click();
     await page.waitForURL('**/work');
     await expect(page.locator('.work-grid')).toBeVisible();
+    // Enter keyboard modality: programmatic focus after a mouse click is not :focus-visible.
+    await page.keyboard.press('Tab');
     await page.locator('.work-story a').first().focus();
     await expect(page.locator('.work-story-caption').first()).toHaveCSS('opacity', '1');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

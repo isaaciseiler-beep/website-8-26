@@ -58,7 +58,7 @@ export function useOverlayFocus(open: boolean, kind: SiteOverlay, onClose: () =>
       let timeout = 0;
       const stop = () => { observer?.disconnect(); window.clearTimeout(timeout); };
       const restore = () => {
-        if (location.pathname + location.search !== url || isSiteOverlayOpen()) { stop(); return; }
+        if (location.pathname + location.search !== url || isSiteOverlayOpen() || document.activeElement?.closest('main')) { stop(); return; }
         const target = opener?.isConnected && opener.matches(focusable) && !opener.closest('[inert]') ? opener : document.querySelector<HTMLElement>(`[data-overlay-trigger="${kind}"]`);
         if (target) { target.focus({ preventScroll: true }); stop(); }
       };

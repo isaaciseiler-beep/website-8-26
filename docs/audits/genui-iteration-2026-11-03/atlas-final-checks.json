@@ -1,0 +1,50 @@
+[
+  {
+    "theme": "light",
+    "width": 499.515625,
+    "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+    "pixels": 1280,
+    "railWidth": 499.515625,
+    "imageTop": 496.5,
+    "selectBottom": 472.5,
+    "opacity": "1",
+    "controlBeforeImage": true,
+    "brokenRequests": []
+  },
+  {
+    "theme": "light",
+    "width": 310,
+    "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+    "pixels": 1280,
+    "railWidth": 310,
+    "imageTop": 510.5,
+    "selectBottom": 486.5,
+    "opacity": "1",
+    "controlBeforeImage": true,
+    "brokenRequests": []
+  },
+  {
+    "theme": "dark",
+    "width": 499.515625,
+    "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+    "pixels": 1280,
+    "railWidth": 499.515625,
+    "imageTop": 496.5,
+    "selectBottom": 472.5,
+    "opacity": "1",
+    "controlBeforeImage": true,
+    "brokenRequests": []
+  },
+  {
+    "theme": "dark",
+    "width": 310,
+    "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+    "pixels": 1280,
+    "railWidth": 310,
+    "imageTop": 510.5,
+    "selectBottom": 486.5,
+    "opacity": "1",
+    "controlBeforeImage": true,
+    "brokenRequests": []
+  }
+]

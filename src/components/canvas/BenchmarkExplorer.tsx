@@ -1,3 +1,7 @@
+import { motion } from 'framer-motion';
+import { useMotionPreference } from '@/hooks/useMotionPreference';
+import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
+import { PortfolioFacets } from './PortfolioFacets';
 import { useId, useMemo } from 'react';
 import { ArrowLeft, ArrowUpRight, ChevronDown } from 'lucide-react';
 import './benchmark-editorial.css';
@@ -13,6 +17,7 @@ const scoreBand = (score: number) => Math.min(4, Math.floor(score / 20));
 
 export default function BenchmarkExplorer({block,onChange}:{block:CanvasBlock;onChange:(b:CanvasBlock)=>void}) {
   const sourceDescription=useId();
+  const reducedMotion=useMotionPreference();
   const expanded=Boolean(block.expanded);
   const band=block.band??null;
   const layout=block.layout??'benchmark-ranking';
@@ -43,7 +48,7 @@ export default function BenchmarkExplorer({block,onChange}:{block:CanvasBlock;on
         {benchmarkSource&&<><a href={benchmarkSource.href} target="_blank" rel="noreferrer" aria-label={benchmarkSource.label} aria-describedby={sourceDescription}>Source data<ArrowUpRight size={14} aria-hidden="true"/></a><span id={sourceDescription} className="sr-only">Opens in a new tab.</span></>}
       </div>
     </div>
-    {!selected.length&&layout!=='benchmark-criteria'&&<div className="portfolio-tabs" role="group" aria-label="Explore benchmark">{([{id:'benchmark-ranking',label:'Rankings'},{id:'benchmark-regions',label:'Regions'},{id:'benchmark-distribution',label:'Distribution'}] as const).map(view=><button key={view.id} aria-pressed={layout===view.id} onClick={()=>onChange({...block,layout:view.id,band:null})}>{view.label}</button>)}</div>}
+    {!selected.length&&layout!=='benchmark-criteria'&&<PortfolioFacets label="Explore benchmark" choices={[{value:'benchmark-ranking',label:'Rankings'},{value:'benchmark-regions',label:'Regions'},{value:'benchmark-distribution',label:'Distribution'}] as const} value={layout} onChange={layout=>onChange({...block,layout,band:null})}/>}
     <div className="canvas-benchmark-controls">
       <label><span className="sr-only">Measure</span><select aria-label="Benchmark measure" value={block.metric} onChange={e=>onChange({...block,metric:e.target.value as CanvasBlock['metric']})}><option value="compositeScore">Composite score</option><option value="preparednessScore">Preparedness</option></select></label>
       {!selected.length&&layout!=='benchmark-regions'&&<label><span className="sr-only">Region</span><select aria-label="Benchmark region" value={block.region} onChange={e=>{onChange({...block,region:e.target.value as CanvasBlock['region'],states:[],band:null});}}>{['All','East','Midwest','South','West'].map(r=><option key={r} value={r}>{r==='All'?'All regions':r}</option>)}</select></label>}
@@ -53,7 +58,7 @@ export default function BenchmarkExplorer({block,onChange}:{block:CanvasBlock;on
     </div>
     {layout==='benchmark-regions'&&<div className="canvas-regions">{regional.map(r=><button key={r.region} className="canvas-surface" onClick={()=>onChange({...block,layout:'benchmark-ranking',region:r.region as CanvasBlock['region'],states:[]})}><span className="benchmark-region-name">{r.region}<ArrowUpRight size={16} aria-hidden="true"/></span><strong>{r.average.toFixed(1)}<small> / 100</small></strong><small>Mean score · {r.count} governments</small><span className="canvas-mini-track"><i style={{width:`${r.average}%`}}/></span></button>)}</div>}
     {layout==='benchmark-distribution'&&<div className="canvas-distribution" aria-label="Score distribution">{bands.map(({index:i,count})=><button key={i} aria-label={`${count} ${count===1?'government':'governments'}, score ${i*20} to ${i===4?'100':`under ${(i+1)*20}`}`} aria-pressed={band===i} onClick={()=>onChange({...block,band:band===i?null:i})}><span className="canvas-histogram-track"><i style={{height:`${count/largestBand*100}%`}}><strong>{count}</strong></i></span><span>{i*20}–{i===4?100:(i+1)*20}</span></button>)}</div>}
-    {!selected.length&&layout!=='benchmark-regions'&&layout!=='benchmark-criteria'&&<div className="canvas-bars" aria-label="Government scores">{shown.map(s=><button key={s.state} onClick={()=>onChange({...block,layout:selected.length>1?'benchmark-compare':'benchmark-scorecard',states:selected.length>1?block.states:[s.state]})} aria-label={`Inspect ${s.state}, score ${s[block.metric].toFixed(1)}`} className="canvas-bar"><span className="canvas-bar-fill" style={{width:`${s[block.metric]}%`}}/><span className="canvas-bar-label"><small>{String(ranks.get(s.state)).padStart(2,'0')}</small><span>{s.state}</span></span><strong>{s[block.metric].toFixed(1)}<ArrowUpRight size={15} aria-hidden="true"/></strong></button>)}</div>}
+    {!selected.length&&layout!=='benchmark-regions'&&layout!=='benchmark-criteria'&&<div className="canvas-bars" aria-label="Government scores">{shown.map(s=><motion.button layout={reducedMotion||expanded?false:"position"} initial={false} transition={{layout:{duration:reducedMotion?0:MOTION_DURATION.base,ease:MOTION_EASE_ENTER}}} key={s.state} onClick={()=>onChange({...block,layout:selected.length>1?'benchmark-compare':'benchmark-scorecard',states:selected.length>1?block.states:[s.state]})} aria-label={`Inspect ${s.state}, score ${s[block.metric].toFixed(1)}`} className="canvas-bar"><span className="canvas-bar-fill" style={{width:`${s[block.metric]}%`}}/><span className="canvas-bar-label"><small>{String(ranks.get(s.state)).padStart(2,'0')}</small><span>{s.state}</span></span><strong>{s[block.metric].toFixed(1)}<ArrowUpRight size={15} aria-hidden="true"/></strong></motion.button>)}</div>}
     {!selected.length&&layout!=='benchmark-regions'&&layout!=='benchmark-criteria'&&bandStates.length>7&&<button className="canvas-text-button" onClick={()=>{onChange({...block,expanded:!expanded});}}>{expanded?'Show fewer':band===null?'Show all governments':'Show all in this range'}</button>}
     {!selected.length&&layout==='benchmark-distribution'&&!bandStates.length&&<p className="canvas-caption">No governments in this score range. Select another range to explore.</p>}
     {!selected.length&&layout==='benchmark-criteria'&&<p>Choose a government to inspect its evidence.</p>}

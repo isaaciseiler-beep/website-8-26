@@ -122,7 +122,7 @@ it('restores the committed exploration, local metric and unfinished draft on bro
 });
 
 
-it.each([1280, 390])('keeps the sidebar open across page replacement at %ipx until explicitly closed', async (width) => {
+it.each([1280, 768, 767, 390])('retains a desktop sidebar and reveals the destination under a full-width menu at %ipx', async (width) => {
   Object.defineProperty(window, 'innerWidth', { configurable: true, value: width });
   const values = new Map<string, string>();
   Object.defineProperty(window, 'localStorage', { configurable: true, value: {
@@ -149,14 +149,21 @@ it.each([1280, 390])('keeps the sidebar open across page replacement at %ipx unt
   expect(screen.getByRole('heading', { name: 'Home' })).toBeVisible();
   expect(sidebar).not.toHaveAttribute('inert');
   expect(sidebar).toBeInTheDocument();
+  expect(document.body.hasAttribute('data-sidebar-navigation-fade')).toBe(width < 768);
   await act(async () => { release(); });
   await waitFor(() => expect(screen.getByRole('heading', { name: 'Destination' })).toBeVisible());
   expect(document.querySelector('[data-site-overlay="sidebar"]')).toBe(sidebar);
   expect(screen.getByRole('button', { name: 'Toggle menu' })).toBe(header);
-  expect(header).toHaveAttribute('aria-expanded', 'true');
-  if (width === 390) await waitFor(() => expect(document.querySelector('main')).toHaveAttribute('inert'));
-  expect(sidebar).not.toHaveAttribute('inert');
-  fireEvent.click(header);
-  expect(sidebar).toHaveAttribute('inert');
-  expect(document.querySelector('main')).not.toHaveAttribute('inert');
+  if (width < 768) {
+    await waitFor(() => expect(header).toHaveAttribute('aria-expanded', 'false'));
+    expect(sidebar).toHaveAttribute('inert');
+    await waitFor(() => expect(document.querySelector('main')).not.toHaveAttribute('inert'));
+    await waitFor(() => expect(screen.getByRole('heading', { name: 'Destination' })).toHaveFocus());
+  } else {
+    expect(header).toHaveAttribute('aria-expanded', 'true');
+    expect(sidebar).not.toHaveAttribute('inert');
+    fireEvent.click(header);
+    expect(sidebar).toHaveAttribute('inert');
+    expect(document.querySelector('main')).not.toHaveAttribute('inert');
+  }
 });

@@ -1432,6 +1432,11 @@
       pointer-events: none;
     }
 
+    body[data-sidebar-navigation-fade] #root main {
+      translate: 0 0;
+      transition: none;
+    }
+
     body[data-site-sidebar-open] #root main,
     body[data-site-search-open] #root main {
       transition-duration: var(--motion-reveal);

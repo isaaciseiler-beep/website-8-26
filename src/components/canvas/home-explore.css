@@ -18,6 +18,11 @@
 .home-genui input::placeholder{color:var(--neutral-7);opacity:1;}
 .home-genui input::-webkit-search-cancel-button{display:none;}
 .home-genui-composer input{padding:var(--space-xs) 0;flex:1 1 0;width:0;min-height:42px;background:transparent;outline:none;font-size:var(--size-m);line-height:var(--line-m);}
+/* Keep the native search combobox while its committed value can wrap visually. */
+.home-query-field{position:relative;flex:1 1 0;min-width:0;min-height:42px;}
+.home-genui-composer .home-query-field>input{position:absolute;inset:0;width:100%;height:100%;}
+.home-genui-composer .home-query-field.is-committed>input{color:transparent;caret-color:transparent;}
+.home-question-display{display:block;min-height:42px;padding:var(--space-xs) 0;font-size:var(--size-m);line-height:var(--line-m);overflow-wrap:anywhere;}
 .home-genui button{font:inherit;font-weight:var(--weight-medium);line-height:var(--line-s);padding:var(--space-s) var(--space-l);border:0;border-radius:var(--radius-s);transition:background var(--motion-duration) var(--motion-easing),transform var(--motion-duration) var(--motion-easing);}
 .home-genui button:disabled{color:var(--neutral-6);cursor:not-allowed;}
 .home-genui button:not(:disabled):active{transform:translateY(1px);}
@@ -256,7 +261,12 @@
 .portfolio-project-image{display:block;width:100%;aspect-ratio:16/7;max-height:340px;object-fit:contain;border-radius:var(--site-corner-radius);}
 .portfolio-tabs{display:flex;flex-wrap:wrap;gap:var(--space-l);margin-block:var(--space-xl) var(--space-l);box-shadow:0 1px 0 var(--neutral-4);}
 .home-genui .portfolio-tabs button{position:relative;padding:var(--space-s) 0;border-radius:var(--radius-zero);background:transparent;font-size:var(--size-s);font-weight:var(--weight-regular);}
-.home-genui .portfolio-tabs button[aria-pressed=true]{font-weight:var(--weight-heavy);box-shadow:0 2px 0 currentColor;}
+.home-genui .portfolio-tabs button{display:grid;}
+.home-genui .portfolio-tabs button:not(:disabled):active{transform:none;}
+.home-genui .portfolio-tab-label,.home-genui .portfolio-tab-measure{grid-area:1/1;}
+.home-genui .portfolio-tab-measure{visibility:hidden;font-weight:var(--weight-heavy);}
+.home-genui .portfolio-tabs button[aria-pressed=true]{font-weight:var(--weight-heavy);}
+.home-genui .portfolio-tab-indicator{position:absolute;inset:auto 0 -2px;height:2px;background:currentColor;pointer-events:none;}
 .portfolio-role-summary{max-width:68ch;padding-block:var(--space-s);}
 .portfolio-label{font-size:var(--size-xs);line-height:var(--line-s);}
 .home-genui .portfolio-inline-action{display:inline-flex;align-items:center;gap:var(--space-xs);justify-self:start;padding:var(--space-xs) 0;background:transparent;border-radius:var(--radius-zero);font-size:var(--size-xs);font-weight:var(--weight-medium);}

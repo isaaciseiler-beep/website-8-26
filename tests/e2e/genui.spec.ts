@@ -91,7 +91,7 @@ for(const theme of ['light','dark']) test(`${theme}: linked evidence keeps local
   await result.getByRole('button',{name:'Outcomes',exact:true}).click();
   await expect(result.getByRole('heading',{name:'Inside the ChatGPT Lab'})).toBeVisible();
   await result.locator('summary').first().click();
-  await expect(result.getByRole('button',{name:'Explore this project'}).first()).toBeVisible();
+  await expect(result.getByRole('button',{name:/^Explore /}).first()).toBeVisible();
   expect(requests).toBe(1);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.getByRole('button',{name:'Copy link to this view'}).click();
@@ -99,4 +99,61 @@ for(const theme of ['light','dark']) test(`${theme}: linked evidence keeps local
   expect(shared).toContain('#view=');await page.goto(shared!);
   await expect(page.getByRole('combobox',{name:'Connection to explore'})).toHaveValue('listening');
   await expect(page.getByRole('button',{name:'Outcomes',exact:true})).toHaveAttribute('aria-pressed','true');
+});
+
+for (const reducedMotion of ['no-preference','reduce'] as const) test(`ranking refinement settles with preserved controls: ${reducedMotion}`,async({page})=>{
+  await page.emulateMedia({reducedMotion});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  await input.fill('Rank governments by AI preparedness');await input.press('Escape');await input.press('Enter');
+  const scores=page.getByLabel('Government scores',{exact:true});
+  await expect(scores).toBeVisible();
+  const measure=page.getByRole('combobox',{name:'Benchmark measure'});
+  await measure.focus();
+  await measure.selectOption('compositeScore');
+  await measure.selectOption('preparednessScore');
+  await expect.poll(()=>scores.locator('.canvas-bar strong').evaluateAll(nodes=>{
+    const values=nodes.map(node=>Number(node.textContent));
+    return values.length>1&&values.every((value,index)=>Number.isFinite(value)&&(index===0||values[index-1]>=value));
+  })).toBe(true);
+  await expect.poll(()=>scores.locator('.canvas-bar').evaluateAll(nodes=>nodes.every(node=>getComputedStyle(node).transform==='none'))).toBe(true);
+  await expect(measure).toBeFocused();
+  const facets=page.getByRole('group',{name:'Explore benchmark'});
+  await facets.getByRole('button',{name:'Regions',exact:true}).click();
+  await facets.getByRole('button',{name:'Distribution',exact:true}).click();
+  await expect(facets.getByRole('button',{name:'Distribution',exact:true})).toHaveAttribute('aria-pressed','true');
+  await expect.poll(()=>facets.locator('.portfolio-tab-indicator').evaluate(el=>{
+    const marker=el.getBoundingClientRect(),button=el.parentElement!.getBoundingClientRect();
+    return Math.abs(marker.left-button.left)+Math.abs(marker.width-button.width);
+  })).toBeLessThan(1);
+  await page.emulateMedia({reducedMotion:reducedMotion==='reduce'?'no-preference':'reduce'});
+  await facets.getByRole('button',{name:'Rankings',exact:true}).click();
+  await expect(scores).toBeVisible();
+  await expect(facets.locator('.portfolio-tab-indicator')).toHaveCount(1);
+});
+
+for(const width of [320,390])test(`submitted questions wrap and resize without clipping at ${width}px`,async({page})=>{
+  let posts=0;
+  await page.setViewportSize({width,height:844});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
+  await page.goto('/');
+  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  const blankHeight=(await input.boundingBox())!.height;
+  const question='What feedback did Isaac give on Atlas?';
+  await input.fill(question);expect(posts).toBe(0);await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('combobox',{name:'Lab work to explore'})).toHaveValue('5');
+  await expect(input).toHaveValue(question);await expect.poll(()=>posts).toBe(1);
+  const display=page.locator('.home-question-display');
+  await expect(display).toHaveText(question);
+  await expect.poll(()=>display.evaluate(el=>el.scrollWidth<=el.clientWidth+1)).toBe(true);
+  expect((await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
+  await page.setViewportSize({width:1280,height:900});
+  await expect.poll(async()=>Math.abs((await display.boundingBox())!.height-blankHeight)).toBeLessThan(1);
+  await page.setViewportSize({width,height:844});
+  await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
+  await expect(input).toHaveValue(question);expect(posts).toBe(1);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

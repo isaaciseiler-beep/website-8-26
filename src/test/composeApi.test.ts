@@ -18,12 +18,60 @@ async function call(body:unknown,origin?:string,setup?:(response:EventEmitter)=>
   let output='';const response=Object.assign(new EventEmitter(),{statusCode:0,setHeader:vi.fn(),write:(chunk:string)=>{output+=chunk;},end:(chunk='')=>{output+=chunk;},destroyed:false,writableEnded:false});
   setup?.(response);
   await handler({method:'POST',body,headers:{host:'localhost',origin},socket:{remoteAddress:'compose-test-'+requestNumber++}} as unknown as ApiRequest,response as unknown as ApiResponse);
-  return {status:response.statusCode,events:output.trim().split('\n').filter(Boolean).map(v=>JSON.parse(v)),closeListeners:response.listenerCount('close')};
+  return {headers:response.setHeader.mock.calls,status:response.statusCode,events:output.trim().split('\n').filter(Boolean).map(v=>JSON.parse(v)),closeListeners:response.listenerCount('close')};
 }
 const request=()=>({draft:'Compare Michigan and California',revision:7,contentVersion:CONTENT_VERSION,current:spec,proposed:spec});
 describe('composition API',()=>{
   beforeEach(()=>{vi.stubEnv('MISTRAL_API_KEY','test-only-key');vi.stubEnv('MISTRAL_MODEL',undefined);stream.mockReset();advice.mockReset();advice.mockResolvedValue(null);clearCompositionCache();});
   afterEach(()=>{vi.unstubAllEnvs();vi.useRealTimers();});
+  it('rejects excess active generations but continues to serve cache and local controls',async()=>{
+    vi.stubEnv('COMPOSE_CONCURRENT_CALL_LIMIT','1');
+    stream.mockReturnValue({partialOutputStream:(async function*(){yield spec;})(),output:Promise.resolve(spec),usage:Promise.resolve({})});
+    await call(request());
+    let finishAdvice!:(value:null)=>void;
+    advice.mockReturnValueOnce(new Promise<null>(resolve=>{finishAdvice=resolve;}));
+    const active=call({...request(),draft:'Compare California and Michigan scores'});
+    const blocked=await call({...request(),draft:'Compare California and Michigan preparedness'});
+    expect(blocked.status).toBe(503);
+    expect(blocked.headers).toContainEqual(['Retry-After','1']);
+    expect(blocked.events).toEqual([{error:'Composition is busy. Please try again shortly.'}]);
+    expect((await call(request())).events[0]).toMatchObject({cached:true});
+    expect((await call({...request(),draft:'Show preparedness'})).events[0]).toMatchObject({local:true});
+    expect(stream).toHaveBeenCalledOnce();
+    finishAdvice(null);
+    await active;
+    expect((await call({...request(),draft:'Compare California and Michigan preparedness'})).status).toBe(200);
+  });
+  it('does not consume daily quota for capacity rejection and holds admission until usage completes',async()=>{
+    vi.useFakeTimers();vi.setSystemTime(new Date('2031-01-01T00:00:00Z'));
+    vi.stubEnv('COMPOSE_CONCURRENT_CALL_LIMIT','1');vi.stubEnv('COMPOSE_DAILY_CALL_LIMIT','2');
+    let finishUsage!:(value:Record<string,number>)=>void;
+    stream.mockReturnValue({partialOutputStream:(async function*(){yield spec;})(),output:Promise.resolve(spec),usage:new Promise<Record<string,number>>(resolve=>{finishUsage=resolve;})});
+    const first=call(request());
+    await vi.advanceTimersByTimeAsync(1);
+    expect(stream).toHaveBeenCalledOnce();
+    const next={...request(),draft:'Compare California and Michigan preparedness'};
+    expect((await call(next)).status).toBe(503);
+    finishUsage({inputTokens:10,outputTokens:10});await first;
+    stream.mockReturnValue({partialOutputStream:(async function*(){yield spec;})(),output:Promise.resolve(spec),usage:Promise.resolve({})});
+    expect((await call(next)).events.at(-1)).toMatchObject({type:'composition',partial:false});
+    expect((await call({...request(),draft:'Compare California and Michigan efficiency'})).events[0]).toEqual({error:'Daily composition limit reached'});
+  });
+  it.each(['disconnect','deadline','failure'])('releases active capacity after %s',async outcome=>{
+    vi.useFakeTimers();
+    vi.stubEnv('COMPOSE_CONCURRENT_CALL_LIMIT','1');
+    let response!:EventEmitter;
+    advice.mockReturnValueOnce(outcome==='failure'?Promise.resolve(null):new Promise(()=>{}));
+    stream.mockImplementationOnce(()=>{throw new Error('Provider unavailable');});
+    const active=call(request(),undefined,value=>{response=value;});
+    if(outcome==='disconnect')response.emit('close');
+    if(outcome==='deadline')await vi.advanceTimersByTimeAsync(35001);
+    await active;
+    stream.mockReset();
+    stream.mockReturnValue({partialOutputStream:(async function*(){yield spec;})(),output:Promise.resolve(spec),usage:Promise.resolve({})});
+    advice.mockResolvedValue(null);
+    expect((await call(request())).events.at(-1)).toMatchObject({type:'composition',partial:false});
+  });
   it('does not send greetings to the model',async()=>{
     const result=await call({...request(),draft:'hello'});
     expect(result.events[0]).toMatchObject({status:'unsupported'});
