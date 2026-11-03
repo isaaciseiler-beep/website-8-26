@@ -44,22 +44,47 @@ export function providerLimitDetail(error: unknown): string | undefined {
     : /limit|quota/i.test(message) ? 'unspecified_limit' : undefined;
 }
 
-/** Safe fields only: never log raw bodies, headers, messages, or request payloads. */
+export const providerDiagnosticParameters:readonly string[]=['model','messages','reasoning_effort','prompt_mode','temperature','max_tokens','max_output_tokens','response_format','json_schema','tools','tool_choice','top_p','stream'];
+export const providerDiagnosticCategories:readonly string[]=['model_unavailable','reasoning_configuration','context_limit','output_token_limit','schema_response_format','unsupported_parameter'];
+
+/** Inspect bounded error metadata, but return only fixed labels and known API
+ * parameter names. Provider messages can echo visitor text or credentials. */
 export function providerDiagnostics(error: unknown) {
-  const failure = error as { data?: unknown; responseBody?: string; responseHeaders?: Record<string, string> } | null;
-  let data = failure?.data as Record<string, unknown> | undefined;
-  if (!data && failure?.responseBody) {
-    try { data = JSON.parse(failure.responseBody); } catch { /* Non-JSON upstream error. */ }
+  const records:Record<string,unknown>[]=[];
+  const details:Record<string,unknown>[]=[];
+  const messages:string[]=[];
+  const seen=new Set<unknown>();
+  const record=(value:unknown):Record<string,unknown>|undefined=>value&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,unknown>:undefined;
+  const message=(value:unknown)=>{if(typeof value==='string')messages.push(value.slice(0,8192));};
+  for(let current=record(error);current&&records.length<5&&!seen.has(current);current=record(current.cause)){
+    seen.add(current);records.push(current);message(current.message);
+    const sources=[record(current.data)];
+    if(typeof current.responseBody==='string'&&current.responseBody.length<=64000){
+      try{sources.push(record(JSON.parse(current.responseBody)));}catch{/* Non-JSON upstream error. */}
+    }
+    for(const data of sources){const detail=record(data?.error)??data;if(detail){details.push(detail);message(detail.message);}}
   }
-  const detail = data?.error && typeof data.error === 'object' ? data.error as Record<string, unknown> : data;
-  const rawCode = String(detail?.code ?? '');
-  const providerCode = /^\d{3,6}$/.test(rawCode) || ['rate_limit_exceeded', 'insufficient_quota', 'unknown_model'].includes(rawCode) ? rawCode : undefined;
-  const rawType = String(detail?.type ?? '');
-  const providerType = ['rate_limited', 'rate_limit', 'rate_limit_error', 'invalid_request_error', 'authentication_error', 'server_error'].includes(rawType) ? rawType : undefined;
-  const headers = failure?.responseHeaders ?? {};
-  const numeric = (name: string) => {
-    const value = headers[name];
-    return value && /^\d+(?:\.\d+)?$/.test(value) ? Number(value) : undefined;
+  const rawCode=details.map(detail=>String(detail.code??'')).find(value=>/^\d{3,6}$/.test(value)||['rate_limit_exceeded','insufficient_quota','unknown_model'].includes(value));
+  const providerCode=rawCode||undefined;
+  const providerType=details.map(detail=>detail.type).find(value=>typeof value==='string'&&['rate_limited','rate_limit','rate_limit_error','invalid_request_error','authentication_error','server_error'].includes(value)) as string|undefined;
+  const providerParameter=details.map(detail=>detail.param).find(value=>typeof value==='string'&&providerDiagnosticParameters.includes(value)) as string|undefined;
+  // These are classifications of supplied error text, not an interpretation of
+  // undocumented numeric provider codes. No matched substring is ever returned.
+  const text=messages.join('\n');
+  const providerDiagnostic=
+    /(?:unknown|invalid|unsupported|unavailable)\s+model|model[^\n]{0,100}(?:not found|not available|not enabled|does not exist|no access|access denied)/i.test(text)?'model_unavailable':
+    /(?:context|prompt)[^\n]{0,80}(?:length|window|limit|too long)|maximum context/i.test(text)?'context_limit':
+    /max[_ ](?:output[_ ])?tokens|completion[_ ]tokens|output tokens/i.test(text)&&/minimum|maximum|at least|at most|too (?:small|large)|exceed|must|limit|greater|less/i.test(text)?'output_token_limit':
+    /json[_ -]?schema|response[_ ]format|structured outputs?|additionalProperties|required[^\n]{0,40}propert/i.test(text)?'schema_response_format':
+    /reasoning(?:[_ ]effort)?|prompt[_ ]mode/i.test(text)&&/not supported|unsupported|not enabled|invalid|must|requires?|allowed|only|does not accept/i.test(text)?'reasoning_configuration':
+    /(?:unknown|unsupported|unexpected|unrecognized)[^\n]{0,40}(?:param|argument|field)|extra inputs are not permitted|(?:param|argument|field)[^\n]{0,60}(?:not supported|not allowed|not permitted)/i.test(text)?'unsupported_parameter':undefined;
+  // Extract a number only from an explicit floor for a known output-token field.
+  // Unrelated numbers, visitor data and ambiguous "token limit" text are omitted.
+  const floors=[...text.matchAll(/\b(?:max_tokens|max_output_tokens)\b\s+(?:must|should)\s+be\s+(?:at least|greater than or equal to|>=)\s*(\d{1,7})\b/gi)].map(match=>Number(match[1]));
+  const providerMinimumOutputTokens=floors.length&&floors.every(value=>value===floors[0])&&floors[0]>0&&floors[0]<=1000000?floors[0]:undefined;
+  const numeric=(name:string)=>{
+    for(const failure of records){const value=record(failure.responseHeaders)?.[name];if(typeof value==='string'&&/^\d+(?:\.\d+)?$/.test(value)){const number=Number(value);if(Number.isFinite(number))return number;}}
+    return undefined;
   };
-  return { providerCode, providerType, retryAfter: numeric('retry-after'), rateLimit: numeric('x-ratelimit-limit'), rateRemaining: numeric('x-ratelimit-remaining') };
+  return {providerCode,providerType,providerParameter,providerDiagnostic,providerMinimumOutputTokens,retryAfter:numeric('retry-after'),rateLimit:numeric('x-ratelimit-limit'),rateRemaining:numeric('x-ratelimit-remaining')};
 }
