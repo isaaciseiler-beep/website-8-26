@@ -44,10 +44,12 @@
     --sidebar-nav-font-size: calc(var(--bio-font-size) * 0.8);
     --motion-ease: cubic-bezier(0.2, 0.78, 0.22, 1);
     --motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-ease-navigation: cubic-bezier(0.12, 1, 0.22, 1);
     --motion-fast: 220ms;
     --motion-base: 340ms;
     --motion-reveal: 460ms;
     --motion-panel: 340ms;
+    --motion-navigation-close: 560ms;
     --work-copy-font-size: clamp(1.25rem, 1.8vw, 2rem);
 
     --site-corner-radius: 10px;
@@ -1416,7 +1418,7 @@
     #root main {
       translate: 0 0;
       backface-visibility: hidden;
-      transition: translate var(--motion-panel) var(--motion-ease-enter);
+      transition: translate var(--motion-navigation-close) var(--motion-ease-navigation);
       will-change: translate;
     }
 
@@ -5654,8 +5656,8 @@ body::-webkit-scrollbar,
   top: calc(16px + env(safe-area-inset-top));
   height: var(--site-search-hit);
 }
-.site-search-track { pointer-events: none; transition-property: width; transition-timing-function: var(--motion-ease-enter); }
-.site-header-search { transition-property: width, opacity; transition-timing-function: var(--motion-ease-enter); }
+.site-search-track { pointer-events: none; transition-property: width; transition-timing-function: var(--motion-ease-navigation); }
+.site-header-search { transition-property: width, opacity; transition-timing-function: var(--motion-ease-navigation); }
 .site-search-icon { width: var(--site-search-hit); height: var(--site-search-hit); pointer-events: auto; }
 .site-search-icon:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
 .site-search-fields { padding-left: calc(var(--site-search-hit) + 8px); }
@@ -5699,27 +5701,6 @@ body::-webkit-scrollbar,
 .photo-preview-image { grid-area:1 / 1; position:relative; max-width:90vw; max-height:85vh; object-fit:contain; pointer-events:auto; }
 .photo-preview-error { position:absolute; bottom:52px; color:white; font-size:13px; }
 
-/* Crossfade viewport snapshots at their natural scale in both navigation directions. */
-html[data-route-transition]::view-transition { pointer-events: none; }
-html[data-route-transition]::view-transition-group(root) { animation: none; }
-html[data-route-transition]::view-transition-image-pair(root) { isolation: isolate; }
-html[data-route-transition]::view-transition-old(root) {
-  animation: site-route-leave var(--motion-base) var(--motion-ease) both;
-  mix-blend-mode: normal;
-  z-index: 2;
-}
-html[data-route-transition]::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-  opacity: 1;
-  z-index: 1;
-}
-@keyframes site-route-leave { from { opacity: 1; } to { opacity: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  html[data-route-transition]::view-transition-old(root),
-  html[data-route-transition]::view-transition-new(root) { animation: none !important; }
-}
-
 /* Lightbox controls retain contrast over both pale skies and detailed shadows. */
 .photo-preview-nav { position: absolute; top: 50%; translate: 0 -50%; z-index: 10; display: grid; place-items: center; width: 48px; height: 48px; color: white; background: transparent; isolation: isolate; }
 .photo-preview-nav::before { content: ''; position: absolute; inset: 6px; z-index: -1; border-radius: var(--site-corner-radius); background: hsl(var(--image-scrim) / .55); opacity: .8; transition: opacity var(--motion-fast) var(--motion-ease); }
@@ -5730,8 +5711,7 @@ html[data-route-transition]::view-transition-new(root) {
 @media (prefers-reduced-motion: reduce) { .photo-preview-nav::before { transition: none; } }
 
 /* Shared navigation, recovery and literal search stay quiet and readable. */
-.sidebar-destination { display: inline-flex; align-items: center; }
-.sidebar-destination.is-current { font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; }
+.sidebar-destination { display: inline-flex; align-items: center; text-decoration: none; }
 .site-search-result { display: grid; grid-template-columns: minmax(0, 1fr) 14px; align-items: start; gap: 10px; min-height: 48px; padding-block: 10px; color: hsl(var(--foreground)); text-decoration: none; font-size: 14px; line-height: 1.45; transition: opacity var(--motion-fast) var(--motion-ease); }
 .site-search-result:has(img) { grid-template-columns: 40px minmax(0, 1fr) 14px; }
 .site-search-result img { width: 40px; height: 40px; object-fit: cover; border-radius: var(--site-corner-radius); }

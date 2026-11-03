@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react';
-import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
+import { MOTION_DURATION, MOTION_EASE_NAVIGATION } from '@/lib/motion';
 
 const query = '(prefers-reduced-motion: reduce)';
 export const motionReduced = () => typeof window !== 'undefined' && window.matchMedia(query).matches;
@@ -23,7 +23,7 @@ export const useMotionPreference = () => useSyncExternalStore(subscribe, motionR
 export const useNavigationMotion = (open: boolean) => {
   const reduced = useMotionPreference();
   // Match the mobile page's CSS slide: one quick departure and a quiet settle.
-  return { type: 'tween' as const, duration: reduced ? 0 : open ? MOTION_DURATION.reveal : MOTION_DURATION.panel, ease: MOTION_EASE_ENTER };
+  return { type: 'tween' as const, duration: reduced ? 0 : open ? MOTION_DURATION.reveal : MOTION_DURATION.navigationClose, ease: MOTION_EASE_NAVIGATION };
 };
 
 const subscribeVisibility = (notify: () => void) => {

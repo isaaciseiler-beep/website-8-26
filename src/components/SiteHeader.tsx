@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
 import SearchTrigger from "@/components/SearchOverlay";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
+import { useSiteChrome } from "@/lib/siteChrome";
 
-interface SiteHeaderProps {
+export interface SiteHeaderProps {
   open: boolean;
   onToggle: () => void;
   searchOpen?: boolean;
@@ -15,7 +16,7 @@ interface SiteHeaderProps {
 }
 
 
-const SiteHeader = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }: SiteHeaderProps) => {
+export const SiteHeaderSurface = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }: SiteHeaderProps) => {
   const navigationMotion = useNavigationMotion(open);
   // Blend against the actual page, outside route transforms and isolated panels.
   // Keep search results outside this blend layer so their text is not inverted.
@@ -40,4 +41,7 @@ const SiteHeader = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }:
   </>, document.body);
 };
 
-export default SiteHeader;
+export default function SiteHeader(props: SiteHeaderProps) {
+  const shared = useSiteChrome('header', props);
+  return shared ? null : <SiteHeaderSurface {...props} />;
+}

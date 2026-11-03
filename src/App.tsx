@@ -12,6 +12,7 @@ import SkullChrome from "@/components/SkullChrome";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import RouteLoader from "@/components/RouteLoader";
 import PageTransitions from "@/components/PageTransitions";
+import SiteChromeProvider from "@/components/SiteChromeProvider";
 import ImagePreloader from "@/components/ImagePreloader";
 import SiteMetadata from "@/components/SiteMetadata";
 import { warmRoute } from "@/lib/routePreload";
@@ -214,7 +215,7 @@ const AppShell = () => {
       <RouteFontAssets />
       <ImagePreloader />
       <SkullChrome />
-      <AnimatedRoutes />
+      <SiteChromeProvider><AnimatedRoutes /></SiteChromeProvider>
       <Footer />
       <ChatOrbGate />
     </BrowserRouter>

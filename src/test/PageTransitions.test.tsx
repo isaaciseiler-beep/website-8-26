@@ -1,4 +1,8 @@
-import { lazy } from 'react';
+import { lazy, useState } from 'react';
+import SiteChromeProvider from '@/components/SiteChromeProvider';
+import SiteHeader from '@/components/SiteHeader';
+import Sidebar from '@/components/Sidebar';
+import { ThemeProvider } from '@/components/ThemeProvider';
 import HomeExplore from '@/components/canvas/HomeExplore';
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
@@ -37,23 +41,15 @@ describe('route handoff', () => {
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Work index' })).toBeInTheDocument());
   });
 
-  it('uses the same snapshot handoff forward and back, releasing each ready promise', async () => {
-    const updates: Promise<unknown>[] = [];
-    const start = vi.fn((update: () => Promise<void>) => {
-      const ready = Promise.resolve().then(update);
-      updates.push(ready);
-      return { skipTransition: vi.fn(), ready, finished: ready };
-    });
+  it('keeps navigation live instead of snapshotting forward and back', async () => {
+    const start = vi.fn();
     Object.defineProperty(document, 'startViewTransition', { configurable: true, value: start });
     render(<Harness />);
     fireEvent.click(screen.getByRole('link', { name: 'Work' }));
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Work index' })).toBeInTheDocument());
-    await act(async () => { await updates[0]; });
     fireEvent.click(screen.getByRole('button', { name: 'Browser back' }));
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument());
-    await act(async () => { await updates[1]; });
-    expect(start).toHaveBeenCalledTimes(2);
-    delete (document as Document & { startViewTransition?: unknown }).startViewTransition;
+    expect(start).not.toHaveBeenCalled();
   });
 });
 
@@ -81,24 +77,18 @@ it('returns to the actual Work history entry, with /work as the direct-link fall
   expect(screen.getByText('/work')).toBeInTheDocument();
 });
 
-it('keeps the snapshot pending until a suspended destination is actually mounted', async () => {
+it('keeps the live page visible while a destination suspends, without a loading flash', async () => {
   let load!: (module: {default: () => JSX.Element}) => void;
   const Slow = lazy(() => new Promise<{default: () => JSX.Element}>(resolve => { load = resolve; }));
-  let updateFinished = false;
-  const start = vi.fn((update: () => Promise<void>) => {
-    const ready = Promise.resolve().then(update).then(() => { updateFinished = true; });
-    return {skipTransition: vi.fn(), ready, finished: ready};
-  });
-  Object.defineProperty(document, 'startViewTransition', {configurable:true,value:start});
   render(<MemoryRouter><PageTransitions>{location=><Routes location={location}>
     <Route path="/" element={<Page name="Home"/>}/><Route path="/work" element={<Slow/>}/>
   </Routes>}</PageTransitions></MemoryRouter>);
   fireEvent.click(screen.getByRole('link',{name:'Work'}));
-  await waitFor(()=>expect(start).toHaveBeenCalled());
-  expect(updateFinished).toBe(false);
+  await waitFor(() => expect(load).toBeDefined());
+  expect(screen.getByRole('heading', { name: 'Home' })).toBeVisible();
+  expect(screen.queryByRole('status', { name: 'Loading' })).not.toBeInTheDocument();
   await act(async()=>{load({default:()=> <main>Ready destination</main>});});
   await waitFor(()=>expect(screen.getByText('Ready destination')).toBeInTheDocument());
-  await waitFor(()=>expect(updateFinished).toBe(true));
 });
 
 it('does not take a snapshot when reduced motion is enabled', async () => {
@@ -128,4 +118,37 @@ it('restores the committed exploration, local metric and unfinished draft on bro
   await waitFor(()=>expect(screen.getByRole('heading',{name:'Government comparison'})).toBeInTheDocument());
   expect(screen.getByRole('combobox',{name:'Explore'})).toHaveValue('An unfinished draft');
   expect(screen.getByRole('combobox',{name:'Benchmark measure'})).toHaveValue('preparednessScore');
+});
+
+
+it('preserves the actual sidebar and header while loading and committing a menu destination', async () => {
+  const values = new Map<string, string>();
+  Object.defineProperty(window, 'localStorage', { configurable: true, value: {
+    getItem: (key: string) => values.get(key) ?? null,
+    setItem: (key: string, value: string) => values.set(key, value),
+  } });
+  let release!: () => void;
+  warm.mockImplementation(path => path === '/work' ? new Promise<void>(resolve => { release = resolve; }) : Promise.resolve());
+  function WithChrome({ name }: { name: string }) {
+    const [open, setOpen] = useState(false);
+    return <>
+      <Sidebar open={open} onToggle={() => setOpen(value => !value)} onClose={() => setOpen(false)} showToggle={false} />
+      <main><h1>{name}</h1></main>
+      <SiteHeader open={open} onToggle={() => setOpen(value => !value)} searchOpen={false} />
+    </>;
+  }
+  render(<MemoryRouter><ThemeProvider><SiteChromeProvider><PageTransitions>{location => <Routes location={location}>
+    <Route path="/" element={<WithChrome name="Home" />} /><Route path="/work" element={<WithChrome name="Destination" />} />
+  </Routes>}</PageTransitions></SiteChromeProvider></ThemeProvider></MemoryRouter>);
+  const header = screen.getByRole('button', { name: 'Toggle menu' });
+  fireEvent.click(header);
+  const sidebar = screen.getByRole('navigation', { name: 'Main navigation' });
+  fireEvent.click(screen.getByRole('link', { name: 'Work' }));
+  expect(screen.getByRole('heading', { name: 'Home' })).toBeVisible();
+  expect(sidebar).toHaveAttribute('inert');
+  expect(sidebar).toBeInTheDocument();
+  await act(async () => { release(); });
+  await waitFor(() => expect(screen.getByRole('heading', { name: 'Destination' })).toBeVisible());
+  expect(document.querySelector('[data-site-overlay="sidebar"]')).toBe(sidebar);
+  expect(screen.getByRole('button', { name: 'Toggle menu' })).toBe(header);
 });

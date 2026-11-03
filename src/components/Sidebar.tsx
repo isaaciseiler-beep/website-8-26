@@ -1,4 +1,5 @@
 import { useOverlayFocus } from "@/hooks/useOverlayFocus";
+import { useSiteChrome } from "@/lib/siteChrome";
 import { useNavigationMotion, useMotionPreference } from "@/hooks/useMotionPreference";
 import { warmRoute } from "@/lib/routePreload";
 import { useEffect, useLayoutEffect, useState } from "react";
@@ -96,7 +97,7 @@ const socialLinks = [
 
 ];
 
-interface SidebarProps {
+export interface SidebarProps {
   open: boolean;
   onToggle: () => void;
   onClose?: () => void;
@@ -105,7 +106,7 @@ interface SidebarProps {
   showToggle?: boolean;
 }
 
-const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showToggle = true }: SidebarProps) => {
+export const SidebarSurface = ({ open, onToggle, onClose, onSearchOpen, activeSection, showToggle = true }: SidebarProps) => {
   useOverlayFocus(open, "sidebar", onClose ?? onToggle);
   const navigationMotion = useNavigationMotion(open);
   const reduced = useMotionPreference();
@@ -334,5 +335,8 @@ const Sidebar = ({ open, onToggle, onClose, onSearchOpen, activeSection, showTog
   );
 };
 
-export default Sidebar;
+export default function Sidebar(props: SidebarProps) {
+  const shared = useSiteChrome('sidebar', props);
+  return shared ? null : <SidebarSurface {...props} />;
+}
 export type { SitemapItem };
