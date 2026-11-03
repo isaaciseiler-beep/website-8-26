@@ -214,7 +214,7 @@ describe('answer reading and evidence provenance',()=>{
   it('announces filtered work results and allows recovery without rewriting the question',()=>{
     render(<Work/>);
     fireEvent.change(screen.getByRole('searchbox',{name:'Find a project'}),{target:{value:'unpublishednonexistenttopic'}});
-    expect(screen.getByRole('status')).toHaveTextContent('0 projects found');
+    expect(screen.getByRole('status')).toHaveTextContent('0 projects matching your search.');
     fireEvent.click(screen.getByRole('button',{name:'Clear search'}));
     expect(screen.getByRole('searchbox',{name:'Find a project'})).toHaveValue('');
     expect(screen.getByRole('region',{name:'Work explorer'}).querySelectorAll('[data-project-id]')).toHaveLength(publicProjects.length);

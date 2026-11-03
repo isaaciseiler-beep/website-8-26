@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import { matchesPortfolioSearch } from '@/lib/portfolioSearch';
 import { evidenceFor } from '@/lib/portfolioEvidence';
 import { sectionSearchParts } from '@/lib/portfolioRetrieval';
@@ -24,12 +24,21 @@ export function ProjectLayouts({block,onChange}:LayoutProps){
 }
 
 export function ProjectIndex({block,onChange}:LayoutProps){
+  const searchRef=useRef<HTMLInputElement>(null);
   const query=block.search??'';
-  const filtered=publicProjects.filter(project=>{
+  const filtered=publicProjects.flatMap(project=>{
     const evidence=evidenceFor(project.id);
-    return matchesPortfolioSearch(query,[project.title,project.summary,evidence?.role,evidence?.contribution,evidence?.process,evidence?.practice,evidence?.outcome,...project.sections.flatMap(sectionSearchParts)]);
+    if(!matchesPortfolioSearch(query,[project.title,project.summary,evidence?.role,evidence?.contribution,evidence?.process,evidence?.practice,evidence?.outcome,...project.sections.flatMap(sectionSearchParts)]))return [];
+    // Show where a subject was found, and open that exact published passage.
+    // Title searches keep the project's contribution overview as the entry point.
+    const section=query.trim()&&!matchesPortfolioSearch(query,[project.title])
+      ?project.sections.findIndex(section=>matchesPortfolioSearch(query,sectionSearchParts(section))):-1;
+    return [{project,section}];
   });
-  return <section className="portfolio-work-browser" aria-label="Work explorer"><h2 className="sr-only">Explore work</h2><label className="canvas-field"><span className="sr-only">Find a project</span><input type="search" maxLength={120} placeholder="Find a project" value={query} onChange={e=>{onChange({...block,search:e.target.value.slice(0,120)});}}/></label>{query.trim()&&<div className="portfolio-search-status"><p role="status">{filtered.length} {filtered.length===1?'project':'projects'} found</p><button className="portfolio-inline-action" onClick={()=>onChange({...block,search:undefined})}>Clear search</button></div>}<div className="canvas-project-list">{filtered.map(p=>{const image=representativeProjectImage(p);return <button key={p.id} aria-label={p.title} data-project-id={p.id} onClick={()=>onChange({...blankBlock('story'),projectIds:[p.id]})}><span className="canvas-project-list-visual" data-presentation={image.presentation}><img src={image.src} alt="" loading="lazy" decoding="async"/></span><span className="canvas-project-list-copy"><strong>{evidenceFor(p.id)?.title??p.title}</strong><span>{p.year}</span></span><ArrowUpRight size={18} aria-hidden="true"/></button>;})}{!filtered.length&&<p>No matching projects.</p>}</div></section>;
+  return <section className="portfolio-work-browser" aria-label="Work explorer"><h2 className="sr-only">Explore work</h2><label className="canvas-field"><span className="sr-only">Find a project</span><input ref={searchRef} type="search" maxLength={120} placeholder="Find a project or topic" value={query} onChange={e=>{onChange({...block,search:e.target.value.slice(0,120)});}}/></label>
+    <p className="sr-only" role="status" aria-atomic="true">{filtered.length} {filtered.length===1?'project':'projects'}{query.trim()?' matching your search':''}.</p>
+    <div className="canvas-project-list">{filtered.map(({project,section})=>{const image=representativeProjectImage(project);return <button key={project.id} aria-label={project.title} data-project-id={project.id} onClick={()=>onChange({...blankBlock('story'),projectIds:[project.id],...(section>=0?{layout:'project-evidence',focus:'evidence',section,expanded:true}:{})})}><span className="canvas-project-list-visual" data-presentation={image.presentation}><img src={image.src} alt="" loading="lazy" decoding="async"/></span><span className="canvas-project-list-copy"><strong>{evidenceFor(project.id)?.title??project.title}</strong><span>{project.year}</span>{section>=0&&<small>{project.sections[section].heading}</small>}</span><ArrowUpRight size={18} aria-hidden="true"/></button>;})}{!filtered.length&&<div><p>No matching projects.</p><button type="button" className="portfolio-inline-action" onClick={()=>{onChange({...block,search:''});searchRef.current?.focus();}}>Clear search</button></div>}</div>
+  </section>;
 }
 
 export function RoleExplorer({block,onChange}:LayoutProps){

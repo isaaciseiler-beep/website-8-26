@@ -32,6 +32,8 @@ const albumCoordinates: Record<Album["folder"], [number, number]> = {
   mongolia: [106.9057, 47.8864],
   "british-columbia": [-122.9574, 50.1163], // Album-level placement near Whistler.
   "washington-state": [-120.7401, 47.7511],
+  missouri: [-92.5, 38.5], // State-level placement; individual photo locations are not specified.
+  "washington-dc": [-77.0369, 38.9072],
 };
 
 const miscUsPhoto = (fileName: string) => `${R2_BASE}/misc-USA/${fileName}`;

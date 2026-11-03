@@ -9,10 +9,11 @@ export interface Album {
   folder: string;
   location: string;
   continent: Continent;
-  /** Optional override when the album lives in a different R2 bucket. */
+  /** Default bucket for relative filenames; absolute photo URLs may use other buckets. */
   baseUrl?: string;
   /** Include an HDR original when it is the only uploaded version. */
   includeHdr?: boolean;
+  /** Relative filenames or authored absolute HTTPS URLs for mixed-source albums. */
   photos: string[];
 }
 
@@ -49,6 +50,8 @@ export const albums: Album[] = [
       "9D99C905-11BA-4A6F-957F-701ED5312E02_1_105_c.jpeg",
       "9F96FDA9-2B24-4527-ADD6-0637BAAB210A_1_105_c.jpeg",
       "C601FFA3-B4DF-4B87-856B-01225F1C33F9_1_105_c.jpeg",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_105.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_98.JPG",
     ],
   },
   {
@@ -66,6 +69,7 @@ export const albums: Album[] = [
       "ABE128E5-11D3-4699-97F7-6963424A2D55_1_105_c.jpeg",
       "B07FA064-E275-49CA-9F8C-2BDABE655426_1_105_c.jpeg",
       "D3E118C8-5349-4E22-8FB3-344315CFCC4E_1_102_o.jpeg",
+      "https://pub-5c0f4d5b9b8b4bd6869b22a9a8099b3e.r2.dev/hk.JPG",
     ],
   },
   {
@@ -88,12 +92,23 @@ export const albums: Album[] = [
       "CEE43906-E7A6-43CD-9F24-131C649FC92A_1_105_c.jpeg",
       "EDE80FC3-8B5F-4493-9D91-D4ED4A8098FC_1_105_c.jpeg",
       "F534EE42-A57E-476F-BC8B-5293D3447169_1_105_c.jpeg",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_13.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_134.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_3.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_40.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_41.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_45.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_46.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_47.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_49.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_51.JPG",
     ],
   },
   {
     folder: "Indonesia",
     location: "Indonesia",
     continent: "Oceania",
+    includeHdr: true,
     photos: [
       "15F558C5-1BEC-44B0-871B-4FF3453EB6F6_1_102_o.jpeg",
       "3E3E1FB0-419E-448A-8CF3-A70F337C6707_1_102_o.jpeg",
@@ -101,6 +116,7 @@ export const albums: Album[] = [
       "ABCF0558-3934-4495-BF8E-0E952787CDE2_1_102_o.jpeg",
       "B709BAFC-602A-4660-BB69-B8F1220CEE0B_1_102_o.jpeg",
       "E1FF2232-D5EE-4D5D-825C-A4F7D4CDDD38_1_105_c.jpeg",
+      "EDAAD852-E42F-4437-9D6D-8757849A41FC_1_201_a.jpeg",
     ],
   },
   {
@@ -162,12 +178,27 @@ export const albums: Album[] = [
       "C9ABDD38-F348-46FF-AFF0-4231E770E46F_1_105_c.jpeg",
       "E205710B-202D-45D5-9BBB-06AC7BF155D2_1_105_c.jpeg",
       "F39CEBF7-F371-4581-B535-DF7471B43362_1_105_c.jpeg",
+      "https://pub-d64d861253704466b2766bacee500351.r2.dev/pic_1.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_128.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_129.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_130.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_23.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_34.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_35.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_54.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_56.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_80.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_93.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_94.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/photo_75.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/photo_77.JPG",
     ],
   },
   {
     folder: "Portugal",
     location: "Portugal",
     continent: "Europe",
+    includeHdr: true,
     photos: [
       "2CB47B2E-5C03-41B4-8449-53077A18AD83_1_105_c.jpeg",
       "3CE2F2C0-F9DB-446D-82EA-C51016065E40_1_105_c.jpeg",
@@ -178,12 +209,14 @@ export const albums: Album[] = [
       "E21EE386-10BC-430F-AC49-FD8E41145B71_1_105_c.jpeg",
       "EF33F7F6-4660-4A1B-942A-6CA878984A34_1_105_c.jpeg",
       "F083026A-7588-4F60-97F9-DD11C78F9E5D_1_105_c.jpeg",
+      "663E1304-E1D3-4B53-871C-DD87EB2A7E5C_1_201_a.jpeg",
     ],
   },
   {
     folder: "Taiwan",
     location: "Taiwan",
     continent: "Asia",
+    includeHdr: true,
     photos: [
       "14BC8F70-A1CE-4D79-8FBE-665B57EB131F_1_105_c.jpeg",
       "2FFD2476-0D22-4807-8C5E-E7D1C21C6B83_1_105_c.jpeg",
@@ -197,6 +230,20 @@ export const albums: Album[] = [
       "D2F4C59D-1C57-47D0-8F4B-E63118DE1837_1_105_c.jpeg",
       "D911954A-465E-4BAC-A6EC-4A31837E1A5A_1_105_c.jpeg",
       "F92F599D-D241-46CB-A6D0-3187EE3E5A23_1_105_c.jpeg",
+      "4AD14582-EB50-40CD-8A8F-3CB202A6E70F_1_201_a.jpeg",
+      "6C7CF6B4-F4D9-4132-80E9-D08ED42339C2_1_201_a.jpeg",
+      "E2FF9AA1-9F9D-47AC-9451-91291343E5C6_1_201_a.jpeg",
+      "https://pub-d64d861253704466b2766bacee500351.r2.dev/pic_16.jpg",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_118.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_119.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_121.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_122.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_123.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_124.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_126.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_132.jpeg",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_58.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_8.jpg",
     ],
   },
   {
@@ -214,12 +261,15 @@ export const albums: Album[] = [
       "855ACDB8-DF48-4639-9D9D-18F0F588172F_1_105_c.jpeg",
       "A3032114-A259-451F-9FD1-AB9EEB45E143_1_105_c.jpeg",
       "AF3A789A-19DB-44C1-9531-312B0BCD3496_1_105_c.jpeg",
+      "https://pub-d64d861253704466b2766bacee500351.r2.dev/pic_15.JPG",
+      "https://pub-d64d861253704466b2766bacee500351.r2.dev/pic_22.JPG",
     ],
   },
   {
     folder: "Thailand",
     location: "Thailand",
     continent: "Asia",
+    includeHdr: true,
     photos: [
       "377C5D25-0614-4C9F-91EB-D509D0738DC5_1_105_c.jpeg",
       "43D0AB5A-F6E4-4E34-88C4-7A7E0F005B87_1_105_c.jpeg",
@@ -230,17 +280,20 @@ export const albums: Album[] = [
       "BB231F3A-3C2E-4EF0-92CC-E47C535A1940_1_102_a.jpeg",
       "E4EA2C98-E4CD-4343-A139-8825EDA4B87F_1_105_c.jpeg",
       "EC92F2EF-9724-4A6C-9DD6-B00612542344_1_105_c.jpeg",
+      "D4113293-1527-4DA7-ABDC-C17802541769_1_201_a.jpeg",
     ],
   },
   {
     folder: "Vietnam",
     location: "Vietnam",
     continent: "Asia",
+    includeHdr: true,
     photos: [
       "4ABE8E8C-0966-4ED6-BD8D-464389569B77_1_105_c.jpeg",
       "6922AA55-2554-41DB-9A5E-9F5FF5CCD7C1_1_105_c.jpeg",
       "893DAA99-125B-4A1E-88F3-8D0510C35C3B_1_105_c.jpeg",
       "E2B47120-5EB0-4D70-A055-A3E182072695_1_105_c.jpeg",
+      "B56A8C5D-C368-4D5F-9242-B96ADF984C6D_1_201_a.jpeg",
     ],
   },
   {
@@ -276,6 +329,7 @@ export const albums: Album[] = [
     location: "Mongolia",
     continent: "Asia",
     baseUrl: R2_BASE_ALT,
+    includeHdr: true,
     photos: [
       "020599DB-E50F-4BC0-938C-DF65427B2390_1_105_c.jpeg",
       "04689A44-8451-4CBB-BEE1-1C158F85E8E5_1_105_c.jpeg",
@@ -292,6 +346,7 @@ export const albums: Album[] = [
       "E7C7D20D-2601-44E2-A929-C6D0CBEE66BE_1_105_c.jpeg",
       "ED393BD4-BF2F-4B1C-AC22-5AB953417443_1_105_c.jpeg",
       "F449F5FE-7D21-4A32-9D29-E7918C387B6F_1_105_c.jpeg",
+      "052CA495-5948-4292-A52B-2EA190CEEB08_1_201_a.jpeg",
     ],
   },
   {
@@ -326,10 +381,36 @@ export const albums: Album[] = [
       "1651174A-249C-43DF-B4F2-20AD1DCE0427_1_201_a.jpeg",
     ],
   },
+  {
+    folder: "missouri",
+    location: "Missouri",
+    continent: "North America",
+    photos: [
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_108.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_115.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_116.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_140.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_7.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_84.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_85.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_86.JPG",
+    ],
+  },
+  {
+    folder: "washington-dc",
+    location: "Washington, D.C.",
+    continent: "North America",
+    photos: [
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_83.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_87.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_9.JPG",
+      "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_91.JPG",
+    ],
+  },
 ];
 
 export const photoUrl = (folder: string, file: string, base: string = R2_BASE) =>
-  `${base}/${folder}/${file}`;
+  file.startsWith("https://") ? file : `${base}/${folder}/${file}`;
 
 export const isHdrPhotoFile = (file: string) => /_1_201_a\.(jpe?g|png|webp)$/i.test(file);
 

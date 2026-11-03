@@ -8,7 +8,7 @@ import { aiIndexStates } from './aiStateGovIndex.js';
 import { layoutIds, liveLayoutIds, layoutDefinition, defaultLayout, type LayoutId } from './layouts.js';
 import { evidenceFocuses, evidenceSections } from './portfolioEvidence.js';
 import { experienceEntries } from './experience.js';
-import { findPublishedSection, findPublishedParagraphs, publishedQueryTerms } from './portfolioRetrieval.js';
+import { findPublishedSection, findPublishedParagraphs, publishedQueryTerms, publishedPhrasePosition } from './portfolioRetrieval.js';
 import { interpretPortfolioRequest, namedProjects, requestedFocus, personalProjectFocus, requestedAngle, requestedSourceAccess, requestsGovernmentDataset, portfolioAngles, correctedPortfolioRequest, isReadingTransformation, isUnspecifiedComparison } from './portfolioIntent.js';
 
 export const blockSchema = z.object({
@@ -217,6 +217,12 @@ export function withLayout(block:CanvasBlock, layout:LayoutId, preserveSection=f
 
 /** Named subjects resolve to published sections before either provider can choose a view. */
 function explicitStorySection(text:string,projectId:string):number|undefined {
+  // An explicitly named published heading must remain reachable even when a
+  // later section shares words such as “lessons” with an older editorial rule.
+  const headings=publicProjects.find(project=>project.id===projectId)?.sections
+    .flatMap((section,index)=>publishedPhrasePosition(text,section.heading)>=0?[{index,length:section.heading.length}]:[])
+    .sort((a,b)=>b.length-a.length);
+  if(headings?.length)return headings[0].index;
   if(projectId===TAIWAN_ID&&['measurement','reflection'].includes(requestedAngle(text)??''))return 4;
   const rules:Record<string,[RegExp,number][]>={
     [POLICY_ID]: [[/\b(?:framework|roadmap)\b|\bwhat\b.*\b(?:build|built)\b/i,1]],
@@ -358,6 +364,10 @@ function attachAnswerPlans(text:string,composition:Composition,preserveSelection
     if(!answerPlan)return block;
     const first=answerPlan.facets[0]?.evidenceIds.map(id=>getEvidence(id)!).filter(Boolean)??[];
     const primary=first[0];
+    // A newly published heading may not yet have reviewed facet annotations.
+    // Keep its actual passage visible instead of substituting an older answer.
+    const selectedHeading=publicProjects.find(project=>project.id===block.projectIds[0])?.sections[block.section]?.heading;
+    if(primary&&primary.sectionIndex!==block.section&&selectedHeading&&publishedPhrasePosition(text,selectedHeading)>=0)return {...block,answerPlan:undefined};
     if(!primary||preserveSelection)return {...block,answerPlan};
     const paragraphs=first.filter(record=>record.sectionIndex===primary.sectionIndex&&record.kind==='paragraph').map(record=>record.paragraphIndex!).slice(0,3);
     return {...block,answerPlan,section:primary.sectionIndex,paragraphIndices:paragraphs.length?paragraphs:undefined};

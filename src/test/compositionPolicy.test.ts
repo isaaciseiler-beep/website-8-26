@@ -24,6 +24,10 @@ describe('bounded composition safeguards',()=>{
     vi.advanceTimersByTime(10*60*1000);
     expect(cachedComposition('example')).toBeNull();
   });
+  it('invalidates a composition when published evidence changes',()=>{
+    const key=compositionCacheKey('What did Isaac do?',composition,composition,'model','before');
+    expect(compositionCacheKey('What did Isaac do?',composition,composition,'model','after')).not.toBe(key);
+  });
   it('hashes visitor text and distinguishes the current selected controls',()=>{
     const key=compositionCacheKey('A private visitor question',composition,composition,'model');
     expect(key).toMatch(/^[a-f0-9]{64}$/);

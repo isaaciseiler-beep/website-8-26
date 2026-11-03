@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { CONTENT_VERSION } from '../src/lib/canvas.js';
 import { explorationGuidance, isLocalCompositionRefinement, isPhotographyRequest, type Composition } from '../src/lib/genui.js';
-import { compositionCatalog, evidenceRoutingCriteria } from './composition-evidence.js';
+import { compositionCatalog, evidenceRoutingCriteria, COMPOSITION_EVIDENCE_VERSION } from './composition-evidence.js';
 import { portfolioConnections } from '../src/lib/portfolioConnections.js';
 import { providerCallLimit } from './composition-policy.js';
 import { providerRequest, recordProviderResult } from './provider-observability.js';
@@ -25,7 +25,7 @@ export async function jevCompositionAdvice(draft:string,current:Composition,pare
   if(!key||process.env.JEV_COMPOSITION_ADVICE==='off'||parentSignal.aborted||explorationGuidance(draft)||isPhotographyRequest(draft)||isLocalCompositionRefinement(draft,current))return null;
   const model=process.env.JEV_MODEL||'jev-latest';
   const currentView=current.blocks.map(({albumIds,...controls})=>controls);
-  const cacheKey=createHash('sha256').update(JSON.stringify({draft,currentView,model,version:CONTENT_VERSION})).digest('hex');
+  const cacheKey=createHash('sha256').update(JSON.stringify({draft,currentView,model,version:CONTENT_VERSION,evidenceVersion:COMPOSITION_EVIDENCE_VERSION})).digest('hex');
   const cached=cache.get(cacheKey);
   if(cached&&cached.expires>Date.now())return cached.advice;
   const date=new Date().toISOString().slice(0,10);

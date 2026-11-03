@@ -265,7 +265,6 @@ const PhotoHomePage = () => {
                         className={`photo-tile album-photo-tile${column === (row % 2 ? 0 : 1) ? ' album-photo-tile--square' : ''}`}
                         aria-label={`Open ${currentAlbum.location} photograph ${index + 1}`} onClick={() => setPreviewIdx(index)}>
                         <img src={photo} alt="" loading={index < 2 ? "eager" : "lazy"} decoding="async" fetchpriority={index < 2 ? "high" : "low"}/>
-                        <span className="photo-hover-label" aria-hidden="true">{currentAlbum.location}</span>
                       </motion.button>;
                     })}
                   </div>)}

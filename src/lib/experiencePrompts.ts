@@ -1,4 +1,6 @@
 import { careerAnswerFor } from './careerAnswers.js';
+import { projectItems, hiddenProjectIds } from './siteContent.js';
+import { hasPublishedMaterial, publishedProjectMentions, publishedPhrasePosition } from './portfolioRetrieval.js';
 /** Authored questions backed by the same published portfolio records as Explore. */
 type Topic='career'|'taiwan'|'congress'|'policy'|'journalism'|'rebrand'|'openai'|'contact'|'work';
 type Aspect='overview'|'role'|'process'|'outcomes'|'lessons'|'measurement'|'tradeoffs'|'leadership'|'strengths'|'service'|'comparison';
@@ -75,7 +77,31 @@ const projectTopics:Record<string,Topic>={
   'congressional-office-setup-100-day-report':'congress','senior-thesis-local-journalism':'journalism',
   'boehringer-cares-foundation-rebrand-strategy-shift':'rebrand','openai-product-testing-and-feedback':'openai',
 };
-const compiled=experiencePrompts.map(item=>({item,title:normalize(item.text).split(' '),aliases:normalize(item.keywords).split(' ')}));
+/** Headings are authored portfolio content. New Work records and sections can
+ * supply local suggestions without maintaining a second list of project facts. */
+function publishedWorkPrompts(query:string,context?:SuggestionContext):ExperiencePrompt[] {
+  const mentioned=publishedProjectMentions(query).map(project=>project.id);
+  // Autocomplete stays local and cheap: match authored titles/headings rather
+  // than running full passage retrieval against the corpus on every keystroke.
+  const headings=mentioned.length?[]:projectItems.filter(project=>!hiddenProjectIds.has(project.id)&&project.sections.some(section=>publishedPhrasePosition(query,section.heading)>=0)).map(project=>project.id);
+  const ids=mentioned.length?mentioned:headings.length===1?headings:context?.projectIds??[];
+  const answered=new Set([...(context?.visitedQuestions??[]),context?.question??''].map(normalize));
+  return projectItems.filter(project=>ids.includes(project.id)&&!hiddenProjectIds.has(project.id)).flatMap(project=>{
+    const topics:Topic[]=[projectTopics[project.id]??'work'];
+    const sections=project.sections.flatMap((section,index)=>hasPublishedMaterial(section)&&section.heading.trim()?[{
+      id:`published:${project.id}:${index}`,text:`Explore “${section.heading}” in ${project.title}`,
+      keywords:section.heading,topics,aspect:'overview' as const,
+    }]:[]);
+    // Prefer an explicitly drafted heading, while keeping authored order stable.
+    sections.sort((a,b)=>Number(publishedPhrasePosition(query,b.keywords)>=0)-Number(publishedPhrasePosition(query,a.keywords)>=0));
+    const overview:ExperiencePrompt={id:`published:${project.id}`,text:`Explore ${project.title}`,keywords:project.title,topics,aspect:'overview'};
+    return [...sections,overview].filter(item=>!answered.has(normalize(item.text))&&!(context?.projectIds.includes(project.id)&&item.id===`published:${project.id}:${context.section}`));
+  });
+}
+const newWorkPrompts:ExperiencePrompt[]=projectItems.filter(project=>!hiddenProjectIds.has(project.id)&&!projectTopics[project.id]).map(project=>({
+  id:`published:${project.id}`,text:`Explore ${project.title}`,keywords:project.title,topics:['work'],aspect:'overview',
+}));
+const compiled=[...experiencePrompts,...newWorkPrompts].map(item=>({item,title:normalize(item.text).split(' '),aliases:normalize(item.keywords).split(' ')}));
 function queryAspect(query:string):Aspect|undefined {
   if(/\bcompar|\bversus\b|\bvs\b/.test(query))return 'comparison';
   if(/\bpublic service\b/.test(query))return 'service';
@@ -92,6 +118,7 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
   const count=Math.max(0,Math.min(4,Math.floor(limit)||0));if(!count)return [];
   const normalized=normalize(query.slice(0,500));
   if(/\b(?:photos?|photography|albums?|gallery|pictures?)\b/.test(normalized))return [];
+  const published=publishedWorkPrompts(query.slice(0,500),context);
   const continuation=Boolean(context)&&/^(?:what else|what next|what s next|tell me more|show me more|go deeper|more|next)(?: about (?:this|it|that))?$/.test(normalized);
   const tokens=continuation?[]:[...new Set(normalized.split(' ').filter(token=>token&&!stop.has(token)))].slice(0,24);
   const aspect=queryAspect(normalized);
@@ -118,7 +145,7 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
     const subjects=topics.filter(topic=>!['career','work','contact'].includes(topic));
     if(subjects.length<2)return subjects.length?experiencePrompts.filter(item=>item.topics.length===1&&item.topics.includes(subjects[0])&&item.aspect!=='comparison').slice(0,count):startingExperiencePrompts.slice(0,count);
   }
-  if(!tokens.length&&!topics.length)return startingExperiencePrompts.slice(0,count);
+  if(!tokens.length&&!topics.length)return (published.length?published:startingExperiencePrompts).slice(0,count);
   const answered=new Set((context?.visitedQuestions??[]).map(normalize));
   if(context?.question)answered.add(normalize(context.question));
   const alreadyAnswered=(item:ExperiencePrompt)=>{
@@ -130,7 +157,7 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
   };
   if(!tokens.length&&topics.length){
     const next=compiled.filter(({item})=>!alreadyAnswered(item)).filter(({item})=>item.topics.length===1&&item.topics.some(topic=>topics.includes(topic))&&item.aspect!==context?.focus);
-    return next.sort((a,b)=>Number(b.item.aspect==='lessons')-Number(a.item.aspect==='lessons')).slice(0,count).map(row=>row.item);
+    return [...next.sort((a,b)=>Number(b.item.aspect==='lessons')-Number(a.item.aspect==='lessons')).map(row=>row.item),...published].slice(0,count);
   }
   const ranked=compiled.flatMap(({item,title,aliases},index)=>{
     // A broad subject query is a chance to explore further. An explicit aspect or
@@ -150,5 +177,5 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
     if(context?.focus===item.aspect&&!aspect)score-=8;
     return [{item,index,score}];
   }).sort((a,b)=>b.score-a.score||a.index-b.index);
-  return ranked.slice(0,count).map(row=>row.item);
+  return [...ranked.map(row=>row.item),...published.filter(item=>!ranked.some(row=>row.item.id===item.id))].slice(0,count);
 }

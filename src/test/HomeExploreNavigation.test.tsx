@@ -84,6 +84,19 @@ describe('exploration navigation',()=>{
     expect(screen.queryByRole('button',{name:'Back to projects'})).not.toBeInTheDocument();
   });
 
+  it('opens a matching Work passage and restores the search without a provider request',async()=>{
+    const fetcher=vi.fn(async()=>({ok:true,json:async()=>({configured:false})}));
+    vi.stubGlobal('fetch',fetcher);mount();
+    await submit('Explore all projects');
+    fireEvent.change(screen.getByRole('searchbox',{name:'Find a project'}),{target:{value:'550'}});
+    const calls=fetcher.mock.calls.length;
+    fireEvent.click(within(screen.getByRole('region',{name:'Work explorer'})).getByRole('button'));
+    expect(screen.getByText('Making the first 100 days measurable').closest('details')!.open).toBe(true);
+    fireEvent.click(screen.getByRole('button',{name:'Back to projects'}));
+    expect(screen.getByRole('searchbox',{name:'Find a project'})).toHaveValue('550');
+    expect(fetcher).toHaveBeenCalledTimes(calls);
+  });
+
   it('uses server-confirmed composer availability while the configuration probe is still pending',async()=>{
     const composition={blocks:[{...blankBlock('story'),projectIds:[TAIWAN_ID]}]};
     const fetcher=vi.fn(async(url:string,options?:RequestInit)=>{

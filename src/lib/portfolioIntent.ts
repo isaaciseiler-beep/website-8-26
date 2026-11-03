@@ -1,7 +1,7 @@
 import { careerAnswerFor, careerConnectionFor } from './careerAnswers.js';
 import { portfolioCatalog } from './portfolioEvidence.js';
 import type { EvidenceFocus } from './portfolioEvidence.js';
-import { findPublishedProject, findPublishedSection } from './portfolioRetrieval.js';
+import { findPublishedProject, findPublishedSection, publishedProjectMentions } from './portfolioRetrieval.js';
 
 export const POLICY_ID = 'artificial-intelligence-in-state-government-index';
 export const TAIWAN_ID = 'fulbright-focus-group-sponsored-by-openai';
@@ -29,7 +29,11 @@ const subjects: [string, RegExp][] = [
 ];
 
 export function namedProjects(text: string): string[] {
-  const matches = subjects.flatMap(([id, pattern]) => { const match = pattern.exec(text); return match ? [{ id, position: match.index }] : []; });
+  const visibleIds = new Set(portfolioCatalog.map(project => project.id));
+  const matches = subjects.flatMap(([id, pattern]) => { const match = pattern.exec(text); return match && visibleIds.has(id) ? [{ id, position: match.index }] : []; });
+  for (const mention of publishedProjectMentions(text)) {
+    if (!matches.some(match => match.id === mention.id)) matches.push(mention);
+  }
   const namedProduct=/\b(?:study mode|pulse|atlas|group chats?|100 chats|back to school)\b/i.test(text);
   const comparison=/\b(?:compare|comparison|contrast|versus|vs)\b|side.by.side/i.test(text);
   const teachingSubject=/fulbright|teach\w*|educat\w*|workshops?|classrooms?|literacy|taiwan (?:program|lab|sessions?)/i.test(text);

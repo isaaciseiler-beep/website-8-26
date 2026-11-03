@@ -1,0 +1,365 @@
+{
+  "description": "Owner-reviewed selection. Original review numbers retained for traceability. Locations supplied by owner, existing album metadata, or embedded GPS. Visual duplicate checks completed against the 185 existing album photos and five standalone Photo Map images before inclusion.",
+  "photos": [
+    {
+      "reviewNumber": 1,
+      "albumFolder": "mongolia",
+      "location": "Mongolia",
+      "sourceUrl": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/mongolia/052CA495-5948-4292-A52B-2EA190CEEB08_1_201_a.jpeg"
+    },
+    {
+      "reviewNumber": 2,
+      "albumFolder": "Indonesia",
+      "location": "Indonesia",
+      "sourceUrl": "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Indonesia/EDAAD852-E42F-4437-9D6D-8757849A41FC_1_201_a.jpeg"
+    },
+    {
+      "reviewNumber": 3,
+      "albumFolder": "Portugal",
+      "location": "Portugal",
+      "sourceUrl": "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Portugal/663E1304-E1D3-4B53-871C-DD87EB2A7E5C_1_201_a.jpeg"
+    },
+    {
+      "reviewNumber": 4,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Taiwan/4AD14582-EB50-40CD-8A8F-3CB202A6E70F_1_201_a.jpeg"
+    },
+    {
+      "reviewNumber": 5,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Taiwan/6C7CF6B4-F4D9-4132-80E9-D08ED42339C2_1_201_a.jpeg"
+    },
+    {
+      "reviewNumber": 6,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Taiwan/E2FF9AA1-9F9D-47AC-9451-91291343E5C6_1_201_a.jpeg"
+    },
+    {
+      "reviewNumber": 7,
+      "albumFolder": "Thailand",
+      "location": "Thailand",
+      "sourceUrl": "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Thailand/D4113293-1527-4DA7-ABDC-C17802541769_1_201_a.jpeg"
+    },
+    {
+      "reviewNumber": 8,
+      "albumFolder": "Vietnam",
+      "location": "Vietnam",
+      "sourceUrl": "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Vietnam/B56A8C5D-C368-4D5F-9242-B96ADF984C6D_1_201_a.jpeg"
+    },
+    {
+      "reviewNumber": 9,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-d64d861253704466b2766bacee500351.r2.dev/pic_1.JPG"
+    },
+    {
+      "reviewNumber": 10,
+      "albumFolder": "TaiwanStrait",
+      "location": "Matsu, Taiwan",
+      "sourceUrl": "https://pub-d64d861253704466b2766bacee500351.r2.dev/pic_15.JPG"
+    },
+    {
+      "reviewNumber": 11,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-d64d861253704466b2766bacee500351.r2.dev/pic_16.jpg"
+    },
+    {
+      "reviewNumber": 12,
+      "albumFolder": "TaiwanStrait",
+      "location": "Matsu, Taiwan",
+      "sourceUrl": "https://pub-d64d861253704466b2766bacee500351.r2.dev/pic_22.JPG"
+    },
+    {
+      "reviewNumber": 15,
+      "albumFolder": "GranCanaria",
+      "location": "Gran Canaria, Spain",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_105.JPG"
+    },
+    {
+      "reviewNumber": 17,
+      "albumFolder": "missouri",
+      "location": "Missouri, United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_108.JPG"
+    },
+    {
+      "reviewNumber": 20,
+      "albumFolder": "missouri",
+      "location": "Missouri, United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_115.JPG"
+    },
+    {
+      "reviewNumber": 21,
+      "albumFolder": "missouri",
+      "location": "Missouri, United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_116.JPG"
+    },
+    {
+      "reviewNumber": 22,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_118.JPG"
+    },
+    {
+      "reviewNumber": 23,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_119.JPG"
+    },
+    {
+      "reviewNumber": 25,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_121.JPG"
+    },
+    {
+      "reviewNumber": 26,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_122.JPG"
+    },
+    {
+      "reviewNumber": 27,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_123.JPG"
+    },
+    {
+      "reviewNumber": 28,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_124.JPG"
+    },
+    {
+      "reviewNumber": 29,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_126.JPG"
+    },
+    {
+      "reviewNumber": 30,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_128.JPG"
+    },
+    {
+      "reviewNumber": 31,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_129.JPG"
+    },
+    {
+      "reviewNumber": 32,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_13.JPG"
+    },
+    {
+      "reviewNumber": 33,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_130.JPG"
+    },
+    {
+      "reviewNumber": 35,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_132.jpeg"
+    },
+    {
+      "reviewNumber": 36,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_134.JPG"
+    },
+    {
+      "reviewNumber": 43,
+      "albumFolder": "missouri",
+      "location": "Missouri, United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_140.JPG"
+    },
+    {
+      "reviewNumber": 47,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_23.JPG"
+    },
+    {
+      "reviewNumber": 53,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_3.JPG"
+    },
+    {
+      "reviewNumber": 56,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_34.JPG"
+    },
+    {
+      "reviewNumber": 57,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_35.JPG"
+    },
+    {
+      "reviewNumber": 59,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_40.JPG"
+    },
+    {
+      "reviewNumber": 60,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_41.JPG"
+    },
+    {
+      "reviewNumber": 61,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_45.JPG"
+    },
+    {
+      "reviewNumber": 62,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_46.JPG"
+    },
+    {
+      "reviewNumber": 63,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_47.JPG"
+    },
+    {
+      "reviewNumber": 64,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_49.JPG"
+    },
+    {
+      "reviewNumber": 65,
+      "albumFolder": "Iceland",
+      "location": "Iceland",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_51.JPG"
+    },
+    {
+      "reviewNumber": 66,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_54.JPG"
+    },
+    {
+      "reviewNumber": 67,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_56.JPG"
+    },
+    {
+      "reviewNumber": 68,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_58.JPG"
+    },
+    {
+      "reviewNumber": 73,
+      "albumFolder": "missouri",
+      "location": "Missouri, United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_7.JPG"
+    },
+    {
+      "reviewNumber": 77,
+      "albumFolder": "Taiwan",
+      "location": "Taiwan",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_8.jpg"
+    },
+    {
+      "reviewNumber": 78,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_80.JPG"
+    },
+    {
+      "reviewNumber": 79,
+      "albumFolder": "washington-dc",
+      "location": "Washington, D.C., United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_83.JPG"
+    },
+    {
+      "reviewNumber": 80,
+      "albumFolder": "missouri",
+      "location": "Missouri, United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_84.JPG"
+    },
+    {
+      "reviewNumber": 81,
+      "albumFolder": "missouri",
+      "location": "Missouri, United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_85.JPG"
+    },
+    {
+      "reviewNumber": 82,
+      "albumFolder": "missouri",
+      "location": "Missouri, United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_86.JPG"
+    },
+    {
+      "reviewNumber": 83,
+      "albumFolder": "washington-dc",
+      "location": "Washington, D.C., United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_87.JPG"
+    },
+    {
+      "reviewNumber": 86,
+      "albumFolder": "washington-dc",
+      "location": "Washington, D.C., United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_9.JPG"
+    },
+    {
+      "reviewNumber": 88,
+      "albumFolder": "washington-dc",
+      "location": "Washington, D.C., United States",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_91.JPG"
+    },
+    {
+      "reviewNumber": 89,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_93.JPG"
+    },
+    {
+      "reviewNumber": 90,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_94.JPG"
+    },
+    {
+      "reviewNumber": 93,
+      "albumFolder": "GranCanaria",
+      "location": "Gran Canaria, Spain",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/image_98.JPG"
+    },
+    {
+      "reviewNumber": 95,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/photo_75.JPG"
+    },
+    {
+      "reviewNumber": 96,
+      "albumFolder": "NewZealand",
+      "location": "New Zealand",
+      "sourceUrl": "https://pub-41d52824b0bb4f44898c39e1c3c63cb8.r2.dev/photos/photo_77.JPG"
+    },
+    {
+      "reviewNumber": 97,
+      "albumFolder": "HongKong",
+      "location": "Hong Kong",
+      "sourceUrl": "https://pub-5c0f4d5b9b8b4bd6869b22a9a8099b3e.r2.dev/hk.JPG"
+    }
+  ]
+}

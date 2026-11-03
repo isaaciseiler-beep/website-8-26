@@ -13,7 +13,7 @@ function Story({ initial }: { initial: CanvasBlock }) {
 }
 function Work() {
   const [block, setBlock] = useState(blankBlock('collection'));
-  return <ProjectIndex block={block} onChange={setBlock} />;
+  return block.kind==='story'?<ProjectStory block={block} onChange={setBlock} />:<ProjectIndex block={block} onChange={setBlock} />;
 }
 afterEach(cleanup);
 
@@ -60,7 +60,30 @@ describe('published evidence discovery', () => {
     const results = screen.getByRole('region', { name: 'Work explorer' });
     expect(results.querySelectorAll('[data-project-id]')).toHaveLength(1);
     expect(within(results).getByRole('button',{name:/journalism/i})).toBeVisible();
-    expect(within(results).getByRole('status')).toHaveTextContent('1 project found');
+    expect(within(results).getByRole('status')).toHaveTextContent('1 project matching your search.');
+  });
+  it('opens the exact evidence passage behind a Work search result', () => {
+    render(<Work />);
+    fireEvent.change(screen.getByRole('searchbox', { name: 'Find a project' }), { target: { value: '550' } });
+    const result=within(screen.getByRole('region', { name: 'Work explorer' })).getByRole('button');
+    expect(result).toHaveTextContent('Making the first 100 days measurable');
+    expect(screen.getByRole('status')).toHaveTextContent('1 project matching your search.');
+    fireEvent.click(result);
+    expect(screen.getByRole('button', { name: 'Evidence' })).toHaveAttribute('aria-pressed','true');
+    expect(screen.getByText('Making the first 100 days measurable').closest('details')!.open).toBe(true);
+    expect(screen.getByText('550')).toBeVisible();
+    expect(screen.getByText(/numbers belonged to the full team/)).toBeVisible();
+  });
+  it('lets visitors recover from an empty Work search locally', () => {
+    render(<Work />);
+    const input=screen.getByRole('searchbox', { name: 'Find a project' });
+    fireEvent.change(input, { target: { value: 'there is no matching portfolio topic' } });
+    expect(screen.getByRole('status')).toHaveTextContent('0 projects matching your search.');
+    fireEvent.click(screen.getByRole('button', { name: 'Clear search' }));
+    expect(input).toHaveValue('');
+    expect(input).toHaveFocus();
+    expect(screen.queryByText('No matching projects.')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Clear search' })).not.toBeInTheDocument();
   });
 });
 

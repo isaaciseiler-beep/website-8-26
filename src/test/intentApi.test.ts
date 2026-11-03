@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import handler from '../../api/intent';
-import { CONTENT_VERSION } from '@/lib/canvas';
+import { publicProjects, CONTENT_VERSION } from '@/lib/canvas';
 import { blankBlock, TAIWAN_ID } from '@/lib/genui';
 import type { ApiRequest, ApiResponse } from '../../server/http';
 import { EventEmitter } from 'node:events';
@@ -69,6 +69,18 @@ describe('provider interpretation boundaries',()=>{
     expect(fetcher).toHaveBeenCalledOnce();
     expect(response.data.composition.blocks[0]).toMatchObject({kind:'story',projectIds:[TAIWAN_ID]});
     expect(response.data.plan.source).toBe('jev');
+  });
+  it('sends later published passages to fallback project routing',async()=>{
+    vi.stubEnv('MISTRAL_API_KEY','');
+    const fetcher=mockRouter('story','congressional-office-setup-100-day-report');
+    await call('How did Isaac learn what individual reporters covered and meet their deadlines?');
+    const [,init]=fetcher.mock.calls[0] as unknown as [string,RequestInit];
+    const payload=JSON.parse(init.body as string);
+    const criteria=payload.questions.project.criteria;
+    expect(Object.keys(criteria)).toEqual(['none',...publicProjects.map(project=>project.id)]);
+    expect(criteria['congressional-office-setup-100-day-report']).toContain('individual reporters covered');
+    expect(criteria['congressional-office-setup-100-day-report']).toContain('how quickly they needed answers');
+    expect(JSON.stringify(criteria)).not.toContain('/project-images/');
   });
   it('does not seed review states when a provider selects a comparison without subjects',async()=>{
     mockRouter('benchmark-compare');

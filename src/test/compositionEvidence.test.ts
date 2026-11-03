@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { publicProjects } from '@/lib/canvas';
-import { hiddenProjectIds } from '@/lib/siteContent';
-import { compositionCatalog, evidenceRoutingCriteria, projectRoutingCriteria } from '../../server/composition-evidence';
+import { hiddenProjectIds, type ProjectItem } from '@/lib/siteContent';
+import { buildCompositionCatalog, buildProjectRoutingCriteria, compositionEvidenceFingerprint, compositionCatalog, evidenceRoutingCriteria, projectRoutingCriteria } from '../../server/composition-evidence';
 
 describe('complete public composition evidence', () => {
   it('represents every public project and section without a top-project retrieval cutoff', () => {
@@ -53,8 +53,43 @@ describe('complete public composition evidence', () => {
     expect(projectRoutingCriteria['openai-product-testing-and-feedback']).toContain('Pulse');
   });
 
+  it('automatically incorporates new Work projects and later additions without an editorial record', () => {
+    const project: ProjectItem = {
+      id: 'new-published-work', title: 'New published work', summary: 'A published case study.',
+      source: 'WORK', year: '2026', image: '/private-image-path.jpg', lead: 'Published introductory context.',
+      sections: [{ heading: 'Process', paragraphs: ['An introductory passage.'] }],
+    };
+    const original = buildCompositionCatalog([project]);
+    const extended = buildCompositionCatalog([{
+      ...project,
+      sections: [
+        { heading: 'Process', paragraphs: [...project.sections[0].paragraphs!, 'Isaac studied procurement bottlenecks using interviews with municipal staff.'] },
+        { heading: 'Outcomes', bullets: ['Published procurement review.'], media: [{ type: 'image', src: '/private-image-path.jpg', caption: 'A public procurement workshop.' }] },
+      ],
+    }]);
+    expect(extended[0].lead).toBe(project.lead);
+    expect(extended[0].sections[0].evidence).toContain('Paragraph 1: Isaac studied procurement bottlenecks');
+    expect(extended[0].sections[1].evidence).toContain('Published procurement review.');
+    const criteria = buildProjectRoutingCriteria('municipal procurement bottlenecks', extended);
+    expect(Object.keys(criteria)).toEqual([project.id]);
+    expect(criteria[project.id]).toContain('Isaac studied procurement bottlenecks using interviews with municipal staff.');
+    expect(criteria[project.id]).toContain('A public procurement workshop.');
+    expect(JSON.stringify(extended)).not.toContain('/private-image-path.jpg');
+    expect(compositionEvidenceFingerprint(extended)).not.toBe(compositionEvidenceFingerprint(original));
+    expect(compositionEvidenceFingerprint(buildCompositionCatalog([project]))).toBe(compositionEvidenceFingerprint(original));
+  });
+
+  it('offers late published topics to fallback routing without dropping other projects', () => {
+    const criteria = buildProjectRoutingCriteria('individual reporters covered deadlines');
+    expect(Object.keys(criteria)).toEqual(publicProjects.map(project => project.id));
+    expect(criteria['congressional-office-setup-100-day-report']).toContain('individual reporters covered');
+    for (const project of compositionCatalog) {
+      for (const section of project.sections) expect(criteria[project.id]).toContain(section.heading);
+    }
+  });
+
   it('never includes hidden records, gallery data, arbitrary source URLs, or image paths', () => {
-    const serialized = JSON.stringify({ compositionCatalog, projectRoutingCriteria, criteria: evidenceRoutingCriteria('portfolio') });
+    const serialized = JSON.stringify({ compositionCatalog, projectRoutingCriteria, routing: buildProjectRoutingCriteria('portfolio'), criteria: evidenceRoutingCriteria('portfolio') });
     for (const id of hiddenProjectIds) expect(serialized).not.toContain(id);
     expect(serialized).not.toContain('albumIds');
     expect(serialized).not.toContain('/project-images/');

@@ -17,6 +17,21 @@ export function hasPublishedMaterial(section: ProjectSection): boolean {
 
 const publicProjects = projectItems.filter(project => !hiddenProjectIds.has(project.id));
 const normalize = (text: string) => text.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+/** Exact editorial phrases provide a stable entry point as Work grows. Requiring
+ * two words avoids turning generic one-word headings into subject aliases. */
+export function publishedPhrasePosition(text: string, phrase: string): number {
+  const words = (value: string) => normalize(value).match(/[a-z0-9]+/g) ?? [];
+  const phraseWords = words(phrase);
+  if (phraseWords.length < 2) return -1;
+  return ` ${words(text).join(' ')} `.indexOf(` ${phraseWords.join(' ')} `);
+}
+
+export function publishedProjectMentions(text: string): { id: string; position: number }[] {
+  return publicProjects.flatMap(project => {
+    const position = publishedPhrasePosition(text, project.title);
+    return position < 0 ? [] : [{ id: project.id, position }];
+  });
+}
 const stem = (word: string) => {
   if(word.length<4)return word;
   let root=word.replace(/ies$/, 'y').replace(/ied$/, 'y').replace(/ification$/, 'ify');

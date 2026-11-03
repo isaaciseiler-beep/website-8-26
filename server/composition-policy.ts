@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { type Composition } from '../src/lib/genui.js';
 import { CONTENT_VERSION } from '../src/lib/canvas.js';
+import { COMPOSITION_EVIDENCE_VERSION } from './composition-evidence.js';
 
 // Small, bounded process-local cache. No raw visitor queries or credentials retained.
 export const COMPOSITION_POLICY_VERSION='composition-policy-2026-11-02-v2';
@@ -10,8 +11,8 @@ export function providerCallLimit(value:string|undefined,fallback:number){
   const parsed=value?.trim()?Number(value):NaN;
   return Number.isSafeInteger(parsed)&&parsed>=0?parsed:fallback;
 }
-export function compositionCacheKey(draft:string,current:Composition,proposed:Composition,model:string){
-  return createHash('sha256').update(JSON.stringify({draft:draft.trim().replace(/\s+/g,' '),current,proposed,model,version:CONTENT_VERSION,policy:COMPOSITION_POLICY_VERSION,advisory:process.env.TYPESAFE_API_KEY?.trim()?(process.env.JEV_MODEL||'jev-latest'):'disabled'})).digest('hex');
+export function compositionCacheKey(draft:string,current:Composition,proposed:Composition,model:string,evidenceVersion=COMPOSITION_EVIDENCE_VERSION){
+  return createHash('sha256').update(JSON.stringify({draft:draft.trim().replace(/\s+/g,' '),current,proposed,model,version:CONTENT_VERSION,evidenceVersion,policy:COMPOSITION_POLICY_VERSION,advisory:process.env.TYPESAFE_API_KEY?.trim()?(process.env.JEV_MODEL||'jev-latest'):'disabled'})).digest('hex');
 }
 export function cachedComposition(key:string){const hit=cache.get(key);if(hit&&hit.expires>Date.now())return structuredClone(hit.composition);cache.delete(key);return null;}
 export function cacheComposition(key:string,composition:Composition){
