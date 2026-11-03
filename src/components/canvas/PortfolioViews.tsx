@@ -98,7 +98,19 @@ export function ProjectStory({ block, onChange }: Props) {
       </article>
     </div>}
     </div><aside className="portfolio-workbench-rail">
-      <ResolvedProjectImage visual={image}>{(imageProps,displayed)=><figure className="portfolio-workbench-visual" data-presentation={displayed.presentation}><motion.a layout={visualId?"preserve-aspect":false} layoutId={visualId} transition={{duration:MOTION_DURATION.reveal,ease:MOTION_EASE_ENTER}} href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`} title="Open original image in a new tab"><img {...imageProps} className="portfolio-project-image"/><ArrowUpRight size={16} aria-hidden="true"/></motion.a>{(displayed.note||record.project.id==='artificial-intelligence-in-state-government-index')&&<figcaption>{displayed.note&&<span className="sr-only">{displayed.note}</span>}{record.project.id==='artificial-intelligence-in-state-government-index'&&<span>August 2025 snapshot</span>}</figcaption>}</figure>}</ResolvedProjectImage>
+      <ResolvedProjectImage visual={image}>{(imageProps,displayed)=>{
+        // Known dimensions reserve the final box even before a slow image has
+        // intrinsic size. Keep sizing tied to the displayed fallback, too.
+        const size=displayed.presentation==='artifact'&&displayed.width&&displayed.height?{width:displayed.width,height:displayed.height}:null;
+        return <figure className="portfolio-workbench-visual" data-presentation={displayed.presentation}>
+          <motion.a layout={visualId?"preserve-aspect":false} layoutId={visualId} transition={{duration:MOTION_DURATION.reveal,ease:MOTION_EASE_ENTER}}
+            style={size?{width:`min(100%, ${size.width}px, calc(min(60svh, 480px) * ${size.width/size.height}))`}:undefined}
+            href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`} title="Open original image in a new tab">
+            <img {...imageProps} className="portfolio-project-image" style={size?{width:'100%',aspectRatio:`auto ${size.width} / ${size.height}`}:undefined}/><ArrowUpRight size={16} aria-hidden="true"/>
+          </motion.a>
+          {(displayed.note||record.project.id==='artificial-intelligence-in-state-government-index')&&<figcaption>{displayed.note&&<span className="sr-only">{displayed.note}</span>}{record.project.id==='artificial-intelligence-in-state-government-index'&&<span>August 2025 snapshot</span>}</figcaption>}
+        </figure>;
+      }}</ResolvedProjectImage>
 
     </aside></div>
 

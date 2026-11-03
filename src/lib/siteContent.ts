@@ -54,6 +54,8 @@ export interface ProjectSection {
 export interface ProjectMedia {
   type: "image" | "carousel" | "gallery" | "video" | "pdf" | "placeholder" | "x-post";
   src?: string;
+  width?: number;
+  height?: number;
   alt?: string;
   caption?: string;
   title?: string;
@@ -65,6 +67,8 @@ export interface ProjectMedia {
   placeholderAspect?: "landscape" | "wide" | "portrait" | "square";
   images?: {
     src: string;
+    width?: number;
+    height?: number;
     alt: string;
     caption?: string;
   }[];
@@ -637,6 +641,8 @@ export const projectItems: ProjectItem[] = [
             layout: "full",
             placement: "top",
             src: `${CHAT_LAB_ASSET_BASE}/chatgpt-100-chats-cover.png`,
+            width: 2000,
+            height: 1125,
             alt: "Cover artwork for the ChatGPT 100 Chats project",
           },
           {
@@ -664,6 +670,8 @@ export const projectItems: ProjectItem[] = [
           {
             type: "image",
             src: `${CHAT_LAB_ASSET_BASE}/OpenAI_StudyMode_Flow_7-29-2508576550.png`,
+            width: 1920,
+            height: 1080,
             alt: "OpenAI Study Mode product flow",
             layout: "full",
             placement: "top",
@@ -684,6 +692,8 @@ export const projectItems: ProjectItem[] = [
           {
             type: "image",
             src: `${CHAT_LAB_ASSET_BASE}/backtoschool.avif`,
+            width: 1920,
+            height: 1080,
             alt: "ChatGPT Back-to-School campaign creative",
             layout: "full",
             placement: "top",
@@ -706,7 +716,7 @@ export const projectItems: ProjectItem[] = [
             layout: "two-up-square",
             placement: "top",
             images: [
-              { src: `${CHAT_LAB_ASSET_BASE}/pulse1.webp`, alt: "ChatGPT Pulse personalized update" },
+              { src: `${CHAT_LAB_ASSET_BASE}/pulse1.webp`, width: 1920, height: 1920, alt: "ChatGPT Pulse personalized update" },
               { src: `${CHAT_LAB_ASSET_BASE}/pulse3.webp`, alt: "ChatGPT Pulse mobile experience" },
             ],
           },
@@ -729,10 +739,14 @@ export const projectItems: ProjectItem[] = [
             title: "Introducing ChatGPT Atlas",
             href: "https://openai.com/index/introducing-chatgpt-atlas/?video=1129227761",
             poster: "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+            width: 1280,
+            height: 720,
           },
           {
             type: "image",
             src: "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+            width: 1280,
+            height: 720,
             alt: "ChatGPT Atlas browser experience",
             layout: "half-right",
           },
@@ -755,6 +769,8 @@ export const projectItems: ProjectItem[] = [
             title: "Introducing group chats in ChatGPT",
             href: "https://openai.com/index/group-chats-in-chatgpt/?video=1138973380",
             poster: `${CHAT_LAB_ASSET_BASE}/Group_Chat__Blog__1920x1080__2_.webp`,
+            width: 1920,
+            height: 1080,
           },
         ],
       },

@@ -1,0 +1,112 @@
+{
+  "before": {
+    "cases": [
+      {
+        "question": "What feedback did Isaac give on Study Mode?",
+        "before": {
+          "width": 0,
+          "height": 0,
+          "naturalWidth": 0
+        },
+        "after": {
+          "width": 656,
+          "height": 369,
+          "naturalWidth": 1920
+        }
+      },
+      {
+        "question": "What feedback did Isaac give on Pulse?",
+        "before": {
+          "width": 0,
+          "height": 0,
+          "naturalWidth": 0
+        },
+        "after": {
+          "width": 480,
+          "height": 480,
+          "naturalWidth": 1920
+        }
+      }
+    ]
+  },
+  "after": {
+    "cases": [
+      {
+        "question": "What feedback did Isaac give on Study Mode?",
+        "before": {
+          "width": 656,
+          "height": 369,
+          "naturalWidth": 0
+        },
+        "after": {
+          "width": 656,
+          "height": 369,
+          "naturalWidth": 1920
+        }
+      },
+      {
+        "question": "What feedback did Isaac give on Pulse?",
+        "before": {
+          "width": 480,
+          "height": 480,
+          "naturalWidth": 0
+        },
+        "after": {
+          "width": 480,
+          "height": 480,
+          "naturalWidth": 1920
+        }
+      }
+    ]
+  },
+  "measuredSources": [
+    {
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+      "width": 2000,
+      "height": 1125,
+      "alt": "Cover artwork for the ChatGPT 100 Chats project"
+    },
+    {
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+      "width": 2000,
+      "height": 1125,
+      "alt": "Cover artwork for the ChatGPT 100 Chats project"
+    },
+    {
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+      "width": 1920,
+      "height": 1080,
+      "alt": "OpenAI Study Mode product flow"
+    },
+    {
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+      "width": 1920,
+      "height": 1080,
+      "alt": "ChatGPT Back-to-School campaign creative"
+    },
+    {
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+      "width": 1920,
+      "height": 1920,
+      "alt": "ChatGPT Pulse personalized update"
+    },
+    {
+      "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "Introducing ChatGPT Atlas"
+    },
+    {
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+      "width": 1920,
+      "height": 1080,
+      "alt": "Introducing group chats in ChatGPT"
+    },
+    {
+      "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+      "width": 2000,
+      "height": 1125,
+      "alt": "Cover artwork for the ChatGPT 100 Chats project"
+    }
+  ]
+}

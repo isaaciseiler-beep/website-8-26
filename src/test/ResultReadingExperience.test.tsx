@@ -96,6 +96,8 @@ describe('answer reading and evidence provenance',()=>{
     const product=screen.getByRole('combobox',{name:'Lab work to explore'});
     const image=document.querySelector('.portfolio-project-image') as HTMLImageElement;
     expect(image).toHaveAttribute('src',reviewedPoster);
+    expect(image).toHaveAttribute('width','1280');
+    expect(image).toHaveAttribute('height','720');
     expect(image.closest('a')).toHaveAttribute('href',reviewedPoster);
     expect(image).not.toHaveAttribute('data-image-state','error');
     expect(image).toHaveAttribute('alt',expect.stringContaining('Atlas'));
@@ -103,6 +105,9 @@ describe('answer reading and evidence provenance',()=>{
     image.dataset.imageState='error'; // The global preloader marks a failed asset.
     fireEvent.error(image);
     expect(image).toHaveAttribute('src',lab.image);
+    expect(image).not.toHaveAttribute('width');
+    expect(image).not.toHaveAttribute('height');
+    expect(image.style.aspectRatio).toBe('');
     expect(image.closest('a')).toHaveAttribute('href',lab.image);
     expect(image).toHaveAttribute('alt',`Project cover for ${lab.title}`);
     expect(screen.getByText('Project cover')).toHaveClass('sr-only');

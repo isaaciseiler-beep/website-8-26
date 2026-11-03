@@ -416,3 +416,30 @@ for(const reducedMotion of ['no-preference','reduce'] as const){
     await expect(page.getByRole('heading',{name:'Explore work',exact:true})).toBeAttached();
   });
 }
+
+for(const [width,height] of [[390,844],[768,1000],[1440,900],[844,390]])for(const [feature,pattern,imageHeight] of [
+  ['Study Mode','**/chat-lab/OpenAI_StudyMode_Flow_*.png',1080],
+  ['Pulse','**/chat-lab/pulse1.webp',1920],
+] as const){
+  test(`${width}×${height}: ${feature} reserves its actual image shape before pixels arrive`,async({page})=>{
+    await page.setViewportSize({width,height});await page.emulateMedia({reducedMotion:'reduce'});
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+    let release!:()=>void;const pixels=new Promise<void>(resolve=>{release=resolve;});
+    await page.route(pattern,async route=>{
+      await pixels;
+      await route.fulfill({contentType:'image/svg+xml',body:`<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="${imageHeight}"><rect width="1920" height="${imageHeight}" fill="white"/></svg>`}).catch(()=>{});
+    });
+    try{
+      await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+      await input.fill(`What feedback did Isaac give on ${feature}?`);await input.press('Escape');await input.press('Enter');
+      const image=page.locator('.portfolio-project-image');await expect(image).toBeAttached();
+      const geometry=()=>image.evaluate((img:HTMLImageElement)=>{const box=img.getBoundingClientRect();return {width:box.width,height:box.height,naturalWidth:img.naturalWidth};});
+      const before=await geometry();expect(before.naturalWidth).toBe(0);expect(before.width).toBeGreaterThan(100);
+      expect(Math.abs(before.width/before.height-1920/imageHeight)).toBeLessThan(.01);
+      release();await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.naturalWidth)).toBe(1920);
+      const after=await geometry();expect(Math.abs(after.width-before.width)).toBeLessThan(1);expect(Math.abs(after.height-before.height)).toBeLessThan(1);
+      expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    }finally{release();}
+  });
+}

@@ -1,0 +1,87 @@
+{
+  "checks": 8,
+  "errors": [],
+  "failures": [],
+  "cases": [
+    {
+      "width": 390,
+      "name": "suspend opening",
+      "open": true,
+      "overflow": false,
+      "expanded": true,
+      "heightGap": 0,
+      "closing": false,
+      "stage": true
+    },
+    {
+      "width": 390,
+      "name": "suspend disclosure",
+      "open": true,
+      "overflow": false,
+      "expanded": true,
+      "heightGap": 0.234375,
+      "closing": false,
+      "stage": true
+    },
+    {
+      "width": 390,
+      "name": "suspend clear",
+      "open": false,
+      "overflow": false,
+      "expanded": false,
+      "heightGap": null,
+      "closing": false,
+      "stage": false
+    },
+    {
+      "width": 390,
+      "name": "preference changes during undo",
+      "open": true,
+      "overflow": false,
+      "expanded": true,
+      "heightGap": 0,
+      "closing": false,
+      "stage": true
+    },
+    {
+      "width": 1440,
+      "name": "suspend opening",
+      "open": true,
+      "overflow": false,
+      "expanded": true,
+      "heightGap": 0,
+      "closing": false,
+      "stage": true
+    },
+    {
+      "width": 1440,
+      "name": "suspend disclosure",
+      "open": true,
+      "overflow": false,
+      "expanded": true,
+      "heightGap": 0.296875,
+      "closing": false,
+      "stage": true
+    },
+    {
+      "width": 1440,
+      "name": "suspend clear",
+      "open": false,
+      "overflow": false,
+      "expanded": false,
+      "heightGap": null,
+      "closing": false,
+      "stage": false
+    },
+    {
+      "width": 1440,
+      "name": "preference changes during undo",
+      "open": true,
+      "overflow": false,
+      "expanded": true,
+      "heightGap": 0,
+      "closing": false,
+      "stage": true
+    }
+  ]
+}

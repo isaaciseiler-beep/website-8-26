@@ -52,3 +52,11 @@ The expanded check covers 60 transitions across all eight Lab sections, at 1440/
 At 844×390, the suggestion list is deliberately height-constrained. Previously Arrow Up could select “Browse work” below its clipped edge (selected row y321–353, visible list y157–313, scrollTop 0). Selection now scrolls only the list, keeping the active row visible (y281–313, scrollTop 40) and the page at scrollY 0. A ResizeObserver preserves visibility when the selected row reflows. The field itself does not move.
 
 Two browser regressions passed with normal/reduced motion, all six keyboard options, and 24px suggestion text. The six autocomplete unit tests, typecheck, lint, and production build also passed.
+
+## Image loading and interruption recovery
+
+A delayed-image check exposed a second motion problem: the initial image box was 0×0, then grew to 656×369 for Study Mode or 480×480 for Pulse at a 768px viewport. Published Lab images now carry measured width/height metadata. The story reserves their actual capped footprint before loading; pixels can arrive with the existing fade without shifting the layout. Sizing follows the displayed source, and an unknown fallback removes the previous dimensions and sizing styles. Other photographs retain their editorial crop.
+
+Eight deterministic delayed-image browser checks passed at 390×844, 768×1000, 1440×900 and 844×390 for square/widescreen sources. Loaded and unloaded boxes match within 1px. The full current genui/motion browser run passed all 57 cases in 31.4 seconds. The 48 focused image-fallback, evidence-transition and content-growth unit tests, typecheck, lint and production build passed. See `delayed-image-geometry.json` for the original bug, corrected geometry and actual source measurements.
+
+Eight additional browser-suspension checks passed for opening, technical disclosure, Clear and Undo at 390/1440px, including changing motion preferences during Undo. After resuming there were no stranded closing panes, expanded empty shells, overflows or height gaps above 1px. These are Chrome lifecycle checks, not real mobile operating-system backgrounding claims. See `interruption-recovery.json`.

@@ -1,19 +1,19 @@
 import type { ProjectItem, ProjectSection } from '@/lib/siteContent';
 
-export type ProjectVisualSource = { src: string; alt: string; presentation: 'photograph'|'artifact'; note?: string };
+export type ProjectVisualSource = { src: string; alt: string; presentation: 'photograph'|'artifact'; note?: string; width?:number; height?:number };
 export type ProjectVisualSelection = ProjectVisualSource & { fallbacks: ProjectVisualSource[] };
-function visual(src:string,alt:string):ProjectVisualSource {
-  return {src,alt,presentation:/cover artwork|product flow|screenshot|contributed chats?|interface|diagram|slide|newsletter|website|campaign (?:artwork|creative)|ChatGPT (?:Pulse|Atlas)|Introducing.*(?:Atlas|group chats)/i.test(alt)?'artifact':'photograph'};
+function visual(src:string,alt:string,dimensions?:{width?:number;height?:number}):ProjectVisualSource {
+  return {src,alt,...(dimensions?.width&&dimensions.height?{width:dimensions.width,height:dimensions.height}:{}),presentation:/cover artwork|product flow|screenshot|contributed chats?|interface|diagram|slide|newsletter|website|campaign (?:artwork|creative)|ChatGPT (?:Pulse|Atlas)|Introducing.*(?:Atlas|group chats)/i.test(alt)?'artifact':'photograph'};
 }
 function sectionVisual(section:ProjectSection|undefined,project:ProjectItem):ProjectVisualSelection|undefined {
   for(const media of section?.media??[]){
-    const primary=media.type==='image'&&media.src?visual(media.src,media.alt??media.caption??media.title??project.title)
-      :media.images?.length?visual(media.images[0].src,media.images[0].alt)
-      :media.poster?visual(media.poster,media.title??media.alt??project.title):undefined;
+    const primary=media.type==='image'&&media.src?visual(media.src,media.alt??media.caption??media.title??project.title,media)
+      :media.images?.length?visual(media.images[0].src,media.images[0].alt,media.images[0])
+      :media.poster?visual(media.poster,media.title??media.alt??project.title,media):undefined;
     if(!primary)continue;
     const alternates:ProjectVisualSource[]=[];
     if(media.fallbackPoster)alternates.push({...visual(media.fallbackPoster,`${media.title??project.title} — video poster`),note:'Video poster'});
-    media.images?.slice(1).forEach(image=>alternates.push({...visual(image.src,image.alt),note:'Alternate published image'}));
+    media.images?.slice(1).forEach(image=>alternates.push({...visual(image.src,image.alt,image),note:'Alternate published image'}));
     alternates.push({...visual(project.image,`Project cover for ${project.title}`),note:'Project cover'});
     return {...primary,fallbacks:[...new Map(alternates.filter(source=>source.src!==primary.src).map(source=>[source.src,source])).values()]};
   }

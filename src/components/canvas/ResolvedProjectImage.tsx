@@ -18,7 +18,7 @@ export function ResolvedProjectImage({visual,children}:{visual:ProjectVisualSele
     node.dataset.imageState=node.complete&&node.naturalWidth>0?'ready':'loading';
     delete node.dataset.imageReveal;
   },[displayed.src]);
-  return children({ref:image,src:displayed.src,alt:displayed.alt,decoding:'async',onError:event=>{
+  return children({ref:image,src:displayed.src,alt:displayed.alt,width:displayed.width,height:displayed.height,decoding:'async',onError:event=>{
     const next=index+1;
     if(next<candidates.length){
       event.currentTarget.dataset.imageState='loading';
