@@ -1,5 +1,5 @@
 import { streamText, Output } from 'ai';
-import { createMistral } from '@ai-sdk/mistral';
+import { createCompositionModel } from '../server/mistral-client.js';
 import { AI_LAYOUTS } from '../src/lib/layouts.js';
 import { compositionCacheKey, cachedComposition, cacheComposition, providerCallLimit, providerFailure, providerLimitDetail, providerDiagnostics } from '../server/composition-policy.js';
 import { z } from 'zod';
@@ -74,8 +74,8 @@ export default async function composeHandler(req:ApiRequest,res:ApiResponse) {
       const advisory=await waitForProvider(jevCompositionAdvice(data.draft,data.current,signal).catch(()=>null),signal);
       if(abort.signal.aborted||res.destroyed)return;
       const result=streamText({
-        model:createMistral({apiKey:key})(model),
-        // Large 4 uses its coherent model defaults for sampling and reasoning.
+        model:createCompositionModel(model,{apiKey:key}),
+        // Large 4 uses model-default sampling and a bounded low-effort bridge.
         // Keep Small's existing deterministic, non-reasoning configuration.
         ...(/^mistral-large-4(?:-0)?$/.test(model)?{}:{reasoning:'none' as const,temperature:0}),
         output:Output.object({schema:generationSchema}),
