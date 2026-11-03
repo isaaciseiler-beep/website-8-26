@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -157,7 +158,7 @@ const CredentialCtas = ({ compact = false }: { compact?: boolean }) => {
 };
 
 const CredentialsPage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeStrength, setActiveStrength] = useState(0);
   const [activeEvidence, setActiveEvidence] = useState(0);

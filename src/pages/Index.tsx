@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -24,9 +25,7 @@ const SectionFallback = () => <div className="home-photo-section-fallback" aria-
 
 const ModernIndex = () => {
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(
-    () => Boolean((location.state as { sidebarOpen?: boolean } | null)?.sidebarOpen),
-  );
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const [activeSection, setActiveSection] = useState("hero");

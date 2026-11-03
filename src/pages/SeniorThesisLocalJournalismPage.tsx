@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import useProjectReturn from "@/hooks/useProjectReturn";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
@@ -222,7 +223,7 @@ const SeniorThesisLocalJournalismPage = () => {
   const navigate = useNavigate();
   const { back: backToWork, label: backLabel } = useProjectReturn();
   const isMobile = useIsMobile();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const pageScrollRef = useRef<HTMLDivElement | null>(null);

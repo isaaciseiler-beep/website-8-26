@@ -1,5 +1,6 @@
-import { lazy, useState } from 'react';
+import { lazy } from 'react';
 import SiteChromeProvider from '@/components/SiteChromeProvider';
+import { useSidebarState } from '@/lib/siteChrome';
 import SiteHeader from '@/components/SiteHeader';
 import Sidebar from '@/components/Sidebar';
 import { ThemeProvider } from '@/components/ThemeProvider';
@@ -121,7 +122,8 @@ it('restores the committed exploration, local metric and unfinished draft on bro
 });
 
 
-it('preserves the actual sidebar and header while loading and committing a menu destination', async () => {
+it.each([1280, 390])('keeps the sidebar open across page replacement at %ipx until explicitly closed', async (width) => {
+  Object.defineProperty(window, 'innerWidth', { configurable: true, value: width });
   const values = new Map<string, string>();
   Object.defineProperty(window, 'localStorage', { configurable: true, value: {
     getItem: (key: string) => values.get(key) ?? null,
@@ -130,25 +132,31 @@ it('preserves the actual sidebar and header while loading and committing a menu 
   let release!: () => void;
   warm.mockImplementation(path => path === '/work' ? new Promise<void>(resolve => { release = resolve; }) : Promise.resolve());
   function WithChrome({ name }: { name: string }) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useSidebarState();
     return <>
       <Sidebar open={open} onToggle={() => setOpen(value => !value)} onClose={() => setOpen(false)} showToggle={false} />
-      <main><h1>{name}</h1></main>
+      <div id="root"><main><h1>{name}</h1></main></div>
       <SiteHeader open={open} onToggle={() => setOpen(value => !value)} searchOpen={false} />
     </>;
   }
   render(<MemoryRouter><ThemeProvider><SiteChromeProvider><PageTransitions>{location => <Routes location={location}>
-    <Route path="/" element={<WithChrome name="Home" />} /><Route path="/work" element={<WithChrome name="Destination" />} />
+    <Route path="/" element={<WithChrome key="home" name="Home" />} /><Route path="/work" element={<WithChrome key="destination" name="Destination" />} />
   </Routes>}</PageTransitions></SiteChromeProvider></ThemeProvider></MemoryRouter>);
   const header = screen.getByRole('button', { name: 'Toggle menu' });
   fireEvent.click(header);
   const sidebar = screen.getByRole('navigation', { name: 'Main navigation' });
   fireEvent.click(screen.getByRole('link', { name: 'Work' }));
   expect(screen.getByRole('heading', { name: 'Home' })).toBeVisible();
-  expect(sidebar).toHaveAttribute('inert');
+  expect(sidebar).not.toHaveAttribute('inert');
   expect(sidebar).toBeInTheDocument();
   await act(async () => { release(); });
   await waitFor(() => expect(screen.getByRole('heading', { name: 'Destination' })).toBeVisible());
   expect(document.querySelector('[data-site-overlay="sidebar"]')).toBe(sidebar);
   expect(screen.getByRole('button', { name: 'Toggle menu' })).toBe(header);
+  expect(header).toHaveAttribute('aria-expanded', 'true');
+  if (width === 390) await waitFor(() => expect(document.querySelector('main')).toHaveAttribute('inert'));
+  expect(sidebar).not.toHaveAttribute('inert');
+  fireEvent.click(header);
+  expect(sidebar).toHaveAttribute('inert');
+  expect(document.querySelector('main')).not.toHaveAttribute('inert');
 });

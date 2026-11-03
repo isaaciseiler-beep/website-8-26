@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import BackArrow from "@/components/BackArrow";
 import useProjectReturn from "@/hooks/useProjectReturn";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
@@ -241,7 +242,7 @@ const ProjectDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { back: backToWork, label: backLabel } = useProjectReturn();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const isMobile = useIsMobile();

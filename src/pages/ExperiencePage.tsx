@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import { motionReduced } from "@/hooks/useMotionPreference";
 import { type PointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useScroll, useSpring } from "framer-motion";
@@ -347,7 +348,7 @@ const ExperienceGroupSection = ({
 };
 
 const ExperiencePage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const experienceGroups = useMemo(() => groupExperienceEntries(experienceEntries), []);
   const [activeId, setActiveId] = useState(experienceGroups[0]?.id ?? "");

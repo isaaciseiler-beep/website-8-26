@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import BackArrow from "@/components/BackArrow";
 import useProjectReturn from "@/hooks/useProjectReturn";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
@@ -445,7 +446,7 @@ const AIStateGovernmentIndexPage = () => {
   const navigate = useNavigate();
   const { back: backToWork, label: backLabel } = useProjectReturn();
   const isMobile = useIsMobile();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const [selectedRegion, setSelectedRegion] = useState<AiIndexRegion | "All">("All");

@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import PageNotice from "@/components/PageNotice";
 import { motionReduced, useMotionPreference } from "@/hooks/useMotionPreference";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
@@ -237,7 +238,7 @@ const PhotoMapPage = () => {
   const mapLoadedRef = useRef(false);
   const selectedLocationOffsetRef = useRef<() => [number, number]>(() => [0, 0]);
   const navigate = useNavigate();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const [mapReady, setMapReady] = useState(false);

@@ -18,3 +18,5 @@ The previous route handoff captured the entire viewport, including navigation, w
 Local preview remains available at http://127.0.0.1:8080/. No deployment was performed.
 
 Follow-up: increased navigation retraction from 340ms to 560ms at the owner's request. Sidebar, search, header chevron, desktop content offsets, and mobile page translation share that closing duration. Opening remains 460ms; page arrival keeps its separate 340ms fade.
+
+Latest requested behavior: sidebar selection now preserves its expanded state across routes. Page layouts share that state, so desktop content keeps its sidebar gutter and narrow layouts retain the full-screen menu until explicit dismissal. Opening Search still replaces the sidebar. A mobile coverage observer keeps newly mounted pages inert behind the open menu and restores them on dismissal. Verified desktop Light/Dark navigation, 390px navigation and Escape, 204 focused tests, build, typecheck, and focused lint. The retained-sidebar regression forces page replacement at desktop and mobile widths. See `sidebar-retained.png`. This follow-up is available in the local preview.

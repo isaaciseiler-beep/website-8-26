@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { motion } from "framer-motion";
@@ -11,7 +12,7 @@ import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 const EASE_TEXT = MOTION_EASE;
 
 const MusicPage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const isMobile = useIsMobile();

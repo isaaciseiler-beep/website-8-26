@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import { usePageVisible } from "@/hooks/useMotionPreference";
 import { useNavigationMotion, motionReduced } from "@/hooks/useMotionPreference";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
@@ -152,7 +153,7 @@ const PhotoHomePage = () => {
   const [filter, setFilter] = useState("All");
   const openAlbum = albums.find(album => album.folder === searchParams.get("album"))?.location ?? null;
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const isMobile = useIsMobile();

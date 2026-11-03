@@ -1,4 +1,4 @@
-import { createContext, useContext, useLayoutEffect } from 'react';
+import { createContext, useContext, useLayoutEffect, useState, type Dispatch, type SetStateAction } from 'react';
 import type { SidebarProps } from '@/components/Sidebar';
 import type { SiteHeaderProps } from '@/components/SiteHeader';
 
@@ -8,6 +8,13 @@ type ChromeRegistry = {
 };
 
 export const SiteChromeContext = createContext<ChromeRegistry | null>(null);
+export const SidebarStateContext = createContext<[boolean, Dispatch<SetStateAction<boolean>>] | null>(null);
+
+export function useSidebarState() {
+  const shared = useContext(SidebarStateContext);
+  const local = useState(false);
+  return shared ?? local;
+}
 
 /** Pages supply their controls; the actual navigation survives route changes. */
 export function useSiteChrome<K extends keyof ChromeRegistry>(kind: K, props: Parameters<ChromeRegistry[K]>[0]) {

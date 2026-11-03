@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useState } from 'react';
@@ -9,7 +10,7 @@ import { MOTION_DURATION, MOTION_EASE } from '@/lib/motion';
 import './writing-page.css';
 
 export default function WritingPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const mobile = useIsMobile();

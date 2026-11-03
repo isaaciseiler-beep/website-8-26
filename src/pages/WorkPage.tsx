@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useState } from 'react';
@@ -30,7 +31,7 @@ function WorkStory({ project, square, eager = false }: { project: ProjectItem; s
 }
 
 export default function WorkPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const isMobile = useIsMobile();

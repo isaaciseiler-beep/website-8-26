@@ -18,9 +18,18 @@ export function useOverlayFocus(open: boolean, kind: SiteOverlay, onClose: () =>
     const candidates = () => regions().flatMap(region => [region, ...region.querySelectorAll<HTMLElement>(focusable)])
       .filter(node => node.matches(focusable) && node.tabIndex >= 0 && node.getClientRects().length && getComputedStyle(node).visibility !== 'hidden' && !node.closest('[inert]'));
     const initial = () => document.querySelector<HTMLElement>(kind === 'search' ? '[data-site-overlay="search"] input' : '[data-site-overlay="sidebar"] a,[data-site-overlay="sidebar"] button');
-    const covered = mobile ? [...document.querySelectorAll<HTMLElement>(`#root main,.photo-location-ticker,.site-home-link,[data-overlay-trigger="${kind === 'sidebar' ? 'search' : 'sidebar'}"]`)] : [];
-    const previous = covered.map(node => [node, node.hasAttribute('inert')] as const);
-    covered.forEach(node => node.setAttribute('inert', ''));
+    const previous = new Map<HTMLElement, boolean>();
+    const cover = () => {
+      if (!mobile) return;
+      document.querySelectorAll<HTMLElement>(`#root main,.photo-location-ticker,.site-home-link,[data-overlay-trigger="${kind === 'sidebar' ? 'search' : 'sidebar'}"]`).forEach(node => {
+        if (!previous.has(node)) previous.set(node, node.hasAttribute('inert'));
+        node.setAttribute('inert', '');
+      });
+    };
+    cover();
+    // A retained mobile sidebar also covers a newly mounted destination.
+    const coverage = mobile ? new MutationObserver(cover) : null;
+    coverage?.observe(document.body, { childList: true, subtree: true });
     const frame = requestAnimationFrame(() => initial()?.focus({ preventScroll: true }));
     const keydown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -42,7 +51,8 @@ export function useOverlayFocus(open: boolean, kind: SiteOverlay, onClose: () =>
       cancelAnimationFrame(frame);
       document.removeEventListener('keydown', keydown, true);
       document.removeEventListener('focusin', focusin);
-      previous.forEach(([node, inert]) => { if (!inert) node.removeAttribute('inert'); });
+      coverage?.disconnect();
+      previous.forEach((inert, node) => { if (!inert) node.removeAttribute('inert'); });
       // Search replaces its trigger during exit. Wait for the replacement, but
       // never steal focus from a destination or a newly opened panel.
       let timeout = 0;

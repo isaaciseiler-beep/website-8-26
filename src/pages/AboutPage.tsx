@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Sidebar from '@/components/Sidebar';
@@ -7,7 +8,7 @@ import { useNavigationMotion } from '@/hooks/useMotionPreference';
 import { PROFILE_SUMMARY } from '@/lib/siteIdentity.mjs';
 
 export default function AboutPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
   const mobile = useIsMobile();
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);

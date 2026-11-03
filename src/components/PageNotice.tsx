@@ -1,3 +1,4 @@
+import { useSidebarState } from "@/lib/siteChrome";
 import { useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -9,7 +10,7 @@ import { useNavigationMotion } from '@/hooks/useMotionPreference';
 export default function PageNotice({ title, children, href = '/', action = 'Return home', onRetry }: {
   title: string; children: ReactNode; href?: string; action?: string; onRetry?: () => void;
 }) {
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useSidebarState();
   const [search, setSearch] = useState(false);
   const mobile = useIsMobile();
   const transition = useNavigationMotion(menu || search);

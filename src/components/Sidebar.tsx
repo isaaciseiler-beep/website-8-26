@@ -230,7 +230,6 @@ export const SidebarSurface = ({ open, onToggle, onClose, onSearchOpen, activeSe
                           to={item.href}
                           onPointerEnter={() => warmRoute(item.href!)}
                           onFocus={() => warmRoute(item.href!)}
-                          onClick={onClose}
                           aria-current={active ? "page" : undefined}
                           className={`sidebar-main-nav-item sidebar-destination origin-left py-1.5 text-left text-foreground ${active ? "is-current" : ""}`}
                         >{item.label}</Link> : <button
