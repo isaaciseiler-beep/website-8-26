@@ -166,7 +166,7 @@ describe('interactive composition contracts',()=>{
     expect(reconcileComposition('What did Isaac build in Taiwan?',{blocks:[blankBlock('collection')]},compose('Taiwan teaching'))).toBeNull();
   });
   it.each([
-    ['How are state governments using AI?', 'benchmark-ranking'],
+    ['How are state governments using AI?', 'project-brief'],
     ['Explore your AI literacy project in Taiwan', 'project-brief'],
     ['Explore your career', 'experience-timeline'],
   ])('introduces published content through %s', (prompt, layout)=>{
@@ -299,7 +299,7 @@ describe('questions beyond the first audit wording',()=>{
   ])('keeps the requested question in the answer: %s',(text,kind,angle)=>{
     const baseline=compose(text);
     expect(baseline.blocks[0]).toMatchObject({kind,angle});
-    const proposed={blocks:[{...baseline.blocks[0],angle:undefined,section:0,focus:'role' as const}]};
+    const proposed={blocks:[{...baseline.blocks[0],angle:undefined,section:0,paragraphIndices:undefined,answerPlan:undefined,focus:'role' as const}]};
     expect(reconcileComposition(text,proposed,baseline)?.blocks[0]).toMatchObject({kind,angle,section:baseline.blocks[0].section});
   });
 });

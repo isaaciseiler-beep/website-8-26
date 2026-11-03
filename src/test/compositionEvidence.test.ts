@@ -13,6 +13,8 @@ describe('complete public composition evidence', () => {
       for (const [index, section] of project.sections.entries()) {
         const evidence = catalog.sections[index].evidence;
         expect(catalog.sections[index].paragraphCount).toBe(section.paragraphs?.length ?? 0);
+        expect(catalog.sections[index].sourceLabels).toEqual((section.links ?? []).map(link => link.label));
+        expect(catalog.sections[index].materialOnly).toBe(!(section.paragraphs?.length || section.bullets?.length || section.stats?.length || section.pullQuote));
         for (const passage of [...(section.paragraphs ?? []), ...(section.bullets ?? [])]) expect(evidence).toContain(passage);
         for (const [paragraphIndex, passage] of (section.paragraphs ?? []).entries()) expect(evidence).toContain(`Paragraph ${paragraphIndex}: ${passage}`);
         for (const stat of section.stats ?? []) expect(evidence).toContain(`${stat.label}: ${stat.value}`);

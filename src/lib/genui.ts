@@ -1,3 +1,5 @@
+import { answerPlanSchema, validateAnswerPlan, getEvidence } from './portfolioEvidenceRegistry.js';
+import { buildAnswerPlan } from './portfolioAnswerPlan.js';
 import { connectionIds, connectionForRequest } from './portfolioConnections.js';
 import { careerAnswerIds, careerAnswerFor, careerAnswers, careerConnectionFor } from './careerAnswers.js';
 import { z } from 'zod';
@@ -6,8 +8,8 @@ import { aiIndexStates } from './aiStateGovIndex.js';
 import { layoutIds, liveLayoutIds, layoutDefinition, defaultLayout, type LayoutId } from './layouts.js';
 import { evidenceFocuses, evidenceSections } from './portfolioEvidence.js';
 import { experienceEntries } from './experience.js';
-import { findPublishedSection, findPublishedParagraphs } from './portfolioRetrieval.js';
-import { interpretPortfolioRequest, namedProjects, requestedFocus, personalProjectFocus, requestedAngle, portfolioAngles } from './portfolioIntent.js';
+import { findPublishedSection, findPublishedParagraphs, publishedQueryTerms } from './portfolioRetrieval.js';
+import { interpretPortfolioRequest, namedProjects, requestedFocus, personalProjectFocus, requestedAngle, requestedSourceAccess, requestsGovernmentDataset, portfolioAngles, correctedPortfolioRequest, isReadingTransformation, isUnspecifiedComparison } from './portfolioIntent.js';
 
 export const blockSchema = z.object({
   kind: z.enum(['benchmark', 'photos', 'workshop', 'story', 'comparison', 'timeline', 'architecture', 'contact', 'collection']),
@@ -18,6 +20,7 @@ export const blockSchema = z.object({
   region: z.enum(['All', 'East', 'Midwest', 'South', 'West']),
   metric: z.enum(['compositeScore', 'preparednessScore']),
   section: z.number().int().min(0).max(2000),
+  answerPlan: answerPlanSchema.optional(),
   paragraphIndices: z.array(z.number().int().min(0).max(2000)).max(3).optional(),
   focus: z.enum(evidenceFocuses).optional(),
   angle: z.enum(portfolioAngles).optional(),
@@ -84,6 +87,7 @@ export function validateComposition(value: unknown): Composition | null {
   const result = liveCompositionSchema.safeParse(value);
   if (!result.success) return null;
   for (const b of (result.data as Composition).blocks) {
+    if(b.answerPlan&&(b.kind!=='story'||!validateAnswerPlan(b.answerPlan,b.projectIds)))return null;
     if(new Set(b.states).size!==b.states.length)return null;
     if (b.layout && layoutDefinition(b.layout).kind !== b.kind) return null;
     if (b.layout === 'benchmark-compare' && b.states.length !== 2) return null;
@@ -112,13 +116,41 @@ function stateNames(text: string) {
   return [...new Set([...text.matchAll(pattern)].map(match=>names.find(name=>name.toLowerCase()===match[0].toLowerCase())!))].slice(0,2);
 }
 function requestsGovernmentData(text:string,task:string){
+  if(requestedAngle(text)==='measurement'&&/caus|because|attribut|prove/i.test(text))return false;
   if(personalProjectFocus(text))return false;
-  if(/\b(?:scores?|scorecard|rank\w*|criteria|checklist|distribution|histogram|preparedness|composite|adoption)\b/i.test(text))return true;
+  if(requestsGovernmentDataset(text))return true;
   if(task!=='comparison'&&stateNames(text).length===2&&/\b(?:compare|versus|vs)\b/i.test(text))return true;
   if(['story','comparison','timeline','architecture','contact'].includes(task))return false;
   const personal=/\b(?:isaac|you|your|he|his)\b/i.test(text)&&/\b(?:did|do|work|career|role|contribut\w*|responsibilit\w*|research|methodology|learn\w*)\b/i.test(text);
   return !personal;
 }
+// Whole-project entry points need the reviewed responsibility and published
+// outcome together. Subtract subject wording and generic request language;
+// discriminative detail (e.g. "early and uneven") retains precise passages.
+const policyOverviewTerms=new Set(publishedQueryTerms('AI artificial intelligence generative GenAI state states territory territories government governments policy adoption index benchmark public information project research work explain explore introduction overview describe discover discovery reveal findings results purpose about'));
+function requestsPolicyOverview(text:string):boolean {
+  const ids=namedProjects(text),focus=requestedFocus(text);
+  return ids.length===1&&ids[0]===POLICY_ID&&!requestsGovernmentDataset(text)&&!requestedAngle(text)
+    &&focus!=='process'&&focus!=='evidence'&&!requestedSourceAccess(text)
+    &&!/[;,]|\band\s+(?:what|how|why|which)\b/i.test(text)
+    &&publishedQueryTerms(text).every(term=>policyOverviewTerms.has(term));
+}
+function contextualPolicyStory(block:CanvasBlock,text:string):CanvasBlock {
+  const findings=requestedFocus(text)==='outcomes';
+  return {...block,kind:'story',projectIds:[POLICY_ID],layout:findings?'project-outcomes':'project-brief',focus:findings?'outcomes':'role',section:0,
+    // An explicit findings question keeps the authored responsibility/context
+    // immediately before the headline result, rather than an orphaned finding.
+    paragraphIndices:findings?[1,2]:undefined,answerPlan:undefined,states:[],expanded:false};
+}
+const LAB_ID='openai-product-testing-and-feedback';
+const labOverviewTerms=new Set(publishedQueryTerms('ChatGPT Lab OpenAI product testing feedback cohort work project experience introduction overview explain explore describe about'));
+function requestsLabOverview(text:string):boolean {
+  const ids=namedProjects(text);
+  return ids.length===1&&ids[0]===LAB_ID&&!requestedFocus(text)&&!requestedAngle(text)&&!requestedSourceAccess(text)
+    &&!/[;,]|\band\s+(?:what|how|why|which)\b/i.test(text)
+    &&publishedQueryTerms(text).every(term=>labOverviewTerms.has(term));
+}
+const contextualLabStory=(block:CanvasBlock):CanvasBlock=>({...block,kind:'story',projectIds:[LAB_ID],layout:'project-brief',focus:'role',section:0,paragraphIndices:undefined,answerPlan:undefined,states:[],expanded:false});
 function requestedCompanion(text:string,block:CanvasBlock){
   if(!/\b(?:and|alongside|plus|as well as)\b/i.test(text))return false;
   if(block.kind==='story')return namedProjects(text).includes(block.projectIds[0]);
@@ -130,9 +162,13 @@ function requestedCompanion(text:string,block:CanvasBlock){
 }
 function previousContext(previous?: Composition | null) {
   const block=previous?.blocks[0];
-  return {projectIds:previous?.blocks.flatMap(b=>b.projectIds)??[],task:block?.kind==='photos'||block?.kind==='workshop'?undefined:block?.kind,focus:block?.focus};
+  const explicit=previous?.blocks.flatMap(b=>b.projectIds)??[];
+  const linked=block?.kind==='timeline'&&block.roleId&&(!block.answerId||block.answerId==='service')?experienceEntries.find(role=>role.id===block.roleId)?.projectIds??[]:[];
+  return {projectIds:explicit.length?explicit:linked,task:block?.kind==='photos'||block?.kind==='workshop'?undefined:block?.kind,focus:block?.focus};
 }
 export function resolveCanvasPlan(text: string, current: Plan, revision: number, composition?: Composition): Plan {
+  const corrected=correctedPortfolioRequest(text);
+  if(corrected!==text)return resolveCanvasPlan(corrected,current,revision,composition);
   if(!isPhotographyRequest(text)){
     const work=withoutPhotoClauses(text);
     if(work!==text)return resolveCanvasPlan(work,current,revision,composition);
@@ -181,11 +217,13 @@ export function withLayout(block:CanvasBlock, layout:LayoutId, preserveSection=f
 
 /** Named subjects resolve to published sections before either provider can choose a view. */
 function explicitStorySection(text:string,projectId:string):number|undefined {
+  if(projectId===TAIWAN_ID&&['measurement','reflection'].includes(requestedAngle(text)??''))return 4;
   const rules:Record<string,[RegExp,number][]>={
+    [POLICY_ID]: [[/\b(?:framework|roadmap)\b|\bwhat\b.*\b(?:build|built)\b/i,1]],
     [TAIWAN_ID]: [[/measur|evaluat|success|whether.*work|^did .*\bwork\b/i,4],[/trade.?offs?|compromises?|challenge|limitation|decisions?/i,1],[/educators?.*(?:shape|influence|change)|participants?.*(?:shape|influence|change)/i,1],[/learn(?:ed)?|lessons?|takeaways?|reflection/i,4],[/nine|9 use|use cases/i,2],[/conference|alignment/i,3]],
     'openai-product-testing-and-feedback': [[/study mode/i,2],[/pulse/i,4],[/atlas/i,5],[/group chats?/i,6],[/100 chats|book/i,1],[/back to school/i,3],[/learn(?:ed)?|lessons?|takeaways?|\b(?:teach|taught) (?:isaac|you|him|me)\b/i,7]],
     'congressional-office-setup-100-day-report': [[/100 days?|accomplish|constituent|office.*results/i,5],[/child.labou?r|local stories|national news/i,2],[/press list|press network|learn(?:ed)?|lessons?|reflection/i,1],[/state of the union|bipartisan/i,4]],
-    'senior-thesis-local-journalism': [[/findings?|discover|learn|results?|conclusions?/i,1]],
+    'senior-thesis-local-journalism': [[/findings?|discover|reveal|learn|results?|conclusions?|what did.*(?:interviews|study|thesis).*find/i,1]],
   };
   return rules[projectId]?.find(([pattern])=>pattern.test(text))?.[1];
 }
@@ -193,15 +231,20 @@ export function requestedStorySection(text:string,projectId:string,currentSectio
   const focus=requestedFocus(text);
   const candidates=focus==='process'||focus==='outcomes'?evidenceSections(projectId,focus).map(section=>section.index):undefined;
   const selected=explicitStorySection(text,projectId) ?? findPublishedSection(text,projectId) ?? findPublishedSection(text,projectId,candidates);
-  if(selected!==undefined)return selected;
-  if(focus==='evidence'&&/\b(?:sources?|materials)\b/i.test(text)){
+  if(focus==='evidence'&&requestedSourceAccess(text)){
     const project=publicProjects.find(project=>project.id===projectId);
-    if(currentSection!==undefined&&project?.sections[currentSection]?.links?.length)return currentSection;
+    const dedicatedMaterials=project?.sections.findIndex(section=>section.links?.length&&!section.paragraphs?.length&&!section.bullets?.length)??-1;
+    if(dedicatedMaterials>=0&&/\b(?:materials?|workspace|slides|downloads?)\b/i.test(text))return dedicatedMaterials;
+    if(currentSection!==undefined&&!namedProjects(text).length&&project?.sections[currentSection]?.links?.length)return currentSection;
+    if(selected!==undefined&&project?.sections[selected]?.links?.length)return selected;
+    if(selected===undefined&&currentSection!==undefined&&project?.sections[currentSection]?.links?.length)return currentSection;
     const materials=project?.sections.findIndex(section=>section.links?.length&&!section.paragraphs?.length&&!section.bullets?.length)??-1;
     const linked=materials>=0?materials:project?.sections.findIndex(section=>section.links?.length)??-1;
+    if(materials>=0)return materials;
+    if(selected!==undefined)return selected;
     if(linked>=0)return linked;
   }
-  return undefined;
+  return selected;
 }
 const blockSubject=(block:CanvasBlock)=>block.kind==='story'?`${block.kind}:${block.projectIds[0]}`:block.kind;
 function independentRequests(text:string,previous?:Composition|null):string[]|null {
@@ -216,13 +259,14 @@ function independentRequests(text:string,previous?:Composition|null):string[]|nu
 }
 
 /** Apply public-subject and state constraints once, after either provider. */
-export function reconcileComposition(text:string, proposed:unknown, baseline:Composition, previous?:Composition):Composition|null {
+function reconcileCompositionUnplanned(text:string, proposed:unknown, baseline:Composition, previous?:Composition):Composition|null {
   if(!isPhotographyRequest(text)){
     const work=withoutPhotoClauses(text);
     if(work!==text)return reconcileComposition(work,proposed,baseline,previous);
   }
   const valid=validateComposition(proposed);
   if(!valid)return null;
+  if(isUnspecifiedComparison(text,previousContext(previous)))return null;
   const subjects=valid.blocks.map(block=>block.kind==='story'?`${block.kind}:${block.projectIds[0]}`:block.kind);
   if(new Set(subjects).size!==subjects.length)return null;
   const clauses=independentRequests(text,previous);
@@ -243,6 +287,13 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
     return section===undefined?block:{...block,section,paragraphIndices:section===block.section?block.paragraphIndices:findPublishedParagraphs(text,block.projectIds[0],section)};
   })};
   const interpreted=interpretPortfolioRequest(text,previousContext(previous));
+  if(requestsPolicyOverview(text))return {blocks:baseline.blocks.map(block=>block.kind==='story'&&block.projectIds[0]===POLICY_ID?contextualPolicyStory(block,text):block)};
+  if(requestsLabOverview(text))return {blocks:baseline.blocks.map(block=>block.kind==='story'&&block.projectIds[0]===LAB_ID?contextualLabStory(block):block)};
+  // A schema-valid prior scorecard is not an answer to a new unrecognized
+  // question. Providers may recover project subjects the local matcher missed,
+  // but government data still needs an actual data request or local refinement.
+  if(interpreted.task==='unknown'&&checked.blocks.some(block=>block.kind==='benchmark')
+    &&!requestsGovernmentDataset(text)&&!baseline.blocks.some(block=>block.kind==='benchmark'))return null;
   if(checked.blocks.some(block=>block.kind==='collection')&&interpreted.task!=='collection')return null;
   // A refinement keeps the visible controls. An explicit new aspect can select
   // evidence within that aspect, without resetting any other user selections.
@@ -250,8 +301,12 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
     if(!requestedFocus(text))return baseline;
     return {blocks:baseline.blocks.map(block=>{
       if(block.kind!=='story'||explicitStorySection(text,block.projectIds[0])!==undefined)return block;
+      // A request to inspect this answer's sources keeps its selected product or
+      // material section. Evidence is not permission to swap to a different
+      // linked chapter just because every chapter is a valid public reference.
+      if(block.focus==='evidence' && requestedSourceAccess(text))return block;
       const match=checked.blocks.find(item=>item.kind==='story'&&item.projectIds[0]===block.projectIds[0]);
-      const relevant=match&&(evidenceSections(block.projectIds[0],block.focus??'overview').some(section=>section.index===match.section)||Boolean(match.paragraphIndices?.length)||findPublishedSection(text,block.projectIds[0])===match.section);
+      const relevant=match&&(evidenceSections(block.projectIds[0],block.focus??'overview').some(section=>section.index===match.section)||findPublishedSection(text,block.projectIds[0])===match.section);
       return relevant?{...block,section:match.section,paragraphIndices:match.paragraphIndices}:block;
     })};
   }
@@ -282,16 +337,46 @@ export function reconcileComposition(text:string, proposed:unknown, baseline:Com
   if(interpreted.task==='story'&&interpreted.projectIds.length===1) {
     const match=checked.blocks.find(block=>block.kind==='story'&&block.projectIds[0]===interpreted.projectIds[0]);
     if(!match)return baseline;
-    const pinnedSection=explicitStorySection(text,interpreted.projectIds[0]);
+    const accessingSource=requestedSourceAccess(text);
+    const pinnedSection=accessingSource?baseline.blocks[0]?.section:explicitStorySection(text,interpreted.projectIds[0]);
     const focus=(baseline.blocks[0]?.angle||pinnedSection!==undefined?baseline.blocks[0]?.focus:requestedFocus(text))??match.focus??baseline.blocks[0]?.focus??'overview';
-    const block={...match,projectIds:interpreted.projectIds,focus,angle:baseline.blocks[0]?.angle,section:pinnedSection??match.section};
+    const block={...match,projectIds:interpreted.projectIds,focus,angle:baseline.blocks[0]?.angle,section:pinnedSection??match.section,
+      paragraphIndices:pinnedSection!==undefined&&pinnedSection!==match.section?baseline.blocks[0]?.paragraphIndices:match.paragraphIndices,
+      expanded:accessingSource?baseline.blocks[0]?.expanded:match.expanded};
     const story=withLayout(block,focus==='process'?'project-process':focus==='outcomes'?'project-outcomes':focus==='evidence'?'project-evidence':'project-brief',true);
     return validateComposition({blocks:checked.blocks.flatMap(item=>item===match?[story]:requestedCompanion(text,item)?[item]:[])});
   }
   // Distinct project stories can answer a multi-subject question together.
   return checked;
 }
+function attachAnswerPlans(text:string,composition:Composition,preserveSelection=false):Composition {
+  return {blocks:composition.blocks.map(block=>{
+    if(block.kind!=='story')return block;
+    if(block.projectIds[0]===POLICY_ID&&requestsPolicyOverview(text))return contextualPolicyStory(block,text);
+    if(block.projectIds[0]===LAB_ID&&requestsLabOverview(text))return contextualLabStory(block);
+    const answerPlan=buildAnswerPlan(text,block,{preservePrimary:preserveSelection||explicitStorySection(text,block.projectIds[0])!==undefined});
+    if(!answerPlan)return block;
+    const first=answerPlan.facets[0]?.evidenceIds.map(id=>getEvidence(id)!).filter(Boolean)??[];
+    const primary=first[0];
+    if(!primary||preserveSelection)return {...block,answerPlan};
+    const paragraphs=first.filter(record=>record.sectionIndex===primary.sectionIndex&&record.kind==='paragraph').map(record=>record.paragraphIndex!).slice(0,3);
+    return {...block,answerPlan,section:primary.sectionIndex,paragraphIndices:paragraphs.length?paragraphs:undefined};
+  })};
+}
+export function reconcileComposition(text:string,proposed:unknown,baseline:Composition,previous?:Composition):Composition|null {
+  const composition=reconcileCompositionUnplanned(text,proposed,baseline,previous);
+  return composition?attachAnswerPlans(text,composition,true):null;
+}
 export function composeLocal(text:string,plan:Plan,previous?:Composition|null):Composition {
+  const corrected=correctedPortfolioRequest(text);
+  const composition=composeLocalUnplanned(corrected,plan,previous);
+  if(previous&&isReadingTransformation(corrected)&&/shorter|concise|brief/i.test(corrected))return {blocks:composition.blocks.map(block=>{
+    const old=previous.blocks.find(item=>item.kind===block.kind&&item.projectIds[0]===block.projectIds[0]);
+    return old?.answerPlan?{...block,answerPlan:{...old.answerPlan,facets:old.answerPlan.facets.map(facet=>({...facet,evidenceIds:facet.evidenceIds.slice(0,1)}))}}:block;
+  })};
+  return isPhotographyRequest(text)||isLocalCompositionRefinement(text,previous??undefined)?composition:attachAnswerPlans(corrected,composition);
+}
+function composeLocalUnplanned(text:string,plan:Plan,previous?:Composition|null):Composition {
   if(isPhotographyRequest(text))return previous??{blocks:[blankBlock('collection')]};
   const work=withoutPhotoClauses(text);
   if(work!==text)return composeLocal(work,plan,previous);
@@ -344,6 +429,7 @@ function composeSingleLocal(text:string,plan:Plan,previous?:Composition|null):Co
       const selectedSection=requestedStorySection(text,id,interpreted.followup?old?.section:undefined);
       const askedFocus=requestedFocus(text);
       const angle=requestedAngle(text)??(interpreted.followup&&!askedFocus?old?.angle:undefined);
+      const readingChange=interpreted.followup&&isReadingTransformation(text);
       const more=interpreted.followup&&/tell me more|expand|details/i.test(text);
       let sectionFocus=askedFocus;
       if(selectedSection!==undefined&&(!askedFocus||askedFocus==='role'||!evidenceSections(id,askedFocus).some(section=>section.index===selectedSection))){
@@ -356,7 +442,11 @@ function composeSingleLocal(text:string,plan:Plan,previous?:Composition|null):Co
         ??(interpreted.followup?old?.focus:undefined)??'overview';
       const block:CanvasBlock={...blankBlock('story'),...(interpreted.followup?old:{}),projectIds:[id],focus,angle,section:selectedSection??(interpreted.followup?old?.section:undefined)??evidenceSections(id,focus)[0]?.index??0,expanded:more||focus==='evidence'&&selectedSection!==undefined||Boolean(interpreted.followup&&old?.expanded)};
       block.paragraphIndices=findPublishedParagraphs(text,id,block.section)??(interpreted.followup&&block.section===old?.section?old.paragraphIndices:undefined);
+      // The Lab retrospective makes its change in understanding explicit in its
+      // opening, followed by the evaluative questions that came out of it.
+      if(id==='openai-product-testing-and-feedback'&&block.section===7&&angle==='reflection')block.paragraphIndices=[0,1];
       const layout=focus==='process'?'project-process':focus==='outcomes'?'project-outcomes':focus==='evidence'?'project-evidence':interpreted.followup&&old?.layout?old.layout:'project-brief';
+      if(readingChange&&/shorter|concise|brief/i.test(text)){block.paragraphIndices=(block.paragraphIndices??[0]).slice(0,1);block.expanded=false;}
       return withLayout(block,layout,selectedSection!==undefined);
     })};
   }

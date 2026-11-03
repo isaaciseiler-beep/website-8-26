@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { blankBlock } from '@/lib/genui';
 import { hiddenProjectIds } from '@/lib/siteContent';
-import { compositionLogEvidence, providerHealth, providerRequest, recordProviderResult } from '../../server/provider-observability';
+import { compositionLogEvidence, providerMetrics, providerHealth, providerRequest, recordProviderResult } from '../../server/provider-observability';
 
 const projectId = 'congressional-office-setup-100-day-report';
 const story = { ...blankBlock('story'), projectIds: [projectId], section: 3, paragraphIndices: [2], search: 'private visitor instruction https://private.example' };
@@ -54,4 +54,31 @@ describe('bounded public coverage diagnostics', () => {
     expect(logged).not.toHaveProperty('layout');
     expect(JSON.stringify(logged)).not.toContain('private');
   });
+  it('uses ephemeral keyed hashes and allows only bounded timing and error categories',()=>{
+    const info=vi.spyOn(console,'info').mockImplementation(()=>{});
+    const one=providerRequest('mistral','private visitor question');
+    expect(providerRequest('mistral','private visitor question').questionHash).toBe(one.questionHash);
+    recordProviderResult(one,{status:'healthy',cached:true,reason:'private URL https://private.example',errorType:'PrivateSecretError',timings:{adviceMs:12,firstSelectionMs:NaN,totalMs:Infinity}});
+    const log=JSON.parse(info.mock.calls[0][0] as string);
+    expect(log.timings).toEqual({adviceMs:12});expect(log).not.toHaveProperty('reason');expect(log).not.toHaveProperty('errorType');expect(JSON.stringify(log)).not.toContain('private');
+  });
+  it('keeps instance latency observations bounded and separates cache hits',()=>{
+    vi.spyOn(console,'info').mockImplementation(()=>{});
+    const before=providerMetrics('mistral');
+    const request=providerRequest('mistral','fixed public test');
+    for(let i=0;i<70;i++)recordProviderResult(request,{status:'healthy',duration:i});
+    recordProviderResult(request,{status:'healthy',duration:0,cached:true});
+    expect(providerMetrics('mistral')).toMatchObject({scope:'process',calls:before.calls+70,cacheHits:before.cacheHits+1,latencySamples:64,p50Ms:37,p95Ms:66});
+  });
+  it('retains only known provider parameters and diagnostic categories at the log boundary',()=>{
+    const warn=vi.spyOn(console,'warn').mockImplementation(()=>{});
+    const request=providerRequest('mistral','private visitor question');
+    recordProviderResult(request,{status:'unavailable',providerParameter:'max_tokens',providerDiagnostic:'output_token_limit'});
+    expect(JSON.parse(warn.mock.calls[0][0] as string)).toMatchObject({providerParameter:'max_tokens',providerDiagnostic:'output_token_limit'});
+    recordProviderResult(request,{status:'unavailable',providerParameter:'alice@private.example',providerDiagnostic:'sk-secret-example https://private.example'});
+    const log=JSON.parse(warn.mock.calls[1][0] as string);
+    expect(log).not.toHaveProperty('providerParameter');expect(log).not.toHaveProperty('providerDiagnostic');
+    expect(JSON.stringify(log)).not.toMatch(/alice@|sk-secret|https:|private/);
+  });
+
 });

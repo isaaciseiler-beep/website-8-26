@@ -16,7 +16,7 @@ The canonical website is https://seiler.page; this checkout is `isaaciseiler-bee
 
 The owner keeps `TYPESAFE_API_KEY` and `MISTRAL_API_KEY` in Vercel. They are not available to this local preview. OpenAI and Typesafe keys were explicitly removed from `.env.local`; do not restore them without instruction.
 
-Jev selects a known layout and content. Explicit submission can invoke Mistral when composition is useful. Local controls update immediately without a model. The homepage composer uses `mistral-small-2603` by default and has no OpenAI fallback. Local mode uses authored results. Provider configuration alone is not a health check. The November 2 coverage work used offline planning and mocked provider contracts; it did not invoke or assess current live provider quality.
+Jev selects a known layout and content. Explicit submission can invoke Mistral when composition is useful. Local controls update immediately without a model. The homepage composer uses `mistral-large-4` by default and has no OpenAI fallback. Local mode uses authored results. Provider configuration alone is not a health check. The November 2 coverage work used offline planning and mocked provider contracts; it did not invoke or assess current live provider quality.
 
 ## Design and agent guide
 

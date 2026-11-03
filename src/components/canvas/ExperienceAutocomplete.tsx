@@ -3,12 +3,15 @@ import { useId, useState, type ReactNode, type RefObject } from 'react';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { ArrowUpLeft } from 'lucide-react';
 import { suggestExperiencePrompts, type SuggestionContext } from '@/lib/experiencePrompts';
+import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 
 function SuggestionPanel({children}:{children:ReactNode}) {
   const present=useIsPresent();const reduced=useReducedMotion();
   return <motion.div className="experience-autocomplete" aria-hidden={!present} {...(!present?{inert:''}:{})}
     initial={{opacity:0,height:0}} animate={{opacity:1,height:'auto'}} exit="closed"
-    variants={{closed:(immediate:boolean)=>({opacity:0,height:0,transition:{duration:reduced||immediate?0:.16}})}}
+    // A committed suggestion becomes a result in the same surface. Dismiss its
+    // semantics immediately, but let its space fold as the result opens below.
+    variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.base:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.exit}}})}}
     transition={{height:{duration:reduced?0:.32,ease:[.22,1,.36,1]},opacity:{duration:reduced ? 0 : present ? 0.2 : 0.1}}} onPointerDown={e=>e.preventDefault()}>{children}</motion.div>;
 }
 type Props={context?:SuggestionContext;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLInputElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
@@ -23,7 +26,7 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
   return <>
     <label className="sr-only" htmlFor="home-explore">Explore</label>
     <input ref={inputRef} id="home-explore" type="search" role="combobox" aria-autocomplete="list" aria-expanded={visible} aria-controls={visible?id:undefined} aria-activedescendant={visible&&items[active]?`${id}-${items[active].id}`:undefined} autoComplete="off" placeholder="Ask about Isaac’s work" value={value} maxLength={500}
-      onFocus={()=>{if(value.trim()||context)toggle(true);}} onBlur={()=>toggle(false)}
+      onFocus={()=>toggle(true)} onClick={()=>toggle(true)} onBlur={()=>toggle(false)}
       onChange={e=>{setActive(-1);toggle(true);onChange(e.target.value);}}
       onCompositionStart={()=>{setComposing(true);setActive(-1);onCompositionStart();}}
       onCompositionEnd={()=>{setComposing(false);onCompositionEnd();}}
@@ -40,6 +43,10 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
           <span>{item.text}</span><ArrowUpLeft size={14} aria-hidden="true"/>
         </li>)}
       </ul>
+      {!value.trim()&&!context&&<div className="home-autocomplete-shortcuts" aria-label="Other ways to explore">
+        <button type="button" onClick={()=>select('Give me a quick introduction to Isaac')}>Introduction</button>
+        <button type="button" onClick={()=>select('Explore all projects')}>Browse work</button>
+      </div>}
       <span className="sr-only" role="status">{items.length} suggestions. Use arrow keys to choose, Enter to explore, or continue typing your own question.</span>
     </SuggestionPanel>}</AnimatePresence>
   </>;

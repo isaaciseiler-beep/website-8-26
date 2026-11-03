@@ -22,7 +22,7 @@ async function call(body:unknown,origin?:string,setup?:(response:EventEmitter)=>
 }
 const request=()=>({draft:'Compare Michigan and California',revision:7,contentVersion:CONTENT_VERSION,current:spec,proposed:spec});
 describe('composition API',()=>{
-  beforeEach(()=>{vi.stubEnv('MISTRAL_API_KEY','test-only-key');stream.mockReset();advice.mockReset();advice.mockResolvedValue(null);clearCompositionCache();});
+  beforeEach(()=>{vi.stubEnv('MISTRAL_API_KEY','test-only-key');vi.stubEnv('MISTRAL_MODEL',undefined);stream.mockReset();advice.mockReset();advice.mockResolvedValue(null);clearCompositionCache();});
   afterEach(()=>{vi.unstubAllEnvs();vi.useRealTimers();});
   it('does not send greetings to the model',async()=>{
     const result=await call({...request(),draft:'hello'});
@@ -38,7 +38,19 @@ describe('composition API',()=>{
   it('streams validated complete modules with request identity',async()=>{
     stream.mockReturnValue({partialOutputStream:(async function*(){yield {blocks:[{kind:'benchmark'}]};yield spec;})(),output:Promise.resolve(spec),usage:Promise.resolve({inputTokens:100,outputTokens:50})});
     const r=await call(request());expect(r.status).toBe(200);
-    expect(r.events).toHaveLength(2);expect(r.events[1]).toMatchObject({type:'composition',composition:spec,revision:7,contentVersion:CONTENT_VERSION,partial:false});
+    expect(r.events).toHaveLength(2);expect(r.events[1]).toMatchObject({type:'composition',composition:spec,revision:7,contentVersion:CONTENT_VERSION,partial:false,model:'mistral-large-4'});
+  });
+  it.each(['mistral-large-4','mistral-large-4-0','mistral-small-2603'])('uses compatible reasoning configuration for %s',async model=>{
+    vi.stubEnv('MISTRAL_MODEL',model);
+    stream.mockReturnValue({partialOutputStream:(async function*(){yield spec;})(),output:Promise.resolve(spec),usage:Promise.resolve({})});
+    await call(request());
+    const options=stream.mock.calls[0][0];
+    if(model.startsWith('mistral-large-4')){
+      expect(options).not.toHaveProperty('reasoning');
+      expect(options).not.toHaveProperty('temperature');
+      expect(options).not.toHaveProperty('topP');
+      expect(options).toHaveProperty('maxOutputTokens',4096);
+    } else expect(options).toMatchObject({reasoning:'none',temperature:0,maxOutputTokens:1800});
   });
   it('provides optional Jev signals without letting them replace Mistral’s composition',async()=>{
     advice.mockResolvedValue({provider:'jev',model:'mock-jev',experience:{kind:'story',probability:.9,confidence:.8},connection:{connectionId:'listening',probability:.7}});
@@ -151,8 +163,9 @@ describe('composition API',()=>{
   it('rejects cross-origin requests before making a model call',async()=>{
     expect((await call(request(),'https://unrelated.example')).status).toBe(403);expect(stream).not.toHaveBeenCalled();
   });
-  it.each(['advice','chunks','output','usage'])('bounds the complete request when %s stops responding',async stalled=>{
+  it.each(['mistral-large-4','mistral-large-4-0','mistral-small-2603'].flatMap(model=>['advice','chunks','output','usage'].map(stalled=>({model,stalled}))))('bounds the complete $model request when $stalled stops responding',async ({model,stalled})=>{
     vi.useFakeTimers();
+    vi.stubEnv('MISTRAL_MODEL',model);
     if(stalled==='advice')advice.mockReturnValue(new Promise(()=>{}));
     stream.mockReturnValue({
       partialOutputStream:stalled==='chunks'?{[Symbol.asyncIterator]:()=>({next:()=>new Promise(()=>{})})}:(async function*(){yield spec;})(),
@@ -160,7 +173,11 @@ describe('composition API',()=>{
       usage:stalled==='usage'?new Promise(()=>{}):Promise.resolve({}),
     });
     const pending=call(request());
-    await vi.advanceTimersByTimeAsync(18001);
+    let settled=false;void pending.then(()=>{settled=true;});
+    const duration=model==='mistral-small-2603'?18000:35000;
+    await vi.advanceTimersByTimeAsync(duration-1);
+    expect(settled).toBe(false);
+    await vi.advanceTimersByTimeAsync(2);
     const result=await pending;
     expect(result.events.map(event=>event.type)).toEqual(['start','unavailable']);
     expect(result.events.at(-1)).toMatchObject({reason:'timeout',revision:7,contentVersion:CONTENT_VERSION});

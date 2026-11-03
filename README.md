@@ -56,7 +56,7 @@ All provider credentials belong on the server, never in VITE-prefixed variables.
 
 ```bash
 MISTRAL_API_KEY=
-MISTRAL_MODEL=mistral-small-2603
+MISTRAL_MODEL=mistral-large-4
 TYPESAFE_API_KEY=
 JEV_MODEL=jev-latest
 COMPOSE_DAILY_CALL_LIMIT=250

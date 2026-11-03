@@ -202,7 +202,7 @@ export function projectAngleAnswer(id:string,angle?:string,section?:number):stri
       measurement:'Isaac gathered and checked the office’s service results for the 100 Day Report, then wrote, designed, and coordinated its release. The constituent-service totals belong to the full office. The account also documents press coverage and audience reach, without isolating Isaac’s causal impact.',
       tradeoffs:'The documented balancing act was reaching constituents while building a national press presence. Isaac developed local, statewide, and national relationships together, giving district stories a route into broader policy conversations.',
       reflection:'The account describes Isaac learning what individual reporters covered, what made a useful pitch, and how quickly they needed answers. It does not present a separate personal retrospective.',
-      leadership:'Isaac helped establish the new office’s communications operation, built its press network, and led the 100 Day Report from information gathering through publication. Office-wide service results reflect the full team’s work.',
+      leadership:'Isaac helped establish the new office’s communications operation, built its press network, and led the 100 Day Report from information gathering through publication. Office-wide service results reflect the full team’s work. The account does not establish that he authored legislation.',
     },
     'boehringer-cares-foundation-rebrand-strategy-shift':{
       measurement:'The case study reports employee volunteering participation, newsletter open rate, and communications assets delivered during the rollout. These are published project results; the account does not isolate how much change was caused by Isaac alone.',

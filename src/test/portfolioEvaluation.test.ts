@@ -39,6 +39,11 @@ describe('safe portfolio evaluation and provenance', () => {
     expect(scoreCase(testCase, { composition: wrongSection })).toMatchObject({ ok: false, selectionMatch: true, sectionMatch: false, paragraphMatch: false });
     expect(scoreCase(testCase, { composition, guidance: 'unmatched' })).toMatchObject({ ok: false, support: 'unsupported', selectionMatch: false });
   });
+  it('reports every actual module even when the requested subject is absent', () => {
+    const other = { ...composition.blocks[0], projectIds: ['senior-thesis-local-journalism'] };
+    expect(scoreCase(testCase, { composition: { blocks: [other] } })).toMatchObject({ ok: false, selected: null, selectedModules: [{ projectIds: other.projectIds, paragraphIndices: [2, 3] }] });
+    expect(scoreCase(testCase, { composition: { blocks: [...composition.blocks, other] } }).selectedModules).toHaveLength(2);
+  });
 
   it('never treats configuration, a cache, or a mocked transport as fresh provider execution', () => {
     expect(responseProvenance({ routed: { composerConfigured: true } })).toBe('configuration_only');
@@ -117,6 +122,56 @@ describe('safe portfolio evaluation and provenance', () => {
     const result = await evaluateDeployment([testCase], runtime, evaluationOptions({ ...liveEnv, PORTFOLIO_EVAL_LIMIT: '0' }, 1), { fetchImpl: fetcher });
     expect(result).toMatchObject({ selected: 0, postRequests: 0 });
     expect(fetcher).not.toHaveBeenCalled();
+  });
+  it('evaluates a follow-up with the previous successful view in both routing and composition requests', async () => {
+    const fetcher = vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.endsWith('/api/public/profile')) return json({ contentVersion: CONTENT_VERSION });
+      if (url.endsWith('/api/compose') && !init?.method) return json({ configured: true });
+      if (url.endsWith('/api/intent')) return json({ composition, needsComposition: true });
+      const body = JSON.parse(init!.body as string);
+      return new Response(JSON.stringify({ type: 'composition', composition, partial: false, revision: body.revision, contentVersion: CONTENT_VERSION, model: 'fixture-model' }) + '\n');
+    });
+    const cases = [{ ...testCase, id: 'first' }, { ...testCase, id: 'followup', follows: 'first', question: 'Show the sources for that.' }];
+    const result = await evaluateDeployment(cases, runtime, evaluationOptions({ ...liveEnv, PORTFOLIO_EVAL_LIMIT: '2' }, 2), { fetchImpl: fetcher, transport: 'mocked', pause: async () => {} });
+    expect(result).toMatchObject({ passed: 2, postRequests: 4 });
+    const requests = fetcher.mock.calls.filter(([, init]) => init?.method === 'POST').map(([url, init]) => ({ url, body: JSON.parse(init!.body as string) }));
+    expect(requests[2]).toMatchObject({ body: { composition } });
+    expect(requests[3]).toMatchObject({ body: { current: composition } });
+  });
+
+  it('never substitutes a fresh initial view when follow-up context was unavailable', async () => {
+    const fetcher = vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.endsWith('/api/public/profile')) return json({ contentVersion: CONTENT_VERSION });
+      if (url.endsWith('/api/compose') && !init?.method) return json({ configured: true });
+      return json({}, 503);
+    });
+    const cases = [{ ...testCase, id: 'failed' }, { ...testCase, id: 'followup', follows: 'failed' }];
+    const result = await evaluateDeployment(cases, runtime, evaluationOptions({ ...liveEnv, PORTFOLIO_EVAL_LIMIT: '2' }, 2), { fetchImpl: fetcher, transport: 'mocked', pause: async () => {} });
+    expect(result).toMatchObject({ failed: 1, skipped: 1, postRequests: 1 });
+    expect(result.results[1]).toMatchObject({ skipped: 'followup_context_unavailable' });
+  });
+  it('does not let a stale failed composer fall back into the next conversational context', async () => {
+    const fetcher = vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.endsWith('/api/public/profile')) return json({ contentVersion: CONTENT_VERSION });
+      if (url.endsWith('/api/compose') && !init?.method) return json({ configured: true });
+      if (url.endsWith('/api/intent')) return json({ composition, needsComposition: true });
+      return new Response(JSON.stringify({ type: 'composition', composition, partial: false, revision: 0, contentVersion: CONTENT_VERSION, model: 'fixture-model' }) + '\n');
+    });
+    const cases = [{ ...testCase, id: 'stale' }, { ...testCase, id: 'followup', follows: 'stale' }];
+    const result = await evaluateDeployment(cases, runtime, evaluationOptions({ ...liveEnv, PORTFOLIO_EVAL_LIMIT: '2' }, 2), { fetchImpl: fetcher, transport: 'mocked', pause: async () => {} });
+    expect(result).toMatchObject({ failed: 1, skipped: 1, postRequests: 2 });
+    expect(result.results[0]).toMatchObject({ error: 'incomplete_composition' });
+    expect(result.results[1]).toMatchObject({ skipped: 'followup_context_unavailable' });
+  });
+
+  it('passes context to the actual authored planner for an offline conversational test', () => {
+    const compose = vi.fn(() => composition);
+    const plan = vi.fn(() => ({ layout: 'detail' }));
+    const cases = [{ ...testCase, id: 'first' }, { ...testCase, id: 'followup', follows: 'first' }];
+    const report = evaluateAuthored(cases, { ...runtime, compose, plan }, evaluationOptions({}, 2));
+    expect(report).toMatchObject({ passed: 2, postRequests: 0 });
+    expect(compose).toHaveBeenNthCalledWith(2, testCase.question, 0, composition);
+    expect(plan).toHaveBeenNthCalledWith(2, testCase.question, 0, composition);
   });
   it('does not score an invalid routing-only composition as a successful answer', async () => {
     const fetcher = vi.fn(async (url: string) => {

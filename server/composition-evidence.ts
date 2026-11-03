@@ -1,4 +1,5 @@
 import { publicProjects } from '../src/lib/canvas.js';
+import { evidenceForSection } from '../src/lib/portfolioEvidenceRegistry.js';
 import { portfolioCatalog } from '../src/lib/portfolioEvidence.js';
 
 /**
@@ -21,7 +22,10 @@ export const compositionCatalog = publicProjects.map(project => {
       id: `${project.id}:section:${index}`,
       index,
       heading: section.heading,
+      passages:evidenceForSection(project.id,index).map(({id,kind,itemIndex})=>({id,kind,itemIndex})),
       paragraphCount: section.paragraphs?.length ?? 0,
+      sourceLabels: (section.links ?? []).map(link => link.label),
+      materialOnly: !(section.paragraphs?.length || section.bullets?.length || section.stats?.length || section.pullQuote),
       evidence: [
         ...(section.paragraphs ?? []).map((paragraph, index) => `Paragraph ${index}: ${paragraph}`),
         ...(section.bullets ?? []),

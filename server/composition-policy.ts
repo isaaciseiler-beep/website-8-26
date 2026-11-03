@@ -3,6 +3,7 @@ import { type Composition } from '../src/lib/genui.js';
 import { CONTENT_VERSION } from '../src/lib/canvas.js';
 
 // Small, bounded process-local cache. No raw visitor queries or credentials retained.
+export const COMPOSITION_POLICY_VERSION='composition-policy-2026-11-02-v2';
 const cache=new Map<string,{expires:number;composition:Composition}>();
 /** Invalid configuration must not silently disable process-local call budgets. */
 export function providerCallLimit(value:string|undefined,fallback:number){
@@ -10,12 +11,12 @@ export function providerCallLimit(value:string|undefined,fallback:number){
   return Number.isSafeInteger(parsed)&&parsed>=0?parsed:fallback;
 }
 export function compositionCacheKey(draft:string,current:Composition,proposed:Composition,model:string){
-  return createHash('sha256').update(JSON.stringify({draft:draft.trim().replace(/\s+/g,' '),current,proposed,model,version:CONTENT_VERSION})).digest('hex');
+  return createHash('sha256').update(JSON.stringify({draft:draft.trim().replace(/\s+/g,' '),current,proposed,model,version:CONTENT_VERSION,policy:COMPOSITION_POLICY_VERSION,advisory:process.env.TYPESAFE_API_KEY?.trim()?(process.env.JEV_MODEL||'jev-latest'):'disabled'})).digest('hex');
 }
-export function cachedComposition(key:string){const hit=cache.get(key);if(hit&&hit.expires>Date.now())return hit.composition;cache.delete(key);return null;}
+export function cachedComposition(key:string){const hit=cache.get(key);if(hit&&hit.expires>Date.now())return structuredClone(hit.composition);cache.delete(key);return null;}
 export function cacheComposition(key:string,composition:Composition){
   if(cache.size>=128)cache.delete(cache.keys().next().value!);
-  cache.set(key,{expires:Date.now()+10*60*1000,composition});
+  cache.set(key,{expires:Date.now()+10*60*1000,composition:structuredClone(composition)});
 }
 export function clearCompositionCache(){cache.clear();}
 export function providerFailure(error:unknown):string {

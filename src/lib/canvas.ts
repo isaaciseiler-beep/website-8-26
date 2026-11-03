@@ -2,8 +2,9 @@ import { projectItems, hiddenProjectIds, bioLines } from "./siteContent.js";
 import { albums, albumPhotos } from "./photoAlbums.js";
 import { experienceEntries } from "./experience.js";
 import { SITE_URL, SITE_DESCRIPTION, PROFILE_SUMMARY, PROFILE_EXPERTISE, CONTACT_MAILTO, LINKEDIN_URL, GITHUB_URL } from "./site.js";
+import { namedProjects } from './portfolioIntent.js';
 
-export const CONTENT_VERSION = "canvas-2026-11-02-v13";
+export const CONTENT_VERSION = "canvas-2026-11-02-v15";
 export const publicProjects = projectItems.filter(p => !hiddenProjectIds.has(p.id));
 export const publicProfile = { id: "isaac-seiler", name: "Isaac Seiler", headline: "Tech generalist", description: SITE_DESCRIPTION, summary: PROFILE_SUMMARY, expertise: PROFILE_EXPERTISE, bio: bioLines, location: "Seattle", canonicalUrl: `${SITE_URL}/about`, links: { contact: CONTACT_MAILTO, linkedin: LINKEDIN_URL, github: GITHUB_URL }, contentVersion: CONTENT_VERSION };
 export const projectSources = (id: string) => publicProjects.find(p => p.id === id)?.sections.flatMap(s => s.links ?? []) ?? [];
@@ -27,7 +28,11 @@ export function localPlan(draft: string, current: Plan, pins: string[], revision
   if (!q) return { ...initialPlan(), revision };
   if (/how.*works|architecture|built.*site|source code|engineering/.test(q)) return { ...plan, layout: "architecture", title: "A small system. Many ways in." };
   if (/contact|email|reach|connect/.test(q)) return { ...plan, layout: "contact", title: "Let’s make something useful." };
-  if (/compar|side.by.side/.test(q)) return { ...plan, layout: "comparison", title: "Two approaches. One closer look.", projectIds: (pins.length >= 2 ? pins : current.projectIds.length >= 2 ? current.projectIds : defaultIds).slice(0,2) };
+  if (/compar|side.by.side/.test(q)) {
+    const named=namedProjects(draft);
+    const selected=named.length>=2?named:pins.length>=2?pins:current.layout==='comparison'&&current.projectIds.length===2?current.projectIds:[];
+    return {...plan,layout:selected.length===2?'comparison':'empty',title:selected.length===2?'Project comparison':'Choose the work to explore',projectIds:selected.slice(0,2),albumIds:[]};
+  }
   if (/experience|timeline|career|hiring|marketing|who are you|about yourself|what do you do/.test(q)) return { ...plan, layout: "timeline", title: "Across disciplines. Through the years." };
   if (/writing|articles|publications|journalism|research papers/.test(q)) return { ...plan, layout: "writing", title: "Research, reporting & published work.", projectIds: publicProjects.filter(p => p.source === "RESEARCH" || p.source === "REPORTING" || p.source === "BLOG").map(p => p.id) };
   if (/^(tell me more|more about (this|that)|expand (this|that)|details|the first|the second|first one|second one)/.test(q) && current.projectIds.length) {

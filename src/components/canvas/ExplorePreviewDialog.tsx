@@ -29,17 +29,16 @@ export default function ExplorePreviewDialog() {
     'What happened:', '',
     'Page: ' + window.location.href,
   ].join('\n');
-  const feedbackHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Generative UI Beta feedback')}&body=${encodeURIComponent(feedbackBody)}`;
+  const feedbackHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Portfolio feedback')}&body=${encodeURIComponent(feedbackBody)}`;
 
   return <div className="home-genui-preview">
     <div ref={container} className={`home-preview-popdown${open ? ' is-open' : ''}`}>
-      <button ref={trigger} type="button" className="home-preview-trigger" aria-expanded={open} aria-controls={panelId} onClick={() => setOpen(!open)}>Generative UI Beta Preview</button>
-      {open && <div id={panelId} className="home-preview-dialog" role="region" aria-label="Generative UI technical details">
-          <button type="button" className="home-preview-close" aria-label="Close beta preview" onClick={() => { setOpen(false); trigger.current?.focus(); }}><X size={18} aria-hidden="true" /></button>
-          <p className="home-preview-explanation">This is an experiment in generative UI: a portfolio that takes shape around your question. Ask about Isaac’s work, and the interface assembles a way to explore it.</p>
-          <p className="home-preview-explanation">Mistral Small (<code>mistral-small-2603</code> by default) composes an interactive answer from Isaac’s published work. Typesafe’s Jev (<code>jev-latest</code>) can suggest relevant evidence, an experience type, or a connection across projects. Mistral makes the final selection and can continue when Jev is unavailable.</p>
-          <p className="home-preview-explanation">The models choose known content IDs, supported layouts, and controls. The server validates the result; React renders authored components. Linked views let you compare contributions, process, and outcomes, then open the supporting evidence.</p>
-          <p className="home-preview-explanation">When AI composition is needed, submitted questions, current view settings, and published portfolio content go to Mistral and optionally Typesafe. Typing and changing filters stay local. Follow-ups keep your selections; shared links preserve the view.</p>
+      <button ref={trigger} type="button" className="home-preview-trigger" aria-expanded={open} aria-controls={panelId} onClick={() => setOpen(!open)}>How to explore</button>
+      {open && <div id={panelId} className="home-preview-dialog" role="region" aria-label="About Explore">
+          <button type="button" className="home-preview-close" aria-label="Close exploration help" onClick={() => { setOpen(false); trigger.current?.focus(); }}><X size={18} aria-hidden="true" /></button>
+          <p className="home-preview-explanation">Ask about Isaac’s work: teaching in Taiwan, researching AI in government, or testing ChatGPT. Explore his role, how the work happened, and the published results.</p>
+          <p className="home-preview-explanation">Follow-up questions keep the current work in context. You can change the view’s controls, go back to an earlier exploration, or share a link to your selected view.</p>
+          <details><summary>About AI and your questions</summary><p className="home-preview-explanation">Answers use Isaac’s published portfolio material. Submitted questions and current view settings can go to Mistral and Typesafe to choose the answer’s content and presentation. Typing and changing filters stay local.</p></details>
           <p className="home-preview-ask">Something wrong or missing? Send the question you tried and what you expected.</p>
           <a className="home-preview-email" href={feedbackHref}>Send feedback <ArrowUpRight size={16} aria-hidden="true" /></a>
       </div>}

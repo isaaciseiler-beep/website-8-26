@@ -31,7 +31,7 @@ describe('published work beyond the default projects', () => {
     render(<ProjectStory block={composition.blocks[0]} onChange={() => {}} />);
     const expected = publicProjects.find(project => project.id === id)!.sections[section];
     if (composition.blocks[0].focus === 'evidence') {
-      expect(screen.getByText(expected.heading).closest('details')!.open).toBe(true);
+      for(const link of expected.links??[])expect(screen.getByRole('link',{name:link.label})).toBeVisible();
     } else {
       const label = id === 'senior-thesis-local-journalism' && section === 1 ? 'Research themes & outputs' : expected.heading;
       expect(screen.getByRole('heading', { level: 3, name: label })).toBeVisible();

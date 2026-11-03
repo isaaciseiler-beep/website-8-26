@@ -40,9 +40,9 @@ describe('interactive canvas',()=>{
     expect(screen.getByRole('button',{name:'Inspect Maryland, score 85.0'})).toBeInTheDocument();
     expect(screen.queryByRole('article',{name:'Michigan score'})).not.toBeInTheDocument();
   });
-  it('builds a teaching prompt from the chosen topic and audience',()=>{
+  it('builds a teaching prompt from the chosen topic and audience',async()=>{
     render(<Harness initial={{blocks:[{...blankBlock('workshop'),projectIds:[TAIWAN_ID]}]}}/>);
-    fireEvent.change(screen.getByRole('textbox',{name:'Teaching topic'}),{target:{value:'fractions'}});
+    fireEvent.change(await screen.findByRole('textbox',{name:'Teaching topic'}),{target:{value:'fractions'}});
     fireEvent.change(screen.getByRole('combobox',{name:'Teaching audience'}),{target:{value:'Primary students'}});
     expect(screen.getByText(/Help me plan a lesson about fractions for primary students/)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button',{name:'Give feedback'}));
@@ -98,7 +98,7 @@ describe('answer usefulness before expanding reading',()=>{
     const roles=screen.getByRole('navigation',{name:'Professional roles'});
     expect(within(roles).getAllByRole('button')).toHaveLength(8);
     fireEvent.click(within(roles).getByRole('button',{name:'Teaching in Taiwan'}));
-    expect(screen.getByRole('heading',{name:'Designing around educators’ real work'})).toBeVisible();
+    expect(screen.getByRole('heading',{name:'Fulbright Taiwan'})).toBeVisible();
     expect(screen.getByText(/Participant questions changed what he emphasized/)).toBeVisible();
     fireEvent.click(screen.getByRole('button',{name:'Explore the work'}));
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeVisible();

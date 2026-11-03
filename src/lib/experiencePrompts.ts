@@ -12,7 +12,7 @@ export const experiencePrompts:readonly ExperiencePrompt[]=[
   {id:'policy-role',text:'What did Isaac contribute to the government AI benchmark?',keywords:'ownership personally contribution role research index',topics:['policy'],aspect:'role'},
   {id:'policy-outcomes',text:'What were the outcomes of Isaac’s government AI research?',keywords:'outputs results roadmap recommendations',topics:['policy'],aspect:'outcomes'},
   {id:'policy-benchmark',text:'Explore the government AI benchmark',keywords:'state states territory territories rankings scores preparedness adoption data criteria',topics:['policy'],aspect:'overview'},
-  {id:'connections',text:'What connects Isaac’s work across fields?',keywords:'common thread throughline connects connection together technology people systems',topics:['career'],aspect:'overview'},
+  {id:'connections',text:'What connects Isaac’s Taiwan teaching, AI policy research, and congressional communications?',keywords:'common thread throughline connects connection together technology people systems',topics:['career'],aspect:'overview'},
   {id:'timeline',text:'Show Isaac’s career timeline',keywords:'chronology chronological timeline career path journey history dates',topics:['career'],aspect:'overview'},
   {id:'strengths',text:'What are Isaac’s strongest skills?',keywords:'strength strengths skills good well hiring hire qualifications',topics:['career'],aspect:'strengths'},
   {id:'service',text:'Tell me about Isaac’s public service',keywords:'government politics community service',topics:['career'],aspect:'service'},
@@ -46,9 +46,9 @@ export const experiencePrompts:readonly ExperiencePrompt[]=[
   {id:'100-chats',text:'What did Isaac contribute to the 100 Chats book?',keywords:'openai chatgpt workflows student book chats',topics:['openai'],aspect:'role'},
   {id:'back-to-school',text:'What did Isaac do for OpenAI’s Back to School campaign?',keywords:'openai chatgpt back to school student campaign campus launch education',topics:['openai'],aspect:'process'},
   {id:'work',text:'Explore all projects',keywords:'portfolio work overview projects built browse',topics:['work'],aspect:'overview'},
-  {id:'compare',text:'Compare Isaac’s AI policy and Taiwan projects',keywords:'compare comparison connections public education government',topics:['policy','taiwan'],aspect:'comparison'},
-  {id:'compare-comms',text:'Compare Isaac’s Congress and Boehringer work',keywords:'compare comparison communications strategy',topics:['congress','rebrand'],aspect:'comparison'},
-  {id:'compare-research',text:'Compare Isaac’s OpenAI and journalism work',keywords:'compare comparison research product testing',topics:['openai','journalism'],aspect:'comparison'},
+  {id:'compare',text:'Compare Isaac’s AI research methods with his teaching approach in Taiwan',keywords:'compare comparison methods public education government',topics:['policy','taiwan'],aspect:'comparison'},
+  {id:'compare-comms',text:'Compare Isaac’s communications work in Congress and the Boehringer rebrand',keywords:'compare comparison communications strategy',topics:['congress','rebrand'],aspect:'comparison'},
+  {id:'compare-research',text:'Compare Isaac’s methods in ChatGPT product testing and journalism interviews',keywords:'compare comparison methods research product testing',topics:['openai','journalism'],aspect:'comparison'},
   {id:'contact',text:'How can I contact Isaac?',keywords:'email connect collaborate reach linkedin',topics:['contact'],aspect:'overview'},
 ];
 const byId=new Map(experiencePrompts.map(item=>[item.id,item]));
@@ -113,6 +113,11 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
   if(!explicit&&context&&(aspect||!tokens.length))topics=[...new Set(context.projectIds.map(id=>projectTopics[id]).filter(Boolean))];
   if(!topics.length&&context?.kind==='benchmark'&&(aspect||!tokens.length))topics=['policy'];
   if(!topics.length&&context?.kind==='timeline'&&(aspect||!tokens.length))topics=['career'];
+  if(aspect==='comparison'){
+    if(topics.every(topic=>topic==='career'||topic==='work')&&context?.kind==='comparison')topics=[...new Set(context.projectIds.map(id=>projectTopics[id]).filter(Boolean))];
+    const subjects=topics.filter(topic=>!['career','work','contact'].includes(topic));
+    if(subjects.length<2)return subjects.length?experiencePrompts.filter(item=>item.topics.length===1&&item.topics.includes(subjects[0])&&item.aspect!=='comparison').slice(0,count):startingExperiencePrompts.slice(0,count);
+  }
   if(!tokens.length&&!topics.length)return startingExperiencePrompts.slice(0,count);
   const answered=new Set((context?.visitedQuestions??[]).map(normalize));
   if(context?.question)answered.add(normalize(context.question));

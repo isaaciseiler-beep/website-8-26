@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { answerPlanSchema, portfolioEvidenceRegistry } from '../src/lib/portfolioEvidenceRegistry.js';
 import { publicProjects } from '../src/lib/canvas.js';
 import { liveCompositionSchema } from '../src/lib/genui.js';
 import { experienceEntries } from '../src/lib/experience.js';
@@ -6,6 +7,8 @@ import { aiIndexStates } from '../src/lib/aiStateGovIndex.js';
 
 const knownValues = (values: string[]) => z.enum(values as [string, ...string[]]);
 const block = liveCompositionSchema.shape.blocks.element.extend({
+  answerPlan: answerPlanSchema.extend({facets:z.array(answerPlanSchema.shape.facets.element.extend({evidenceIds:z.array(knownValues(portfolioEvidenceRegistry.map(record=>record.id))).max(4)})).min(1).max(6)}).optional()
+    .describe('Optional bounded source-backed answer plan for story modules only; omit on all other kinds. Cover each requested facet with stable passage IDs from catalog; use unavailable with no IDs when evidence cannot answer a facet. Never infer results or causal impact.'),
   projectIds: z.array(knownValues(publicProjects.map(project => project.id))).max(3)
     .describe('Exact public project IDs from catalog. One for story, two distinct IDs for comparison, empty when unused.'),
   states: z.array(knownValues(aiIndexStates.map(state => state.state))).max(2)

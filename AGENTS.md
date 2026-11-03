@@ -37,7 +37,7 @@ Models may choose known IDs and controls. They must not invent facts, scores, ph
 
 ## Providers and secrets
 
-The homepage uses server-side `TYPESAFE_API_KEY` and `MISTRAL_API_KEY`; optional `JEV_MODEL` and `MISTRAL_MODEL` select models. Current Mistral default: `mistral-small-2603`. No OpenAI fallback is used by the homepage composer. The separate legacy chat implementation is distinct.
+The homepage uses server-side `TYPESAFE_API_KEY` and `MISTRAL_API_KEY`; optional `JEV_MODEL` and `MISTRAL_MODEL` select models. Current Mistral default: `mistral-large-4`. No OpenAI fallback is used by the homepage composer. The separate legacy chat implementation is distinct.
 
 The owner keeps provider keys in Vercel. OpenAI and Typesafe keys were explicitly removed from local `.env.local`; do not restore them without instruction. Never display secret values, put them in VITE-prefixed variables, commit them, or infer live service health from mere key presence. `/api/compose` GET reports configuration only.
 

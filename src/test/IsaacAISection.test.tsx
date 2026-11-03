@@ -35,6 +35,7 @@ describe("IsaacAISection", () => {
 
     for (let index = 1; index <= 5; index += 1) {
       fireEvent.change(input, { target: { value: `Question ${index}` } });
+      await waitFor(() => expect(submit).not.toBeDisabled());
       fireEvent.click(submit);
       await screen.findByText(`Mock answer ${index}`);
     }
@@ -44,9 +45,13 @@ describe("IsaacAISection", () => {
     expect(input).not.toBeDisabled();
 
     fireEvent.change(input, { target: { value: "Question 6" } });
+    await waitFor(() => expect(submit).not.toBeDisabled());
     fireEvent.click(submit);
 
-    await screen.findByText(CHAT_LIMIT_MESSAGE);
+    // The legacy notice is typed one character at a time (~0.9s before test
+    // scheduling overhead); wait for the actual completed notice, not a race
+    // against Testing Library's default 1s deadline in the parallel suite.
+    await screen.findByText(CHAT_LIMIT_MESSAGE, {}, { timeout: 3000 });
     expect(fetchMock).toHaveBeenCalledTimes(5);
     expect(input).toBeDisabled();
     expect(frame).toHaveClass("h-[340px]", "md:h-[400px]");

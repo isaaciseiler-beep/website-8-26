@@ -14,6 +14,19 @@ async function submit(text: string) {
 afterEach(()=>{cleanup();vi.unstubAllGlobals();});
 
 describe('exploration navigation',()=>{
+  it('keeps live filtering in the current exploration instead of adding keystrokes to Back',async()=>{
+    const fetcher=vi.fn(async()=>({ok:true,json:async()=>({configured:false})}));
+    vi.stubGlobal('fetch',fetcher);mount();
+    await submit('Explore all projects');
+    const calls=fetcher.mock.calls.length;
+    const search=screen.getByRole('searchbox',{name:'Find a project'});
+    for(const value of ['T','Tai','Taiwan'])fireEvent.change(search,{target:{value}});
+    expect(screen.queryByRole('button',{name:'Previous exploration'})).not.toBeInTheDocument();
+    fireEvent.click(within(screen.getByRole('region',{name:'Work explorer'})).getByRole('button',{name:/Leading AI Literacy/}));
+    fireEvent.click(screen.getByRole('button',{name:'Back to projects'}));
+    expect(screen.getByRole('searchbox',{name:'Find a project'})).toHaveValue('Taiwan');
+    expect(fetcher).toHaveBeenCalledTimes(calls);
+  });
   it('returns from supporting evidence to the exact connection and lens',async()=>{
     const fetcher=vi.fn(async()=>({ok:true,json:async()=>({configured:false})}));
     vi.stubGlobal('fetch',fetcher);mount();
@@ -22,10 +35,26 @@ describe('exploration navigation',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Outcomes'}));
     const calls=fetcher.mock.calls.length;
     fireEvent.click(screen.getAllByText(/Supporting evidence/,{selector:'summary'})[0]);
-    fireEvent.click(screen.getAllByRole('button',{name:'Explore this project'})[0]);
+    fireEvent.click(screen.getByRole('button',{name:'Explore AI literacy in Taiwan'}));
     fireEvent.click(screen.getByRole('button',{name:'Back to connections'}));
     expect(screen.getByRole('combobox',{name:'Connection to explore'})).toHaveValue('delivery');
     expect(screen.getByRole('button',{name:'Outcomes'})).toHaveAttribute('aria-pressed','true');
+    expect(fetcher).toHaveBeenCalledTimes(calls);
+  });
+  it('keeps the selected connection and visible source lens through project exploration',async()=>{
+    const fetcher=vi.fn(async()=>({ok:true,json:async()=>({configured:false})}));
+    vi.stubGlobal('fetch',fetcher);mount();
+    await submit('What connects Isaac’s work across fields?');
+    fireEvent.change(screen.getByRole('combobox',{name:'Connection to explore'}),{target:{value:'listening'}});
+    fireEvent.click(screen.getByRole('button',{name:'Evidence'}));
+    const calls=fetcher.mock.calls.length;
+    expect(screen.getByRole('link',{name:'Final Thesis Draft'})).toBeVisible();
+    fireEvent.click(screen.getByRole('button',{name:'Explore AI, platforms & local journalism'}));
+    expect(screen.getByRole('region',{name:'Project explorer'})).toBeVisible();
+    expect(screen.getByRole('button',{name:'Evidence'})).toHaveAttribute('aria-pressed','true');
+    fireEvent.click(screen.getByRole('button',{name:'Back to connections'}));
+    expect(screen.getByRole('combobox',{name:'Connection to explore'})).toHaveValue('listening');
+    expect(screen.getByRole('link',{name:'Final Thesis Draft'})).toBeVisible();
     expect(fetcher).toHaveBeenCalledTimes(calls);
   });
   it('returns to the exact project search after opening and refining a project without another request',async()=>{
@@ -100,8 +129,9 @@ describe('exploration navigation',()=>{
     await submit('Describe the educator community initiative');
     expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeInTheDocument();
     await submit('How can I contact Isaac?');
-    const second=requests.filter(request=>request.url==='/api/intent')[1];
-    expect(second.current).toMatchObject({layout:'detail',projectIds:[TAIWAN_ID],contentVersion:CONTENT_VERSION});
+    const second=requests.filter(request=>request.url==='/api/compose')[1];
+    expect(second.current).toMatchObject({blocks:[{kind:'story',projectIds:[TAIWAN_ID]}]});
+    expect(requests.some(request=>request.url==='/api/intent')).toBe(false);
   });
   it('restores a previous exploration and its selected controls without another request', async () => {
     const fetcher=vi.fn(async()=>({ok:true,json:async()=>({configured:false})}));

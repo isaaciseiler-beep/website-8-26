@@ -1,0 +1,38 @@
+.home-next-questions,.home-journey-history,.home-answer-feedback{font-size:var(--size-xs);line-height:var(--line-xs);}
+.home-next-questions{margin-top:var(--space-l);}
+.home-next-questions summary,.home-journey-history summary,.home-answer-feedback summary{cursor:pointer;padding-block:var(--space-s);width:fit-content;}
+.home-next-questions>div{display:grid;gap:var(--space-xs);margin-top:var(--space-xs);}
+.home-next-questions button{text-align:start;justify-content:space-between;display:flex;gap:var(--space-m);padding-block:var(--space-s);background:transparent;}
+.home-next-questions button svg{flex-shrink:0;}
+.home-journey-history ol{padding-inline-start:var(--space-l);display:grid;gap:var(--space-xs);margin-block:var(--space-xs);}
+.home-journey-history button{text-align:start;white-space:normal;padding-block:var(--space-xs);background:transparent;}
+.home-journey-history button small{display:block;font-size:var(--size-xxs);line-height:var(--line-xxs);margin-top:var(--space-xxs);}
+.home-answer-feedback{margin-top:var(--space-m);max-width:42rem;}
+.home-answer-feedback label{display:block;margin-top:var(--space-m);}
+.home-answer-feedback select,.home-answer-feedback textarea{display:block;width:100%;margin-block:var(--space-xs);padding:var(--space-s);background:var(--neutral-3);border-radius:var(--radius-s);color:inherit;font:inherit;}
+.home-answer-feedback textarea{resize:vertical;min-height:5rem;}
+.home-answer-feedback>a{display:inline-flex;gap:var(--space-xs);align-items:center;padding-block:var(--space-s);}
+.home-autocomplete-shortcuts{display:flex;flex-wrap:wrap;gap:var(--space-m);padding-top:var(--space-s);}
+.home-genui .home-autocomplete-shortcuts button{background:transparent;padding-block:var(--space-xs);font-size:var(--size-xs);line-height:var(--line-xs);}
+.home-genui-composer{scroll-margin-top:var(--space-xxl);}
+.home-genui .home-submit,.home-genui .home-clear{touch-action:manipulation;}
+@media(max-width:640px){.home-next-questions button,.home-journey-history button,.home-autocomplete-shortcuts button{min-height:44px;}}
+
+/* One quiet utility edge closes every generated app. */
+.home-genui-footer{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--space-l);row-gap:0;margin-top:var(--space-xl);padding-top:var(--space-xs);box-shadow:inset 0 1px 0 var(--neutral-4);}
+.home-genui-footer:has(.home-genui-tools.is-empty):not(:has(.home-answer-feedback)){margin:0;padding:0;box-shadow:none;}
+.home-genui-footer>.home-next-questions{grid-column:1/-1;margin-top:0;}
+.home-genui-footer>.home-genui-tools{grid-column:1;align-self:start;justify-content:flex-start;flex-wrap:wrap;margin-top:0;min-width:0;}
+.home-genui-footer>.home-genui-tools>button{font-size:var(--size-xs);line-height:var(--line-xs);min-height:40px;}
+.home-genui-footer>.home-genui-tools .home-share-view{margin-left:auto;}
+.home-genui-footer>.home-answer-feedback{grid-column:2;margin:0;min-width:0;align-self:start;}
+.home-genui-footer>.home-answer-feedback>summary{min-height:40px;align-items:center;padding-block:var(--space-xs);}
+.home-genui-footer:has(.home-answer-feedback[open]){grid-template-columns:minmax(0,1fr);}
+.home-genui-footer>.home-answer-feedback[open]{grid-column:1/-1;width:100%;padding-top:var(--space-s);}
+.home-genui-footer .home-next-questions>div{gap:var(--space-zero);padding-bottom:var(--space-m);}
+.home-genui .home-genui-footer .home-next-questions button{font-size:var(--size-s);line-height:var(--line-s);padding-inline:0;}
+.home-genui-footer .home-journey-history>summary{min-height:40px;padding-block:var(--space-xs);align-items:center;}
+.home-genui-footer .home-journey-history[open]{flex:1 1 100%;}
+.home-genui-footer .home-journey-history ol{padding-inline-start:0;list-style:none;}
+.home-genui-footer .home-journey-history button{padding-inline:0;font-size:var(--size-s);line-height:var(--line-s);}
+@media(max-width:640px){.home-genui-footer>.home-genui-tools>button,.home-genui-footer>.home-answer-feedback>summary,.home-genui-footer .home-journey-history>summary{min-height:44px;}}

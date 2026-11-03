@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomeExplore from "@/components/canvas/HomeExplore";
@@ -26,10 +26,10 @@ describe("homepage generative interface", () => {
     expect(fetcher).toHaveBeenCalledTimes(1);
     await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Explore the work'}));});
     expect(screen.getByRole('region',{name:'Work explorer'})).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/}));
+    fireEvent.click(within(screen.getByRole('region',{name:'Work explorer'})).getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/}));
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
     expect(screen.queryByRole('button',{name:'Back'})).not.toBeInTheDocument();
-    expect(screen.queryByText('Sources')).not.toBeInTheDocument();
+    expect(screen.getByText('Sources',{selector:'summary'}).closest('details')).not.toHaveAttribute('open');
   });
 
   it('hands keyboard focus into an opened project and back to its filtered project button',async()=>{
@@ -39,14 +39,14 @@ describe("homepage generative interface", () => {
     fireEvent.change(input,{target:{value:'Explore all projects'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     fireEvent.change(screen.getByRole('searchbox',{name:'Find a project'}),{target:{value:'Taiwan'}});
-    const project=screen.getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/});
+    const project=within(screen.getByRole('region',{name:'Work explorer'})).getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/});
     act(()=>project.focus());fireEvent.click(project);
     expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toHaveFocus();
     fireEvent.click(screen.getByRole('button',{name:'Process'}));
     const back=screen.getByRole('button',{name:'Back to projects'});
     act(()=>back.focus());fireEvent.click(back);
     expect(screen.getByRole('searchbox',{name:'Find a project'})).toHaveValue('Taiwan');
-    expect(screen.getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/})).toHaveFocus();
+    expect(within(screen.getByRole('region',{name:'Work explorer'})).getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/})).toHaveFocus();
   });
 
   it('keeps committed results while editing, then handles unknown requests without inherited content', async () => {
@@ -54,7 +54,7 @@ describe("homepage generative interface", () => {
     vi.stubGlobal('fetch',fetcher);
     mount();
     const input=screen.getByRole('combobox',{name:'Explore'});
-    fireEvent.change(input,{target:{value:'AI in state government'}});
+    fireEvent.change(input,{target:{value:'Show state government AI rankings'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     expect(screen.getByRole('region',{name:'AI benchmark explorer'})).toBeInTheDocument();
     const calls=fetcher.mock.calls.length;
@@ -65,7 +65,7 @@ describe("homepage generative interface", () => {
     expect(fetcher).toHaveBeenCalledTimes(calls);
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     expect(screen.queryByRole('region',{name:'AI benchmark explorer'})).not.toBeInTheDocument();
-    expect(screen.getByText('Try one of these starting points.')).toBeInTheDocument();
+    expect(screen.getByLabelText('Choose a starting point')).toBeInTheDocument();
     expect(fetcher).toHaveBeenCalledTimes(calls+1);
     expect(screen.queryByRole('button',{name:'Back'})).not.toBeInTheDocument();
     expect(input).toHaveValue('zxq nonsense');
@@ -80,7 +80,7 @@ describe("homepage generative interface", () => {
     const input=screen.getByRole('combobox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'An unfamiliar question'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
-    expect(screen.getByText('Try one of these starting points.')).toBeInTheDocument();
+    expect(screen.getByLabelText('Choose a starting point')).toBeInTheDocument();
     expect(screen.queryByRole('region',{name:'Work explorer'})).not.toBeInTheDocument();
   });
 
@@ -88,7 +88,7 @@ describe("homepage generative interface", () => {
     const fetcher=vi.fn(async()=>success({configured:false}));
     vi.stubGlobal('fetch',fetcher);mount();
     const input=screen.getByRole('combobox',{name:'Explore'});
-    fireEvent.change(input,{target:{value:'AI in state government'}});
+    fireEvent.change(input,{target:{value:'Show state government AI rankings'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     const calls=fetcher.mock.calls.length;
     fireEvent.change(input,{target:{value:'only Midwest'}});
@@ -110,7 +110,7 @@ describe("homepage generative interface", () => {
     const input = screen.getByRole("combobox", { name: "Explore" });
     fireEvent.change(input, { target: { value: "contact" } });
     await act(async () => { fireEvent.submit(input.closest("form")!); });
-    expect(screen.getByRole("link", { name: /Email/ })).toHaveAttribute("href", expect.stringContaining("mailto:"));
+    expect(screen.getByRole("link", { name: "Email" })).toHaveAttribute("href", expect.stringContaining("mailto:"));
     expect(JSON.parse(String(fetcher.mock.calls[1][1]?.body)).draft).toBe("contact");
     expect(screen.getByRole("region", {name:"Contact"})).toBeInTheDocument();
   });
@@ -186,7 +186,7 @@ describe("homepage generative interface", () => {
     fireEvent.change(input, { target: { value: "contact" } });
     await act(async () => { fireEvent.submit(input.closest("form")!); });
     await act(async () => { resolveOld!(success({ plan: localPlan("Taiwan teaching", initialPlan(), [], 1) })); });
-    expect(screen.getByRole("link", { name: /Email/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Email" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: /Leading AI/ })).not.toBeInTheDocument();
   });
 
@@ -207,7 +207,7 @@ describe("homepage generative interface", () => {
     await act(async () => { fireEvent.submit(input.closest("form")!); });
     expect(fetcher).toHaveBeenCalledTimes(2);
     fireEvent.change(input, { target: { value: "" } });
-    expect(screen.getByRole("link", { name: /Email/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Email" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
     await act(async () => { vi.advanceTimersByTime(1000); });
     expect(screen.queryByRole("link", { name: /Email/ })).not.toBeInTheDocument();

@@ -1,3 +1,4 @@
+import { scoreRenderedAnswer } from './portfolio-quality.mjs';
 const positiveInteger = (value, fallback, name, minimum = 0) => {
   if (value === undefined || value === '') return fallback;
   const number = Number(value);
@@ -35,32 +36,48 @@ const modelName = value => typeof value === 'string' && value.length > 0 && valu
 const providerReasons = new Set(['credits', 'authentication', 'rate_limit', 'invalid_request', 'model_unavailable', 'timeout', 'invalid_output', 'provider_unavailable']);
 const expectedProject = test => test.projectId ?? test.project;
 export const caseId = test => test.id ?? `${expectedProject(test)}:section:${test.section}`;
+const selection = module => ({
+  kind: module.kind, projectIds: module.projectIds, section: module.section, paragraphIndices: module.paragraphIndices ?? [],
+  answerPlan:module.answerPlan, layout: module.layout, focus: module.focus, states: module.states, roleId: module.roleId,
+});
 
 /** Match the requested module anywhere in a composition; record section and
  * paragraph-reference results separately so project-only success cannot hide it. */
 export function scoreCase(test, observed = {}) {
   const projectId = expectedProject(test);
   const modules = observed.composition?.blocks ?? [];
-  const kind = test.kind ?? (projectId ? 'story' : undefined);
-  const module = modules.find(block => block.kind === kind
+  const expectedProjectIds=test.expectedProjectIds??test.projects??(projectId?[projectId]:null);
+  const allowedProjectIds=test.allowedProjectIds??expectedProjectIds;
+  const kind = test.kind ?? (projectId||test.expectedProjectIds?.length ? 'story' : undefined);
+  const allowedModuleKinds=test.allowedModuleKinds??(allowedProjectIds!==null&&kind?[kind]:null);
+  const actualProjectIds=[...new Set(modules.flatMap(block=>block.projectIds??[]))];
+  const extraneousProjectIds=allowedProjectIds===null?[]:actualProjectIds.filter(id=>!allowedProjectIds.includes(id));
+  const missingProjectIds=(expectedProjectIds??[]).filter(id=>!actualProjectIds.includes(id));
+  const extraneousModules=modules.flatMap((block,index)=>{const projectIds=(block.projectIds??[]).filter(id=>extraneousProjectIds.includes(id));const unexpectedKind=allowedModuleKinds!==null&&!allowedModuleKinds.includes(block.kind);return projectIds.length||unexpectedKind?[{index,kind:block.kind,projectIds,unexpectedKind}]:[];});
+  const subjectMatch=expectedProjectIds===null&&allowedProjectIds===null&&allowedModuleKinds===null?null:!extraneousProjectIds.length&&!missingProjectIds.length&&!extraneousModules.length;
+  const module = modules.find(block => (!kind||block.kind === kind)
     && (!projectId || block.projectIds?.includes(projectId))
     && (!test.projects || same(block.projectIds, test.projects)));
   const selectionMatch = !observed.guidance && Boolean(module
     && (!test.states || same(module.states, test.states))
     && (!test.focus || module.focus === test.focus)
     && (!test.roleId || module.roleId === test.roleId));
-  const sectionMatch = test.section === undefined ? null : Boolean(selectionMatch && module.section === test.section);
-  const paragraphMatch = test.paragraphIndices?.length ? Boolean(sectionMatch && test.paragraphIndices.every(index => module.paragraphIndices?.includes(index))) : null;
-  const paragraphAnyMatch = test.paragraphIndices?.length ? Boolean(sectionMatch && test.paragraphIndices.some(index => module.paragraphIndices?.includes(index))) : null;
+  const selectedEvidence=(observed.evidence??[]).filter(ref=>ref.projectId===projectId);
+  const sectionMatch = test.section === undefined ? null : Boolean(selectionMatch && (module.section === test.section||selectedEvidence.some(ref=>ref.sectionIndex===test.section)));
+  const selectedParagraphs=[...(module&&module.section===test.section?module.paragraphIndices??[]:[]),...selectedEvidence.filter(ref=>ref.sectionIndex===test.section&&Number.isInteger(ref.paragraphIndex)).map(ref=>ref.paragraphIndex)];
+  const paragraphMatch = test.paragraphIndices?.length ? Boolean(sectionMatch && test.paragraphIndices.every(index => selectedParagraphs.includes(index))) : null;
+  const paragraphAnyMatch = test.paragraphIndices?.length ? Boolean(sectionMatch && test.paragraphIndices.some(index => selectedParagraphs.includes(index))) : null;
   const support = observed.guidance ? 'unsupported' : modules.length ? 'supported' : observed.error ? 'unavailable' : 'not_evaluated';
   // Editorial paragraph targets are useful coverage signals, but are not an
   // exhaustive list of semantically valid excerpts. Keep them separate from the
   // project/section contract; strictOk remains available for exact regression QA.
-  const ok = test.guidance ? observed.guidance === test.guidance : selectionMatch && sectionMatch !== false;
-  return { ok, strictOk: ok && paragraphMatch !== false, support, selectionMatch, sectionMatch, paragraphMatch, paragraphAnyMatch, selected: module ? {
-    kind: module.kind, projectIds: module.projectIds, section: module.section, paragraphIndices: module.paragraphIndices ?? [],
-    layout: module.layout, focus: module.focus, states: module.states, roleId: module.roleId,
-  } : null };
+  const ok = (test.guidance ? observed.guidance === test.guidance : selectionMatch && sectionMatch !== false)&&subjectMatch!==false;
+  return { ok, subjectMatch,expectedProjectIds,allowedProjectIds,allowedModuleKinds,extraneousProjectIds,missingProjectIds,extraneousModules, strictOk: ok && paragraphMatch !== false, support, selectionMatch, sectionMatch, paragraphMatch, paragraphAnyMatch, selected: module ? selection(module) : null,
+    // Retain the actual bounded selection even when no requested subject matches.
+    // A project-level pass must never conceal another irrelevant module.
+    selectedModules: modules.map(selection),
+    ...(selectedEvidence.length?{selectedEvidence}:{}),
+  };
 }
 
 /** These are provenance claims supported by the endpoint response, not guesses
@@ -99,7 +116,7 @@ export function summarizeEvaluation(cases, rows, metadata = {}) {
       if (row.provenance === 'provider_reported') project.providerReportedSections.push(test.section);
     }
     if (row.sectionMatch && row.selected) {
-      const matched = (test.paragraphIndices ?? []).filter(index => row.selected.paragraphIndices?.includes(index)).map(index => `${test.section}:${index}`);
+      const matched = (test.paragraphIndices ?? []).filter(index => (row.selected.section===test.section&&row.selected.paragraphIndices?.includes(index))||row.selectedEvidence?.some(ref=>ref.projectId===projectId&&ref.sectionIndex===test.section&&ref.paragraphIndex===index)).map(index => `${test.section}:${index}`);
       project.matchedParagraphs.push(...matched);
       if (row.provenance === 'provider_reported') project.providerReportedParagraphs.push(...matched);
     }
@@ -107,7 +124,7 @@ export function summarizeEvaluation(cases, rows, metadata = {}) {
   for (const project of Object.values(byProject)) for (const [key, value] of Object.entries(project)) if (Array.isArray(value)) project[key] = [...new Set(value)].sort((a, b) => typeof a === 'number' ? a - b : a.localeCompare(b, undefined, { numeric: true }));
   const counts = {};
   for (const row of rows) counts[row.provenance] = (counts[row.provenance] ?? 0) + 1;
-  return { ...metadata, cases: cases.length, selected: rows.length, notSelected: cases.length - rows.length, evaluated: rows.filter(row => !row.skipped).length, passed: rows.filter(row => row.ok).length, failed: rows.filter(row => !row.ok && !row.skipped).length, skipped: rows.filter(row => row.skipped).length, selectionMatches: rows.filter(row => row.selectionMatch).length, sectionMatches: rows.filter(row => row.sectionMatch).length, paragraphAnyMatches: rows.filter(row => row.paragraphAnyMatch).length, paragraphFullMatches: rows.filter(row => row.paragraphMatch).length, strictMatches: rows.filter(row => row.strictOk).length, provenance: counts, coverage: Object.values(byProject), results: rows };
+  return { ...metadata, schemaVersion:3, subjectContractCases:rows.filter(row=>row.subjectMatch!==null&&row.subjectMatch!==undefined).length,subjectMatches:rows.filter(row=>row.subjectMatch===true).length,extraneousSubjectCases:rows.filter(row=>row.extraneousModules?.length||row.extraneousProjectIds?.length).length,qualityTargetCases:rows.filter(row=>row.quality).length, qualityComplete:rows.filter(row=>row.quality?.complete).length, cases: cases.length, selected: rows.length, notSelected: cases.length - rows.length, evaluated: rows.filter(row => !row.skipped).length, passed: rows.filter(row => row.ok).length, failed: rows.filter(row => !row.ok && !row.skipped).length, skipped: rows.filter(row => row.skipped).length, selectionMatches: rows.filter(row => row.selectionMatch).length, sectionMatches: rows.filter(row => row.sectionMatch).length, paragraphTargetCases: rows.filter(row => row.paragraphMatch !== null && row.paragraphMatch !== undefined).length, paragraphAnyMatches: rows.filter(row => row.paragraphAnyMatch).length, paragraphFullMatches: rows.filter(row => row.paragraphMatch).length, strictMatches: rows.filter(row => row.strictOk).length, provenance: counts, coverage: Object.values(byProject), results: rows };
 }
 
 const parseJson = text => { try { return JSON.parse(text); } catch { throw new Error('malformed_response'); } };
@@ -154,14 +171,17 @@ export async function evaluateDeployment(cases, runtime, options, { fetchImpl = 
   if (!configuration.ok) throw new Error(`Configuration check failed with HTTP ${configuration.status}; no model requests made.`);
   const configured = parseJson(configuration.text).configured === true;
   const rows = [];
+  const completed = new Map();
   let compositions = 0;
   for (const [index, test] of selectedCases.entries()) {
     const id = caseId(test);
+    const current = test.follows ? completed.get(test.follows) : undefined;
+    if (test.follows && !current) { rows.push({ id, ok: false, skipped: 'followup_context_unavailable', provenance: 'not_evaluated' }); continue; }
     if (postRequests >= options.maxPostRequests) { rows.push({ id, ok: false, skipped: 'post_budget', provenance: 'not_evaluated' }); continue; }
     if (index > 0 && options.intervalMs > 0) await pause(options.intervalMs);
     const started = performance.now();
     try {
-      const routedResponse = await request('/api/intent', { draft: test.question, revision: index + 1, contentVersion: content.contentVersion });
+      const routedResponse = await request('/api/intent', { draft: test.question, revision: index + 1, contentVersion: content.contentVersion, ...(current ? { composition: current } : {}) });
       if (!routedResponse.ok) { rows.push({ id, ok: false, support: 'unavailable', provenance: 'unavailable', error: `intent_http_${routedResponse.status}`, routeMs: routedResponse.ms, ms: Math.round(performance.now() - started) }); continue; }
       const routed = parseJson(routedResponse.text);
       const routedComposition = routed.composition?.supported === false ? null : runtime.validate(routed.composition);
@@ -172,9 +192,9 @@ export async function evaluateDeployment(cases, runtime, options, { fetchImpl = 
       let model;
       let cached = false;
       if (routed.needsComposition !== false && configured && compositions < options.composeLimit) {
-        const fallback = runtime.compose(test.question, index + 1);
+        const fallback = runtime.compose(test.question, index + 1, current);
         const composition = routedComposition ?? fallback;
-        const generated = await request('/api/compose', { draft: test.question, revision: index + 1, contentVersion: content.contentVersion, current: composition, proposed: composition });
+        const generated = await request('/api/compose', { draft: test.question, revision: index + 1, contentVersion: content.contentVersion, current: current ?? composition, proposed: composition });
         if (generated.skipped) { rows.push({ id, ok: false, skipped: generated.skipped, provenance: 'not_evaluated' }); continue; }
         compositions++; composeMs = generated.ms;
         if (!generated.ok) { composeError = `compose_http_${generated.status}`; provenance = responseProvenance({ transport, routed, failed: true }); }
@@ -197,9 +217,11 @@ export async function evaluateDeployment(cases, runtime, options, { fetchImpl = 
       } else if (!routed.guidance && !routedComposition) {
         composeError = 'invalid_routing_composition';
       }
-      const scored = scoreCase(test, composeError ? { error: composeError } : observed);
+      const scored = scoreCase(test, composeError ? { error: composeError } : {...observed,evidence:observed.composition?runtime.evidence?.(observed.composition):undefined});
+      const quality=scoreRenderedAnswer(test,!composeError&&observed.composition?runtime.render?.(observed.composition):undefined);
+      if (!composeError && observed.composition) completed.set(id, observed.composition);
       const freshRequired = options.requireFreshProvider && !(test.section === undefined ? isProvider(provenance) : provenance === 'provider_reported') && test.guidance !== 'welcome';
-      rows.push({ id, ...scored, ok: scored.ok && !composeError && !freshRequired, provenance, model, cached, ...(composeError ? { error: composeError } : freshRequired ? { error: 'fresh_provider_required' } : {}), routeMs: routedResponse.ms, composeMs, ms: Math.round(performance.now() - started) });
+      rows.push({ id, ...scored, ...(quality?{quality}:{}), ok: scored.ok && !composeError && !freshRequired, provenance, model, cached, ...(composeError ? { error: composeError } : freshRequired ? { error: 'fresh_provider_required' } : {}), routeMs: routedResponse.ms, composeMs, ms: Math.round(performance.now() - started) });
     } catch (error) {
       rows.push({ id, ok: false, support: 'unavailable', provenance: transport === 'mocked' ? 'mocked_transport' : 'unavailable', error: ['response_too_large', 'empty_response', 'malformed_response'].includes(error?.message) ? error.message : errorCode(error), ms: Math.round(performance.now() - started) });
     }
@@ -209,14 +231,19 @@ export async function evaluateDeployment(cases, runtime, options, { fetchImpl = 
 
 export function evaluateAuthored(cases, runtime, options) {
   const selectedCases = cases.slice(0, options.limit);
+  const completed = new Map();
   const rows = selectedCases.map(test => {
+    const current = test.follows ? completed.get(test.follows) : undefined;
+    if (test.follows && !current) return { id: caseId(test), ok: false, skipped: 'followup_context_unavailable', provenance: 'not_evaluated' };
     const started = performance.now();
     const guidance = runtime.guidance(test.question);
-    const composition = guidance ? undefined : runtime.compose(test.question, 0);
-    const plan = runtime.plan(test.question, 0);
+    const composition = guidance ? undefined : runtime.compose(test.question, 0, current);
+    const plan = runtime.plan(test.question, 0, current);
     const invalid = composition && !runtime.validate(composition);
     const observed = invalid ? { error: 'invalid_composition' } : { composition: plan.layout === 'empty' ? undefined : composition, guidance: guidance ?? (plan.layout === 'empty' ? 'unmatched' : undefined) };
-    return { id: caseId(test), ...scoreCase(test, observed), ...(invalid ? { error: 'invalid_composition' } : {}), provenance: 'local_authored', ms: Math.round(performance.now() - started) };
+    if (observed.composition) completed.set(caseId(test), observed.composition);
+    const quality=scoreRenderedAnswer(test,observed.composition?runtime.render?.(observed.composition):undefined);
+    return { id: caseId(test), ...scoreCase(test, {...observed,evidence:observed.composition?runtime.evidence?.(observed.composition):undefined}), ...(quality?{quality}:{}), ...(invalid ? { error: 'invalid_composition' } : {}), provenance: 'local_authored', ms: Math.round(performance.now() - started) };
   });
   return summarizeEvaluation(cases, rows, { mode: 'authored', contentVersion: runtime.contentVersion, postRequests: 0, compositionRequests: 0, providerClaims: 'Offline local composition only. No network requests, provider calls, or model-quality claims.' });
 }

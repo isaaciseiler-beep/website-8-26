@@ -20,7 +20,7 @@ afterEach(cleanup);
 describe('published evidence discovery', () => {
   it('shows the matching metric together with its team attribution in the evidence notebook', () => {
     render(<Story initial={{ ...blankBlock('story'), layout: 'project-evidence', focus: 'evidence', projectIds: ['congressional-office-setup-100-day-report'], search: '550' }} />);
-    fireEvent.click(screen.getByText('Making the first 100 days measurable'));
+    expect(screen.getByText('Making the first 100 days measurable').closest('details')!.open).toBe(true);
     expect(screen.getByText('550')).toBeVisible();
     expect(screen.getByText(/numbers belonged to the full team/)).toBeVisible();
   });
@@ -58,8 +58,9 @@ describe('published evidence discovery', () => {
     render(<Work />);
     fireEvent.change(screen.getByRole('searchbox', { name: 'Find a project' }), { target: { value: ' interviews qualitative ' } });
     const results = screen.getByRole('region', { name: 'Work explorer' });
-    expect(within(results).getAllByRole('button')).toHaveLength(1);
-    expect(within(results).getByRole('button')).toHaveTextContent(/journalism/i);
+    expect(results.querySelectorAll('[data-project-id]')).toHaveLength(1);
+    expect(within(results).getByRole('button',{name:/journalism/i})).toBeVisible();
+    expect(within(results).getByRole('status')).toHaveTextContent('1 project found');
   });
 });
 
@@ -113,7 +114,7 @@ describe('curated entry points answer the advertised subject', () => {
     const block = composeLocal(prompt.text, initialPlan()).blocks[0];
     const projectIds = prompt.topics.flatMap(topic => projectForTopic[topic] ? [projectForTopic[topic]] : []);
     if (projectIds.length&&block.kind!=='benchmark') expect(block.projectIds).toEqual(projectIds);
-    if(prompt.id==='policy-benchmark')expect(block.kind).toBe('benchmark');
+    if(prompt.id==='policy-benchmark')expect(block).toMatchObject({kind:'story',projectIds:['artificial-intelligence-in-state-government-index'],section:0});
     if (prompt.topics.includes('career')) expect(block.kind).toBe('timeline');
     if (prompt.topics.includes('contact')) expect(block.kind).toBe('contact');
     if (prompt.topics.includes('work')) expect(block.kind).toBe('collection');
@@ -165,10 +166,11 @@ describe('evaluation answers stay specific to the published work', () => {
     render(<Story initial={composeLocal(question,initialPlan()).blocks[0]}/>);
     expect(screen.getByText(answer)).toBeVisible();
   });
-  it('shows Boehringer metrics once before opening the full passage', () => {
+  it('shows complete Boehringer outcomes without duplicating the published metrics', () => {
     render(<Story initial={composeLocal('What were the outcomes of Isaac’s Boehringer project?', initialPlan()).blocks[0]} />);
     expect(screen.getAllByText(/25%/)).toHaveLength(1);
-    fireEvent.click(screen.getByRole('button', { name: 'Continue reading' }));
     expect(screen.getByText(/During the 2025 rollout.*25%/)).toBeVisible();
+    expect(screen.getAllByText(/80%/)).toHaveLength(1);
+    expect(screen.getByText(/rebrand that showed up consistently/)).toBeVisible();
   });
 });

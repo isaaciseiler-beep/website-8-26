@@ -1,0 +1,26 @@
+{
+  "createdBeforeFirstRun": true,
+  "scope": "Fresh authored holdout. Not derived from portfolio-release-cases. No network or providers.",
+  "cases": [
+    {"id":"index-three-parts","question":"For the state-government AI index, separate Isaac's own work, the research steps, and what the finished project established.","project":"artificial-intelligence-in-state-government-index","facets":["contribution","method","result"]},
+    {"id":"congress-three-parts","question":"Walk me through his responsibility in the congressional office launch, how the communications were organized, and the reported results.","project":"congressional-office-setup-100-day-report","facets":["contribution","method","result"]},
+    {"id":"thesis-three-parts","question":"For the local journalism thesis, what research did he personally carry out, how did he collect evidence, and what can a reader learn from the public account?","project":"senior-thesis-local-journalism","facets":["contribution","method","result"]},
+    {"id":"taiwan-three-parts","question":"In Taiwan, which responsibilities were Isaac's, what happened during the educator sessions, and what evidence exists about the outcome?","project":"fulbright-focus-group-sponsored-by-openai","facets":["contribution","method","result"]},
+    {"id":"foundation-three-parts","question":"Explain his part in the Boehringer Cares rebrand, how the rollout worked, and what results the foundation reported.","project":"boehringer-cares-foundation-rebrand-strategy-shift","facets":["contribution","method","result"]},
+    {"id":"lab-three-parts","question":"In the ChatGPT Lab, what was Isaac responsible for, what did his testing involve, and what outcomes are actually documented?","project":"openai-product-testing-and-feedback","facets":["contribution","method","result"]},
+    {"id":"index-causal-premise","question":"Which states adopted AI because Isaac published his index?","project":"artificial-intelligence-in-state-government-index","facets":["causal limitation"]},
+    {"id":"foundation-causal-premise","question":"How much of Boehringer's growth can be credited to Isaac alone?","project":"boehringer-cares-foundation-rebrand-strategy-shift","facets":["ownership limitation","causal limitation"]},
+    {"id":"lab-ownership-premise","question":"Did Isaac design and ship Atlas himself, or was his role different?","project":"openai-product-testing-and-feedback","facets":["ownership limitation","contribution"]},
+    {"id":"product-pulse","question":"What was his input on Pulse?","project":"openai-product-testing-and-feedback","facets":["Pulse evidence"]},
+    {"id":"product-pulse-sources","question":"Let me inspect the published material behind that specific feedback.","follows":"product-pulse","project":"openai-product-testing-and-feedback","facets":["Pulse source usable"]},
+    {"id":"subject-correction","question":"I meant the newsroom research, not the ChatGPT testing.","follows":"product-pulse-sources","project":"senior-thesis-local-journalism","facets":["corrected subject"]},
+    {"id":"unrelated-topic","question":"How do volcanic eruptions affect the weather?","follows":"subject-correction","guidance":"unmatched","facets":["no inherited project"]},
+    {"id":"journey-1","question":"Tell me about his public service communications work.","project":"congressional-office-setup-100-day-report","facets":["congress context"]},
+    {"id":"journey-2","question":"What exactly was his contribution there?","follows":"journey-1","project":"congressional-office-setup-100-day-report","facets":["contribution retained"]},
+    {"id":"journey-3","question":"How did that work get done?","follows":"journey-2","project":"congressional-office-setup-100-day-report","facets":["method retained"]},
+    {"id":"journey-4","question":"And what changed as a result?","follows":"journey-3","project":"congressional-office-setup-100-day-report","facets":["results retained","attribution"]},
+    {"id":"journey-5","question":"Make that more concise.","follows":"journey-4","project":"congressional-office-setup-100-day-report","facets":["result retained","reading transformation"]},
+    {"id":"journey-6","question":"Show the sources for this.","follows":"journey-5","project":"congressional-office-setup-100-day-report","facets":["sources usable"]},
+    {"id":"journey-7","question":"No, switch to his Taiwan educator work.","follows":"journey-6","project":"fulbright-focus-group-sponsored-by-openai","facets":["corrected subject"]}
+  ]
+}

@@ -3,6 +3,7 @@ import { connectionForRequest, connectionIds, portfolioConnections, type Connect
 /** Resolve only reviewed connections, retaining every explicitly named subject. */
 export function careerConnectionFor(question:string,projectIds:readonly string[]=[]):ConnectionId|undefined {
   const named=connectionForRequest(question)
+    ??(/\b(?:compare|contrast|difference)\b/i.test(question) && /\bresearch\b/i.test(question) && /\bcommunications?\b/i.test(question)?'systems':undefined)
     ??(/\blisten(?:ing)?\b.*\b(?:across|different roles|research|work)\b|\b(?:across|different roles|research)\b.*\blisten(?:ing)?\b/i.test(question)?'listening':undefined)
     ??(/\b(?:turn|make|making)\b.*\bcomplex(?:ity| systems?)?\b.*\b(?:useful|usable|understandable)\b/i.test(question)?'systems':undefined);
   if(named)return !projectIds.length||projectIds.every(id=>portfolioConnections[named].projectIds.includes(id))?named:undefined;
@@ -14,12 +15,12 @@ export type CareerAnswerId = typeof careerAnswerIds[number];
 export function careerAnswerFor(question:string):CareerAnswerId|undefined {
   if (/timeline|chronolog|career (?:path|journey)/i.test(question)) return 'chronology';
   if (careerConnectionFor(question)) return 'connections';
-  if (/what connects|common thread|through.?line|ties .*together|learning from people|ideas into practice|carrying ideas|making complexity usable/i.test(question)) return 'connections';
+  if (/what connects|\bconnections?\s+(?:between|among|across)\b|common thread|through.?line|ties .*together|learning from people|ideas into practice|carrying ideas|making complexity usable/i.test(question)) return 'connections';
   if (/strength|skills|best at|good at|do(?:es)? well|\bhir(?:e|ed|ing)\b|bring to (?:a|the) team/i.test(question)) return 'strengths';
   if (/leadership|led|leading|manage/i.test(question)) return 'leadership';
   if (/public service/i.test(question)) return 'service';
-  if (/current|working on|\bnow\b|summation/i.test(question)) return 'current';
-  if (/who (?:is|are)|biography|tell me about (?:isaac|yourself)/i.test(question)) return 'identity';
+  if (/current|working on|\bnow\b|these days|at the moment|summation/i.test(question)) return 'current';
+  if (/who (?:is|are)|biography|tell me about (?:isaac|yourself)|\b(?:quick|brief|short) introduction\b|\bintroduce (?:isaac|yourself|him)\b|\b(?:what|how)\b.*\b(?:isaac|he|you|your)\b.*\b(?:done|work|worked|experience|used)\b.*\bai\b/i.test(question)) return 'identity';
 }
 export const careerAnswers:Record<CareerAnswerId,{title:string;answer:string;roles:readonly string[]}> = {
   connections:{title:'What connects the work',answer:'Isaac’s work repeatedly turns complicated systems into something people can use: a benchmark for comparing government AI adoption, a program built around educators’ questions, and communications that made a new congressional office’s work understandable.',roles:['csg-ai-index','fulbright-taiwan','us-house']},

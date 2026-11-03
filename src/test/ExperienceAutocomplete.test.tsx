@@ -10,7 +10,7 @@ afterEach(cleanup);
 describe('autocomplete interaction',()=>{
  it('keeps the draft intact, selects with arrows, and dismisses with Escape',()=>{
   const submit=vi.fn();render(<Harness submit={submit}/>);const input=screen.getByRole('combobox');
-  fireEvent.focus(input);expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  fireEvent.focus(input);expect(screen.getByRole('listbox')).toBeInTheDocument();expect(submit).not.toHaveBeenCalled();expect(input).toHaveValue('');
   fireEvent.keyDown(input,{key:'ArrowDown'});expect(screen.getByRole('listbox')).toBeInTheDocument();
   fireEvent.change(input,{target:{value:'taiw'}});fireEvent.keyDown(input,{key:'ArrowDown'});
   expect(input).toHaveValue('taiw');expect(input).toHaveAttribute('aria-activedescendant');

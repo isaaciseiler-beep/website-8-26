@@ -6,7 +6,7 @@ import { AI_LAYOUTS, defaultLayout, type LayoutId, type ModuleKind } from '../sr
 import { evidenceFocuses } from '../src/lib/portfolioEvidence.js';
 import { projectRoutingCriteria } from '../server/composition-evidence.js';
 import { interpretPortfolioRequest } from '../src/lib/portfolioIntent.js';
-import { providerCallLimit, providerFailure } from '../server/composition-policy.js';
+import { COMPOSITION_POLICY_VERSION, providerCallLimit, providerFailure } from '../server/composition-policy.js';
 import { compositionLogEvidence, providerHealth, providerRequest, recordProviderResult } from '../server/provider-observability.js';
 import { readProviderJson, waitForProvider } from '../server/provider-response.js';
 import { sendJson, type ApiRequest, type ApiResponse } from '../server/http.js';
@@ -59,7 +59,7 @@ export default async function intentHandler(req:ApiRequest,res:ApiResponse){
     if(rate.count>=60)return fallbackResponse('rate_limit');
     if(!rates.has(network)&&rates.size>=2048)rates.delete(rates.keys().next().value!);
     rate.count++;rates.set(network,rate);
-    const cacheKey=createHash('sha256').update(JSON.stringify({draft:data.draft.trim().toLowerCase(),composition:data.composition,current:data.current,version:CONTENT_VERSION,model})).digest('hex');
+    const cacheKey=createHash('sha256').update(JSON.stringify({draft:data.draft.trim().replace(/\s+/g,' '),composition:data.composition,current:data.current,version:CONTENT_VERSION,policy:COMPOSITION_POLICY_VERSION,model})).digest('hex');
     const cached=cache.get(cacheKey);
     if(cached&&cached.expires>now){recordProviderResult(request,{status:'healthy',model:cached.plan.model,cached:true,duration:0,...compositionLogEvidence(cached.composition)});return sendJson(res,200,{plan:{...cached.plan,revision:data.revision},composition:cached.composition,needsComposition:cached.needsComposition,cached:true,requestId:request.requestId});}
     const date=new Date().toISOString().slice(0,10);

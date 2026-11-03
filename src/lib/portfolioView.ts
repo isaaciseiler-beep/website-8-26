@@ -1,3 +1,4 @@
+import { getEvidence, evidenceFingerprint, portfolioEvidenceRegistry } from './portfolioEvidenceRegistry.js';
 import { portfolioConnections } from './portfolioConnections.js';
 import { z } from 'zod';
 import { CONTENT_VERSION, initialPlan, publicProjects, type Plan } from './canvas.js';
@@ -33,7 +34,7 @@ function normalizeControls(kind: string, controls: z.infer<typeof controlsSchema
   return controls;
 }
 export const portableViewSchema = z.object({
-  version: z.literal(1), contentVersion: z.literal(CONTENT_VERSION), composition: z.unknown(),
+  version: z.literal(1), contentVersion: z.string().min(1).max(80), composition: z.unknown(),
 }).strict();
 const MAX_LINK_LENGTH = 10000;
 
@@ -47,7 +48,24 @@ export function createPortableView(value: unknown): PortableView {
 export function readPortableView(value: unknown): PortableView {
   const parsed = portableViewSchema.safeParse(value);
   if (!parsed.success) throw new Error('This shared view is invalid or belongs to an older content version.');
-  return createPortableView(parsed.data.composition);
+  if(parsed.data.contentVersion===CONTENT_VERSION)return createPortableView(parsed.data.composition);
+  // These two published revisions used exactly the same ordered public record.
+  // The positional compatibility bridge disables itself on any content/order edit.
+  const legacyVersions=['canvas-2026-11-02-v13','canvas-2026-11-02-v14'];
+  const snapshot=evidenceFingerprint(portfolioEvidenceRegistry.filter(record=>record.kind!=='qualification').map(record=>[record.projectId,record.sectionIndex,record.kind,record.itemIndex,record.id].join(':')).join('|'));
+  if(legacyVersions.includes(parsed.data.contentVersion)&&snapshot==='b2a08a7ca63daea8')return createPortableView(parsed.data.composition);
+  if(!/^canvas-\d{4}-\d{2}-\d{2}-v\d+$/.test(parsed.data.contentVersion))throw new Error('This shared view is invalid or belongs to an older content version.');
+  const raw=parsed.data.composition as Composition;
+  if(!raw||!Array.isArray(raw.blocks)||!raw.blocks.length||raw.blocks.some(block=>block.kind!=='story'||!block.answerPlan?.facets?.length))throw new Error('This shared view needs its original evidence to be reopened.');
+  // Every selected passage must still exist verbatim. Stable IDs can be rebound
+  // to current positions, but edited/deleted passages never migrate silently.
+  const blocks=raw.blocks.map(block=>{
+    const ids=block.answerPlan!.facets.flatMap(facet=>facet.evidenceIds);
+    if(!ids.length||ids.some(id=>!getEvidence(id)||!block.projectIds.includes(getEvidence(id)!.projectId)))throw new Error('This shared view contains evidence that has changed.');
+    const primary=getEvidence(ids[0])!;
+    return {...block,section:primary.sectionIndex,paragraphIndices:[...new Set(ids.map(id=>getEvidence(id)!).filter(record=>record.sectionIndex===primary.sectionIndex&&record.kind==='paragraph').map(record=>record.paragraphIndex!))].slice(0,3)};
+  });
+  return createPortableView({blocks});
 }
 
 export function applyPortfolioAction(view: PortableView | null, input: unknown): PortableView {
@@ -80,7 +98,7 @@ export function applyPortfolioAction(view: PortableView | null, input: unknown):
         const changedFocus=controls.focus!==undefined&&controls.focus!==block.focus||controls.layout!==undefined&&controls.layout!==block.layout;
         const changedSection=controls.section!==undefined&&controls.section!==block.section;
         return { ...block,
-          ...(changedSubject||changedFocus||changedSection?{paragraphIndices:undefined}:{}),
+          ...(changedSubject||changedFocus||changedSection?{paragraphIndices:undefined,answerPlan:undefined}:{}),
           ...controls,
           ...(block.kind==='story'&&controls.section===undefined&&(changedSubject||changedFocus)
             ?{section:evidenceSections(controls.projectIds?.[0]??block.projectIds[0],controls.focus??block.focus??'role')[0]?.index??0}:{}),

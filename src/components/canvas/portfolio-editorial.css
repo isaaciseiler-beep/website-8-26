@@ -1,0 +1,148 @@
+/* The result belongs to the same open editorial world as Work and photography:
+   a reading edge, confident real media, and controls with a clear purpose. */
+.home-genui .portfolio-workbench>.portfolio-tabs{margin-block:0 var(--space-xl);gap:var(--space-l);}
+.home-genui .portfolio-workbench-body{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start;gap:var(--space-xl);}
+.home-genui .portfolio-workbench-reader,.home-genui .portfolio-workbench-rail{min-width:0;}
+.home-genui .portfolio-workbench-reader{grid-column:1;grid-row:1;}
+.home-genui .portfolio-workbench-rail{grid-column:2;grid-row:1;}
+.home-genui .portfolio-workbench-reader>.portfolio-direct-answer{margin-top:0;max-width:none;}
+.home-genui .portfolio-workbench-reader .portfolio-section-explorer{display:block;max-width:none;}
+.home-genui .portfolio-workbench-reader .portfolio-role-summary{max-width:none;padding-top:0;}
+.home-genui .portfolio-workbench-reader>.portfolio-direct-answer+.portfolio-role-summary{margin-top:var(--space-s);}
+.home-genui .portfolio-workbench-reader .portfolio-evidence>.canvas-field{margin-block:0 var(--space-m);}
+.home-genui .portfolio-workbench-reader .portfolio-evidence>.canvas-field input{padding-inline:0;background:transparent;border-radius:0;box-shadow:0 1px 0 var(--neutral-4);}
+.home-genui .portfolio-workbench-reader .portfolio-evidence>details>summary{min-height:44px;padding-block:var(--space-s);}
+.home-genui .portfolio-workbench-reader .portfolio-section-text h3,.home-genui .portfolio-workbench-reader .portfolio-answer-facet h3{font-size:var(--size-m);line-height:var(--line-m);font-weight:var(--weight-medium);margin-top:0;}
+.home-genui .portfolio-workbench-reader :is(.portfolio-section-text,.portfolio-answer-facet)>p{font-size:var(--size-m);line-height:var(--line-m);}
+.home-genui .portfolio-workbench-reader .portfolio-answer-facet+.portfolio-answer-facet{margin-top:var(--space-xl);}
+.home-genui .portfolio-workbench-reader .canvas-sources>summary{padding-block:var(--space-xs);}
+.home-genui .portfolio-workbench-reader .portfolio-role-summary>.portfolio-inline-action{margin-top:0;}
+.home-genui .portfolio-workbench-reader .portfolio-inline-action{padding-block:var(--space-xs);}
+.home-genui .portfolio-workbench-visual{margin:0;}
+.home-genui .portfolio-workbench-visual>a{position:relative;display:block;overflow:hidden;border-radius:var(--site-corner-radius);color:inherit;}
+.home-genui .portfolio-workbench-visual .portfolio-project-image{display:block;width:100%;height:auto;max-height:none;aspect-ratio:4/3;object-fit:cover;}
+.home-genui .portfolio-workbench-visual[data-presentation="artifact"] .portfolio-project-image{width:auto;max-width:100%;max-height:480px;aspect-ratio:auto;object-fit:contain;}
+.home-genui .portfolio-workbench-visual>a>svg{position:absolute;inset:auto var(--space-s) var(--space-s) auto;color:var(--neutral-1);background:var(--neutral-10);border-radius:var(--site-corner-radius);box-sizing:content-box;padding:var(--space-xs);opacity:0;transition:opacity var(--motion-duration) var(--motion-easing);}
+.home-genui .portfolio-workbench-visual>a:is(:hover,:focus-visible)>svg{opacity:1;}
+.home-genui .portfolio-workbench-visual figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-xs);margin-top:var(--space-s);font-size:var(--size-xs);line-height:var(--line-s);font-weight:var(--weight-medium);}
+.home-genui .portfolio-workbench-visual figcaption>span{font-weight:var(--weight-regular);}
+.home-genui .portfolio-workbench-section-choice{margin-bottom:var(--space-l);}
+.home-genui .portfolio-workbench-section-choice label{display:block;}
+.home-genui .portfolio-workbench-section-choice select{width:100%;padding-left:0;background:transparent;border-radius:0;font-size:var(--size-m);line-height:var(--line-m);font-weight:var(--weight-medium);box-shadow:inset 0 -1px 0 var(--neutral-4);}
+.home-genui .portfolio-workbench>.portfolio-change-project{padding-top:var(--space-m);margin-top:var(--space-xl);box-shadow:inset 0 1px 0 var(--neutral-4);}
+
+/* The paired media establishes identity. The selectors are the identity controls,
+   rather than a second project-picker hidden below an already complete result. */
+.home-genui .portfolio-comparison>.portfolio-comparison-media{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-xl);margin-block:0 var(--space-s);}
+.home-genui .portfolio-comparison-media figure{margin:0;min-width:0;}
+.home-genui .portfolio-comparison-media figure>a{display:block;overflow:hidden;border-radius:var(--site-corner-radius);}
+.home-genui .portfolio-comparison-media img{display:block;width:100%;height:auto;aspect-ratio:16/7;object-fit:cover;border-radius:var(--site-corner-radius);}
+.home-genui .portfolio-comparison-media [data-presentation="artifact"] img{object-fit:contain;}
+.home-genui .portfolio-comparison-media [data-presentation="photograph"] img{object-position:50% 20%;}
+.home-genui .portfolio-comparison-media figcaption{margin:0;padding-block:var(--space-s);}
+.home-genui .portfolio-comparison-media label{display:block;min-width:0;}
+.home-genui .portfolio-comparison-media select{width:100%;font-size:var(--size-m);line-height:var(--line-m);font-weight:var(--weight-medium);background:transparent;border-radius:0;padding-block:var(--space-s);padding-left:0;text-overflow:ellipsis;}
+.home-genui .portfolio-comparison-choice{position:relative;min-height:calc(2 * var(--line-s) + 2 * var(--space-xs));border-radius:var(--site-corner-radius);}
+.home-genui .portfolio-comparison-choice:focus-within{outline:auto;outline-offset:calc(-1 * var(--space-xxs));}
+.home-genui .portfolio-comparison-name{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:var(--space-xs);padding-block:var(--space-xs);font-size:var(--size-m);line-height:var(--line-m);font-weight:var(--weight-medium);}
+.home-genui .portfolio-comparison-name>span{min-width:0;text-wrap:pretty;overflow-wrap:anywhere;}
+.home-genui .portfolio-comparison-name>svg{margin-top:var(--space-xxs);}
+.home-genui .portfolio-comparison-choice .portfolio-comparison-native{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;margin:0;}
+.home-genui .portfolio-comparison-media [data-presentation="artifact"]>a{background:var(--neutral-1);}
+.home-genui .portfolio-comparison>.portfolio-tabs{margin-block:0 var(--space-l);}
+.home-genui .portfolio-comparison>.portfolio-deck{max-width:70ch;margin-block:var(--space-l);}
+.home-genui .portfolio-comparison-table{display:block;width:100%;margin-block:var(--space-l);}
+.home-genui .portfolio-comparison-table thead{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+.home-genui .portfolio-comparison-table tbody{display:block;}
+.home-genui .portfolio-comparison-table tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--space-xl);row-gap:var(--space-s);padding-block:var(--space-l);}
+.home-genui .portfolio-comparison-table tbody tr>th{grid-column:1/-1;display:block;width:auto;padding:0;font-size:var(--size-xs);line-height:var(--line-s);}
+.home-genui .portfolio-comparison-table tbody tr>td{display:block;width:auto;min-width:0;padding:0;}
+.home-genui .portfolio-comparison-table tbody td p{font-size:var(--size-m);line-height:var(--line-m);}
+.home-genui .portfolio-comparison .portfolio-comparison-titles{display:none;}
+.home-genui .portfolio-comparison .portfolio-comparison-actions{padding-block:var(--space-l) 0;}
+
+/* A connection is visible across fields at once: three open image-led columns,
+   with one shared thread and lens rather than a sequence of oversized stories. */
+.home-genui .portfolio-connection-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;column-gap:var(--space-xl);row-gap:var(--space-xs);}
+.home-genui .portfolio-connection-controls .portfolio-connection-select{margin:0;max-width:100%;width:fit-content;min-width:0;}
+.home-genui .portfolio-connection-controls .portfolio-tabs{margin:0;gap:var(--space-l);}
+.home-genui .portfolio-connections>.portfolio-connection-insight{max-width:80ch;margin-block:var(--space-s) var(--space-l);font-size:var(--size-m);line-height:var(--line-m);}
+.home-genui .portfolio-connections .portfolio-connection-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-xl);}
+.home-genui .portfolio-connection-grid>article{display:flex;flex-direction:column;gap:var(--space-m);min-width:0;}
+.home-genui .portfolio-connection-reader{min-width:0;}
+.home-genui .portfolio-connections .portfolio-connection-reader>h3{font-size:var(--size-m);line-height:var(--line-m);margin-block:0 var(--space-s);font-weight:var(--weight-medium);}
+.home-genui .portfolio-connection-reader>p{font-size:var(--size-m);line-height:var(--line-m);}
+.home-genui .portfolio-connection-reader>.portfolio-inline-action{margin-top:var(--space-xs);}
+.home-genui .portfolio-connection-reader>.portfolio-connection-evidence{margin-top:var(--space-s);}
+.home-genui .portfolio-connection-visual{display:block;min-width:0;overflow:hidden;border-radius:var(--site-corner-radius);}
+.home-genui .portfolio-connection-visual>a{display:block;}
+.home-genui .portfolio-connection-visual .portfolio-connection-image{display:block;width:100%;height:auto;aspect-ratio:16/9;max-height:none;object-fit:cover;object-position:center 20%;margin:0;}
+.home-genui .portfolio-connection-visual[data-presentation="artifact"] .portfolio-connection-image{object-fit:contain;background:var(--neutral-1);}
+
+/* Text paints on the same reading edge as prose; the native select stays over
+   the full label for its keyboard, touch and popup behavior. */
+.home-genui .portfolio-native-choice{position:relative;display:block;min-width:0;border-radius:var(--site-corner-radius);}
+.home-genui .portfolio-native-choice:focus-within{outline:auto;outline-offset:calc(-1 * var(--space-xxs));}
+.home-genui .portfolio-native-label{display:flex;align-items:center;justify-content:space-between;gap:var(--space-s);min-height:44px;padding:0;font-size:var(--size-m);line-height:var(--line-m);font-weight:var(--weight-medium);}
+.home-genui .portfolio-native-label>span{min-width:0;overflow-wrap:anywhere;}
+.home-genui .portfolio-native-label>svg{flex-shrink:0;}
+.home-genui .portfolio-native-choice .portfolio-native-control{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;margin:0;padding:0;}
+
+/* A selected role reads on the input's left edge; related work and role choices
+   share the media rail. The chronology keeps its existing editorial structure. */
+.home-genui .portfolio-career:not(.portfolio-connections)>.portfolio-answer{margin-top:0;max-width:70ch;}
+.home-genui .portfolio-career-explorer{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--space-xl);margin-top:var(--space-l);align-items:start;}
+.home-genui .portfolio-career-detail{grid-column:1;grid-row:1;padding-top:0;}
+.home-genui .portfolio-career-nav{grid-column:2;grid-row:1;}
+.home-genui .portfolio-career-visual{margin:0 0 var(--space-l);overflow:hidden;border-radius:var(--site-corner-radius);}
+.home-genui .portfolio-career-visual .portfolio-career-image{display:block;width:100%;height:auto;max-height:none;aspect-ratio:4/3;object-fit:cover;margin:0;}
+.home-genui .portfolio-career-visual[data-presentation="artifact"] .portfolio-career-image{width:auto;max-width:100%;max-height:480px;aspect-ratio:auto;object-fit:contain;}
+.home-genui .portfolio-career-select{display:none;}
+.home-genui .portfolio-career-nav nav{display:grid;grid-template-columns:1fr;gap:0;}
+.home-genui .portfolio-career-nav nav button{padding-block:var(--space-s);font-size:var(--size-s);line-height:var(--line-s);box-shadow:inset 0 -1px 0 var(--neutral-4);}
+.home-genui .portfolio-career-detail>h3{margin-block:0 var(--space-m);font-size:var(--size-l);line-height:var(--line-l);}
+.home-genui .portfolio-career-detail>.portfolio-role-context{margin-bottom:var(--space-l);}
+
+@container(max-width:780px){
+  .home-genui .portfolio-workbench-body,.home-genui .portfolio-career-explorer{grid-template-columns:1fr;gap:var(--space-m);}
+  .home-genui .portfolio-workbench-rail,.home-genui .portfolio-career-nav{grid-column:1;grid-row:1;}
+  .home-genui .portfolio-workbench-reader,.home-genui .portfolio-career-detail{grid-column:1;grid-row:2;}
+  .home-genui .portfolio-workbench-visual .portfolio-project-image,.home-genui .portfolio-career-visual .portfolio-career-image{aspect-ratio:16/9;max-height:260px;}
+  .home-genui .portfolio-workbench-visual[data-presentation="artifact"] .portfolio-project-image,.home-genui .portfolio-career-visual[data-presentation="artifact"] .portfolio-career-image{aspect-ratio:auto;max-height:230px;object-fit:contain;object-position:left center;}
+  .home-genui .portfolio-career-nav nav{display:none;}
+  .home-genui .portfolio-career-select{display:block;}
+  .home-genui .portfolio-career-select select{width:100%;}
+  .home-genui .portfolio-connections .portfolio-connection-grid{grid-template-columns:1fr;gap:var(--space-xl);}
+  .home-genui .portfolio-connection-grid>article{gap:var(--space-m);}
+  .home-genui .portfolio-connection-grid>article+article{padding-top:var(--space-l);box-shadow:inset 0 1px 0 var(--neutral-4);}
+  .home-genui .portfolio-connection-controls{display:block;}
+  .home-genui .portfolio-connection-controls .portfolio-tabs{margin-block:0 var(--space-s);}
+  .home-genui .portfolio-connection-visual .portfolio-connection-image{max-height:260px;}
+}
+@media(max-width:640px){
+  .home-genui .portfolio-workbench>.portfolio-tabs{gap:var(--space-m);margin-bottom:var(--space-l);}
+  .home-genui .portfolio-comparison-media select,.home-genui .portfolio-comparison-name{font-size:var(--size-s);line-height:var(--line-s);}
+  .home-genui .portfolio-comparison>.portfolio-comparison-media{gap:var(--space-m);}
+  .home-genui .portfolio-comparison-media img{aspect-ratio:4/3;}
+  .home-genui .portfolio-comparison-table tbody tr{grid-template-columns:1fr;gap:var(--space-l);}
+  .home-genui .portfolio-comparison-table tbody :is(th,td){padding:0;}
+  .home-genui .portfolio-connection-reader>h3,.home-genui .portfolio-career-detail>h3{font-size:var(--size-m);line-height:var(--line-m);}
+}
+@media(hover:none){.home-genui .portfolio-workbench-visual>a>svg{opacity:1;}}
+@media(prefers-reduced-motion:reduce){.home-genui .portfolio-workbench-visual>a>svg{transition:none;}}
+
+.home-genui .portfolio-career>.portfolio-chronology{margin-top:0;gap:var(--space-l);}
+.home-genui .portfolio-career>.portfolio-chronology-note{max-width:70ch;margin-top:var(--space-l);}
+@container(max-width:420px){
+  .home-genui .portfolio-comparison>.portfolio-tabs,.home-genui .portfolio-connection-controls>.portfolio-tabs{gap:var(--space-xxs);justify-content:space-between;}
+}
+
+/* Lab exploration keeps a real product as working state across work, published
+   results, and its own source material; no remote generation for these controls. */
+.home-genui .portfolio-lab-source-view>.is-requested{margin-top:0;}
+.home-genui .portfolio-lab-source-view>.is-requested>div{padding-top:0;gap:var(--space-m);}
+.home-genui .portfolio-lab-source-view>.is-requested a{font-size:var(--size-m);line-height:var(--line-m);}
+.home-genui .portfolio-lab-source-view>.portfolio-supporting-passage{margin-top:var(--space-l);}
+
+.home-genui .portfolio-connections .portfolio-connection-grid .portfolio-connection-reader p{font-size:var(--size-m);line-height:var(--line-m);}
+.home-genui .portfolio-image-note{display:block;margin-top:var(--space-xs);font-size:var(--size-xs);line-height:var(--line-s);font-weight:var(--weight-regular);}

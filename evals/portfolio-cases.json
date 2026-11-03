@@ -9,7 +9,7 @@
   {"id":"policy-contribution","question":"What did you personally contribute to the AI government index?","kind":"story","project":"artificial-intelligence-in-state-government-index","focus":"role"},
   {"id":"policy-method","question":"How did Isaac map AI in government?","kind":"story","project":"artificial-intelligence-in-state-government-index","focus":"process"},
   {"id":"policy-methodology","question":"What was the methodology behind the government index?","kind":"story","project":"artificial-intelligence-in-state-government-index","focus":"process"},
-  {"id":"policy-data","question":"How are state governments using AI?","kind":"benchmark"},
+  {"id":"policy-data","question":"Show state governments ranked by their published AI scores","kind":"benchmark"},
   {"id":"states","question":"Compare Michigan and California","kind":"benchmark","states":["Michigan","California"]},
   {"id":"project-comparison","question":"Compare AI policy and Taiwan teaching","kind":"comparison","projects":["artificial-intelligence-in-state-government-index","fulbright-focus-group-sponsored-by-openai"]},
   {"id":"taiwan-outcomes","question":"What were the outcomes of your Taiwan project?","kind":"story","project":"fulbright-focus-group-sponsored-by-openai","focus":"outcomes"},
