@@ -75,10 +75,9 @@ export default async function composeHandler(req:ApiRequest,res:ApiResponse) {
       if(abort.signal.aborted||res.destroyed)return;
       const result=streamText({
         model:createMistral({apiKey:key})(model),
-        // Large 4 accepts low/medium/high, while this SDK maps portable low to high.
-        // Omit effort for its supported server default; retain Small's fast none mode.
-        ...(/^mistral-large-4(?:-0)?$/.test(model)?{}:{reasoning:'none' as const}),
-        temperature:0,
+        // Large 4 uses its coherent model defaults for sampling and reasoning.
+        // Keep Small's existing deterministic, non-reasoning configuration.
+        ...(/^mistral-large-4(?:-0)?$/.test(model)?{}:{reasoning:'none' as const,temperature:0}),
         output:Output.object({schema:generationSchema}),
         maxOutputTokens:1800,maxRetries:0,
         abortSignal:signal,
