@@ -99,3 +99,40 @@ test('photo viewer holds its image, supports rapid navigation, and restores focu
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(photo).toBeFocused();
 });
+
+
+for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduce'] as const){
+  test(`${width} ${reducedMotion}: changing screenshot shapes never stretches their pixels`,async({page})=>{
+    await page.setViewportSize({width,height:1000});
+    await page.emulateMedia({reducedMotion});
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+    // Fixed image dimensions isolate motion from remote asset availability.
+    for(const [pattern,height] of [['**/chat-lab/OpenAI_StudyMode_Flow_*.png',1080],['**/chat-lab/pulse1.webp',1920]] as const){
+      await page.route(pattern,route=>route.fulfill({contentType:'image/svg+xml',body:`<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="${height}"><rect width="1920" height="${height}" fill="white"/></svg>`}));
+    }
+    await page.goto('/');
+    const input=page.getByRole('textbox',{name:'Explore',exact:true});
+    await input.fill('What feedback did Isaac give on Study Mode?');await input.press('Escape');await input.press('Enter');
+    await expect(page.getByRole('combobox',{name:'Lab work to explore'})).toHaveValue('2');
+    await expect.poll(()=>page.locator('.portfolio-project-image').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);
+    for(const section of ['4','2']){
+      const [frames]=await Promise.all([
+        page.evaluate(async()=>{
+          const frames:{src:string;distortion:number}[]=[];
+          for(let index=0;index<40;index++){
+            await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));
+            const image=document.querySelector<HTMLImageElement>('.portfolio-project-image')!;
+            const anchor=image.closest('a')!;
+            const scale=new DOMMatrixReadOnly(getComputedStyle(anchor).transform);
+            if(image.naturalWidth&&Number(getComputedStyle(image).opacity)>.5)frames.push({src:image.currentSrc,distortion:Math.abs(scale.a/scale.d-1)});
+          }
+          return frames;
+        }),
+        page.getByRole('combobox',{name:'Lab work to explore'}).selectOption(section),
+      ]);
+      expect(frames.some(frame=>section==='4'?frame.src.includes('pulse1'):frame.src.includes('StudyMode'))).toBe(true);
+      expect(Math.max(...frames.map(frame=>frame.distortion))).toBeLessThan(.02);
+    }
+  });
+}

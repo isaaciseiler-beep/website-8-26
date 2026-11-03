@@ -53,7 +53,7 @@ const ProjectIndexItem=forwardRef<HTMLButtonElement,{project:typeof publicProjec
   return <motion.button ref={ref} type="button" layout={reduced?false:'position'} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
     transition={{layout:{duration:reduced?0:MOTION_DURATION.base,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:present?MOTION_DURATION.fast:MOTION_DURATION.exit}}}
     aria-label={project.title} aria-hidden={!present} {...(!present?{inert:''}:{})} data-project-id={present?project.id:undefined} onClick={onOpen}>
-    <motion.span className="canvas-project-list-visual" data-presentation={image.presentation} layoutId={visualId} transition={{duration:MOTION_DURATION.reveal,ease:MOTION_EASE_ENTER}}><img src={image.src} alt="" loading="lazy" decoding="async"/></motion.span>
+    <motion.span className="canvas-project-list-visual" data-presentation={image.presentation} layout={visualId?"preserve-aspect":false} layoutId={visualId} transition={{duration:MOTION_DURATION.reveal,ease:MOTION_EASE_ENTER}}><img src={image.src} alt="" loading="lazy" decoding="async"/></motion.span>
     <span className="canvas-project-list-copy"><strong>{evidenceFor(project.id)?.title??project.title}</strong><span>{project.year}</span>{section>=0&&<small>{project.sections[section].heading}</small>}</span><ArrowUpRight size={18} aria-hidden="true"/>
   </motion.button>;
 });

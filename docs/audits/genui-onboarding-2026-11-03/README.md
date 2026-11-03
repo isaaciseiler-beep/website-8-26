@@ -38,3 +38,11 @@ Browser checks intercept intent/composition calls. They establish local renderin
 4. [Final visual review](claude-4.md): left-aligned square media, removed the large gap between its selector and explanation, aligned initial suggestion text with the field, and increased spacing below stacked Lab screenshots.
 
 The final matching changes also preserve completion for partial feature names and bounded typos. Specific product questions remain opt-in. Prefixes and bounded typos still work once a visitor starts naming a feature, including Back to School and compressed names such as “studymode.”
+
+## Continued motion audit
+
+The first pushed checkpoint is confirmed live at https://seiler.page/: the native textarea and four-question in-pane guide are deployed, the guide has technical and feedback sections, the square-image left offset is zero, the selector-to-explanation gap is 12px, and there is no viewport overflow. Provider calls were intercepted; this is a deployment/rendering check. See `live-deployment.json`.
+
+A subsequent frame audit found that shared-image layout projection briefly stretched new screenshots when switching between square Pulse and widescreen Study Mode images. Six of 24 transitions showed more than 2% anisotropic scaling, peaking at about 26%. Both ends of the shared image handoff now use Motion’s aspect-preserving layout mode: equal-shape images can still grow into the reader, while changed shapes animate position without stretching their pixels. Native image nodes and their fallback handling remain mounted.
+
+The expanded check covers 60 transitions across all eight Lab sections, at 1440/768/390px, with normal and reduced motion. None exceeded 2% anisotropic scaling on visible frames. See `image-transition-frames.json`. Thirteen motion browser cases passed, including four new deterministic square/widescreen regression cases. Typecheck, lint, and production build passed. These checks establish Chrome rendering, not mobile Safari or live model accuracy.

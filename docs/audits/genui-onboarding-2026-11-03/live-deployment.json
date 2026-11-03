@@ -1,0 +1,15 @@
+{
+  "status": 200,
+  "deployed": true,
+  "guide": {
+    "questions": 4,
+    "technical": true,
+    "feedback": true
+  },
+  "geometry": {
+    "imageOffset": 0,
+    "explanationGap": 12,
+    "overflow": false
+  },
+  "providerPosts": 0
+}
