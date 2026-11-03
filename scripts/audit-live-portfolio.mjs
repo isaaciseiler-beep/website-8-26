@@ -35,11 +35,11 @@ try{
  page.on('pageerror',e=>errors.push(e.message));
  let events=[];
  page.on('response',async response=>{if(/\/api\/(intent|compose)$/.test(response.url())&&response.request().method()==='POST'){try{events.push({url:new URL(response.url()).pathname,status:response.status(),body:await response.text()});}catch{}}});
- await page.goto(base,{waitUntil:'domcontentloaded'});await page.getByRole('combobox',{name:'Explore',exact:true}).waitFor();
+ await page.goto(base,{waitUntil:'domcontentloaded'});await page.getByRole('textbox',{name:'Explore',exact:true}).waitFor();
  await page.screenshot({path:out+'/idle.png'});
  for(const [prompt,id] of cases){
   events=[];const start=performance.now();
-  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
   await input.fill(prompt);await input.press('Escape');await input.press('Enter');
   await page.waitForFunction(()=>!document.querySelector('button[aria-label="Explore"][aria-busy="true"]'),{},{timeout:40000});
   await page.waitForTimeout(150);
@@ -48,7 +48,7 @@ try{
   await page.screenshot({path:out+'/'+id+'.png',fullPage:false});console.log(JSON.stringify({id,headings:observed.headings,selected:observed.selected,settledMs:row.settledMs,requests:events.map(e=>({url:e.url,status:e.status}))}));
  }
  for(const theme of ['light','dark'])for(const width of [390,320]){
-  await page.setViewportSize({width,height:844});await page.evaluate(value=>{localStorage.setItem('theme',value);location.reload();},theme);await page.getByRole('combobox',{name:'Explore',exact:true}).waitFor();
+  await page.setViewportSize({width,height:844});await page.evaluate(value=>{localStorage.setItem('theme',value);location.reload();},theme);await page.getByRole('textbox',{name:'Explore',exact:true}).waitFor();
   await page.screenshot({path:`${out}/${theme}-${width}-idle.png`});
  }
  await context.close();

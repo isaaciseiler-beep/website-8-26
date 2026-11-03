@@ -30,7 +30,7 @@ describe('website agent and shared-view integration', () => {
     await act(async () => { mount(); });
     expect(screen.getByRole('combobox', { name: 'Benchmark measure' })).toHaveValue('preparednessScore');
     expect(fetch).toHaveBeenCalledTimes(1); // Configuration only, no generation.
-    fireEvent.change(screen.getByRole('combobox', { name: 'Explore' }), { target: { value: 'An unfinished private thought' } });
+    fireEvent.change(screen.getByRole('textbox', { name: 'Explore' }), { target: { value: 'An unfinished private thought' } });
     expect(decodeView(new URL(inspect().shareUrl).hash.slice(6))).toEqual(view);
     expect(JSON.stringify(inspect())).not.toContain('unfinished');
     expect(fetch).toHaveBeenCalledTimes(1);
@@ -55,7 +55,7 @@ describe('website agent and shared-view integration', () => {
     const pending = new Promise(resolve => { finish = resolve; });
     vi.stubGlobal('fetch', vi.fn((url: string) => url === '/api/intent' ? pending : Promise.resolve({ ok: true, json: async () => ({ configured: false }) })));
     await act(async () => { mount(); });
-    const input = screen.getByRole('combobox', { name: 'Explore' });
+    const input = screen.getByRole('textbox', { name: 'Explore' });
     fireEvent.change(input, { target: { value: 'AI in state government' } });
     await act(async () => { fireEvent.submit(input.closest('form')!); });
     await change({ type: 'open_project', projectId: TAIWAN_ID });

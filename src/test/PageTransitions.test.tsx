@@ -108,7 +108,7 @@ it('restores the committed exploration, local metric and unfinished draft on bro
     <Route path="/" element={<main><HomeExplore/><Link to="/writing">Open writing</Link></main>}/>
     <Route path="/writing" element={<Page name="Writing page"/>}/>
   </Routes>}</PageTransitions></MemoryRouter>);
-  const input=screen.getByRole('combobox',{name:'Explore'});
+  const input=screen.getByRole('textbox',{name:'Explore'});
   fireEvent.change(input,{target:{value:'Compare California and Washington'}});
   await act(async()=>{fireEvent.submit(input.closest('form')!);});
   fireEvent.change(screen.getByRole('combobox',{name:'Benchmark measure'}),{target:{value:'preparednessScore'}});
@@ -117,7 +117,7 @@ it('restores the committed exploration, local metric and unfinished draft on bro
   await waitFor(()=>expect(screen.getByRole('heading',{name:'Writing page'})).toBeInTheDocument());
   fireEvent.click(screen.getByRole('button',{name:'Browser back'}));
   await waitFor(()=>expect(screen.getByRole('heading',{name:'Government comparison'})).toBeInTheDocument());
-  expect(screen.getByRole('combobox',{name:'Explore'})).toHaveValue('An unfinished draft');
+  expect(screen.getByRole('textbox',{name:'Explore'})).toHaveValue('An unfinished draft');
   expect(screen.getByRole('combobox',{name:'Benchmark measure'})).toHaveValue('preparednessScore');
 });
 

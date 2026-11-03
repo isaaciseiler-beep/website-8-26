@@ -71,3 +71,29 @@ describe('suggestion relevance and useful next questions',()=>{
     expect(suggestExperiencePrompts('taiwan',0)).toEqual([]);
   });
 });
+
+it('introduces ChatGPT product testing before asking about an unfamiliar feature',()=>{
+  const specialized=new Set(['study-mode','pulse','atlas','group-chats','100-chats','back-to-school']);
+  for(const query of ['', 'AI', 'OpenAI', 'ChatGPT', 'product testing']){
+    expect(suggestExperiencePrompts(query).some(item=>specialized.has(item.id))).toBe(false);
+  }
+  expect(suggestExperiencePrompts('Study Mode')[0].id).toBe('study-mode');
+  expect(suggestExperiencePrompts('',4,{projectIds:['openai-product-testing-and-feedback'],kind:'story',section:0}).some(item=>specialized.has(item.id))).toBe(false);
+});
+
+it('makes a broad AI draft an introduction to the work instead of assuming a known study',()=>{
+  const suggestions=suggestExperiencePrompts('AI');
+  expect(suggestions[0].id).toBe('policy');
+  expect(suggestions.map(item=>item.id)).toContain('openai');
+  expect(suggestions.map(item=>item.id)).toContain('taiwan');
+  expect(suggestions.every(item=>item.aspect!=='comparison')).toBe(true);
+});
+
+it.each([
+  ['pul','pulse'],['pluse','pulse'],['atl','atlas'],['atls','atlas'],
+  ['study mo','study-mode'],['stduy mode','study-mode'],['studymode','study-mode'],
+  ['group chat','group-chats'],['groupchats','group-chats'],
+  ['100chats','100-chats'],['back to school','back-to-school'],['backtoschool','back-to-school'],
+])('recognizes an explicitly named feature without requiring perfect spelling: %s',(query,id)=>{
+  expect(suggestExperiencePrompts(query)[0]?.id).toBe(id);
+});

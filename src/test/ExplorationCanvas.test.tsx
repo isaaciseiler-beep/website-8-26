@@ -58,7 +58,7 @@ describe('interactive canvas',()=>{
     }));
     render(<MemoryRouter><HomeExplore/></MemoryRouter>);
     await act(async()=>{});
-    const input=screen.getByRole('combobox',{name:'Explore'});
+    const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Compare Michigan and California'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     fireEvent.change(screen.getByRole('combobox',{name:'Benchmark measure'}),{target:{value:'preparednessScore'}});

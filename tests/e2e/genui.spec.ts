@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 test.use({ launchOptions: process.env.PLAYWRIGHT_EXECUTABLE_PATH ? { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH } : {} });
+// Cases own their pages, requests and preferences; keep matrix workers independent.
+test.describe.configure({mode:'parallel'});
 const taiwan='fulbright-focus-group-sponsored-by-openai';
 const policy='artificial-intelligence-in-state-government-index';
 const block=(kind:string,layout:string,projectIds:string[]=[])=>({kind,layout,projectIds,albumIds:[],states:[],region:'All',metric:'compositeScore',section:0,focus:'overview',search:'',expanded:false,band:null});
@@ -26,7 +28,7 @@ test('a direct generated composition renders multiple subjects before a slow con
   });
   await page.setViewportSize({width:390,height:844});
   await page.goto('/');
-  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
   await input.fill('Connect Isaac’s Taiwan program and AI policy research');await input.press('Escape');await input.press('Enter');
   try{
     await expect(page.getByRole('region',{name:'Project explorer'})).toHaveCount(2);
@@ -56,7 +58,7 @@ test('a manual control change survives an aborted delayed generated response',as
     finishedComposition();
   });
   await page.goto('/');
-  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
   await input.fill('Compare California and Washington');await input.press('Escape');await input.press('Enter');
   await compositionReady;
   await page.getByRole('combobox',{name:'Benchmark measure'}).selectOption('preparednessScore');
@@ -83,7 +85,7 @@ for(const theme of ['light','dark']) test(`${theme}: linked evidence keeps local
     await route.fulfill({json:{plan:{...directPlan(request),layout:'timeline',projectIds:[]},needsComposition:false}});
   });
   await page.goto('/');
-  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
   await input.fill('What connects Isaac’s work across fields?');await input.press('Escape');await input.press('Enter');
   const result=page.getByRole('region',{name:'Connections across the work'});
   await expect(result).toBeVisible();await expect.poll(()=>requests).toBe(1);
@@ -106,7 +108,7 @@ for (const reducedMotion of ['no-preference','reduce'] as const) test(`ranking r
   await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
   await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
   await page.goto('/');
-  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
   await input.fill('Rank governments by AI preparedness');await input.press('Escape');await input.press('Enter');
   const scores=page.getByLabel('Government scores',{exact:true});
   await expect(scores).toBeVisible();
@@ -140,16 +142,16 @@ for(const width of [320,390])test(`submitted questions wrap and resize without c
   await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
   await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
   await page.goto('/');
-  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
   const blankHeight=(await input.boundingBox())!.height;
   const question='What feedback did Isaac give on Atlas?';
   await input.fill(question);expect(posts).toBe(0);await input.press('Escape');await input.press('Enter');
   await expect(page.getByRole('combobox',{name:'Lab work to explore'})).toHaveValue('5');
   await expect(input).toHaveValue(question);await expect.poll(()=>posts).toBe(1);
-  const display=page.locator('.home-question-display');
-  await expect(display).toHaveText(question);
+  const display=input;
+  await expect(display).toHaveValue(question);
   await expect.poll(()=>display.evaluate(el=>el.scrollWidth<=el.clientWidth+1)).toBe(true);
-  expect((await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
+  await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
   await page.setViewportSize({width:1280,height:900});
   await expect.poll(async()=>Math.abs((await display.boundingBox())!.height-blankHeight)).toBeLessThan(1);
   await page.setViewportSize({width,height:844});
@@ -163,7 +165,7 @@ for(const reducedMotion of ['no-preference','reduce'] as const)test(`project ima
   await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
   await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
   await page.goto('/');
-  const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
   await input.fill('Explore all projects');await input.press('Escape');await input.press('Enter');
   const search=page.getByRole('searchbox',{name:'Find a project',exact:true});await search.fill('Taiwan');
   const tile=page.getByRole('button',{name:'Leading AI Literacy Efforts in Taiwan',exact:true});
@@ -188,7 +190,7 @@ for(const width of [320,390])test(`project facets keep every label within its se
   await page.setViewportSize({width,height:844});
   await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
   await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
-  await page.goto('/');const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
   await input.fill('Taiwan teaching');await input.press('Escape');await input.press('Enter');
   const facets=page.getByRole('group',{name:'Explore project',exact:true});
   await expect.poll(()=>facets.locator('.portfolio-tab-label').evaluateAll(labels=>labels.every(label=>{
@@ -210,7 +212,7 @@ for(const reducedMotion of ['no-preference','reduce'] as const)test(`native disc
   await page.setViewportSize({width:390,height:844});await page.emulateMedia({reducedMotion});
   await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
   await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
-  await page.goto('/');const input=page.getByRole('combobox',{name:'Explore',exact:true});
+  await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
   await input.fill('Taiwan teaching');await input.press('Escape');await input.press('Enter');
   await expect.poll(()=>page.locator('.home-genui-reveal-content').getAttribute('data-disclosure-instant')).toBeNull();
   const disclosure=page.locator('.home-next-questions');const summary=disclosure.locator('summary');
@@ -226,3 +228,157 @@ for(const reducedMotion of ['no-preference','reduce'] as const)test(`native disc
   await expect(disclosure).toHaveAttribute('open','');
   await expect(disclosure.locator('[data-disclosure-inert]')).toHaveCount(0);
 });
+
+for(const reducedMotion of ['no-preference','reduce'] as const){
+  test(`multiline questions retain their geometry and selection through focus changes (${reducedMotion})`,async({page})=>{
+    await page.emulateMedia({reducedMotion});
+    await page.setViewportSize({width:390,height:844});
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+    await page.goto('/');
+    const input=page.getByRole('textbox',{name:'Explore',exact:true});
+    const question='How did Isaac turn participant feedback into changes in the Taiwan teaching program?';
+    await input.fill(question);await input.press('Escape');await input.press('Enter');
+    await expect(page.getByRole('region',{name:'Project explorer'})).toBeVisible();
+    await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBeGreaterThan(42);
+    await page.waitForTimeout(650);
+    const before=await input.boundingBox();
+    await page.getByRole('button',{name:'Process',exact:true}).focus();
+    await input.focus();await input.press('ArrowLeft');await input.press('Shift+ArrowRight');
+    const selection=await input.evaluate((element:HTMLTextAreaElement)=>[element.selectionStart,element.selectionEnd]);
+    await input.press('Escape');await input.press('ArrowDown');
+    await page.waitForTimeout(250);
+    const after=await input.boundingBox();
+    expect(Math.abs(after!.height-before!.height)).toBeLessThan(1);
+    expect(selection[1]-selection[0]).toBe(1);
+    await expect(input).toHaveValue(question);
+    await expect(page.getByRole('listbox')).toHaveCount(0);
+    await input.fill('x'.repeat(500));await input.press('Escape');
+    await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBe(160);
+    expect(await input.evaluate((element:HTMLTextAreaElement)=>element.scrollHeight>element.clientHeight)).toBe(true);
+    await input.fill('Taiwan');await input.press('Escape');
+    await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBe(42);
+  });
+}
+
+test('help generates inside the same pane, stays local, and restores after Clear',async({page})=>{
+  let posts=0;
+  await page.route('**/api/compose',route=>{if(route.request().method()==='POST')posts++;return route.fulfill({json:{configured:false}});});
+  await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
+  await page.setViewportSize({width:320,height:568});
+  await page.goto('/');
+  await page.getByRole('button',{name:'How to explore',exact:true}).click();
+  const help=page.getByRole('article',{name:'How to explore'});
+  await expect(help).toBeVisible();
+  expect(await help.evaluate(element=>Boolean(element.closest('.home-genui-stage')))).toBe(true);
+  await expect(help.getByRole('heading',{name:'How it works'})).toBeVisible();
+  await expect(help.getByRole('heading',{name:'Help make this better'})).toBeVisible();
+  await expect(help.getByRole('button')).toHaveCount(4);
+  expect(posts).toBe(0);
+  await help.getByText('Technical details',{exact:true}).click();
+  await expect(help.getByText(/server validates its response/)).toBeVisible();
+  await page.getByRole('button',{name:'Clear exploration'}).click();
+  await page.getByRole('button',{name:'Undo clear'}).click();
+  await expect(help).toBeVisible();
+  await expect(help.getByText('Technical details',{exact:true}).locator('..')).toHaveAttribute('open','');
+  expect(posts).toBe(0);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await help.getByRole('button',{name:'How did Isaac help teachers in Taiwan?'}).click();
+  await expect(page.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible();
+});
+
+test('tablet screenshots retain the source proportions without an artificial letterbox',async({page})=>{
+  await page.setViewportSize({width:768,height:1000});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  // Use a local fixture with known proportions so asset delivery does not decide the test.
+  await page.route('**/chat-lab/OpenAI_StudyMode_Flow_*.png',route=>route.fulfill({contentType:'image/svg+xml',body:'<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"><rect width="1920" height="1080" fill="white"/></svg>'}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('What feedback did Isaac give on Study Mode?');await input.press('Escape');await input.press('Enter');
+  const image=page.locator('.portfolio-project-image');
+  await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);
+  const proportions=await image.evaluate((img:HTMLImageElement)=>({source:img.naturalWidth/img.naturalHeight,display:img.getBoundingClientRect().width/img.getBoundingClientRect().height}));
+  expect(Math.abs(proportions.source-proportions.display)).toBeLessThan(.01);
+});
+
+for(const width of [320,1280])for(const [question,projectId] of [
+  ['Who is Isaac?',null],
+  ['How did Isaac help teachers in Taiwan?',taiwan],
+  ['How did Isaac research AI in government?',policy],
+  ['What was Isaac’s role in Congress?','congressional-office-setup-100-day-report'],
+] as const){
+  test(`a first-time visitor can explore ${question} at ${width}px`,async({page})=>{
+    let posts=0;
+    await page.setViewportSize({width,height:900});
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
+    await page.goto('/');
+    await page.getByRole('textbox',{name:'Explore',exact:true}).focus();
+    expect(posts).toBe(0);
+    await page.getByRole('option',{name:question,exact:true}).click();
+    const results=page.locator('.home-genui-stage');
+    if(projectId)await expect(results.getByRole('combobox',{name:'Project',exact:true})).toHaveValue(projectId);
+    else await expect(results.getByText(/Isaac is a tech generalist/)).toBeVisible();
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  });
+}
+
+test('the first-visit guide remains reachable by keyboard after suggestions dismiss',async({page})=>{
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.focus();await input.press('Tab');
+  await expect(page.getByRole('button',{name:'How to explore',exact:true})).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('.home-genui-stage h2')).toBeFocused();
+});
+
+test('hovering suggestions leaves Enter in control of the visitor’s own question',async({page})=>{
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('taiwan');
+  await page.getByRole('option').nth(1).hover();
+  await expect(input).not.toHaveAttribute('aria-activedescendant');
+  await input.press('Enter');
+  await expect(input).toHaveValue('taiwan');
+  await expect(page.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible();
+});
+
+for(const width of [320,1440])test(`first-visit questions share the input reading edge at ${width}px`,async({page})=>{
+  await page.setViewportSize({width,height:900});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});await input.focus();
+  const question=page.getByRole('option',{name:'Who is Isaac?',exact:true}).locator('span');
+  expect(Math.abs((await input.boundingBox())!.x-(await question.boundingBox())!.x)).toBeLessThan(1);
+});
+
+test('square product media and its explanation align with the reading edge',async({page})=>{
+  await page.setViewportSize({width:1440,height:1000});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.route('**/chat-lab/pulse1.webp',route=>route.fulfill({contentType:'image/svg+xml',body:'<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1920"><rect width="1920" height="1920" fill="white"/></svg>'}));
+  await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('What feedback did Isaac give on Pulse?');await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('combobox',{name:'Lab work to explore'})).toHaveValue('4');
+  await expect.poll(()=>page.locator('.portfolio-project-image').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);
+  const geometry=await page.evaluate(()=>{const box=(selector:string)=>document.querySelector(selector)!.getBoundingClientRect();return {imageLeft:box('.portfolio-project-image').left,readingLeft:box('.portfolio-workbench-body').left,textGap:box('.portfolio-workbench-reader').top-box('.portfolio-lab-product-choice').bottom};});
+  expect(Math.abs(geometry.imageLeft-geometry.readingLeft)).toBeLessThan(1);
+  expect(geometry.textGap).toBeGreaterThanOrEqual(0);expect(geometry.textGap).toBeLessThanOrEqual(16);
+});
+
+for(const [draft,feature] of [['pul','Pulse'],['stduy mode','Study Mode'],['backtoschool','Back to School']] as const){
+  test(`feature suggestions opt in with a partial or imperfect name: ${draft}`,async({page})=>{
+    let posts=0;
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
+    await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+    await input.fill(draft);await expect(page.getByRole('option').first()).toContainText(feature);
+    await input.fill('AI');
+    await expect(page.getByRole('option',{name:/feedback.*Pulse|feedback.*Study Mode|Back to School/i})).toHaveCount(0);
+    expect(posts).toBe(0);
+  });
+}

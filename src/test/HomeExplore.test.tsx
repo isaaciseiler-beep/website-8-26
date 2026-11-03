@@ -15,7 +15,7 @@ describe("homepage generative interface", () => {
     const fetcher=vi.fn(async()=>success({configured:true}));
     vi.stubGlobal('fetch',fetcher);
     mount();
-    const input=screen.getByRole('combobox',{name:'Explore'});
+    const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'hello'}});
     await act(async()=>{vi.advanceTimersByTime(5000);});
     expect(screen.queryByRole('heading')).not.toBeInTheDocument();
@@ -35,7 +35,7 @@ describe("homepage generative interface", () => {
   it('hands keyboard focus into an opened project and back to its filtered project button',async()=>{
     vi.stubGlobal('fetch',vi.fn(async()=>success({configured:false})));
     mount();
-    const input=screen.getByRole('combobox',{name:'Explore'});
+    const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Explore all projects'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     fireEvent.change(screen.getByRole('searchbox',{name:'Find a project'}),{target:{value:'Taiwan'}});
@@ -53,7 +53,7 @@ describe("homepage generative interface", () => {
     const fetcher=vi.fn(async()=>success({configured:false}));
     vi.stubGlobal('fetch',fetcher);
     mount();
-    const input=screen.getByRole('combobox',{name:'Explore'});
+    const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Show state government AI rankings'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     expect(screen.getByRole('region',{name:'AI benchmark explorer'})).toBeInTheDocument();
@@ -77,7 +77,7 @@ describe("homepage generative interface", () => {
       return success({configured:true,needsComposition:true});
     }));
     mount();
-    const input=screen.getByRole('combobox',{name:'Explore'});
+    const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'An unfamiliar question'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     expect(screen.getByLabelText('Choose a starting point')).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe("homepage generative interface", () => {
   it('keeps short benchmark follow-ups in context without another provider call',async()=>{
     const fetcher=vi.fn(async()=>success({configured:false}));
     vi.stubGlobal('fetch',fetcher);mount();
-    const input=screen.getByRole('combobox',{name:'Explore'});
+    const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Show state government AI rankings'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     const calls=fetcher.mock.calls.length;
@@ -107,7 +107,7 @@ describe("homepage generative interface", () => {
     vi.stubGlobal("fetch", fetcher);
     mount();
     expect(screen.queryByRole("heading")).not.toBeInTheDocument();
-    const input = screen.getByRole("combobox", { name: "Explore" });
+    const input = screen.getByRole("textbox", { name: "Explore" });
     fireEvent.change(input, { target: { value: "contact" } });
     await act(async () => { fireEvent.submit(input.closest("form")!); });
     expect(screen.getByRole("link", { name: "Email" })).toHaveAttribute("href", expect.stringContaining("mailto:"));
@@ -119,7 +119,7 @@ describe("homepage generative interface", () => {
     const fetcher=vi.fn(async()=>success({configured:true}));
     vi.stubGlobal('fetch',fetcher);
     mount();
-    const input=screen.getByRole('combobox',{name:'Explore'});
+    const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Show Japan photos'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     expect(screen.queryByText(/Photography lives/)).not.toBeInTheDocument();
@@ -134,7 +134,7 @@ describe("homepage generative interface", () => {
       return new Promise(()=>{});
     }));
     mount();
-    const input=screen.getByRole('combobox',{name:'Explore'});
+    const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Taiwan teaching'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     const status=screen.getByRole('status');
@@ -151,7 +151,7 @@ describe("homepage generative interface", () => {
       const writeText=vi.fn(()=>new Promise<void>((resolve,reject)=>{finish=()=>outcome==='success'?resolve():reject(new Error('Clipboard denied'));}));
       vi.stubGlobal('navigator',Object.create(navigator,{clipboard:{value:{writeText},configurable:true}}));
       vi.stubGlobal('fetch',vi.fn(async()=>success({configured:false})));
-      mount();const input=screen.getByRole('combobox',{name:'Explore'});
+      mount();const input=screen.getByRole('textbox',{name:'Explore'});
       fireEvent.change(input,{target:{value:'Taiwan teaching'}});
       await act(async()=>{fireEvent.submit(input.closest('form')!);});
       fireEvent.click(screen.getByRole('button',{name:'Copy link to this view'}));
@@ -180,7 +180,7 @@ describe("homepage generative interface", () => {
       return success({ plan: localPlan(request.draft, request.current, [], request.revision) });
     }));
     mount();
-    const input = screen.getByRole("combobox", { name: "Explore" });
+    const input = screen.getByRole("textbox", { name: "Explore" });
     fireEvent.change(input, { target: { value: "Taiwan teaching" } });
     await act(async () => { fireEvent.submit(input.closest("form")!); });
     fireEvent.change(input, { target: { value: "contact" } });
@@ -194,7 +194,7 @@ describe("homepage generative interface", () => {
     const fetcher = vi.fn(async () => success({ configured: false }));
     vi.stubGlobal("fetch", fetcher);
     mount();
-    const input = screen.getByRole("combobox", { name: "Explore" });
+    const input = screen.getByRole("textbox", { name: "Explore" });
     fireEvent.compositionStart(input);
     fireEvent.change(input, { target: { value: "contact" } });
     await act(async () => { vi.advanceTimersByTime(1000); });
@@ -212,7 +212,7 @@ describe("homepage generative interface", () => {
     await act(async () => { vi.advanceTimersByTime(1000); });
     expect(screen.queryByRole("link", { name: /Email/ })).not.toBeInTheDocument();
     expect(input).toHaveFocus();
-    expect(input).toHaveAttribute('aria-expanded','false');
+    expect(input).not.toHaveAttribute('aria-controls');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 
@@ -223,7 +223,7 @@ describe("homepage generative interface", () => {
       return success({ plan: localPlan(request.draft, request.current, [], request.revision) });
     }));
     mount();
-    const input = screen.getByRole("combobox", { name: "Explore" });
+    const input = screen.getByRole("textbox", { name: "Explore" });
     for (const text of ["Compare AI policy and Taiwan teaching", "compare these"]) {
       fireEvent.change(input, { target: { value: text } });
       await act(async () => { fireEvent.submit(input.closest("form")!); });

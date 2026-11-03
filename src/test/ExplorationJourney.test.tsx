@@ -9,7 +9,7 @@ import { CONTENT_VERSION } from '@/lib/canvas';
 import { blankBlock, TAIWAN_ID } from '@/lib/genui';
 
 const response=(data:unknown)=>({ok:true,json:async()=>data});
-async function submit(text:string){const input=screen.getByRole('combobox',{name:'Explore'});fireEvent.change(input,{target:{value:text}});await act(async()=>{fireEvent.submit(input.closest('form')!);});}
+async function submit(text:string){const input=screen.getByRole('textbox',{name:'Explore'});fireEvent.change(input,{target:{value:text}});await act(async()=>{fireEvent.submit(input.closest('form')!);});}
 afterEach(()=>{cleanup();vi.unstubAllGlobals();vi.restoreAllMocks();});
 
 describe('primary exploration journeys',()=>{
@@ -35,13 +35,13 @@ describe('primary exploration journeys',()=>{
   it('offers an optional complete work browse without provider requests while deciding',async()=>{
     const fetcher=vi.fn(async()=>response({configured:false}));vi.stubGlobal('fetch',fetcher);
     render(<MemoryRouter><HomeExplore/></MemoryRouter>);
-    fireEvent.focus(screen.getByRole('combobox',{name:'Explore'}));
+    fireEvent.focus(screen.getByRole('textbox',{name:'Explore'}));
     expect(fetcher).toHaveBeenCalledTimes(1);
-    expect(screen.getByRole('button',{name:'Introduction'})).toBeInTheDocument();
-    await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Browse work'}));});
+    expect(screen.getByRole('option',{name:'How to explore'})).toBeInTheDocument();
+    await act(async()=>{fireEvent.click(screen.getByRole('option',{name:'Browse work'}));});
     expect(screen.getByRole('region',{name:'Work explorer'})).toBeVisible();
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-    expect(screen.getByRole('combobox',{name:'Explore'})).toHaveValue('Explore all projects');
+    expect(screen.getByRole('textbox',{name:'Explore'})).toHaveValue('Explore all projects');
   });
 
   it('uses one composition POST when configured, retaining the previous evidence as context',async()=>{

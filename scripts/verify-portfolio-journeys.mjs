@@ -14,7 +14,7 @@ try{
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   const record=name=>{results.push({theme,width,name,ok:true});console.log(`${theme} ${width}: ${name}`);};
   const contained=async()=>assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-  await page.goto(base,{waitUntil:'domcontentloaded'});const input=page.getByRole('combobox',{name:'Explore',exact:true});await input.waitFor();
+  await page.goto(base,{waitUntil:'domcontentloaded'});const input=page.getByRole('textbox',{name:'Explore',exact:true});await input.waitFor();
   await page.getByRole('button',{name:'Toggle menu',exact:true}).click();await page.getByRole('button',{name:'Work',exact:true}).click();await page.waitForURL('**/work');await contained();
   const project=page.locator('.work-story a').first();const href=await project.getAttribute('href');await project.focus();
   await expect(project.locator('.work-story-caption')).toHaveCSS('opacity','1');

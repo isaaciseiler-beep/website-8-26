@@ -9,7 +9,7 @@ let reduced = true;
 const preferenceListeners = new Set<() => void>();
 const success = (data: unknown) => ({ ok: true, json: async () => data });
 async function submit(text: string) {
-  const input = screen.getByRole('combobox', { name: 'Explore' });
+  const input = screen.getByRole('textbox', { name: 'Explore' });
   fireEvent.change(input, { target: { value: text } });
   await act(async () => { fireEvent.submit(input.closest('form')!); });
 }
@@ -73,7 +73,7 @@ describe('Explore motion preserves an immediately usable interface', () => {
     expect(reveal()).toHaveAttribute('aria-hidden', 'true');
     expect(reveal()).toHaveAttribute('inert');
     expect(document.querySelector('.home-genui-window')).toHaveClass('has-results');
-    expect(screen.getByRole('combobox', { name: 'Explore' })).toHaveFocus();
+    expect(screen.getByRole('textbox', { name: 'Explore' })).toHaveFocus();
     await submit('How can I contact Isaac?');
     expect(screen.getByRole('region', { name: 'Contact' })).toBeVisible();
     expect(screen.queryByRole('heading', { name: 'AI literacy in Taiwan' })).not.toBeInTheDocument();
@@ -93,7 +93,7 @@ describe('Explore motion preserves an immediately usable interface', () => {
     expect(screen.getByRole('combobox', { name: 'First government' })).toHaveValue('Michigan');
     expect(screen.getByRole('combobox', { name: 'Second government' })).toHaveValue('California');
     expect(reveal()).not.toHaveAttribute('inert');
-    expect(screen.getByRole('combobox', { name: 'Explore' })).toHaveFocus();
+    expect(screen.getByRole('textbox', { name: 'Explore' })).toHaveFocus();
   });
 
   it('replaces a long answer with usable guidance in the same measured pane', async () => {

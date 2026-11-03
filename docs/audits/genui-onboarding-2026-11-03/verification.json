@@ -1,0 +1,72 @@
+{
+  "unit": {
+    "tests": 1073,
+    "files": 71,
+    "passed": true
+  },
+  "typecheck": "passed",
+  "lint": "passed",
+  "build": "passed; pre-existing chunk-size advisory",
+  "browser": {
+    "cases": 43,
+    "workers": 2,
+    "seconds": 31.9,
+    "passed": true
+  },
+  "responsive": {
+    "checks": 156,
+    "failures": 0,
+    "note": "Final layout refinements also have dedicated alignment assertions."
+  },
+  "motion": {
+    "cases": 40,
+    "failures": 0,
+    "openingComposerTopDriftPixels": 0
+  },
+  "textResilience": {
+    "cases": 36,
+    "failures": 0
+  },
+  "claudeReviews": 4,
+  "sustainedInteractions": [
+    {
+      "phase": "composer-help",
+      "started": "2026-11-03T23:12:28.631Z",
+      "elapsedSeconds": 1203,
+      "operations": 3834,
+      "samples": 960,
+      "errors": [],
+      "viewportWidths": [
+        320,
+        390,
+        1280
+      ],
+      "overflowSamples": 0,
+      "escapedControlSamples": 0,
+      "fadedContentSamples": 0,
+      "providerRequestsIntercepted": true
+    },
+    {
+      "phase": "final-spacing",
+      "started": "2026-11-03T23:20:16.202Z",
+      "elapsedSeconds": 618,
+      "operations": 1977,
+      "samples": 495,
+      "errors": [],
+      "viewportWidths": [
+        320,
+        390,
+        1280
+      ],
+      "overflowSamples": 0,
+      "escapedControlSamples": 0,
+      "fadedContentSamples": 0,
+      "providerRequestsIntercepted": true
+    }
+  ],
+  "limits": [
+    "Browser provider calls are intercepted. These are authored UI checks, not live-provider accuracy checks.",
+    "No physical mobile device or Safari keyboard verification.",
+    "Sustained runs cover the composer/help and spacing candidates; final prefix-matching changes are separately covered by unit and browser cases."
+  ]
+}

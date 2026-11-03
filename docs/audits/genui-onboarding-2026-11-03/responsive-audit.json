@@ -1,0 +1,2971 @@
+{
+  "checks": 156,
+  "errors": [],
+  "failures": [],
+  "rows": [
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            240,
+            240
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 88
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 88
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            310,
+            310
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            234,
+            234
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            480,
+            480
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            461,
+            461
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 768,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            480,
+            480
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            240,
+            240
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            240,
+            135
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 88
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 88
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            310,
+            310
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            310,
+            174
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 64
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            234,
+            234
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            374,
+            211
+          ],
+          "ratioError": 0.00006595109726137416
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            480,
+            480
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            656,
+            369
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            461,
+            461
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            471,
+            265
+          ],
+          "ratioError": 0.00003934529430260625
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 768,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "help",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-0",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-1",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-2",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/OpenAI_StudyMode_Flow_7-29-2508576550.png",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-3",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/backtoschool.avif",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-4",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse1.webp",
+          "natural": [
+            1920,
+            1920
+          ],
+          "box": [
+            480,
+            480
+          ],
+          "ratioError": 0
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-5",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://i.ytimg.com/vi/8UWKxJbjriY/maxresdefault.jpg",
+          "natural": [
+            1280,
+            720
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-6",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/Group_Chat__Blog__1920x1080__2_.webp",
+          "natural": [
+            1920,
+            1080
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "lab-7",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [
+        {
+          "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/chatgpt-100-chats-cover.png",
+          "natural": [
+            2000,
+            1125
+          ],
+          "box": [
+            548,
+            308
+          ],
+          "ratioError": 0.000022541179917956455
+        }
+      ],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "taiwan",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "government",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "career",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "label": "comparison",
+      "overflow": false,
+      "escaped": [],
+      "labels": [],
+      "images": [],
+      "textareaHeight": 42
+    }
+  ]
+}

@@ -7,8 +7,9 @@ type Aspect='overview'|'role'|'process'|'outcomes'|'lessons'|'measurement'|'trad
 export type ExperiencePrompt={id:string;text:string;keywords:string;topics:readonly Topic[];aspect:Aspect};
 export type SuggestionContext={projectIds:readonly string[];kind?:string;focus?:string;answerId?:string;angle?:string;section?:number;question?:string;visitedQuestions?:readonly string[]};
 export const experiencePrompts:readonly ExperiencePrompt[]=[
+  {id:'introduction',text:'Who is Isaac?',keywords:'introduction who biography about background',topics:['career'],aspect:'overview'},
   {id:'career',text:'Walk me through Isaac’s experience',keywords:'background biography resume cv journey qualifications who about yourself',topics:['career'],aspect:'overview'},
-  {id:'taiwan',text:'What did Isaac build in Taiwan?',keywords:'fulbright teachers teaching workshop classroom learning asia',topics:['taiwan'],aspect:'role'},
+  {id:'taiwan',text:'How did Isaac help teachers in Taiwan?',keywords:'fulbright teachers teaching workshop classroom learning asia ai education',topics:['taiwan'],aspect:'role'},
   {id:'congress',text:'What was Isaac’s role in Congress?',keywords:'scholten politics washington communications',topics:['congress'],aspect:'role'},
   {id:'policy',text:'How did Isaac research AI in government?',keywords:'benchmark index artificial intelligence mapping analysis data methodology',topics:['policy'],aspect:'process'},
   {id:'policy-role',text:'What did Isaac contribute to the government AI benchmark?',keywords:'ownership personally contribution role research index',topics:['policy'],aspect:'role'},
@@ -40,21 +41,24 @@ export const experiencePrompts:readonly ExperiencePrompt[]=[
   {id:'rebrand-rollout',text:'How did Isaac implement the Boehringer website rollout?',keywords:'rebrand brand ux colleagues content assets rollout website implementation',topics:['rebrand'],aspect:'process'},
   {id:'rebrand-newsletter',text:'How did Isaac build the Boehringer employee newsletter?',keywords:'company internal employee communications volunteering newsletter',topics:['rebrand'],aspect:'process'},
   {id:'openai',text:'What did Isaac contribute to OpenAI product testing?',keywords:'chatgpt lab feedback technology ai product',topics:['openai'],aspect:'role'},
+  {id:'openai-process',text:'How did Isaac test new ChatGPT features?',keywords:'openai chatgpt testing research process approach products',topics:['openai'],aspect:'process'},
   {id:'openai-lessons',text:'What did Isaac learn from testing ChatGPT?',keywords:'openai lessons learned reflection takeaways',topics:['openai'],aspect:'lessons'},
-  {id:'study-mode',text:'What feedback did Isaac give on Study Mode?',keywords:'openai chatgpt study mode socratic student',topics:['openai'],aspect:'process'},
+  {id:'study-mode',text:'What feedback did Isaac give on Study Mode?',keywords:'openai chatgpt study mode studymode socratic student',topics:['openai'],aspect:'process'},
   {id:'pulse',text:'What feedback did Isaac give on Pulse?',keywords:'openai chatgpt pulse proactive personalization',topics:['openai'],aspect:'process'},
   {id:'atlas',text:'What feedback did Isaac give on Atlas?',keywords:'openai chatgpt atlas browser browsing',topics:['openai'],aspect:'process'},
-  {id:'group-chats',text:'What feedback did Isaac give on group chats?',keywords:'openai chatgpt group chats participation facilitator',topics:['openai'],aspect:'process'},
-  {id:'100-chats',text:'What did Isaac contribute to the 100 Chats book?',keywords:'openai chatgpt workflows student book chats',topics:['openai'],aspect:'role'},
-  {id:'back-to-school',text:'What did Isaac do for OpenAI’s Back to School campaign?',keywords:'openai chatgpt back to school student campaign campus launch education',topics:['openai'],aspect:'process'},
+  {id:'group-chats',text:'What feedback did Isaac give on group chats?',keywords:'openai chatgpt group chats groupchats participation facilitator',topics:['openai'],aspect:'process'},
+  {id:'100-chats',text:'What did Isaac contribute to the 100 Chats book?',keywords:'openai chatgpt 100chats workflows student book chats',topics:['openai'],aspect:'role'},
+  {id:'back-to-school',text:'What did Isaac do for OpenAI’s Back to School campaign?',keywords:'openai chatgpt back to school backtoschool student campaign campus launch education',topics:['openai'],aspect:'process'},
   {id:'work',text:'Explore all projects',keywords:'portfolio work overview projects built browse',topics:['work'],aspect:'overview'},
   {id:'compare',text:'Compare Isaac’s AI research methods with his teaching approach in Taiwan',keywords:'compare comparison methods public education government',topics:['policy','taiwan'],aspect:'comparison'},
   {id:'compare-comms',text:'Compare Isaac’s communications work in Congress and the Boehringer rebrand',keywords:'compare comparison communications strategy',topics:['congress','rebrand'],aspect:'comparison'},
   {id:'compare-research',text:'Compare Isaac’s methods in ChatGPT product testing and journalism interviews',keywords:'compare comparison methods research product testing',topics:['openai','journalism'],aspect:'comparison'},
   {id:'contact',text:'How can I contact Isaac?',keywords:'email connect collaborate reach linkedin',topics:['contact'],aspect:'overview'},
 ];
+const advancedProductIds=new Set(['study-mode','pulse','atlas','group-chats','100-chats','back-to-school']);
+const introductoryPromptIds=new Set(['introduction','career','taiwan','congress','policy','journalism','rebrand','openai','work']);
 const byId=new Map(experiencePrompts.map(item=>[item.id,item]));
-export const startingExperiencePrompts=['policy','taiwan','congress','career'].map(id=>byId.get(id)!);
+export const startingExperiencePrompts=['introduction','taiwan','policy','congress'].map(id=>byId.get(id)!);
 const normalize=(text:string)=>text.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 const stop=new Set('a an the i me my you your yours he his him they their it its isaac seiler tell show about what how did do does can could would is are was were in on at of to for through please with and from this that actually'.split(' '));
 /** One insertion/deletion/substitution or adjacent transposition, bounded to meaningful words. */
@@ -64,6 +68,18 @@ function near(a:string,b:string):boolean {
   const [short,long]=a.length<b.length?[a,b]:[b,a];let i=0,j=0;
   while(i<short.length&&j<long.length){if(short[i]===long[j]){i++;j++;}else if(j===i)j++;else return false;}
   return true;
+}
+/** An unfamiliar visitor gets introductions. A visitor beginning to name a
+ * feature still gets prefix/typo completion rather than needing its exact name. */
+function namesLabFeature(query:string):boolean {
+  const words=query.split(' ');
+  const matches=(word:string|undefined,target:string,prefix=3)=>Boolean(word&&(word===target||word.length>=prefix&&(target.startsWith(word)||near(word,target))));
+  if(words.some(word=>['pulse','atlas'].some(name=>matches(word,name))||['studymode','groupchats','100chats','backtoschool'].includes(word)))return true;
+  return words.some((word,index)=>
+    matches(word,'study',4)&&matches(words[index+1],'mode',2)
+    ||matches(word,'group')&&matches(words[index+1],'chats')
+    ||word==='100'&&matches(words[index+1],'chats')
+    ||word==='back'&&matches(words[index+1]==='to'?words[index+2]:words[index+1],'school'));
 }
 const topicWords:Record<Topic,string[]>={
   career:['career','experience','background','resume','skills','strengths','leadership','summation'],
@@ -118,11 +134,12 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
   const count=Math.max(0,Math.min(4,Math.floor(limit)||0));if(!count)return [];
   const normalized=normalize(query.slice(0,500));
   if(/\b(?:photos?|photography|albums?|gallery|pictures?)\b/.test(normalized))return [];
-  const published=publishedWorkPrompts(query.slice(0,500),context);
+  const specificProduct=namesLabFeature(normalized);
+  const published=publishedWorkPrompts(query.slice(0,500),context).filter(item=>
+    !item.id.startsWith('published:openai-product-testing-and-feedback:')||specificProduct);
   const continuation=Boolean(context)&&/^(?:what else|what next|what s next|tell me more|show me more|go deeper|more|next)(?: about (?:this|it|that))?$/.test(normalized);
   const tokens=continuation?[]:[...new Set(normalized.split(' ').filter(token=>token&&!stop.has(token)))].slice(0,24);
   const aspect=queryAspect(normalized);
-  const specificProduct=/\b(?:pulse|atlas|study mode|group chats|100 chats)\b/.test(normalized);
   const subjectTokens=[...tokens,...tokens.slice(0,-1).map((token,index)=>token+tokens[index+1])];
   let topics=(Object.keys(topicWords) as Topic[]).filter(topic=>subjectTokens.some(token=>topicWords[topic].some(word=>token===word||(token.length>=3&&word.startsWith(token))||near(token,word))));
   // OpenAI supported the Taiwan program; that mention does not imply a second
@@ -150,16 +167,20 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
   if(context?.question)answered.add(normalize(context.question));
   const alreadyAnswered=(item:ExperiencePrompt)=>{
     if(answered.has(normalize(item.text)))return true;
+    // Keep earlier questions recognizable when introductory wording improves.
+    if(item.id==='taiwan'&&answered.has(normalize('What did Isaac build in Taiwan?')))return true;
     if(context?.answerId&&item.topics.includes('career')&&careerAnswerFor(item.text)===context.answerId)return true;
     if(context?.projectIds.includes('fulbright-focus-group-sponsored-by-openai')&&context.section===4&&item.id==='taiwan-lessons')return true;
     if(context?.projectIds.includes('openai-product-testing-and-feedback')){const sectionPrompts:Record<number,string>={1:'100-chats',2:'study-mode',4:'pulse',5:'atlas',6:'group-chats',7:'openai-lessons'};if(item.id===sectionPrompts[context.section??-1])return true;}
     return false;
   };
   if(!tokens.length&&topics.length){
-    const next=compiled.filter(({item})=>!alreadyAnswered(item)).filter(({item})=>item.topics.length===1&&item.topics.some(topic=>topics.includes(topic))&&item.aspect!==context?.focus);
+    const next=compiled.filter(({item})=>!alreadyAnswered(item)&&!advancedProductIds.has(item.id)).filter(({item})=>item.topics.length===1&&item.topics.some(topic=>topics.includes(topic))&&item.aspect!==context?.focus);
     return [...next.sort((a,b)=>Number(b.item.aspect==='lessons')-Number(a.item.aspect==='lessons')).map(row=>row.item),...published].slice(0,count);
   }
   const ranked=compiled.flatMap(({item,title,aliases},index)=>{
+    // Introduce product testing before asking about an unfamiliar feature.
+    if(!specificProduct&&advancedProductIds.has(item.id))return [];
     // A broad subject query is a chance to explore further. An explicit aspect or
     // full question still lets a visitor deliberately revisit an earlier answer.
     if(alreadyAnswered(item)&&!aspect&&!specificProduct&&normalized!==normalize(item.text))return [];
@@ -171,6 +192,7 @@ export function suggestExperiencePrompts(query:string,limit=4,context?:Suggestio
     let matched=0;
     let score=tokens.reduce((sum,token)=>{const value=title.includes(token)?8:title.some(word=>token.length>=2&&word.startsWith(token))?6:aliases.includes(token)?5:aliases.some(word=>token.length>=3&&word.startsWith(token))?4:[...title,...aliases].some(word=>near(token,word))?2:0;if(value)matched++;return sum+value;},0);
     if(!matched&&!overlap)return [];
+    if(!context&&!aspect&&!specificProduct&&introductoryPromptIds.has(item.id))score+=25;
     score+=overlap*20+(matched===tokens.length?12:0)+(aspect===item.aspect?35:0);
     if(item.id==='openai'&&/feedback|product|testing/.test(normalized)&&!/study|pulse|atlas|group|100 chats/.test(normalized))score+=15;
     if(item.text===query.trim())score-=5; // Favor a useful next question over merely echoing the committed prompt.

@@ -1,0 +1,36 @@
+[
+  {
+    "phase": "composer-help",
+    "started": "2026-11-03T23:12:28.631Z",
+    "elapsedSeconds": 1203,
+    "operations": 3834,
+    "samples": 960,
+    "errors": [],
+    "viewportWidths": [
+      320,
+      390,
+      1280
+    ],
+    "overflowSamples": 0,
+    "escapedControlSamples": 0,
+    "fadedContentSamples": 0,
+    "providerRequestsIntercepted": true
+  },
+  {
+    "phase": "final-spacing",
+    "started": "2026-11-03T23:20:16.202Z",
+    "elapsedSeconds": 618,
+    "operations": 1977,
+    "samples": 495,
+    "errors": [],
+    "viewportWidths": [
+      320,
+      390,
+      1280
+    ],
+    "overflowSamples": 0,
+    "escapedControlSamples": 0,
+    "fadedContentSamples": 0,
+    "providerRequestsIntercepted": true
+  }
+]

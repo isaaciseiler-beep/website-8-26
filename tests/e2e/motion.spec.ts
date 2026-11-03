@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test.use({ trace: 'retain-on-failure', launchOptions: process.env.PLAYWRIGHT_EXECUTABLE_PATH ? { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH, timeout: 10000 } : {} });
+test.describe.configure({mode:'parallel'});
 for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (const reducedMotion of ['reduce', 'no-preference'] as const) {
   test(`${theme} ${width} ${reducedMotion}: motion lifecycle`, async ({ page }, info) => {
     await page.setViewportSize({ width, height: 900 });
@@ -24,7 +25,7 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
       })).toBe(true);
     };
     await page.goto('/');
-    const input = page.getByRole('combobox', { name: 'Explore', exact: true });
+    const input = page.getByRole('textbox', { name: 'Explore', exact: true });
     await expect(input).toBeVisible();
     await expect(page.locator('.home-window-depth')).toHaveCSS('opacity', '0');
     await contained();

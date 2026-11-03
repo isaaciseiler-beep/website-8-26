@@ -7,7 +7,7 @@ import { blankBlock, resolveCanvasPlan, TAIWAN_ID } from '@/lib/genui';
 
 const mount = () => render(<MemoryRouter><HomeExplore /></MemoryRouter>);
 async function submit(text: string) {
-  const input=screen.getByRole('combobox',{name:'Explore'});
+  const input=screen.getByRole('textbox',{name:'Explore'});
   fireEvent.change(input,{target:{value:text}});
   await act(async()=>{fireEvent.submit(input.closest('form')!);});
 }

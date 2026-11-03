@@ -26,7 +26,7 @@ try {
     for (const [width, height] of [[320, 568], [382, 676], [390, 844], [466, 678], [626, 890], [890, 626], [844, 390]]) {
       await resize({ width, height });
       await page.goto(base, { waitUntil: 'domcontentloaded' });
-      const input = page.getByRole('combobox', { name: 'Explore', exact: true });
+      const input = page.getByRole('textbox', { name: 'Explore', exact: true });
       await input.waitFor();
       await contained(`${width}x${height}-idle`);
       assert.equal(await input.evaluate(el => getComputedStyle(el).fontSize), '16px');

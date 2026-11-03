@@ -1,7 +1,7 @@
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
-import { useId, useState, type ReactNode, type RefObject } from 'react';
+import { useId, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
-import { ArrowUpLeft } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { suggestExperiencePrompts, type SuggestionContext } from '@/lib/experiencePrompts';
 import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 
@@ -14,45 +14,61 @@ function SuggestionPanel({children}:{children:ReactNode}) {
     variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.base:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.exit}}})}}
     transition={{height:{duration:reduced?0:.32,ease:[.22,1,.36,1]},opacity:{duration:reduced ? 0 : present ? 0.2 : 0.1}}} onPointerDown={e=>e.preventDefault()}>{children}</motion.div>;
 }
-type Props={committed?:boolean;context?:SuggestionContext;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLInputElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
-export default function ExperienceAutocomplete({committed=false,context,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){
+type Props={context?:SuggestionContext;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
+export default function ExperienceAutocomplete({context,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){
   const id=useId();
   const [active,setActive]=useState(-1);
-  const [editing,setEditing]=useState(false);
+  const reduced=useReducedMotion();
+  const measure=useRef<HTMLSpanElement>(null);
+  const [height,setHeight]=useState(42);
+  useLayoutEffect(()=>{
+    const node=measure.current;if(!node)return;
+    const resize=()=>setHeight(Math.max(42,Math.min(160,node.getBoundingClientRect().height)));
+    resize();const observer=new ResizeObserver(resize);observer.observe(node);
+    return()=>observer.disconnect();
+  },[]);
   const [composing,setComposing]=useState(false);
+  const composition=useRef(false);
   const items=suggestExperiencePrompts(value,4,context);
-  const visible=open&&!composing&&items.length>0;
+  const shortcuts=!value.trim()&&!context?[{id:'help',text:'How to explore',label:'How to explore'},{id:'browse',text:'Explore all projects',label:'Browse work'}]:[];
+  const options=[...items,...shortcuts];
+  const visible=open&&!composing&&options.length>0;
   const toggle=(next:boolean)=>{onOpenChange(next);if(!next)setActive(-1);};
-  const select=(text:string)=>{setEditing(false);toggle(false);onSubmit(text);};
+  const select=(text:string)=>{if(!text.trim())return;toggle(false);onSubmit(text);};
+  const finishComposition=()=>{
+    if(!composition.current)return;
+    composition.current=false;setComposing(false);onCompositionEnd();
+  };
   return <>
     <label className="sr-only" htmlFor="home-explore">Explore</label>
-    <div className={`home-query-field${committed&&!editing?' is-committed':''}`}>
-    {committed&&!editing&&<span className="home-question-display" aria-hidden="true">{value}</span>}
-    <input ref={inputRef} id="home-explore" type="search" enterKeyHint="search" role="combobox" aria-autocomplete="list" aria-expanded={visible} aria-controls={visible?id:undefined} aria-activedescendant={visible&&items[active]?`${id}-${items[active].id}`:undefined} autoComplete="off" placeholder="Ask about Isaac’s work" value={value} maxLength={500}
-      onFocus={()=>{setEditing(true);toggle(true);}} onClick={()=>{setEditing(true);toggle(true);}} onBlur={()=>{setEditing(false);toggle(false);}}
-      onChange={e=>{setEditing(true);setActive(-1);toggle(true);onChange(e.target.value);}}
-      onCompositionStart={()=>{setEditing(true);setComposing(true);setActive(-1);onCompositionStart();}}
-      onCompositionEnd={()=>{setComposing(false);onCompositionEnd();}}
+    <motion.div className="home-query-field" initial={false} animate={{height}} transition={{duration:reduced?0:MOTION_DURATION.fast,ease:MOTION_EASE_ENTER}}>
+    <span ref={measure} className="home-question-measure" aria-hidden="true">{value||'Ask about Isaac’s work'}{'\u200b'}</span>
+    <textarea ref={inputRef} id="home-explore" rows={1} enterKeyHint="search" aria-describedby={`${id}-instructions`} aria-autocomplete="list" aria-haspopup="listbox" aria-controls={visible?id:undefined} aria-activedescendant={visible&&options[active]?`${id}-${options[active].id}`:undefined} autoComplete="off" placeholder="Ask about Isaac’s work" value={value} maxLength={500}
+      onFocus={()=>toggle(true)} onClick={()=>toggle(true)} onBlur={()=>{toggle(false);finishComposition();}}
+      onChange={e=>{setActive(-1);toggle(true);onChange(e.target.value);}}
+      onCompositionStart={()=>{composition.current=true;setComposing(true);setActive(-1);onCompositionStart();}}
+      onCompositionEnd={finishComposition}
       onKeyDown={e=>{
-        if(composing||e.nativeEvent.isComposing||e.keyCode===229)return;
-        if(e.key!=='Enter')setEditing(true);
-        if(e.key==='Escape'&&open){e.preventDefault();e.stopPropagation();toggle(false);}
-        else if((e.key==='ArrowDown'||e.key==='ArrowUp')&&items.length){e.preventDefault();toggle(true);setActive(index=>e.key==='ArrowDown'?(index+1)%items.length:index<=0?items.length-1:index-1);}
-        else if(e.key==='Enter'){e.preventDefault();select(visible&&items[active]?items[active].text:value);}
+        if(composition.current||e.nativeEvent.isComposing||e.keyCode===229)return;
+
+        if(e.key==='Escape'&&visible){e.preventDefault();e.stopPropagation();toggle(false);}
+        else if(e.altKey&&e.key==='ArrowDown'&&options.length){e.preventDefault();toggle(true);setActive(0);}
+        else if(visible&&!e.shiftKey&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&(e.key==='ArrowDown'||e.key==='ArrowUp')&&options.length){e.preventDefault();setActive(index=>e.key==='ArrowDown'?(index+1)%options.length:index<=0?options.length-1:index-1);}
+        else if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();select(visible&&options[active]?options[active].text:value);}
         else if(e.key==='Tab')toggle(false);
       }}/>
-    </div>
+    </motion.div>
+    <span id={`${id}-instructions`} className="sr-only">Enter to explore; Shift plus Enter adds a line. When suggestions are open, use arrow keys to choose. Escape dismisses suggestions so arrow keys can move through your question. Alt plus Down opens suggestions again.</span>
     <AnimatePresence initial={false} custom={immediateDismiss}>{visible&&<SuggestionPanel key="suggestions">
       <ul id={id} role="listbox" aria-label="Suggested questions">
-        {items.map((item,index)=><li id={`${id}-${item.id}`} key={item.id} role="option" aria-selected={active===index} onPointerMove={()=>setActive(index)} onClick={()=>select(item.text)}>
-          <span>{item.text}</span><ArrowUpLeft size={14} aria-hidden="true"/>
+        {items.map((item,index)=><li id={`${id}-${item.id}`} key={item.id} role="option" aria-selected={active===index} onClick={()=>select(item.text)}>
+          <span>{item.text}</span><ArrowRight size={14} aria-hidden="true"/>
         </li>)}
+        {shortcuts.length>0&&<li role="group" className="home-autocomplete-shortcuts" aria-label="Other ways to explore">
+          {shortcuts.map((item,index)=><div key={item.id} id={`${id}-${item.id}`} role="option" aria-selected={active===items.length+index} onClick={()=>select(item.text)}>{item.label}</div>)}
+        </li>}
       </ul>
-      {!value.trim()&&!context&&<div className="home-autocomplete-shortcuts" aria-label="Other ways to explore">
-        <button type="button" onClick={()=>select('Give me a quick introduction to Isaac')}>Introduction</button>
-        <button type="button" onClick={()=>select('Explore all projects')}>Browse work</button>
-      </div>}
-      <span className="sr-only" role="status">{items.length} suggestions. Use arrow keys to choose, Enter to explore, or continue typing your own question.</span>
     </SuggestionPanel>}</AnimatePresence>
+    <span className="sr-only" aria-live="polite" aria-atomic="true">{visible?`${options.length} suggestions available.`:''}</span>
   </>;
 }

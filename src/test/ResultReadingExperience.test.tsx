@@ -98,7 +98,7 @@ describe('answer reading and evidence provenance',()=>{
     expect(image).toHaveAttribute('src',reviewedPoster);
     expect(image.closest('a')).toHaveAttribute('href',reviewedPoster);
     expect(image).not.toHaveAttribute('data-image-state','error');
-    expect(image.closest('figure')?.querySelector('figcaption')).toHaveTextContent('Atlas');
+    expect(image).toHaveAttribute('alt',expect.stringContaining('Atlas'));
     expect(product).toHaveValue('5');
     image.dataset.imageState='error'; // The global preloader marks a failed asset.
     fireEvent.error(image);

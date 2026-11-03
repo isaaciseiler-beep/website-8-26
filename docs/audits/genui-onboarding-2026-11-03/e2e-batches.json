@@ -1,0 +1,14 @@
+[
+  {
+    "batch": "core",
+    "exitCode": 0
+  },
+  {
+    "batch": "onboarding",
+    "exitCode": 0
+  },
+  {
+    "batch": "motion",
+    "exitCode": 0
+  }
+]

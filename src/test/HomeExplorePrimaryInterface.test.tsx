@@ -8,7 +8,7 @@ import { blankBlock, resolveCanvasPlan, TAIWAN_ID } from '@/lib/genui';
 const success=(data:unknown)=>({ok:true,json:async()=>data});
 const mount=()=>render(<MemoryRouter><HomeExplore/></MemoryRouter>);
 async function submit(text:string){
-  const input=screen.getByRole('combobox',{name:'Explore'});
+  const input=screen.getByRole('textbox',{name:'Explore'});
   fireEvent.change(input,{target:{value:text}});
   await act(async()=>{fireEvent.submit(input.closest('form')!);});
 }
@@ -17,7 +17,7 @@ afterEach(()=>{cleanup();vi.unstubAllGlobals();});
 describe('Explore as the primary site interface',()=>{
   it('offers actionable first-visit examples without submitting a question or changing the draft',async()=>{
     const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
-    const input=screen.getByRole('combobox',{name:'Explore'});
+    const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.focus(input);
     expect(screen.getAllByRole('option').length).toBeGreaterThan(1);
     expect(input).toHaveValue('');
@@ -46,12 +46,12 @@ describe('Explore as the primary site interface',()=>{
     expect(screen.queryByRole('region',{name:'Contact'})).not.toBeInTheDocument();
     expect(screen.getByText('Finding a view…',{selector:'.home-request-state span'})).toBeVisible();
     const calls=fetcher.mock.calls.length;
-    await act(async()=>{fireEvent.submit(screen.getByRole('combobox',{name:'Explore'}).closest('form')!);});
+    await act(async()=>{fireEvent.submit(screen.getByRole('textbox',{name:'Explore'}).closest('form')!);});
     expect(fetcher).toHaveBeenCalledTimes(calls);
     fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
     expect(signal?.aborted).toBe(true);
     expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
-    expect(screen.getByRole('combobox',{name:'Explore'})).toHaveValue('How can I contact Isaac?');
+    expect(screen.getByRole('textbox',{name:'Explore'})).toHaveValue('How can I contact Isaac?');
     await act(async()=>{finish?.(success({plan:resolveCanvasPlan('Taiwan teaching',initialPlan(),2),composition:{blocks:[{...blankBlock('story'),projectIds:[TAIWAN_ID]}]}}));});
     expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
     expect(screen.queryByRole('heading',{name:'AI literacy in Taiwan'})).not.toBeInTheDocument();
@@ -122,4 +122,44 @@ describe('Explore as the primary site interface',()=>{
     expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
     expect(cancel).toHaveBeenCalled();
   });
+});
+
+it('answers How to explore in the main pane locally, with a working first question and return path',async()=>{
+  const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
+  await submit('Taiwan teaching');
+  const calls=fetcher.mock.calls.length;
+  fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
+  fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
+  expect(screen.getByRole('article',{name:'How to explore'}).closest('.home-genui-stage')).not.toBeNull();
+  expect(screen.getByRole('heading',{name:'How it works'})).toBeInTheDocument();
+  expect(screen.getByRole('heading',{name:'Help make this better'})).toBeInTheDocument();
+  expect(screen.getByRole('link',{name:'Send feedback'})).toHaveAttribute('href',expect.stringContaining('mailto:'));
+  expect(fetcher).toHaveBeenCalledTimes(calls);
+  fireEvent.click(screen.getByRole('button',{name:'Previous exploration'}));
+  expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeInTheDocument();
+  fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
+  fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
+  await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Who is Isaac?'}));});
+  expect(screen.getByRole('region',{name:'Role explorer'})).toBeInTheDocument();
+});
+
+it('recognizes a help question without sending a provider request and restores it after Clear',async()=>{
+  const fetcher=vi.fn(async()=>success({configured:true}));vi.stubGlobal('fetch',fetcher);mount();
+  await submit('How does this work?');
+  expect(screen.getByRole('article',{name:'How to explore'})).toBeInTheDocument();
+  expect(fetcher).toHaveBeenCalledTimes(1);
+  fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
+  fireEvent.click(await screen.findByRole('button',{name:'Undo clear'}));
+  expect(screen.getByRole('article',{name:'How to explore'})).toBeInTheDocument();
+  expect(fetcher).toHaveBeenCalledTimes(1);
+});
+
+it('keeps Undo after an empty Enter and can recover a cleared unanswered draft',async()=>{
+  vi.stubGlobal('fetch',vi.fn(async()=>success({configured:false})));mount();
+  const input=screen.getByRole('textbox',{name:'Explore'});
+  fireEvent.change(input,{target:{value:'A question I have not submitted'}});
+  fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
+  fireEvent.keyDown(input,{key:'Enter'});
+  fireEvent.click(await screen.findByRole('button',{name:'Undo clear'}));
+  expect(input).toHaveValue('A question I have not submitted');
 });

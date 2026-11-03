@@ -34,7 +34,7 @@ try{
    assert(sizes.scroll<=sizes.width,JSON.stringify(sizes));assert.deepEqual(sizes.escaped,[]);
   }
   async function submit(prompt){
-   const input=page.getByRole('combobox',{name:'Explore',exact:true});
+   const input=page.getByRole('textbox',{name:'Explore',exact:true});
    await input.fill(prompt);await input.press('Escape');
    const response=page.waitForResponse(r=>r.url().endsWith('/api/intent')&&r.request().method()==='POST');
    await input.press('Enter');
@@ -46,7 +46,7 @@ try{
   }
   for(const width of [1440,390,320]){
    await page.setViewportSize({width,height:width===320?740:1000});
-   await page.goto(base,{waitUntil:'domcontentloaded'});await page.getByRole('combobox',{name:'Explore',exact:true}).waitFor();await contained();
+   await page.goto(base,{waitUntil:'domcontentloaded'});await page.getByRole('textbox',{name:'Explore',exact:true}).waitFor();await contained();
    await page.screenshot({path:`${output}/${theme}-${width}-idle.png`});
    results.push({theme,width,case:'idle',ok:true});
    for(const [prompt,heading] of cases){
@@ -63,10 +63,10 @@ try{
    await contained();await page.screenshot({path:`${output}/${theme}-${width}-taiwan.png`});
    results.push({theme,width,case:'second-project-and-more',ok:true});
    await page.getByRole('button',{name:'Clear exploration'}).click();
-   await page.getByRole('combobox',{name:'Explore',exact:true}).fill('Japan photos');
-   await page.getByRole('combobox',{name:'Explore',exact:true}).press('Escape');
+   await page.getByRole('textbox',{name:'Explore',exact:true}).fill('Japan photos');
+   await page.getByRole('textbox',{name:'Explore',exact:true}).press('Escape');
    let requests=0;const count=req=>{if(/\/api\/(intent|compose)$/.test(req.url()))requests++;};
-   page.on('request',count);await page.getByRole('combobox',{name:'Explore',exact:true}).press('Enter');
+   page.on('request',count);await page.getByRole('textbox',{name:'Explore',exact:true}).press('Enter');
    await page.waitForTimeout(150);page.off('request',count);assert.equal(requests,0);
    results.push({theme,width,case:'photo-request-no-provider',ok:true});
   }

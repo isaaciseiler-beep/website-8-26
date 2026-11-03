@@ -9,7 +9,7 @@ if(!Number.isSafeInteger(duration)||duration<1000||duration>3600000)throw new Er
 await mkdir(out,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH});
 let page;const started=Date.now();const errors=[];const samples=[];let operations=0;
-const prompts=['Explore all projects','Tell me about the ChatGPT Lab','Compare AI policy and teaching in Taiwan','Rank governments by AI preparedness','What connects Isaac’s work across fields?','Explore Isaac’s career','How does this website work?','What did Isaac learn in Taiwan?','Compare California and Washington'];
+const prompts=['How to explore','Who is Isaac?','How did Isaac turn participant feedback into changes in the Taiwan teaching program?','Explore all projects','Tell me about the ChatGPT Lab','Compare AI policy and teaching in Taiwan','Rank governments by AI preparedness','What connects Isaac’s work across fields?','Explore Isaac’s career','How does this website work?','What did Isaac learn in Taiwan?','Compare California and Washington'];
 try {
  const context=await browser.newContext({viewport:{width:1280,height:900}});
  await context.addInitScript(()=>localStorage.setItem('theme','light'));
@@ -17,7 +17,7 @@ try {
  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
  await page.goto(base);
- const input=page.getByRole('combobox',{name:'Explore',exact:true});await input.waitFor();
+ const input=page.getByRole('textbox',{name:'Explore',exact:true});await input.waitFor();
  async function settled(label){
   await page.mouse.move(0,0);
   await page.waitForTimeout(900);
@@ -30,7 +30,7 @@ try {
    const faded=[...root.querySelectorAll('p,img')].filter(visible).filter(e=>!(e instanceof HTMLImageElement)||e.complete&&e.naturalWidth>0&&!e.getAnimations().some(a=>a.playState==='running')).filter(e=>Number(getComputedStyle(e).opacity)<.99).map(e=>(e.textContent||e.getAttribute('alt')||'image').slice(0,50));
    const labelOverflow=[...root.querySelectorAll('.portfolio-tab-label')].filter(visible).filter(e=>{const a=e.getBoundingClientRect(),b=e.parentElement.getBoundingClientRect();return a.left<b.left-.5||a.right>b.right+.5;}).map(e=>e.textContent);
    const groups=[...root.querySelectorAll('.portfolio-tabs')].filter(visible).map(e=>({selected:e.querySelectorAll('button[aria-pressed="true"]').length,markers:e.querySelectorAll('.portfolio-tab-indicator').length}));
-   const escaped=[...root.querySelectorAll('button,select,input')].filter(visible).filter(e=>{const r=e.getBoundingClientRect();return r.left<panel.left-1||r.right>panel.right+1;}).map(e=>e.getAttribute('aria-label')||e.textContent);
+   const escaped=[...root.querySelectorAll('button,select,input,textarea')].filter(visible).filter(e=>{const r=e.getBoundingClientRect();return r.left<panel.left-1||r.right>panel.right+1;}).map(e=>e.getAttribute('aria-label')||e.textContent);
    return {labelOverflow,pendingImages,width:innerWidth,scroll:document.documentElement.scrollWidth,faded,groups,escaped,animations:root.getAnimations({subtree:true}).filter(a=>a.playState==='running').length,heap:performance.memory?.usedJSHeapSize};
   });
   samples.push({seconds:Math.round((Date.now()-started)/1000),label,...observation});
@@ -62,6 +62,10 @@ try {
    if(await page.getByRole('combobox',{name:'Lab work to explore'}).count()){
     await page.getByRole('combobox',{name:'Lab work to explore'}).selectOption('4');operations++;
    }
+   const technical=page.locator('.home-explore-help details>summary');
+   if(await technical.count()){
+    await technical.click();await page.waitForTimeout(45);await technical.click();await page.waitForTimeout(45);await technical.click();operations+=3;
+   }
    const further=page.locator('.home-next-questions>summary');
    if((i+cycle)%3===0&&await further.count()){
     await further.click();await page.waitForTimeout(45);await further.click();await page.waitForTimeout(45);await further.click();operations+=3;
@@ -71,6 +75,16 @@ try {
    if(i===2){await page.getByRole('button',{name:'Clear exploration',exact:true}).click();await input.fill('Taiwan teaching');await input.press('Escape');await input.press('Enter');operations+=2;await settled(`cycle-${cycle}-clear-reverse`);}
    if(i===5){await page.getByRole('button',{name:'Clear exploration',exact:true}).click();const undo=page.getByRole('button',{name:'Undo clear',exact:true});await undo.waitFor({timeout:5000});await undo.click();operations+=2;await settled(`cycle-${cycle}-undo`);}
   }
+  await input.fill('x'.repeat(500));await input.press('Escape');await page.waitForTimeout(300);operations++;
+  const draftHeight=Math.round((await input.boundingBox()).height);
+  assert(draftHeight>=42&&draftHeight<=160,'Long drafts stay bounded');
+  await input.fill('How to explore');await input.press('Escape');await input.press('Enter');operations++;
+  const helpDetails=page.locator('.home-explore-help details');
+  if(await helpDetails.getAttribute('open')===null){await helpDetails.locator('summary').click();operations++;}
+  await page.getByRole('button',{name:'Clear exploration',exact:true}).click();await input.press('Enter');operations++;
+  await page.getByRole('button',{name:'Undo clear',exact:true}).click();operations++;
+  await expectOpenHelp();await settled(`cycle-${cycle}-help-undo`);
+  async function expectOpenHelp(){assert.equal(await helpDetails.getAttribute('open'),'','Undo restores technical details');}
   if(cycle%3===0)console.log(JSON.stringify({cycle,operations,seconds:Math.round((Date.now()-started)/1000),errors:errors.length}));
  }
  await writeFile(`${out}/stress-results.json`,JSON.stringify({started:new Date(started).toISOString(),elapsedSeconds:Math.round((Date.now()-started)/1000),operations,errors,samples},null,2));

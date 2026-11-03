@@ -1,0 +1,70 @@
+(node:43720) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+Running 43 tests using 2 workers
+
+(node:43736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43737) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43737) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:43736) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:43737) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 tests/e2e/genui.spec.ts:11:1 › a direct generated composition renders multiple subjects before a slow configuration probe completes (637ms)
+  ✓   1 tests/e2e/genui.spec.ts:43:1 › a manual control change survives an aborted delayed generated response (638ms)
+  ✓   3 tests/e2e/genui.spec.ts:75:38 › light: linked evidence keeps local controls and survives a shared view (1.7s)
+  ✓   4 tests/e2e/genui.spec.ts:75:38 › dark: linked evidence keeps local controls and survives a shared view (1.7s)
+  ✓   6 tests/e2e/genui.spec.ts:106:66 › ranking refinement settles with preserved controls: reduce (462ms)
+  ✓   7 tests/e2e/genui.spec.ts:139:30 › submitted questions wrap and resize without clipping at 320px (858ms)
+  ✓   5 tests/e2e/genui.spec.ts:106:66 › ranking refinement settles with preserved controls: no-preference (1.4s)
+  ✓   8 tests/e2e/genui.spec.ts:139:30 › submitted questions wrap and resize without clipping at 390px (521ms)
+  ✓   9 tests/e2e/genui.spec.ts:163:64 › project image handoff preserves reading and the searched return path: no-preference (1.5s)
+  ✓  10 tests/e2e/genui.spec.ts:163:64 › project image handoff preserves reading and the searched return path: reduce (1.3s)
+  ✓  11 tests/e2e/genui.spec.ts:189:30 › project facets keep every label within its selected surface at 320px (1.6s)
+  ✓  12 tests/e2e/genui.spec.ts:189:30 › project facets keep every label within its selected surface at 390px (1.4s)
+  ✓  14 tests/e2e/genui.spec.ts:211:64 › native disclosures fold smoothly and release keyboard focus immediately: reduce (702ms)
+  ✓  13 tests/e2e/genui.spec.ts:211:64 › native disclosures fold smoothly and release keyboard focus immediately: no-preference (1.3s)
+  ✓  15 tests/e2e/genui.spec.ts:233:3 › multiline questions retain their geometry and selection through focus changes (no-preference) (2.0s)
+  ✓  16 tests/e2e/genui.spec.ts:233:3 › multiline questions retain their geometry and selection through focus changes (reduce) (1.5s)
+  ✓  18 tests/e2e/genui.spec.ts:290:1 › tablet screenshots retain the source proportions without an artificial letterbox (320ms)
+  ✓  19 tests/e2e/genui.spec.ts:311:3 › a first-time visitor can explore Who is Isaac? at 320px (721ms)
+  ✓  20 tests/e2e/genui.spec.ts:311:3 › a first-time visitor can explore How did Isaac help teachers in Taiwan? at 320px (328ms)
+  ✓  17 tests/e2e/genui.spec.ts:264:1 › help generates inside the same pane, stays local, and restores after Clear (1.8s)
+  ✓  21 tests/e2e/genui.spec.ts:311:3 › a first-time visitor can explore How did Isaac research AI in government? at 320px (421ms)
+  ✓  22 tests/e2e/genui.spec.ts:311:3 › a first-time visitor can explore What was Isaac’s role in Congress? at 320px (353ms)
+  ✓  23 tests/e2e/genui.spec.ts:311:3 › a first-time visitor can explore Who is Isaac? at 1280px (323ms)
+  ✓  24 tests/e2e/genui.spec.ts:311:3 › a first-time visitor can explore How did Isaac help teachers in Taiwan? at 1280px (348ms)
+  ✓  25 tests/e2e/genui.spec.ts:311:3 › a first-time visitor can explore How did Isaac research AI in government? at 1280px (356ms)
+  ✓  27 tests/e2e/genui.spec.ts:327:1 › the first-visit guide remains reachable by keyboard after suggestions dismiss (333ms)
+  ✓  26 tests/e2e/genui.spec.ts:311:3 › a first-time visitor can explore What was Isaac’s role in Congress? at 1280px (471ms)
+  ✓  29 tests/e2e/genui.spec.ts:350:31 › first-visit questions share the input reading edge at 320px (428ms)
+  ✓  28 tests/e2e/genui.spec.ts:337:1 › hovering suggestions leaves Enter in control of the visitor’s own question (497ms)
+  ✓  30 tests/e2e/genui.spec.ts:350:31 › first-visit questions share the input reading edge at 1440px (328ms)
+  ✓  31 tests/e2e/genui.spec.ts:359:1 › square product media and its explanation align with the reading edge (359ms)
+  ✓  32 tests/e2e/genui.spec.ts:374:3 › feature suggestions opt in with a partial or imperfect name: pul (284ms)
+  ✓  33 tests/e2e/genui.spec.ts:374:3 › feature suggestions opt in with a partial or imperfect name: stduy mode (313ms)
+  ✓  34 tests/e2e/genui.spec.ts:374:3 › feature suggestions opt in with a partial or imperfect name: backtoschool (272ms)
+(node:44477) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:44484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:44477) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:44477) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:44484) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:44484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  35 tests/e2e/motion.spec.ts:6:3 › light 320 reduce: motion lifecycle (2.7s)
+  ✓  36 tests/e2e/motion.spec.ts:6:3 › light 320 no-preference: motion lifecycle (3.0s)
+  ✓  37 tests/e2e/motion.spec.ts:6:3 › light 1440 reduce: motion lifecycle (2.5s)
+  ✓  38 tests/e2e/motion.spec.ts:6:3 › light 1440 no-preference: motion lifecycle (2.7s)
+  ✓  39 tests/e2e/motion.spec.ts:6:3 › dark 320 reduce: motion lifecycle (2.4s)
+  ✓  40 tests/e2e/motion.spec.ts:6:3 › dark 320 no-preference: motion lifecycle (3.6s)
+  ✓  41 tests/e2e/motion.spec.ts:6:3 › dark 1440 reduce: motion lifecycle (2.4s)
+  ✓  42 tests/e2e/motion.spec.ts:6:3 › dark 1440 no-preference: motion lifecycle (2.5s)
+  ✓  43 tests/e2e/motion.spec.ts:87:1 › photo viewer holds its image, supports rapid navigation, and restores focus (6.1s)
+
+  43 passed (31.9s)
