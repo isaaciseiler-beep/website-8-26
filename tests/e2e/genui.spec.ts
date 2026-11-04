@@ -518,3 +518,18 @@ for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduc
     await expect(page.getByRole('link',{name:'Send feedback',exact:true})).toBeInViewport();
   });
 }
+
+for(const width of [320,1440])for(const question of ['Hello','zxq unfamiliar topic']){
+  test(`${width}: Help remains reachable after ${question}`,async({page})=>{
+    await page.setViewportSize({width,height:900});await page.emulateMedia({reducedMotion:'reduce'});
+    let posts=0;
+    await page.route('**/api/compose',route=>{if(route.request().method()==='POST')posts++;return route.fulfill({json:{configured:false}});});
+    await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
+    await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+    await input.fill(question);await input.press('Escape');await input.press('Enter');
+    const help=page.getByRole('button',{name:'How to explore',exact:true});await expect(help).toBeVisible();
+    const before=posts;await help.focus();await help.press('Enter');
+    await expect(page.getByRole('heading',{name:'Start with a little curiosity.',exact:true})).toBeVisible();
+    expect(posts).toBe(before);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  });
+}

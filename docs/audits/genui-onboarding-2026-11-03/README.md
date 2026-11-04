@@ -2,7 +2,7 @@
 
 This pass addresses responsive screenshot proportions, question-field expansion and retraction, questions for unfamiliar visitors, and an in-pane “How to explore” answer. Claude reviewed the direction, actual responsive screenshots, and implementation; the final verification is recorded below.
 
-The latest complete unit run passed 1,086 tests. The most recent full UI/motion run passed 67 browser cases, followed by 10 focused newcomer-flow cases after the reading refinement. Typecheck, lint and production build passed. Later sections record the continued findings and fixes.
+The latest complete unit run passed 1,088 tests. The most recent full UI/motion run passed 67 browser cases, followed by 10 focused newcomer-flow cases and six focused guide cases after the reading refinements. Typecheck, lint and production build passed. Later sections record the continued findings and fixes.
 
 ## Changes
 
@@ -98,3 +98,9 @@ The frame check now measures zero internal scroll and zero content offset throug
 The real renderer review found that the Taiwan starter question explained the proposal but omitted what teachers actually did. Its initial view now shows the six-session program, lesson preparation, feedback and language-learning work, and how participant questions shaped later sessions. A method question about helping teachers learn no longer becomes a reflection question about Isaac; explicit personal lessons and evaluation retain their original routes. The same distinction is used by focus, angle and answer-facet selection.
 
 All 1,086 unit tests passed, including teaching/support wording, teacher-learning wording, preserved personal reflection/evaluation, and the actual visible first answer. Ten first-visit/ChatGPT browser cases passed at phone/desktop sizes. Typecheck, lint and production build passed. `starter-reading.json` records the before/after visible prose and the five reviewed starter questions. This step uses no live provider calls.
+
+## Photo framing and finding Help
+
+The visible 736px preview revealed a tight conference-photo crop that cut off the top of the head. Main story and career photographs now use a higher crop position while retaining the existing editorial frames. Screenshots/artifacts keep their intrinsic-ratio treatment. Five widths (390/736/844/900/1440) were checked without overflow; the 736px crop now preserves headroom. The original photo is unchanged. Compare `tablet-photo-before.png` and `tablet-photo-after.png`; geometry is recorded in `photo-framing.json`.
+
+“How to explore” is now also available inside greeting, ambiguous and unmatched-question guidance, opening the same local guide. In-place guidance/follow-up actions use right arrows; external image/source links keep their external-link indicators. The visible browser was refreshed and this path was checked directly. All 1,088 unit tests, typecheck, lint and build passed; six focused guide browser cases passed, including keyboard access after both greeting/unmatched requests at 320/1440px with no additional provider posts for Help.

@@ -31,6 +31,8 @@
 .home-genui .portfolio-workbench-visual{margin:0;}
 .home-genui .portfolio-workbench-visual>a{position:relative;display:block;overflow:hidden;border-radius:var(--site-corner-radius);color:inherit;}
 .home-genui .portfolio-workbench-visual .portfolio-project-image{display:block;width:100%;height:auto;max-height:none;aspect-ratio:4/3;object-fit:cover;}
+.home-genui .portfolio-workbench-visual[data-presentation="photograph"] .portfolio-project-image,
+.home-genui .portfolio-career-visual[data-presentation="photograph"] .portfolio-career-image{object-position:50% 15%;}
 .home-genui .portfolio-workbench-visual[data-presentation="artifact"]>a{width:fit-content;max-width:100%;margin-inline:0;}
 .home-genui .portfolio-workbench-visual[data-presentation="artifact"] .portfolio-project-image{width:auto;max-width:100%;height:auto;max-height:min(60svh,480px);aspect-ratio:auto;object-fit:contain;margin-inline:0;}
 .home-genui .portfolio-workbench-visual>a>svg{position:absolute;inset:auto var(--space-s) var(--space-s) auto;color:var(--neutral-1);background:var(--neutral-10);border-radius:var(--site-corner-radius);box-sizing:content-box;padding:var(--space-xs);opacity:0;transition:opacity var(--motion-duration) var(--motion-easing);}

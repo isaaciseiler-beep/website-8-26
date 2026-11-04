@@ -15,6 +15,15 @@ async function submit(text:string){
 afterEach(()=>{cleanup();vi.unstubAllGlobals();});
 
 describe('Explore as the primary site interface',()=>{
+  it.each(['Hello','zxq unfamiliar topic'])('keeps local Help reachable after guidance for %s',async question=>{
+    const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
+    await submit(question);
+    const help=screen.getByRole('button',{name:'How to explore'}),calls=fetcher.mock.calls.length;
+    fireEvent.click(help);
+    await waitFor(()=>expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeVisible());
+    expect(fetcher).toHaveBeenCalledTimes(calls);
+  });
+
   it('offers actionable first-visit examples without submitting a question or changing the draft',async()=>{
     const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
     const input=screen.getByRole('textbox',{name:'Explore'});

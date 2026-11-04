@@ -1,0 +1,64 @@
+{
+  "cases": [
+    {
+      "viewport": 390,
+      "width": 310,
+      "height": 174.375,
+      "natural": [
+        1600,
+        1066
+      ],
+      "position": "50% 15%",
+      "croppedTopSourcePixels": 24.899999999999995,
+      "overflow": false
+    },
+    {
+      "viewport": 736,
+      "width": 624,
+      "height": 260,
+      "natural": [
+        1600,
+        1066
+      ],
+      "position": "50% 15%",
+      "croppedTopSourcePixels": 59.9,
+      "overflow": false
+    },
+    {
+      "viewport": 844,
+      "width": 374.40625,
+      "height": 280.796875,
+      "natural": [
+        1600,
+        1066
+      ],
+      "position": "50% 15%",
+      "croppedTopSourcePixels": 0,
+      "overflow": false
+    },
+    {
+      "viewport": 900,
+      "width": 404.359375,
+      "height": 303.265625,
+      "natural": [
+        1600,
+        1066
+      ],
+      "position": "50% 15%",
+      "croppedTopSourcePixels": 0,
+      "overflow": false
+    },
+    {
+      "viewport": 1440,
+      "width": 547.71875,
+      "height": 410.78125,
+      "natural": [
+        1600,
+        1066
+      ],
+      "position": "50% 15%",
+      "croppedTopSourcePixels": 0,
+      "overflow": false
+    }
+  ]
+}
