@@ -2,6 +2,8 @@
 
 This pass addresses responsive screenshot proportions, question-field expansion and retraction, questions for unfamiliar visitors, and an in-pane “How to explore” answer. Claude reviewed the direction, actual responsive screenshots, and implementation; the final verification is recorded below.
 
+The current checkpoint has passed 1,080 unit tests and 67 UI/motion browser cases, plus typecheck, lint and production build. Later sections record the continued findings and fixes.
+
 ## Changes
 
 - Screenshots and other artifacts retain their intrinsic proportions. Removing the fixed tablet height eliminates the artificial white bars around widescreen screenshots; square images retain their shape. Photographs keep their authored editorial crop. The original image remains available from the image link.
@@ -12,12 +14,12 @@ This pass addresses responsive screenshot proportions, question-field expansion 
 
 ## Verification
 
-The implementation passed 1,073 unit tests across 71 files, TypeScript checks, lint, and the production build. The build retains the pre-existing large-bundle advisory.
+The initial checkpoint passed 1,073 unit tests across 71 files, TypeScript checks, lint, and the production build. The build retains the pre-existing large-bundle advisory.
 
 - The responsive audit checked 156 combinations of theme, viewport and project state with no horizontal overflow, escaped controls or artifact-ratio errors. The later square-image/text and first-visit-edge refinements have dedicated browser assertions and refreshed screenshots.
 - Forty frame-sampled opening, focus/blur, Clear, Undo and interruption cases passed. The composer’s top edge had zero measured drift during opening at 1440, 768, 390 and 320 CSS pixels.
 - Thirty-six text-resilience cases passed: ordinary and larger text, text-spacing overrides, Unicode, long words/URLs and multiline entry. Typing did not call the intent provider.
-- All 43 current UI/browser cases passed in 31.9 seconds; details are recorded in `verification.json`. An accumulated sequential browser context run had a post-assertion teardown hang; independent cases now run over two bounded workers. The same 40 cases completed in 27.5 seconds with parallel scheduling, and the final suite includes three additional feature-prefix cases.
+- The initial 43 UI/browser cases passed in 31.9 seconds; details are recorded in `verification.json`. An accumulated sequential browser context run had a post-assertion teardown hang; independent cases now run over two bounded workers. The same 40 cases completed in 27.5 seconds with parallel scheduling, and the final suite includes three additional feature-prefix cases.
 - Sustained interaction checks passed: 3,834 operations over 1,203 seconds on the composer/help candidate, plus 1,977 operations over 618 seconds after the spacing refinement. Across 1,455 settled samples, neither run found horizontal overflow, escaped controls, stranded faded content, or page errors. See `sustained-interactions.json`.
 
 Browser checks intercept intent/composition calls. They establish local rendering, keyboard and lifecycle behavior, not live model accuracy, real-device keyboard behavior or mobile Safari behavior. Text-spacing checks use explicit CSS overrides; they are not a claim of physical-device testing.
@@ -84,3 +86,9 @@ The current integrated browser run passed all 61 cases. A preceding run passed i
 Reviewing the actual motion recording found that “How did Isaac test new ChatGPT features?” opened on Sources. Retrieval chose the introductory section, but its absence from the product-specific process index changed the lens to evidence; the answer-plan pass then moved to a named product. Broad testing questions now introduce the Lab's published general process at section 0, including product diaries and feedback sessions. Specific feature questions, source requests and detailed published headings retain their existing routes. The server applies the same broad-introduction rule after valid provider selection.
 
 All 1,080 unit tests passed, including three new broad-question variants and existing feature/source and content-growth contracts. Two phone/desktop browser cases verify the general explanation, choosing Pulse, and opening its actual sources. Typecheck, lint and build passed. No further live provider calls were used for this refinement.
+
+## Focus during expansion
+
+Focusing a lower control while the pane was opening caused the `overflow:hidden` reveal to scroll internally: up to 645px on phone and 525px on desktop. Its contents then slid back into place as the height grew. The reveal now uses `overflow:clip` (with the prior hidden fallback) and retains its flow-root layout. It clips the same height animation without becoming an internal scroll container. Native page scrolling follows focus; the evidence stays aligned inside the pane.
+
+The frame check now measures zero internal scroll and zero content offset throughout. All 67 UI/motion browser cases passed in 51.0 seconds, including four new focus cases with normal/reduced motion. Lint and build passed. The prior complete unit run remains 1,080 passed; the production change in this step is CSS only. See `focus-during-expansion.json`.

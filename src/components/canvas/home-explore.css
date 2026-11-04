@@ -48,7 +48,9 @@
 .home-suggestion-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
 .home-genui-suggestion svg{flex-shrink:0;transition:transform var(--motion-duration) var(--motion-easing);}
 .home-genui-suggestion button:hover svg{transform:translate(2px,-2px);}
-.home-genui-reveal{overflow:hidden;display:flow-root;}
+/* Focusing a lower control during expansion must not scroll all evidence
+   inside the reveal. Retain normal page scrolling and the same height clip. */
+.home-genui-reveal{overflow:hidden;overflow:clip;display:flow-root;}
 /* The shell may be midway between compact and open. Its contents already lay
    out at the destination width, so opening uncovers a crisp, settled page
    instead of rewrapping every paragraph and chasing its height each frame. */

@@ -493,3 +493,27 @@ for(const width of [390,1440]){
     await expect(page.getByRole('link',{name:'Meet ChatGPT Pulse'})).toBeVisible();
   });
 }
+
+for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduce'] as const){
+  test(`${width} ${reducedMotion}: focusing a lower control never scrolls the expanding pane internally`,async({page})=>{
+    await page.setViewportSize({width,height:900});await page.emulateMedia({reducedMotion});
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+    await page.goto('/');await page.getByRole('button',{name:'How to explore',exact:true}).click();
+    await page.getByRole('link',{name:'Send feedback',exact:true}).focus();
+    const frames=await page.locator('.home-genui-reveal').evaluate(async pane=>{
+      const frames:{scrollTop:number;contentOffset:number}[]=[];
+      for(let i=0;i<35;i++){
+        await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));
+        const content=pane.querySelector('.home-genui-reveal-content')!;
+        frames.push({scrollTop:pane.scrollTop,contentOffset:content.getBoundingClientRect().top-pane.getBoundingClientRect().top});
+      }
+      return frames;
+    });
+    expect(Math.max(...frames.map(frame=>Math.abs(frame.scrollTop)))).toBe(0);
+    expect(Math.max(...frames.map(frame=>Math.abs(frame.contentOffset)))).toBeLessThan(1);
+    await expect(page.getByRole('link',{name:'Send feedback',exact:true})).toBeFocused();
+    await expect.poll(()=>page.locator('.home-genui-reveal').evaluate(pane=>Math.abs(pane.getBoundingClientRect().height-pane.querySelector('.home-genui-reveal-content')!.getBoundingClientRect().height))).toBeLessThan(1);
+    await expect(page.getByRole('link',{name:'Send feedback',exact:true})).toBeInViewport();
+  });
+}
