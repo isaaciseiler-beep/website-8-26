@@ -153,6 +153,14 @@ function requestsLabOverview(text:string):boolean {
     &&publishedQueryTerms(text).every(term=>labOverviewTerms.has(term));
 }
 const contextualLabStory=(block:CanvasBlock):CanvasBlock=>({...block,kind:'story',projectIds:[LAB_ID],layout:'project-brief',focus:'role',section:0,paragraphIndices:undefined,answerPlan:undefined,states:[],expanded:false});
+const labProcessOverviewTerms=new Set([...labOverviewTerms,...publishedQueryTerms('new early features before launch release')]);
+function requestsLabProcessOverview(text:string):boolean {
+  const ids=namedProjects(text);
+  return ids.length===1&&ids[0]===LAB_ID&&requestedFocus(text)==='process'&&!requestedAngle(text)&&!requestedSourceAccess(text)
+    &&explicitStorySection(text,LAB_ID)===undefined&&!/[;,]|\band\s+(?:what|how|why|which|who)\b/i.test(text)
+    &&publishedQueryTerms(text).every(term=>labProcessOverviewTerms.has(term));
+}
+const contextualLabProcessStory=(block:CanvasBlock):CanvasBlock=>({...contextualLabStory(block),layout:'project-process',focus:'process',paragraphIndices:[0,1]});
 function requestedCompanion(text:string,block:CanvasBlock){
   if(!/\b(?:and|alongside|plus|as well as)\b/i.test(text))return false;
   if(block.kind==='story')return namedProjects(text).includes(block.projectIds[0]);
@@ -297,6 +305,7 @@ function reconcileCompositionUnplanned(text:string, proposed:unknown, baseline:C
   const interpreted=interpretPortfolioRequest(text,previousContext(previous));
   if(requestsPolicyOverview(text))return {blocks:baseline.blocks.map(block=>block.kind==='story'&&block.projectIds[0]===POLICY_ID?contextualPolicyStory(block,text):block)};
   if(requestsLabOverview(text))return {blocks:baseline.blocks.map(block=>block.kind==='story'&&block.projectIds[0]===LAB_ID?contextualLabStory(block):block)};
+  if(requestsLabProcessOverview(text))return {blocks:baseline.blocks.map(block=>block.kind==='story'&&block.projectIds[0]===LAB_ID?contextualLabProcessStory(block):block)};
   // A schema-valid prior scorecard is not an answer to a new unrecognized
   // question. Providers may recover project subjects the local matcher missed,
   // but government data still needs an actual data request or local refinement.
@@ -362,6 +371,7 @@ function attachAnswerPlans(text:string,composition:Composition,preserveSelection
     if(block.kind!=='story')return block;
     if(block.projectIds[0]===POLICY_ID&&requestsPolicyOverview(text))return contextualPolicyStory(block,text);
     if(block.projectIds[0]===LAB_ID&&requestsLabOverview(text))return contextualLabStory(block);
+    if(block.projectIds[0]===LAB_ID&&requestsLabProcessOverview(text))return contextualLabProcessStory(block);
     const answerPlan=buildAnswerPlan(text,block,{preservePrimary:preserveSelection||explicitStorySection(text,block.projectIds[0])!==undefined});
     if(!answerPlan)return block;
     const first=answerPlan.facets[0]?.evidenceIds.map(id=>getEvidence(id)!).filter(Boolean)??[];

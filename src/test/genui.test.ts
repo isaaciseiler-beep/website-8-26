@@ -5,6 +5,13 @@ import { initialPlan } from '@/lib/canvas';
 import { aiIndexStates } from '@/lib/aiStateGovIndex';
 const compose=(text:string)=>composeLocal(text,resolveCanvasPlan(text,initialPlan(),1));
 describe('interactive composition contracts',()=>{
+  it.each(['How did Isaac test new ChatGPT features?','How did Isaac test ChatGPT?','How did Isaac test early OpenAI products?'])('introduces the testing process before named features or sources: %s',question=>{
+    const local=compose(question);
+    expect(local.blocks[0]).toMatchObject({projectIds:['openai-product-testing-and-feedback'],layout:'project-process',focus:'process',section:0,paragraphIndices:[0,1]});
+    expect(local.blocks[0].answerPlan).toBeUndefined();
+    const unrelatedProduct={blocks:[{...blankBlock('story'),projectIds:['openai-product-testing-and-feedback'],layout:'project-process' as const,section:4,focus:'process' as const}]};
+    expect(reconcileComposition(question,unrelatedProduct,local)?.blocks[0]).toMatchObject({section:0,focus:'process'});
+  });
   it('matches West Virginia without also selecting Virginia',()=>{
     expect(compose('Explore West Virginia').blocks[0]).toMatchObject({states:['West Virginia'],layout:'benchmark-scorecard'});
     expect(compose('Compare Virginia and West Virginia').blocks[0]).toMatchObject({states:['Virginia','West Virginia'],layout:'benchmark-compare'});

@@ -474,3 +474,22 @@ for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduc
     expect(posts).toBe(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   });
 }
+
+for(const width of [390,1440]){
+  test(`${width}: broad ChatGPT questions introduce the testing work before product-specific evidence`,async({page})=>{
+    await page.setViewportSize({width,height:1000});await page.emulateMedia({reducedMotion:'reduce'});
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+    await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+    await input.fill('How did Isaac test new ChatGPT features?');await input.press('Escape');await input.press('Enter');
+    await expect(page.getByRole('button',{name:'Products',exact:true})).toHaveAttribute('aria-pressed','true');
+    await expect(page.getByRole('combobox',{name:'Lab work to explore'})).toHaveValue('0');
+    await expect(page.getByText(/The work moved between product diaries, feedback sessions/)).toBeVisible();
+    await page.getByRole('combobox',{name:'Lab work to explore'}).selectOption('4');
+    await expect(page.getByText(/Pulse flipped the usual interaction/)).toBeVisible();
+    await page.getByRole('button',{name:'Products',exact:true}).click();
+    await expect(page.getByRole('combobox',{name:'Lab work to explore'})).toHaveValue('4');
+    await page.getByRole('button',{name:'Sources',exact:true}).click();
+    await expect(page.getByRole('link',{name:'Meet ChatGPT Pulse'})).toBeVisible();
+  });
+}

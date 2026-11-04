@@ -78,3 +78,9 @@ The deployed refinement label is verified with intercepted provider calls. One s
 A subsequent uncached public Taiwan starter request completed successfully in 18.12 seconds (17.76 seconds server-side), selecting program-design section 1 and paragraphs 0/1/3. It returned a validated source-backed answer with 1,832 output tokens. See `live-starter-success.json`. This is one successful live case; the earlier intermittent timeout/selection failures are not claimed fixed, and no model settings were changed.
 
 The current integrated browser run passed all 61 cases. A preceding run passed its 48 UI assertions but stalled while retiring workers before the motion file. The files had different worker-scoped `launchOptions`; these now live once in Playwright configuration, avoiding that worker handoff. With the shared configuration, UI and motion files completed together and exited 0. Config type checking and lint passed. See `browser-tests-current.txt`.
+
+## Newcomer testing explanation
+
+Reviewing the actual motion recording found that “How did Isaac test new ChatGPT features?” opened on Sources. Retrieval chose the introductory section, but its absence from the product-specific process index changed the lens to evidence; the answer-plan pass then moved to a named product. Broad testing questions now introduce the Lab's published general process at section 0, including product diaries and feedback sessions. Specific feature questions, source requests and detailed published headings retain their existing routes. The server applies the same broad-introduction rule after valid provider selection.
+
+All 1,080 unit tests passed, including three new broad-question variants and existing feature/source and content-growth contracts. Two phone/desktop browser cases verify the general explanation, choosing Pulse, and opening its actual sources. Typecheck, lint and build passed. No further live provider calls were used for this refinement.
