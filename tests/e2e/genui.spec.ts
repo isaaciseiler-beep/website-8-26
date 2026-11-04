@@ -443,3 +443,35 @@ for(const [width,height] of [[390,844],[768,1000],[1440,900],[844,390]])for(cons
     }finally{release();}
   });
 }
+
+for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduce'] as const){
+  test(`${width} ${reducedMotion}: Browser Back keeps the expanded guide and unfinished question`,async({page})=>{
+    await page.setViewportSize({width,height:900});await page.emulateMedia({reducedMotion});
+    let posts=0;
+    await page.route('**/api/compose',route=>{if(route.request().method()==='POST')posts++;return route.fulfill({json:{configured:false}});});
+    await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
+    await page.goto('/');await page.getByRole('button',{name:'How to explore',exact:true}).click();
+    const summary=page.getByText('Technical details',{exact:true});await summary.click();
+    await expect(summary.locator('..')).toHaveAttribute('open','');
+    const input=page.getByRole('textbox',{name:'Explore',exact:true});await input.fill('I am still writing my next question');await input.press('Escape');
+    await page.getByRole('button',{name:'Toggle menu',exact:true}).click();
+    await page.getByRole('navigation',{name:'Main navigation'}).getByRole('link',{name:'Writing',exact:true}).click();
+    await expect(page).toHaveURL(/\/writing$/);await expect(page.locator('.route-scene')).toHaveAttribute('data-route-path','/writing');
+    const returning=page.evaluate(async()=>{
+      const frames:{gap:number;open:boolean;opacity:number}[]=[];
+      for(let frame=0;frame<180&&frames.length<40;frame++){
+        await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));
+        const help=document.querySelector('.home-explore-help'),pane=document.querySelector('.home-genui-reveal'),content=document.querySelector('.home-genui-reveal-content');
+        if(help&&pane&&content)frames.push({gap:Math.abs(pane.getBoundingClientRect().height-content.getBoundingClientRect().height),open:!!help.querySelector('details[open]'),opacity:Number(getComputedStyle(help.firstElementChild!).opacity)});
+      }
+      return frames;
+    });
+    await page.goBack();await expect(page).toHaveURL(/\/$/);
+    const frames=await returning;expect(frames.length).toBeGreaterThan(0);
+    expect(Math.max(...frames.map(frame=>frame.gap))).toBeLessThan(1);
+    expect(frames.every(frame=>frame.open&&frame.opacity===1)).toBe(true);
+    await expect(page.getByRole('textbox',{name:'Explore',exact:true})).toHaveValue('I am still writing my next question');
+    await expect(page.getByText('Technical details',{exact:true}).locator('..')).toHaveAttribute('open','');
+    expect(posts).toBe(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  });
+}

@@ -35,14 +35,18 @@ function returnLabel(view:View):string {
 }
 type SavedExploration = {readingState?:ExplorationReadingState;query:string;view:View|null;guidance:'welcome'|'unmatched'|'ambiguous'|'help'|null;history:View[];future:View[]};
 const entryExplorations = new Map<string, SavedExploration>();
-function ExplorationReveal({children,restored=false,onSettled,contentRevision}:{children:ReactNode;restored?:boolean;onSettled?:()=>void;contentRevision:number}) {
+function ExplorationReveal({children,restored=false,initialReadingState,onSettled,contentRevision}:{children:ReactNode;restored?:boolean;initialReadingState?:ExplorationReadingState|null;onSettled?:()=>void;contentRevision:number}) {
   const present=useIsPresent();
   const reduceMotion=useReducedMotion();
   const content=useRef<HTMLDivElement>(null);
+  const initialReading=useRef(initialReadingState);
   const disclosure=useDisclosureMotion(content,contentRevision,reduceMotion);
   const [height,setHeight]=useState<number|null>(null);
   useLayoutEffect(()=>{
     const node=content.current;if(!node)return;
+    // Restore before the first measurement, so a returning open disclosure
+    // does not briefly clip to its closed height and then expand again.
+    if(initialReading.current)restoreReadingState(node,initialReading.current,false);
     let frame=0;
     const measure=()=>{
       const measured=node.getBoundingClientRect().height;
@@ -74,7 +78,7 @@ export default function HomeExplore() {
   const reduceMotion=useReducedMotion();
   const composerRef=useRef<HTMLDivElement>(null);
   const resultsRef=useRef<HTMLDivElement>(null);
-  const pendingReadingState=useRef<ExplorationReadingState|null>(null);
+  const pendingReadingState=useRef<ExplorationReadingState|null>(restored?.readingState??null);
   const requestMetric=useRef<{revision:number;timing:ReturnType<typeof beginExplorationMetric>}|null>(null);
   const pendingResultFocus=useRef<{kind:'heading'}|{kind:'project';id:string}|null>(null);
   const [composerHovered,setComposerHovered]=useState(false);
@@ -140,6 +144,17 @@ export default function HomeExplore() {
     entryExplorations.set(routeNavigation.key,{query,view:savedView,guidance,history,future});
     if(entryExplorations.size>20)entryExplorations.delete(entryExplorations.keys().next().value!);
   },[routeNavigation,query,view,guidance,history,future]);
+  const routeKey=routeNavigation?.key;
+  useLayoutEffect(()=>{
+    if(!routeKey)return;
+    return()=>{
+      // Capture native disclosure state before the outgoing DOM is removed.
+      // The route manager owns page scroll; restoration opens these disclosures
+      // before it measures the returning page's available height.
+      const saved=entryExplorations.get(routeKey),results=resultsRef.current;
+      if(saved&&(saved.view||saved.guidance)&&results)entryExplorations.set(routeKey,{...saved,readingState:captureReadingState(results)});
+    };
+  },[routeKey]);
   const revision=useRef(0);
   const current=useRef<View|null>(restored?.view??null);
   const controller=useRef<AbortController>();
@@ -359,7 +374,7 @@ export default function HomeExplore() {
       <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:guidance==='help'?'How to explore is ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
-        {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} onSettled={restoreReadingPosition}>
+        {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} initialReadingState={pendingReadingState.current} onSettled={restoreReadingPosition}>
           <div ref={resultsRef} className="home-genui-stage" aria-label="Exploration results" aria-busy={busy} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
             {guidance==='help'?<ExploreHelp onSubmit={submit}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>

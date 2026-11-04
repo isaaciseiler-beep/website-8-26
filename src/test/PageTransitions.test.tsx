@@ -167,3 +167,21 @@ it.each([1280, 768, 767, 390])('retains a desktop sidebar and reveals the destin
     expect(document.querySelector('main')).not.toHaveAttribute('inert');
   }
 });
+
+it('restores an expanded help explanation and draft when returning to the same history entry',async()=>{
+  vi.stubGlobal('fetch',vi.fn(async()=>({ok:true,json:async()=>({configured:false})})));
+  render(<MemoryRouter><PageTransitions>{location=><Routes location={location}>
+    <Route path="/" element={<main><HomeExplore/><Link to="/writing">Open writing</Link></main>}/>
+    <Route path="/writing" element={<Page name="Writing page"/>}/>
+  </Routes>}</PageTransitions></MemoryRouter>);
+  fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
+  const technical=screen.getByText('Technical details',{exact:true}).closest('details')!;
+  technical.open=true;
+  fireEvent.change(screen.getByRole('textbox',{name:'Explore'}),{target:{value:'My next question is still a draft'}});
+  fireEvent.click(screen.getByRole('link',{name:'Open writing'}));
+  await waitFor(()=>expect(screen.getByRole('heading',{name:'Writing page'})).toBeInTheDocument());
+  fireEvent.click(screen.getByRole('button',{name:'Browser back'}));
+  await waitFor(()=>expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeInTheDocument());
+  expect(screen.getByText('Technical details',{exact:true}).closest('details')!.open).toBe(true);
+  expect(screen.getByRole('textbox',{name:'Explore'})).toHaveValue('My next question is still a draft');
+});

@@ -1,0 +1,68 @@
+{
+  "beforeFirstMeasurementFix": [
+    {
+      "width": 390,
+      "frames": 60,
+      "peakHeightGap": 82.140625,
+      "first": {
+        "gap": 23.109375,
+        "leadOpacity": "1",
+        "open": true
+      },
+      "last": {
+        "gap": 0,
+        "leadOpacity": "1",
+        "open": true
+      }
+    },
+    {
+      "width": 1440,
+      "frames": 59,
+      "peakHeightGap": 58.984375,
+      "first": {
+        "gap": 26.59375,
+        "leadOpacity": "1",
+        "open": true
+      },
+      "last": {
+        "gap": 0,
+        "leadOpacity": "1",
+        "open": true
+      }
+    }
+  ],
+  "after": [
+    {
+      "width": 390,
+      "frames": 60,
+      "peakHeightGap": 0,
+      "first": {
+        "gap": 0,
+        "leadOpacity": "1",
+        "open": true
+      },
+      "last": {
+        "gap": 0,
+        "leadOpacity": "1",
+        "open": true
+      }
+    },
+    {
+      "width": 1440,
+      "frames": 60,
+      "peakHeightGap": 0,
+      "first": {
+        "gap": 0,
+        "leadOpacity": "1",
+        "open": true
+      },
+      "last": {
+        "gap": 0,
+        "leadOpacity": "1",
+        "open": true
+      }
+    }
+  ],
+  "unitTests": 31,
+  "focusedBrowserTests": 8
+}

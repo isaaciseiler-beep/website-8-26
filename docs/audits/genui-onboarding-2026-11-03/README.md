@@ -60,3 +60,9 @@ A delayed-image check exposed a second motion problem: the initial image box was
 Eight deterministic delayed-image browser checks passed at 390×844, 768×1000, 1440×900 and 844×390 for square/widescreen sources. Loaded and unloaded boxes match within 1px. The full current genui/motion browser run passed all 57 cases in 31.4 seconds. The 48 focused image-fallback, evidence-transition and content-growth unit tests, typecheck, lint and production build passed. See `delayed-image-geometry.json` for the original bug, corrected geometry and actual source measurements.
 
 Eight additional browser-suspension checks passed for opening, technical disclosure, Clear and Undo at 390/1440px, including changing motion preferences during Undo. After resuming there were no stranded closing panes, expanded empty shells, overflows or height gaps above 1px. These are Chrome lifecycle checks, not real mobile operating-system backgrounding claims. See `interruption-recovery.json`.
+
+## Stable return navigation
+
+Browser Back restored the guide and draft but lost native disclosure state. The bounded, memory-only history entry now captures open disclosures before the outgoing DOM is removed. Returning content restores them before the pane's first measurement, rather than measuring the closed height and then expanding. The same initial measurement behavior also helps newly remounted Undo content. Page scroll remains coordinated with the existing route manager.
+
+The initial restored-frame audit measured up to 82px of height mismatch on phone and 59px on desktop. The corrected first-to-last returning frames have zero mismatch at both widths, with Technical details open and the existing text fully visible. Eight focused browser tests passed, including phone/desktop with normal/reduced motion, help/Clear/Undo, and guide keyboard access. Thirty-one navigation/lifecycle unit tests, typecheck, lint and build passed. See `return-reading-state.json`.
