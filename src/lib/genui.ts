@@ -83,28 +83,30 @@ export const TAIWAN_ID = 'fulbright-focus-group-sponsored-by-openai';
 export function explicitProjects(text: string) {
   return namedProjects(text);
 }
-export function validateComposition(value: unknown): Composition | null {
+export type CompositionValidationIssue='shape'|'answer_plan'|'duplicate_states'|'layout_kind'|'benchmark_states'|'career_reference'|'content_reference'|'project_count'|'section'|'paragraph_indices';
+export function validateComposition(value: unknown, reportInvalid?:(issue:CompositionValidationIssue)=>void): Composition | null {
+  const reject=(issue:CompositionValidationIssue)=>{reportInvalid?.(issue);return null;};
   const result = liveCompositionSchema.safeParse(value);
-  if (!result.success) return null;
+  if (!result.success) return reject('shape');
   for (const b of (result.data as Composition).blocks) {
-    if(b.answerPlan&&(b.kind!=='story'||!validateAnswerPlan(b.answerPlan,b.projectIds)))return null;
-    if(new Set(b.states).size!==b.states.length)return null;
-    if (b.layout && layoutDefinition(b.layout).kind !== b.kind) return null;
-    if (b.layout === 'benchmark-compare' && b.states.length !== 2) return null;
-    if (b.layout === 'benchmark-scorecard' && b.states.length !== 1) return null;
-    if (b.answerId && b.kind !== 'timeline') return null;
-    if (b.connectionId && (b.kind !== 'timeline' || b.answerId !== 'connections')) return null;
-    if (b.roleId && !experienceEntries.some(entry => entry.id === b.roleId)) return null;
-    if (b.projectIds.some(id=>!publicProjects.some(p=>p.id===id)) || b.albumIds.some(id=>!albums.some(a=>a.folder===id)) || b.states.some(name=>!aiIndexStates.some(s=>s.state===name))) return null;
-    if (b.kind === 'comparison' && (b.projectIds.length !== 2 || new Set(b.projectIds).size !== 2)) return null;
-    if ((b.kind === 'story' || b.kind === 'workshop') && b.projectIds.length !== 1) return null;
-    if (b.kind === 'photos' && !b.albumIds.length) return null;
-    if (b.kind === 'workshop' && (b.projectIds[0] !== TAIWAN_ID || b.section > 3)) return null;
-    if (b.kind === 'timeline' && b.section > 2) return null;
-    if (b.kind === 'architecture' && b.section > 3) return null;
-    if (b.kind === 'photos' && b.section >= (albums.find(a=>a.folder===b.albumIds[0])?.photos.length ?? 0)) return null;
-    if (b.kind === 'story' && b.section >= (publicProjects.find(p=>p.id===b.projectIds[0])?.sections.length ?? 0)) return null;
-    if (b.paragraphIndices?.length && (b.kind !== 'story' || new Set(b.paragraphIndices).size !== b.paragraphIndices.length || b.paragraphIndices.some(index => index >= (publicProjects.find(p=>p.id===b.projectIds[0])?.sections[b.section]?.paragraphs?.length ?? 0)))) return null;
+    if(b.answerPlan&&(b.kind!=='story'||!validateAnswerPlan(b.answerPlan,b.projectIds)))return reject('answer_plan');
+    if(new Set(b.states).size!==b.states.length)return reject('duplicate_states');
+    if (b.layout && layoutDefinition(b.layout).kind !== b.kind) return reject('layout_kind');
+    if (b.layout === 'benchmark-compare' && b.states.length !== 2) return reject('benchmark_states');
+    if (b.layout === 'benchmark-scorecard' && b.states.length !== 1) return reject('benchmark_states');
+    if (b.answerId && b.kind !== 'timeline') return reject('career_reference');
+    if (b.connectionId && (b.kind !== 'timeline' || b.answerId !== 'connections')) return reject('career_reference');
+    if (b.roleId && !experienceEntries.some(entry => entry.id === b.roleId)) return reject('career_reference');
+    if (b.projectIds.some(id=>!publicProjects.some(p=>p.id===id)) || b.albumIds.some(id=>!albums.some(a=>a.folder===id)) || b.states.some(name=>!aiIndexStates.some(s=>s.state===name))) return reject('content_reference');
+    if (b.kind === 'comparison' && (b.projectIds.length !== 2 || new Set(b.projectIds).size !== 2)) return reject('project_count');
+    if ((b.kind === 'story' || b.kind === 'workshop') && b.projectIds.length !== 1) return reject('project_count');
+    if (b.kind === 'photos' && !b.albumIds.length) return reject('content_reference');
+    if (b.kind === 'workshop' && (b.projectIds[0] !== TAIWAN_ID || b.section > 3)) return reject('section');
+    if (b.kind === 'timeline' && b.section > 2) return reject('section');
+    if (b.kind === 'architecture' && b.section > 3) return reject('section');
+    if (b.kind === 'photos' && b.section >= (albums.find(a=>a.folder===b.albumIds[0])?.photos.length ?? 0)) return reject('section');
+    if (b.kind === 'story' && b.section >= (publicProjects.find(p=>p.id===b.projectIds[0])?.sections.length ?? 0)) return reject('section');
+    if (b.paragraphIndices?.length && (b.kind !== 'story' || new Set(b.paragraphIndices).size !== b.paragraphIndices.length || b.paragraphIndices.some(index => index >= (publicProjects.find(p=>p.id===b.projectIds[0])?.sections[b.section]?.paragraphs?.length ?? 0)))) return reject('paragraph_indices');
   }
   return result.data;
 }

@@ -4,7 +4,7 @@ import { createCompositionModel } from '../server/mistral-client.js';
 import { AI_LAYOUTS } from '../src/lib/layouts.js';
 import { compositionCacheKey, cachedComposition, cacheComposition, providerCallLimit, providerFailure, providerLimitDetail, providerDiagnostics } from '../server/composition-policy.js';
 import { z } from 'zod';
-import { compositionSchema, isPhotographyRequest, explorationGuidance, isLocalCompositionRefinement, composeLocal, resolveCanvasPlan, validateComposition, reconcileComposition } from '../src/lib/genui.js';
+import { compositionSchema, isPhotographyRequest, explorationGuidance, isLocalCompositionRefinement, composeLocal, resolveCanvasPlan, validateComposition, reconcileComposition, type CompositionValidationIssue } from '../src/lib/genui.js';
 import { CONTENT_VERSION, initialPlan } from '../src/lib/canvas.js';
 import { roleCatalog } from '../src/lib/portfolioEvidence.js';
 import { compositionCatalog } from '../server/composition-evidence.js';
@@ -71,6 +71,7 @@ export default async function composeHandler(req:ApiRequest,res:ApiResponse) {
 
     const write=(event:Record<string,unknown>)=>{if(!res.destroyed&&!res.writableEnded)res.write(JSON.stringify({...event,revision:data.revision,contentVersion:CONTENT_VERSION})+'\n');};
     let providerError:unknown;
+    let selectionIssue:CompositionValidationIssue|'reconciliation'|undefined;
     const timings:{adviceMs?:number;firstSelectionMs?:number;providerMs?:number;totalMs?:number}={};
     try {
       res.on('close',disconnect);
@@ -116,7 +117,11 @@ Choose the exact layout ID from the supplied layouts. Its kind MUST match the mo
       if(providerError)throw providerError;
       if(output.supported===false){write({type:'guidance',guidance:'unmatched',model,duration:Math.round(performance.now()-started)});recordProviderResult(request,{status:'healthy',model,duration:Math.round(performance.now()-started),layout:'none'});return;}
       const composition=reconcileComposition(data.draft,output,data.proposed,data.current);
-      if(!composition)throw new Error('Invalid composition');
+      if(!composition){
+        validateComposition(output,issue=>{selectionIssue=issue;});
+        selectionIssue??='reconciliation';
+        throw new Error('Invalid composition');
+      }
       const usage=await waitForProvider(result.usage,signal);
       if(abort.signal.aborted||res.destroyed)return;
       timings.firstSelectionMs??=Math.round(performance.now()-started);
@@ -124,6 +129,6 @@ Choose the exact layout ID from the supplied layouts. Its kind MUST match the mo
       cacheComposition(cacheKey,composition);
       write({type:'composition',composition,partial:false,model,duration:Math.round(performance.now()-started),inputTokens:usage.inputTokens,outputTokens:usage.outputTokens,timings});
       recordProviderResult(request,{status:'healthy',model,duration:Math.round(performance.now()-started),layout:composition.blocks[0].layout,timings,...compositionLogEvidence(composition)});
-    } catch(error) {if(abort.signal.aborted)return;const failure=providerError??error;const reason=providerFailure(failure);write({type:'unavailable',reason});recordProviderResult(request,{status:'unavailable',model,reason,duration:Math.round(performance.now()-started),httpStatus:(failure as {statusCode?:number})?.statusCode,errorType:failure instanceof Error?failure.name:undefined,limitDetail:providerLimitDetail(failure),...providerDiagnostics(failure)});} finally {releaseCapacity();clearTimeout(timer);deadline.abort();res.off('close',disconnect);res.end();}
+    } catch(error) {if(abort.signal.aborted)return;const failure=providerError??error;const reason=providerFailure(failure);write({type:'unavailable',reason,...(selectionIssue?{selectionIssue}:{})});recordProviderResult(request,{status:'unavailable',model,reason,duration:Math.round(performance.now()-started),httpStatus:(failure as {statusCode?:number})?.statusCode,errorType:failure instanceof Error?failure.name:undefined,limitDetail:providerLimitDetail(failure),...providerDiagnostics(failure)});} finally {releaseCapacity();clearTimeout(timer);deadline.abort();res.off('close',disconnect);res.end();}
   } catch {return sendJson(res,400,{error:'Invalid composition request'});}
 }

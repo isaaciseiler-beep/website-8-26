@@ -88,6 +88,14 @@ describe('composition API',()=>{
     const r=await call(request());expect(r.status).toBe(200);
     expect(r.events).toHaveLength(2);expect(r.events[1]).toMatchObject({type:'composition',composition:spec,revision:7,contentVersion:CONTENT_VERSION,partial:false,model:'mistral-large-4'});
   });
+  it('reports only a fixed selection issue when a model chooses a nonexistent paragraph',async()=>{
+    const projectId='fulbright-focus-group-sponsored-by-openai';
+    const invalid={supported:true,blocks:[{...blankBlock('story'),projectIds:[projectId],paragraphIndices:[2000]}]};
+    stream.mockReturnValue({partialOutputStream:(async function*(){yield invalid;})(),output:Promise.resolve(invalid),usage:Promise.resolve({})});
+    const result=await call({...request(),draft:'How did Isaac help teachers in Taiwan?'});
+    expect(result.events.at(-1)).toMatchObject({type:'unavailable',reason:'invalid_output',selectionIssue:'paragraph_indices'});
+    expect(JSON.stringify(result.events)).not.toContain(projectId);
+  });
   it.each(['mistral-large-4','mistral-large-4-0','mistral-small-2603'])('uses compatible reasoning configuration for %s',async model=>{
     vi.stubEnv('MISTRAL_MODEL',model);
     stream.mockReturnValue({partialOutputStream:(async function*(){yield spec;})(),output:Promise.resolve(spec),usage:Promise.resolve({})});

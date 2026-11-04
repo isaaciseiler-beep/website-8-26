@@ -1,0 +1,34 @@
+{
+  "status": 200,
+  "durationMs": 27033,
+  "events": [
+    {
+      "type": "start"
+    },
+    {
+      "type": "unavailable",
+      "reason": "invalid_output"
+    }
+  ],
+  "health": {
+    "configured": true,
+    "provider": "mistral",
+    "model": "mistral-large-4",
+    "health": {
+      "status": "unavailable",
+      "checkedAt": "2026-11-04T00:12:01.515Z",
+      "model": "mistral-large-4",
+      "reason": "invalid_output",
+      "errorType": "Error"
+    },
+    "diagnostics": {
+      "scope": "process",
+      "calls": 1,
+      "unavailable": 1,
+      "cacheHits": 0,
+      "latencySamples": 1,
+      "p50Ms": 26685,
+      "p95Ms": 26685
+    }
+  }
+}
