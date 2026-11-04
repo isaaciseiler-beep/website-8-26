@@ -41,7 +41,7 @@
 .home-genui .benchmark-editorial .canvas-scorecards article label{display:block;min-width:0;}
 .home-genui .benchmark-editorial .canvas-scorecards article select{font-size:var(--size-l);line-height:var(--line-l);font-weight:var(--weight-medium);min-height:44px;padding:0 var(--space-l) 0 0;background:transparent;}
 .home-genui .benchmark-editorial .canvas-scorecards article .benchmark-government-choice{position:relative;border-radius:var(--site-corner-radius);}
-.home-genui .benchmark-editorial .benchmark-government-choice:focus-within{outline:auto;outline-offset:calc(-1 * var(--space-xxs));}
+.home-genui .benchmark-editorial .canvas-scorecards .benchmark-government-choice:focus-within{outline:none;border-radius:0;box-shadow:inset 0 -2px 0 currentColor;}
 .home-genui .benchmark-editorial .benchmark-government-name{display:flex;align-items:center;justify-content:space-between;gap:var(--space-s);min-height:44px;font-size:var(--size-l);line-height:var(--line-l);font-weight:var(--weight-medium);}
 .home-genui .benchmark-editorial .benchmark-government-name>span{min-width:0;overflow-wrap:anywhere;}
 .home-genui .benchmark-editorial .benchmark-government-name>svg{flex-shrink:0;}

@@ -2,7 +2,7 @@
 
 This pass addresses responsive screenshot proportions, question-field expansion and retraction, questions for unfamiliar visitors, and an in-pane “How to explore” answer. Claude reviewed the direction, actual responsive screenshots, and implementation; the final verification is recorded below.
 
-The latest complete unit run passed 1,091 tests. The most recent full UI/motion run passed 67 browser cases, followed by 10 focused newcomer-flow cases six focused guide cases, and nine draft/guide cases after the reading refinements. Typecheck, lint and production build passed. Later sections record the continued findings and fixes.
+The latest complete unit run passed 1,091 tests. Current maintained browser verification passed 73 UI cases across two complete shards and 13 motion cases. Typecheck and production build passed; lint had zero errors and the existing cleanup-ref warning. Later sections record the continued findings and fixes.
 
 ## Changes
 
@@ -134,3 +134,10 @@ Twenty frame-sampled role disclosure actions (open, close, reopen, Clear, Undo a
 At the owner’s 736×750 tablet size, selecting Taiwan adds a photograph above the role control. Its focused trigger could end at y=754, hiding the bottom focus underline. `PortfolioChoice` now checks the focused trigger after a value change and uses normal nearest page scrolling only when it falls outside the viewport. Eleven focused role browser cases passed, including normal/reduced motion checks after the layout settled; internal reveal scrolling remained zero. Typecheck, lint (existing cleanup-ref warning only), and build passed.
 
 An additional public-role screenshot review request to Claude timed out after 180 seconds. This was a screenshot-only attempt with tools disabled, no private source, and no portfolio provider calls. It is not counted as a sixth completed review; no recommendation was returned.
+
+
+## Shared selector focus and complete browser regression
+
+Project headings, Lab/connection choices, comparison labels, and government selectors now use the same straight inset focus underline. Their former rounded outlines could appear heavy or clipped. Focused transparent wrappers use square corners so the underline remains straight; other control corners and native popup behavior are retained. Twenty-eight focused selector checks passed across light/dark and phone/desktop layouts, with loaded media included in the visual proof. See `selector-focus.json`, `selector-focus-phone.png` and `role-selector-open.png`.
+
+The current maintained browser regression passed all 73 UI cases in two batches (37 and 36), plus all 13 motion cases. Each batch exited successfully. The first combined UI invocation printed 73 passing assertions but hung during worker shutdown; its browser processes had already closed. That runner was terminated, and the two smaller complete shards verified both assertions and clean shutdown. This does not claim the stale legacy smoke suite passed. See `browser-tests-current.txt`.
