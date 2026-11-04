@@ -697,3 +697,24 @@ for(const [width,height,scrolledAway] of [[390,844,false],[736,750,false],[1440,
     }finally{fail();}
   });
 }
+
+for(const [width,height,tabCount] of [[390,390,1],[736,390,1],[390,844,1],[736,750,1],[736,390,2]] as const)for(const reducedMotion of ['no-preference','reduce'] as const){
+  test(`${width}×${height} ${reducedMotion}: Tab${tabCount===2?' twice':''} keeps the next control visible after the role list retracts`,async({page})=>{
+    await page.setViewportSize({width,height});await page.emulateMedia({reducedMotion});
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+    await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+    await input.fill('Explore Isaac’s career');await input.press('Escape');await input.press('Enter');
+    const trigger=page.getByRole('button',{name:'Professional role',exact:true});await trigger.press('ArrowDown');
+    const options=page.getByRole('group',{name:'Professional role',exact:true});
+    await expect(options.getByRole('button',{name:'AI & communications',exact:true})).toBeFocused();
+    await page.keyboard.press('End');await expect(options.getByRole('button',{name:'Journalism research',exact:true})).toBeFocused();
+    await page.waitForTimeout(250);await page.keyboard.press('Tab');if(tabCount===2)await page.keyboard.press('Tab');
+    const next=tabCount===1?page.locator('.home-next-questions>summary'):page.getByRole('button',{name:'Copy link to this view',exact:true});await expect(next).toBeFocused();
+    await expect(trigger).toHaveAttribute('aria-expanded','false');
+    await page.waitForTimeout(700);
+    await expect(next).toBeFocused();expect(await next.evaluate(element=>{const r=element.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;})).toBe(true);
+    expect(await page.locator('.home-genui-reveal').evaluate(element=>element.scrollTop)).toBe(0);
+    if(tabCount===1){await page.keyboard.press('Enter');await expect(page.locator('.home-next-questions')).toHaveAttribute('open','');}
+  });
+}

@@ -161,3 +161,21 @@ A failed primary artwork can fall back to the taller local project cover. At 144
 After the fix, the focused row stays at y=823–867 on desktop and y=313–357 in short landscape through fallback. Old artifact attributes/styles are removed from the cover. See `career-fallback-focus.json`. Ten settled fallback browser cases passed across four viewports and both motion modes, including two cases that scroll away before failure; another 27 related image/role cases and 71 unit tests across the canvas, reading, and transition files passed. Typecheck, lint (existing warning only), and build passed.
 
 A fresh local motion capture records the new role disclosure, role/image changes, multiline draft growth, Clear/Undo, and guide/technical disclosure. It contains 587 actual CDP frames; the exported clip is a visual walkthrough rather than a frame-rate benchmark. Portfolio provider requests were intercepted. Capture metadata is in `role-motion-capture.json`; the local artifact delivered in chat is `generative-ui-alignment-motion.mp4`.
+
+
+## Wider authored-layout and interaction audit
+
+All 16 authored layout presets passed geometry checks at 320, 736 and 1440px in both themes: 96 cases, zero page errors, symmetric reading buffers, no escaped controls, no horizontal overflow, and correct displayed-image links. These are development review presets, not natural-language routing checks. The presets use photograph-led projects; their artifact sample count was zero, so this pass does not add artifact-ratio coverage beyond the dedicated Lab checks above. See `all-layout-reading-edges.json`.
+
+The new role UI also completed 256 compound action steps over approximately two minutes in four viewport/theme/motion combinations. All 128 settled samples retained the same native textarea, symmetric gutters, zero composer drift in document coordinates, and zero internal reveal scrolling. No page errors occurred. Deterministic image fixtures were used; decoded cover reuse meant no primary failures actually occurred during this run. Fallback failure coverage remains the ten explicit cases above. See `role-interaction-stress.json`.
+
+The published seiler.page client returned HTTP 200 and passed the controlled fallback focus check at desktop and short-landscape sizes. Portfolio provider requests were intercepted; this verifies the deployed UI correction, not live model health. See `published-fallback-focus.json`.
+
+
+## Keyboard focus during role-list retraction
+
+With all eight career choices open, Tab moved focus to Explore further and dismissed the list. Retraction then moved the focused summary above the viewport (as far as y=-230 in short windows). Rapidly tabbing again could similarly lose Share.
+
+`PortfolioChoice` now retains the leaving focus target while the actual reveal height contracts. A ResizeObserver checks the committed geometry, applies the target’s existing scroll margins with native nearest page scrolling when needed, and releases the reference at the collapsed height. This keeps focus visible during the fold as well as at its end. The same path handles instant reduced-motion layout changes. If the visitor tabs again within the result pane, the correction follows the currently focused control; it never moves focus back to an earlier control. Reopening, Escape and selecting a role clear the pending correction.
+
+Ten keyboard browser cases passed: four viewports in both motion modes, plus rapid double Tab in short landscape. Four short-window/motion frame cases recorded zero offscreen focused-control samples after layout/resize-observer delivery. Another 29 related role/image browser cases and 41 unit tests passed; typecheck, lint (existing warning only) and build passed. The single-worker related run exited successfully after 1.4 minutes, including slow worker shutdown; smaller batches also verified portions of it. See `role-tab-retraction.json` and `role-tab-browser.txt`.

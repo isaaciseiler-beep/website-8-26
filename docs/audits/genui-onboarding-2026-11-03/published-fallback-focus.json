@@ -1,0 +1,64 @@
+[
+  {
+    "source": "https://seiler.page/",
+    "documentStatus": 200,
+    "providerCalls": 0,
+    "width": 1440,
+    "height": 900,
+    "before": {
+      "width": 524.484375,
+      "height": 295.015625,
+      "naturalWidth": 0,
+      "triggerTop": 0,
+      "triggerBottom": 0,
+      "focusedTop": 823.515625,
+      "focusedBottom": 867.515625,
+      "focusedText": "Product feedback",
+      "focused": null,
+      "scrollY": 101
+    },
+    "after": {
+      "width": 524.484375,
+      "height": 393.359375,
+      "naturalWidth": 800,
+      "triggerTop": 0,
+      "triggerBottom": 0,
+      "focusedTop": 823.859375,
+      "focusedBottom": 867.859375,
+      "focusedText": "Product feedback",
+      "focused": null,
+      "scrollY": 227
+    }
+  },
+  {
+    "source": "https://seiler.page/",
+    "documentStatus": 200,
+    "providerCalls": 0,
+    "width": 844,
+    "height": 390,
+    "before": {
+      "width": 358.53125,
+      "height": 201.671875,
+      "naturalWidth": 0,
+      "triggerTop": 0,
+      "triggerBottom": 0,
+      "focusedTop": 313.671875,
+      "focusedBottom": 357.671875,
+      "focusedText": "Product feedback",
+      "focused": null,
+      "scrollY": 339
+    },
+    "after": {
+      "width": 358.53125,
+      "height": 268.890625,
+      "naturalWidth": 800,
+      "triggerTop": 0,
+      "triggerBottom": 0,
+      "focusedTop": 313.890625,
+      "focusedBottom": 357.890625,
+      "focusedText": "Product feedback",
+      "focused": null,
+      "scrollY": 434
+    }
+  }
+]

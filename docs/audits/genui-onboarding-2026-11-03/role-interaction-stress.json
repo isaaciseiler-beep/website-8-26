@@ -1,0 +1,64 @@
+{
+  "cases": [
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "reducedMotion": "no-preference",
+      "durationMs": 31262,
+      "operations": 54,
+      "samples": 27,
+      "bookRequests": 1,
+      "bookFailures": 0,
+      "maxComposerDrift": 0,
+      "maxGutterAsymmetry": 0,
+      "failures": 0
+    },
+    {
+      "width": 736,
+      "height": 750,
+      "theme": "dark",
+      "reducedMotion": "no-preference",
+      "durationMs": 31132,
+      "operations": 54,
+      "samples": 27,
+      "bookRequests": 1,
+      "bookFailures": 0,
+      "maxComposerDrift": 0,
+      "maxGutterAsymmetry": 0,
+      "failures": 0
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "reducedMotion": "reduce",
+      "durationMs": 30514,
+      "operations": 74,
+      "samples": 37,
+      "bookRequests": 1,
+      "bookFailures": 0,
+      "maxComposerDrift": 0,
+      "maxGutterAsymmetry": 0,
+      "failures": 0
+    },
+    {
+      "width": 736,
+      "height": 750,
+      "theme": "light",
+      "reducedMotion": "reduce",
+      "durationMs": 30609,
+      "operations": 74,
+      "samples": 37,
+      "bookRequests": 1,
+      "bookFailures": 0,
+      "maxComposerDrift": 0,
+      "maxGutterAsymmetry": 0,
+      "failures": 0
+    }
+  ],
+  "operations": 256,
+  "errors": [],
+  "providerCalls": 0,
+  "kind": "local authored UI with deterministic images; decoded image reuse meant no primary failures occurred in this run; fallback coverage is recorded separately"
+}
