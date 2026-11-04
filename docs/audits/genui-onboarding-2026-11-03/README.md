@@ -129,3 +129,8 @@ The wider alignment follow-up checked 60 authored view/theme/width combinations 
 
 
 Twenty frame-sampled role disclosure actions (open, close, reopen, Clear, Undo at 390/736px with normal/reduced motion) recorded zero composer drift in document coordinates, zero internal reveal scrolling, and no horizontal overflow. Normal page scrolling occurred on two Undo actions; viewport position is not claimed stationary. See `role-disclosure-motion.json`.
+
+
+At the owner’s 736×750 tablet size, selecting Taiwan adds a photograph above the role control. Its focused trigger could end at y=754, hiding the bottom focus underline. `PortfolioChoice` now checks the focused trigger after a value change and uses normal nearest page scrolling only when it falls outside the viewport. Eleven focused role browser cases passed, including normal/reduced motion checks after the layout settled; internal reveal scrolling remained zero. Typecheck, lint (existing cleanup-ref warning only), and build passed.
+
+An additional public-role screenshot review request to Claude timed out after 180 seconds. This was a screenshot-only attempt with tools disabled, no private source, and no portfolio provider calls. It is not counted as a sixth completed review; no recommendation was returned.

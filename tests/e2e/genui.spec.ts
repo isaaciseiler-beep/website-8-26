@@ -616,3 +616,20 @@ test('desktop role navigation shares the image edge without a marker touching it
   await expect(nav.getByRole('button',{name:'Teaching in Taiwan',exact:true})).toHaveAttribute('aria-pressed','true');
   await expect(page.locator('.portfolio-career-detail h3')).toHaveText('Fulbright Taiwan');
 });
+
+for(const reducedMotion of ['no-preference','reduce'] as const)test(`tablet ${reducedMotion}: selecting a photo-backed role keeps its focus underline in view`,async({page})=>{
+  await page.setViewportSize({width:736,height:750});await page.emulateMedia({reducedMotion});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+  const trigger=page.getByRole('button',{name:'Professional role',exact:true});await trigger.press('ArrowDown');
+  const choices=page.getByRole('group',{name:'Professional role',exact:true});
+  await expect(choices.getByRole('button',{name:'AI & communications',exact:true})).toBeFocused();
+  await page.keyboard.press('ArrowDown');await expect(choices.getByRole('button',{name:'Teaching in Taiwan',exact:true})).toBeFocused();
+  await page.keyboard.press('Enter');await expect(trigger).toHaveAccessibleDescription('Teaching in Taiwan');await expect(trigger).toBeFocused();
+  // Inspect after both the shell and local disclosure motion have settled.
+  await page.waitForTimeout(600);
+  await expect.poll(()=>trigger.evaluate(button=>{const r=button.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;})).toBe(true);
+  expect(await page.locator('.home-genui-reveal').evaluate(element=>element.scrollTop)).toBe(0);
+});

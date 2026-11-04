@@ -1,0 +1,10 @@
+{
+  "status": "timeout",
+  "timeoutSeconds": 180,
+  "completedReview": false,
+  "source": "https://seiler.page/",
+  "payload": "two full-viewport public role-selector screenshots",
+  "privateSourceSent": false,
+  "portfolioProviderCalls": 0,
+  "toolsEnabled": false
+}

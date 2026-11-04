@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from 'react';
+import { useId, useLayoutEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, ChevronDown } from 'lucide-react';
 import { useMotionPreference } from '@/hooks/useMotionPreference';
@@ -18,6 +18,12 @@ export function PortfolioChoice({ label, value, choices, onChange }: {
   const reduced = useMotionPreference();
   const selected = choices.findIndex(choice => choice.value === value);
   const focusChoice = (index: number) => requestAnimationFrame(() => options.current[index]?.focus());
+  useLayoutEffect(() => {
+    const button = trigger.current;
+    if (button !== document.activeElement || !button) return;
+    const rect = button.getBoundingClientRect();
+    if (rect.top < 0 || rect.bottom > window.innerHeight) button.scrollIntoView({ block: 'nearest' });
+  }, [value]);
   return <div className="portfolio-choice" onBlur={event => {
     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false);
   }} onKeyDown={event => {
