@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-11-04T00:04:16Z",
+  "browserQuestions": [
+    {
+      "question": "Who is Isaac?",
+      "headings": [
+        "Isaac Seiler"
+      ],
+      "layouts": [
+        "experience-roles"
+      ],
+      "overflow": false,
+      "api": [
+        {
+          "endpoint": "/api/intent",
+          "method": "POST",
+          "status": 200
+        },
+        {
+          "endpoint": "/api/compose",
+          "method": "GET",
+          "status": 200
+        },
+        {
+          "endpoint": "/api/compose",
+          "method": "POST",
+          "status": 200,
+          "bodyUnavailable": true
+        }
+      ]
+    },
+    {
+      "question": "How did Isaac help teachers in Taiwan?",
+      "headings": [
+        "AI literacy in Taiwan"
+      ],
+      "layouts": [
+        "project-process"
+      ],
+      "overflow": false,
+      "api": [
+        {
+          "endpoint": "/api/compose",
+          "method": "POST",
+          "status": 200,
+          "bodyUnavailable": true
+        }
+      ]
+    }
+  ],
+  "directTaiwanRetry": {
+    "events": [
+      "start",
+      "unavailable"
+    ],
+    "reason": "invalid_output",
+    "durationSeconds": 27.192683
+  },
+  "limitation": "Browser streamed bodies were unavailable to CDP capture. Final UI routing is verified; live generation reliability is not established."
+}

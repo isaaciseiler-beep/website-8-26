@@ -6,7 +6,7 @@ import { publicProjects } from '../src/lib/canvas.js';
 import { providerDiagnosticParameters, providerDiagnosticCategories } from './composition-policy.js';
 
 type Provider = 'jev' | 'mistral';
-type Health = { status: 'not_checked' | 'healthy' | 'unavailable'; checkedAt?: string; reason?: string; model?: string };
+type Health = { status: 'not_checked' | 'healthy' | 'unavailable'; checkedAt?: string; reason?: string; model?: string; errorType?:string; diagnostic?:string };
 export type ProviderTimings = { adviceMs?: number; firstSelectionMs?: number; providerMs?: number; totalMs?: number };
 type Result = { status: 'healthy' | 'unavailable'; model?: string; reason?: string; duration?: number; layout?: string; cached?: boolean; httpStatus?: number; errorType?: string; limitDetail?: string; providerCode?: string; providerType?: string; providerParameter?:string; providerDiagnostic?:string; providerMinimumOutputTokens?:number; retryAfter?: number; rateLimit?: number; rateRemaining?: number; projectIds?: string[]; sections?: { projectId: string; section: number }[]; layouts?: LayoutId[]; evidenceIds?:string[]; timings?: ProviderTimings };
 const health: Record<Provider, Health> = { jev: { status: 'not_checked' }, mistral: { status: 'not_checked' } };
@@ -46,7 +46,9 @@ export function compositionLogEvidence(value: unknown): { projectIds?: string[];
 }
 export function recordProviderResult(request: ReturnType<typeof providerRequest>, result: Result) {
   const model=safeModel(result.model), reason=result.reason&&reasons.has(result.reason)?result.reason:undefined;
-  if (!result.cached) health[request.provider] = { status: result.status, checkedAt: new Date().toISOString(), model, ...(reason ? { reason } : {}) };
+  const errorType=result.errorType&&['Error','AbortError','TimeoutError','AI_APICallError','AI_NoObjectGeneratedError','AI_NoOutputGeneratedError','AI_TypeValidationError','AI_JSONParseError'].includes(result.errorType)?result.errorType:undefined;
+  const diagnostic=result.providerDiagnostic&&providerDiagnosticCategories.includes(result.providerDiagnostic)?result.providerDiagnostic:undefined;
+  if (!result.cached) health[request.provider] = { status: result.status, checkedAt: new Date().toISOString(), model, ...(reason ? { reason } : {}), ...(result.status==='unavailable'?{...(errorType?{errorType}:{}),...(diagnostic?{diagnostic}:{})}:{}) };
   const metric=metrics[request.provider], duration=safeNumber(result.duration);
   if(result.cached)metric.cacheHits++;
   else {metric.calls++;if(result.status==='unavailable')metric.unavailable++;if(duration!==undefined){metric.durations.push(duration);if(metric.durations.length>64)metric.durations.shift();}}
@@ -63,12 +65,12 @@ export function recordProviderResult(request: ReturnType<typeof providerRequest>
   const log = JSON.stringify({ event: 'portfolio.provider', requestId:request.requestId, provider:request.provider, questionHash:request.questionHash,
     status:result.status, model, reason, duration, cached:result.cached===true?true:undefined,
     httpStatus:safeNumber(result.httpStatus,599),
-    errorType:result.errorType&&['Error','AbortError','TimeoutError','AI_APICallError','AI_NoObjectGeneratedError','AI_NoOutputGeneratedError','AI_TypeValidationError','AI_JSONParseError'].includes(result.errorType)?result.errorType:undefined,
+    errorType,
     limitDetail:result.limitDetail&&['capacity','tokens','requests','budget','unspecified_limit'].includes(result.limitDetail)?result.limitDetail:undefined,
     providerCode:result.providerCode&&(/^[0-9]{3,6}$/.test(result.providerCode)||['rate_limit_exceeded','insufficient_quota','unknown_model'].includes(result.providerCode))?result.providerCode:undefined,
     providerType:result.providerType&&['rate_limited','rate_limit','rate_limit_error','invalid_request_error','authentication_error','server_error'].includes(result.providerType)?result.providerType:undefined,
     providerParameter:result.providerParameter&&providerDiagnosticParameters.includes(result.providerParameter)?result.providerParameter:undefined,
-    providerDiagnostic:result.providerDiagnostic&&providerDiagnosticCategories.includes(result.providerDiagnostic)?result.providerDiagnostic:undefined,
+    providerDiagnostic:diagnostic,
     providerMinimumOutputTokens:Number.isSafeInteger(result.providerMinimumOutputTokens)&&result.providerMinimumOutputTokens!>0&&result.providerMinimumOutputTokens!<=1000000?result.providerMinimumOutputTokens:undefined,
     retryAfter:safeNumber(result.retryAfter),rateLimit:safeNumber(result.rateLimit),rateRemaining:safeNumber(result.rateRemaining),
     ...(Object.keys(timings).length?{timings}:{}),

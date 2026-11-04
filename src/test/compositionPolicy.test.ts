@@ -90,6 +90,11 @@ describe('bounded composition safeguards',()=>{
     expect(JSON.parse(JSON.stringify(providerDiagnostics({data:{code:'3054',message:'Unrecognized server condition'}})))).toEqual({providerCode:'3054'});
     expect(JSON.parse(JSON.stringify(providerDiagnostics(null)))).toEqual({});
   });
+  it('recognizes truncated structured output from the SDK finish reason without reading generated text',()=>{
+    const result=providerDiagnostics({cause:{name:'AI_NoObjectGeneratedError',message:'No object generated',finishReason:'length',text:'sk-private alice@private.example',response:{body:'private output'}}});
+    expect(JSON.parse(JSON.stringify(result))).toEqual({providerDiagnostic:'output_token_limit'});
+    for(const finishReason of ['stop','error','unknown','private@example.com'])expect(JSON.parse(JSON.stringify(providerDiagnostics({finishReason,text:'max_tokens must be at least 9999'})))).toEqual({});
+  });
   it('keeps token floors unambiguous and checks body messages even when SDK data exists',()=>{
     expect(providerDiagnostics({data:{code:'3054'},responseBody:JSON.stringify({param:'max_tokens',message:'max_tokens must be at least 8192'})})).toMatchObject({providerCode:'3054',providerParameter:'max_tokens',providerDiagnostic:'output_token_limit',providerMinimumOutputTokens:8192});
     for(const message of ['max_tokens must be at least 8192; max_output_tokens must be at least 4096','Token limit minimum 8192','max_tokens must be at least 9999999'])expect(providerDiagnostics({message})).not.toHaveProperty('providerMinimumOutputTokens',expect.any(Number));

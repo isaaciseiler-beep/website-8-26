@@ -80,5 +80,17 @@ describe('bounded public coverage diagnostics', () => {
     expect(log).not.toHaveProperty('providerParameter');expect(log).not.toHaveProperty('providerDiagnostic');
     expect(JSON.stringify(log)).not.toMatch(/alice@|sk-secret|https:|private/);
   });
+  it('keeps last-failure health diagnostics bounded and clears them on a healthy uncached result',()=>{
+    vi.spyOn(console,'warn').mockImplementation(()=>{});vi.spyOn(console,'info').mockImplementation(()=>{});
+    const request=providerRequest('mistral','private visitor question');
+    recordProviderResult(request,{status:'unavailable',reason:'invalid_output',errorType:'AI_NoObjectGeneratedError',providerDiagnostic:'output_token_limit'});
+    expect(providerHealth('mistral')).toMatchObject({status:'unavailable',reason:'invalid_output',errorType:'AI_NoObjectGeneratedError',diagnostic:'output_token_limit'});
+    recordProviderResult(request,{status:'healthy',cached:true});
+    expect(providerHealth('mistral')).toHaveProperty('diagnostic','output_token_limit');
+    recordProviderResult(request,{status:'unavailable',errorType:'alice@private.example',providerDiagnostic:'sk-private'});
+    expect(JSON.stringify(providerHealth('mistral'))).not.toMatch(/alice@|sk-private|diagnostic|errorType/);
+    recordProviderResult(request,{status:'healthy'});
+    expect(providerHealth('mistral')).not.toHaveProperty('errorType');expect(providerHealth('mistral')).not.toHaveProperty('diagnostic');
+  });
 
 });

@@ -101,10 +101,14 @@ export function providerDiagnostics(error: unknown) {
   // These are classifications of supplied error text, not an interpretation of
   // undocumented numeric provider codes. No matched substring is ever returned.
   const text=messages.join('\n');
+  // SDK structured-output failures carry a canonical finish reason even when
+  // their message only says the JSON could not be parsed. Never inspect generated text.
+  const outputTruncated=records.some(failure=>failure.finishReason==='length');
   // Text may identify a parameter even when Mistral returns param:null. Match
   // known API names only; no text or unrecognized match is returned.
   const providerParameter=parameters[0]??text.match(new RegExp(`\\b(${providerDiagnosticParameters.join('|')})\\b`,'i'))?.[0].toLowerCase();
   const providerDiagnostic=
+    outputTruncated?'output_token_limit':
     /(?:unknown|invalid|unsupported|unavailable)\s+model|model[^\n]{0,100}(?:not found|not available|not enabled|does not exist|no access|access denied)/i.test(text)?'model_unavailable':
     /(?:context|prompt)[^\n]{0,80}(?:length|window|limit|too long)|maximum context/i.test(text)?'context_limit':
     /max[_ ](?:output[_ ])?tokens|completion[_ ]tokens|output tokens/i.test(text)&&/minimum|maximum|at least|at most|too (?:small|large)|exceed|must|limit|greater|less/i.test(text)?'output_token_limit':

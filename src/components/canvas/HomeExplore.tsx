@@ -263,7 +263,7 @@ export default function HomeExplore() {
       if(next.plan.layout!=='empty')update(next);
       if(!allowModel||!needsComposition)return;
       if(!composerConfigured&&!llmConfigured.current){if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update({...next,generation:{status:'unavailable',reason:'unconfigured'}});return;}
-      setPhase('Preparing your view…');
+      setPhase(next.plan.layout==='empty'?'Preparing your view…':'Refining your view…');
       next={...next,generation:{status:'composing'}};if(next.plan.layout!=='empty')update(next);
       const response=await fetch('/api/compose',{method:'POST',headers:{'Content-Type':'application/json'},signal:AbortSignal.any([abort.signal,AbortSignal.timeout(40000)]),body:JSON.stringify({draft:text,revision:rev,contentVersion:CONTENT_VERSION,current:context?.composition??next.composition,proposed:next.composition})});
       if(!response.ok)throw new Error('Composition unavailable');
