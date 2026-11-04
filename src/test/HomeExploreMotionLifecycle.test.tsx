@@ -83,17 +83,15 @@ describe('Explore motion preserves an immediately usable interface', () => {
     expect(screen.queryByRole('button', { name: 'Undo clear' })).not.toBeInTheDocument();
   });
 
-  it('restores selected controls after a completed fold and Undo clear', async () => {
+  it('opens the guide in the measured pane after a completed fold', async () => {
     mount(); await submit('Compare Michigan and California');
-    fireEvent.change(screen.getByRole('combobox', { name: 'Benchmark measure' }), { target: { value: 'preparednessScore' } });
     fireEvent.click(screen.getByRole('button', { name: 'Clear exploration' }));
-    const undo = await screen.findByRole('button', { name: 'Undo clear' });
-    fireEvent.click(undo);
-    expect(screen.getByRole('combobox', { name: 'Benchmark measure' })).toHaveValue('preparednessScore');
-    expect(screen.getByRole('combobox', { name: 'First government' })).toHaveValue('Michigan');
-    expect(screen.getByRole('combobox', { name: 'Second government' })).toHaveValue('California');
+    fireEvent.click(await screen.findByRole('button', { name: 'How to explore' }));
+    await waitFor(() => expect(screen.getByRole('region', { name: 'Explore guide' })).toBeVisible());
     expect(reveal()).not.toHaveAttribute('inert');
-    expect(screen.getByRole('textbox', { name: 'Explore' })).toHaveFocus();
+    expect(screen.getByRole('heading', { name: 'How to explore' })).toHaveFocus();
+    await submit('How can I contact Isaac?');
+    expect(screen.getByRole('region', { name: 'Contact' })).toBeVisible();
   });
 
   it('replaces a long answer with usable guidance in the same measured pane', async () => {

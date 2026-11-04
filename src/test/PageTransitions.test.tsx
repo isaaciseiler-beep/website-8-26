@@ -175,13 +175,13 @@ it('restores an expanded help explanation and draft when returning to the same h
     <Route path="/writing" element={<Page name="Writing page"/>}/>
   </Routes>}</PageTransitions></MemoryRouter>);
   fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
-  const technical=screen.getByText('Technical details',{exact:true}).closest('details')!;
+  const technical=screen.getByText('About answers & privacy',{exact:true}).closest('details')!;
   technical.open=true;
   fireEvent.change(screen.getByRole('textbox',{name:'Explore'}),{target:{value:'My next question is still a draft'}});
   fireEvent.click(screen.getByRole('link',{name:'Open writing'}));
   await waitFor(()=>expect(screen.getByRole('heading',{name:'Writing page'})).toBeInTheDocument());
   fireEvent.click(screen.getByRole('button',{name:'Browser back'}));
-  await waitFor(()=>expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeInTheDocument());
-  expect(screen.getByText('Technical details',{exact:true}).closest('details')!.open).toBe(true);
+  await waitFor(()=>expect(screen.getByRole('heading',{name:'How to explore'})).toBeInTheDocument());
+  expect(screen.getByText('About answers & privacy',{exact:true}).closest('details')!.open).toBe(true);
   expect(screen.getByRole('textbox',{name:'Explore'})).toHaveValue('My next question is still a draft');
 });

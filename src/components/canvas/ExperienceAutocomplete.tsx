@@ -7,12 +7,19 @@ import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 
 function SuggestionPanel({children}:{children:ReactNode}) {
   const present=useIsPresent();const reduced=useReducedMotion();
+  const content=useRef<HTMLDivElement>(null);
+  useLayoutEffect(()=>{
+    const node=content.current;
+    // Freeze the outgoing text at its actual width, including follow-ups in an
+    // already expanded composer. The panel itself retains its full flex row.
+    if(node&&!present)node.style.width=`${node.getBoundingClientRect().width}px`;
+  },[present]);
   return <motion.div className="experience-autocomplete" aria-hidden={!present} {...(!present?{inert:''}:{})}
     initial={{opacity:0,height:0}} animate={{opacity:1,height:'auto'}} exit="closed"
-    // A committed suggestion becomes a result in the same surface. Dismiss its
-    // semantics immediately, but let its space fold as the result opens below.
-    variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.base:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.exit}}})}}
-    transition={{height:{duration:reduced?0:.32,ease:[.22,1,.36,1]},opacity:{duration:reduced ? 0 : present ? 0.2 : 0.1}}} onPointerDown={e=>e.preventDefault()}>{children}</motion.div>;
+    // Finish the committed fold before results reveal below the composer, so
+    // the result heading never rides an independently shrinking suggestion list.
+    variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.instant:MOTION_DURATION.fast,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.instant}}})}}
+    transition={{height:{duration:reduced?0:.4,ease:[.22,1,.36,1]},opacity:{duration:reduced ? 0 : present ? 0.26 : 0.16}}} onPointerDown={e=>e.preventDefault()}><div ref={content}>{children}</div></motion.div>;
 }
 type Props={context?:SuggestionContext;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
 export default function ExperienceAutocomplete({context,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){

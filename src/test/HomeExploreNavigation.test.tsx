@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { act, waitFor, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import HomeExplore from '@/components/canvas/HomeExplore';
@@ -48,13 +48,13 @@ describe('exploration navigation',()=>{
     fireEvent.change(screen.getByRole('combobox',{name:'Connection to explore'}),{target:{value:'listening'}});
     fireEvent.click(screen.getByRole('button',{name:'Evidence'}));
     const calls=fetcher.mock.calls.length;
-    expect(screen.getByRole('link',{name:'Final Thesis Draft'})).toBeVisible();
+    await waitFor(()=>expect(screen.getByRole('link',{name:'Final Thesis Draft'})).toBeVisible());
     fireEvent.click(screen.getByRole('button',{name:'Explore AI, platforms & local journalism'}));
-    expect(screen.getByRole('region',{name:'Project explorer'})).toBeVisible();
+    await waitFor(()=>expect(screen.getByRole('region',{name:'Project explorer'})).toBeVisible());
     expect(screen.getByRole('button',{name:'Evidence'})).toHaveAttribute('aria-pressed','true');
     fireEvent.click(screen.getByRole('button',{name:'Back to connections'}));
     expect(screen.getByRole('combobox',{name:'Connection to explore'})).toHaveValue('listening');
-    expect(screen.getByRole('link',{name:'Final Thesis Draft'})).toBeVisible();
+    await waitFor(()=>expect(screen.getByRole('link',{name:'Final Thesis Draft'})).toBeVisible());
     expect(fetcher).toHaveBeenCalledTimes(calls);
   });
   it('returns to the exact project search after opening and refining a project without another request',async()=>{

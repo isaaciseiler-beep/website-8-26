@@ -1,5 +1,7 @@
 export const MOTION_EASE: [number, number, number, number] = [0.2, 0.78, 0.22, 1];
 export const MOTION_EASE_ENTER: [number, number, number, number] = [0.16, 1, 0.3, 1];
+export const MOTION_EASE_EXPLORE: [number, number, number, number] = [0.2, 0.85, 0.3, 1];
+export const MOTION_EASE_FOLD: [number, number, number, number] = [0.32, 0.2, 0.32, 1];
 export const MOTION_EASE_NAVIGATION: [number, number, number, number] = [0.12, 1, 0.22, 1];
 
 export const MOTION_DURATION = {
@@ -8,7 +10,9 @@ export const MOTION_DURATION = {
   fast: 0.22,
   base: 0.34,
   reveal: 0.46,
+  exploreReveal: 0.56,
   panel: 0.34,
+  fold: 0.38,
   navigationClose: 0.56,
 } as const;
 

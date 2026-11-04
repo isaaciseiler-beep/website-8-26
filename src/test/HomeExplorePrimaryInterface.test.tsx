@@ -15,12 +15,12 @@ async function submit(text:string){
 afterEach(()=>{cleanup();vi.unstubAllGlobals();});
 
 describe('Explore as the primary site interface',()=>{
-  it.each(['Taiwan','zxq unfamiliar topic'])('keeps the draft and local guide after Escape: %s',question=>{
+  it.each(['Taiwan','zxq unfamiliar topic'])('keeps the draft and local guide after Escape: %s',async question=>{
     const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
     const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:question}});
     const escape=new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true});fireEvent(input,escape);
-    expect(input).toHaveValue(question);expect(screen.getByRole('button',{name:'How to explore'})).toBeVisible();
+    expect(input).toHaveValue(question);await waitFor(()=>expect(screen.getByRole('button',{name:'How to explore'})).toBeVisible());
     expect(fetcher).toHaveBeenCalledTimes(1);
     if(question.startsWith('zxq'))expect(escape.defaultPrevented).toBe(false);
   });
@@ -34,16 +34,16 @@ describe('Explore as the primary site interface',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
     expect(signal?.aborted).toBe(true);expect(screen.getByRole('textbox',{name:'Explore'})).toHaveValue('zxq unfamiliar topic');
     const calls=fetcher.mock.calls.length;fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
-    await waitFor(()=>expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeVisible());
+    await waitFor(()=>expect(screen.getByRole('heading',{name:'How to explore'})).toBeVisible());
     await act(async()=>{finish(success({guidance:'unmatched'}));});
-    expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeVisible();expect(fetcher).toHaveBeenCalledTimes(calls);
+    await waitFor(()=>expect(screen.getByRole('heading',{name:'How to explore'})).toBeVisible());expect(fetcher).toHaveBeenCalledTimes(calls);
   });
   it.each(['Hello','zxq unfamiliar topic'])('keeps local Help reachable after guidance for %s',async question=>{
     const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
     await submit(question);
     const help=screen.getByRole('button',{name:'How to explore'}),calls=fetcher.mock.calls.length;
     fireEvent.click(help);
-    await waitFor(()=>expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeVisible());
+    await waitFor(()=>expect(screen.getByRole('heading',{name:'How to explore'})).toBeVisible());
     expect(fetcher).toHaveBeenCalledTimes(calls);
   });
 
@@ -73,7 +73,7 @@ describe('Explore as the primary site interface',()=>{
     });
     vi.stubGlobal('fetch',fetcher);mount();
     await submit('How can I contact Isaac?');
-    expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
+    await waitFor(()=>expect(screen.getByRole('region',{name:'Contact'})).toBeVisible());
     await submit('zxq unfamiliar topic');
     expect(screen.queryByRole('region',{name:'Contact'})).not.toBeInTheDocument();
     expect(screen.getByText('Finding a view…',{selector:'.home-request-state span'})).toBeVisible();
@@ -82,10 +82,10 @@ describe('Explore as the primary site interface',()=>{
     expect(fetcher).toHaveBeenCalledTimes(calls);
     fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
     expect(signal?.aborted).toBe(true);
-    expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
+    await waitFor(()=>expect(screen.getByRole('region',{name:'Contact'})).toBeVisible());
     expect(screen.getByRole('textbox',{name:'Explore'})).toHaveValue('How can I contact Isaac?');
     await act(async()=>{finish?.(success({plan:resolveCanvasPlan('Taiwan teaching',initialPlan(),2),composition:{blocks:[{...blankBlock('story'),projectIds:[TAIWAN_ID]}]}}));});
-    expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
+    await waitFor(()=>expect(screen.getByRole('region',{name:'Contact'})).toBeVisible());
     expect(screen.queryByRole('heading',{name:'AI literacy in Taiwan'})).not.toBeInTheDocument();
   });
 
@@ -97,7 +97,7 @@ describe('Explore as the primary site interface',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Explore Bringing Boehringer Cares to life'}));
     fireEvent.click(screen.getByRole('button',{name:'Process'}));
     fireEvent.click(screen.getByRole('button',{name:'Back to comparison'}));
-    expect(screen.getByRole('region',{name:'Project comparison'})).toBeVisible();
+    await waitFor(()=>expect(screen.getByRole('region',{name:'Project comparison'})).toBeVisible());
     expect(screen.getByRole('heading',{name:'The published sources'})).toBeInTheDocument();
     expect(screen.getByRole('button',{name:'Evidence'})).toHaveAttribute('aria-pressed','true');
     expect(fetcher).toHaveBeenCalledTimes(calls);
@@ -133,7 +133,7 @@ describe('Explore as the primary site interface',()=>{
       return new Response(new ReadableStream({start(controller){controller.enqueue(new TextEncoder().encode(event(composition)+event(other)));},cancel}),{headers:{'Content-Type':'application/x-ndjson'}});
     }));
     mount();await submit('Taiwan teaching');
-    expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible();
+    await waitFor(()=>expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible());
     expect(screen.queryByRole('heading',{name:'Bringing Boehringer Cares to life'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
     expect(cancel).toHaveBeenCalled();
@@ -149,7 +149,7 @@ describe('Explore as the primary site interface',()=>{
       return new Response(new ReadableStream({start(controller){controller.enqueue(new TextEncoder().encode(JSON.stringify(event)+'\n'));},cancel}),{headers:{'Content-Type':'application/x-ndjson'}});
     }));
     mount();await submit('Taiwan teaching');
-    expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible();
+    await waitFor(()=>expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible());
     expect(screen.queryByRole('heading',{name:'Bringing Boehringer Cares to life'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
     expect(cancel).toHaveBeenCalled();
@@ -162,36 +162,37 @@ it('answers How to explore in the main pane locally, with a working first questi
   const calls=fetcher.mock.calls.length;
   fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
   fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
-  expect(screen.getByRole('article',{name:'How to explore'}).closest('.home-genui-stage')).not.toBeNull();
-  expect(screen.getByRole('heading',{name:'How it works'})).toBeInTheDocument();
-  expect(screen.getByRole('heading',{name:'Help make this better'})).toBeInTheDocument();
+  expect(screen.getByRole('region',{name:'Explore guide'}).closest('.home-genui-stage')).not.toBeNull();
+  fireEvent.click(screen.getByText('About answers & privacy',{selector:'summary'}));
   expect(screen.getByRole('link',{name:'Send feedback'})).toHaveAttribute('href',expect.stringContaining('mailto:'));
   expect(fetcher).toHaveBeenCalledTimes(calls);
   fireEvent.click(screen.getByRole('button',{name:'Previous exploration'}));
   expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeInTheDocument();
   fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
   fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
-  await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Who is Isaac?'}));});
+  await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Walk me through Isaac’s experience'}));});
   expect(screen.getByRole('region',{name:'Role explorer'})).toBeInTheDocument();
 });
 
-it('recognizes a help question without sending a provider request and restores it after Clear',async()=>{
+it('recognizes a help question locally and reopens the guide after Clear',async()=>{
   const fetcher=vi.fn(async()=>success({configured:true}));vi.stubGlobal('fetch',fetcher);mount();
   await submit('How does this work?');
-  expect(screen.getByRole('article',{name:'How to explore'})).toBeInTheDocument();
+  expect(screen.getByRole('region',{name:'Explore guide'})).toBeInTheDocument();
   expect(fetcher).toHaveBeenCalledTimes(1);
   fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
-  fireEvent.click(await screen.findByRole('button',{name:'Undo clear'}));
-  expect(screen.getByRole('article',{name:'How to explore'})).toBeInTheDocument();
+  expect(screen.queryByRole('button',{name:'Undo clear'})).not.toBeInTheDocument();
+  fireEvent.click(await screen.findByRole('button',{name:'How to explore'}));
+  expect(screen.getByRole('region',{name:'Explore guide'})).toBeInTheDocument();
   expect(fetcher).toHaveBeenCalledTimes(1);
 });
 
-it('keeps Undo after an empty Enter and can recover a cleared unanswered draft',async()=>{
+it('clears an unanswered draft without retaining an Undo state',async()=>{
   vi.stubGlobal('fetch',vi.fn(async()=>success({configured:false})));mount();
   const input=screen.getByRole('textbox',{name:'Explore'});
   fireEvent.change(input,{target:{value:'A question I have not submitted'}});
   fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
   fireEvent.keyDown(input,{key:'Enter'});
-  fireEvent.click(await screen.findByRole('button',{name:'Undo clear'}));
-  expect(input).toHaveValue('A question I have not submitted');
+  expect(screen.queryByRole('button',{name:'Undo clear'})).not.toBeInTheDocument();
+  expect(screen.getByRole('button',{name:'How to explore'})).toBeInTheDocument();
+  expect(input).toHaveValue('');
 });

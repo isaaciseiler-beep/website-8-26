@@ -223,9 +223,8 @@ for(const reducedMotion of ['no-preference','reduce'] as const)test(`native disc
   await summary.click();await expect(disclosure.locator('[data-disclosure-inert]')).toHaveCount(0);
   await page.getByRole('button',{name:'Clear exploration'}).click();
   await expect(page.locator('.home-genui-stage')).toHaveCount(0);
-  await page.getByRole('button',{name:'Undo clear'}).click();
-  await expect(disclosure).toHaveAttribute('open','');
-  await expect(disclosure.locator('[data-disclosure-inert]')).toHaveCount(0);
+  await expect(page.getByRole('button',{name:'Undo clear'})).toHaveCount(0);
+  await expect(page.getByRole('button',{name:'How to explore',exact:true})).toBeVisible();
 });
 
 for(const reducedMotion of ['no-preference','reduce'] as const){
@@ -260,26 +259,27 @@ for(const reducedMotion of ['no-preference','reduce'] as const){
   });
 }
 
-test('help generates inside the same pane, stays local, and restores after Clear',async({page})=>{
+test('help opens inside the same pane, stays local, and reopens after Clear',async({page})=>{
   let posts=0;
   await page.route('**/api/compose',route=>{if(route.request().method()==='POST')posts++;return route.fulfill({json:{configured:false}});});
   await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
   await page.setViewportSize({width:320,height:568});
   await page.goto('/');
   await page.getByRole('button',{name:'How to explore',exact:true}).click();
-  const help=page.getByRole('article',{name:'How to explore'});
+  const help=page.getByRole('region',{name:'Explore guide'});
   await expect(help).toBeVisible();
   expect(await help.evaluate(element=>Boolean(element.closest('.home-genui-stage')))).toBe(true);
-  await expect(help.getByRole('heading',{name:'How it works'})).toBeVisible();
-  await expect(help.getByRole('heading',{name:'Help make this better'})).toBeVisible();
-  await expect(help.getByRole('button')).toHaveCount(4);
+  await expect(help.getByRole('navigation',{name:'Ways to explore'})).toBeVisible();
+  await expect(help.getByRole('list',{name:'Questions to try'}).getByRole('button')).toHaveCount(3);
   expect(posts).toBe(0);
-  await help.getByText('Technical details',{exact:true}).click();
-  await expect(help.getByText(/server validates its response/)).toBeVisible();
+  await help.getByText('About answers & privacy',{exact:true}).click();
+  await expect(help.getByText(/Answers use Isaac’s published portfolio material/)).toBeVisible();
   await page.getByRole('button',{name:'Clear exploration'}).click();
-  await page.getByRole('button',{name:'Undo clear'}).click();
+  await expect(page.getByRole('button',{name:'Undo clear'})).toHaveCount(0);
+  await page.getByRole('button',{name:'How to explore',exact:true}).click();
   await expect(help).toBeVisible();
-  await expect(help.getByText('Technical details',{exact:true}).locator('..')).toHaveAttribute('open','');
+  await help.getByText('About answers & privacy',{exact:true}).click();
+  await expect(help.getByText('About answers & privacy',{exact:true}).locator('..')).toHaveAttribute('open','');
   expect(posts).toBe(0);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await help.getByRole('button',{name:'How did Isaac help teachers in Taiwan?'}).click();
@@ -459,7 +459,7 @@ for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduc
     await page.route('**/api/compose',route=>{if(route.request().method()==='POST')posts++;return route.fulfill({json:{configured:false}});});
     await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
     await page.goto('/');await page.getByRole('button',{name:'How to explore',exact:true}).click();
-    const summary=page.getByText('Technical details',{exact:true});await summary.click();
+    const summary=page.getByText('About answers & privacy',{exact:true});await summary.click();
     await expect(summary.locator('..')).toHaveAttribute('open','');
     const input=page.getByRole('textbox',{name:'Explore',exact:true});await input.fill('I am still writing my next question');await input.press('Escape');
     await page.getByRole('button',{name:'Toggle menu',exact:true}).click();
@@ -469,7 +469,7 @@ for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduc
       const frames:{gap:number;open:boolean;opacity:number}[]=[];
       for(let frame=0;frame<180&&frames.length<40;frame++){
         await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));
-        const help=document.querySelector('.home-explore-help'),pane=document.querySelector('.home-genui-reveal'),content=document.querySelector('.home-genui-reveal-content');
+        const help=document.querySelector('.home-explore-guide'),pane=document.querySelector('.home-genui-reveal'),content=document.querySelector('.home-genui-reveal-content');
         if(help&&pane&&content)frames.push({gap:Math.abs(pane.getBoundingClientRect().height-content.getBoundingClientRect().height),open:!!help.querySelector('details[open]'),opacity:Number(getComputedStyle(help.firstElementChild!).opacity)});
       }
       return frames;
@@ -479,7 +479,7 @@ for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduc
     expect(Math.max(...frames.map(frame=>frame.gap))).toBeLessThan(1);
     expect(frames.every(frame=>frame.open&&frame.opacity===1)).toBe(true);
     await expect(page.getByRole('textbox',{name:'Explore',exact:true})).toHaveValue('I am still writing my next question');
-    await expect(page.getByText('Technical details',{exact:true}).locator('..')).toHaveAttribute('open','');
+    await expect(page.getByText('About answers & privacy',{exact:true}).locator('..')).toHaveAttribute('open','');
     expect(posts).toBe(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   });
 }
@@ -509,6 +509,7 @@ for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduc
     await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
     await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
     await page.goto('/');await page.getByRole('button',{name:'How to explore',exact:true}).click();
+    await page.getByText('About answers & privacy',{exact:true}).click();
     await page.getByRole('link',{name:'Send feedback',exact:true}).focus();
     const frames=await page.locator('.home-genui-reveal').evaluate(async pane=>{
       const frames:{scrollTop:number;contentOffset:number}[]=[];
@@ -537,7 +538,7 @@ for(const width of [320,1440])for(const question of ['Hello','zxq unfamiliar top
     await input.fill(question);await input.press('Escape');await input.press('Enter');
     const help=page.getByRole('button',{name:'How to explore',exact:true});await expect(help).toBeVisible();
     const before=posts;await help.focus();await help.press('Enter');
-    await expect(page.getByRole('heading',{name:'Start with a little curiosity.',exact:true})).toBeVisible();
+    await expect(page.getByRole('heading',{name:'How to explore',exact:true})).toBeVisible();
     expect(posts).toBe(before);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   });
 }
@@ -561,7 +562,7 @@ for(const width of [320,1440]){
       await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});await input.fill('zxq unfamiliar topic');await input.press('Escape');await input.press('Enter');
       await page.getByRole('button',{name:'Stop updating this view'}).click();await expect(input).toHaveValue('zxq unfamiliar topic');
       const calls=posts;await page.getByRole('button',{name:'How to explore',exact:true}).click();
-      await expect(page.getByRole('heading',{name:'Start with a little curiosity.',exact:true})).toBeVisible();expect(posts).toBe(calls);
+      await expect(page.getByRole('heading',{name:'How to explore',exact:true})).toBeVisible();expect(posts).toBe(calls);
     }finally{release();}
   });
 }

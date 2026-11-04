@@ -1,6 +1,6 @@
 import { useDisclosureMotion } from '@/hooks/useDisclosureMotion';
 import { useRouteNavigation } from "@/lib/routeNavigation";
-import { MOTION_DURATION, MOTION_EASE_ENTER } from "@/lib/motion";
+import { MOTION_DURATION, MOTION_EASE_EXPLORE, MOTION_EASE_FOLD, MOTION_EASE_ENTER } from "@/lib/motion";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
@@ -9,7 +9,7 @@ import { ArrowUp, ArrowLeft, ArrowRight, Link, Check, LoaderCircle, X } from 'lu
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
 import { isPhotographyRequest, explorationGuidance, isLocalCompositionRefinement, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
-import ExploreHelp from './ExploreHelp';
+import ExploreGuide from './ExploreGuide';
 import { suggestExperiencePrompts } from '@/lib/experiencePrompts';
 import { captureReadingState, restoreReadingState, type ExplorationReadingState } from '@/lib/explorationReadingState';
 import { ExplorationFeedback, ExplorationHistory } from './ExplorationJourneyTools';
@@ -33,15 +33,19 @@ function returnLabel(view:View):string {
   const block=view.composition.blocks[0];
   return block.kind==='collection'?'Back to projects':block.kind==='comparison'?'Back to comparison':block.kind==='benchmark'?'Back to benchmark':block.answerId==='connections'?'Back to connections':'Back to experience';
 }
-type SavedExploration = {readingState?:ExplorationReadingState;query:string;view:View|null;guidance:'welcome'|'unmatched'|'ambiguous'|'help'|null;history:View[];future:View[]};
+type Guidance='welcome'|'unmatched'|'ambiguous'|'help'|null;
+type SavedExploration = {readingState?:ExplorationReadingState;query:string;view:View|null;guidance:Guidance;history:View[];future:View[]};
 const entryExplorations = new Map<string, SavedExploration>();
-function ExplorationReveal({children,restored=false,initialReadingState,onSettled,contentRevision}:{children:ReactNode;restored?:boolean;initialReadingState?:ExplorationReadingState|null;onSettled?:()=>void;contentRevision:number}) {
+function ExplorationReveal({children,restored=false,handoff=false,initialReadingState,onSettled,contentRevision}:{children:ReactNode;restored?:boolean;handoff?:boolean;initialReadingState?:ExplorationReadingState|null;onSettled?:()=>void;contentRevision:number}) {
   const present=useIsPresent();
   const reduceMotion=useReducedMotion();
   const content=useRef<HTMLDivElement>(null);
   const initialReading=useRef(initialReadingState);
   const disclosure=useDisclosureMotion(content,contentRevision,reduceMotion);
   const [height,setHeight]=useState<number|null>(null);
+  // Only the initial reveal waits for autocomplete. Later view changes keep
+  // their state and resize directly to the newly measured content.
+  const openingDelay=useRef(!restored&&handoff?MOTION_DURATION.instant:0);
   useLayoutEffect(()=>{
     const node=content.current;if(!node)return;
     // Restore before the first measurement, so a returning open disclosure
@@ -58,8 +62,8 @@ function ExplorationReveal({children,restored=false,initialReadingState,onSettle
     return()=>{observer.disconnect();cancelAnimationFrame(frame);};
   },[]);
   return <motion.div className="home-genui-reveal" data-state={present?'open':'closing'} aria-hidden={!present} {...(!present?{inert:''}:{})}
-    initial={restored?false:{height:0,opacity:1}} animate={{height:present&&disclosure.following?'auto':height??(restored?'auto':0),opacity:1}} exit={{height:0,opacity:0}}
-    onAnimationComplete={onSettled} transition={{height:{duration:reduceMotion||present&&disclosure.following?0:present?MOTION_DURATION.reveal:MOTION_DURATION.panel,ease:MOTION_EASE_ENTER},opacity:{duration:reduceMotion?0:present?MOTION_DURATION.base:MOTION_DURATION.exit,delay:reduceMotion||present?0:MOTION_DURATION.panel-MOTION_DURATION.exit,ease:MOTION_EASE_ENTER}}}>
+    initial={restored?false:{height:0,opacity:0}} animate={{height:present&&disclosure.following?'auto':height??(restored?'auto':0),opacity:1}} exit={{height:0,opacity:0,transition:{height:{duration:reduceMotion?0:MOTION_DURATION.fold,ease:MOTION_EASE_FOLD},opacity:{duration:reduceMotion?0:MOTION_DURATION.fold,ease:'linear'}}}}
+    onAnimationComplete={()=>{openingDelay.current=0;onSettled?.();}} transition={{height:{delay:reduceMotion?0:openingDelay.current,duration:reduceMotion||present&&disclosure.following?0:MOTION_DURATION.exploreReveal,ease:MOTION_EASE_EXPLORE},opacity:{delay:reduceMotion?0:openingDelay.current,duration:reduceMotion?0:MOTION_DURATION.exploreReveal,ease:MOTION_EASE_EXPLORE}}}>
     <div ref={content} className="home-genui-reveal-content" onClickCapture={disclosure.onClickCapture}>{children}</div>
   </motion.div>;
 }
@@ -77,6 +81,7 @@ export default function HomeExplore() {
   const restored=useRef(routeNavigation?.restoring?entryExplorations.get(routeNavigation.key):undefined).current;
   const reduceMotion=useReducedMotion();
   const composerRef=useRef<HTMLDivElement>(null);
+  const windowRef=useRef<HTMLDivElement>(null);
   const resultsRef=useRef<HTMLDivElement>(null);
   const pendingReadingState=useRef<ExplorationReadingState|null>(restored?.readingState??null);
   const requestMetric=useRef<{revision:number;timing:ReturnType<typeof beginExplorationMetric>}|null>(null);
@@ -86,10 +91,12 @@ export default function HomeExplore() {
   const [query,setQuery]=useState(restored?.query??'');
   const [autocompleteOpen,setAutocompleteOpen]=useState(false);
   const [immediateDismiss,setImmediateDismiss]=useState(false);
-  const [guidance,setGuidance]=useState<'welcome'|'unmatched'|'ambiguous'|'help'|null>(restored?.guidance??null);
+  const [guidance,setGuidance]=useState<Guidance>(restored?.guidance??null);
   const [composing,setComposing]=useState(false);
   const [view,setView]=useState<View|null>(restored?.view??null);
-  const [heldExpanded,setHeldExpanded]=useState(Boolean(restored?.view));
+  const [heldExpanded,setHeldExpanded]=useState(Boolean(restored?.view||restored?.guidance==='help'));
+  const [settling,setSettling]=useState(false);
+  const [suggestionHandoff,setSuggestionHandoff]=useState(false);
   const [revealEpoch,setRevealEpoch]=useState(0);
   // Interrupted exits can finish visually without Presence reporting completion.
   // Recover only a folded pane; never release its width during the vertical fold.
@@ -105,9 +112,9 @@ export default function HomeExplore() {
         return;
       }
       setRevealEpoch(epoch=>epoch+1);
-      setHeldExpanded(false);
+      setHeldExpanded(false);setSettling(!reduceMotion);
     };
-    timer=setTimeout(releaseFoldedPane,reduceMotion?0:(MOTION_DURATION.panel+MOTION_DURATION.exit)*1000);
+    timer=setTimeout(releaseFoldedPane,reduceMotion?0:(MOTION_DURATION.fold+MOTION_DURATION.exit)*1000);
     return()=>clearTimeout(timer);
   },[view,guidance,heldExpanded,reduceMotion]);
   useLayoutEffect(()=>{
@@ -126,9 +133,27 @@ export default function HomeExplore() {
   },[view,guidance]);
   // Once the surface opens, keep its width through a guidance response and the
   // entire vertical exit. A new request can reverse that exit without a pinch.
-  useEffect(()=>{if(view||guidance==='help')setHeldExpanded(true);},[view,guidance]);
-  const [cleared,setCleared]=useState<SavedExploration|null>(null);
-  useEffect(()=>{if(!cleared)return;const timer=window.setTimeout(()=>setCleared(null),10000);return()=>clearTimeout(timer);},[cleared]);
+  useLayoutEffect(()=>{if(view)setHeldExpanded(true);if(view||guidance)setSettling(false);},[view,guidance]);
+  useLayoutEffect(()=>{
+    if(!settling)return;
+    const shell=windowRef.current;
+    if(reduceMotion||!shell){setSettling(false);return;}
+    let cancelled=false;
+    // Wait for the actual CSS edges, including panes where width is already
+    // constrained and only the horizontal surface insets need to finish.
+    // Recheck after a cancelled transition (resize/reversal), never use a timer.
+    const finish=async()=>{
+      while(!cancelled){
+        const surface=shell.querySelector('.home-window-surface');
+        const moving=[...(shell.getAnimations?.()??[]),...(surface?.getAnimations?.()??[])].filter(animation=>animation.playState==='running'||animation.pending);
+        if(!moving.length)break;
+        await Promise.all(moving.map(animation=>animation.finished.catch(()=>{})));
+      }
+      if(!cancelled)setSettling(false);
+    };
+    void finish();
+    return()=>{cancelled=true;};
+  },[settling,reduceMotion]);
   const [busy,setBusy]=useState(false);
   const [phase,setPhase]=useState('Routing…');
   const [reviewLayout,setReviewLayout]=useState<LayoutId>('benchmark-compare');
@@ -214,7 +239,17 @@ export default function HomeExplore() {
     void fetch('/api/compose',{signal:abort.signal}).then(r=>r.json()).then(data=>{llmConfigured.current=Boolean(data.configured);}).catch(()=>{});
     return()=>{abort.abort();controller.current?.abort();requestMetric.current?.timing.finish('cancelled');};
   },[]);
-  function clear(){if(view||guidance||query.trim())setCleared({readingState:!view&&resultsRef.current?captureReadingState(resultsRef.current):undefined,query,view:view?withReadingState(view):null,history,future,guidance});pendingReadingState.current=null;cancel();setImmediateDismiss(true);setQuery('');setGuidance(null);setHistory([]);setFuture([]);setLinkError('');update(null);input.current?.focus({preventScroll:true});setAutocompleteOpen(false);if(window.location.hash.startsWith('#view=')){window.history.replaceState(window.history.state,'',window.location.pathname+window.location.search);}}
+  function openGuide(){
+    pendingReadingState.current=null;pendingResultFocus.current=null;
+    const previous=current.current;cancel();if(previous)remember(previous);
+    setSuggestionHandoff(Boolean(composerRef.current?.querySelector('.experience-autocomplete')));
+    setImmediateDismiss(true);setAutocompleteOpen(false);setLinkError('');
+    update(null);setGuidance('help');setHeldExpanded(true);
+  }
+  useLayoutEffect(()=>{
+    if(guidance==='help')resultsRef.current?.querySelector<HTMLElement>('h2')?.focus({preventScroll:true});
+  },[guidance]);
+  function clear(){pendingReadingState.current=null;cancel();setImmediateDismiss(true);setQuery('');setGuidance(null);setHistory([]);setFuture([]);setLinkError('');update(null);input.current?.focus({preventScroll:true});setAutocompleteOpen(false);if(window.location.hash.startsWith('#view=')){window.history.replaceState(window.history.state,'',window.location.pathname+window.location.search);}}
   async function resolve(text:string,rev:number,allowModel=false){
     const timing=beginExplorationMetric(current.current&&isLocalCompositionRefinement(text,current.current.composition)?'refinement':'question');
     requestMetric.current={revision:rev,timing};
@@ -283,13 +318,7 @@ export default function HomeExplore() {
       try {while(live()&&!completed){const {done,value}=await reader.read();if(done)break;receivedBytes+=value.byteLength;if(receivedBytes>128000)throw new Error('Composition stream too large');buffer+=decoder.decode(value,{stream:true});const lines=buffer.split('\n');buffer=lines.pop()??'';lines.forEach(accept);if(!completed&&buffer.length>32000)throw new Error('Composition event too large');}if(!completed&&buffer.trim())accept(buffer);if(live()&&!completed)throw new Error('Incomplete composition');} finally {await reader.cancel().catch(()=>{});}
     } catch {if(live()){if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update({...next,generation:{...next.generation,status:'unavailable'}});}} finally {if(live()){pendingQuery.current=null;setBusy(false);}}
   }
-  const showHelp=()=>{
-    if(document.activeElement instanceof HTMLButtonElement)pendingResultFocus.current={kind:'heading'};
-    if(current.current)remember(current.current);
-    cancel();setCleared(null);setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);
-    setQuery('How to explore');setGuidance('help');update(null);setHeldExpanded(true);revealStart();
-  };
-  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;setCleared(null);pendingReadingState.current=null;if(/^(?:how (?:to explore|does this (?:work|site work))|help(?: me (?:explore|get started))?)\??$/i.test(text.trim())){showHelp();return;}const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
+  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;if(/^(?:how to explore|how does explore work|how does this work|how does this site work|help|help me explore|help me get started)\??$/i.test(text.trim())){openGuide();return;}setSuggestionHandoff(Boolean(composerRef.current?.querySelector('.experience-autocomplete')));pendingReadingState.current=null;const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
   const navigateHistory=(direction:'back'|'forward')=>{
     if(direction==='back'?!history.length:!future.length)return;
     if(resultsRef.current?.contains(document.activeElement))pendingResultFocus.current={kind:'heading'};
@@ -356,34 +385,39 @@ export default function HomeExplore() {
   const titleFor=(item:View)=>viewTitle(createPortableView(item.composition));
   let feedbackUrl=SITE_URL;
   if(view)try{feedbackUrl=viewUrl(createPortableView(view.composition),SITE_URL);}catch{/* A bounded fallback remains available even if a view cannot be shared. */}
-  const recessActive=composerHovered||explorationFocused||Boolean(view||guidance)||busy;
+  const recessActive=composerHovered||explorationFocused||Boolean(view||heldExpanded||guidance)||busy;
+  const expandedSurface=Boolean(view||heldExpanded||guidance);
+  const folding=heldExpanded&&!view&&!guidance;
+  const surfaceMotion=view||guidance?'open':folding?'folding':settling?'settling':'idle';
   return <section id="home-genui" className={`home-genui photos-shell${!view?' is-idle':''}`} aria-label="Interactive exploration">
-    <div className={`home-genui-window${view||heldExpanded||guidance==='help'?' has-results':guidance?' has-guidance':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
-      <motion.div className="home-window-depth" aria-hidden="true" initial={false} animate={{opacity:recessActive ? .18 : 0}} transition={{duration:reduceMotion?0:.3,ease:[.22,1,.36,1]}}/>
+    <div ref={windowRef} data-motion={surfaceMotion} className={`home-genui-window${view||heldExpanded?' has-results':guidance?' has-guidance':''}${folding?' is-folding':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
+      <div className="home-window-surface" aria-hidden="true"/>
+      <motion.div className="home-window-depth" aria-hidden="true" initial={false} animate={{opacity:view||guidance ? .18 : 0}} transition={{duration:reduceMotion?0:MOTION_DURATION.fold,ease:MOTION_EASE_FOLD}}/>
 
 
       {reviewMode&&<div className="canvas-review"><label htmlFor="layout-review">Layout review · {AI_LAYOUTS.length} authored views</label><select id="layout-review" value={reviewLayout} onChange={e=>{const id=e.target.value as LayoutId;setReviewLayout(id);cancel();const recipe=AI_LAYOUTS.find(l=>l.id===id)!;setQuery(recipe.prompt);update({query:recipe.prompt,plan:resolveCanvasPlan(recipe.prompt,initialPlan(),revision.current),composition:presetComposition(id),generation:{status:'authored'}});}}>{AI_LAYOUTS.map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></div>}<div ref={composerRef} className="home-genui-composer">
 
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
-        <ExperienceAutocomplete context={suggestionContext} inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
-        {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration" title="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
+        <motion.div className="home-composer-depth" aria-hidden="true" initial={false} animate={{opacity:!expandedSurface&&!settling&&recessActive ? .18 : 0}} transition={{duration:reduceMotion?0:MOTION_DURATION.base,ease:MOTION_EASE_ENTER}}/>
+        <ExperienceAutocomplete context={suggestionContext} inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
+        {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
       </form><AnimatePresence initial={false}>{busy&&<RequestProgress key="request-status"><div className="home-request-state"><span>{phase}</span><button type="button" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button></div></RequestProgress>}</AnimatePresence></div>
-      {!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&!busy&&<div className="home-idle-actions">
-        {cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();pendingReadingState.current=cleared.view?.readingState??cleared.readingState??null;setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <div className="home-genui-preview"><button type="button" className="home-preview-trigger" onClick={showHelp}>How to explore</button></div>}
-      </div>}
-      <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:guidance==='help'?'How to explore is ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
+      {!busy&&!view&&!heldExpanded&&!settling&&!guidance&&!autocompleteOpen&&<motion.div className="home-idle-actions" initial={{opacity:0}} animate={{opacity:1}} transition={{duration:reduceMotion?0:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER}}>
+        <button className="home-guide-trigger" type="button" onClick={openGuide} aria-controls="home-exploration-results">How to explore</button>
+      </motion.div>}
+      <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
-      <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
-        {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} initialReadingState={pendingReadingState.current} onSettled={restoreReadingPosition}>
-          <div ref={resultsRef} className="home-genui-stage" aria-label="Exploration results" aria-busy={busy} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
-            {guidance==='help'?<ExploreHelp onSubmit={submit}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
+      <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>{if(!view&&!guidance){setHeldExpanded(false);setSettling(!reduceMotion);}}}>
+        {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} initialReadingState={pendingReadingState.current} restored={Boolean(restored?.view||restored?.guidance)} handoff={suggestionHandoff} onSettled={restoreReadingPosition}>
+          <div ref={resultsRef} id="home-exploration-results" className="home-genui-stage" aria-label="Exploration results" aria-busy={busy} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
+            {guidance==='help'?<ExploreGuide onExplore={submit}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>
-              <div>{guidance==='ambiguous'?clarification?.choices.map(item=><button type="button" key={item.projectId} onClick={()=>chooseSubject(item.projectId)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>):guidanceChoices.map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>
+              <div>{guidance==='ambiguous'?clarification?.choices.map(item=><button type="button" key={item.projectId} onClick={()=>chooseSubject(item.projectId)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>):guidanceChoices.map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={openGuide}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>
             </div>:view&&<>
               <ExplorationCanvas composition={view.composition} plan={view.plan} generation={view.generation} onChange={changeComposition}/>
             </>}
             <footer className="home-genui-footer">
-            {view&&nextQuestions.length>0&&<details className="home-next-questions"><summary>Explore further</summary><div>{nextQuestions.map(item=><button key={item.id} type="button" onClick={()=>submit(item.text)}>{item.text}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div></details>}
+            {view&&nextQuestions.length>0&&<details className="home-next-questions"><summary>Explore further</summary><div>{nextQuestions.map(item=><button key={item.id} type="button" onClick={()=>submit(item.text)}>{item.text}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={openGuide}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div></details>}
             <div className={`home-genui-tools${!view&&!history.length?' is-empty':''}`}>
 
               {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={returnLabel(view.returnToExploration)} onClick={backToExploration}><ArrowLeft size={14} aria-hidden="true"/><span>{returnLabel(view.returnToExploration)}</span></button>}

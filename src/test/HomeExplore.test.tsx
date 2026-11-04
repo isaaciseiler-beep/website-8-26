@@ -214,6 +214,20 @@ describe("homepage generative interface", () => {
     expect(input).toHaveFocus();
     expect(input).not.toHaveAttribute('aria-controls');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Undo clear' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'How to explore' }));
+    expect(screen.getByRole('region', { name: 'Explore guide' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'How to explore' })).toHaveFocus();
+    const calls = fetcher.mock.calls.length;
+    fireEvent.click(screen.getByRole('button', { name: 'Go deeper' }));
+    expect(screen.getByRole('heading', { name: 'Follow the work in Taiwan' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Compare', exact: true }));
+    expect(screen.getByRole('heading', { name: 'Put two kinds of work side by side' })).toBeInTheDocument();
+    expect(fetcher).toHaveBeenCalledTimes(calls);
+    fireEvent.click(screen.getByRole('button', { name: 'Go deeper' }));
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'What did Isaac learn in Taiwan?' })); });
+    expect(screen.getByRole('region', { name: 'Project explorer' })).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Explore guide' })).not.toBeInTheDocument();
   });
 
   it("carries the visible projects into a comparison and a detail follow-up", async () => {
