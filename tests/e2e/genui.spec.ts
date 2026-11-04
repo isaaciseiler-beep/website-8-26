@@ -319,6 +319,7 @@ for(const width of [320,1280])for(const [question,projectId] of [
     const results=page.locator('.home-genui-stage');
     if(projectId)await expect(results.getByRole('combobox',{name:'Project',exact:true})).toHaveValue(projectId);
     else await expect(results.getByText(/Isaac is a tech generalist/)).toBeVisible();
+    if(projectId===taiwan)await expect(results.getByText(/I designed the Lab as six sessions covering AI fundamentals/)).toBeVisible();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   });
 }

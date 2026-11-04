@@ -1,0 +1,39 @@
+{
+  "beforeTaiwan": {
+    "question": "How did Isaac help teachers in Taiwan?",
+    "blocks": [
+      {
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "section": 0
+      }
+    ],
+    "text": "AI literacy in Taiwan From the Idea to the Lab Many people in my community were either skeptical of AI or unsure how to use it well. I was already participating in OpenAI's ChatGPT Lab, so I pitched the team on extending that work into a local program for educators in Taiwan. With support from OpenAI and ChatGPT for Education, it became one of the first Local Labs to run. Sources for AI literacy in Taiwan"
+  },
+  "afterTaiwan": {
+    "question": "How did Isaac help teachers in Taiwan?",
+    "blocks": [
+      {
+        "projectIds": [
+          "fulbright-focus-group-sponsored-by-openai"
+        ],
+        "layout": "project-process",
+        "focus": "process",
+        "section": 1
+      }
+    ],
+    "text": "AI literacy in Taiwan Building a Program Where People Learned From Each Other I designed the Lab as six sessions covering AI fundamentals. We focused on work educators already had in front of them: preparing lessons, giving feedback, supporting language learning, and deciding when an AI tool would create more problems than it solved. Participant questions changed what I emphasized in later sessions. We spent less time talking about ChatGPT in the abstract and more time on when and how educators should choose to use it. By the final sessions, the program reflected more than the structure I had started with. It reflected the concerns and experience of the educators who participated in the program. I was not just showing people how to use a tool. I was learning how they understood it, what they wanted from it, and where they drew their own boundaries around responsible use. Sources for AI literacy in Taiwan"
+  },
+  "reviewedStarterQuestions": [
+    "Who is Isaac?",
+    "How did Isaac help teachers in Taiwan?",
+    "How did Isaac research AI in government?",
+    "What was Isaac\u2019s role in Congress?",
+    "How did Isaac test new ChatGPT features?"
+  ],
+  "unitTests": 1086,
+  "focusedBrowserCases": 10
+}

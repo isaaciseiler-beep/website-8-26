@@ -5,9 +5,9 @@ import { ProjectStory, ProjectComparison } from '@/components/canvas/PortfolioVi
 import { ProjectIndex } from '@/components/canvas/LayoutViews';
 import BenchmarkExplorer from '@/components/canvas/BenchmarkExplorer';
 import { PublishedSources } from '@/components/canvas/PublishedSources';
-import { blankBlock, type CanvasBlock } from '@/lib/genui';
+import { blankBlock, composeLocal, resolveCanvasPlan, type CanvasBlock } from '@/lib/genui';
 import { evidenceForSection } from '@/lib/portfolioEvidenceRegistry';
-import { publicProjects } from '@/lib/canvas';
+import { publicProjects, initialPlan } from '@/lib/canvas';
 import { representativeProjectImage } from '@/components/canvas/projectVisual';
 const congress='congressional-office-setup-100-day-report';
 const brand='boehringer-cares-foundation-rebrand-strategy-shift';
@@ -15,6 +15,13 @@ function Story({initial}:{initial:CanvasBlock}){const [block,setBlock]=useState(
 function Work(){const [block,setBlock]=useState(blankBlock('collection'));return <ProjectIndex block={block} onChange={setBlock}/>;}
 afterEach(cleanup);
 describe('answer reading and evidence provenance',()=>{
+  it('answers the newcomer teacher question with the actual program before opening a control',()=>{
+    const question='How did Isaac help teachers in Taiwan?';
+    const block=composeLocal(question,resolveCanvasPlan(question,initialPlan(),1)).blocks[0];
+    render(<Story initial={block}/>);
+    expect(screen.getByText(/I designed the Lab as six sessions covering AI fundamentals/)).toBeVisible();
+    expect(screen.getByText(/preparing lessons, giving feedback, supporting language learning/)).toBeVisible();
+  });
   it('represents a symmetric comparison with actual project columns and dimension row headers',()=>{
     render(<ProjectComparison block={{...blankBlock('comparison'),projectIds:[congress,brand],focus:'process'}} onChange={()=>{}}/>);
     const table=screen.getByRole('table',{name:'Published project comparison'});

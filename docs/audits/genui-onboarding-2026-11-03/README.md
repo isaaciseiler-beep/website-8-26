@@ -2,7 +2,7 @@
 
 This pass addresses responsive screenshot proportions, question-field expansion and retraction, questions for unfamiliar visitors, and an in-pane “How to explore” answer. Claude reviewed the direction, actual responsive screenshots, and implementation; the final verification is recorded below.
 
-The current checkpoint has passed 1,080 unit tests and 67 UI/motion browser cases, plus typecheck, lint and production build. Later sections record the continued findings and fixes.
+The latest complete unit run passed 1,086 tests. The most recent full UI/motion run passed 67 browser cases, followed by 10 focused newcomer-flow cases after the reading refinement. Typecheck, lint and production build passed. Later sections record the continued findings and fixes.
 
 ## Changes
 
@@ -92,3 +92,9 @@ All 1,080 unit tests passed, including three new broad-question variants and exi
 Focusing a lower control while the pane was opening caused the `overflow:hidden` reveal to scroll internally: up to 645px on phone and 525px on desktop. Its contents then slid back into place as the height grew. The reveal now uses `overflow:clip` (with the prior hidden fallback) and retains its flow-root layout. It clips the same height animation without becoming an internal scroll container. Native page scrolling follows focus; the evidence stays aligned inside the pane.
 
 The frame check now measures zero internal scroll and zero content offset throughout. All 67 UI/motion browser cases passed in 51.0 seconds, including four new focus cases with normal/reduced motion. Lint and build passed. The prior complete unit run remains 1,080 passed; the production change in this step is CSS only. See `focus-during-expansion.json`.
+
+## Answering the actual first question
+
+The real renderer review found that the Taiwan starter question explained the proposal but omitted what teachers actually did. Its initial view now shows the six-session program, lesson preparation, feedback and language-learning work, and how participant questions shaped later sessions. A method question about helping teachers learn no longer becomes a reflection question about Isaac; explicit personal lessons and evaluation retain their original routes. The same distinction is used by focus, angle and answer-facet selection.
+
+All 1,086 unit tests passed, including teaching/support wording, teacher-learning wording, preserved personal reflection/evaluation, and the actual visible first answer. Ten first-visit/ChatGPT browser cases passed at phone/desktop sizes. Typecheck, lint and production build passed. `starter-reading.json` records the before/after visible prose and the five reviewed starter questions. This step uses no live provider calls.

@@ -3,8 +3,20 @@ import { blankBlock, reconcileComposition, composeLocal, resolveCanvasPlan, vali
 import { AI_LAYOUTS } from '@/lib/layouts';
 import { initialPlan } from '@/lib/canvas';
 import { aiIndexStates } from '@/lib/aiStateGovIndex';
+import { requestedQuestionFacets } from '@/lib/portfolioAnswerPlan';
 const compose=(text:string)=>composeLocal(text,resolveCanvasPlan(text,initialPlan(),1));
 describe('interactive composition contracts',()=>{
+  it.each(['How did Isaac help teachers in Taiwan?','How did Isaac support educators in Taiwan?','How did Isaac help teachers learn AI in Taiwan?'])('shows the teaching activities for a newcomer: %s',question=>{
+    expect(compose(question).blocks[0]).toMatchObject({projectIds:[TAIWAN_ID],section:1,focus:'process',layout:'project-process'});
+    expect(compose(question).blocks[0].answerPlan?.facets.map(facet=>facet.kind)).not.toContain('lessons');
+  });
+  it('keeps a later question about Isaac’s own lessons after a teaching-method clause',()=>{
+    expect(requestedQuestionFacets('How did Isaac help teachers learn AI in Taiwan, and what did Isaac learn from them?').map(facet=>facet.kind)).toEqual(['process','lessons']);
+  });
+  it('keeps Isaac’s personal lessons and evaluation separate from helping teachers learn',()=>{
+    expect(compose('What did Isaac learn from teachers in Taiwan?').blocks[0]).toMatchObject({section:4,angle:'reflection'});
+    expect(compose('How did Isaac evaluate whether the Taiwan program worked?').blocks[0]).toMatchObject({section:4,angle:'measurement'});
+  });
   it.each(['How did Isaac test new ChatGPT features?','How did Isaac test ChatGPT?','How did Isaac test early OpenAI products?'])('introduces the testing process before named features or sources: %s',question=>{
     const local=compose(question);
     expect(local.blocks[0]).toMatchObject({projectIds:['openai-product-testing-and-feedback'],layout:'project-process',focus:'process',section:0,paragraphIndices:[0,1]});

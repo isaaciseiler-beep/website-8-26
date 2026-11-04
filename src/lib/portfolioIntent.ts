@@ -14,7 +14,13 @@ export function requestedAngle(text:string):PortfolioAngle|undefined {
   if (/\b(?:caus(?:e|ed|al)|prove[sd]?|proof|attribut\w*)\b|\bshipp?ed\b.*\b(?:because|feedback)\b|\bhow much\b.*\b(?:personally|alone|himself)\b|\b(?:rankings?|benchmark|scores?)\b.*\b(?:today|current|now)\b/i.test(text)) return 'measurement';
   if (/\b(?:did|does)\b.*\b(?:write|author|draft)\b.*\b(?:law|legislation|bill)\b/i.test(text)) return 'leadership';
   if (/\b(?:original|own|himself|single.?handedly|alone)\b.*\b(?:vision|strategy|identity|design|brand|rebrand)\b|\b(?:design|create|establish)\b.*\b(?:himself|alone|single.?handedly)\b/i.test(text)) return 'leadership';
-  return /differently|would.*change|do over/i.test(text)?'counterfactual':/learn|lessons|takeaways|change.*(?:understanding|perspective|thinking)|(?:understanding|perspective|thinking).*change|\b(?:teach|taught) (?:isaac|you|him|me)\b/i.test(text)?'reflection':/\blead(?:ership|ing)|\bled\b/i.test(text)?'leadership':/\btrade.?offs?|\bcompromises?|\bchallenges?|\bfailures?|\blimitations?|\b(?:what|which) decisions?\b|\bdecid(?:e|ed)\b/i.test(text)?'tradeoffs':/\bmeasur|\bevaluat|\bsuccess|whether.*work|\bhow (?:do|can) (?:we|you|i) know\b|^did .*\bwork\b/i.test(text)?'measurement':undefined;
+  return /differently|would.*change|do over/i.test(text)?'counterfactual':/learn|lessons|takeaways|change.*(?:understanding|perspective|thinking)|(?:understanding|perspective|thinking).*change|\b(?:teach|taught) (?:isaac|you|him|me)\b/i.test(personalLearningText(text))?'reflection':/\blead(?:ership|ing)|\bled\b/i.test(text)?'leadership':/\btrade.?offs?|\bcompromises?|\bchallenges?|\bfailures?|\blimitations?|\b(?:what|which) decisions?\b|\bdecid(?:e|ed)\b/i.test(text)?'tradeoffs':/\bmeasur|\bevaluat|\bsuccess|whether.*work|\bhow (?:do|can) (?:we|you|i) know\b|^did .*\bwork\b/i.test(text)?'measurement':undefined;
+}
+/** Helping educators learn describes teaching methods, not Isaac's reflection.
+ * Keep any later clause about what Isaac himself learned available. */
+export function personalLearningText(text:string):string {
+  if(!/\bhow\b.*\b(?:help(?:ed|ing)?|support(?:ed|ing)?|teach(?:ing)?|taught|train(?:ed|ing)?)\b/i.test(text))return text;
+  return text.replace(/\b(?:teachers?|educators?|students?|participants?)(?:['’]s?)?\s+(?:to\s+)?learn(?:ing)?\b/gi,'');
 }
 export type PortfolioTask = 'story' | 'benchmark' | 'comparison' | 'timeline' | 'architecture' | 'contact' | 'collection' | 'unknown';
 export type PortfolioInterpretation = { task: PortfolioTask; projectIds: string[]; focus: EvidenceFocus; roleId?: string; followup: boolean; explicit: boolean };
@@ -64,7 +70,7 @@ export function requestedFocus(text: string): EvidenceFocus | null {
   if(/^(?:(?:make (?:it|this|that)|show me) )?(?:more concrete|less abstract|a (?:concrete|specific) example)[.!?]*$/i.test(text.trim()))return 'process';
   if(requestedSourceAccess(text))return 'evidence';
   if (/\b(?:evidence|sources?|proof|notebook|materials|slides|downloads?)\b|\bread\b.*\b(?:report|thesis|paper)\b|^where\b.*\b(?:methodology|spreadsheet|recommendations|report|thesis|workspace|website)\b/i.test(text)) return 'evidence';
-  if (/\b(?:outcomes?|results?|impact|takeaways?|learn(?:ed)?|lessons?|findings?|discover\w*|reveal\w*|accomplish\w*|achievements?)\b|\bwhat changed\b.*\b(?:result|because)|\bwhat did\b.*\b(?:interviews|study|thesis)\b.*\bfind\b\b/i.test(text)) return 'outcomes';
+  if (/\b(?:outcomes?|results?|impact|takeaways?|learn(?:ed)?|lessons?|findings?|discover\w*|reveal\w*|accomplish\w*|achievements?)\b|\bwhat changed\b.*\b(?:result|because)|\bwhat did\b.*\b(?:interviews|study|thesis)\b.*\bfind\b\b/i.test(personalLearningText(text))) return 'outcomes';
   if (/\b(?:which|what)\b.*\bproducts?\b.*\b(?:help|work|test|contribut)\w*/i.test(text)) return 'process';
   if (/\b(?:process|steps?|methodology|methods?|approach|calculated)\b|\bhow\b.*\b(?:did|built|build|map|design|work|make|made|deliver|execute)\b/i.test(text)) return 'process';
   if (/\b(?:role|personally|contribut\w*|responsibilit\w*|own(?:ed)?)\b|\bwhat\b.*\b(?:did|built|build)\b/i.test(text)) return 'role';

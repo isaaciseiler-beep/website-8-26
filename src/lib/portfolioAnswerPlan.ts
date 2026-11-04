@@ -1,6 +1,6 @@
 import { projectAnswerEvidence } from './portfolioEvidenceManifest.js';
 import { evidenceFor, sectionPreview, projectAngleAnswer } from './portfolioEvidence.js';
-import { requestedAngle, requestedFocus, requestedSourceAccess } from './portfolioIntent.js';
+import { requestedAngle, requestedFocus, requestedSourceAccess, personalLearningText } from './portfolioIntent.js';
 import { findPublishedSection, publishedTextRelevance } from './portfolioRetrieval.js';
 import { ANSWER_READING_WORD_BUDGET, evidenceForSection, getEvidence, portfolioEvidenceRegistry, validateAnswerPlan, type AnswerPlan, type EvidenceRecord } from './portfolioEvidenceRegistry.js';
 
@@ -18,7 +18,7 @@ export function requestedQuestionFacets(question:string):{kind:Kind;question:str
   const clauses=question.split(/[,;?]|\band\s+(?=(?:what|how|why|which|where|did|can|show)\b)/i).map(item=>item.trim()).filter(Boolean).slice(0,6);
   const output:{kind:Kind;question:string}[]=[];
   for(const clause of clauses){
-    const matches=facetPatterns.flatMap(([kind,pattern])=>{const found=pattern.exec(clause);return found?[{kind,question:clause,index:found.index}]:[];}).sort((a,b)=>a.index-b.index);
+    const matches=facetPatterns.flatMap(([kind,pattern])=>{const found=pattern.exec(kind==='lessons'?personalLearningText(clause):clause);return found?[{kind,question:clause,index:found.index}]:[];}).sort((a,b)=>a.index-b.index);
     // "How" and "personally" often describe one contribution question. Keep
     // distinct requested aspects, not every incidental grammatical marker.
     if(matches.length===2&&matches.some(item=>item.kind==='process')&&matches.some(item=>item.kind==='contribution')&&!/\band\b/i.test(clause)&&/\bhow\b.*\b(?:personally|contribut|responsib)/i.test(clause))matches.splice(matches.findIndex(item=>item.kind===(/\bwhat\b.*\b(?:built|build)\b/i.test(clause)?'process':'contribution')),1);
