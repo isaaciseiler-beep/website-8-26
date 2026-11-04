@@ -533,3 +533,27 @@ for(const width of [320,1440])for(const question of ['Hello','zxq unfamiliar top
     expect(posts).toBe(before);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   });
 }
+
+for(const width of [320,1440]){
+  test(`${width}: Escape preserves an unmatched draft and reveals the local guide`,async({page})=>{
+    await page.setViewportSize({width,height:900});let posts=0;
+    await page.route('**/api/compose',route=>{if(route.request().method()==='POST')posts++;return route.fulfill({json:{configured:false}});});
+    await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
+    await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+    await input.fill('zxq unfamiliar topic');const top=await input.evaluate(node=>node.getBoundingClientRect().top);await input.press('Escape');
+    await expect(input).toHaveValue('zxq unfamiliar topic');await expect(page.getByRole('button',{name:'How to explore',exact:true})).toBeVisible();
+    expect(Math.abs(await input.evaluate(node=>node.getBoundingClientRect().top)-top)).toBeLessThan(1);expect(posts).toBe(0);
+  });
+  test(`${width}: stopping the first request leaves a draft and a working guide`,async({page})=>{
+    await page.setViewportSize({width,height:900});await page.emulateMedia({reducedMotion:width===320?'no-preference':'reduce'});
+    let release!:()=>void;const pending=new Promise<void>(resolve=>{release=resolve;});let posts=0;
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',async route=>{posts++;await pending;await route.fulfill({json:{guidance:'unmatched'}}).catch(()=>{});});
+    try{
+      await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});await input.fill('zxq unfamiliar topic');await input.press('Escape');await input.press('Enter');
+      await page.getByRole('button',{name:'Stop updating this view'}).click();await expect(input).toHaveValue('zxq unfamiliar topic');
+      const calls=posts;await page.getByRole('button',{name:'How to explore',exact:true}).click();
+      await expect(page.getByRole('heading',{name:'Start with a little curiosity.',exact:true})).toBeVisible();expect(posts).toBe(calls);
+    }finally{release();}
+  });
+}

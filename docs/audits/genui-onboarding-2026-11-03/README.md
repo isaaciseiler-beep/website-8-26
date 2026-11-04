@@ -2,7 +2,7 @@
 
 This pass addresses responsive screenshot proportions, question-field expansion and retraction, questions for unfamiliar visitors, and an in-pane “How to explore” answer. Claude reviewed the direction, actual responsive screenshots, and implementation; the final verification is recorded below.
 
-The latest complete unit run passed 1,088 tests. The most recent full UI/motion run passed 67 browser cases, followed by 10 focused newcomer-flow cases and six focused guide cases after the reading refinements. Typecheck, lint and production build passed. Later sections record the continued findings and fixes.
+The latest complete unit run passed 1,091 tests. The most recent full UI/motion run passed 67 browser cases, followed by 10 focused newcomer-flow cases six focused guide cases, and nine draft/guide cases after the reading refinements. Typecheck, lint and production build passed. Later sections record the continued findings and fixes.
 
 ## Changes
 
@@ -104,3 +104,9 @@ All 1,086 unit tests passed, including teaching/support wording, teacher-learnin
 The visible 736px preview revealed a tight conference-photo crop that cut off the top of the head. Main story and career photographs now use a higher crop position while retaining the existing editorial frames. Screenshots/artifacts keep their intrinsic-ratio treatment. Five widths (390/736/844/900/1440) were checked without overflow; the 736px crop now preserves headroom. The original photo is unchanged. Compare `tablet-photo-before.png` and `tablet-photo-after.png`; geometry is recorded in `photo-framing.json`.
 
 “How to explore” is now also available inside greeting, ambiguous and unmatched-question guidance, opening the same local guide. In-place guidance/follow-up actions use right arrows; external image/source links keep their external-link indicators. The visible browser was refreshed and this path was checked directly. All 1,088 unit tests, typecheck, lint and build passed; six focused guide browser cases passed, including keyboard access after both greeting/unmatched requests at 320/1440px with no additional provider posts for Help.
+
+## Help beside preserved drafts
+
+Stopping a first unknown request retained the draft but hid the guide. The quiet guide action is now available when there is no active view or request and suggestions are dismissed, including beside an unsubmitted or stopped draft. Escape closes local suggestion state even when no options match; it still bubbles normally when there was no visible list. It does not submit, erase text or move the field. Existing Undo retains priority.
+
+All 1,091 unit tests passed, including cancellation, late-response rejection and both matching/unmatched drafts. Nine focused browser cases passed across 320/1440px, with normal/reduced cancellation behavior, preserved draft text, fixed field position, and no added provider posts for the guide. Typecheck, lint and production build passed. See `draft-help.json`.

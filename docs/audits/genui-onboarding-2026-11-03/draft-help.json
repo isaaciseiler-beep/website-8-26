@@ -1,0 +1,17 @@
+{
+  "unitTests": 1091,
+  "focusedInteractionUnitTests": 40,
+  "focusedBrowserCases": 9,
+  "viewportWidths": [
+    320,
+    1440
+  ],
+  "checks": [
+    "matching draft survives Escape",
+    "unmatched draft survives Escape without consuming the key",
+    "first stopped request retains its draft",
+    "Help opens locally after stopping",
+    "late cancelled response does not replace Help",
+    "question field top stays fixed after Escape"
+  ]
+}

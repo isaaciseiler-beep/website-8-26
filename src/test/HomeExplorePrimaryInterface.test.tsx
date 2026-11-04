@@ -15,6 +15,29 @@ async function submit(text:string){
 afterEach(()=>{cleanup();vi.unstubAllGlobals();});
 
 describe('Explore as the primary site interface',()=>{
+  it.each(['Taiwan','zxq unfamiliar topic'])('keeps the draft and local guide after Escape: %s',question=>{
+    const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
+    const input=screen.getByRole('textbox',{name:'Explore'});
+    fireEvent.change(input,{target:{value:question}});
+    const escape=new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true});fireEvent(input,escape);
+    expect(input).toHaveValue(question);expect(screen.getByRole('button',{name:'How to explore'})).toBeVisible();
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    if(question.startsWith('zxq'))expect(escape.defaultPrevented).toBe(false);
+  });
+  it('keeps the first stopped request as a draft, exposes Help, and ignores its late answer',async()=>{
+    let finish!:(value:unknown)=>void;let signal:AbortSignal|undefined;
+    const fetcher=vi.fn(async(_url:string,options?:RequestInit)=>{
+      if(!options?.body)return success({configured:false});
+      signal=options.signal as AbortSignal;return new Promise(resolve=>{finish=resolve;});
+    });
+    vi.stubGlobal('fetch',fetcher);mount();await submit('zxq unfamiliar topic');
+    fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
+    expect(signal?.aborted).toBe(true);expect(screen.getByRole('textbox',{name:'Explore'})).toHaveValue('zxq unfamiliar topic');
+    const calls=fetcher.mock.calls.length;fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
+    await waitFor(()=>expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeVisible());
+    await act(async()=>{finish(success({guidance:'unmatched'}));});
+    expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeVisible();expect(fetcher).toHaveBeenCalledTimes(calls);
+  });
   it.each(['Hello','zxq unfamiliar topic'])('keeps local Help reachable after guidance for %s',async question=>{
     const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
     await submit(question);

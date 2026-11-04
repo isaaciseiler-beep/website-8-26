@@ -67,7 +67,7 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
       onKeyDown={e=>{
         if(composition.current||e.nativeEvent.isComposing||e.keyCode===229)return;
 
-        if(e.key==='Escape'&&visible){e.preventDefault();e.stopPropagation();toggle(false);}
+        if(e.key==='Escape'&&open){if(visible){e.preventDefault();e.stopPropagation();}toggle(false);}
         else if(e.altKey&&e.key==='ArrowDown'&&options.length){e.preventDefault();toggle(true);setActive(0);}
         else if(visible&&!e.shiftKey&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&(e.key==='ArrowDown'||e.key==='ArrowUp')&&options.length){e.preventDefault();setActive(index=>e.key==='ArrowDown'?(index+1)%options.length:index<=0?options.length-1:index-1);}
         else if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();select(visible&&options[active]?options[active].text:value);}
