@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test.use({ trace: 'retain-on-failure', launchOptions: process.env.PLAYWRIGHT_EXECUTABLE_PATH ? { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH, timeout: 10000 } : {} });
+test.use({ trace: 'retain-on-failure' });
 test.describe.configure({mode:'parallel'});
 for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (const reducedMotion of ['reduce', 'no-preference'] as const) {
   test(`${theme} ${width} ${reducedMotion}: motion lifecycle`, async ({ page }, info) => {

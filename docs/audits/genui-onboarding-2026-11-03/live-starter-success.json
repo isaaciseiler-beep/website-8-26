@@ -1,0 +1,69 @@
+{
+  "question": "How did Isaac help teachers in Taiwan?",
+  "endToEndSeconds": 18.123174,
+  "events": [
+    {
+      "type": "start",
+      "revision": 1,
+      "contentVersion": "canvas-2026-11-02-v15"
+    },
+    {
+      "type": "composition",
+      "composition": {
+        "blocks": [
+          {
+            "kind": "story",
+            "layout": "project-process",
+            "projectIds": [
+              "fulbright-focus-group-sponsored-by-openai"
+            ],
+            "albumIds": [],
+            "states": [],
+            "region": "All",
+            "metric": "compositeScore",
+            "section": 1,
+            "paragraphIndices": [
+              0,
+              1,
+              3
+            ],
+            "focus": "process",
+            "roleId": "",
+            "search": "",
+            "expanded": false,
+            "band": null,
+            "answerPlan": {
+              "version": 1,
+              "facets": [
+                {
+                  "kind": "process",
+                  "evidenceIds": [
+                    "fulbright-focus-group-sponsored-by-openai:paragraph:bc242ee0131fc306",
+                    "fulbright-focus-group-sponsored-by-openai:paragraph:d9b4749d3ea0585d",
+                    "fulbright-focus-group-sponsored-by-openai:paragraph:1b9e85282ef7a7c4",
+                    "fulbright-focus-group-sponsored-by-openai:paragraph:48b0e71c7c71ea06"
+                  ],
+                  "status": "supported"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "partial": false,
+      "model": "mistral-large-4",
+      "duration": 17755,
+      "inputTokens": 21936,
+      "outputTokens": 1832,
+      "timings": {
+        "adviceMs": 219,
+        "firstSelectionMs": 17755,
+        "providerMs": 17536,
+        "totalMs": 17755
+      },
+      "revision": 1,
+      "contentVersion": "canvas-2026-11-02-v15"
+    }
+  ],
+  "limitation": "A successful public request demonstrates this case, not consistent provider latency or reliability."
+}

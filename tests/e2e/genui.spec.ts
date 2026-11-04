@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-test.use({ launchOptions: process.env.PLAYWRIGHT_EXECUTABLE_PATH ? { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH } : {} });
 // Cases own their pages, requests and preferences; keep matrix workers independent.
 test.describe.configure({mode:'parallel'});
 const taiwan='fulbright-focus-group-sponsored-by-openai';
