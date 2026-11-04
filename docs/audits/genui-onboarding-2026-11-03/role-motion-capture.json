@@ -1,0 +1,14 @@
+{
+  "frames": 587,
+  "start": 1793758184.728722,
+  "end": 1793758197.844947,
+  "idleGapsClampedSeconds": 0.5,
+  "final": {
+    "headingTop": 139.5,
+    "headingBottom": 179.5,
+    "scrollY": 238,
+    "overflow": false
+  },
+  "providerCalls": 0,
+  "kind": "local authored UI, actual CDP frames, not a performance benchmark"
+}

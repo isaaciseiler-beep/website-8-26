@@ -4,7 +4,7 @@ import type { ProjectVisualSelection, ProjectVisualSource } from './projectVisua
 type ImageProps=ImgHTMLAttributes<HTMLImageElement>&{ref:RefObject<HTMLImageElement>};
 /** Render props keep the actual displayed asset, its link, caption and alt in
  * agreement while the global image preloader continues to own image readiness. */
-export function ResolvedProjectImage({visual,children}:{visual:ProjectVisualSelection;children:(image:ImageProps,displayed:ProjectVisualSource)=>ReactNode}) {
+export function ResolvedProjectImage({visual,children,onDisplayedChange}:{visual:ProjectVisualSelection;children:(image:ImageProps,displayed:ProjectVisualSource)=>ReactNode;onDisplayedChange?:()=>void}) {
   const candidates=[visual,...visual.fallbacks];
   const identity=candidates.map(source=>source.src).join('\n');
   const [failure,setFailure]=useState({identity,index:0,unavailable:false});
@@ -18,6 +18,7 @@ export function ResolvedProjectImage({visual,children}:{visual:ProjectVisualSele
     node.dataset.imageState=node.complete&&node.naturalWidth>0?'ready':'loading';
     delete node.dataset.imageReveal;
   },[displayed.src]);
+  useLayoutEffect(()=>{onDisplayedChange?.();},[displayed.src,unavailable,onDisplayedChange]);
   return children({ref:image,src:displayed.src,alt:displayed.alt,width:displayed.width,height:displayed.height,decoding:'async',onError:event=>{
     const next=index+1;
     if(next<candidates.length){

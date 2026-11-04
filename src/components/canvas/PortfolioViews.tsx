@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useCallback, useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 import { useProjectVisualId } from '@/lib/projectVisualMotion';
@@ -157,15 +157,28 @@ const careerPaths: Record<string, {label:string}> = {
   'washu-ai-journalism': {label:'Journalism research'},
 };
 
+function focusedRoleControl(navigation: HTMLDivElement | null) {
+  const focused=document.activeElement;
+  return focused instanceof HTMLButtonElement&&navigation?.contains(focused)?focused:null;
+}
+
+function keepFocusedRoleVisible(navigation: HTMLDivElement | null) {
+  const focused=focusedRoleControl(navigation);
+  if(!focused)return;
+  const rect=focused.getBoundingClientRect();
+  if(rect.top<0||rect.bottom>window.innerHeight)focused.scrollIntoView({block:'nearest'});
+}
+
 export function CareerExplorer({ block, onChange }: Props) {
   const roleNavigation=useRef<HTMLDivElement>(null);
+  const preserveRoleFocus=useRef(false);
+  const restoreRoleFocusAfterImageChange=useCallback(()=>{
+    if(!preserveRoleFocus.current)return;
+    preserveRoleFocus.current=false;
+    keepFocusedRoleVisible(roleNavigation.current);
+  },[]);
   useLayoutEffect(()=>{
-    const navigation=roleNavigation.current;
-    if(!navigation)return;
-    const focused=document.activeElement;
-    if(!(focused instanceof HTMLElement)||!navigation.contains(focused)||!focused.closest('nav[aria-label="Professional roles"]'))return;
-    const rect=focused.getBoundingClientRect();
-    if(rect.top<0||rect.bottom>window.innerHeight)focused.scrollIntoView({block:'nearest'});
+    keepFocusedRoleVisible(roleNavigation.current);
   },[block.answerId,block.roleId]);
   if (block.answerId === 'connections') return <ConnectionsExplorer block={block} onChange={onChange} />;
   const answer=block.answerId?careerAnswers[block.answerId]:undefined;
@@ -181,11 +194,15 @@ export function CareerExplorer({ block, onChange }: Props) {
     <h2 className="sr-only">{answer?.title??(block.angle==='leadership'?'Leadership in practice':block.section===1?'Strengths across the work':block.section===2?'Public service':'Career & experience')}</h2>
     {answer&&<p className="portfolio-answer">{answer.answer}</p>}
     {block.answerId!=='current'&&<div className="portfolio-career-explorer">
-      <div ref={roleNavigation} className="portfolio-career-nav">{record&&<ResolvedProjectImage key="role-visual" visual={representativeProjectImage(record.project)}>{(imageProps,displayed)=>{
+      <div ref={roleNavigation} className="portfolio-career-nav">{record&&<ResolvedProjectImage key="role-visual" visual={representativeProjectImage(record.project)} onDisplayedChange={restoreRoleFocusAfterImageChange}>{(imageProps,displayed)=>{
         const sizing=artifactImageStyles(displayed);
         return <figure className="portfolio-career-visual" data-presentation={displayed.presentation}>
           <a style={sizing?.frame} href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`}>
-            <img {...imageProps} className="portfolio-career-image" style={sizing?.image}/>
+            <img {...imageProps} className="portfolio-career-image" style={sizing?.image} onError={event=>{
+              const rect=focusedRoleControl(roleNavigation.current)?.getBoundingClientRect();
+              preserveRoleFocus.current=Boolean(rect&&rect.top>=0&&rect.bottom<=window.innerHeight);
+              imageProps.onError?.(event);
+            }}/>
           </a>{displayed.note&&<figcaption className="portfolio-image-note">{displayed.note}</figcaption>}
         </figure>;
       }}</ResolvedProjectImage>}<div key="role-selector" className="portfolio-career-select"><PortfolioChoice label="Professional role" value={active?.id??''} choices={entries.map(entry=>({value:entry.id,label:careerPaths[entry.id]?.label??entry.organization}))} onChange={roleId=>onChange({...block,roleId,search:undefined})}/></div><nav key="role-navigation" aria-label="Professional roles">{entries.map(entry=><button key={entry.id} aria-pressed={active?.id===entry.id} onClick={()=>onChange({...block,roleId:entry.id,search:undefined})}><strong>{careerPaths[entry.id]?.label??entry.organization}</strong></button>)}</nav></div>

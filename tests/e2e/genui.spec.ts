@@ -664,3 +664,36 @@ for(const [width,height] of [[390,844],[736,750],[1440,900],[844,390]])for(const
     }finally{release();}
   });
 }
+
+for(const [width,height,scrolledAway] of [[390,844,false],[736,750,false],[1440,900,false],[844,390,false],[1440,900,true]] as const)for(const reducedMotion of ['no-preference','reduce'] as const){
+  test(`${width}×${height} ${reducedMotion}: a career image fallback ${scrolledAway?'leaves scrolled reading alone':'preserves visible role focus'} and clears artifact sizing`,async({page})=>{
+    await page.setViewportSize({width,height});await page.emulateMedia({reducedMotion});
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+    let fail!:()=>void;const primary=new Promise<void>(resolve=>{fail=resolve;});
+    await page.route('**/chat-lab/chatgpt-100-chats-cover.png',async route=>{await primary;await route.fulfill({status:503,body:''}).catch(()=>{});});
+    await page.route('**/project-images/chatlab.jpg',route=>route.fulfill({contentType:'image/svg+xml',body:'<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="800" height="600" fill="white"/></svg>'}));
+    try{
+      await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+      await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+      const trigger=page.getByRole('button',{name:'Professional role',exact:true});
+      if(await trigger.isVisible()){await trigger.click();await page.getByRole('group',{name:'Professional role',exact:true}).getByRole('button',{name:'Product feedback',exact:true}).click();}
+      else await page.getByRole('navigation',{name:'Professional roles'}).getByRole('button',{name:'Product feedback',exact:true}).click();
+      await page.waitForTimeout(600);
+      if(scrolledAway){await page.mouse.wheel(0,1500);await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(1000);}
+      const scrollBeforeFailure=await page.evaluate(()=>scrollY);fail();
+      const image=page.locator('.portfolio-career-image');await expect(image).toHaveAttribute('src','/project-images/chatlab.jpg');
+      await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.naturalWidth)).toBe(800);
+      await expect(image).not.toHaveAttribute('width');await expect(image).not.toHaveAttribute('height');
+      expect(await image.evaluate(img=>img.style.aspectRatio)).toBe('');
+      // Include the enclosing pane's final height, not only the image commit.
+      await page.waitForTimeout(600);
+      if(scrolledAway){
+        expect(await page.evaluate(()=>document.activeElement!.getBoundingClientRect().bottom<0)).toBe(true);
+        expect(await page.evaluate(()=>scrollY)).toBeGreaterThanOrEqual(scrollBeforeFailure-1);
+      }else await expect.poll(()=>page.evaluate(()=>{const focused=document.activeElement!,r=focused.getBoundingClientRect();return focused.tagName==='BUTTON'&&r.top>=0&&r.bottom<=innerHeight;})).toBe(true);
+      expect(await page.locator('.home-genui-reveal').evaluate(element=>element.scrollTop)).toBe(0);
+      expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    }finally{fail();}
+  });
+}
