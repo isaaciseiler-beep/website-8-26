@@ -117,7 +117,7 @@ describe('answer reading and evidence provenance',()=>{
     expect(image.style.aspectRatio).toBe('');
     expect(image.closest('a')).toHaveAttribute('href',lab.image);
     expect(image).toHaveAttribute('alt',`Project cover for ${lab.title}`);
-    expect(screen.getByText('Project cover')).toHaveClass('sr-only');
+    expect(screen.getByText('Project cover').closest('.sr-only')).toBeInTheDocument();
     fireEvent.load(image);
     expect(image).toHaveAttribute('data-image-state','ready');
     fireEvent.change(product,{target:{value:'4'}});

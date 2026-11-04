@@ -1,0 +1,171 @@
+{
+  "measuredPublishedAsset": {
+    "src": "https://pub-5f3b061447bb446f9d4529f2affeb05d.r2.dev/chat-lab/pulse3.webp",
+    "width": 1920,
+    "height": 1920
+  },
+  "before": [
+    {
+      "width": 390,
+      "height": 844,
+      "before": {
+        "width": 0,
+        "height": 0,
+        "figureHeight": 12,
+        "naturalWidth": 0,
+        "captionPosition": "static",
+        "captionMarginTop": "12px"
+      },
+      "after": {
+        "width": 310,
+        "height": 310,
+        "figureHeight": 322,
+        "naturalWidth": 1920,
+        "captionPosition": "static",
+        "captionMarginTop": "12px"
+      }
+    },
+    {
+      "width": 736,
+      "height": 750,
+      "before": {
+        "width": 0,
+        "height": 0,
+        "figureHeight": 12,
+        "naturalWidth": 0,
+        "captionPosition": "static",
+        "captionMarginTop": "12px"
+      },
+      "after": {
+        "width": 450,
+        "height": 450,
+        "figureHeight": 462,
+        "naturalWidth": 1920,
+        "captionPosition": "static",
+        "captionMarginTop": "12px"
+      }
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "width": 0,
+        "height": 0,
+        "figureHeight": 12,
+        "naturalWidth": 0,
+        "captionPosition": "static",
+        "captionMarginTop": "12px"
+      },
+      "after": {
+        "width": 480,
+        "height": 480,
+        "figureHeight": 492,
+        "naturalWidth": 1920,
+        "captionPosition": "static",
+        "captionMarginTop": "12px"
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "before": {
+        "width": 0,
+        "height": 0,
+        "figureHeight": 12,
+        "naturalWidth": 0,
+        "captionPosition": "static",
+        "captionMarginTop": "12px"
+      },
+      "after": {
+        "width": 234,
+        "height": 234,
+        "figureHeight": 246,
+        "naturalWidth": 1920,
+        "captionPosition": "static",
+        "captionMarginTop": "12px"
+      }
+    }
+  ],
+  "after": [
+    {
+      "width": 390,
+      "height": 844,
+      "before": {
+        "width": 310,
+        "height": 310,
+        "figureHeight": 310,
+        "naturalWidth": 0,
+        "captionPosition": "absolute",
+        "captionMarginTop": "12px"
+      },
+      "after": {
+        "width": 310,
+        "height": 310,
+        "figureHeight": 310,
+        "naturalWidth": 1920,
+        "captionPosition": "absolute",
+        "captionMarginTop": "12px"
+      }
+    },
+    {
+      "width": 736,
+      "height": 750,
+      "before": {
+        "width": 450,
+        "height": 450,
+        "figureHeight": 450,
+        "naturalWidth": 0,
+        "captionPosition": "absolute",
+        "captionMarginTop": "12px"
+      },
+      "after": {
+        "width": 450,
+        "height": 450,
+        "figureHeight": 450,
+        "naturalWidth": 1920,
+        "captionPosition": "absolute",
+        "captionMarginTop": "12px"
+      }
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "width": 480,
+        "height": 480,
+        "figureHeight": 480,
+        "naturalWidth": 0,
+        "captionPosition": "absolute",
+        "captionMarginTop": "12px"
+      },
+      "after": {
+        "width": 480,
+        "height": 480,
+        "figureHeight": 480,
+        "naturalWidth": 1920,
+        "captionPosition": "absolute",
+        "captionMarginTop": "12px"
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "before": {
+        "width": 234,
+        "height": 234,
+        "figureHeight": 234,
+        "naturalWidth": 0,
+        "captionPosition": "absolute",
+        "captionMarginTop": "12px"
+      },
+      "after": {
+        "width": 234,
+        "height": 234,
+        "figureHeight": 234,
+        "naturalWidth": 1920,
+        "captionPosition": "absolute",
+        "captionMarginTop": "12px"
+      }
+    }
+  ]
+}

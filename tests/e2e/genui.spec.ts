@@ -320,6 +320,7 @@ for(const width of [320,1280])for(const [question,projectId] of [
     if(projectId)await expect(results.getByRole('combobox',{name:'Project',exact:true})).toHaveValue(projectId);
     else await expect(results.getByText(/Isaac is a tech generalist/)).toBeVisible();
     if(projectId===taiwan)await expect(results.getByText(/I designed the Lab as six sessions covering AI fundamentals/)).toBeVisible();
+    if(projectId===policy){const caption=results.locator('.portfolio-workbench-visual figcaption');await expect(caption).toHaveText('August 2025 snapshot');expect((await caption.boundingBox())!.height).toBeGreaterThan(10);}
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   });
 }
@@ -417,15 +418,17 @@ for(const reducedMotion of ['no-preference','reduce'] as const){
   });
 }
 
-for(const [width,height] of [[390,844],[768,1000],[1440,900],[844,390]])for(const [feature,pattern,imageHeight] of [
-  ['Study Mode','**/chat-lab/OpenAI_StudyMode_Flow_*.png',1080],
-  ['Pulse','**/chat-lab/pulse1.webp',1920],
+for(const [width,height] of [[390,844],[768,1000],[1440,900],[844,390]])for(const [feature,pattern,imageHeight,failedPrimary] of [
+  ['Study Mode','**/chat-lab/OpenAI_StudyMode_Flow_*.png',1080,null],
+  ['Pulse','**/chat-lab/pulse1.webp',1920,null],
+  ['Pulse','**/chat-lab/pulse3.webp',1920,'**/chat-lab/pulse1.webp'],
 ] as const){
-  test(`${width}×${height}: ${feature} reserves its actual image shape before pixels arrive`,async({page})=>{
+  test(`${width}×${height}: ${feature}${failedPrimary?' alternate':''} reserves its actual image shape before pixels arrive`,async({page})=>{
     await page.setViewportSize({width,height});await page.emulateMedia({reducedMotion:'reduce'});
     await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
     await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
     let release!:()=>void;const pixels=new Promise<void>(resolve=>{release=resolve;});
+    if(failedPrimary)await page.route(failedPrimary,route=>route.fulfill({status:503,body:''}));
     await page.route(pattern,async route=>{
       await pixels;
       await route.fulfill({contentType:'image/svg+xml',body:`<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="${imageHeight}"><rect width="1920" height="${imageHeight}" fill="white"/></svg>`}).catch(()=>{});
@@ -434,11 +437,16 @@ for(const [width,height] of [[390,844],[768,1000],[1440,900],[844,390]])for(cons
       await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
       await input.fill(`What feedback did Isaac give on ${feature}?`);await input.press('Escape');await input.press('Enter');
       const image=page.locator('.portfolio-project-image');await expect(image).toBeAttached();
+      if(failedPrimary)await expect(image).toHaveAttribute('src',/pulse3\.webp$/);
       const geometry=()=>image.evaluate((img:HTMLImageElement)=>{const box=img.getBoundingClientRect();return {width:box.width,height:box.height,naturalWidth:img.naturalWidth};});
       const before=await geometry();expect(before.naturalWidth).toBe(0);expect(before.width).toBeGreaterThan(100);
       expect(Math.abs(before.width/before.height-1920/imageHeight)).toBeLessThan(.01);
       release();await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.naturalWidth)).toBe(1920);
       const after=await geometry();expect(Math.abs(after.width-before.width)).toBeLessThan(1);expect(Math.abs(after.height-before.height)).toBeLessThan(1);
+      if(failedPrimary){
+        expect(await image.evaluate(img=>Math.abs(img.closest('figure')!.getBoundingClientRect().height-img.getBoundingClientRect().height))).toBeLessThan(1);
+        await expect(page.locator('.portfolio-workbench-visual figcaption').getByText('Alternate published image',{exact:true})).toBeAttached();
+      }
       expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
     }finally{release();}
   });

@@ -179,3 +179,12 @@ With all eight career choices open, Tab moved focus to Explore further and dismi
 `PortfolioChoice` now retains the leaving focus target while the actual reveal height contracts. A ResizeObserver checks the committed geometry, applies the target’s existing scroll margins with native nearest page scrolling when needed, and releases the reference at the collapsed height. This keeps focus visible during the fold as well as at its end. The same path handles instant reduced-motion layout changes. If the visitor tabs again within the result pane, the correction follows the currently focused control; it never moves focus back to an earlier control. Reopening, Escape and selecting a role clear the pending correction.
 
 Ten keyboard browser cases passed: four viewports in both motion modes, plus rapid double Tab in short landscape. Four short-window/motion frame cases recorded zero offscreen focused-control samples after layout/resize-observer delivery. Another 29 related role/image browser cases and 41 unit tests passed; typecheck, lint (existing warning only) and build passed. The single-worker related run exited successfully after 1.4 minutes, including slow worker shutdown; smaller batches also verified portions of it. See `role-tab-retraction.json` and `role-tab-browser.txt`.
+
+
+## Alternate artifact sizing and hidden-caption spacing
+
+The live visual catalog had one artifact without dimensions: the alternate Pulse mobile image. Its published asset measured 1920×1920, matching the primary. That size is now included in its authored gallery metadata. A delayed fallback previously collapsed to 0×0 and grew to 310–480px depending on the viewport; it now reserves the final square before loading.
+
+A fallback’s screen-reader-only note also left a 12px visible layout gap because only its inner span was hidden. The note-only figcaption is now visually hidden as a whole and remains accessible. The government image’s visible August 2025 snapshot caption is retained. In all four measured viewports, the alternate image and figure now have identical heights before and after loading, with no phantom caption gap. See `alternate-artifact-geometry.json`.
+
+The existing delayed-image regression matrix now includes the alternate fallback, and newcomer government cases check the visible caption’s geometry. Twenty browser cases and 71 focused unit tests passed; typecheck, lint (existing warning only), and build passed. The provenance unit assertion accepts a visually hidden ancestor instead of requiring the inner note span itself to carry that class.

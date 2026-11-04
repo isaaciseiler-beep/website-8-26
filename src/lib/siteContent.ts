@@ -717,7 +717,7 @@ export const projectItems: ProjectItem[] = [
             placement: "top",
             images: [
               { src: `${CHAT_LAB_ASSET_BASE}/pulse1.webp`, width: 1920, height: 1920, alt: "ChatGPT Pulse personalized update" },
-              { src: `${CHAT_LAB_ASSET_BASE}/pulse3.webp`, alt: "ChatGPT Pulse mobile experience" },
+              { src: `${CHAT_LAB_ASSET_BASE}/pulse3.webp`, width: 1920, height: 1920, alt: "ChatGPT Pulse mobile experience" },
             ],
           },
         ],

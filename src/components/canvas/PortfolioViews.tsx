@@ -38,6 +38,7 @@ export function ProjectStory({ block, onChange }: Props) {
   const record = evidenceFor(block.projectIds[0]);
   if (!record) return null;
   const isLab=record.project.id==='openai-product-testing-and-feedback';
+  const isGovernment=record.project.id==='artificial-intelligence-in-state-government-index';
   const projectFacets=isLab?[{value:'role' as const,label:'Role'},{value:'process' as const,label:'Products'},{value:'outcomes' as const,label:'Published'},{value:'evidence' as const,label:'Sources'}]:facets;
   const focus = block.focus && block.focus !== 'overview' ? block.focus : block.layout === 'project-process' ? 'process' : block.layout === 'project-outcomes' ? 'outcomes' : block.layout === 'project-evidence' ? 'evidence' : 'role';
   const available = evidenceSections(record.project.id, focus);
@@ -110,7 +111,7 @@ export function ProjectStory({ block, onChange }: Props) {
             href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`} title="Open original image in a new tab">
             <img {...imageProps} className="portfolio-project-image" style={sizing?.image}/><ArrowUpRight size={16} aria-hidden="true"/>
           </motion.a>
-          {(displayed.note||record.project.id==='artificial-intelligence-in-state-government-index')&&<figcaption>{displayed.note&&<span className="sr-only">{displayed.note}</span>}{record.project.id==='artificial-intelligence-in-state-government-index'&&<span>August 2025 snapshot</span>}</figcaption>}
+          {(displayed.note||isGovernment)&&<figcaption className={isGovernment?undefined:'sr-only'}>{displayed.note&&<span className={isGovernment?'sr-only':undefined}>{displayed.note}</span>}{isGovernment&&<span>August 2025 snapshot</span>}</figcaption>}
         </figure>;
       }}</ResolvedProjectImage>
 
