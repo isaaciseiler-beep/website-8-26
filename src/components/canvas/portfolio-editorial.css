@@ -115,6 +115,8 @@
 .home-genui .portfolio-career-select{display:none;}
 .home-genui .portfolio-career-nav nav{display:grid;grid-template-columns:1fr;gap:0;}
 .home-genui .portfolio-career-nav nav button{padding-inline:0;text-align:left;padding-block:var(--space-s);font-size:var(--size-s);line-height:var(--line-s);box-shadow:inset 0 -1px 0 var(--neutral-4);}
+.home-genui .portfolio-career-nav nav button::before{display:none;}
+.home-genui .portfolio-career-nav nav button[aria-pressed=true]{box-shadow:inset 0 -2px 0 currentColor;}
 .home-genui .portfolio-career-detail>h3{margin-block:0 var(--space-m);font-size:var(--size-xl);line-height:var(--line-xl);letter-spacing:var(--tracking-xs);}
 .home-genui .portfolio-career-detail>.portfolio-role-context{margin-bottom:var(--space-l);}
 

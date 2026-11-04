@@ -318,10 +318,6 @@
 .portfolio-career-nav{min-width:0;}
 .portfolio-career-nav input{font-size:var(--size-xs);}
 .portfolio-career-nav nav{display:grid;gap:var(--space-xs);}
-.home-genui .portfolio-career-nav nav button{position:relative;display:block;text-align:left;padding:var(--space-s) var(--space-m);background:transparent;font-size:var(--size-xs);font-weight:var(--weight-regular);}
-.home-genui .portfolio-career-nav nav button[aria-pressed=true]{background:transparent;box-shadow:none;}
-.home-genui .portfolio-career-nav nav button::before{content:"";position:absolute;left:0;top:var(--space-s);bottom:var(--space-s);width:2px;background:currentColor;opacity:0;transition:opacity var(--motion-duration) var(--motion-easing);}
-.home-genui .portfolio-career-nav nav button[aria-pressed=true]::before{opacity:1;}
 .portfolio-career-nav nav button strong{font-weight:var(--weight-medium);}
 .portfolio-career-nav nav button span{font-size:var(--size-xxs);}
 .portfolio-career-detail{padding-block:var(--space-s);min-width:0;}
@@ -346,7 +342,6 @@
   .portfolio-comparison-row h4{grid-column:auto;}
   .portfolio-comparison-selects{grid-template-columns:1fr;}
   .portfolio-career-nav nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-xs);}
-  .home-genui .portfolio-career-nav nav button{min-width:0;padding-inline:var(--space-s);}
 
 }
 

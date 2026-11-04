@@ -594,3 +594,25 @@ for(const width of [390,736])for(const mode of ['light','dark'] as const)for(con
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   });
 }
+
+test('desktop role navigation shares the image edge without a marker touching its text',async({page})=>{
+  await page.setViewportSize({width:1440,height:1000});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Explore Isaac’s career');await input.press('Escape');await input.press('Enter');
+  const nav=page.getByRole('navigation',{name:'Professional roles'});
+  await expect(nav).toBeVisible();
+  const geometry=await nav.evaluate(nav=>{
+    const edge=nav.getBoundingClientRect().left;
+    return [...nav.querySelectorAll('button')].map(button=>({
+      inset:button.querySelector('strong')!.getBoundingClientRect().left-edge,
+      marker:getComputedStyle(button,'::before').display,
+    }));
+  });
+  expect(geometry).toHaveLength(8);
+  for(const item of geometry){expect(Math.abs(item.inset)).toBeLessThan(1);expect(item.marker).toBe('none');}
+  await nav.getByRole('button',{name:'Teaching in Taiwan',exact:true}).click();
+  await expect(nav.getByRole('button',{name:'Teaching in Taiwan',exact:true})).toHaveAttribute('aria-pressed','true');
+  await expect(page.locator('.portfolio-career-detail h3')).toHaveText('Fulbright Taiwan');
+});

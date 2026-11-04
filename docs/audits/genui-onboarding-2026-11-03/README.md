@@ -123,3 +123,9 @@ Validation: 26 canvas unit tests passed; typecheck and production build passed; 
 ## Fifth Claude review and guide copy
 
 A fifth actual Claude review used public deployed screenshots only, with portfolio generation intercepted. See [review and disposition](claude-5-public-visuals.md). Its guide instruction clarification was adopted; its header-overlap concern was disproved by full-viewport geometry. Fourteen existing guide/return/focus browser cases and 15 focused interface unit cases passed for that copy change.
+
+
+The wider alignment follow-up checked 60 authored view/theme/width combinations at 320, 390, 736, 900 and 1440px. Composer, answer and footer edges matched; left/right buffers were symmetric (16px at phone widths, 32px otherwise). No controls escaped and no horizontal overflow or page errors occurred. See `reading-edges.json`. A desktop regression exposed a duplicate legacy rule overriding the intended zero-padding navigation; that rule and its vertical selection marker were removed. The active desktop row now uses an underline, and all nine role-control browser cases passed.
+
+
+Twenty frame-sampled role disclosure actions (open, close, reopen, Clear, Undo at 390/736px with normal/reduced motion) recorded zero composer drift in document coordinates, zero internal reveal scrolling, and no horizontal overflow. Normal page scrolling occurred on two Undo actions; viewport position is not claimed stationary. See `role-disclosure-motion.json`.

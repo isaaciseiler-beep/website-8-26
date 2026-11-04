@@ -1,0 +1,202 @@
+[
+  {
+    "width": 390,
+    "reducedMotion": "no-preference",
+    "action": "open",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 45
+  },
+  {
+    "width": 390,
+    "reducedMotion": "no-preference",
+    "action": "close",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 88
+  },
+  {
+    "width": 390,
+    "reducedMotion": "no-preference",
+    "action": "open",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 132
+  },
+  {
+    "width": 390,
+    "reducedMotion": "no-preference",
+    "action": "clear",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 176
+  },
+  {
+    "width": 390,
+    "reducedMotion": "no-preference",
+    "action": "undo",
+    "composerDrift": 0,
+    "scrollDelta": 92,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 44
+  },
+  {
+    "width": 390,
+    "reducedMotion": "reduce",
+    "action": "open",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 45
+  },
+  {
+    "width": 390,
+    "reducedMotion": "reduce",
+    "action": "close",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 88
+  },
+  {
+    "width": 390,
+    "reducedMotion": "reduce",
+    "action": "open",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 135
+  },
+  {
+    "width": 390,
+    "reducedMotion": "reduce",
+    "action": "clear",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 44
+  },
+  {
+    "width": 390,
+    "reducedMotion": "reduce",
+    "action": "undo",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 45
+  },
+  {
+    "width": 736,
+    "reducedMotion": "no-preference",
+    "action": "open",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 45
+  },
+  {
+    "width": 736,
+    "reducedMotion": "no-preference",
+    "action": "close",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 90
+  },
+  {
+    "width": 736,
+    "reducedMotion": "no-preference",
+    "action": "open",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 44
+  },
+  {
+    "width": 736,
+    "reducedMotion": "no-preference",
+    "action": "clear",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 88
+  },
+  {
+    "width": 736,
+    "reducedMotion": "no-preference",
+    "action": "undo",
+    "composerDrift": 0,
+    "scrollDelta": 68,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 132
+  },
+  {
+    "width": 736,
+    "reducedMotion": "reduce",
+    "action": "open",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 45
+  },
+  {
+    "width": 736,
+    "reducedMotion": "reduce",
+    "action": "close",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 88
+  },
+  {
+    "width": 736,
+    "reducedMotion": "reduce",
+    "action": "open",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 132
+  },
+  {
+    "width": 736,
+    "reducedMotion": "reduce",
+    "action": "clear",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 176
+  },
+  {
+    "width": 736,
+    "reducedMotion": "reduce",
+    "action": "undo",
+    "composerDrift": 0,
+    "scrollDelta": 0,
+    "internalScroll": 0,
+    "overflow": false,
+    "frames": 220
+  }
+]
