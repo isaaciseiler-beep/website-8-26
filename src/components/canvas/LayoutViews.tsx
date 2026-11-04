@@ -1,6 +1,7 @@
 import { forwardRef, lazy, Suspense, useRef, useState } from 'react';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { useMotionPreference } from '@/hooks/useMotionPreference';
+import { responsiveProjectImageProps } from '@/lib/responsiveProjectImages';
 import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 import { useProjectVisualId } from '@/lib/projectVisualMotion';
 import { matchesPortfolioSearch } from '@/lib/portfolioSearch';
@@ -39,7 +40,7 @@ export function ProjectIndex({block,onChange}:LayoutProps){
       ?project.sections.findIndex(section=>matchesPortfolioSearch(query,sectionSearchParts(section))):-1;
     return [{project,section}];
   });
-  return <section className="portfolio-work-browser" aria-label="Work explorer"><h2 className="sr-only">Explore work</h2><label className="canvas-field"><span className="sr-only">Find a project</span><input ref={searchRef} type="search" maxLength={120} placeholder="Find a project or topic" value={query} onChange={e=>{onChange({...block,search:e.target.value.slice(0,120)});}}/></label>
+  return <section className="portfolio-work-browser" aria-label="Work explorer"><h2 className="sr-only">Explore work</h2><label className="canvas-field"><span className="sr-only">Find a project</span><input ref={searchRef} type="search" spellCheck={false} maxLength={120} placeholder="Find a project or topic" value={query} onChange={e=>{onChange({...block,search:e.target.value.slice(0,120)});}}/></label>
     <p className="sr-only" role="status" aria-atomic="true">{filtered.length} {filtered.length===1?'project':'projects'}{query.trim()?' matching your search':''}.</p>
     <div className="canvas-project-list"><AnimatePresence initial={false} mode="popLayout">{filtered.map(({project,section})=><ProjectIndexItem key={project.id} project={project} section={section} onOpen={()=>onChange({...blankBlock('story'),projectIds:[project.id],...(section>=0?{layout:'project-evidence',focus:'evidence',section,expanded:true}:{})})}/>)}</AnimatePresence>{!filtered.length&&<div><p>No matching projects.</p><button type="button" className="portfolio-inline-action" onClick={()=>{onChange({...block,search:''});searchRef.current?.focus();}}>Clear search</button></div>}</div>
   </section>;
@@ -53,7 +54,7 @@ const ProjectIndexItem=forwardRef<HTMLButtonElement,{project:typeof publicProjec
   return <motion.button ref={ref} type="button" layout={reduced?false:'position'} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
     transition={{layout:{duration:reduced?0:MOTION_DURATION.base,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:present?MOTION_DURATION.fast:MOTION_DURATION.exit}}}
     aria-label={project.title} aria-hidden={!present} {...(!present?{inert:''}:{})} data-project-id={present?project.id:undefined} onClick={onOpen}>
-    <motion.span className="canvas-project-list-visual" data-presentation={image.presentation} layout={visualId?"preserve-aspect":false} layoutId={visualId} transition={{duration:MOTION_DURATION.reveal,ease:MOTION_EASE_ENTER}}><img src={image.src} alt="" loading="lazy" decoding="async"/></motion.span>
+    <motion.span className="canvas-project-list-visual" data-presentation={image.presentation} layout={visualId?"preserve-aspect":false} layoutId={visualId} transition={{duration:MOTION_DURATION.reveal,ease:MOTION_EASE_ENTER}}><img src={image.src} {...responsiveProjectImageProps(image.src,'(max-width: 767px) calc(100vw - 80px), 560px')} alt="" loading="lazy" decoding="async"/></motion.span>
     <span className="canvas-project-list-copy"><strong>{evidenceFor(project.id)?.title??project.title}</strong><span>{project.year}</span>{section>=0&&<small>{project.sections[section].heading}</small>}</span><ArrowUpRight size={18} aria-hidden="true"/>
   </motion.button>;
 });

@@ -187,13 +187,11 @@ const CredentialsPage = () => {
       <motion.div
         animate={{
           marginLeft: sidebarOpen && !isMobile ? 200 : 0,
-          marginRight: searchOpen && !isMobile ? 200 : 0,
+          marginRight: 0,
           width:
             sidebarOpen && !isMobile
               ? "calc(100% - 200px)"
-              : searchOpen && !isMobile
-                ? "calc(100% - 200px)"
-                : "100%",
+              : "100%",
         }}
         transition={{ duration: MOTION_DURATION.panel, ease: MOTION_EASE }}
         className="h-full min-w-0 overflow-hidden"

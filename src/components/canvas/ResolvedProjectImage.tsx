@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState, type ImgHTMLAttributes, type ReactNode, type RefObject } from 'react';
 import type { ProjectVisualSelection, ProjectVisualSource } from './projectVisual';
+import { responsiveProjectImageProps } from '@/lib/responsiveProjectImages';
 
 type ImageProps=ImgHTMLAttributes<HTMLImageElement>&{ref:RefObject<HTMLImageElement>};
 /** Render props keep the actual displayed asset, its link, caption and alt in
@@ -19,7 +20,7 @@ export function ResolvedProjectImage({visual,children,onDisplayedChange}:{visual
     delete node.dataset.imageReveal;
   },[displayed.src]);
   useLayoutEffect(()=>{onDisplayedChange?.();},[displayed.src,unavailable,onDisplayedChange]);
-  return children({ref:image,src:displayed.src,alt:displayed.alt,width:displayed.width,height:displayed.height,decoding:'async',onError:event=>{
+  return children({ref:image,src:displayed.src,alt:displayed.alt,width:displayed.width,height:displayed.height,...responsiveProjectImageProps(displayed.src,'(max-width: 767px) calc(100vw - 80px), 560px'),decoding:'async',onError:event=>{
     const next=index+1;
     if(next<candidates.length){
       event.currentTarget.dataset.imageState='loading';

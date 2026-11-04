@@ -253,13 +253,11 @@ const SeniorThesisLocalJournalismPage = () => {
       <motion.div
         animate={{
           marginLeft: sidebarOpen && !isMobile ? 200 : 0,
-          marginRight: searchOpen && !isMobile ? 200 : 0,
+          marginRight: 0,
           width:
             sidebarOpen && !isMobile
               ? "calc(100% - 200px)"
-              : searchOpen && !isMobile
-                ? "calc(100% - 200px)"
-                : "100%",
+              : "100%",
         }}
         transition={navigationMotion}
       >

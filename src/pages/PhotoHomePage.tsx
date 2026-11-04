@@ -40,6 +40,7 @@ const shuffledPhotos = new Map(albums.map(album => [album.folder, shuffleArray(a
 const AlbumCover = ({ album }: { album: Album }) => {
   const [hovering, setHovering] = useState(false);
   const [flashIdx, setFlashIdx] = useState(-1);
+  const [coverReady, setCoverReady] = useState(false);
   const [decodedSrcs, setDecodedSrcs] = useState<Set<string>>(() => new Set([coverFor(album)]));
   const reduced = useReducedMotion();
   const visible = usePageVisible();
@@ -99,13 +100,14 @@ const AlbumCover = ({ album }: { album: Album }) => {
             alt=""
             className="absolute inset-0 w-full h-full object-cover"
             style={{
-              opacity: src === activeImage ? 1 : 0,
+              opacity: src === activeImage && (src !== cover || coverReady) ? 1 : 0,
               filter: "grayscale(0%)",
               transition: reduced ? "none" : "opacity var(--motion-base) var(--motion-ease)",
             }}
             loading="lazy"
             decoding="async"
             fetchpriority="low"
+            onLoad={() => { if (src === cover) setCoverReady(true); }}
           />
         ))}
       </div>
@@ -221,13 +223,11 @@ const PhotoHomePage = () => {
       <motion.div
         animate={{
           marginLeft: sidebarOpen && !isMobile ? 200 : 0,
-          marginRight: searchOpen && !isMobile ? 200 : 0,
+          marginRight: 0,
           width:
             sidebarOpen && !isMobile
               ? "calc(100% - 200px)"
-              : searchOpen && !isMobile
-                ? "calc(100% - 200px)"
-                : "100%",
+              : "100%",
         }}
         transition={navigationMotion}
       >
@@ -267,6 +267,7 @@ const PhotoHomePage = () => {
                         <img src={photo} alt="" loading={index < 2 ? "eager" : "lazy"} decoding="async" fetchpriority={index < 2 ? "high" : "low"}/>
                       </motion.button>;
                     })}
+                    {row*2+1===currentAlbumPhotos.length&&<a className="album-end-tile" href="/#photo-gallery" onClick={event=>{event.preventDefault();setSearchParams({}, { state: { restoreGallery: true } });}}><span>{currentAlbumPhotos.length} photographs</span><span>Back to albums</span></a>}
                   </div>)}
                 </div>
 
@@ -313,6 +314,7 @@ const PhotoHomePage = () => {
 
       <PhotoPreview
         images={previewImages}
+        albumLabel={currentAlbum?.location ?? "Photographs"}
         currentIndex={previewIdx}
         onClose={() => setPreviewIdx(null)}
         onNavigate={setPreviewIdx}

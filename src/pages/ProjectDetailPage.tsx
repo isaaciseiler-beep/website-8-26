@@ -11,6 +11,8 @@ import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { projectItems, type ProjectMedia } from "@/lib/siteContent";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useTheme } from "@/components/ThemeProvider";
+import { responsiveProjectImageProps } from '@/lib/responsiveProjectImages';
 import { preloadImage, scheduleImagePreloads } from "@/lib/imagePreload";
 import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
 import {
@@ -44,6 +46,7 @@ const ProjectMediaBlock = ({
   media: ProjectMedia;
   overlayTitle?: string;
 }) => {
+  const { resolvedTheme } = useTheme();
   if (media.type === "x-post" && media.href) {
     const tweetId = media.href.split("/").filter(Boolean).pop();
 
@@ -51,7 +54,7 @@ const ProjectMediaBlock = ({
       <figure className="project-x-embed my-7">
         <div className="project-x-embed-frame">
           <iframe
-            src={`https://platform.twitter.com/embed/Tweet.html?dnt=true&id=${tweetId}`}
+            src={`https://platform.twitter.com/embed/Tweet.html?dnt=true&id=${tweetId}&theme=${resolvedTheme}`}
             title={media.title ?? "Embedded post on X"}
             loading="lazy"
             allowFullScreen
@@ -113,12 +116,13 @@ const ProjectMediaBlock = ({
             />
           )}
           <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent" />
-          <span className="absolute inset-0 flex items-center justify-center">
+          <span className="absolute inset-0 hidden items-center justify-center sm:flex">
             <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/40 bg-black/25 backdrop-blur-sm transition-transform [transition-duration:var(--motion-fast)] [transition-timing-function:var(--motion-ease)] group-hover:scale-[1.02]">
               <Play className="ml-1 h-6 w-6 fill-current" aria-hidden="true" />
             </span>
           </span>
-          <span className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-6 p-5 sm:p-7">
+          <span className="absolute bottom-0 left-0 right-0 flex items-center justify-between gap-3 p-5 sm:items-end sm:gap-6 sm:p-7">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/40 bg-black/25 sm:hidden" aria-hidden="true"><Play className="h-4 w-4 fill-current" /></span>
             <span className="block text-lg font-medium sm:text-xl">{media.title}</span>
             <ArrowUpRight className="h-5 w-5 shrink-0 text-white/70" aria-hidden="true" />
           </span>
@@ -307,13 +311,11 @@ const ProjectDetailPage = () => {
       <motion.div
         animate={{
           marginLeft: sidebarOpen && !isMobile ? 200 : 0,
-          marginRight: searchOpen && !isMobile ? 200 : 0,
+          marginRight: 0,
           width:
             sidebarOpen && !isMobile
               ? "calc(100% - 200px)"
-              : searchOpen && !isMobile
-                ? "calc(100% - 200px)"
-                : "100%",
+              : "100%",
         }}
         transition={navigationMotion}
       >
@@ -340,6 +342,7 @@ const ProjectDetailPage = () => {
                 <div className="article-hero aspect-[16/9]">
                   <img
                     src={project.image}
+                    {...responsiveProjectImageProps(project.image, '(max-width: 820px) calc(100vw - 48px), 772px')}
                     alt={project.title}
                     loading="eager"
                     decoding="async"

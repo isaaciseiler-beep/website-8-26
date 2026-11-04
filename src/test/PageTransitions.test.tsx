@@ -122,7 +122,7 @@ it('restores the committed exploration, local metric and unfinished draft on bro
 });
 
 
-it.each([1280, 768, 767, 390])('retains a desktop sidebar and reveals the destination under a full-width menu at %ipx', async (width) => {
+it.each([1280, 768, 767, 390])('retains navigation during loading and dismisses after arrival at %ipx', async (width) => {
   Object.defineProperty(window, 'innerWidth', { configurable: true, value: width });
   const values = new Map<string, string>();
   Object.defineProperty(window, 'localStorage', { configurable: true, value: {
@@ -160,9 +160,7 @@ it.each([1280, 768, 767, 390])('retains a desktop sidebar and reveals the destin
     await waitFor(() => expect(document.querySelector('main')).not.toHaveAttribute('inert'));
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Destination' })).toHaveFocus());
   } else {
-    expect(header).toHaveAttribute('aria-expanded', 'true');
-    expect(sidebar).not.toHaveAttribute('inert');
-    fireEvent.click(header);
+    await waitFor(()=>expect(header).toHaveAttribute('aria-expanded', 'false'));
     expect(sidebar).toHaveAttribute('inert');
     expect(document.querySelector('main')).not.toHaveAttribute('inert');
   }

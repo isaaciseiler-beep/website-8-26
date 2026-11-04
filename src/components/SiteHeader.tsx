@@ -21,6 +21,7 @@ export const SiteHeaderSurface = ({ open, onToggle, searchOpen, onSearchOpen, on
   // Blend against the actual page, outside route transforms and isolated panels.
   // Keep search results outside this blend layer so their text is not inverted.
   return createPortal(<>
+    <a className="site-skip-link" href="#main-content" onClick={event=>{event.preventDefault();const main=document.querySelector<HTMLElement>('main');if(main){main.id='main-content';main.tabIndex=-1;main.focus();main.scrollIntoView({block:'start'});}}}>Skip to content</a>
     <div className="site-header-xray fixed left-0 top-0 z-[60] flex items-center gap-1 px-6 py-4">
       <Link to="/" state={open ? { sidebarOpen: true } : undefined} className="site-home-link" aria-label="IIS home">
         <Logo />
@@ -30,6 +31,7 @@ export const SiteHeaderSurface = ({ open, onToggle, searchOpen, onSearchOpen, on
         className="site-nav-toggle-xray flex h-5 w-5 items-center justify-center"
         data-overlay-trigger="sidebar"
         aria-label="Toggle menu"
+        title="Toggle menu"
         aria-expanded={open}
         animate={{ rotate: open ? 180 : 0 }}
         transition={navigationMotion}
@@ -38,7 +40,7 @@ export const SiteHeaderSurface = ({ open, onToggle, searchOpen, onSearchOpen, on
       </motion.button>
     </div>
     <SearchTrigger open={searchOpen} onOpen={onSearchOpen} onClose={onSearchClose}/>
-  </>, document.body);
+  </>, document.getElementById("site-chrome-root") ?? document.body);
 };
 
 export default function SiteHeader(props: SiteHeaderProps) {

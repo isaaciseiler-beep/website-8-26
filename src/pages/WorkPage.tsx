@@ -10,6 +10,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { hiddenProjectIds, orderProjectItemsForWork, projectItems, type ProjectItem } from '@/lib/siteContent';
 import { MOTION_DURATION, MOTION_EASE } from '@/lib/motion';
 import './work-page.css';
+import { responsiveProjectImageProps } from '@/lib/responsiveProjectImages';
 
 const projects = orderProjectItemsForWork(projectItems).filter(project => !hiddenProjectIds.has(project.id));
 const rows = Array.from({ length: Math.ceil(projects.length / 2) }, (_, index) => projects.slice(index * 2, index * 2 + 2));
@@ -19,7 +20,7 @@ function WorkStory({ project, square, eager = false }: { project: ProjectItem; s
     <article className={`work-story${square ? ' work-story--square' : ''}`}>
       <Link state={{ fromWork: true }} to={`/projects/${project.id}`} aria-labelledby={`work-title-${project.id}`}>
         <div className="work-story-image site-corner">
-          <img src={project.image} alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+          <img src={project.image} {...responsiveProjectImageProps(project.image, '(max-width: 767px) calc(100vw - 48px), 60vw')} alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" />
           <div className="work-story-caption">
             <h2 id={`work-title-${project.id}`}>{project.title}</h2>
             <p>{project.year}</p>
@@ -38,13 +39,13 @@ export default function WorkPage() {
   const reducedMotion = useReducedMotion();
   const toggleSidebar = () => { setSearchOpen(false); setSidebarOpen(open => !open); };
   const openSearch = () => { setSidebarOpen(false); setSearchOpen(true); };
-  const offset = !isMobile && (sidebarOpen || searchOpen);
+  const offset = !isMobile && sidebarOpen;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Sidebar open={sidebarOpen} onToggle={toggleSidebar} onClose={() => setSidebarOpen(false)} onSearchOpen={openSearch} activeSection="projects" showToggle={false} />
       <motion.div
-        animate={{ marginLeft: sidebarOpen && !isMobile ? 200 : 0, marginRight: searchOpen && !isMobile ? 200 : 0, width: offset ? 'calc(100% - 200px)' : '100%' }}
+        animate={{ marginLeft: sidebarOpen && !isMobile ? 200 : 0, marginRight: 0, width: offset ? 'calc(100% - 200px)' : '100%' }}
         transition={navigationMotion}
       >
         <main className="work-page photos-shell" aria-label="Work">

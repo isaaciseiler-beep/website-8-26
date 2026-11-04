@@ -488,11 +488,19 @@ export const searchSite = (query: string, limitPerCategory = 5): SearchGroup[] =
     .filter((doc) => doc.score >= 4.5)
     .sort((a, b) => b.score - a.score);
 
-  return SEARCH_CATEGORY_ORDER.map((category) => ({
-    category,
-    label: CATEGORY_LABELS[category],
-    results: scored.filter((result) => result.category === category).slice(0, limitPerCategory),
-  }));
+  const destinations = new Set<string>();
+  return SEARCH_CATEGORY_ORDER.map((category) => {
+    const results: SearchResult[] = [];
+    for (const result of scored) {
+      if (results.length >= limitPerCategory) break;
+      if (result.category !== category) continue;
+      const destination = result.href.replace(/\/$/, '');
+      if (destinations.has(destination)) continue;
+      destinations.add(destination);
+      results.push(result);
+    }
+    return { category, label: CATEGORY_LABELS[category], results };
+  });
 };
 
 export const hasSearchResults = (groups: SearchGroup[]) => groups.some((group) => group.results.length > 0);

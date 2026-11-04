@@ -145,6 +145,79 @@ describe("homepage generative interface", () => {
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
   });
 
+  it('selects a committed question for replacement and offers a fresh follow-up draft',async()=>{
+    vi.stubGlobal('fetch',vi.fn(async()=>success({configured:false})));
+    mount();
+    const input=screen.getByRole('textbox',{name:'Explore'}) as HTMLTextAreaElement;
+    act(()=>input.focus());
+    fireEvent.change(input,{target:{value:'Taiwan teaching'}});
+    await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
+    expect(input.selectionStart).toBe(0);
+    expect(input.selectionEnd).toBe('Taiwan teaching'.length);
+    fireEvent.click(screen.getByRole('button',{name:'Ask a follow-up'}));
+    expect(input).toHaveValue('');
+    expect(input).toHaveFocus();
+    expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+  });
+
+  it('offers starting points during a slow empty request and ignores its response after Stop',async()=>{
+    let deliver:(value:unknown)=>void=()=>{};
+    vi.stubGlobal('fetch',vi.fn(async(_url:string,options?:RequestInit)=>{
+      if(!options?.body)return success({configured:false});
+      return new Promise(resolve=>{deliver=resolve;});
+    }));
+    mount();
+    const input=screen.getByRole('textbox',{name:'Explore'});
+    fireEvent.change(input,{target:{value:'An unfamiliar question'}});
+    await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
+    expect(screen.getByLabelText('Preparing exploration')).toBeInTheDocument();
+    await act(async()=>{vi.advanceTimersByTime(3000);});
+    expect(screen.getByRole('button',{name:'Browse work'})).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('Still preparing your view');
+    fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
+    expect(screen.getByRole('status')).toHaveTextContent('Stopped updating.');
+    expect(screen.queryByLabelText('Preparing exploration')).not.toBeInTheDocument();
+    await act(async()=>{deliver(success({plan:localPlan('contact',initialPlan(),[],1)}));});
+    expect(screen.queryByRole('region',{name:'Contact'})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
+  });
+
+  it('retains the progress slot when an authored preview finishes and avoids a full loading spinner over content',async()=>{
+    let deliver:(value:unknown)=>void=()=>{};
+    vi.stubGlobal('fetch',vi.fn(async(_url:string,options?:RequestInit)=>{
+      if(!options?.body)return success({configured:false});
+      return new Promise(resolve=>{deliver=resolve;});
+    }));
+    mount();
+    const input=screen.getByRole('textbox',{name:'Explore'});
+    fireEvent.change(input,{target:{value:'Taiwan teaching'}});
+    await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
+    const slot=document.querySelector('.home-request-state');
+    expect(slot).not.toBeNull();
+    expect(document.querySelector('.home-submit-spinner')).toBeNull();
+    await act(async()=>{deliver(success({plan:localPlan('Taiwan teaching',initialPlan(),[],2),needsComposition:false}));});
+    expect(document.querySelector('.home-request-state')).toBe(slot);
+    expect(slot).toBeEmptyDOMElement();
+    expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
+  });
+
+  it('shows a visible recovery message and preserves the authored view after a composition timeout',async()=>{
+    vi.stubGlobal('fetch',vi.fn(async(url:string,options?:RequestInit)=>{
+      if(!options?.body)return success({configured:true});
+      const request=JSON.parse(String(options.body));
+      if(url==='/api/intent')return success({plan:localPlan(request.draft,request.current,[],request.revision),composerConfigured:true});
+      throw new DOMException('Timed out','TimeoutError');
+    }));
+    mount();
+    const input=screen.getByRole('textbox',{name:'Explore'});
+    fireEvent.change(input,{target:{value:'Taiwan teaching'}});
+    await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
+    expect(document.querySelector('.home-request-state')).toHaveTextContent('Couldn’t finish updating. You can keep exploring this view.');
+    expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
+    expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
+  });
+
   it.each(['manual control','draft edit','clear and new request'] as const)('ignores delayed clipboard outcomes after %s',async change=>{
     for(const outcome of ['success','failure'] as const){
       let finish:()=>void=()=>{};

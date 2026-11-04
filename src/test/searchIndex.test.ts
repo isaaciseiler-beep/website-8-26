@@ -54,6 +54,15 @@ describe("search index", () => {
     expect(titlesFor("taiwan travel photos", "photos")).toContain("Taiwan");
   });
 
+  it('shows each destination once across categories, preferring the project result',()=>{
+    const groups=searchSite('taiwan');
+    const hrefs=groups.flatMap(group=>group.results.map(result=>result.href));
+    expect(new Set(hrefs).size).toBe(hrefs.length);
+    const project=groups.find(group=>group.category==='projects')?.results.find(result=>result.title==='Leading AI Literacy Efforts in Taiwan');
+    expect(project).toBeDefined();
+    expect(groups.find(group=>group.category==='news')?.results.some(result=>result.href===project!.href)).toBe(false);
+  });
+
   it("does not return primary site pages in the search index", () => {
     expect(searchSite("photo map").some((group) => String(group.category) === "pages")).toBe(false);
     expect(searchSite("resume timeline").some((group) => String(group.category) === "pages")).toBe(false);

@@ -6,7 +6,8 @@ import RouteLoader from "@/components/RouteLoader";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
+import { isSiteOverlayOpen } from "@/lib/siteOverlay";
 import type { LngLatLike, Map as MapboxMap, Marker as MapboxMarker } from "mapbox-gl";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -250,6 +251,20 @@ const PhotoMapPage = () => {
     () => photoMapEntries.find((entry) => entry.id === activeEntryId) ?? null,
     [activeEntryId],
   );
+  const closeEntry = useCallback(() => {
+    if (activeEntryId) markerEntriesRef.current.get(activeEntryId)?.element.focus({ preventScroll: true });
+    setActiveEntryId(null);
+  }, [activeEntryId]);
+  useEffect(() => {
+    if (!activeEntryId) return;
+    const dismiss = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || event.defaultPrevented || isSiteOverlayOpen()) return;
+      event.preventDefault();
+      closeEntry();
+    };
+    window.addEventListener('keydown', dismiss);
+    return () => window.removeEventListener('keydown', dismiss);
+  }, [activeEntryId, closeEntry]);
 
   const selectedLocationOffset = useCallback(() => {
     if (isMobile) return [0, -(MOBILE_PANEL_HEIGHT / 2)] as [number, number];
@@ -402,6 +417,12 @@ const PhotoMapPage = () => {
       button.addEventListener("pointerdown", stopMarkerEvent);
       button.addEventListener("mousedown", stopMarkerEvent);
       button.addEventListener("touchstart", stopMarkerEvent, { passive: true });
+      const raise = () => { root.style.zIndex = '10'; };
+      const lower = () => { root.style.zIndex = button.getAttribute('aria-pressed') === 'true' ? '5' : '1'; };
+      button.addEventListener('pointerenter', raise);
+      button.addEventListener('pointerleave', lower);
+      button.addEventListener('focus', raise);
+      button.addEventListener('blur', lower);
       button.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -433,6 +454,8 @@ const PhotoMapPage = () => {
       element.classList.toggle("ring-[hsl(var(--highlight))]/60", isActive);
       element.classList.toggle("grayscale-0", isActive);
       element.style.zIndex = isActive ? "5" : "1";
+      element.setAttribute('aria-pressed', String(isActive));
+      if (element.parentElement) element.parentElement.style.zIndex = isActive ? '5' : '1';
     });
   }, [activeEntryId]);
 
@@ -463,7 +486,7 @@ const PhotoMapPage = () => {
 
       <motion.main
         animate={{
-          x: sidebarOpen && !isMobile ? 200 : searchOpen && !isMobile ? -200 : 0,
+          x: sidebarOpen && !isMobile ? 200 : 0,
         }}
         transition={navigationMotion}
         className="relative h-[100svh] w-full overflow-hidden bg-background will-change-transform"
@@ -494,6 +517,7 @@ const PhotoMapPage = () => {
                     className="absolute inset-0 h-full w-full object-cover transition-[filter,transform] [transition-duration:var(--motion-reveal)] [transition-timing-function:var(--motion-ease)] group-hover/photo-panel:scale-[1.008]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/22 to-black/20" />
+                  <button type="button" className="photo-map-panel-close" onClick={closeEntry} aria-label="Close album preview"><X size={18} aria-hidden="true" /></button>
                   <div className="relative z-10 flex min-h-0 flex-1 flex-col justify-end p-4 sm:p-5">
                     <button
                       type="button"

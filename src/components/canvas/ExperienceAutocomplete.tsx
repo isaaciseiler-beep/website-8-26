@@ -14,9 +14,11 @@ function SuggestionPanel({children}:{children:ReactNode}) {
     variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.base:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.exit}}})}}
     transition={{height:{duration:reduced?0:.32,ease:[.22,1,.36,1]},opacity:{duration:reduced ? 0 : present ? 0.2 : 0.1}}} onPointerDown={e=>e.preventDefault()}>{children}</motion.div>;
 }
-type Props={context?:SuggestionContext;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
-export default function ExperienceAutocomplete({context,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){
+type Props={context?:SuggestionContext;committedValue?:string;onEscape?:()=>void;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
+export default function ExperienceAutocomplete({context,committedValue,onEscape,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){
   const id=useId();
+  const selectOnClick=useRef(false);
+  const selectedCommit=useRef<string>();
   const [active,setActive]=useState(-1);
   const reduced=useReducedMotion();
   const measure=useRef<HTMLSpanElement>(null);
@@ -24,9 +26,9 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
   const [height,setHeight]=useState(42);
   useLayoutEffect(()=>{
     const node=measure.current;if(!node)return;
-    const resize=()=>setHeight(Math.max(42,Math.min(160,node.getBoundingClientRect().height)));
+    let frame=0;const resize=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const next=Math.max(42,Math.min(160,node.getBoundingClientRect().height));setHeight(previous=>Math.abs(previous-next)<.5?previous:next);});};
     resize();const observer=new ResizeObserver(resize);observer.observe(node);
-    return()=>observer.disconnect();
+    return()=>{observer.disconnect();cancelAnimationFrame(frame);};
   },[]);
   const [composing,setComposing]=useState(false);
   const composition=useRef(false);
@@ -59,15 +61,16 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
     <label className="sr-only" htmlFor="home-explore">Explore</label>
     <motion.div className="home-query-field" initial={false} animate={{height}} transition={{duration:reduced?0:MOTION_DURATION.fast,ease:MOTION_EASE_ENTER}}>
     <span ref={measure} className="home-question-measure" aria-hidden="true">{value||'Ask about Isaac’s work'}{'\u200b'}</span>
-    <textarea ref={inputRef} id="home-explore" rows={1} enterKeyHint="search" aria-describedby={`${id}-instructions`} aria-autocomplete="list" aria-haspopup="listbox" aria-controls={visible?id:undefined} aria-activedescendant={visible&&options[active]?`${id}-${options[active].id}`:undefined} autoComplete="off" placeholder="Ask about Isaac’s work" value={value} maxLength={500}
-      onFocus={()=>toggle(true)} onClick={()=>toggle(true)} onBlur={()=>{toggle(false);finishComposition();}}
+    <textarea ref={inputRef} id="home-explore" rows={1} enterKeyHint="search" aria-describedby={`${id}-instructions`} aria-autocomplete="list" aria-haspopup="listbox" aria-controls={visible?id:undefined} aria-activedescendant={visible&&options[active]?`${id}-${options[active].id}`:undefined} autoComplete="off" spellCheck={false} placeholder="Ask about Isaac’s work" value={value} maxLength={500}
+      onPointerDown={()=>{selectOnClick.current=Boolean(committedValue&&value===committedValue&&(document.activeElement!==inputRef.current||selectedCommit.current!==committedValue));}}
+      onFocus={()=>{toggle(true);if(committedValue&&value===committedValue){inputRef.current?.select();selectedCommit.current=committedValue;}}} onClick={()=>{toggle(true);if(selectOnClick.current){inputRef.current?.select();selectedCommit.current=committedValue;selectOnClick.current=false;}}} onBlur={()=>{toggle(false);finishComposition();}}
       onChange={e=>{setActive(-1);toggle(true);onChange(e.target.value);}}
       onCompositionStart={()=>{composition.current=true;setComposing(true);setActive(-1);onCompositionStart();}}
       onCompositionEnd={finishComposition}
       onKeyDown={e=>{
         if(composition.current||e.nativeEvent.isComposing||e.keyCode===229)return;
 
-        if(e.key==='Escape'&&open){if(visible){e.preventDefault();e.stopPropagation();}toggle(false);}
+        if(e.key==='Escape'){if(visible){e.preventDefault();e.stopPropagation();toggle(false);}else{toggle(false);if(onEscape){e.preventDefault();e.stopPropagation();onEscape();}}}
         else if(e.altKey&&e.key==='ArrowDown'&&options.length){e.preventDefault();toggle(true);setActive(0);}
         else if(visible&&!e.shiftKey&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&(e.key==='ArrowDown'||e.key==='ArrowUp')&&options.length){e.preventDefault();setActive(index=>e.key==='ArrowDown'?(index+1)%options.length:index<=0?options.length-1:index-1);}
         else if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();select(visible&&options[active]?options[active].text:value);}
@@ -84,6 +87,7 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
           {shortcuts.map((item,index)=><div key={item.id} id={`${id}-${item.id}`} role="option" aria-selected={active===items.length+index} onClick={()=>select(item.text)}>{item.label}</div>)}
         </li>}
       </ul>
+      <p className="experience-keyboard-hint" aria-hidden="true">↵ to ask · shift + ↵ for a new line · esc to close</p>
     </SuggestionPanel>}</AnimatePresence>
     <span className="sr-only" aria-live="polite" aria-atomic="true">{visible?`${options.length} suggestions available.`:''}</span>
   </>;

@@ -4,9 +4,10 @@ import { isSiteOverlayOpen, type SiteOverlay } from '@/lib/siteOverlay';
 
 const focusable = 'a[href],button:not(:disabled),input:not(:disabled),select:not(:disabled),[tabindex="0"]';
 
-/** Mobile panels own focus; desktop panels retain ordinary page navigation. */
+/** Search owns focus in both layouts; the desktop sidebar stays non-modal. */
 export function useOverlayFocus(open: boolean, kind: SiteOverlay, onClose: () => void) {
   const mobile = useIsMobile();
+  const modal = mobile || kind === 'search';
   const close = useRef(onClose);
   close.current = onClose;
   useEffect(() => {
@@ -20,7 +21,7 @@ export function useOverlayFocus(open: boolean, kind: SiteOverlay, onClose: () =>
     const initial = () => document.querySelector<HTMLElement>(kind === 'search' ? '[data-site-overlay="search"] input' : '[data-site-overlay="sidebar"] a,[data-site-overlay="sidebar"] button');
     const previous = new Map<HTMLElement, boolean>();
     const cover = () => {
-      if (!mobile) return;
+      if (!modal) return;
       document.querySelectorAll<HTMLElement>(`#root main,.photo-location-ticker,.site-home-link,[data-overlay-trigger="${kind === 'sidebar' ? 'search' : 'sidebar'}"]`).forEach(node => {
         if (!previous.has(node)) previous.set(node, node.hasAttribute('inert'));
         node.setAttribute('inert', '');
@@ -28,14 +29,14 @@ export function useOverlayFocus(open: boolean, kind: SiteOverlay, onClose: () =>
     };
     cover();
     // A retained mobile sidebar also covers a newly mounted destination.
-    const coverage = mobile ? new MutationObserver(cover) : null;
+    const coverage = modal ? new MutationObserver(cover) : null;
     coverage?.observe(document.body, { childList: true, subtree: true });
     const frame = requestAnimationFrame(() => initial()?.focus({ preventScroll: true }));
     const keydown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault(); event.stopPropagation(); close.current(); return;
       }
-      if (!mobile || event.key !== 'Tab') return;
+      if (!modal || event.key !== 'Tab') return;
       const items = candidates();
       const index = items.indexOf(document.activeElement as HTMLElement);
       if (index === -1 || event.shiftKey && index === 0 || !event.shiftKey && index === items.length - 1) {
@@ -43,7 +44,7 @@ export function useOverlayFocus(open: boolean, kind: SiteOverlay, onClose: () =>
       }
     };
     const focusin = (event: FocusEvent) => {
-      if (mobile && !regions().some(region => region.contains(event.target as Node))) initial()?.focus({ preventScroll: true });
+      if (modal && !regions().some(region => region.contains(event.target as Node))) initial()?.focus({ preventScroll: true });
     };
     document.addEventListener('keydown', keydown, true);
     document.addEventListener('focusin', focusin);
@@ -67,5 +68,5 @@ export function useOverlayFocus(open: boolean, kind: SiteOverlay, onClose: () =>
       timeout = window.setTimeout(stop, 1500);
       requestAnimationFrame(restore);
     };
-  }, [open, kind, mobile]);
+  }, [open, kind, modal]);
 }

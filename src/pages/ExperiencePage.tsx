@@ -413,7 +413,7 @@ const ExperiencePage = () => {
       <motion.div
         animate={{
           paddingLeft: sidebarOpen && !isMobile ? 200 : 0,
-          paddingRight: searchOpen && !isMobile ? 200 : 0,
+          paddingRight: 0,
         }}
         className="min-w-0"
         transition={{ duration: MOTION_DURATION.panel, ease: MOTION_EASE }}

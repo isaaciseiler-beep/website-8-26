@@ -11,13 +11,14 @@ const EASE = MOTION_EASE_ENTER;
 
 interface PhotoPreviewProps {
   images: string[];
+  albumLabel?: string;
   currentIndex: number | null;
   onClose: () => void;
   onNavigate: (index: number) => void;
 }
 
 /** The outgoing photograph stays visible until the latest requested image decodes. */
-function DecodedPhoto({ src, reduced }: { src: string; reduced: boolean }) {
+function DecodedPhoto({ src, reduced, alt }: { src: string; reduced: boolean; alt:string }) {
   const [displayed, setDisplayed] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
@@ -35,7 +36,7 @@ function DecodedPhoto({ src, reduced }: { src: string; reduced: boolean }) {
   }, [src]);
   return <div className="photo-preview-stage" aria-busy={!failed && displayed !== src}>
     <AnimatePresence initial={false}>
-      {displayed && <motion.img key={displayed} src={displayed} alt="" data-motion-image="true"
+      {displayed && <motion.img key={displayed} src={displayed} alt={alt} data-motion-image="true"
         className="site-corner photo-preview-image" initial={{ opacity: reduced ? 1 : 0 }}
         animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         transition={{ duration: reduced ? 0 : MOTION_DURATION.fast, ease: EASE }} />}
@@ -44,7 +45,7 @@ function DecodedPhoto({ src, reduced }: { src: string; reduced: boolean }) {
   </div>;
 }
 
-const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPreviewProps) => {
+const PhotoPreview = ({ images, albumLabel="Album", currentIndex, onClose, onNavigate }: PhotoPreviewProps) => {
   const opener=useRef<HTMLElement|null>(null);
   const reduceMotion=useReducedMotion();
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -75,7 +76,7 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
     <Dialog.Root open={currentIndex!==null} onOpenChange={open=>{if(!open)onClose();}}>
     <AnimatePresence>
       {currentIndex !== null && (
-        <Dialog.Portal forceMount><Dialog.Content forceMount asChild aria-describedby={undefined}
+        <Dialog.Portal forceMount><Dialog.Content forceMount asChild aria-label={`${albumLabel}, photograph ${(currentIndex??0)+1} of ${images.length}`} aria-describedby={undefined}
           onOpenAutoFocus={()=>{opener.current=document.activeElement as HTMLElement;}}
           onCloseAutoFocus={event=>{event.preventDefault();opener.current?.focus({preventScroll:true});}}>
         <MotionSurface
@@ -85,15 +86,15 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
           exit={{ opacity: 0 }}
           transition={{ duration: reduceMotion?0:MOTION_DURATION.fast, ease: EASE }}
         >
-          <Dialog.Title className="sr-only">Photograph {currentIndex+1} of {images.length}</Dialog.Title>
+          <Dialog.Title className="sr-only">{albumLabel} · Photograph {currentIndex+1} of {images.length}</Dialog.Title>
           <div className="absolute inset-0" onClick={onClose} style={{ background: "rgba(0,0,0,0.88)", backdropFilter: "blur(40px)", WebkitBackdropFilter: "blur(40px)" }} />
 
           <button aria-label="Close photograph" onClick={onClose} className="photo-preview-close">
             <X className="w-4 h-4" />
           </button>
 
-          {/* Progress bar */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 w-24 h-[2px] bg-white/10 overflow-hidden rounded-full">
+          <div className="photo-preview-counter" aria-hidden="true">{currentIndex + 1} / {images.length}</div>
+          <div className="photo-preview-progress absolute bottom-4 left-1/2 -translate-x-1/2 z-10 w-24 h-[2px] bg-white/10 overflow-hidden rounded-full" aria-hidden="true">
             <motion.div
               className="h-full bg-white/40"
               animate={{ width: `${progress * 100}%` }}
@@ -101,41 +102,10 @@ const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPrevie
             />
           </div>
 
-          <DecodedPhoto src={images[currentIndex]} reduced={reduceMotion} />
+          <DecodedPhoto src={images[currentIndex]} reduced={reduceMotion} alt={`${albumLabel}, photograph ${currentIndex+1} of ${images.length}`} />
 
-          <AnimatePresence>
-            {currentIndex > 0 && (
-              <motion.button
-                key="prev"
-                aria-label="Previous photograph"
-                className="photo-preview-nav photo-preview-nav--previous"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduceMotion?0:0.2 }}
-                onClick={() => onNavigate(currentIndex - 1)}
-              >
-                <ChevronLeft className="w-5 h-5" strokeWidth={1.5} />
-              </motion.button>
-            )}
-          </AnimatePresence>
-
-          <AnimatePresence>
-            {currentIndex < images.length - 1 && (
-              <motion.button
-                key="next"
-                aria-label="Next photograph"
-                className="photo-preview-nav photo-preview-nav--next"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduceMotion?0:0.2 }}
-                onClick={() => onNavigate(currentIndex + 1)}
-              >
-                <ChevronRight className="w-5 h-5" strokeWidth={1.5} />
-              </motion.button>
-            )}
-          </AnimatePresence>
+          <button aria-label="Previous photograph" disabled={currentIndex===0} className="photo-preview-nav photo-preview-nav--previous" onClick={()=>onNavigate(currentIndex-1)}><ChevronLeft className="w-5 h-5" strokeWidth={1.5}/></button>
+          <button aria-label="Next photograph" disabled={currentIndex===images.length-1} className="photo-preview-nav photo-preview-nav--next" onClick={()=>onNavigate(currentIndex+1)}><ChevronRight className="w-5 h-5" strokeWidth={1.5}/></button>
         </MotionSurface>
         </Dialog.Content></Dialog.Portal>
       )}

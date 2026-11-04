@@ -1,13 +1,16 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { albums } from "@/lib/canvas";
 import { metadataForPath } from "@/lib/seo";
 
 // Keep client-side navigation consistent with the prebuilt entry documents.
 export default function SiteMetadata() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   useEffect(() => {
     const metadata = metadataForPath(pathname);
-    document.title = metadata.title;
+    const album=pathname==='/'?albums.find(item=>item.folder===new URLSearchParams(search).get('album')):undefined;
+    const known=metadata.robots.startsWith('index,')||['/classic','/experience/arcade','/fulbrightmap','/strike-tracker','/projects/adaptive-portfolio'].includes(pathname);
+    document.title = album?`${album.location} · Photos · Isaac Seiler`:pathname==='/photos/music'?'Music · Isaac Seiler':!known&&pathname!=='/'?'Not found · Isaac Seiler':metadata.title;
     const meta = (attribute: "name" | "property" | "itemprop", key: string, content: string) => {
       let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
       if (!element) {
@@ -43,6 +46,6 @@ export default function SiteMetadata() {
     script.dataset.siteStructuredData = "";
     script.textContent = JSON.stringify(metadata.structuredData).replaceAll("<", "\\u003c");
     document.head.append(script);
-  }, [pathname]);
+  }, [pathname, search]);
   return null;
 }

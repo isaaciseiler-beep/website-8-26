@@ -31,14 +31,15 @@
       }
 
       body {
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
         color: #fff;
         font-family: "Segoe UI", Arial, sans-serif;
         font-weight: 300;
       }
 
       main {
-        min-height: 100vh;
+        min-height: 100svh;
         padding: 14vh 10vw;
       }
 
@@ -88,13 +89,24 @@
       }
 
       a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 8px 12px;
+        border: 1px solid currentColor;
+        border-radius: 7px;
         color: inherit;
-        text-decoration-color: rgba(255, 255, 255, 0.7);
-        text-underline-offset: 0.2em;
+        text-decoration: none;
+        transition: background-color 200ms ease;
       }
 
       a:hover {
-        color: rgba(255, 255, 255, 0.75);
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+      a:focus-visible { outline: 2px solid white; outline-offset: 4px; }
+      @media (prefers-reduced-motion: reduce) {
+        .eye { animation: none; }
+        a { transition: none; }
       }
 
       .details {

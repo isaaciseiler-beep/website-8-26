@@ -537,13 +537,11 @@ const AIStateGovernmentIndexPage = () => {
       <motion.div
         animate={{
           marginLeft: sidebarOpen && !isMobile ? 200 : 0,
-          marginRight: searchOpen && !isMobile ? 200 : 0,
+          marginRight: 0,
           width:
             sidebarOpen && !isMobile
               ? "calc(100% - 200px)"
-              : searchOpen && !isMobile
-                ? "calc(100% - 200px)"
-                : "100%",
+              : "100%",
         }}
         transition={navigationMotion}
       >
@@ -675,14 +673,16 @@ const AIStateGovernmentIndexPage = () => {
                         value={query}
                         onChange={(event) => setQuery(event.target.value)}
                         placeholder="Search state or territory"
-                        className="h-full flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-foreground/35"
+                        aria-label="Search state or territory"
+                        spellCheck={false}
+                        className="h-full flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-foreground"
                       />
                     </label>
                   </div>
                 </div>
 
                 <div className="grid gap-4">
-                  <div className="site-corner max-h-[560px] overflow-auto bg-card">
+                  <div className="ai-index-table-scroll site-corner max-h-[560px] overflow-auto bg-card" role="region" aria-label="Government AI benchmark rankings" tabIndex={0}>
                     <table className="w-full min-w-[680px] text-left">
                       <thead className="sticky top-0 bg-card text-foreground/45">
                         <tr className="border-b border-foreground/10 text-xs font-medium">

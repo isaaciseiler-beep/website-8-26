@@ -18,6 +18,7 @@ export default function ScrollManager({ location: presented, sequence, restoring
 
   useLayoutEffect(() => {
     const location = latest.current;
+    const initialHome = first.current && location.pathname==='/' && !location.search && !location.hash;
     const restore = restoring || first.current && shouldRestoreInitialScrollFor(location.pathname + location.search);
     first.current = false;
     const saved = restore ? readNavigationPosition(location) : null;
@@ -43,7 +44,7 @@ export default function ScrollManager({ location: presented, sequence, restoring
         // Focus the previous content link on return; otherwise announce the new main.
         const subject = document.querySelector<HTMLElement>('main h1') ?? document.querySelector<HTMLElement>('main');
         if (subject && !link) subject.setAttribute('tabindex', '-1');
-        (link ?? subject)?.focus({ preventScroll: true });
+        (link ?? (initialHome ? null : subject))?.focus({ preventScroll: true });
         stop();
       }
     };

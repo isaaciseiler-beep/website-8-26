@@ -1,2 +1,4 @@
 .writing-shell { padding: clamp(120px, 16vh, 200px) 24px 120px; }
-.writing-coming-soon { max-width: 640px; margin: 0 auto; font-size: 16px; line-height: 1.5; color: hsl(var(--foreground) / .55); }
+.writing-coming-soon { max-width: 576px; margin: 0 auto; font-size: 16px; line-height: 1.5; color: hsl(var(--muted-foreground)); }
+
+.writing-title{max-width:576px;margin:0 auto 32px;font-size:30px;font-weight:500;line-height:36px;letter-spacing:-.025em;}

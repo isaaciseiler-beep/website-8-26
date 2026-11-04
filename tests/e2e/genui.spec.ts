@@ -218,6 +218,8 @@ for(const reducedMotion of ['no-preference','reduce'] as const)test(`native disc
   await summary.click();await expect(disclosure).toHaveAttribute('open','');
   await expect.poll(()=>page.locator('.home-genui-reveal').evaluate(el=>Math.abs(el.getBoundingClientRect().height-el.querySelector('.home-genui-reveal-content')!.getBoundingClientRect().height))).toBeLessThan(1);
   await summary.click();await page.keyboard.press('Tab');
+  await expect(page.getByRole('button',{name:'Ask a follow-up'})).toBeFocused();
+  await page.keyboard.press('Tab');
   await expect(page.getByRole('button',{name:'Copy link to this view'})).toBeFocused();
   await expect(disclosure).not.toHaveAttribute('open','');
   await summary.click();await expect(disclosure.locator('[data-disclosure-inert]')).toHaveCount(0);
@@ -691,8 +693,10 @@ for(const [width,height,scrolledAway] of [[390,844,false],[736,750,false],[1440,
       if(scrolledAway){await page.mouse.wheel(0,1500);await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(1000);}
       const scrollBeforeFailure=await page.evaluate(()=>scrollY);fail();
       const image=page.locator('.portfolio-career-image');await expect(image).toHaveAttribute('src','/project-images/chatlab.jpg');
-      await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.naturalWidth)).toBe(800);
-      await expect(image).not.toHaveAttribute('width');await expect(image).not.toHaveAttribute('height');
+      // Responsive sources report density-corrected naturalWidth. The fallback
+      // reserves its own 4:3 dimensions rather than inheriting the poster's box.
+      await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);
+      await expect(image).toHaveAttribute('width','1600');await expect(image).toHaveAttribute('height','1200');
       expect(await image.evaluate(img=>img.style.aspectRatio)).toBe('');
       // Include the enclosing pane's final height, not only the image commit.
       await page.waitForTimeout(600);
@@ -718,7 +722,7 @@ for(const [width,height,tabCount] of [[390,390,1],[736,390,1],[390,844,1],[736,7
     await expect(options.getByRole('button',{name:'AI & communications',exact:true})).toBeFocused();
     await page.keyboard.press('End');await expect(options.getByRole('button',{name:'Journalism research',exact:true})).toBeFocused();
     await page.waitForTimeout(250);await page.keyboard.press('Tab');if(tabCount===2)await page.keyboard.press('Tab');
-    const next=tabCount===1?page.locator('.home-next-questions>summary'):page.getByRole('button',{name:'Copy link to this view',exact:true});await expect(next).toBeFocused();
+    const next=tabCount===1?page.locator('.home-next-questions>summary'):page.getByRole('button',{name:'Ask a follow-up',exact:true});await expect(next).toBeFocused();
     await expect(trigger).toHaveAttribute('aria-expanded','false');
     await page.waitForTimeout(700);
     await expect(next).toBeFocused();expect(await next.evaluate(element=>{const r=element.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;})).toBe(true);

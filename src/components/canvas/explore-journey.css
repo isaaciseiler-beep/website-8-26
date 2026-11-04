@@ -6,11 +6,11 @@
 .home-next-questions button svg{flex-shrink:0;}
 .home-journey-history ol{padding-inline-start:var(--space-l);display:grid;gap:var(--space-xs);margin-block:var(--space-xs);}
 .home-journey-history button{text-align:start;white-space:normal;padding-block:var(--space-xs);background:transparent;}
-.home-journey-history button small{display:block;font-size:var(--size-xxs);line-height:var(--line-xxs);margin-top:var(--space-xxs);}
+.home-journey-history button small{display:block;font-size:var(--size-xs);line-height:var(--line-xs);margin-top:var(--space-xxs);}
 .home-answer-feedback{margin-top:var(--space-m);max-width:42rem;}
 .home-answer-feedback label{display:block;margin-top:var(--space-m);}
 .home-answer-feedback select,.home-answer-feedback textarea{display:block;width:100%;margin-block:var(--space-xs);padding:var(--space-s);background:var(--neutral-3);border-radius:var(--radius-s);color:inherit;font:inherit;}
-.home-answer-feedback textarea{resize:vertical;min-height:5rem;}
+.home-answer-feedback textarea{resize:none;min-height:5rem;}
 .home-answer-feedback>a{display:inline-flex;gap:var(--space-xs);align-items:center;padding-block:var(--space-s);}
 .home-autocomplete-shortcuts{display:flex;flex-wrap:wrap;gap:var(--space-m);padding-top:var(--space-s);}
 .home-genui-composer{scroll-margin-top:var(--space-xxl);}

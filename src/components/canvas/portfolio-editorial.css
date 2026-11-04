@@ -35,7 +35,8 @@
 .home-genui .portfolio-career-visual[data-presentation="photograph"] .portfolio-career-image{object-position:50% 15%;}
 .home-genui .portfolio-workbench-visual[data-presentation="artifact"]>a{width:fit-content;max-width:100%;margin-inline:0;}
 .home-genui .portfolio-workbench-visual[data-presentation="artifact"] .portfolio-project-image{width:auto;max-width:100%;height:auto;max-height:min(60svh,480px);aspect-ratio:auto;object-fit:contain;margin-inline:0;}
-.home-genui .portfolio-workbench-visual>a>svg{position:absolute;inset:auto var(--space-s) var(--space-s) auto;color:var(--neutral-1);background:var(--neutral-10);border-radius:var(--site-corner-radius);box-sizing:content-box;padding:var(--space-xs);opacity:0;transition:opacity var(--motion-duration) var(--motion-easing);}
+.home-genui a[aria-label^="Open image:"]{position:relative;display:block;border-radius:var(--site-corner-radius);}
+.home-genui a[aria-label^="Open image:"]>svg{position:absolute;inset:auto var(--space-s) var(--space-s) auto;color:var(--neutral-1);background:var(--neutral-10);border-radius:var(--site-corner-radius);box-sizing:content-box;padding:var(--space-xs);opacity:1;transition:opacity var(--motion-duration) var(--motion-easing);}
 .home-genui .portfolio-workbench-visual>a:is(:hover,:focus-visible)>svg{opacity:1;}
 .home-genui .portfolio-workbench-visual figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-xs);margin-top:var(--space-s);font-size:var(--size-xs);line-height:var(--line-s);font-weight:var(--weight-medium);}
 .home-genui .portfolio-workbench-visual figcaption>span{font-weight:var(--weight-regular);}

@@ -23,7 +23,7 @@ describe('portfolio navigation and recovery', () => {
   it('keeps covered content inert and restores the header Search trigger after Escape', async () => {
     render(<MemoryRouter><SearchHarness /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: 'Search' }));
-    await waitFor(() => expect(screen.getByRole('textbox', { name: 'Search query' })).toHaveFocus());
+    await waitFor(() => expect(screen.getByRole('combobox', { name: 'Search query' })).toHaveFocus());
     expect(document.querySelector('main')).toHaveAttribute('inert');
     fireEvent.keyDown(document, { key: 'Escape' });
     await waitFor(() => expect(screen.getByRole('button', { name: 'Search' })).toHaveFocus());
@@ -42,17 +42,17 @@ describe('portfolio navigation and recovery', () => {
     const trigger = screen.getByRole('button', { name: 'Search' });
     const glyph = trigger.querySelector('svg');
     fireEvent.click(trigger);
-    const input = await screen.findByRole('textbox', { name: 'Search query' });
+    const input = await screen.findByRole('combobox', { name: 'Search query' });
     fireEvent.change(input, { target: { value: 'Taiwan' } });
     fireEvent.click(screen.getByRole('button', { name: 'Close search' }));
     // Exiting controls cannot receive keyboard focus, while their text stays
     // intact for the visible fold. Reopening reverses that same surface.
     expect(input.closest('form')).toHaveAttribute('inert');
-    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+    expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
     expect(input).toHaveValue('Taiwan');
     expect(screen.getByRole('button', { name: 'Search' }).querySelector('svg')).toBe(glyph);
     fireEvent.click(trigger);
-    expect(screen.getByRole('textbox', { name: 'Search query' })).toBe(input);
+    expect(screen.getByRole('combobox', { name: 'Search query' })).toBe(input);
     expect(input).toHaveValue('Taiwan');
     expect(input.closest('form')).not.toHaveAttribute('inert');
   });
