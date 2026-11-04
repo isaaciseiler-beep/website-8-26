@@ -633,3 +633,34 @@ for(const reducedMotion of ['no-preference','reduce'] as const)test(`tablet ${re
   await expect.poll(()=>trigger.evaluate(button=>{const r=button.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;})).toBe(true);
   expect(await page.locator('.home-genui-reveal').evaluate(element=>element.scrollTop)).toBe(0);
 });
+
+for(const [width,height] of [[390,844],[736,750],[1440,900],[844,390]])for(const reducedMotion of ['no-preference','reduce'] as const){
+  test(`${width}×${height} ${reducedMotion}: career artwork reserves its space and keeps role focus visible`,async({page})=>{
+    await page.setViewportSize({width,height});await page.emulateMedia({reducedMotion});
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+    let release!:()=>void;const pixels=new Promise<void>(resolve=>{release=resolve;});
+    await page.route('**/chat-lab/chatgpt-100-chats-cover.png',async route=>{
+      await pixels;await route.fulfill({contentType:'image/svg+xml',body:'<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1125"><rect width="2000" height="1125" fill="white"/></svg>'}).catch(()=>{});
+    });
+    try{
+      await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
+      await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+      const trigger=page.getByRole('button',{name:'Professional role',exact:true});
+      if(await trigger.isVisible()){
+        await trigger.click();await page.getByRole('group',{name:'Professional role',exact:true}).getByRole('button',{name:'Product feedback',exact:true}).click();
+      }else await page.getByRole('navigation',{name:'Professional roles'}).getByRole('button',{name:'Product feedback',exact:true}).click();
+      const image=page.locator('.portfolio-career-image');await expect(image).toBeAttached();
+      const geometry=()=>image.evaluate((img:HTMLImageElement)=>{const r=img.getBoundingClientRect();return{width:r.width,height:r.height,naturalWidth:img.naturalWidth};});
+      // The selected role has changed, and the viewport can still be settling.
+      await page.waitForTimeout(600);
+      const before=await geometry();expect(before.naturalWidth).toBe(0);expect(before.width).toBeGreaterThan(100);
+      expect(Math.abs(before.width/before.height-2000/1125)).toBeLessThan(.01);
+      release();await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.naturalWidth)).toBe(2000);
+      const after=await geometry();expect(Math.abs(after.width-before.width)).toBeLessThan(1);expect(Math.abs(after.height-before.height)).toBeLessThan(1);
+      expect(await page.evaluate(()=>{const focused=document.activeElement!,r=focused.getBoundingClientRect();return focused.tagName==='BUTTON'&&r.top>=0&&r.bottom<=innerHeight;})).toBe(true);
+      expect(await page.locator('.home-genui-reveal').evaluate(element=>element.scrollTop)).toBe(0);
+      expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    }finally{release();}
+  });
+}

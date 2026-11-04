@@ -141,3 +141,14 @@ An additional public-role screenshot review request to Claude timed out after 18
 Project headings, Lab/connection choices, comparison labels, and government selectors now use the same straight inset focus underline. Their former rounded outlines could appear heavy or clipped. Focused transparent wrappers use square corners so the underline remains straight; other control corners and native popup behavior are retained. Twenty-eight focused selector checks passed across light/dark and phone/desktop layouts, with loaded media included in the visual proof. See `selector-focus.json`, `selector-focus-phone.png` and `role-selector-open.png`.
 
 The current maintained browser regression passed all 73 UI cases in two batches (37 and 36), plus all 13 motion cases. Each batch exited successfully. The first combined UI invocation printed 73 passing assertions but hung during worker shutdown; its browser processes had already closed. That runner was terminated, and the two smaller complete shards verified both assertions and clean shutdown. This does not claim the stale legacy smoke suite passed. See `browser-tests-current.txt`.
+
+
+## Career artwork loading and focused role alignment
+
+The career view still used `width:auto` for known artwork. A delayed 100 Chats image measured 0×0 before loading and then 624×351 at 736px, moving the focused role control below the 750px viewport. The desktop focused row similarly moved from y=629–673 to y=924–968 as pixels arrived.
+
+Project and career views now share `artifactImageStyles`, which reserves the displayed artifact’s known native ratio and viewport-bounded width. The career link becomes a block, and its image fills that explicit frame. Styles remain tied to the actual displayed fallback; unknown dimensions do not inherit an old artifact ratio. Desktop role selection also checks the focused row after adding a preview and uses normal nearest page scrolling only if it falls outside the viewport. It does not continuously follow scrolling.
+
+After the fix, the 736px artifact was 624×351 both before and after loading; the focused selector stayed at y=669–718. At 1440px, the selected desktop row stayed at y=823–867 through loading. See `career-artwork-loading.json`. The authored role catalog has one primary artifact (the dimensioned Lab cover); its other primary role images use the existing photograph frame.
+
+Twenty-seven focused browser cases passed, including eight new delayed-career-image cases across four viewports and both motion settings, plus the prior story-image and role-control checks. Twenty-six canvas unit tests, typecheck, lint (existing cleanup-ref warning only), and build passed. The last complete broader pass remains the 73 UI and 13 motion cases recorded above; the eight new cases were verified in the subsequent focused run. The IAB preview was refreshed and returned to the open role selector.

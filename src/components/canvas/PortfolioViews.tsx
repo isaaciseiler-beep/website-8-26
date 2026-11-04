@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 import { useProjectVisualId } from '@/lib/projectVisualMotion';
@@ -15,7 +16,7 @@ import { sectionSearchParts } from '@/lib/portfolioRetrieval';
 import { PublishedSources } from './PublishedSources';
 import { ProjectAnswer } from './ProjectAnswer';
 import { resolveAnswerPlan } from '@/lib/portfolioEvidenceRegistry';
-import { representativeProjectImage } from './projectVisual';
+import { artifactImageStyles, representativeProjectImage } from './projectVisual';
 import { ResolvedProjectImage } from './ResolvedProjectImage';
 import './portfolio-editorial.css';
 
@@ -102,12 +103,12 @@ export function ProjectStory({ block, onChange }: Props) {
       <ResolvedProjectImage visual={image}>{(imageProps,displayed)=>{
         // Known dimensions reserve the final box even before a slow image has
         // intrinsic size. Keep sizing tied to the displayed fallback, too.
-        const size=displayed.presentation==='artifact'&&displayed.width&&displayed.height?{width:displayed.width,height:displayed.height}:null;
+        const sizing=artifactImageStyles(displayed);
         return <figure className="portfolio-workbench-visual" data-presentation={displayed.presentation}>
           <motion.a layout={visualId?"preserve-aspect":false} layoutId={visualId} transition={{duration:MOTION_DURATION.reveal,ease:MOTION_EASE_ENTER}}
-            style={size?{width:`min(100%, ${size.width}px, calc(min(60svh, 480px) * ${size.width/size.height}))`}:undefined}
+            style={sizing?.frame}
             href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`} title="Open original image in a new tab">
-            <img {...imageProps} className="portfolio-project-image" style={size?{width:'100%',aspectRatio:`auto ${size.width} / ${size.height}`}:undefined}/><ArrowUpRight size={16} aria-hidden="true"/>
+            <img {...imageProps} className="portfolio-project-image" style={sizing?.image}/><ArrowUpRight size={16} aria-hidden="true"/>
           </motion.a>
           {(displayed.note||record.project.id==='artificial-intelligence-in-state-government-index')&&<figcaption>{displayed.note&&<span className="sr-only">{displayed.note}</span>}{record.project.id==='artificial-intelligence-in-state-government-index'&&<span>August 2025 snapshot</span>}</figcaption>}
         </figure>;
@@ -157,6 +158,15 @@ const careerPaths: Record<string, {label:string}> = {
 };
 
 export function CareerExplorer({ block, onChange }: Props) {
+  const roleNavigation=useRef<HTMLDivElement>(null);
+  useLayoutEffect(()=>{
+    const navigation=roleNavigation.current;
+    if(!navigation)return;
+    const focused=document.activeElement;
+    if(!(focused instanceof HTMLElement)||!navigation.contains(focused)||!focused.closest('nav[aria-label="Professional roles"]'))return;
+    const rect=focused.getBoundingClientRect();
+    if(rect.top<0||rect.bottom>window.innerHeight)focused.scrollIntoView({block:'nearest'});
+  },[block.answerId,block.roleId]);
   if (block.answerId === 'connections') return <ConnectionsExplorer block={block} onChange={onChange} />;
   const answer=block.answerId?careerAnswers[block.answerId]:undefined;
   const roleIds=answer?.roles??(block.angle==='leadership'?['fulbright-taiwan','us-house','washu-head-ta']:block.section===2?['us-house','csg-ai-index','fulbright-taiwan','scholten-campaign']:block.section===1?['csg-ai-index','fulbright-taiwan','us-house','summation-ai']:Object.keys(careerPaths));
@@ -171,7 +181,14 @@ export function CareerExplorer({ block, onChange }: Props) {
     <h2 className="sr-only">{answer?.title??(block.angle==='leadership'?'Leadership in practice':block.section===1?'Strengths across the work':block.section===2?'Public service':'Career & experience')}</h2>
     {answer&&<p className="portfolio-answer">{answer.answer}</p>}
     {block.answerId!=='current'&&<div className="portfolio-career-explorer">
-      <div className="portfolio-career-nav">{record&&<ResolvedProjectImage key="role-visual" visual={representativeProjectImage(record.project)}>{(imageProps,displayed)=><figure className="portfolio-career-visual" data-presentation={displayed.presentation}><a href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`}><img {...imageProps} className="portfolio-career-image"/></a>{displayed.note&&<figcaption className="portfolio-image-note">{displayed.note}</figcaption>}</figure>}</ResolvedProjectImage>}<div key="role-selector" className="portfolio-career-select"><PortfolioChoice label="Professional role" value={active?.id??''} choices={entries.map(entry=>({value:entry.id,label:careerPaths[entry.id]?.label??entry.organization}))} onChange={roleId=>onChange({...block,roleId,search:undefined})}/></div><nav key="role-navigation" aria-label="Professional roles">{entries.map(entry=><button key={entry.id} aria-pressed={active?.id===entry.id} onClick={()=>onChange({...block,roleId:entry.id,search:undefined})}><strong>{careerPaths[entry.id]?.label??entry.organization}</strong></button>)}</nav></div>
+      <div ref={roleNavigation} className="portfolio-career-nav">{record&&<ResolvedProjectImage key="role-visual" visual={representativeProjectImage(record.project)}>{(imageProps,displayed)=>{
+        const sizing=artifactImageStyles(displayed);
+        return <figure className="portfolio-career-visual" data-presentation={displayed.presentation}>
+          <a style={sizing?.frame} href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`}>
+            <img {...imageProps} className="portfolio-career-image" style={sizing?.image}/>
+          </a>{displayed.note&&<figcaption className="portfolio-image-note">{displayed.note}</figcaption>}
+        </figure>;
+      }}</ResolvedProjectImage>}<div key="role-selector" className="portfolio-career-select"><PortfolioChoice label="Professional role" value={active?.id??''} choices={entries.map(entry=>({value:entry.id,label:careerPaths[entry.id]?.label??entry.organization}))} onChange={roleId=>onChange({...block,roleId,search:undefined})}/></div><nav key="role-navigation" aria-label="Professional roles">{entries.map(entry=><button key={entry.id} aria-pressed={active?.id===entry.id} onClick={()=>onChange({...block,roleId:entry.id,search:undefined})}><strong>{careerPaths[entry.id]?.label??entry.organization}</strong></button>)}</nav></div>
       {active&&<article className="portfolio-career-detail"><h3>{active.organization}</h3><div className="portfolio-role-context"><p>{active.role} · {active.period}</p></div>{paragraphs.map(text=><p key={text}>{text}</p>)}{record&&<button className="portfolio-inline-action" onClick={()=>onChange({...blankBlock('story'),projectIds:[record.project.id],focus:'process',layout:'project-process',section:record.processSections[0]??0})}>Explore the work<ArrowUpRight size={15} aria-hidden="true"/></button>}</article>}
     </div>}
   </section>;

@@ -1,0 +1,180 @@
+{
+  "before": [
+    {
+      "width": 390,
+      "height": 844,
+      "before": {
+        "width": 0,
+        "height": 0,
+        "naturalWidth": 0,
+        "triggerTop": 586.890625,
+        "triggerBottom": 635.890625,
+        "focused": "Professional role",
+        "scrollY": 11
+      },
+      "after": {
+        "width": 310,
+        "height": 174.375,
+        "naturalWidth": 2000,
+        "triggerTop": 761.265625,
+        "triggerBottom": 810.265625,
+        "focused": "Professional role",
+        "scrollY": 11
+      }
+    },
+    {
+      "width": 736,
+      "height": 750,
+      "before": {
+        "width": 0,
+        "height": 0,
+        "naturalWidth": 0,
+        "triggerTop": 445,
+        "triggerBottom": 494,
+        "focused": "Professional role",
+        "scrollY": 0
+      },
+      "after": {
+        "width": 624,
+        "height": 351,
+        "naturalWidth": 2000,
+        "triggerTop": 796,
+        "triggerBottom": 845,
+        "focused": "Professional role",
+        "scrollY": 0
+      }
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "width": 0,
+        "height": 0,
+        "naturalWidth": 0,
+        "triggerTop": 0,
+        "triggerBottom": 0,
+        "focused": null,
+        "scrollY": 0
+      },
+      "after": {
+        "width": 524.46875,
+        "height": 295.015625,
+        "naturalWidth": 2000,
+        "triggerTop": 0,
+        "triggerBottom": 0,
+        "focused": null,
+        "scrollY": 0
+      }
+    }
+  ],
+  "desktopFocusBefore": [
+    {
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "width": 0,
+        "height": 0,
+        "naturalWidth": 0,
+        "triggerTop": 0,
+        "triggerBottom": 0,
+        "focusedTop": 629.5,
+        "focusedBottom": 673.5,
+        "focusedText": "Product feedback",
+        "focused": null,
+        "scrollY": 0
+      },
+      "after": {
+        "width": 524.46875,
+        "height": 295.015625,
+        "naturalWidth": 2000,
+        "triggerTop": 0,
+        "triggerBottom": 0,
+        "focusedTop": 924.515625,
+        "focusedBottom": 968.515625,
+        "focusedText": "Product feedback",
+        "focused": null,
+        "scrollY": 0
+      }
+    }
+  ],
+  "after": [
+    {
+      "width": 390,
+      "height": 844,
+      "before": {
+        "width": 310,
+        "height": 174.375,
+        "naturalWidth": 0,
+        "triggerTop": 761.265625,
+        "triggerBottom": 810.265625,
+        "focusedTop": 761.265625,
+        "focusedBottom": 810.265625,
+        "focused": "Professional role",
+        "scrollY": 11
+      },
+      "after": {
+        "width": 310,
+        "height": 174.375,
+        "naturalWidth": 2000,
+        "triggerTop": 761.265625,
+        "triggerBottom": 810.265625,
+        "focusedTop": 761.265625,
+        "focusedBottom": 810.265625,
+        "focused": "Professional role",
+        "scrollY": 11
+      }
+    },
+    {
+      "width": 736,
+      "height": 750,
+      "before": {
+        "width": 624,
+        "height": 351,
+        "naturalWidth": 0,
+        "triggerTop": 669,
+        "triggerBottom": 718,
+        "focusedTop": 669,
+        "focusedBottom": 718,
+        "focused": "Professional role",
+        "scrollY": 127
+      },
+      "after": {
+        "width": 624,
+        "height": 351,
+        "naturalWidth": 2000,
+        "triggerTop": 669,
+        "triggerBottom": 718,
+        "focusedTop": 669,
+        "focusedBottom": 718,
+        "focused": "Professional role",
+        "scrollY": 127
+      }
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "before": {
+        "width": 524.484375,
+        "height": 295.015625,
+        "naturalWidth": 0,
+        "triggerTop": 0,
+        "triggerBottom": 0,
+        "focusedTop": 823.515625,
+        "focusedBottom": 867.515625,
+        "focused": null,
+        "scrollY": 101
+      },
+      "after": {
+        "width": 524.484375,
+        "height": 295.015625,
+        "naturalWidth": 2000,
+        "triggerTop": 0,
+        "triggerBottom": 0,
+        "focusedTop": 823.515625,
+        "focusedBottom": 867.515625,
+        "focused": null,
+        "scrollY": 101
+      }
+    }
+  ]
+}

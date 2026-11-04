@@ -2,6 +2,16 @@ import type { ProjectItem, ProjectSection } from '@/lib/siteContent';
 
 export type ProjectVisualSource = { src: string; alt: string; presentation: 'photograph'|'artifact'; note?: string; width?:number; height?:number };
 export type ProjectVisualSelection = ProjectVisualSource & { fallbacks: ProjectVisualSource[] };
+
+/** Reserve the displayed artifact's box before its intrinsic dimensions arrive. */
+export function artifactImageStyles(source: ProjectVisualSource) {
+  if (source.presentation !== 'artifact' || !source.width || !source.height) return undefined;
+  return {
+    frame: { width: `min(100%, ${source.width}px, calc(min(60svh, 480px) * ${source.width / source.height}))` },
+    image: { width: '100%', aspectRatio: `auto ${source.width} / ${source.height}` },
+  };
+}
+
 function visual(src:string,alt:string,dimensions?:{width?:number;height?:number}):ProjectVisualSource {
   return {src,alt,...(dimensions?.width&&dimensions.height?{width:dimensions.width,height:dimensions.height}:{}),presentation:/cover artwork|product flow|screenshot|contributed chats?|interface|diagram|slide|newsletter|website|campaign (?:artwork|creative)|ChatGPT (?:Pulse|Atlas)|Introducing.*(?:Atlas|group chats)/i.test(alt)?'artifact':'photograph'};
 }
