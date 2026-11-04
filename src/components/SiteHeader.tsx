@@ -21,7 +21,7 @@ export const SiteHeaderSurface = ({ open, onToggle, searchOpen, onSearchOpen, on
   // Blend against the actual page, outside route transforms and isolated panels.
   // Keep search results outside this blend layer so their text is not inverted.
   return createPortal(<>
-    <div className="site-header-xray fixed left-0 top-0 z-[60] flex items-center gap-1 px-6 py-4">
+    <header className="site-header-xray fixed left-0 top-0 z-[60] flex items-center gap-1 px-6 py-4">
       <Link to="/" state={open ? { sidebarOpen: true } : undefined} className="site-home-link" aria-label="IIS home">
         <Logo />
       </Link>
@@ -36,7 +36,7 @@ export const SiteHeaderSurface = ({ open, onToggle, searchOpen, onSearchOpen, on
       >
         <ChevronRight className="h-3.5 w-3.5" />
       </motion.button>
-    </div>
+    </header>
     <SearchTrigger open={searchOpen} onOpen={onSearchOpen} onClose={onSearchClose}/>
   </>, document.body);
 };

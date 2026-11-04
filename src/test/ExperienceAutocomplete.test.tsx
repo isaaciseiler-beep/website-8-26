@@ -14,6 +14,9 @@ describe('autocomplete interaction',()=>{
   fireEvent.keyDown(input,{key:'ArrowDown'});expect(screen.getByRole('listbox')).toBeInTheDocument();
   fireEvent.change(input,{target:{value:'taiw'}});fireEvent.keyDown(input,{key:'ArrowDown'});
   expect(input).toHaveValue('taiw');expect(input).toHaveAttribute('aria-activedescendant');
+  expect(document.getElementById(input.getAttribute('aria-controls')!)).toBe(screen.getByRole('listbox'));
+  expect(document.getElementById(input.getAttribute('aria-activedescendant')!)).toHaveAttribute('aria-selected','true');
+  expect(screen.getByRole('listbox').querySelector('li[role=group]')).toBeNull();
   fireEvent.keyDown(input,{key:'Enter'});expect(submit).toHaveBeenCalledWith('How did Isaac help teachers in Taiwan?');
   expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   fireEvent.keyDown(input,{key:'ArrowDown'});fireEvent.keyDown(input,{key:'Escape'});

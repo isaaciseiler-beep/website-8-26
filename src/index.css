@@ -5633,7 +5633,7 @@ body::-webkit-scrollbar,
 
 /* Continuous image sheets: only the perimeter rounds. */
 .music-album-scatter .music-album-card { border-radius: 0; }
-.site-signature { width: 100%; padding: 64px 0 0; overflow: hidden; color: hsl(var(--foreground) / .2); background: hsl(var(--background)); }
+.site-signature { width: 100%; padding: 64px 0 0; overflow: hidden; color: hsl(var(--foreground)); background: hsl(var(--background)); }
 .site-signature span { display: block; width: max-content; white-space: nowrap; font-family: 'Satoshi', sans-serif; font-size: 11.6vw; font-weight: 500; letter-spacing: -.065em; line-height: .88; }
 .screen-loader { position: relative; min-height: 100svh; width: 100%; overflow: hidden; background: hsl(var(--background)); }
 .screen-loader--overlay { position: absolute; inset: 0; min-height: 0; }
@@ -5740,3 +5740,12 @@ main h1[tabindex="-1"]:focus { outline: none; }
 
 img[data-image-state="error"] { visibility: hidden; }
 .photo-tile:has(img[data-image-state="error"])::before { content: 'Photograph unavailable'; position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; padding: 12px; font-size: 12px; color: hsl(var(--foreground)); pointer-events: none; }
+
+/* Search feedback uses the same reading edge and scale as the result list. */
+.site-search-state{padding-block:10px;font-size:14px;line-height:1.5;color:hsl(var(--foreground));}
+.site-search-state p+p{margin-top:8px;}
+.photo-preview-loading{position:relative;z-index:1;pointer-events:none;font-size:13px;line-height:1.5;color:white;text-align:center;padding:16px;}
+.photo-preview-error{max-width:calc(100vw - 48px);padding:8px 12px;border-radius:var(--site-corner-radius);background:hsl(var(--image-scrim)/.7);text-align:center;}
+
+/* Route announcements focus a landmark, not a full-page interactive control. */
+.route-scene main[tabindex="-1"]:focus,.route-scene main h1[tabindex="-1"]:focus{outline:none;}

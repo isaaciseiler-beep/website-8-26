@@ -36,16 +36,30 @@ function returnLabel(view:View):string {
 type Guidance='welcome'|'unmatched'|'ambiguous'|'help'|null;
 type SavedExploration = {readingState?:ExplorationReadingState;query:string;view:View|null;guidance:Guidance;history:View[];future:View[]};
 const entryExplorations = new Map<string, SavedExploration>();
-function ExplorationReveal({children,restored=false,handoff=false,initialReadingState,onSettled,contentRevision}:{children:ReactNode;restored?:boolean;handoff?:boolean;initialReadingState?:ExplorationReadingState|null;onSettled?:()=>void;contentRevision:number}) {
+function ExplorationReveal({children,restored=false,initialReadingState,onSettled,contentRevision}:{children:ReactNode;restored?:boolean;initialReadingState?:ExplorationReadingState|null;onSettled?:()=>void;contentRevision:number}) {
   const present=useIsPresent();
   const reduceMotion=useReducedMotion();
   const content=useRef<HTMLDivElement>(null);
   const initialReading=useRef(initialReadingState);
+  const focusedControl=useRef<HTMLElement|null>(null);
+  useEffect(()=>{
+    const release=()=>{focusedControl.current=null;};
+    const key=(event:KeyboardEvent)=>{if(!event.defaultPrevented&&['PageDown','PageUp','Home','End','ArrowDown','ArrowUp',' '].includes(event.key))release();};
+    window.addEventListener('wheel',release,{passive:true});
+    window.addEventListener('touchstart',release,{passive:true});
+    window.addEventListener('keydown',key);
+    return()=>{window.removeEventListener('wheel',release);window.removeEventListener('touchstart',release);window.removeEventListener('keydown',key);};
+  },[]);
   const disclosure=useDisclosureMotion(content,contentRevision,reduceMotion);
   const [height,setHeight]=useState<number|null>(null);
-  // Only the initial reveal waits for autocomplete. Later view changes keep
-  // their state and resize directly to the newly measured content.
-  const openingDelay=useRef(!restored&&handoff?MOTION_DURATION.instant:0);
+  const keepFocusedControlVisible=useCallback(()=>{
+    const active=document.activeElement;
+    if(content.current?.parentElement?.getAttribute('aria-hidden')==='true'||active!==focusedControl.current||!(active instanceof HTMLElement)||!content.current?.contains(active))return;
+    // Native focus can scroll to a lower control before the growing page has
+    // enough height. Keep that chosen control in view as the frame catches up.
+    const bounds=active.getBoundingClientRect();
+    if(bounds.top<0||bounds.bottom>window.innerHeight)active.scrollIntoView({block:'nearest'});
+  },[]);
   useLayoutEffect(()=>{
     const node=content.current;if(!node)return;
     // Restore before the first measurement, so a returning open disclosure
@@ -57,14 +71,18 @@ function ExplorationReveal({children,restored=false,handoff=false,initialReading
       // Subpixel wrapping and image decoding can notify repeatedly. Keep one
       // final-width target rather than restarting the fold for rounding noise.
       setHeight(previous=>previous!==null&&Math.abs(previous-measured)<.5?previous:measured);
+      keepFocusedControlVisible();
     };
     measure();const observer=new ResizeObserver(()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(measure);});observer.observe(node);
     return()=>{observer.disconnect();cancelAnimationFrame(frame);};
-  },[]);
+  },[keepFocusedControlVisible]);
   return <motion.div className="home-genui-reveal" data-state={present?'open':'closing'} aria-hidden={!present} {...(!present?{inert:''}:{})}
     initial={restored?false:{height:0,opacity:0}} animate={{height:present&&disclosure.following?'auto':height??(restored?'auto':0),opacity:1}} exit={{height:0,opacity:0,transition:{height:{duration:reduceMotion?0:MOTION_DURATION.fold,ease:MOTION_EASE_FOLD},opacity:{duration:reduceMotion?0:MOTION_DURATION.fold,ease:'linear'}}}}
-    onAnimationComplete={()=>{openingDelay.current=0;onSettled?.();}} transition={{height:{delay:reduceMotion?0:openingDelay.current,duration:reduceMotion||present&&disclosure.following?0:MOTION_DURATION.exploreReveal,ease:MOTION_EASE_EXPLORE},opacity:{delay:reduceMotion?0:openingDelay.current,duration:reduceMotion?0:MOTION_DURATION.exploreReveal,ease:MOTION_EASE_EXPLORE}}}>
-    <div ref={content} className="home-genui-reveal-content" onClickCapture={disclosure.onClickCapture}>{children}</div>
+    onUpdate={keepFocusedControlVisible} onAnimationComplete={()=>{keepFocusedControlVisible();onSettled?.();}} transition={{height:{duration:reduceMotion||present&&disclosure.following?0:MOTION_DURATION.exploreReveal,ease:MOTION_EASE_EXPLORE},opacity:{duration:reduceMotion?0:MOTION_DURATION.exploreReveal,ease:MOTION_EASE_EXPLORE}}}>
+    <div ref={content} className="home-genui-reveal-content" onFocusCapture={event=>{
+      const target=event.target;
+      focusedControl.current=target instanceof HTMLElement&&target.matches('a[href],button,input,select,textarea,summary')?target:null;
+    }} onClickCapture={disclosure.onClickCapture}>{children}</div>
   </motion.div>;
 }
 function RequestProgress({children}:{children:ReactNode}) {
@@ -96,10 +114,9 @@ export default function HomeExplore() {
   const [view,setView]=useState<View|null>(restored?.view??null);
   const [heldExpanded,setHeldExpanded]=useState(Boolean(restored?.view||restored?.guidance==='help'));
   const [settling,setSettling]=useState(false);
-  const [suggestionHandoff,setSuggestionHandoff]=useState(false);
   const [revealEpoch,setRevealEpoch]=useState(0);
   // Interrupted exits can finish visually without Presence reporting completion.
-  // Recover only a folded pane; never release its width during the vertical fold.
+  // Recover only after the continuous retraction has finished.
   useEffect(()=>{
     if(view||guidance||!heldExpanded)return;
     let checks=0;
@@ -131,8 +148,8 @@ export default function HomeExplore() {
     if(!target&&heading)heading.tabIndex=-1;
     (target??heading)?.focus({preventScroll:true});
   },[view,guidance]);
-  // Once the surface opens, keep its width through a guidance response and the
-  // entire vertical exit. A new request can reverse that exit without a pinch.
+  // Keep outgoing content laid out at its expanded width while the frame
+  // retracts. A new request can reverse the fold without remounting content.
   useLayoutEffect(()=>{if(view)setHeldExpanded(true);if(view||guidance)setSettling(false);},[view,guidance]);
   useLayoutEffect(()=>{
     if(!settling)return;
@@ -242,7 +259,6 @@ export default function HomeExplore() {
   function openGuide(){
     pendingReadingState.current=null;pendingResultFocus.current=null;
     const previous=current.current;cancel();if(previous)remember(previous);
-    setSuggestionHandoff(Boolean(composerRef.current?.querySelector('.experience-autocomplete')));
     setImmediateDismiss(true);setAutocompleteOpen(false);setLinkError('');
     update(null);setGuidance('help');setHeldExpanded(true);
   }
@@ -318,7 +334,7 @@ export default function HomeExplore() {
       try {while(live()&&!completed){const {done,value}=await reader.read();if(done)break;receivedBytes+=value.byteLength;if(receivedBytes>128000)throw new Error('Composition stream too large');buffer+=decoder.decode(value,{stream:true});const lines=buffer.split('\n');buffer=lines.pop()??'';lines.forEach(accept);if(!completed&&buffer.length>32000)throw new Error('Composition event too large');}if(!completed&&buffer.trim())accept(buffer);if(live()&&!completed)throw new Error('Incomplete composition');} finally {await reader.cancel().catch(()=>{});}
     } catch {if(live()){if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update({...next,generation:{...next.generation,status:'unavailable'}});}} finally {if(live()){pendingQuery.current=null;setBusy(false);}}
   }
-  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;if(/^(?:how to explore|how does explore work|how does this work|how does this site work|help|help me explore|help me get started)\??$/i.test(text.trim())){openGuide();return;}setSuggestionHandoff(Boolean(composerRef.current?.querySelector('.experience-autocomplete')));pendingReadingState.current=null;const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
+  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;if(/^(?:how to explore|how does explore work|how does this work|how does this site work|help|help me explore|help me get started)\??$/i.test(text.trim())){openGuide();return;}pendingReadingState.current=null;const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
   const navigateHistory=(direction:'back'|'forward')=>{
     if(direction==='back'?!history.length:!future.length)return;
     if(resultsRef.current?.contains(document.activeElement))pendingResultFocus.current={kind:'heading'};
@@ -403,13 +419,13 @@ export default function HomeExplore() {
         {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
       </form><AnimatePresence initial={false}>{busy&&<RequestProgress key="request-status"><div className="home-request-state"><span>{phase}</span><button type="button" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button></div></RequestProgress>}</AnimatePresence></div>
       {!busy&&!view&&!heldExpanded&&!settling&&!guidance&&!autocompleteOpen&&<motion.div className="home-idle-actions" initial={{opacity:0}} animate={{opacity:1}} transition={{duration:reduceMotion?0:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER}}>
-        <button className="home-guide-trigger" type="button" onClick={openGuide} aria-controls="home-exploration-results">How to explore</button>
+        <button className="home-guide-trigger" type="button" onClick={openGuide}>How to explore</button>
       </motion.div>}
       <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?phase:view?.generation.status==='unavailable'?'Interactive view · AI unavailable':''}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>{if(!view&&!guidance){setHeldExpanded(false);setSettling(!reduceMotion);}}}>
-        {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} initialReadingState={pendingReadingState.current} restored={Boolean(restored?.view||restored?.guidance)} handoff={suggestionHandoff} onSettled={restoreReadingPosition}>
-          <div ref={resultsRef} id="home-exploration-results" className="home-genui-stage" aria-label="Exploration results" aria-busy={busy} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
+        {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} initialReadingState={pendingReadingState.current} restored={Boolean(restored?.view||restored?.guidance)} onSettled={restoreReadingPosition}>
+          <div ref={resultsRef} id="home-exploration-results" className="home-genui-stage" role="region" aria-label="Exploration results" aria-busy={busy} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
             {guidance==='help'?<ExploreGuide onExplore={submit}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>
               <div>{guidance==='ambiguous'?clarification?.choices.map(item=><button type="button" key={item.projectId} onClick={()=>chooseSubject(item.projectId)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>):guidanceChoices.map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={openGuide}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>
@@ -423,11 +439,11 @@ export default function HomeExplore() {
               {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={returnLabel(view.returnToExploration)} onClick={backToExploration}><ArrowLeft size={14} aria-hidden="true"/><span>{returnLabel(view.returnToExploration)}</span></button>}
               {(view||guidance)&&history.length>0&&!view?.returnToExploration&&<button aria-label="Previous exploration" title={`Back to ${titleFor(history[history.length-1])}`} onClick={()=>navigateHistory('back')}><ArrowLeft size={14} aria-hidden="true"/><span>Back</span></button>}
               {view&&future.length>0&&!view.returnToExploration&&<button aria-label="Next exploration" title={`Forward to ${titleFor(future[0])}`} onClick={()=>navigateHistory('forward')}><span>Forward</span><ArrowRight size={14} aria-hidden="true"/></button>}
-              {view&&<ExplorationHistory items={history.map(item=>({title:titleFor(item),question:item.query}))} onSelect={selectHistory}/>}
               {view&&<button className="home-share-view" aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
 
             </div>
             {view&&!busy&&<ExplorationFeedback key={view.query} title={titleFor(view)} question={view.query} url={feedbackUrl}/>}
+              {view&&<ExplorationHistory items={history.map(item=>({title:titleFor(item),question:item.query}))} onSelect={selectHistory}/>}
             </footer>
           </div>
         </ExplorationReveal>}

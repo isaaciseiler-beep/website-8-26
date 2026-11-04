@@ -219,13 +219,11 @@ describe("homepage generative interface", () => {
     expect(screen.getByRole('region', { name: 'Explore guide' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'How to explore' })).toHaveFocus();
     const calls = fetcher.mock.calls.length;
-    fireEvent.click(screen.getByRole('button', { name: 'Go deeper' }));
-    expect(screen.getByRole('heading', { name: 'Follow the work in Taiwan' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Compare', exact: true }));
-    expect(screen.getByRole('heading', { name: 'Put two kinds of work side by side' })).toBeInTheDocument();
+    expect(screen.getByRole('list', { name: 'Questions to try' }).querySelectorAll('button')).toHaveLength(4);
+    expect(screen.getByRole('heading', { name: 'How it works' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Send feedback' })).toHaveAttribute('href', expect.stringContaining('mailto:'));
     expect(fetcher).toHaveBeenCalledTimes(calls);
-    fireEvent.click(screen.getByRole('button', { name: 'Go deeper' }));
-    await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'What did Isaac learn in Taiwan?' })); });
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'How did Isaac help teachers in Taiwan?' })); });
     expect(screen.getByRole('region', { name: 'Project explorer' })).toBeInTheDocument();
     expect(screen.queryByRole('region', { name: 'Explore guide' })).not.toBeInTheDocument();
   });

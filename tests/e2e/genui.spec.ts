@@ -269,11 +269,11 @@ test('help opens inside the same pane, stays local, and reopens after Clear',asy
   const help=page.getByRole('region',{name:'Explore guide'});
   await expect(help).toBeVisible();
   expect(await help.evaluate(element=>Boolean(element.closest('.home-genui-stage')))).toBe(true);
-  await expect(help.getByRole('navigation',{name:'Ways to explore'})).toBeVisible();
-  await expect(help.getByRole('list',{name:'Questions to try'}).getByRole('button')).toHaveCount(3);
+  await expect(help.getByRole('heading',{name:'How it works'})).toBeVisible();
+  await expect(help.getByRole('list',{name:'Questions to try'}).getByRole('button')).toHaveCount(4);
   expect(posts).toBe(0);
   await help.getByText('About answers & privacy',{exact:true}).click();
-  await expect(help.getByText(/Answers use Isaac’s published portfolio material/)).toBeVisible();
+  await expect(help.getByText(/Submitted questions and current view settings/)).toBeVisible();
   await page.getByRole('button',{name:'Clear exploration'}).click();
   await expect(page.getByRole('button',{name:'Undo clear'})).toHaveCount(0);
   await page.getByRole('button',{name:'How to explore',exact:true}).click();

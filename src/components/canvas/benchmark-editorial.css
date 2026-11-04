@@ -13,7 +13,7 @@
 .home-genui .benchmark-editorial .canvas-benchmark-controls{display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-xs);margin:0 0 var(--space-l);}
 .home-genui .benchmark-editorial .canvas-benchmark-controls label{flex:0 1 auto;min-width:0;}
 .home-genui .benchmark-editorial .canvas-benchmark-controls label:has(select[aria-label="First government"]){margin-left:auto;}
-.home-genui .benchmark-editorial .canvas-benchmark-controls select{display:block;max-width:100%;min-height:44px;padding:var(--space-xs) var(--space-s);background:transparent;border:0;box-shadow:inset 0 0 0 1px var(--neutral-4);font-size:var(--size-xs);line-height:var(--line-xs);font-weight:var(--weight-medium);}
+.home-genui .benchmark-editorial .canvas-benchmark-controls select{display:block;max-width:100%;min-height:44px;padding:var(--space-xs) var(--space-s);background:transparent;border:0;box-shadow:inset 0 0 0 1px var(--neutral-4);font-size:var(--size-s);line-height:var(--line-s);font-weight:var(--weight-medium);}
 .home-genui .benchmark-editorial .canvas-return{flex-shrink:0;margin-left:auto;padding:var(--space-xs) 0;min-height:44px;}
 
 .home-genui .benchmark-editorial .canvas-bars{gap:0;box-shadow:inset 0 1px 0 var(--neutral-4);}
@@ -126,3 +126,10 @@
   .home-genui .benchmark-editorial .canvas-score-rank{grid-column:1;text-align:left;font-size:var(--size-xs);line-height:var(--line-xs);}
 }
 @media(prefers-reduced-motion:reduce){.home-genui .benchmark-editorial *{animation:none!important;transition:none!important;}}
+
+@container(max-width:360px){
+.home-genui .benchmark-editorial.has-selection .canvas-benchmark-controls{gap:var(--space-s);}
+.home-genui .benchmark-editorial.has-selection .canvas-benchmark-controls>label:first-child{flex:1 1 100%;}
+.home-genui .benchmark-editorial.has-selection .canvas-benchmark-controls>.canvas-return{margin-left:0;}
+.home-genui .benchmark-editorial .canvas-benchmark-controls>.canvas-add-comparison{max-width:none;}
+}

@@ -3,7 +3,7 @@ import { useId, useLayoutEffect, useRef, useState, type ReactNode, type RefObjec
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { suggestExperiencePrompts, type SuggestionContext } from '@/lib/experiencePrompts';
-import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
+import { MOTION_DURATION, MOTION_EASE_ENTER, MOTION_EASE_EXPLORE } from '@/lib/motion';
 
 function SuggestionPanel({children}:{children:ReactNode}) {
   const present=useIsPresent();const reduced=useReducedMotion();
@@ -16,9 +16,9 @@ function SuggestionPanel({children}:{children:ReactNode}) {
   },[present]);
   return <motion.div className="experience-autocomplete" aria-hidden={!present} {...(!present?{inert:''}:{})}
     initial={{opacity:0,height:0}} animate={{opacity:1,height:'auto'}} exit="closed"
-    // Finish the committed fold before results reveal below the composer, so
-    // the result heading never rides an independently shrinking suggestion list.
-    variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.instant:MOTION_DURATION.fast,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.instant}}})}}
+    // Transfer suggestion space directly into results on the same curve.
+    // Their combined height moves continuously instead of folding, then opening.
+    variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.exploreReveal:MOTION_DURATION.fast,ease:committed?MOTION_EASE_EXPLORE:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.instant}}})}}
     transition={{height:{duration:reduced?0:.4,ease:[.22,1,.36,1]},opacity:{duration:reduced ? 0 : present ? 0.26 : 0.16}}} onPointerDown={e=>e.preventDefault()}><div ref={content}>{children}</div></motion.div>;
 }
 type Props={context?:SuggestionContext;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
@@ -87,9 +87,9 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
         {items.map((item,index)=><li id={`${id}-${item.id}`} key={item.id} role="option" aria-selected={active===index} onClick={()=>select(item.text)}>
           <span>{item.text}</span><ArrowRight size={14} aria-hidden="true"/>
         </li>)}
-        {shortcuts.length>0&&<li role="group" className="home-autocomplete-shortcuts" aria-label="Other ways to explore">
+        {shortcuts.length>0&&<li role="presentation" className="home-autocomplete-shortcuts"><div role="group" aria-label="Other ways to explore">
           {shortcuts.map((item,index)=><div key={item.id} id={`${id}-${item.id}`} role="option" aria-selected={active===items.length+index} onClick={()=>select(item.text)}>{item.label}</div>)}
-        </li>}
+        </div></li>}
       </ul>
     </SuggestionPanel>}</AnimatePresence>
     <span className="sr-only" aria-live="polite" aria-atomic="true">{visible?`${options.length} suggestions available.`:''}</span>

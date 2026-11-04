@@ -72,6 +72,12 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onSelect, open, sear
     };
   }, [open]);
 
+  const resultCount = groups.reduce((total, group) => total + group.results.length, 0);
+  const announcement = !open || !hasQuery ? ''
+    : !searchReady ? 'Searching…'
+    : hasResults ? `${resultCount} ${resultCount === 1 ? 'result' : 'results'} available.`
+    : 'No matches. Try a project, topic, or location.';
+
   return (
     <MotionSurface
       role="region"
@@ -84,12 +90,11 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onSelect, open, sear
       animate={{ x: open ? 0 : "100%" }}
       transition={navigationMotion}
     >
+      <p className="sr-only" role="status" aria-atomic="true">{announcement}</p>
       <div className="pointer-events-none absolute inset-x-0 top-20 z-10 h-12 bg-[linear-gradient(to_bottom,hsl(var(--background))_0%,hsl(var(--background)/0.82)_34%,hsl(var(--background)/0)_100%)] md:top-20" />
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-10 pt-5 scrollbar-hide md:pb-12 md:pt-8">
         {!hasQuery ? <p className="site-search-hint">Search work, writing, and photographs.</p> : !searchReady ? (
-          <div className="grid min-h-[220px] place-items-center">
-            <p className="text-[28px] font-medium leading-none text-foreground/30 md:text-sm md:leading-normal">Searching</p>
-          </div>
+          <p className="site-search-state">Searching…</p>
         ) : (
           <div>
             {hasResults ? (
@@ -114,9 +119,7 @@ export const SearchPanel = ({ groups, hasQuery, hasResults, onSelect, open, sear
                 ) : null,
               )
             ) : (
-              <div className="grid min-h-[220px] place-items-center">
-                <p className="text-[28px] font-medium leading-none text-foreground/30 md:text-sm md:leading-normal">No matches</p>
-              </div>
+              <div className="site-search-state"><p>No matches</p><p>Try a project, topic, or location.</p></div>
             )}
           </div>
         )}

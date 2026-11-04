@@ -18,16 +18,20 @@ for (const theme of ['light', 'dark']) for (const width of [375, 749, 1440]) for
     await expect.poll(() => page.locator('.experience-autocomplete').evaluate(el => Math.abs(el.getBoundingClientRect().height - el.scrollHeight))).toBeLessThan(1);
     const top = (await input.boundingBox())!.y;
     const surfaceTop = (await page.locator('.home-window-surface').boundingBox())!.y;
+    const initialSurfaceHeight = (await page.locator('.home-window-surface').boundingBox())!.height;
+    const initialWidth = (await page.locator('.home-genui-window').boundingBox())!.width;
     await page.getByRole('option').filter({ hasText: 'Taiwan' }).first().click();
     // Sample the rendered geometry, rather than only checking the final preset.
     const opening = await page.evaluate(async () => {
-      const frames: { top: number; resultTop: number; opacity: number; overflow: boolean; surfaceTop: number }[] = [];
+      const frames: { top: number; resultTop: number; opacity: number; overflow: boolean; surfaceTop: number; surfaceHeight: number; width: number }[] = [];
       const start = performance.now();
       do {
         const reveal = document.querySelector<HTMLElement>('.home-genui-reveal')!;
         frames.push({ top: document.querySelector('#home-explore')!.getBoundingClientRect().top,
           resultTop: reveal.getBoundingClientRect().top, opacity: Number(getComputedStyle(reveal).opacity),
           surfaceTop: document.querySelector('.home-window-surface')!.getBoundingClientRect().top,
+          surfaceHeight: document.querySelector('.home-window-surface')!.getBoundingClientRect().height,
+          width: document.querySelector('.home-genui-window')!.getBoundingClientRect().width,
           overflow: document.documentElement.scrollWidth > innerWidth });
         await new Promise(requestAnimationFrame);
       } while (performance.now() - start < 950);
@@ -40,7 +44,20 @@ for (const theme of ['light', 'dark']) for (const width of [375, 749, 1440]) for
     }
     const visible = opening.filter(frame => frame.opacity > .5);
     expect(visible.length).toBeGreaterThan(0);
-    if (reducedMotion === 'no-preference') expect(Math.max(...visible.map(frame => frame.resultTop)) - Math.min(...visible.map(frame => frame.resultTop))).toBeLessThan(2);
+    if (reducedMotion === 'no-preference') {
+      const final = opening.at(-1)!;
+      // Opening transfers the existing suggestion space into results without
+      // a preliminary collapse or a width-first / height-second sequence.
+      expect(Math.min(...opening.map(frame => frame.surfaceHeight))).toBeGreaterThan(initialSurfaceHeight - 2);
+      if (final.width - initialWidth > 2 && final.surfaceHeight - initialSurfaceHeight > 2) {
+        const progress = opening.map(frame => Math.abs(
+          (frame.width - initialWidth) / (final.width - initialWidth) -
+          (frame.surfaceHeight - initialSurfaceHeight) / (final.surfaceHeight - initialSurfaceHeight)));
+        // CSS and Motion may start a paint apart under load; a staged reveal
+        // would produce a much larger gap throughout the first half.
+        expect(Math.max(...progress)).toBeLessThan(.2);
+      }
+    }
     await expect.poll(() => page.locator('.home-genui-reveal').evaluate(el => Math.abs(el.getBoundingClientRect().height - el.firstElementChild!.getBoundingClientRect().height))).toBeLessThan(2);
     const openWidth = (await page.locator('.home-genui-window').boundingBox())!.width;
     const openHeight = (await page.locator('.home-genui-reveal').boundingBox())!.height;
@@ -66,17 +83,22 @@ for (const theme of ['light', 'dark']) for (const width of [375, 749, 1440]) for
     });
     expect(closing.every(frame => frame.hidden)).toBe(true);
     if (reducedMotion === 'no-preference') {
-      const settling = closing.filter(frame => frame.phase === 'settling');
-      expect(settling.length).toBeGreaterThan(0);
-      // Once width is released, the surface is already the input's height and
-      // stays there. No extra vertical contraction, double shadow, or premature utility reveal.
-      expect(settling.every(frame => Math.abs(frame.surfaceHeight - frame.formHeight) < 1 && Math.abs(frame.surfaceTop - frame.formTop) < 1)).toBe(true);
-      expect(settling.every(frame => !frame.utilityPresent && frame.fullDepth < .01)).toBe(true);
+      const folding = closing.filter(frame => frame.phase === 'folding');
+      expect(folding.length).toBeGreaterThan(0);
+      expect(folding.every(frame => !frame.utilityPresent)).toBe(true);
+      const compactWidth = closing.at(-1)!.width;
+      if (openWidth - compactWidth > 2) {
+        // Width and height progress together, without a second width-only squeeze.
+        expect(folding.some(frame => frame.remaining > openHeight * .2 && frame.width < openWidth - 2)).toBe(true);
+        const progress = folding.filter(frame => frame.remaining > 2).map(frame => Math.abs(
+          (frame.width - compactWidth) / (openWidth - compactWidth) - frame.remaining / openHeight));
+        expect(Math.max(...progress)).toBeLessThan(.15);
+      }
+      expect(closing.filter(frame => frame.remaining < 1).every(frame => Math.abs(frame.width - compactWidth) < 2)).toBe(true);
     }
     expect(closing.at(-1)!.phase).toBe('idle');
     // The content must not disappear while most of its empty surface remains.
     expect(closing.filter(frame => frame.remaining > openHeight * .3).every(frame => frame.opacity > .1)).toBe(true);
-    expect(closing.filter(frame => frame.remaining > 1).every(frame => Math.abs(frame.width - openWidth) < 1)).toBe(true);
     await expect(page.locator('.home-genui-reveal')).toHaveCount(0);
     await expect(input).toBeFocused();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -84,20 +106,23 @@ for (const theme of ['light', 'dark']) for (const width of [375, 749, 1440]) for
     await page.getByRole('button', { name: 'How to explore', exact: true }).click();
     await expect(page.getByRole('region', { name: 'Explore guide' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'How to explore', exact: true })).toBeFocused();
-    await page.getByRole('button', { name: 'Go deeper', exact: true }).click();
-    await expect(page.getByRole('heading', { name: 'Follow the work in Taiwan' })).toBeVisible();
-    await page.getByRole('button', { name: 'Compare', exact: true }).click();
-    await expect(page.getByRole('heading', { name: 'Put two kinds of work side by side' })).toBeVisible();
+    const starters = page.getByRole('list', { name: 'Questions to try' });
+    await expect(starters.getByRole('button')).toHaveCount(4);
+    const boxes = await starters.getByRole('button').evaluateAll(buttons => buttons.map(button => { const r = button.getBoundingClientRect(); return { x: r.x, y: r.y }; }));
+    expect(Math.abs(boxes[0].y - boxes[1].y)).toBeLessThan(1);
+    expect(boxes[2].y).toBeGreaterThan(boxes[0].y);
+    expect(Math.abs(boxes[0].x - boxes[2].x)).toBeLessThan(1);
+    await expect(page.getByRole('heading', { name: 'How it works' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Send feedback' })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    await page.getByRole('button', { name: 'Go deeper', exact: true }).click();
-    await page.getByRole('button', { name: 'What did Isaac learn in Taiwan?', exact: true }).click();
+    await page.getByRole('button', { name: 'How did Isaac help teachers in Taiwan?', exact: true }).click();
     await expect(page.getByRole('region', { name: 'Project explorer' })).toBeVisible();
     await expect(page.getByRole('region', { name: 'Explore guide' })).toHaveCount(0);
   });
 }
 
-for (const phase of ['folding', 'settling']) {
-  test(`a new request reverses ${phase} without a stale idle handoff`, async ({ page }) => {
+for (const delay of [50, 350]) {
+  test(`a new request reverses retraction at ${delay}ms without a stale idle handoff`, async ({ page }) => {
     await page.setViewportSize({ width: 749, height: 900 });
     await page.route('**/api/compose', route => route.fulfill({ json: { configured: false } }));
     await page.route('**/api/intent', route => route.fulfill({ status: 503, json: {} }));
@@ -110,7 +135,8 @@ for (const phase of ['folding', 'settling']) {
     await expect(page.getByRole('button', { name: 'Evidence', exact: true })).toBeVisible();
     await expect.poll(() => page.locator('.home-genui-reveal').evaluate(el => Math.abs(el.getBoundingClientRect().height - el.firstElementChild!.getBoundingClientRect().height))).toBeLessThan(2);
     await page.getByRole('button', { name: 'Clear exploration', exact: true }).click();
-    await expect.poll(() => shell.getAttribute('data-motion'), { intervals: [10] }).toBe(phase);
+    await page.waitForTimeout(delay);
+    await expect(shell).toHaveAttribute('data-motion', 'folding');
     await input.fill('Compare California and Washington');
     await input.press('Escape');
     await input.press('Enter');

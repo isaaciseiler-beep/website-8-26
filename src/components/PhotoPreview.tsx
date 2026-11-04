@@ -33,15 +33,18 @@ function DecodedPhoto({ src, reduced }: { src: string; reduced: boolean }) {
     image.src = src;
     return () => { active = false; image.onload = null; image.onerror = null; };
   }, [src]);
-  return <div className="photo-preview-stage" aria-busy={!failed && displayed !== src}>
+  return <><div className="photo-preview-stage" aria-busy={!failed && displayed !== src}>
     <AnimatePresence initial={false}>
       {displayed && <motion.img key={displayed} src={displayed} alt="" data-motion-image="true"
         className="site-corner photo-preview-image" initial={{ opacity: reduced ? 1 : 0 }}
         animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         transition={{ duration: reduced ? 0 : MOTION_DURATION.fast, ease: EASE }} />}
     </AnimatePresence>
-    {failed && <p role="status" className="photo-preview-error">This photograph could not load. Try another photograph.</p>}
-  </div>;
+  </div>
+    <p role="status" aria-atomic="true" className={failed ? 'photo-preview-error' : displayed ? 'sr-only' : 'photo-preview-loading'}>
+      {failed ? 'This photograph could not load. Try another photograph.' : !displayed ? 'Loading photograph…' : ''}
+    </p>
+  </>;
 }
 
 const PhotoPreview = ({ images, currentIndex, onClose, onNavigate }: PhotoPreviewProps) => {

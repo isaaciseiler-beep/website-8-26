@@ -1,0 +1,189 @@
+{
+  "tool": "axe-core 4.14.0",
+  "viewport": {
+    "width": 320,
+    "height": 900
+  },
+  "tags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21aa",
+    "wcag22aa",
+    "best-practice"
+  ],
+  "scans": {
+    "before": {
+      "states": 28,
+      "statesWithoutReportedViolations": 0,
+      "reportedRules": {
+        "aria-valid-attr-value": 2,
+        "color-contrast": 28,
+        "region": 24,
+        "aria-allowed-role": 4
+      },
+      "incompleteRules": {
+        "color-contrast": 25,
+        "aria-valid-attr-value": 4,
+        "aria-prohibited-attr": 14,
+        "bypass": 2,
+        "aria-hidden-focus": 2
+      }
+    },
+    "after": {
+      "states": 28,
+      "statesWithoutReportedViolations": 26,
+      "reportedRules": {
+        "color-contrast": 2
+      },
+      "incompleteRules": {
+        "color-contrast": 25,
+        "aria-valid-attr-value": 4,
+        "bypass": 2,
+        "aria-hidden-focus": 2
+      }
+    }
+  },
+  "remainingReportedFindings": [
+    {
+      "theme": "light",
+      "state": "guide-privacy",
+      "rule": "color-contrast",
+      "targets": [
+        [
+          ".text-\\[15px\\]"
+        ]
+      ]
+    },
+    {
+      "theme": "light",
+      "state": "feedback",
+      "rule": "color-contrast",
+      "targets": [
+        [
+          ".text-\\[15px\\]"
+        ]
+      ]
+    }
+  ],
+  "renderedHeaderSamples": [
+    {
+      "state": "guide-privacy",
+      "bounds": {
+        "x": 24,
+        "y": 19.75,
+        "width": 17.21875,
+        "height": 16.5
+      },
+      "pixels": [
+        [
+          "245,245,245",
+          161
+        ],
+        [
+          "243,243,243",
+          18
+        ],
+        [
+          "71,71,71",
+          12
+        ],
+        [
+          "73,73,73",
+          11
+        ],
+        [
+          "130,130,130",
+          11
+        ],
+        [
+          "15,15,15",
+          11
+        ],
+        [
+          "10,10,10",
+          10
+        ],
+        [
+          "84,84,84",
+          9
+        ],
+        [
+          "244,244,244",
+          6
+        ],
+        [
+          "139,139,139",
+          2
+        ],
+        [
+          "234,234,234",
+          2
+        ],
+        [
+          "170,170,170",
+          2
+        ]
+      ]
+    },
+    {
+      "state": "feedback",
+      "bounds": {
+        "x": 24,
+        "y": 19.75,
+        "width": 17.21875,
+        "height": 16.5
+      },
+      "pixels": [
+        [
+          "245,245,245",
+          164
+        ],
+        [
+          "243,243,243",
+          18
+        ],
+        [
+          "71,71,71",
+          12
+        ],
+        [
+          "73,73,73",
+          11
+        ],
+        [
+          "130,130,130",
+          11
+        ],
+        [
+          "15,15,15",
+          11
+        ],
+        [
+          "10,10,10",
+          10
+        ],
+        [
+          "244,244,244",
+          6
+        ],
+        [
+          "113,113,113",
+          5
+        ],
+        [
+          "139,139,139",
+          2
+        ],
+        [
+          "234,234,234",
+          2
+        ],
+        [
+          "170,170,170",
+          2
+        ]
+      ]
+    }
+  ],
+  "limitations": "Automated visible-state scans and sampled screenshots are not a WCAG conformance assessment; see README.md."
+}
