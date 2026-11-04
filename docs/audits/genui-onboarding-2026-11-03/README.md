@@ -110,3 +110,16 @@ The visible 736px preview revealed a tight conference-photo crop that cut off th
 Stopping a first unknown request retained the draft but hid the guide. The quiet guide action is now available when there is no active view or request and suggestions are dismissed, including beside an unsubmitted or stopped draft. Escape closes local suggestion state even when no options match; it still bubbles normally when there was no visible list. It does not submit, erase text or move the field. Existing Undo retains priority.
 
 All 1,091 unit tests passed, including cancellation, late-response rejection and both matching/unmatched drafts. Nine focused browser cases passed across 320/1440px, with normal/reduced cancellation behavior, preserved draft text, fixed field position, and no added provider posts for the guide. Typecheck, lint and production build passed. See `draft-help.json`.
+
+
+## Owner-directed reading edges and role selector
+
+The owner’s November 3 screenshots identified a padded, floating “AI & communications” label, an operating-system select popup, and a clipped heavy focus outline. The narrow role selector now uses `PortfolioChoice`: a native disclosure button with a labelled group of choice buttons, expanding in normal flow with theme motion timing. Text starts at the same reading edge as the composer and answer; the chevron/check marks end at the opposite edge. There is no filled select surface or platform popup. Desktop role navigation also removes its inherited horizontal button padding.
+
+Arrow keys, Home/End, Enter, Tab and Escape work without replacing the draft or making provider requests. Escape and selection return focus to the trigger; leaving the control closes it. Closed choices are hidden from accessibility and keyboard navigation. Reduced motion removes the height/opacity animation. Keyboard focus is a visible inset underline rather than a clipped rounded outline.
+
+Validation: 26 canvas unit tests passed; typecheck and production build passed; lint had zero errors and the existing HomeExplore cleanup-ref warning. Eight browser cases passed at 390/736px in light/dark and normal/reduced motion, verifying shared reading edges and keyboard selection. The eight existing newcomer browser cases also passed. The first alignment attempt sampled separate elements while the shell was animating; a single-frame DOM comparison resolved that measurement race. The visible 736px IAB preview was refreshed and inspected. [Current screenshot](role-selector-alignment.png).
+
+## Fifth Claude review and guide copy
+
+A fifth actual Claude review used public deployed screenshots only, with portfolio generation intercepted. See [review and disposition](claude-5-public-visuals.md). Its guide instruction clarification was adopted; its header-overlap concern was disproved by full-viewport geometry. Fourteen existing guide/return/focus browser cases and 15 focused interface unit cases passed for that copy change.

@@ -1,0 +1,50 @@
+{
+  "cases": [
+    {
+      "width": 390,
+      "submit": {
+        "x": 306,
+        "y": 328.5,
+        "width": 44,
+        "height": 44
+      },
+      "search": {
+        "x": 331,
+        "y": 6,
+        "width": 44,
+        "height": 44
+      },
+      "logo": {
+        "x": 24,
+        "y": 6,
+        "width": 25.21875,
+        "height": 44
+      },
+      "overlapArea": 0,
+      "scrollY": 0
+    },
+    {
+      "width": 736,
+      "submit": {
+        "x": 636,
+        "y": 328.5,
+        "width": 44,
+        "height": 44
+      },
+      "search": {
+        "x": 677,
+        "y": 6,
+        "width": 44,
+        "height": 44
+      },
+      "logo": {
+        "x": 24,
+        "y": 6,
+        "width": 25.21875,
+        "height": 44
+      },
+      "overlapArea": 0,
+      "scrollY": 0
+    }
+  ]
+}

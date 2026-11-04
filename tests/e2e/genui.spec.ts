@@ -557,3 +557,40 @@ for(const width of [320,1440]){
     }finally{release();}
   });
 }
+
+for(const width of [390,736])for(const mode of ['light','dark'] as const)for(const reducedMotion of ['no-preference','reduce'] as const){
+  test(`${width} ${mode} ${reducedMotion}: role choices share the reading edges and work without a native popup`,async({page})=>{
+    await page.setViewportSize({width,height:900});
+    await page.emulateMedia({reducedMotion});
+    await page.addInitScript(mode=>localStorage.setItem('theme',mode),mode);
+    await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+    await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+    await page.goto('/');
+    const input=page.getByRole('textbox',{name:'Explore',exact:true});
+    await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+    const trigger=page.getByRole('button',{name:'Professional role',exact:true});
+    await expect(trigger).toHaveText('AI & communications');
+    await expect(trigger).toHaveAccessibleDescription('AI & communications');
+    await expect(trigger).toHaveAttribute('aria-expanded','false');
+    await expect.poll(async()=>Math.abs((await trigger.locator('span').boundingBox())!.x-(await input.boundingBox())!.x)).toBeLessThan(1);
+    const heading=page.locator('.portfolio-career-detail h3');
+    await expect.poll(()=>page.evaluate(()=>Math.abs(document.querySelector('.portfolio-career-detail h3')!.getBoundingClientRect().left-document.querySelector('.portfolio-choice-trigger')!.getBoundingClientRect().left))).toBeLessThan(1);
+    const right=await page.evaluate(()=>{
+      const icon=document.querySelector('.portfolio-choice-trigger svg')!.getBoundingClientRect();
+      const article=document.querySelector('.portfolio-career-detail')!.getBoundingClientRect();
+      return Math.abs(icon.right-article.right);
+    });expect(right).toBeLessThan(1);
+    await trigger.press('ArrowDown');
+    const choices=page.getByRole('group',{name:'Professional role',exact:true});
+    await expect(choices.getByRole('button',{name:'AI & communications',exact:true})).toBeFocused();
+    await page.keyboard.press('ArrowDown');
+    await expect(choices.getByRole('button',{name:'Teaching in Taiwan',exact:true})).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(heading).toHaveText('Fulbright Taiwan');
+    await expect(trigger).toHaveAccessibleDescription('Teaching in Taiwan');
+    await expect(trigger).toBeFocused();await expect(trigger).toHaveAttribute('aria-expanded','false');
+    await trigger.click();await expect(choices).toBeVisible();
+    await trigger.press('Escape');await expect(trigger).toHaveAttribute('aria-expanded','false');
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  });
+}

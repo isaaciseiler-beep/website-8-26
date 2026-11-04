@@ -17,7 +17,7 @@ export default function ExploreHelp({onSubmit}:{onSubmit:(question:string)=>void
       <h2>Start with a little curiosity.</h2>
       <p className="home-help-lead">Ask about Isaac’s work, or start here.</p>
       <div className="home-help-questions">{startingExperiencePrompts.map(item=><button key={item.id} type="button" onClick={()=>onSubmit(item.text)}>{item.text}<ArrowRight size={16} aria-hidden="true"/></button>)}</div>
-      <p>Ask a follow-up to go deeper, or use an answer’s controls to explore. Back retraces your steps; Clear starts fresh.</p>
+      <p>Press Enter or the <span aria-hidden="true">↑</span><span className="sr-only">Explore</span> button to ask. Use follow-ups and an answer’s controls to go deeper. Use <span aria-hidden="true">×</span><span className="sr-only">Clear</span> to start fresh. When available, Back returns to your previous exploration.</p>
     </motion.div>
     <motion.section {...reveal(1)} aria-labelledby="explore-how-it-works">
       <h3 id="explore-how-it-works">How it works</h3>
