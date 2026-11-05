@@ -65,6 +65,7 @@
 @keyframes home-submit-spin{to{transform:rotate(360deg);}}
 .home-genui-stage{width:100%;min-width:0;margin-top:var(--space-xs);overflow:visible;}
 .home-genui-tools{display:flex;align-items:center;justify-content:space-between;gap:var(--space-s);margin-top:var(--space-l);}
+.home-genui-footer,.home-clear-footer,.home-genui-tools>button{scroll-margin-top:88px;scroll-margin-bottom:96px;}
 .home-genui-tools button{display:flex;align-items:center;gap:var(--space-xs);padding:var(--space-xs) 0;}
 .home-genui-tools button:hover span,.home-genui-tools button:focus-visible span{text-decoration:underline;text-underline-offset:3px;}
 .home-genui-tools.is-empty{height:0;margin:0;}

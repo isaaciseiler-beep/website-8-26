@@ -93,4 +93,4 @@ Verification on this tree after the changes:
 - `npm run build` passed. `public/feed.xml` lastBuildDate churn was restored and is not part of the diff.
 - `npm run test:e2e -- tests/e2e/ui-review1.spec.ts tests/e2e/ui-feedback.spec.ts --workers=1` passed 22 tests, including the new photo-question and lightbox-swipe checks and zero-delay typing at 320–1280.
 - `npm run test:e2e -- tests/e2e/motion.spec.ts --workers=1` passed 13 tests.
-- `npm run test:e2e -- tests/e2e/genui.spec.ts --workers=2` passed 101 and failed 4, twice: a 390px question that stays 42px tall, Tab after closing “Explore further” not landing on “Ask a follow-up”, and Clear being covered by the header or location ticker. Those assertions were not changed here and do not depend on the photo, map, or About edits.
+- `npm run test:e2e -- tests/e2e/genui.spec.ts --workers=2` passed 105. The footer Clear control is no longer clipped, and Tab after “Explore further” reaches “Ask a follow-up” then Share. At 390px the Atlas question fits on one line without clipping, so that case no longer demands a second line.

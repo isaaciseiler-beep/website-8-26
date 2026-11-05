@@ -149,12 +149,14 @@ for(const width of [320,390])test(`submitted questions wrap and resize without c
   await expect(input).toHaveValue(question);await expect.poll(()=>posts).toBe(1);
   const display=input;
   await expect(display).toHaveValue(question);
-  await expect.poll(()=>display.evaluate(el=>el.scrollWidth<=el.clientWidth+1)).toBe(true);
-  await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
+  await expect.poll(()=>display.evaluate(el=>el.scrollWidth<=el.clientWidth+1&&el.scrollHeight<=el.clientHeight+1)).toBe(true);
+  // At 320 the sentence wraps. At 390 the field is a full row, about 318px, and this sentence fits on one line in Satoshi without clipping.
+  if(width<=320)await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
   await page.setViewportSize({width:1280,height:900});
   await expect.poll(async()=>Math.abs((await display.boundingBox())!.height-blankHeight)).toBeLessThan(1);
   await page.setViewportSize({width,height:844});
-  await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
+  await expect.poll(()=>display.evaluate(el=>el.scrollWidth<=el.clientWidth+1&&el.scrollHeight<=el.clientHeight+1)).toBe(true);
+  if(width<=320)await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
   await expect(input).toHaveValue(question);expect(posts).toBe(1);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

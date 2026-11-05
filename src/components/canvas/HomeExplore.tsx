@@ -424,15 +424,15 @@ export default function HomeExplore() {
             </>}
             <footer className="home-genui-footer">
             {view&&nextQuestions.length>0&&<details className="home-next-questions"><summary>Explore further</summary><div>{nextQuestions.map(item=><button key={item.id} type="button" onClick={()=>submit(item.text)}>{item.text}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div></details>}
-            <div className={`home-genui-tools${!view&&!history.length?' is-empty':''}`}>
+            <div className={`home-genui-tools${!view&&!history.length&&!(narrow&&guidance)?' is-empty':''}`}>
 
               {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={returnLabel(view.returnToExploration)} onClick={backToExploration}><ArrowLeft size={14} aria-hidden="true"/><span>{returnLabel(view.returnToExploration)}</span></button>}
               {(view||guidance)&&history.length>0&&!view?.returnToExploration&&<button aria-label="Previous exploration" title={`Back to ${titleFor(history[history.length-1])}`} onClick={()=>navigateHistory('back')}><ArrowLeft size={14} aria-hidden="true"/><span>Back</span></button>}
               {view&&future.length>0&&!view.returnToExploration&&<button aria-label="Next exploration" title={`Forward to ${titleFor(future[0])}`} onClick={()=>navigateHistory('forward')}><span>Forward</span><ArrowRight size={14} aria-hidden="true"/></button>}
               {view&&<ExplorationHistory items={history.map(item=>({title:titleFor(item),question:item.query}))} onSelect={selectHistory}/>}
-              {narrow&&(view||guidance)&&<button type="button" className="home-clear-footer" onClick={clear}>Clear exploration<X size={14} aria-hidden="true"/></button>}
               {view&&<button type="button" onClick={()=>{cancel();setQuery('');input.current?.focus({preventScroll:true});setAutocompleteOpen(true);}}>Ask a follow-up<ArrowUp size={14} aria-hidden="true"/></button>}
               {view&&<button className="home-share-view" aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
+              {narrow&&(view||guidance)&&<button type="button" className="home-clear-footer" onClick={clear}>Clear exploration<X size={14} aria-hidden="true"/></button>}
 
             </div>
             {view&&!busy&&<ExplorationFeedback key={view.query} title={titleFor(view)} question={view.query} url={feedbackUrl}/>}
