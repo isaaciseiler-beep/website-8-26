@@ -1,5 +1,4 @@
 import { useSidebarState } from "@/lib/siteChrome";
-import BackArrow from "@/components/BackArrow";
 import useProjectReturn from "@/hooks/useProjectReturn";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
@@ -444,7 +443,7 @@ const ResourceTooltip = ({ active, payload }: ResourceTooltipProps) => {
 const AIStateGovernmentIndexPage = () => {
   const reduced = useReducedMotion();
   const navigate = useNavigate();
-  const { back: backToWork, label: backLabel } = useProjectReturn();
+  const { back: backToWork } = useProjectReturn();
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
@@ -552,11 +551,9 @@ const AIStateGovernmentIndexPage = () => {
           <section className="relative bg-background">
             <div className="px-6 pt-28">
               <div className="content-measure">
-                <BackArrow onClick={backToWork} label={backLabel} />
-
-                <div className="article-meta mt-10">
+                <div className="article-meta site-meta">
+                  <button type="button" className="article-return" onClick={backToWork}>Work</button>
                   <span>2025</span>
-                  <span data-dot aria-hidden="true" />
                   <span>Research</span>
                 </div>
 

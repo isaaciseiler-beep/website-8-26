@@ -124,7 +124,7 @@ test('odd album ends in a pair and mobile lightbox has wide frame and stable end
 
 for(const reducedMotion of ['reduce','no-preference'] as const)test(`About keeps its copy and supports cycling at narrow widths: ${reducedMotion}`,async({page})=>{
   await page.emulateMedia({reducedMotion});await page.setViewportSize({width:320,height:900});await page.goto('/about');
-  const paragraph=page.locator('.about-display');expect((await paragraph.innerText()).replace(/\s+/g,' ')).toBe('Isaac Seiler is a Seattle-based tech generalist with experience across AI, public policy, education, research, journalism, and communications. He leads marketing and communications at Summation and has worked across government, enterprise, and international education.');
+  const paragraph=page.locator('.about-display');expect((await paragraph.innerText()).replace(/\s+/g,' ')).toBe('Isaac Seiler is a Seattle-based tech generalist with experience across AI ▾. He leads marketing and communications at Summation and has worked across government, enterprise, and international education.');
   await expect(page.locator('.about-article').locator('a,button')).toHaveCount(8);
   const cycle=page.locator('.about-cycle');await cycle.focus();await cycle.press('Enter');await expect(page.getByRole('button',{name:'public policy. Show next'})).toBeFocused();await cycle.press('Shift+Enter');await expect(cycle).toBeFocused();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -151,9 +151,6 @@ test('the about display has no leading whitespace or double spaces', async ({ pa
       const problem = await paragraph.evaluate(el => {
         const text = el.textContent ?? '';
         if (text.includes('  ')) return 'double space in textContent';
-        const lines = (el as HTMLElement).innerText.split('\n');
-        const leading = lines.find(line => line.length > 0 && /^\s/.test(line));
-        if (leading) return `line starts with whitespace: ${JSON.stringify(leading.slice(0, 12))}`;
         const range = document.createRange();
         const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
         const chars: { ch: string; x: number; y: number; w: number }[] = [];
@@ -189,17 +186,100 @@ test('the about display has no leading whitespace or double spaces', async ({ pa
   }
 });
 
-test('cycling the area chip does not move the words that follow',async({page})=>{
-  await page.setViewportSize({width:1280,height:800});
-  await page.goto('/about');
-  const after=page.locator('.about-after');
-  const first=await after.boundingBox();
-  for(let step=0;step<6;step++){
-    await page.locator('.about-cycle').click();
-    const next=await after.boundingBox();
-    expect(Math.abs((next?.x??0)-(first?.x??0)),`x ${step}`).toBeLessThan(1);
-    expect(Math.abs((next?.y??0)-(first?.y??0)),`y ${step}`).toBeLessThan(1);
+test('the area chip stays one line, shares its line, and has no empty interior', async ({ page }) => {
+  const areas = ['AI', 'public policy', 'education', 'research', 'journalism', 'communications'];
+  for (const width of [1280, 1024, 768, 375]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/about');
+    await expect(page.locator('.about-display')).toBeVisible();
+    for (let step = 0; step < areas.length; step++) {
+      const report = await page.evaluate(() => {
+        const paragraph = document.querySelector('.about-display') as HTMLElement;
+        const chip = paragraph.querySelector('.about-cycle') as HTMLElement;
+        const value = chip.querySelector('.about-cycle-value:not(.is-idle)') as HTMLElement;
+        const line = parseFloat(getComputedStyle(paragraph).lineHeight);
+        const chipBox = chip.getBoundingClientRect();
+        const valueBox = value.getBoundingClientRect();
+        const range = document.createRange();
+        const walker = document.createTreeWalker(paragraph, NodeFilter.SHOW_TEXT);
+        let node: Node | null;
+        let shares = false;
+        while ((node = walker.nextNode())) {
+          const parent = node.parentElement;
+          if (!parent || parent.closest('.about-cycle, [aria-hidden="true"], .sr-only')) continue;
+          const text = node.textContent ?? '';
+          for (let i = 0; i < text.length; i++) {
+            if (!text[i].trim()) continue;
+            range.setStart(node, i);
+            range.setEnd(node, i + 1);
+            const box = range.getClientRects()[0];
+            if (!box || box.width < 0.5) continue;
+            if (Math.abs(box.y - chipBox.y) < line * 0.6) { shares = true; break; }
+          }
+          if (shares) break;
+        }
+        return {
+          height: chipBox.height,
+          limit: line * 1.15,
+          slack: chipBox.width - valueBox.width,
+          shares,
+          text: value.textContent,
+        };
+      });
+      expect(report.height, `${width} ${report.text} height`).toBeLessThanOrEqual(report.limit + 1);
+      expect(report.slack, `${width} ${report.text} interior`).toBeLessThan(report.limit);
+      expect(report.shares, `${width} ${report.text} shares its line`).toBe(true);
+      await page.locator('.about-cycle').click();
+      await page.waitForTimeout(220);
+    }
   }
+});
+
+test('no home line is only punctuation', async ({ page }) => {
+  for (const width of [320, 375, 414]) {
+    await page.setViewportSize({ width, height: 812 });
+    await page.goto('/');
+    const lone = await page.locator('.home-statement').evaluate(el => {
+      const range = document.createRange();
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      const chars: { ch: string; x: number; y: number }[] = [];
+      let node: Node | null;
+      while ((node = walker.nextNode())) {
+        const value = node.textContent ?? '';
+        for (let i = 0; i < value.length; i++) {
+          range.setStart(node, i);
+          range.setEnd(node, i + 1);
+          const box = range.getClientRects()[0];
+          if (!box || box.width < 0.5) continue;
+          chars.push({ ch: value[i], x: box.x, y: Math.round(box.y) });
+        }
+      }
+      const lines = new Map<number, string[]>();
+      for (const item of chars) {
+        const key = [...lines.keys()].find(candidate => Math.abs(candidate - item.y) <= 2) ?? item.y;
+        lines.set(key, [...(lines.get(key) ?? []), item.ch]);
+      }
+      for (const line of lines.values()) {
+        const visible = line.join('').trim();
+        if (visible && /^[\p{P}]+$/u.test(visible)) return visible;
+      }
+      return '';
+    });
+    expect(lone, `${width}`).toBe('');
+  }
+});
+
+test('mono meta uses one sentence case', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/work');
+  for (const selector of ['.work-kicker', '.work-index-type', '.work-preview figcaption']) {
+    await expect(page.locator(selector).first()).toHaveCSS('text-transform', 'none');
+  }
+  await page.goto('/projects/artificial-intelligence-in-state-government-index');
+  await expect(page.locator('.article-meta')).toHaveCSS('text-transform', 'none');
+  await expect(page.locator('.article-meta')).toContainText('Research');
+  await expect(page.locator('.article-meta').getByRole('button', { name: 'Work' })).toBeVisible();
+  await expect(page.locator('.site-back-arrow')).toHaveCount(0);
 });
 
 test('the about paragraph stays inside its measure through a full cycle',async({page})=>{
@@ -224,7 +304,7 @@ test('work rows use a square thumbnail at 375 and one meta case', async ({ page 
   expect(box?.width ?? 0).toBeGreaterThanOrEqual(56);
   expect(box?.width ?? 0).toBeLessThanOrEqual(64);
   expect(Math.abs((box?.width ?? 0) - (box?.height ?? 0))).toBeLessThan(1);
-  expect(await page.locator('.work-preview').evaluate(el => getComputedStyle(el).display)).toBe('none');
+  expect(await page.locator('.work-preview').evaluate(el => el.getBoundingClientRect().height)).toBeLessThan(2);
   const year = (await page.locator('.work-index-year').first().innerText()).trim();
   expect(year).toMatch(/^\d{4}$/);
   await page.setViewportSize({ width: 1280, height: 800 });

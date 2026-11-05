@@ -41,7 +41,12 @@
 html:not(.skull) .home-statement .home-hero-chip { display: inline-block; padding: 0.02em 0.28em; border: 1px solid hsl(var(--foreground) / .18); border-color: hsl(var(--foreground) / .18) !important; border-radius: 999px; background: transparent; box-shadow: none; color: inherit; font: inherit; font-weight: inherit; letter-spacing: inherit; line-height: inherit; white-space: nowrap; vertical-align: baseline; cursor: pointer; min-height: 0; min-width: 0; }
 html:not(.skull) .home-statement .home-hero-chip svg { display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.1em; vertical-align: -0.08em; }
 html:not(.skull) .home-statement .home-hero-chip:hover, html:not(.skull) .home-statement .home-hero-chip:focus-visible { background: hsl(var(--foreground) / .06); opacity: 1; }
+.home-hero-glue { white-space: nowrap; }
 .home-hero-chip:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+@media (max-width: 720px) {
+  html:not(.skull) .home-statement .home-hero-chip { display: inline; padding: 0; border: 0 !important; border-radius: 0; background: transparent; white-space: normal; text-decoration: underline dotted; text-underline-offset: 0.16em; text-decoration-thickness: 1px; }
+  html:not(.skull) .home-statement .home-hero-chip:hover, html:not(.skull) .home-statement .home-hero-chip:focus-visible { background: transparent; }
+}
 .photo-home-exploration .home-genui { padding-top: 8px; padding-bottom: 16px; min-height: 0; }
 .photo-tile { background: hsl(var(--foreground) / .08); }
 

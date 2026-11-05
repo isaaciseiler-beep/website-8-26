@@ -18,7 +18,7 @@
 @media(max-width:900px){
   .work-page{padding-top:104px;}
   .work-layout{grid-template-columns:1fr;gap:0;}
-  .work-preview{display:none;}
+  .work-preview{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;}
   .work-index a{grid-template-columns:64px minmax(0,1fr);align-items:center;gap:12px;opacity:1;}
   .work-index a:hover,.work-index a:focus-visible{opacity:1;}
   .work-index a:hover .work-index-title,.work-index a:focus-visible .work-index-title{opacity:.72;}

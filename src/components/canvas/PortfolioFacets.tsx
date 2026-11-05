@@ -21,8 +21,7 @@ export function PortfolioFacets<T extends string>({ label, choices, value, onCha
       if (!root || !selected || !mark) return;
       mark.style.width = `${selected.offsetWidth}px`;
       mark.style.height = `${selected.offsetHeight}px`;
-      mark.style.left = `${selected.offsetLeft}px`;
-      mark.style.top = `${selected.offsetTop}px`;
+      mark.style.transform = `translate(${selected.offsetLeft}px, ${selected.offsetTop}px)`;
     };
     place();
     if (!root || typeof ResizeObserver === 'undefined') return;

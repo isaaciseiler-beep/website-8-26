@@ -1,5 +1,6 @@
 import { useSidebarState } from "@/lib/siteChrome";
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { motionReduced } from '@/hooks/useMotionPreference';
 import { Link } from 'react-router-dom';
 import './about-page.css';
 import { MapPin } from 'lucide-react';
@@ -60,6 +61,7 @@ function WorkAreas() {
   const [announcement, setAnnouncement] = useState('');
   const buttonRef = useRef<HTMLButtonElement>(null);
   const restoreFocus = useRef(false);
+  const widthRef = useRef<number | null>(null);
   const move = (direction: number) => {
     restoreFocus.current = document.activeElement === buttonRef.current;
     const next = (index + AREAS.length + direction) % AREAS.length;
@@ -67,17 +69,30 @@ function WorkAreas() {
     setIndex(next);
   };
   useLayoutEffect(() => {
-    if (!restoreFocus.current) return;
-    restoreFocus.current = false;
-    buttonRef.current?.focus();
+    const button = buttonRef.current;
+    if (restoreFocus.current) {
+      restoreFocus.current = false;
+      button?.focus();
+    }
+    if (!button) return;
+    const next = button.getBoundingClientRect().width;
+    const previous = widthRef.current;
+    widthRef.current = next;
+    if (previous == null || Math.abs(previous - next) < 0.5 || motionReduced()) return;
+    button.animate([{ width: `${previous}px` }, { width: `${next}px` }], {
+      duration: 180,
+      easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+    });
   }, [index]);
   const label = AREAS[index];
   return <>
     <span className="sr-only" aria-live="polite">{announcement}</span>
-    <button ref={buttonRef} type="button" className="about-pill about-cycle about-cycle-stack" aria-label={`${label}. Show next`} onClick={event => { if (!event.shiftKey) move(1); }} onKeyDown={event => { if (event.shiftKey && event.key === 'Enter') { event.preventDefault(); move(-1); } }}>
-      {AREAS.map(area => <span key={area} className="about-cycle-measure" aria-hidden="true">{area}</span>)}
-      {label}
-    </button>{', public policy, education, research, journalism, and communications'}
+    <button ref={buttonRef} type="button" className="about-pill about-cycle" aria-label={`${label}. Show next`} onClick={event => { if (!event.shiftKey) move(1); }} onKeyDown={event => { if (event.shiftKey && event.key === 'Enter') { event.preventDefault(); move(-1); } }}>
+      <span className="about-cycle-stack">
+        {AREAS.map((area, areaIndex) => <span key={area} className={areaIndex === index ? 'about-cycle-value' : 'about-cycle-value is-idle'} aria-hidden={areaIndex === index ? undefined : true}>{area}</span>)}
+      </span>
+      <span className="about-cycle-caret" aria-hidden="true">▾.</span>
+    </button>
   </>;
 }
 
@@ -89,8 +104,11 @@ function DisplayParagraph() {
         if (part === 'Seattle-based') {
           return <PreviewChip key={index} to="/?album=washington-state" image={seattleCover} detail="Washington"><MapPin className="about-pill-mark" size={14} strokeWidth={1.75} aria-hidden="true" />{part}</PreviewChip>;
         }
-        if (part === AREA_PHRASE) return <WorkAreas key={index} />;
-        if (part.startsWith('. ')) return <span className="about-after" key={index}>{part}</span>;
+        if (part.endsWith('across ') && parts[index + 1] === AREA_PHRASE) {
+          return <span key={index}>{part.slice(0, -'across '.length)}<span className="about-cycle-keep">across <WorkAreas /> </span></span>;
+        }
+        if (part === AREA_PHRASE) return null;
+        if (part.startsWith('. ')) return <span className="about-after" key={index}>{part.slice(2)}</span>;
         if (part === 'Summation') return <PreviewChip key={index} to="/work" detail={`${roleFor('summation-ai')?.role ?? 'Marketing and communications'} · ${roleFor('summation-ai')?.period ?? ''} · ${publishedCount} projects`}>{part}</PreviewChip>;
         if (part === 'enterprise,') {
           const role = roleFor('boehringer-cares-foundation-rebrand-strategy-shift');

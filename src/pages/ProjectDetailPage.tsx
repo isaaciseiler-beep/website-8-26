@@ -323,13 +323,11 @@ const ProjectDetailPage = () => {
           className="pt-28 pb-24 px-6 content-measure"
           initial={false}
         >
-          <BackArrow onClick={backToWork} label={backLabel} className="mb-10" />
-
           <div className="article-shell">
             <div>
               <div className="article-meta site-meta">
+                <button type="button" className="article-return" onClick={backToWork}>Work</button>
                 <span>{project.year}</span>
-                <span data-dot aria-hidden="true" />
                 <span>{sourceLabel[project.source] ?? project.source}</span>
               </div>
 
