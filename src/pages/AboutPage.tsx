@@ -2,6 +2,7 @@ import { useSidebarState } from "@/lib/siteChrome";
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import './about-page.css';
+import { MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Sidebar from '@/components/Sidebar';
 import SiteHeader from '@/components/SiteHeader';
@@ -19,14 +20,31 @@ const publishedCount = projectItems.filter(project => !hiddenProjectIds.has(proj
 const roleFor = (id: string) => experienceEntries.find(entry => entry.id === id || entry.projectIds.includes(id));
 const projectImage = (id: string) => projectItems.find(project => project.id === id)?.image ?? '';
 
+function placePreview(chip: HTMLElement) {
+  const anchor = chip.querySelector('a');
+  const preview = chip.querySelector<HTMLElement>('.about-preview');
+  if (!anchor || !preview) return;
+  const rect = anchor.getBoundingClientRect();
+  const width = Math.min(220, window.innerWidth - 24);
+  const height = preview.offsetHeight || 140;
+  let left = rect.left;
+  if (left + width > window.innerWidth - 12) left = Math.max(12, window.innerWidth - 12 - width);
+  const below = rect.bottom + 8;
+  const flip = below + height > window.innerHeight - 12;
+  preview.style.left = `${left}px`;
+  preview.style.top = `${flip ? Math.max(12, rect.top - height - 8) : below}px`;
+}
+
 function PreviewChip({ to, children, detail, image }: { to: string; children: ReactNode; detail: string; image?: string }) {
   const chip = useRef<HTMLSpanElement>(null);
+  const show = () => { if (chip.current) placePreview(chip.current); };
   return (
-    <span ref={chip} className="about-chip" onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.classList.remove('is-open'); }}>
+    <span ref={chip} className="about-chip" onMouseEnter={show} onFocus={show} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.classList.remove('is-open'); }}>
       <Link className="about-pill" to={to} onPointerDown={event => {
         if (event.pointerType !== 'touch' || chip.current?.classList.contains('is-open')) return;
         chip.current?.classList.add('is-open');
         chip.current?.setAttribute('data-hold', 'true');
+        if (chip.current) placePreview(chip.current);
       }} onClick={event => {
         if (chip.current?.getAttribute('data-hold') !== 'true') return;
         chip.current.removeAttribute('data-hold');
@@ -55,11 +73,9 @@ function WorkAreas() {
   }, [index]);
   const words = AREAS.map((label, areaIndex) => {
     const lead = areaIndex === 0 ? '' : areaIndex === AREAS.length - 1 ? ' and ' : ' ';
-    const trail = areaIndex === AREAS.length - 1 ? '' : ',';
-    const word = areaIndex === index
-      ? <button ref={buttonRef} type="button" className="about-pill about-cycle" aria-label={`${label}. Show next`} onClick={event => { if (!event.shiftKey) move(1); }} onKeyDown={event => { if (event.shiftKey && event.key === 'Enter') { event.preventDefault(); move(-1); } }}>{label}{trail}</button>
-      : <>{label}{trail}</>;
-    return <span className="about-phrase" key={label}>{lead}{word}</span>;
+    const text = `${label}${areaIndex === AREAS.length - 1 ? '' : ','}`;
+    if (areaIndex !== index) return <span key={label}>{lead}{text}</span>;
+    return <span key={label}>{lead}<button ref={buttonRef} type="button" className="about-pill about-cycle" aria-label={`${label}. Show next`} onClick={event => { if (!event.shiftKey) move(1); }} onKeyDown={event => { if (event.shiftKey && event.key === 'Enter') { event.preventDefault(); move(-1); } }}>{text}</button></span>;
   });
   return <><span className="sr-only" aria-live="polite">{announcement}</span>{words}</>;
 }
@@ -70,7 +86,7 @@ function DisplayParagraph() {
     <p className="about-display">
       {parts.map((part, index) => {
         if (part === 'Seattle-based') {
-          return <PreviewChip key={index} to="/?album=washington-state" image={seattleCover} detail="Washington"><img className="about-pill-thumb" src={seattleCover} alt="" />{part}</PreviewChip>;
+          return <PreviewChip key={index} to="/?album=washington-state" image={seattleCover} detail="Washington"><MapPin className="about-pill-mark" size={14} strokeWidth={1.75} aria-hidden="true" />{part}</PreviewChip>;
         }
         if (part === AREA_PHRASE) return <WorkAreas key={index} />;
         if (part === 'Summation') return <PreviewChip key={index} to="/work" detail={`${roleFor('summation-ai')?.role ?? 'Marketing and communications'} · ${roleFor('summation-ai')?.period ?? ''} · ${publishedCount} projects`}>{part}</PreviewChip>;

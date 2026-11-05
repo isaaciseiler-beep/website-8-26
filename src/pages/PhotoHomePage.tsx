@@ -236,7 +236,7 @@ const PhotoHomePage = () => {
           className={home && !openAlbum ? "pb-0" : "pt-28 pb-0"}
           initial={false}
         >
-          {home && !openAlbum && <><h1 className="sr-only">Isaac Seiler</h1><HomeExplore /></>}
+          {home && !openAlbum && <><h1 className="sr-only">Isaac Seiler</h1><p className="home-statement">Isaac Seiler is a Seattle-based tech generalist.</p><HomeExplore /></>}
 
 
           <div className="photo-route-content">

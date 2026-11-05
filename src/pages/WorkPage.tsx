@@ -45,12 +45,14 @@ export default function WorkPage() {
         transition={navigationMotion}
       >
         <main className="work-page photos-shell" aria-label="Work">
+          <div className="work-frame">
           <h1 className="sr-only">Work</h1>
           <p className="work-kicker site-meta"><span>Index</span><span>{projects.length}</span></p>
           <div className="work-layout">
             <ol className="work-index">
               {projects.map(project => {
                 const meta = metaFor(project.id);
+                const who = [meta?.role, meta?.organization].filter(Boolean).join(' · ');
                 return (
                   <li key={project.id}>
                     <Link
@@ -61,9 +63,8 @@ export default function WorkPage() {
                       onFocus={() => setActiveId(project.id)}
                     >
                       <span className="work-index-title">{project.title}</span>
-                      <span className="work-index-year">{project.year}</span>
-                      <span className="work-index-role">{meta?.role ?? ''}</span>
-                      <span className="work-index-org">{meta?.organization ?? ''}</span>
+                      <span className="work-index-year">{project.year || '—'}</span>
+                      <span className="work-index-who" title={who || undefined}>{who || '—'}</span>
                       <span className="work-index-type">{typeLabel[project.source]}</span>
                     </Link>
                   </li>
@@ -73,9 +74,10 @@ export default function WorkPage() {
             {visual && active && (
               <figure className="work-preview work-story-image site-media" aria-hidden="true">
                 <img src={visual.src} {...responsiveProjectImageProps(visual.src, '(max-width: 767px) calc(100vw - 48px), 60vw')} alt="" />
-                <figcaption className="site-meta"><span>{active.year}</span><span>{typeLabel[active.source]}</span></figcaption>
+                <figcaption>{active.year} · {typeLabel[active.source]}</figcaption>
               </figure>
             )}
+          </div>
           </div>
         </main>
       </motion.div>

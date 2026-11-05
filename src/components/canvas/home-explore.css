@@ -73,8 +73,9 @@
    open width, so the card's height target is the final one. It fades in after. */
 .home-genui-reveal-content{display:flow-root;width:calc(min(608px,100cqw) - 2 * var(--window-padding));}
 .has-results .home-genui-reveal-content{width:calc(min(var(--explore-open-width),100cqw) - 2 * var(--window-padding));}
-.home-genui-window.is-widening .home-genui-reveal{opacity:0!important;visibility:hidden;}
-.home-genui-window.is-widening .portfolio-tab-indicator,
+.home-genui-window.is-widening .home-genui-reveal{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0!important;visibility:hidden;pointer-events:none;}
+.home-widen-skeleton{margin-top:var(--space-m);}
+.home-widen-skeleton .home-skeleton>span{background:hsl(var(--foreground) / .1);}
 .home-genui-window.is-widening .portfolio-workbench-visual a{transform:none!important;}
 .home-request-reveal{overflow:hidden;display:flow-root;}
 .home-entry p{margin:0;color:var(--neutral-8);}
@@ -312,7 +313,9 @@
 .home-genui .portfolio-tab-measure{visibility:hidden;font-weight:var(--weight-heavy);}
 .home-genui .portfolio-tabs button[aria-pressed=true]{font-weight:var(--weight-heavy);color:var(--neutral-1);}
 .home-genui .portfolio-tabs button[aria-pressed=true]:hover{background:transparent;}
-.home-genui .portfolio-tab-indicator{position:absolute;inset:0;border-radius:inherit;background:var(--neutral-10);pointer-events:none;}
+.home-genui .portfolio-tab-indicator{position:absolute;left:0;top:0;z-index:0;border-radius:var(--radius-inset);background:var(--neutral-10);pointer-events:none;transition:left var(--explore-open) var(--explore-ease),top var(--explore-open) var(--explore-ease),width var(--explore-open) var(--explore-ease),height var(--explore-open) var(--explore-ease);}
+.home-genui .portfolio-tabs button{z-index:1;}
+@media(prefers-reduced-motion:reduce){.home-genui .portfolio-tab-indicator{transition:none;}}
 .portfolio-role-summary{max-width:68ch;padding-block:var(--space-s);}
 .portfolio-label{font-size:var(--size-xs);line-height:var(--line-s);}
 .home-genui .portfolio-inline-action{display:inline-flex;align-items:center;gap:var(--space-xs);justify-self:start;min-height:40px;padding:var(--space-xs) 0;background:transparent;border-radius:var(--radius-zero);font-size:var(--size-s);line-height:var(--line-s);font-weight:var(--weight-medium);}

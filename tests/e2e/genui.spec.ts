@@ -126,9 +126,11 @@ for (const reducedMotion of ['no-preference','reduce'] as const) test(`ranking r
   await facets.getByRole('button',{name:'Distribution',exact:true}).click();
   await expect(facets.getByRole('button',{name:'Distribution',exact:true})).toHaveAttribute('aria-pressed','true');
   await expect.poll(()=>facets.locator('.portfolio-tab-indicator').evaluate(el=>{
-    const marker=el.getBoundingClientRect(),button=el.parentElement!.getBoundingClientRect();
-    return Math.abs(marker.left-button.left)+Math.abs(marker.width-button.width);
-  })).toBeLessThan(1);
+    const marker=el.getBoundingClientRect();
+    const button=el.parentElement?.querySelector('[aria-pressed="true"]')?.getBoundingClientRect();
+    if(!button)return 99;
+    return Math.abs(marker.left-button.left)+Math.abs(marker.top-button.top)+Math.abs(marker.width-button.width);
+  })).toBeLessThan(2);
   await page.emulateMedia({reducedMotion:reducedMotion==='reduce'?'no-preference':'reduce'});
   await facets.getByRole('button',{name:'Rankings',exact:true}).click();
   await expect(scores).toBeVisible();
@@ -1052,7 +1054,7 @@ test(`the widen stays presentable at ${width} ${theme}`,async({page})=>{
         }
       }
       const tab=document.querySelector('.portfolio-tabs button[aria-pressed="true"]');
-      const pill=tab?.querySelector('.portfolio-tab-indicator')??null;
+      const pill=document.querySelector('.home-genui .portfolio-tab-indicator');
       const tabBox=tab&&!hidden(tab)?tab.getBoundingClientRect():null;
       const pillBox=pill&&!hidden(pill)?pill.getBoundingClientRect():null;
       const open=document.querySelector('a[aria-label^="Open image:"]');
@@ -1098,7 +1100,7 @@ test(`the widen stays presentable at ${width} ${theme}`,async({page})=>{
       }
     }
     const tab=document.querySelector('.portfolio-tabs button[aria-pressed="true"]');
-    const pill=tab?.querySelector('.portfolio-tab-indicator')??null;
+    const pill=document.querySelector('.home-genui .portfolio-tab-indicator');
     const open=document.querySelector('a[aria-label^="Open image:"]');
     const image=open?.querySelector('img');
     const background=open?getComputedStyle(open).backgroundColor:'';

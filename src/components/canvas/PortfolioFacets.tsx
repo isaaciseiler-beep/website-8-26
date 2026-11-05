@@ -11,7 +11,25 @@ export function PortfolioFacets<T extends string>({ label, choices, value, onCha
 }) {
   const id = useId();
   const scroller = useRef<HTMLDivElement>(null);
+  const indicator = useRef<HTMLSpanElement>(null);
   const choiceKey = choices.map(choice => choice.value).join('|');
+  useLayoutEffect(() => {
+    const root = scroller.current;
+    const place = () => {
+      const selected = root?.querySelector<HTMLElement>('[aria-pressed="true"]');
+      const mark = indicator.current;
+      if (!root || !selected || !mark) return;
+      mark.style.width = `${selected.offsetWidth}px`;
+      mark.style.height = `${selected.offsetHeight}px`;
+      mark.style.left = `${selected.offsetLeft}px`;
+      mark.style.top = `${selected.offsetTop}px`;
+    };
+    place();
+    if (!root || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(place);
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, [value, choiceKey]);
   useLayoutEffect(() => {
     const root = scroller.current;
     if (!root) return;
@@ -47,10 +65,10 @@ export function PortfolioFacets<T extends string>({ label, choices, value, onCha
       onChange(choices[next].value);
       buttons[next]?.focus();
     }}>
+      <span ref={indicator} id={`${id}-mark`} className="portfolio-tab-indicator" aria-hidden="true" />
       {choices.map(choice => <button type="button" key={choice.value} aria-pressed={value === choice.value} onClick={() => onChange(choice.value)}>
         <span className="portfolio-tab-label">{choice.label}</span>
         <span className="portfolio-tab-measure" aria-hidden="true">{choice.label}</span>
-        {value === choice.value && <span id={`${id}-mark`} className="portfolio-tab-indicator" aria-hidden="true" />}
       </button>)}
     </div>;
 }

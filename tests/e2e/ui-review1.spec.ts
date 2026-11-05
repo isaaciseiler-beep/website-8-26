@@ -142,6 +142,19 @@ for(const reducedMotion of ['reduce','no-preference'] as const)test(`About keeps
   await expect(chip).toHaveClass(/is-open/);
 });
 
+test('the about paragraph stays inside its measure through a full cycle',async({page})=>{
+  await page.goto('/about');
+  const paragraph=page.locator('.about-display');
+  for(const width of [320,375,768,1280,1920]){
+    await page.setViewportSize({width,height:900});
+    for(let step=0;step<6;step++){
+      const fit=await paragraph.evaluate(el=>el.scrollWidth<=el.clientWidth+1);
+      expect(fit,`${width} after ${step}`).toBe(true);
+      await page.locator('.about-cycle').click();
+    }
+  }
+});
+
 test('a work row swaps the anchored preview without moving the index',async({page})=>{
   await page.setViewportSize({width:1280,height:800});
   await page.goto('/work');

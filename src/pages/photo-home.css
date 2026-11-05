@@ -22,7 +22,9 @@
 }
 .photo-tile { position: relative; overflow: hidden; isolation: isolate; background:hsl(var(--muted)); }
 .album-photo-tile img { width: 100%; height: 100%; object-fit: cover; }
-.photo-hover-label { position: absolute; inset: auto 0 0; padding: 16px; text-align: left; color: white; font-size: 12px; font-weight: 400; line-height: 1.4; pointer-events: none; opacity: 0; transition: opacity var(--motion-fast) var(--motion-ease); z-index: 1; }
+.photo-album-gallery .photo-tile img { transition: transform var(--motion-reveal) var(--motion-ease), opacity var(--motion-base) var(--motion-ease); }
+@media (hover: hover) { .photo-album-gallery .photo-tile:hover img { transform: scale(1.03); } }
+.photo-hover-label { position: absolute; inset: auto 0 0; padding: 16px; text-align: left; color: white; font-size: 13px; font-weight: 400; line-height: 1.4; letter-spacing: .02em; pointer-events: none; opacity: 0; transition: opacity var(--explore-suggestion) var(--explore-ease); z-index: 1; }
 .photo-hover-label::before { content: ''; position: absolute; inset: -32px 0 0; z-index: -1; background: linear-gradient(transparent, rgb(0 0 0 / .55)); }
 .photo-tile:focus-visible .photo-hover-label { opacity: 1; transform: translateY(0); }
 .album-photo-tile:focus-visible { outline: 2px solid white; outline-offset: -4px; }
@@ -33,8 +35,10 @@
   .photo-hover-label { padding: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .photo-hover-label, .album-photo-tile img { transition: none; transform: none; }
+  .photo-hover-label, .album-photo-tile img, .photo-album-gallery .photo-tile img { transition: none; transform: none; }
 }
+.home-statement { width: min(100%, 16em); margin: 108px auto 0; padding-inline: 24px; text-align: center; font-size: clamp(32px, 4vw, 56px); font-weight: 500; line-height: 1.08; letter-spacing: -.03em; text-wrap: balance; }
+.photo-home-exploration .home-genui { padding-top: 20px; min-height: 0; }
 
 /* Quiet album navigation shares the header icons' outline weight. */
 .album-photo-header { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(20px, 3vw, 30px); }
