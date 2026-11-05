@@ -1,17 +1,14 @@
 .about-article{max-width:960px;}
 .about-display{font-size:clamp(26px,calc(2.2vw + 18px),44px);font-weight:500;line-height:1.4;letter-spacing:-.01em;}
 .about-body{max-width:576px;margin-top:48px;}
-.about-display .about-pill{display:inline-flex;position:relative;align-items:center;justify-content:center;vertical-align:baseline;gap:6px;padding:0 .35em;min-height:1.15em;border-radius:999px;background:hsl(var(--foreground) / .07);color:inherit;white-space:nowrap;transition:background-color var(--motion-fast) var(--motion-ease);}
+.about-display .about-pill{display:inline-flex;position:relative;align-items:center;justify-content:center;vertical-align:baseline;gap:.22em;padding:0 .35em;min-height:1.15em;border-radius:999px;background:hsl(var(--foreground) / .07);color:inherit;font:inherit;letter-spacing:inherit;line-height:inherit;white-space:nowrap;transition:background-color var(--motion-fast) var(--motion-ease);}
 .dark .about-pill{background:hsl(var(--foreground) / .1);}
 .about-pill:hover{background:hsl(var(--foreground) / .12);}
 .about-pill:active{transform:scale(.98);}
-.about-pill:focus-visible,.about-body a:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
-.about-cycle{overflow:hidden;}
-.about-cycle-measure{position:absolute;visibility:hidden;pointer-events:none;width:max-content;padding:0 .35em;}
+.about-pill:focus-visible,.about-body a:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:999px;}
+.about-pill-thumb{width:.8em;height:.8em;border-radius:999px;object-fit:cover;flex:none;}
 .about-body a{text-decoration:underline;text-underline-offset:4px;}
-@media(max-width:390px){.about-pill::after{content:'';position:absolute;inset:-5px 0;min-height:44px;}}
-@media(prefers-reduced-motion:reduce){.about-pill{transition:none;}.about-pill:active{transform:none;}}
-
-.about-display .about-cycle{display:inline-block;}
-
 .about-phrase{white-space:nowrap;}
+@media(max-width:390px){.about-pill::after{content:'';position:absolute;inset:-8px 0;min-height:44px;}}
+@media(max-width:360px){.about-pill-thumb{display:none;}}
+@media(prefers-reduced-motion:reduce){.about-pill{transition:none;}.about-pill:active{transform:none;}}
