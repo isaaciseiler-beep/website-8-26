@@ -172,7 +172,7 @@ it('restores an expanded help explanation and draft when returning to the same h
     <Route path="/" element={<main><HomeExplore/><Link to="/writing">Open writing</Link></main>}/>
     <Route path="/writing" element={<Page name="Writing page"/>}/>
   </Routes>}</PageTransitions></MemoryRouter>);
-  fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
+  fireEvent.click(screen.getByRole('button',{name:'Tips'}));
   const technical=screen.getByText('Technical details',{exact:true}).closest('details')!;
   technical.open=true;
   fireEvent.change(screen.getByRole('textbox',{name:'Explore'}),{target:{value:'My next question is still a draft'}});

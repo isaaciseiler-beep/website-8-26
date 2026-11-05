@@ -37,7 +37,7 @@ describe('primary exploration journeys',()=>{
     render(<MemoryRouter><HomeExplore/></MemoryRouter>);
     fireEvent.focus(screen.getByRole('textbox',{name:'Explore'}));
     expect(fetcher).toHaveBeenCalledTimes(1);
-    expect(screen.getByRole('option',{name:'How to explore'})).toBeInTheDocument();
+    expect(screen.getByRole('option',{name:'Tips'})).toBeInTheDocument();
     await act(async()=>{fireEvent.click(screen.getByRole('option',{name:'Browse work'}));});
     expect(screen.getByRole('region',{name:'Work explorer'})).toBeVisible();
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();

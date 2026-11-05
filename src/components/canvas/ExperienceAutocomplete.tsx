@@ -34,7 +34,7 @@ export default function ExperienceAutocomplete({context,committedValue,onEscape,
   const [composing,setComposing]=useState(false);
   const composition=useRef(false);
   const items=suggestExperiencePrompts(value,4,context);
-  const shortcuts=!value.trim()&&!context?[{id:'help',text:'How to explore',label:'How to explore'},{id:'browse',text:'Explore all projects',label:'Browse work'}]:[];
+  const shortcuts=!value.trim()&&!context?[{id:'help',text:'Tips',label:'Tips'},{id:'browse',text:'Explore all projects',label:'Browse work'}]:[];
   const options=[...items,...shortcuts];
   const visible=open&&!composing&&options.length>0;
   useLayoutEffect(()=>{

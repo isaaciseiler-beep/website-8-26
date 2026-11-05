@@ -15,5 +15,7 @@ describe('sentenceCaseHeading', () => {
     const terms = protectedHeadingTerms();
     expect(terms.phrases).toEqual(expect.arrayContaining(['Fulbright Taiwan', 'West Michigan', 'State of the Union', 'Study Mode']));
     expect(terms.words).toEqual(expect.arrayContaining(['OpenAI', 'Taiwan', 'Isaac', 'Seattle']));
+    expect(sentenceCaseHeading('A note in the Washington Post')).toBe('A note in the Washington Post');
+    expect(sentenceCaseHeading('The New York Times reported it')).toBe('The New York Times reported it');
   });
 });

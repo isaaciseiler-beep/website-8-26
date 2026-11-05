@@ -69,6 +69,12 @@ function contentNames() {
     rememberPhrase(phrases, project.title);
     for (const section of project.sections) {
       interiorPhrases([...(section.paragraphs ?? []), ...(section.bullets ?? []), ...(section.links ?? []).map(link => link.label)].join('. '), phrases);
+      for (const link of section.links ?? []) {
+        const head = link.label.split(':')[0]?.trim() ?? '';
+        const name = head.replace(/^The\s+/i, '');
+        if (name.split(/\s+/).length >= 2) rememberPhrase(phrases, name);
+        else if (name) addWords(name);
+      }
     }
     interiorPhrases(project.summary, phrases);
   }
@@ -87,7 +93,13 @@ export function sentenceCaseHeading(input: string) {
   return input.replace(phrasePattern, (word, phrase: string | undefined) => {
     if (phrase) {
       first = false;
-      return names.phrases.find(item => item.toLowerCase() === phrase.toLowerCase()) ?? phrase;
+      const canonical = names.phrases.find(item => item.toLowerCase() === phrase.toLowerCase()) ?? phrase;
+      const [canonicalFirst, ...rest] = canonical.split(' ');
+      const originalFirst = phrase.split(' ')[0] ?? '';
+      if (SMALL.has(canonicalFirst.toLowerCase()) && originalFirst[0] === originalFirst[0]?.toLowerCase()) {
+        return [originalFirst.toLowerCase(), ...rest].join(' ');
+      }
+      return canonical;
     }
     const key = word.toLowerCase().replace(/’/g, "'");
     const known = names.words.get(key);

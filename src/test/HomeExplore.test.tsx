@@ -258,7 +258,7 @@ describe("homepage generative interface", () => {
       if(change==='manual control')fireEvent.click(screen.getByRole('button',{name:'Evidence'}));
       else if(change==='draft edit')fireEvent.change(input,{target:{value:'unfinished question'}});
       else{
-        fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
+        fireEvent.click(screen.getByRole('button',{name:'Start over'}));
         fireEvent.change(input,{target:{value:'Explore Isaac’s career'}});
         await act(async()=>{fireEvent.submit(input.closest('form')!);});
       }
@@ -307,7 +307,7 @@ describe("homepage generative interface", () => {
     expect(fetcher).toHaveBeenCalledTimes(2);
     fireEvent.change(input, { target: { value: "" } });
     expect(screen.getByRole("link", { name: "Email" })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
+    fireEvent.click(screen.getByRole('button',{name:'Start over'}));
     await act(async () => { vi.advanceTimersByTime(1000); });
     expect(screen.queryByRole("link", { name: /Email/ })).not.toBeInTheDocument();
     expect(input).toHaveFocus();

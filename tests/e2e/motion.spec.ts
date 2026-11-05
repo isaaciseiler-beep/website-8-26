@@ -46,7 +46,7 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     await page.screenshot({ path: info.outputPath('comparison.png') });
     await page.getByRole('combobox', { name: 'Benchmark measure' }).selectOption('preparednessScore');
     await expect(page.getByRole('article', { name: 'California score' })).toContainText('75.0');
-    await page.getByRole('button', { name: 'Clear exploration' }).click();
+    await page.getByRole('button', { name: 'Start over' }).click();
     if(reducedMotion==='no-preference') {
       await expect(page.locator('.home-genui-reveal')).toHaveAttribute('aria-hidden','true');
       await expect(page.locator('.home-genui-reveal')).toHaveAttribute('inert','');
@@ -69,7 +69,7 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     await contained();
     // Preference changes apply without a reload.
     await page.emulateMedia({ reducedMotion: reducedMotion === 'reduce' ? 'no-preference' : 'reduce' });
-    await page.getByRole('button', { name: 'Clear exploration' }).click();
+    await page.getByRole('button', { name: 'Start over' }).click();
     await expect(page.locator('.home-genui-stage')).toHaveCount(0);
     await page.getByRole('button', { name: 'Toggle menu', exact: true }).click();
     await page.getByRole('link', { name: 'Work', exact: true }).or(page.getByRole('button', { name: 'Work', exact: true })).click();

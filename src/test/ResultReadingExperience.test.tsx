@@ -94,7 +94,7 @@ describe('answer reading and evidence provenance',()=>{
     fireEvent.change(products,{target:{value:'0'}});
     expect(screen.getByRole('button',{name:'Role'})).toHaveAttribute('aria-pressed','true');
     expect(screen.getByText(/first ChatGPT Lab cohort/)).toBeVisible();
-    expect(screen.getByRole('button',{name:'Explore the products'})).toBeVisible();
+    expect(screen.getByRole('button',{name:'The products'})).toBeVisible();
   });
   it('opens the reviewed Atlas poster directly and retains the local cover fallback without losing the selected product',()=>{
     const lab=publicProjects.find(project=>project.id==='openai-product-testing-and-feedback')!;

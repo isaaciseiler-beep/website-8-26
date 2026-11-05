@@ -89,7 +89,7 @@ export function ProjectStory({ block, onChange }: Props) {
       {!matched.length && <p>No matching evidence in this project.</p>}
     </div> : focus === 'role' ? <div className="portfolio-role-summary">
       {!angleAnswer&&(focusedRole?<article className="portfolio-section-text"><h3>{sentenceCaseHeading(active!.heading)}</h3><ProjectPassage section={active!} paragraphs={block.expanded?active!.paragraphs:previewParagraphs}/>{active!.paragraphs?.some((_,index)=>!preview.includes(index))&&<button className="portfolio-inline-action" onClick={()=>onChange({...block,expanded:!block.expanded})}>{block.expanded?'Show less':'Continue reading'}<ChevronDown size={14} aria-hidden="true"/></button>}{!isLab&&<PublishedSources context={record.title} key={'sources:'+record.project.id} links={[...active!.links??[],...materialLinks]}/>}</article>:<><p>{record.outcome}</p>{!isLab&&<PublishedSources context={record.title} links={record.project.sections.flatMap(section=>section.links??[])}/>}</>)}
-      <button className="portfolio-inline-action" onClick={() => selectFocus('process')}>{isLab?'Explore the products':'Explore how it happened'}<ArrowUpRight size={15} aria-hidden="true" /></button>
+      <button className="portfolio-inline-action" onClick={() => selectFocus('process')}>{isLab?'The products':'How it happened'}<ArrowUpRight size={15} aria-hidden="true" /></button>
     </div> : active && <div className={`portfolio-section-explorer${sections.length===1?' is-single':''}`}>
       <article className="portfolio-section-text">
         <h3 className={sections.length>1?'sr-only':undefined}>{sentenceCaseHeading(record.project.id==='senior-thesis-local-journalism'&&active.index===1?active.label:active.heading)}</h3>

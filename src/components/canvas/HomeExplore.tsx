@@ -5,7 +5,7 @@ import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPrefer
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
-import { ArrowUp, ArrowLeft, ArrowRight, Link, Check, LoaderCircle, X } from 'lucide-react';
+import { ArrowUp, ArrowLeft, ArrowRight, ChevronDown, Link, Check, LoaderCircle, X } from 'lucide-react';
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
 import { explorationGuidance, isLocalCompositionRefinement, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
 import { photoDestinations, photoRedirectCopy, shouldResolveWithoutModel, type PhotoDestination } from '@/lib/photoRequest';
@@ -438,9 +438,9 @@ export default function HomeExplore() {
     if(document.activeElement instanceof HTMLButtonElement)pendingResultFocus.current={kind:'heading'};
     if(current.current)remember(current.current);
     cancel();setCleared(null);setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);
-    setQuery('How to explore');setGuidance('help');update(null);setHeldExpanded(true);revealStart();
+    setQuery('Tips');setGuidance('help');update(null);setHeldExpanded(true);revealStart();
   };
-  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;setCleared(null);pendingReadingState.current=null;if(current.current){const state={...(window.history.state??{}),exploreScroll:window.scrollY};window.history.replaceState(state,'',window.location.href);writeExploreScroll(window.scrollY);}if(/^(?:how (?:to explore|does this (?:work|site work))|help(?: me (?:explore|get started))?)\??$/i.test(text.trim())){showHelp();return;}const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
+  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;setCleared(null);pendingReadingState.current=null;if(current.current){const state={...(window.history.state??{}),exploreScroll:window.scrollY};window.history.replaceState(state,'',window.location.href);writeExploreScroll(window.scrollY);}if(/^(?:how (?:to explore|does this (?:work|site work))|tips|help(?: me (?:explore|get started))?)\??$/i.test(text.trim())){showHelp();return;}const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
   const navigateHistory=(direction:'back'|'forward')=>{
     if(direction==='back'?!history.length:!future.length)return;
     if(resultsRef.current?.contains(document.activeElement))pendingResultFocus.current={kind:'heading'};
@@ -501,7 +501,9 @@ export default function HomeExplore() {
     catch{if(stillCurrent())setShareStatus('failed');}
   };
   const suggestionContext=view?{projectIds:view.composition.blocks.flatMap(block=>block.projectIds),kind:view.composition.blocks[0]?.kind,focus:view.composition.blocks[0]?.focus,answerId:view.composition.blocks[0]?.answerId,angle:view.composition.blocks[0]?.angle,section:view.composition.blocks[0]?.section,question:view.query,visitedQuestions:history.slice(-8).map(item=>item.query)}:undefined;
-  const nextQuestions=view?suggestExperiencePrompts('',2,suggestionContext):[];
+  const followUps=view?suggestExperiencePrompts('',4,suggestionContext):[];
+  const inlineFollowUps=followUps.slice(0,2);
+  const extraFollowUps=followUps.slice(2);
   const photoGuide=guidance==='photos'?photoDestinations(query):null;
   const recoveryQuestions=guidance==='unmatched'?suggestExperiencePrompts(query,3):[];
   const clarification=guidance==='ambiguous'?analyzePortfolioRequest(query):undefined;
@@ -534,37 +536,38 @@ export default function HomeExplore() {
 
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
         <ExperienceAutocomplete context={suggestionContext} inputRef={input} committedValue={committedQuery} quietFocus={quietFocus} onEscape={view||guidance||busy?clear:undefined} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
-        {(query.trim()||view||guidance)&&<>{!(narrow&&(view||guidance))&&<button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration" title="Clear exploration"><X size={16}/></button>}<button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
+        {query.trim()&&!view&&!guidance&&<button className="home-clear" type="button" onClick={clear} aria-label="Start over" title="Start over"><X size={16} strokeWidth={1.75}/></button>}<button className={`home-submit${query.trim()?'':' is-quiet'}`} type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={16} strokeWidth={1.75} className="home-submit-spinner"/>:<ArrowUp size={16} strokeWidth={1.75}/>}</button>
       </form>{(Boolean(progressText)||busy||phase==='stopped'||phase==='error')&&<div className="home-request-reveal"><div className="home-request-state" data-phase={phase}>{progressText&&<span className="home-phase">{(phase==='finding'||phase==='layout')&&<span className="home-phase-marks" aria-hidden="true">{(['finding','layout'] as const).map(step=><i key={step} data-state={phaseMark(phase,step)} />)}</span>}{progressText}</span>}{busy&&<button type="button" className="home-quiet-action" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button>}{(phase==='stopped'||phase==='error')&&<button type="button" className="home-quiet-action" onClick={retryExploration}>Retry</button>}</div></div>}</div>
-      {showSkeleton&&<div className="home-pending-view" aria-label="Preparing exploration"><AnswerSkeleton layout={pendingLayout}/>{waiting&&<div className="home-pending-alternatives"><p>You can explore a starting point while this view is prepared.</p><button type="button" onClick={()=>submit('Explore all projects')}>Browse work<ArrowRight size={14} aria-hidden="true"/></button><button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>}</div>}
+      {showSkeleton&&<div className="home-pending-view" aria-label="Preparing exploration"><AnswerSkeleton layout={pendingLayout}/>{waiting&&<div className="home-pending-alternatives"><p>You can explore a starting point while this view is prepared.</p><button type="button" onClick={()=>submit('Explore all projects')}>Browse work<ArrowRight size={14} aria-hidden="true"/></button><button type="button" onClick={showHelp}>Tips<ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button></div>}</div>}
       {!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&!busy&&<div className="home-idle-actions">
-        {cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();pendingReadingState.current=cleared.view?.readingState??cleared.readingState??null;setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <div className="home-genui-preview"><button type="button" className="home-preview-trigger" onClick={showHelp}>How to explore</button></div>}
+        {cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();pendingReadingState.current=cleared.view?.readingState??cleared.readingState??null;setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <div className="home-genui-preview"><button type="button" className="home-preview-trigger" onClick={showHelp}>Tips</button></div>}
       </div>}
-      <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':phase!=='idle'||busy?progressText:requestNotice|| (guidance==='photos'&&photoGuide?photoRedirectCopy(photoGuide):guidance==='help'?'How to explore is ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':'')}</span>
+      <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':phase!=='idle'||busy?progressText:requestNotice|| (guidance==='photos'&&photoGuide?photoRedirectCopy(photoGuide):guidance==='help'?'Tips are ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':'')}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} initialReadingState={pendingReadingState.current} onSettled={restoreReadingPosition}>
           <div ref={resultsRef} className={`home-genui-stage${settled?' is-settled':''}${arriving?' is-arriving':''}${morphHold!=null?' is-morphing':''}`} aria-label="Exploration results" aria-busy={busy} data-settled={settled?'true':undefined} data-morphing={morphHold!=null?'true':undefined} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
             {guidance==='help'?<ExploreHelp onSubmit={submit}/>:photoGuide?<PhotoRedirect destinations={photoGuide}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>
-              <div>{guidance==='ambiguous'?clarification?.choices.map(item=><button type="button" key={item.projectId} onClick={()=>chooseSubject(item.projectId)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>):guidanceChoices.map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>
+              <div>{guidance==='ambiguous'?clarification?.choices.map(item=><button type="button" key={item.projectId} onClick={()=>chooseSubject(item.projectId)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>):guidanceChoices.map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>Tips<ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button></div>
             </div>:view&&<>
               <ExplorationCanvas composition={view.composition} plan={view.plan} generation={view.generation} onChange={changeComposition}/>
             </>}
             <footer className="home-genui-footer">
-            {view&&nextQuestions.length>0&&<details className="home-next-questions"><summary>Explore further</summary><div>{nextQuestions.map(item=><button key={item.id} type="button" onClick={()=>submit(item.text)}>{item.text}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div></details>}
-            <div className={`home-genui-tools${!view&&!history.length&&!(narrow&&guidance)?' is-empty':''}`}>
-
-              {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={returnLabel(view.returnToExploration)} onClick={backToExploration}><ArrowLeft size={14} aria-hidden="true"/><span>{returnLabel(view.returnToExploration)}</span></button>}
-              {(view||guidance)&&history.length>0&&!view?.returnToExploration&&<button aria-label="Previous exploration" title={`Back to ${titleFor(history[history.length-1])}`} onClick={()=>navigateHistory('back')}><ArrowLeft size={14} aria-hidden="true"/><span>Back</span></button>}
-              {view&&future.length>0&&!view.returnToExploration&&<button aria-label="Next exploration" title={`Forward to ${titleFor(future[0])}`} onClick={()=>navigateHistory('forward')}><span>Forward</span><ArrowRight size={14} aria-hidden="true"/></button>}
+            {view&&inlineFollowUps.length>0&&<div className="home-follow-inline">{inlineFollowUps.map(item=><button className="home-follow-row" key={item.id} type="button" onClick={()=>submit(item.text)}><span>{item.text}</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button>)}</div>}
+            {view&&<details className="home-next-questions"><summary>More questions<ChevronDown size={14} strokeWidth={1.75} aria-hidden="true"/></summary><div>{extraFollowUps.map(item=><button className="home-follow-row" key={item.id} type="button" onClick={()=>submit(item.text)}><span>{item.text}</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button>)}<button className="home-follow-row" type="button" onClick={showHelp}><span>Tips</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button></div></details>}
+            <div className={`home-genui-tools${!view&&!history.length&&!guidance?' is-empty':''}`}>
+              {view&&<button type="button" onClick={()=>{cancel();setQuery('');input.current?.focus({preventScroll:true});setAutocompleteOpen(true);}}><ArrowUp size={14} strokeWidth={1.75} aria-hidden="true"/><span>Ask a follow-up</span></button>}
+              {view&&<button className={`home-share-view${shareStatus==='copied'?' is-copied':''}`} aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14} strokeWidth={1.75}/>:<Link size={14} strokeWidth={1.75}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
+              {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={returnLabel(view.returnToExploration)} onClick={backToExploration}><ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true"/><span>{returnLabel(view.returnToExploration)}</span></button>}
+              {(view||guidance)&&history.length>0&&!view?.returnToExploration&&<button aria-label="Previous exploration" title={`Back to ${titleFor(history[history.length-1])}`} onClick={()=>navigateHistory('back')}><ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true"/><span>Back</span></button>}
+              {view&&future.length>0&&!view.returnToExploration&&<button aria-label="Next exploration" title={`Forward to ${titleFor(future[0])}`} onClick={()=>navigateHistory('forward')}><span>Forward</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button>}
               {view&&<ExplorationHistory items={history.map(item=>({title:titleFor(item),question:item.query}))} onSelect={selectHistory}/>}
-              {view&&<button type="button" onClick={()=>{cancel();setQuery('');input.current?.focus({preventScroll:true});setAutocompleteOpen(true);}}>Ask a follow-up<ArrowUp size={14} aria-hidden="true"/></button>}
-              {view&&<button className={`home-share-view${shareStatus==='copied'?' is-copied':''}`} aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
-              {narrow&&(view||guidance)&&<button type="button" className="home-clear-footer home-quiet-action" onClick={clear}>Clear exploration</button>}
-
             </div>
-            {view&&!busy&&<ExplorationFeedback key={view.query} title={titleFor(view)} question={view.query} url={feedbackUrl}/>}
+            {(view||guidance)&&<div className="home-footer-secondary">
+              {view&&!busy&&<ExplorationFeedback key={view.query} title={titleFor(view)} question={view.query} url={feedbackUrl}/>}
+              <button type="button" className="home-quiet-action" onClick={clear}>Start over</button>
+            </div>}
             </footer>
           </div>
         </ExplorationReveal>}

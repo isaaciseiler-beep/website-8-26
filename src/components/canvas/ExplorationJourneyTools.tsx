@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import { CONTACT_EMAIL } from '@/lib/site';
 
 export function ExplorationHistory({ items, onSelect }: { items: { title: string; question: string }[]; onSelect: (index: number) => void }) {
@@ -24,7 +24,7 @@ export function ExplorationFeedback({ title, question, url }: { title: string; q
   const body = [`Feedback: ${reason}`, '', detail.trim(), '', `Question: ${question}`, `View: ${title}`, url].filter(Boolean).join('\n');
   const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Portfolio answer feedback')}&body=${encodeURIComponent(body)}`;
   return <details className="home-answer-feedback">
-    <summary>Feedback</summary>
+    <summary>Feedback<ChevronDown size={14} strokeWidth={1.75} aria-hidden="true" /></summary>
     <label htmlFor={`${id}-reason`}>What could be better?</label>
     <select id={`${id}-reason`} value={reason} onChange={event => setReason(event.target.value)}>
       <option>The answer missed my question</option><option>Something is missing or inaccurate</option><option>The interface was hard to use</option><option>Something else</option>
