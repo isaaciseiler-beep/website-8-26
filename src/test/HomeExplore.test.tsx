@@ -140,7 +140,7 @@ describe("homepage generative interface", () => {
     fireEvent.change(input,{target:{value:'Taiwan teaching'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     const status=screen.getByRole('status');
-    expect(status).toHaveTextContent('Finding a view');
+    expect(status).toHaveTextContent('Finding projects');
     expect(status.closest('[aria-busy="true"]')).toBeNull();
     fireEvent.change(input,{target:{value:'a different question'}});
     expect(status).toBeEmptyDOMElement();
@@ -176,9 +176,10 @@ describe("homepage generative interface", () => {
     expect(screen.getByLabelText('Preparing exploration')).toBeInTheDocument();
     await act(async()=>{vi.advanceTimersByTime(3000);});
     expect(screen.getByRole('button',{name:'Browse work'})).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent('Still preparing your view');
+    expect(screen.getByRole('status')).toHaveTextContent('Finding projects');
     fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
-    expect(screen.getByRole('status')).toHaveTextContent('Stopped updating.');
+    expect(screen.getByRole('status')).toHaveTextContent('Stopped.');
+    expect(screen.getByRole('button',{name:'Retry'})).toBeInTheDocument();
     expect(input).toHaveFocus();
     expect(screen.queryByLabelText('Preparing exploration')).not.toBeInTheDocument();
     await act(async()=>{deliver(success({plan:localPlan('contact',initialPlan(),[],1)}));});
@@ -216,7 +217,8 @@ describe("homepage generative interface", () => {
     const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Taiwan teaching'}});
     await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
-    expect(document.querySelector('.home-request-state')).toHaveTextContent('Couldn’t finish updating. You can keep exploring this view.');
+    expect(document.querySelector('.home-request-state')).toHaveTextContent('The answer didn’t finish.');
+    expect(screen.getByRole('button',{name:'Retry'})).toBeInTheDocument();
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
     expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
   });

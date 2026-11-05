@@ -60,8 +60,8 @@ test('intent timeout is announced in the retained status slot',async({page})=>{
   await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
   await page.route('**/api/intent',async route=>{await new Promise(resolve=>setTimeout(resolve,8000));await route.fulfill({json:{}}).catch(()=>{});});
   await page.goto('/');await explore(page).fill('What was the color of Isaac’s first bicycle?');await explore(page).press('Escape');await explore(page).press('Enter');
-  const slot=page.locator('.home-request-state');await expect(slot).toContainText('Still preparing',{timeout:5000});
-  await expect(slot).toContainText('Couldn’t match that, so here are starting points.',{timeout:6000});
+  const slot=page.locator('.home-request-state');await expect(slot).toContainText('Finding projects',{timeout:5000});
+  await expect(slot).toContainText('Couldn’t match that, so here are starting points.',{timeout:8000});
   await expect(page.getByRole('status').filter({hasText:'Couldn’t match that'})).toBeVisible();
 });
 

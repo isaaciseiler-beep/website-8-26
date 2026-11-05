@@ -13,6 +13,8 @@ import PhotoRedirect from './PhotoRedirect';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
 import ExploreHelp from './ExploreHelp';
 import { suggestExperiencePrompts } from '@/lib/experiencePrompts';
+import { EXPLORE_MS, EXPLORE_PHASE_LABEL, phaseMark, type ExplorePhase } from '@/lib/exploreProgress';
+import AnswerSkeleton from './AnswerSkeleton';
 import { captureReadingState, restoreReadingState, type ExplorationReadingState } from '@/lib/explorationReadingState';
 import { ExplorationFeedback, ExplorationHistory } from './ExplorationJourneyTools';
 import ExplorationCanvas, { type GenerationInfo } from './ExplorationCanvas';
@@ -127,15 +129,26 @@ export default function HomeExplore() {
   const [cleared,setCleared]=useState<SavedExploration|null>(null);
   useEffect(()=>{if(!cleared)return;const timer=window.setTimeout(()=>setCleared(null),10000);return()=>clearTimeout(timer);},[cleared]);
   const [busy,setBusy]=useState(false);
-  const [phase,setPhase]=useState('Routing…');
+  const [phase,setPhase]=useState<ExplorePhase>('idle');
+  const [settled,setSettled]=useState(false);
+  const [pendingLayout,setPendingLayout]=useState('empty');
+  const [arriving,setArriving]=useState(false);
   const [waiting,setWaiting]=useState(false);
   const [requestNotice,setRequestNotice]=useState('');
+  const followUpBase=useRef<View|null>(null);
+  const stoppedDraft=useRef('');
   useEffect(()=>{
     setWaiting(false);
     if(!busy)return;
     const timer=window.setTimeout(()=>setWaiting(true),3000);
     return()=>window.clearTimeout(timer);
   },[busy]);
+  useEffect(()=>{
+    if(!view)return;
+    setArriving(true);
+    const timer=window.setTimeout(()=>setArriving(false),EXPLORE_MS.answer);
+    return()=>window.clearTimeout(timer);
+  },[view?.query,view?.generation.status]);
   // Enter commits the question; subsequent typing starts a fresh follow-up.
   // Keep the native element mounted and allow deliberate caret edits afterward.
   const committedQuery=view?.query;
@@ -182,8 +195,19 @@ export default function HomeExplore() {
     if(next&&!next.returnToExploration&&previous?.returnToExploration&&next.composition.blocks.length===1&&previous.composition.blocks.length===1&&next.composition.blocks[0].kind==='story'&&previous.composition.blocks[0].kind==='story'&&next.composition.blocks[0].projectIds[0]===previous.composition.blocks[0].projectIds[0])next={...next,returnToExploration:previous.returnToExploration};
     current.current=next;setView(next);setShareStatus('idle');
   },[]);
-  const cancel=useCallback(()=>{controller.current?.abort();pendingReadingState.current=null;requestMetric.current?.timing.finish('cancelled');pendingQuery.current=null;setBusy(false);setRequestNotice('');if(current.current?.generation.status==='composing')update({...current.current,generation:{status:'authored'}});return ++revision.current;},[update]);
-  const stopUpdating=()=>{const previous=pendingPrevious.current;cancel();if(!current.current&&previous){setQuery(previous.query);update(previous);}setRequestNotice('Stopped updating.');quietFocus.current=true;input.current?.focus({preventScroll:true});};
+  const cancel=useCallback(()=>{controller.current?.abort();pendingReadingState.current=null;requestMetric.current?.timing.finish('cancelled');pendingQuery.current=null;setBusy(false);setRequestNotice('');setPhase('idle');setSettled(false);if(current.current?.generation.status==='composing')update({...current.current,generation:{status:'authored'}});return ++revision.current;},[update]);
+  const stopUpdating=()=>{
+    const held=followUpBase.current;
+    const previous=pendingPrevious.current;
+    stoppedDraft.current=pendingQuery.current||query;
+    cancel();
+    if(held){setQuery(held.query);followUpBase.current=null;}
+    else if(!current.current&&previous){setQuery(previous.query);update(previous);}
+    setPhase('stopped');
+    quietFocus.current=true;
+    input.current?.focus({preventScroll:true});
+  };
+  const retryExploration=()=>{const text=stoppedDraft.current||query;setPhase('idle');setQuery(text);submit(text);};
   const withReadingState=(previous:View):View=>resultsRef.current?{...previous,readingState:captureReadingState(resultsRef.current)}:previous;
   const remember=(previous:View)=>{const saved=withReadingState(previous);setHistory(h=>[...h.slice(-19),saved]);setFuture([]);};
   const restoreReadingPosition=()=>{
@@ -273,14 +297,17 @@ export default function HomeExplore() {
     const nextGuidance=explorationGuidance(text);
     if(nextGuidance){setGuidance(nextGuidance);update(null);setBusy(false);return;}
 
-    const abort=new AbortController();controller.current=abort;pendingQuery.current=text;pendingPrevious.current=context;setBusy(true);setPhase('Finding a view…');
+    const abort=new AbortController();controller.current=abort;pendingQuery.current=text;pendingPrevious.current=context;setBusy(true);setPendingLayout(fallback.layout);setPhase('finding');
+    if(context&&fallback.layout==='empty'){followUpBase.current=context;setSettled(true);}else followUpBase.current=null;
     const live=()=>!abort.signal.aborted&&revision.current===rev;
     let next:View={plan:fallback,composition:composeLocal(text,fallback,context?.composition),query:text,generation:{status:'authored'}};
-    if(fallback.layout!=='empty')update(next);else update(null);
+    const commitView=(incoming:View)=>{followUpBase.current=null;setSettled(false);update(incoming);if(context){const node=resultsRef.current;if(node)node.scrollIntoView({block:'nearest',behavior:reduceMotion?'auto':'smooth'});}};
+    if(fallback.layout!=='empty')commitView(next);else if(!context)update(null);
     let needsComposition=true;
     let composerConfigured=llmConfigured.current;
     const simpleRefinement=Boolean(context&&isLocalCompositionRefinement(text,context.composition));
-    if(simpleRefinement){setBusy(false);return;}
+    if(simpleRefinement){setBusy(false);setPhase('idle');return;}
+    let failed=false;
     try {
       if(!composerConfigured)try {
         const response=await fetch('/api/intent',{method:'POST',headers:{'Content-Type':'application/json'},signal:AbortSignal.any([abort.signal,AbortSignal.timeout(6500)]),body:JSON.stringify({draft:text,composition:context?.composition,current:context?.plan??initialPlan(),pins:context?.composition.blocks.flatMap(b=>b.projectIds).slice(0,2)??[],filter:'All',revision:rev,contentVersion:CONTENT_VERSION})});
@@ -296,11 +323,11 @@ export default function HomeExplore() {
         }
       } catch { if(live())setRequestNotice(next.plan.layout==='empty'?'Couldn’t match that, so here are starting points.':'Couldn’t match that. You can keep exploring this view.'); }
       if(!live())return;
-      if(next.plan.layout!=='empty')update(next);
+      if(next.plan.layout!=='empty')commitView(next);
       if(!allowModel||!needsComposition)return;
-      if(!composerConfigured&&!llmConfigured.current){if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update({...next,generation:{status:'unavailable',reason:'unconfigured'}});return;}
-      setPhase(next.plan.layout==='empty'?'Preparing your view…':'Refining your view…');
-      next={...next,generation:{status:'composing'}};if(next.plan.layout!=='empty')update(next);
+      if(!composerConfigured&&!llmConfigured.current){if(next.plan.layout==='empty'){setGuidance('unmatched');setSettled(false);followUpBase.current=null;update(null);}else commitView({...next,generation:{status:'unavailable',reason:'unconfigured'}});return;}
+      setPhase('layout');setPendingLayout(next.plan.layout);
+      next={...next,generation:{status:'composing'}};if(next.plan.layout!=='empty')commitView(next);
       const response=await fetch('/api/compose',{method:'POST',headers:{'Content-Type':'application/json'},signal:AbortSignal.any([abort.signal,AbortSignal.timeout(40000)]),body:JSON.stringify({draft:text,revision:rev,contentVersion:CONTENT_VERSION,current:context?.composition??next.composition,proposed:next.composition})});
       if(!response.ok)throw new Error('Composition unavailable');
       if(!response.headers.get('content-type')?.includes('ndjson')) {const data=await response.json();if(data.status==='unsupported'){if(live()){setGuidance('unmatched');update(null);}return;}next={...next,generation:{status:'unavailable',reason:typeof data.reason==='string'?data.reason:'unconfigured'}};if(live()){if(next.generation.reason!=='unconfigured')setRequestNotice(next.plan.layout==='empty'?'This view couldn’t load. Try another question.':'Couldn’t finish updating. You can keep exploring this view.');if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update(next);}return;}
@@ -311,13 +338,13 @@ export default function HomeExplore() {
         if(line.length>32000)throw new Error('Composition event too large');
         const event=JSON.parse(line);
         if(event.revision!==rev||event.contentVersion!==CONTENT_VERSION)return;
-        if(event.type==='guidance'&&event.guidance==='unmatched'){completed=true;setGuidance('unmatched');update(null);return;}
+        if(event.type==='guidance'&&event.guidance==='unmatched'){completed=true;setGuidance('unmatched');setSettled(false);followUpBase.current=null;update(null);return;}
         if(event.type==='unavailable'){next={...next,generation:{status:'unavailable',reason:typeof event.reason==='string'?event.reason:'provider_unavailable'}};throw new Error('Composition unavailable');}
         const spec=event.type==='composition'?validateComposition(event.composition):null;
-        if(spec&&!event.partial){completed=true;next={...next,plan:viewPlan(createPortableView(spec),rev),composition:spec,generation:{status:event.local===true?'authored':'generated',model:typeof event.model==='string'?event.model:undefined,duration:typeof event.duration==='number'?event.duration:undefined,cached:event.cached===true,inputTokens:typeof event.inputTokens==='number'?event.inputTokens:undefined,outputTokens:typeof event.outputTokens==='number'?event.outputTokens:undefined}};update(next);}
+        if(spec&&!event.partial){completed=true;next={...next,plan:viewPlan(createPortableView(spec),rev),composition:spec,generation:{status:event.local===true?'authored':'generated',model:typeof event.model==='string'?event.model:undefined,duration:typeof event.duration==='number'?event.duration:undefined,cached:event.cached===true,inputTokens:typeof event.inputTokens==='number'?event.inputTokens:undefined,outputTokens:typeof event.outputTokens==='number'?event.outputTokens:undefined}};commitView(next);}
       };
       try {while(live()&&!completed){const {done,value}=await reader.read();if(done)break;receivedBytes+=value.byteLength;if(receivedBytes>128000)throw new Error('Composition stream too large');buffer+=decoder.decode(value,{stream:true});const lines=buffer.split('\n');buffer=lines.pop()??'';lines.forEach(accept);if(!completed&&buffer.length>32000)throw new Error('Composition event too large');}if(!completed&&buffer.trim())accept(buffer);if(live()&&!completed)throw new Error('Incomplete composition');} finally {await reader.cancel().catch(()=>{});}
-    } catch {if(live()){setRequestNotice(next.plan.layout==='empty'?'This view couldn’t load. Try another question.':'Couldn’t finish updating. You can keep exploring this view.');if(next.plan.layout==='empty'){setGuidance('unmatched');update(null);}else update({...next,generation:{...next.generation,status:'unavailable'}});}} finally {if(live()){pendingQuery.current=null;setBusy(false);}}
+    } catch {if(live()){failed=true;stoppedDraft.current=text;setPhase('error');if(next.plan.layout!=='empty'||current.current)commitView({...next,generation:{...next.generation,status:'unavailable'}});}} finally {if(live()){pendingQuery.current=null;setBusy(false);if(!failed)setPhase('idle');}}
   }
   const showHelp=()=>{
     if(document.activeElement instanceof HTMLButtonElement)pendingResultFocus.current={kind:'heading'};
@@ -395,7 +422,8 @@ export default function HomeExplore() {
   let feedbackUrl=SITE_URL;
   if(view)try{feedbackUrl=viewUrl(createPortableView(view.composition),SITE_URL);}catch{/* A bounded fallback remains available even if a view cannot be shared. */}
   const recessActive=composerHovered||explorationFocused||Boolean(view||guidance)||busy;
-  const progressText=busy?waiting?view?'Still refining your view…':'Still preparing your view…':phase:requestNotice;
+  const progressText=phase==='idle'?requestNotice:EXPLORE_PHASE_LABEL[phase];
+  const showSkeleton=busy&&!view&&!guidance&&(phase==='finding'||phase==='layout'||phase==='reading');
   return <section id="home-genui" className={`home-genui photos-shell${!view?' is-idle':''}`} aria-label="Interactive exploration">
     <div className={`home-genui-window${view||heldExpanded||guidance==='help'?' has-results':guidance?' has-guidance':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
       <motion.div className="home-window-depth" aria-hidden="true" initial={false} animate={{opacity:recessActive ? .18 : 0}} transition={{duration:reduceMotion?0:.3,ease:[.22,1,.36,1]}}/>
@@ -406,16 +434,16 @@ export default function HomeExplore() {
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
         <ExperienceAutocomplete context={suggestionContext} inputRef={input} committedValue={committedQuery} quietFocus={quietFocus} onEscape={view||guidance||busy?clear:undefined} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
         {(query.trim()||view||guidance)&&<>{!(narrow&&(view||guidance))&&<button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration" title="Clear exploration"><X size={16}/></button>}<button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
-      </form>{(busy||view||guidance||requestNotice)&&<div className="home-request-reveal"><div className="home-request-state">{progressText&&<span>{progressText}</span>}{busy&&<button type="button" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button>}</div></div>}</div>
-      {busy&&!view&&!guidance&&<div className="home-pending-view" aria-label="Preparing exploration"><div className="home-pending-lines" aria-hidden="true"><span/><span/><span/></div>{waiting&&<div className="home-pending-alternatives"><p>You can explore a starting point while this view is prepared.</p><button type="button" onClick={()=>submit('Explore all projects')}>Browse work<ArrowRight size={14} aria-hidden="true"/></button><button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>}</div>}
+      </form>{(busy||phase!=='idle'||view||guidance||requestNotice)&&<div className="home-request-reveal"><div className="home-request-state" data-phase={phase}>{progressText&&<span className="home-phase">{(phase==='reading'||phase==='finding'||phase==='layout')&&<span className="home-phase-marks" aria-hidden="true">{(['reading','finding','layout'] as const).map(step=><i key={step} data-state={phaseMark(phase,step)} />)}</span>}{progressText}</span>}{busy&&<button type="button" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button>}{(phase==='stopped'||phase==='error')&&<button type="button" onClick={retryExploration}>Retry</button>}</div></div>}</div>
+      {showSkeleton&&<div className="home-pending-view" aria-label="Preparing exploration"><AnswerSkeleton layout={pendingLayout}/>{waiting&&<div className="home-pending-alternatives"><p>You can explore a starting point while this view is prepared.</p><button type="button" onClick={()=>submit('Explore all projects')}>Browse work<ArrowRight size={14} aria-hidden="true"/></button><button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>}</div>}
       {!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&!busy&&<div className="home-idle-actions">
         {cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();pendingReadingState.current=cleared.view?.readingState??cleared.readingState??null;setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <div className="home-genui-preview"><button type="button" className="home-preview-trigger" onClick={showHelp}>How to explore</button></div>}
       </div>}
-      <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?progressText:requestNotice|| (guidance==='photos'&&photoGuide?photoRedirectCopy(photoGuide):guidance==='help'?'How to explore is ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':'')}</span>
+      <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':phase!=='idle'||busy?progressText:requestNotice|| (guidance==='photos'&&photoGuide?photoRedirectCopy(photoGuide):guidance==='help'?'How to explore is ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':'')}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} initialReadingState={pendingReadingState.current} onSettled={restoreReadingPosition}>
-          <div ref={resultsRef} className="home-genui-stage" aria-label="Exploration results" aria-busy={busy} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
+          <div ref={resultsRef} className={`home-genui-stage${settled?' is-settled':''}${arriving?' is-arriving':''}`} aria-label="Exploration results" aria-busy={busy} data-settled={settled?'true':undefined} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
             {guidance==='help'?<ExploreHelp onSubmit={submit}/>:photoGuide?<PhotoRedirect destinations={photoGuide}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>
               <div>{guidance==='ambiguous'?clarification?.choices.map(item=><button type="button" key={item.projectId} onClick={()=>chooseSubject(item.projectId)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>):guidanceChoices.map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>

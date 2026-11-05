@@ -80,6 +80,14 @@
     --motion-reveal: 460ms;
     --motion-panel: 340ms;
     --motion-navigation-close: 560ms;
+    --explore-ease: cubic-bezier(0.23, 1, 0.32, 1);
+    --explore-open: 200ms;
+    --explore-suggestion: 180ms;
+    --explore-submit: 180ms;
+    --explore-answer: 220ms;
+    --explore-stagger: 40ms;
+    --explore-clear: 180ms;
+    --explore-follow: 200ms;
     --work-copy-font-size: clamp(1.25rem, 1.8vw, 2rem);
 
     --site-corner-radius: 10px;

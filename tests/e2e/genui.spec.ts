@@ -732,3 +732,69 @@ for(const [width,height,tabCount] of [[390,390,1],[736,390,1],[390,844,1],[736,7
     if(tabCount===1){await page.keyboard.press('Enter');await expect(page.locator('.home-next-questions')).toHaveAttribute('open','');}
   });
 }
+
+test('a slow answer names real phases, then Stop and a provider error can be retried',async({page})=>{
+  let release:()=>void=()=>{};
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:true}});return;}
+    await gate;
+    const request=route.request().postDataJSON();
+    await route.fulfill({contentType:'application/x-ndjson',body:JSON.stringify({type:'composition',composition:request.proposed,revision:request.revision,contentVersion:request.contentVersion,partial:false})+'\n'}).catch(()=>{});
+  });
+  await page.route('**/api/intent',async route=>{
+    await new Promise(resolve=>setTimeout(resolve,200));
+    await route.fulfill({status:503,json:{}});
+  });
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');await input.press('Enter');
+  const slot=page.locator('.home-request-state');
+  await expect(slot).toContainText(/Finding projects|Laying out the answer/);
+  await expect(page.locator('.home-genui-stage')).toBeVisible();
+  await expect(page.locator('.experience-autocomplete')).toHaveCount(0);
+  const top=(await page.locator('.home-genui-stage').boundingBox())!.y;
+  release();
+  await expect(page.getByRole('button',{name:'Stop updating this view'})).toHaveCount(0);
+  await expect.poll(async()=>Math.abs((await page.locator('.home-genui-stage').boundingBox())!.y-top)).toBeLessThan(2);
+});
+
+test('Stop and a failed answer keep the question and offer retry',async({page})=>{
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:false}});return;}
+    await new Promise(resolve=>setTimeout(resolve,4000));
+    await route.fulfill({status:500,json:{}}).catch(()=>{});
+  });
+  await page.route('**/api/intent',async route=>{
+    await new Promise(resolve=>setTimeout(resolve,4000));
+    await route.fulfill({status:503,json:{}});
+  });
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  const question='What was the color of Isaac’s first bicycle?';
+  await input.fill(question);await input.press('Escape');await input.press('Enter');
+  const slot=page.locator('.home-request-state');
+  await expect(slot).toContainText('Finding projects');
+  await expect(page.locator('[aria-label="Preparing exploration"]')).toBeVisible();
+  await page.getByRole('button',{name:'Stop updating this view'}).click();
+  await expect(slot).toContainText('Stopped.');
+  await expect(input).toHaveValue(question);
+  await expect(page.getByRole('button',{name:'Retry'})).toBeVisible();
+});
+
+test('a provider failure keeps the question and offers retry',async({page})=>{
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:true}});return;}
+    await route.fulfill({status:500,json:{}});
+  });
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  const question='How did Isaac research AI in government?';
+  await input.fill(question);await input.press('Escape');await input.press('Enter');
+  await expect(page.locator('.home-request-state')).toContainText('The answer didn’t finish.');
+  await expect(input).toHaveValue(question);
+  await expect(page.getByRole('button',{name:'Retry'})).toBeVisible();
+  await expect(page.locator('.home-genui-stage')).toBeVisible();
+});

@@ -75,8 +75,9 @@ describe('Explore as the primary site interface',()=>{
     await submit('How can I contact Isaac?');
     expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
     await submit('zxq unfamiliar topic');
-    expect(screen.queryByRole('region',{name:'Contact'})).not.toBeInTheDocument();
-    expect(screen.getByText('Finding a view…',{selector:'.home-request-state span'})).toBeVisible();
+    expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
+    expect(document.querySelector('.home-genui-stage')).toHaveAttribute('data-settled','true');
+    expect(screen.getByText('Finding projects',{selector:'.home-request-state span'})).toBeVisible();
     const calls=fetcher.mock.calls.length;
     await act(async()=>{fireEvent.submit(screen.getByRole('textbox',{name:'Explore'}).closest('form')!);});
     expect(fetcher).toHaveBeenCalledTimes(calls);

@@ -3,6 +3,7 @@ import { useId, useLayoutEffect, useRef, useState, type MutableRefObject, type R
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { suggestExperiencePrompts, type SuggestionContext } from '@/lib/experiencePrompts';
+import { EXPLORE_EASE, EXPLORE_MS } from '@/lib/exploreProgress';
 import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 
 function SuggestionPanel({children}:{children:ReactNode}) {
@@ -12,7 +13,7 @@ function SuggestionPanel({children}:{children:ReactNode}) {
     // A committed suggestion becomes a result in the same surface. Dismiss its
     // semantics immediately, but let its space fold as the result opens below.
     variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.base:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.exit}}})}}
-    transition={{height:{duration:reduced?0:.32,ease:[.22,1,.36,1]},opacity:{duration:reduced ? 0 : present ? 0.2 : 0.1}}} onPointerDown={e=>e.preventDefault()}>{children}</motion.div>;
+    transition={{height:{duration:reduced?0:EXPLORE_MS.suggestion/1000,ease:EXPLORE_EASE},opacity:{duration:reduced?0:present?EXPLORE_MS.suggestion/1000:EXPLORE_MS.clear/1000,ease:EXPLORE_EASE}}} onPointerDown={e=>e.preventDefault()}>{children}</motion.div>;
 }
 type Props={context?:SuggestionContext;committedValue?:string;onEscape?:()=>void;quietFocus?:MutableRefObject<boolean>;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
 export default function ExperienceAutocomplete({context,committedValue,onEscape,quietFocus,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){
