@@ -156,6 +156,7 @@ export default function HomeExplore() {
   const placingAnswer=useRef(false);
   const pendingScroll=useRef<number|null>(null);
   const restoredScroll=useRef(false);
+  const scrollHold=useRef(0);
   useEffect(()=>{
     setWaiting(false);
     if(!busy)return;
@@ -315,6 +316,7 @@ export default function HomeExplore() {
     const save=()=>{
       cancelAnimationFrame(frame);
       frame=requestAnimationFrame(()=>{
+        if(scrollHold.current)return;
         const state=window.history.state??{};
         if(state.exploreScroll===window.scrollY)return;
         window.history.replaceState({...state,exploreScroll:window.scrollY},'',window.location.href);
@@ -467,7 +469,7 @@ export default function HomeExplore() {
     cancel();setCleared(null);setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);
     setQuery('Tips');setGuidance('help');update(null);setHeldExpanded(true);revealStart();
   };
-  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;setCleared(null);pendingReadingState.current=null;if(current.current){const state={...(window.history.state??{}),exploreScroll:window.scrollY};window.history.replaceState(state,'',window.location.href);writeExploreScroll(window.scrollY);}if(/^(?:how (?:to explore|does this (?:work|site work))|tips|help(?: me (?:explore|get started))?)\??$/i.test(text.trim())){showHelp();return;}const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
+  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;setCleared(null);pendingReadingState.current=null;if(current.current){const state={...(window.history.state??{}),exploreScroll:window.scrollY};window.history.replaceState(state,'',window.location.href);writeExploreScroll(window.scrollY);}if(/^(?:how (?:to explore|does this (?:work|site work))|tips|help(?: me (?:explore|get started))?)\??$/i.test(text.trim())){showHelp();return;}const holdId=++scrollHold.current;const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true).finally(()=>{if(scrollHold.current===holdId)scrollHold.current=0;});};
   const navigateHistory=(direction:'back'|'forward')=>{
     if(direction==='back'?!history.length:!future.length)return;
     if(resultsRef.current?.contains(document.activeElement))pendingResultFocus.current={kind:'heading'};
