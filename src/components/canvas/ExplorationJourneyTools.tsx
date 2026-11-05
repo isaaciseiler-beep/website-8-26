@@ -26,8 +26,9 @@ export function AnswerDocumentMeta({ kind, question }: { kind: string; question:
     return () => host.remove();
   }, [question, kind]);
   if (!slot) return null;
-  const count = notes.length === 1 ? '1 source' : `${notes.length || 'no'} sources`;
-  return createPortal(<p className="answer-document-meta"><span>Answer</span><span> · {count}</span><span> · {kindLabel[kind] ?? 'Note'}</span><span className="sr-only"> for {question}</span></p>, slot);
+  const label = kindLabel[kind] ?? 'Note';
+  const text = notes.length === 0 ? label : notes.length === 1 ? `${label} · 1 source` : `${label} · ${notes.length} sources`;
+  return createPortal(<p className="answer-document-meta">{text}<span className="sr-only"> for {question}</span></p>, slot);
 }
 
 function intersects(a: DOMRect, b: DOMRect) {

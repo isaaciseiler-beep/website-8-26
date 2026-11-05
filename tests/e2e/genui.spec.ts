@@ -874,7 +874,7 @@ test('a matched follow-up keeps the previous answer settled until the next one a
   await expect(page.locator('.home-genui-stage')).toHaveAttribute('data-settled','true');
   await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
   release();
-  await expect(page.getByRole('link',{name:'Email'})).toBeVisible();
+  await expect(page.getByRole('region',{name:'Contact'}).getByRole('link',{name:'Email'})).toBeVisible();
 });
 
 async function headerClearsExplore(page: import('@playwright/test').Page){
@@ -998,7 +998,7 @@ test('a different model composition replaces the preview without a layout jump',
     early.push(frame.height);
     tops.push({title:frame.title,block:frame.block});
   }
-  await expect(page.getByRole('link',{name:'Email'})).toBeVisible();
+  await expect(page.getByRole('region',{name:'Contact'}).getByRole('link',{name:'Email'})).toBeVisible();
   const after=await stage.evaluate(el=>{
     const box=el.getBoundingClientRect();
     const composer=document.querySelector('.home-genui-composer')!.getBoundingClientRect();

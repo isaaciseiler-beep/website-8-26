@@ -491,6 +491,14 @@ export default function HomeExplore() {
     setQuery('Tips');setGuidance('help');update(null);setHeldExpanded(true);revealStart();
   };
   const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;setCleared(null);pendingReadingState.current=null;if(current.current){const state={...(window.history.state??{}),exploreScroll:window.scrollY};window.history.replaceState(state,'',window.location.href);writeExploreScroll(window.scrollY);}if(/^(?:how (?:to explore|does this (?:work|site work))|tips|help(?: me (?:explore|get started))?)\??$/i.test(text.trim())){showHelp();return;}const holdId=++scrollHold.current;const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true).finally(()=>{if(scrollHold.current===holdId)scrollHold.current=0;});};
+  const askedFromFooter=useRef('');
+  useEffect(()=>{
+    const question=new URLSearchParams(window.location.search).get('q')?.slice(0,500)??'';
+    if(question!=='How can I contact Isaac?'||window.location.hash.includes('view=')||photoDestinations(question))return;
+    if(askedFromFooter.current===question||current.current?.query===question)return;
+    askedFromFooter.current=question;
+    submit(question);
+  });
   const navigateHistory=(direction:'back'|'forward')=>{
     if(direction==='back'?!history.length:!future.length)return;
     if(resultsRef.current?.contains(document.activeElement))pendingResultFocus.current={kind:'heading'};
@@ -593,7 +601,11 @@ export default function HomeExplore() {
 
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
         <ExperienceAutocomplete context={suggestionContext} inputRef={input} committedValue={committedQuery} quietFocus={quietFocus} onEscape={view||guidance||busy?clear:undefined} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
-        {query.trim()&&!view&&!guidance&&<button className="home-clear" type="button" onClick={clear} aria-label="Start over" title="Start over"><X size={16} strokeWidth={1.75}/></button>}{view&&<ExplorationHistory items={[...history.map(item=>({title:titleFor(item),question:item.query,current:false})),{title:titleFor(view),question:view.query,current:true}]} onSelect={selectHistory}/>}<button className={`home-submit${!query.trim()||query.trim()===view?.query.trim()?' is-quiet':''}`} type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={16} strokeWidth={1.75} className="home-submit-spinner"/>:<ArrowUp size={16} strokeWidth={1.75}/>}</button>
+        {query.trim()&&!view&&!guidance&&<button className="home-clear" type="button" onClick={clear} aria-label="Start over" title="Start over"><X size={16} strokeWidth={1.75}/></button>}
+        <div className="home-composer-actions">
+          {view&&<ExplorationHistory items={[...history.map(item=>({title:titleFor(item),question:item.query,current:false})),{title:titleFor(view),question:view.query,current:true}]} onSelect={selectHistory}/>}
+          <button className={`home-submit${!query.trim()||query.trim()===(view?.query??'').trim()?' is-quiet':''}`} type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={16} strokeWidth={1.75} className="home-submit-spinner"/>:<ArrowUp size={16} strokeWidth={1.75}/>}</button>
+        </div>
         {!view&&!heldExpanded&&!guidance&&!busy&&<div className="home-idle-actions" style={autocompleteOpen?{visibility:'hidden'}:undefined}>{cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();pendingReadingState.current=cleared.view?.readingState??cleared.readingState??null;setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <div className="home-genui-preview"><button type="button" className="home-preview-trigger" onClick={showHelp}>Tips</button></div>}</div>}
       </form>{(Boolean(progressText)||busy||phase==='stopped'||phase==='error')&&<div className="home-request-reveal"><div className="home-request-state" data-phase={phase}>{progressText&&<span className="home-phase">{(phase==='finding'||phase==='layout')&&<span className="home-phase-marks" aria-hidden="true">{(['finding','layout'] as const).map(step=><i key={step} data-state={phaseMark(phase,step)} />)}</span>}{progressText}</span>}{busy&&<button type="button" className="home-quiet-action" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button>}{(phase==='stopped'||phase==='error')&&<button type="button" className="home-quiet-action" onClick={retryExploration}>Retry</button>}</div></div>}</div>
       {conceal&&<div className="home-widen-skeleton" aria-hidden="true"><AnswerSkeleton layout={view?.plan.layout||pendingLayout} title={view?titleFor(view):query.trim()||undefined}/></div>}

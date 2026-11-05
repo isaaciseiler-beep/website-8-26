@@ -78,8 +78,13 @@ function WorkAreas() {
   }, [open]);
   return <span className={`about-area${open ? ' is-open' : ''}`}>
     <button ref={button} type="button" className={`about-pill about-cycle${open ? ' is-open' : ''}`} aria-expanded={open} onClick={toggle}>
-      <span className="about-cycle-value" id={open ? 'about-area-list' : undefined}>{open ? `${AREA_PHRASE}.` : 'AI'}</span>
-      {open ? null : <span className="about-cycle-caret" aria-hidden="true">▾</span>}
+      {open ? <>
+        <span className="about-cycle-phrase">AI, public policy, education, research, journalism, and </span>
+        <span className="about-cycle-end"><span className="about-cycle-phrase">communications</span><span className="about-cycle-period">.</span></span>
+      </> : <>
+        <span className="about-cycle-value">AI</span>
+        <span className="about-cycle-caret" aria-hidden="true">▾</span>
+      </>}
     </button>
     {open ? null : '.'}
   </span>;

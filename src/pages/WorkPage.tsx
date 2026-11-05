@@ -1,6 +1,6 @@
 import { useSidebarState } from "@/lib/siteChrome";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Sidebar from '@/components/Sidebar';
@@ -42,6 +42,38 @@ function metaFor(id: string) {
   return experienceEntries.find(entry => entry.projectIds.includes(id));
 }
 
+function preloadCover(project: ProjectItem) {
+  const image = new Image();
+  image.src = representativeProjectImage(project).src;
+}
+
+function WorkPreview({ project }: { project: ProjectItem }) {
+  const src = representativeProjectImage(project).src;
+  const [current, setCurrent] = useState(src);
+  const [previous, setPrevious] = useState<string | null>(null);
+  useEffect(() => {
+    const index = projects.findIndex(item => item.id === project.id);
+    [index - 1, index, index + 1].forEach(item => { if (projects[item]) preloadCover(projects[item]); });
+  }, [project.id]);
+  useEffect(() => {
+    if (src === current) return;
+    let cancel = false;
+    const incoming = new Image();
+    incoming.src = src;
+    const reveal = () => { if (!cancel) { setPrevious(current); setCurrent(src); } };
+    if (incoming.complete && incoming.naturalWidth > 0) reveal();
+    else { incoming.onload = reveal; incoming.onerror = reveal; }
+    return () => { cancel = true; };
+  }, [src, current]);
+  return (
+    <figure className={`work-preview work-story-image site-media${previous ? ' has-swap' : ''}`} aria-hidden="true">
+      {previous && previous !== current ? <img className="is-previous" src={previous} alt="" /> : null}
+      <img className="is-current" src={current} {...responsiveProjectImageProps(current, '(max-width: 767px) calc(100vw - 48px), 60vw')} alt="" />
+      <figcaption>{project.year} · {typeLabel[project.source]}</figcaption>
+    </figure>
+  );
+}
+
 export default function WorkPage() {
   const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
@@ -52,7 +84,6 @@ export default function WorkPage() {
   const openSearch = () => { setSidebarOpen(false); setSearchOpen(true); };
   const offset = !isMobile && sidebarOpen;
   const active = projects.find(project => project.id === activeId) ?? projects[0];
-  const visual = active ? representativeProjectImage(active) : null;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -94,12 +125,7 @@ export default function WorkPage() {
                 );
               })}
             </ol>
-            {visual && active && (
-              <figure className="work-preview work-story-image site-media" aria-hidden="true">
-                <img src={visual.src} {...responsiveProjectImageProps(visual.src, '(max-width: 767px) calc(100vw - 48px), 60vw')} alt="" />
-                <figcaption>{active.year} · {typeLabel[active.source]}</figcaption>
-              </figure>
-            )}
+            {active && <WorkPreview project={active} />}
           </div>
           </div>
         </main>

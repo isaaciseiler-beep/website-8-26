@@ -72,7 +72,7 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     await page.getByRole('button', { name: 'Start over' }).click();
     await expect(page.locator('.home-genui-stage')).toHaveCount(0);
     await page.getByRole('button', { name: 'Toggle menu', exact: true }).click();
-    await page.getByRole('link', { name: 'Work', exact: true }).or(page.getByRole('button', { name: 'Work', exact: true })).click();
+    await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Work', exact: true }).click();
     await page.waitForURL('**/work');
     await expect(page.locator('.work-index')).toBeVisible();
     await page.keyboard.press('Tab');

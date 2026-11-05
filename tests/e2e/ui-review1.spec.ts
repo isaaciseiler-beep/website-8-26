@@ -463,6 +463,77 @@ test('loading, stopped, and error states stay below the header', async ({ page }
   }
 });
 
+test('the history control and send share one center line', async ({ page }) => {
+  await page.route('**/api/compose', route => route.fulfill({ json: { configured: false } }));
+  await page.route('**/api/intent', route => route.fulfill({ status: 503, json: {} }));
+  for (const [width, height] of [[1280, 800], [375, 812]] as const) {
+    await page.setViewportSize({ width, height });
+    await page.goto('/');
+    const input = page.getByRole('textbox', { name: 'Explore', exact: true });
+    await input.fill('How can I contact Isaac?');
+    await input.press('Escape');
+    await input.press('Enter');
+    await expect(page.getByRole('region', { name: 'Contact' })).toBeVisible();
+    const align = await page.evaluate(() => {
+      const clock = document.querySelector('.home-history-trigger')!.getBoundingClientRect();
+      const send = document.querySelector('.home-submit')!.getBoundingClientRect();
+      return {
+        centers: Math.abs((clock.top + clock.height / 2) - (send.top + send.height / 2)),
+        gap: send.left - clock.right,
+        clock: clock.width,
+        send: send.width,
+      };
+    });
+    expect(align.centers, `${width}`).toBeLessThanOrEqual(1);
+    expect(align.gap, `${width}`).toBeGreaterThanOrEqual(3);
+    expect(align.gap, `${width}`).toBeLessThanOrEqual(5);
+    expect(align.clock, `${width}`).toBe(36);
+    expect(align.send, `${width}`).toBe(36);
+  }
+});
+
+test('the expanded areas read as text, not one block', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto('/about');
+  await page.locator('.about-cycle').click();
+  const report = await page.locator('.about-display').evaluate(paragraph => {
+    const phrase = paragraph.querySelector('.about-cycle-phrase');
+    const period = paragraph.querySelector('.about-cycle-period');
+    const line = parseFloat(getComputedStyle(paragraph).lineHeight);
+    const rects = phrase ? [...phrase.getClientRects()] : [];
+    return {
+      lead: (phrase?.textContent ?? '').slice(0, 1),
+      tall: rects.some(rect => rect.height > line * 1.25),
+      periodOutside: Boolean(period && phrase && !phrase.contains(period)),
+    };
+  });
+  expect(report.lead).toBe('A');
+  expect(report.tall).toBe(false);
+  expect(report.periodOutside).toBe(true);
+});
+
+test('the colophon closes the page without covering Explore', async ({ page }) => {
+  for (const path of ['/', '/about', '/work', '/projects/artificial-intelligence-in-state-government-index']) {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto(path);
+    const footer = page.getByRole('contentinfo');
+    await expect(footer.getByRole('link', { name: /Say hello/ })).toBeVisible();
+    await expect(footer.getByRole('link', { name: 'Work', exact: true })).toBeVisible();
+    await expect(footer).toContainText('Built with React');
+    await expect(footer).toContainText('Satoshi');
+    await footer.scrollIntoViewIfNeeded();
+    if (path === '/') {
+      const overlap = await page.evaluate(() => {
+        const card = document.querySelector('.home-genui-window')?.getBoundingClientRect();
+        const foot = document.querySelector('.site-colophon')?.getBoundingClientRect();
+        if (!card || !foot) return true;
+        return !(foot.bottom <= card.top + 1 || foot.top >= card.bottom - 1);
+      });
+      expect(overlap).toBe(false);
+    }
+  }
+});
+
 test('a work row swaps the anchored preview without moving the index',async({page})=>{
   await page.setViewportSize({width:1280,height:800});
   await page.goto('/work');
@@ -470,7 +541,7 @@ test('a work row swaps the anchored preview without moving the index',async({pag
   const before=await index.evaluate(el=>el.getBoundingClientRect().height);
   const row=page.locator('.work-index a').nth(2);
   await row.hover();
-  await expect(page.locator('.work-preview img')).toBeVisible();
+  await expect(page.locator('.work-preview img.is-current')).toBeVisible();
   expect(await index.evaluate(el=>el.getBoundingClientRect().height)).toBe(before);
   await row.focus();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

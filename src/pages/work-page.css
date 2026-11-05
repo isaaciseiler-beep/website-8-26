@@ -3,14 +3,19 @@
 .work-kicker{margin-bottom:28px;}
 .work-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,300px);gap:40px;align-items:start;}
 .work-index{list-style:none;margin:0;padding:0;min-width:0;}
-.work-index a{display:grid;grid-template-columns:minmax(0,1.4fr) 7.5rem minmax(0,1.3fr) 5.5rem;gap:8px 16px;align-items:baseline;min-height:52px;padding:14px 0;color:inherit;text-decoration:none;box-shadow:inset 0 -1px 0 hsl(var(--foreground) / .12);transition:opacity var(--explore-suggestion) var(--explore-ease);}
-.work-index a:hover,.work-index a:focus-visible{opacity:.72;}
-.work-index a:active{opacity:.55;}
+.work-index a{position:relative;display:grid;grid-template-columns:minmax(0,1.4fr) 7.5rem minmax(0,1.3fr) 5.5rem;gap:8px 16px;align-items:baseline;min-height:52px;padding:14px 0 14px 12px;color:inherit;text-decoration:none;box-shadow:inset 0 -1px 0 hsl(var(--foreground) / .12);transition:transform var(--explore-suggestion) var(--explore-ease);}
+.work-index a::before{content:'';position:absolute;left:0;top:18px;bottom:18px;width:2px;background:currentColor;opacity:0;transform:scaleY(.4);transform-origin:center;transition:opacity var(--explore-suggestion) var(--explore-ease),transform var(--explore-suggestion) var(--explore-ease);}
+.work-index a:hover,.work-index a:focus-visible,.work-index a[aria-current='true']{transform:translateX(4px);}
+.work-index a:hover::before,.work-index a:focus-visible::before,.work-index a[aria-current='true']::before{opacity:1;transform:none;}
+.work-index a:active{opacity:.72;}
 .work-index a:focus-visible{outline:2px solid currentColor;outline-offset:4px;}
 .work-index-title{font-size:clamp(18px,1.6vw,26px);font-weight:500;line-height:1.2;letter-spacing:-.02em;}
 .work-index-year,.work-index-who,.work-index-type{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:18px;letter-spacing:.03em;font-variant-numeric:tabular-nums;color:hsl(var(--foreground) / .72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .work-preview{position:sticky;top:120px;margin:0;}
-.work-preview img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;}
+.work-preview img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:hsl(var(--foreground) / .06);}
+.work-preview img.is-previous{position:absolute;inset:0;height:100%;}
+.work-preview.has-swap img.is-current{animation:work-preview-in .28s var(--explore-ease);}
+@keyframes work-preview-in{from{opacity:0;}to{opacity:1;}}
 .work-preview figcaption{position:absolute;left:12px;bottom:12px;color:#fff;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:18px;letter-spacing:.03em;text-transform:none;}
 .work-index-thumb{display:none;}
 .work-index-copy{display:contents;}
@@ -19,8 +24,9 @@
   .work-page{padding-top:104px;}
   .work-layout{grid-template-columns:1fr;gap:0;}
   .work-preview{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;}
-  .work-index a{grid-template-columns:64px minmax(0,1fr);align-items:center;gap:12px;opacity:1;}
-  .work-index a:hover,.work-index a:focus-visible{opacity:1;}
+  .work-index a{grid-template-columns:64px minmax(0,1fr);align-items:center;gap:12px;padding-left:0;transform:none;}
+  .work-index a::before{content:none;}
+  .work-index a:hover,.work-index a:focus-visible,.work-index a[aria-current='true']{transform:none;opacity:1;}
   .work-index a:hover .work-index-title,.work-index a:focus-visible .work-index-title{opacity:.72;}
   .work-index-thumb{display:block;width:64px;height:64px;border-radius:var(--site-corner-radius);overflow:hidden;background:hsl(var(--foreground) / .08);}
   .work-index-thumb img{display:block;width:100%;height:100%;object-fit:cover;opacity:1;}
@@ -31,5 +37,6 @@
   .work-index-year{margin-left:auto;}
 }
 @media(prefers-reduced-motion:reduce){
-  .work-index a,.work-preview img{transition:none;}
+  .work-index a,.work-index a::before,.work-preview img{transition:none;}
+  .work-preview.has-swap img.is-current{animation:none;}
 }
