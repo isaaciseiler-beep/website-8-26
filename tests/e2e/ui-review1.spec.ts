@@ -84,13 +84,36 @@ test('skip link and header precede the gallery; sidebar targets and outside dism
   await page.getByRole('button',{name:'Toggle menu'}).click();await nav.getByRole('link',{name:'Writing',exact:true}).click();await expect(page.getByRole('heading',{name:'Writing',exact:true})).toBeFocused();await expect(nav).toHaveAttribute('aria-hidden','true');
 });
 
+test('a photo question opens gallery destinations and does not call a model',async({page})=>{
+  let posts=0;
+  await page.route('**/api/**',route=>{if(route.request().method()==='POST')posts+=1;return route.fulfill({json:{configured:false}});});
+  await page.goto('/');
+  await explore(page).fill('Show me photos from Japan');
+  await explore(page).press('Enter');
+  const photos=page.getByRole('region',{name:'Photographs'});
+  await expect(photos).toBeVisible();
+  await expect(photos.getByRole('link',{name:'Japan',exact:true})).toHaveAttribute('href','/?album=Japan');
+  await expect(photos.getByRole('link',{name:'Photo Map',exact:true})).toHaveAttribute('href','/photos/map');
+  expect(posts).toBe(0);
+  await expect.poll(()=>new URL(page.url()).searchParams.get('q')).toBe('Show me photos from Japan');
+});
+
 test('odd album ends in a pair and mobile lightbox has wide frame and stable end controls',async({page})=>{
   await page.setViewportSize({width:375,height:812});await page.goto('/?album=Iceland');await expect(page).toHaveTitle('Iceland · Photos · Isaac Seiler');
   const last=page.locator('.album-photo-row').last();await expect(last.locator('> *')).toHaveCount(2);await expect(last.getByRole('link',{name:/Back to albums/})).toBeVisible();
   await page.locator('.album-photo-tile').first().click();const dialog=page.getByRole('dialog',{name:/Iceland.*Photograph 1 of/i});await expect(dialog).toBeVisible();
   await expect(page.getByRole('button',{name:'Previous photograph'})).toBeDisabled();expect((await page.locator('.photo-preview-stage').boundingBox())!.width).toBe(343);
   await expect(page.locator('.photo-preview-image').first()).toHaveAttribute('alt',/Iceland, photograph 1 of/);
-  await page.getByRole('button',{name:'Next photograph'}).click();await expect(page.getByRole('button',{name:'Previous photograph'})).toBeEnabled();await page.keyboard.press('Escape');await expect(dialog).toHaveCount(0);
+  await page.getByRole('button',{name:'Next photograph'}).click();await expect(page.getByRole('button',{name:'Previous photograph'})).toBeEnabled();
+  const stage=page.locator('.photo-preview-stage');
+  const box=await stage.boundingBox();
+  if(!box)throw new Error('The photograph stage has no box');
+  await page.mouse.move(box.x+box.width*0.7, box.y+box.height/2);
+  await page.mouse.down();
+  await page.mouse.move(box.x+box.width*0.2, box.y+box.height/2, {steps:10});
+  await page.mouse.up();
+  await expect(page.getByRole('dialog',{name:/photograph 3 of/i})).toBeVisible();
+  await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 
 for(const reducedMotion of ['reduce','no-preference'] as const)test(`About keeps its copy and supports cycling at narrow widths: ${reducedMotion}`,async({page})=>{
