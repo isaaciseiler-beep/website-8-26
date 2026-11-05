@@ -3,7 +3,7 @@ import { EXPLORE_MS, phaseMark, skeletonKind } from '@/lib/exploreProgress';
 
 describe('explore progress', () => {
   it('marks only the real step as current', () => {
-    expect(phaseMark('finding', 'reading')).toBe('done');
+    expect(phaseMark('layout', 'finding')).toBe('done');
     expect(phaseMark('finding', 'finding')).toBe('current');
     expect(phaseMark('finding', 'layout')).toBe('upcoming');
     expect(phaseMark('stopped', 'finding')).toBe('upcoming');

@@ -21,7 +21,8 @@ export const EXPLORE_PHASE_LABEL: Record<ExplorePhase, string> = {
   error: 'The answer didn’t finish.',
 };
 
-const PHASE_ORDER = ['reading', 'finding', 'layout'] as const;
+/** Reading the question is synchronous, so it is not a mark anyone can see. */
+const PHASE_ORDER = ['finding', 'layout'] as const;
 export type ExploreStep = (typeof PHASE_ORDER)[number];
 
 /** Done, current, or upcoming for the three real request steps. */

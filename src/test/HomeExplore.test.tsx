@@ -154,8 +154,9 @@ describe("homepage generative interface", () => {
     act(()=>input.focus());
     fireEvent.change(input,{target:{value:'Taiwan teaching'}});
     await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
-    expect(input.selectionStart).toBe(0);
-    expect(input.selectionEnd).toBe('Taiwan teaching'.length);
+    expect(input.selectionEnd-input.selectionStart).toBe(0);
+    fireEvent.change(input,{target:{value:'Taiwan teachingA'}});
+    expect(input).toHaveValue('A');
     fireEvent.click(screen.getByRole('button',{name:'Ask a follow-up'}));
     expect(input).toHaveValue('');
     expect(input).toHaveFocus();
@@ -185,6 +186,27 @@ describe("homepage generative interface", () => {
     await act(async()=>{deliver(success({plan:localPlan('contact',initialPlan(),[],1)}));});
     expect(screen.queryByRole('region',{name:'Contact'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
+  });
+
+  it('retries the question currently in the box after a stopped follow-up',async()=>{
+    const drafts:string[]=[];
+    vi.stubGlobal('fetch',vi.fn(async(_url:string,options?:RequestInit)=>{
+      if(!options?.body)return success({configured:false});
+      const request=JSON.parse(String(options.body));
+      drafts.push(request.draft);
+      if(request.draft==='zxq follow up')return new Promise(()=>{});
+      return success({plan:localPlan(request.draft,request.current,[],request.revision),needsComposition:false});
+    }));
+    mount();
+    const input=screen.getByRole('textbox',{name:'Explore'});
+    fireEvent.change(input,{target:{value:'How can I contact Isaac?'}});
+    await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
+    fireEvent.change(input,{target:{value:'zxq follow up'}});
+    await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
+    fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
+    expect(input).toHaveValue('How can I contact Isaac?');
+    await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Retry'}));});
+    expect(drafts.at(-1)).toBe('How can I contact Isaac?');
   });
 
   it('retains the progress slot when an authored preview finishes and avoids a full loading spinner over content',async()=>{

@@ -156,11 +156,9 @@
 .home-genui .portfolio-career>.portfolio-chronology{margin-top:0;gap:var(--space-l);}
 .home-genui .portfolio-career>.portfolio-chronology-note{max-width:70ch;margin-top:var(--space-l);}
 @container(max-width:420px){
-  .home-genui .portfolio-tabs{display:grid;width:100%;gap:var(--space-xxs);}
-  .home-genui .portfolio-tabs[data-choices="4"]{grid-template-columns:repeat(4,minmax(0,1fr));}
-  .home-genui .portfolio-tabs[data-choices="3"]{grid-template-columns:repeat(3,auto);}
-  .home-genui .portfolio-tabs[data-choices="4"][data-long-label="true"]{grid-template-columns:repeat(2,minmax(0,1fr));}
-  .home-genui .portfolio-tabs button{min-width:0;min-height:44px;padding:var(--space-xs) var(--space-xxs);}
+  .home-genui .portfolio-tabs{display:flex;flex-wrap:nowrap;width:100%;max-width:100%;overflow-x:auto;scrollbar-width:none;mask-image:none;}
+  .home-genui .portfolio-tabs::-webkit-scrollbar{display:none;}
+  .home-genui .portfolio-tabs button{flex:1 1 auto;min-width:max-content;min-height:44px;padding:0 8px;white-space:nowrap;}
   .home-genui .portfolio-workbench-toolbar{display:block;}
 }
 
@@ -174,7 +172,7 @@
 .home-genui .portfolio-connections .portfolio-connection-grid .portfolio-connection-reader p{font-size:var(--size-m);line-height:var(--line-m);}
 .home-genui .portfolio-image-note{display:block;margin-top:var(--space-xs);font-size:var(--size-xs);line-height:var(--line-s);font-weight:var(--weight-regular);}
 
-@container(max-width:300px){.home-genui .portfolio-tabs[data-choices="4"]{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@container(max-width:300px){.home-genui .portfolio-tabs{flex-wrap:nowrap;}}
 
 /* Choice text shares the prose edge; icons share the opposite reading edge.
    Use an inset underline for focus so the reveal never slices off an outline. */

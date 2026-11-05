@@ -1,5 +1,5 @@
 @import './ai-theme.css';
-.home-genui{--window-padding:var(--space-xl);--explore-open-width:1120px;--composer-min-height:60px;--rest-height:max(220px,calc(70svh + 1px));container-type:inline-size;min-height:var(--rest-height);padding-top:calc((var(--rest-height) - var(--composer-min-height))/2 - var(--window-padding));padding-bottom:var(--space-xxl);position:relative;color:hsl(var(--foreground));font-family:var(--font-ui);font-size:var(--size-s);line-height:var(--line-s);letter-spacing:var(--tracking-l);text-wrap:pretty;}
+.home-genui{--window-padding:var(--space-xl);--explore-open-width:1120px;--composer-min-height:60px;--rest-height:max(220px,calc(70svh + 1px));container-type:inline-size;min-height:var(--rest-height);padding-top:112px;padding-bottom:var(--space-xxl);position:relative;color:hsl(var(--foreground));font-family:var(--font-ui);font-size:var(--size-s);line-height:var(--line-s);letter-spacing:var(--tracking-l);text-wrap:pretty;}
 .home-genui *{font-family:inherit;box-sizing:border-box;}
 .home-genui-window{width:min(608px,100%);padding:var(--window-padding);margin-inline:auto;position:relative;border-radius:var(--radius-xl);transition:width var(--motion-window-duration) var(--motion-window-easing),background-color var(--motion-large-duration) var(--motion-large-easing);}
 .home-genui-window:not(.has-results){transition-duration:var(--motion-large-duration),var(--motion-large-duration);}
@@ -12,7 +12,7 @@
 
 
 .has-results .home-genui-composer form{background:transparent;}
-.home-genui-composer form{display:flex;flex-wrap:wrap;align-items:flex-start;column-gap:var(--space-xxs);row-gap:0;padding:var(--space-xs) 0;background:transparent;border-radius:var(--radius-s);min-height:var(--composer-min-height);transition:background-color var(--motion-large-duration) var(--motion-large-easing);}
+.home-genui-composer form{display:flex;flex-wrap:wrap;align-items:flex-end;column-gap:var(--space-xxs);row-gap:0;padding:var(--space-xs) 0;background:transparent;border-radius:var(--radius-s);min-height:var(--composer-min-height);transition:background-color var(--motion-large-duration) var(--motion-large-easing);}
 .home-genui input,.home-genui select{font:inherit;line-height:var(--line-s);letter-spacing:var(--tracking-l);color:hsl(var(--foreground));background:var(--neutral-3);border-radius:var(--radius-s);padding:var(--space-s) var(--space-m);border:0;min-width:0;max-width:100%;}
 .home-genui input{width:100%;}
 .home-genui input::placeholder{color:var(--neutral-7);opacity:1;}
@@ -23,9 +23,10 @@
 .home-query-field{position:relative;flex:1 1 0;min-width:0;min-height:42px;}
 .home-question-measure,.home-genui-composer .home-query-field>textarea{display:block;width:100%;margin:0;border:0;padding:var(--space-xs) 0;font:inherit;font-size:var(--size-m);line-height:var(--line-m);letter-spacing:var(--tracking-l);white-space:pre-wrap;text-wrap:wrap;overflow-wrap:anywhere;word-break:normal;}
 .home-question-measure{position:absolute;inset:0 0 auto;visibility:hidden;pointer-events:none;}
-.home-genui-composer .home-query-field>textarea{position:absolute;inset:0;height:100%;min-height:42px;max-width:100%;background:transparent;color:hsl(var(--foreground));resize:none;border-radius:0;outline:none;scrollbar-width:thin;}
+.home-genui-composer .home-query-field>textarea{position:absolute;inset:0;height:100%;min-height:42px;max-width:100%;background:transparent;color:hsl(var(--foreground));resize:none;border-radius:0;outline:none;scrollbar-width:thin;text-align:left;}
+.home-genui-composer textarea::selection{background:hsl(var(--foreground) / .14);color:inherit;}
 .home-genui-composer textarea::placeholder{color:var(--neutral-7);opacity:1;}
-.home-genui-composer form>.home-clear,.home-genui-composer form>.home-submit{align-self:flex-start;}
+.home-genui-composer form>.home-clear,.home-genui-composer form>.home-submit{align-self:flex-end;}
 .home-genui button{font:inherit;font-weight:var(--weight-medium);line-height:var(--line-s);padding:var(--space-s) var(--space-l);border:0;border-radius:var(--radius-s);transition:background var(--motion-duration) var(--motion-easing),transform var(--motion-duration) var(--motion-easing);}
 .home-genui button:disabled{color:var(--neutral-6);cursor:not-allowed;}
 .home-genui button:not(:disabled):active{transform:translateY(1px);}
@@ -221,6 +222,7 @@
 .photo-location-ticker .pill-tab{font-size:12px;padding:9px 12px;min-height:34px;border-radius:var(--site-corner-radius);white-space:nowrap;}
 
 
+@media(max-width:700px){.home-genui{padding-top:96px;}}
 @media(max-width:640px){.home-genui{--window-padding:var(--space-m);}.home-genui-window.has-results{padding:var(--window-padding);}}
 
 /* Suggestions unfold as the final row of the same composer surface. */
@@ -384,7 +386,9 @@
 @media (pointer:coarse), (max-width:767px) {
   .home-genui input,.home-genui select,.home-genui .canvas-benchmark-controls select{font-size:var(--size-m);line-height:var(--line-m);}
   .home-genui button,.home-genui select,.home-genui-stage summary{min-height:44px;}
+  .home-genui .home-quiet-action{min-height:44px;min-width:0;padding-inline:var(--space-xs);background:transparent;}
   .home-genui-composer button{min-width:44px;}
+  .home-genui-composer .home-quiet-action{min-width:0;}
   .home-genui-tools{flex-wrap:wrap;}
   .home-view-history{flex-wrap:wrap;gap:var(--space-s);}
   .home-genui-status{overflow-wrap:anywhere;}
@@ -453,8 +457,10 @@
 .home-genui-stage .canvas-comparison-insight{max-width:65ch;margin-block:var(--space-s) var(--space-l);font-size:var(--size-s);line-height:var(--line-s);}
 .canvas-benchmark-about{margin-top:var(--space-l);max-width:68ch;}
 .home-genui-stage .canvas-benchmark-about p{font-size:var(--size-xs);line-height:var(--line-s);margin-block:var(--space-s);}
-.home-request-state{display:flex;align-items:center;justify-content:space-between;gap:var(--space-m);height:44px;min-height:44px;overflow:hidden;font-size:var(--size-xs);line-height:var(--line-xs);color:var(--neutral-7);}
-.home-genui .home-request-state button{min-height:44px;padding:var(--space-xs);background:transparent;font-size:var(--size-xs);line-height:var(--line-xs);}
+.home-request-reveal{padding-inline:var(--space-m);}
+.home-request-state{display:flex;align-items:center;justify-content:space-between;gap:var(--space-m);height:44px;min-height:44px;overflow:hidden;font-size:var(--size-s);line-height:var(--line-s);color:var(--neutral-8);}
+.home-genui .home-quiet-action{display:inline-flex;align-items:center;justify-content:center;width:auto;min-width:0;min-height:32px;padding:0 var(--space-xs);background:transparent;color:var(--neutral-8);font-size:var(--size-s);line-height:var(--line-s);font-weight:var(--weight-regular);border-radius:var(--radius-s);box-shadow:none;}
+.home-genui button.home-quiet-action:hover,.home-genui button.home-quiet-action:focus-visible{background:transparent;color:hsl(var(--foreground));text-decoration:underline;text-underline-offset:3px;}
 .home-pending-view{margin-top:var(--space-xs);padding-block:var(--space-m);}
 .home-phase{display:flex;align-items:center;gap:8px;min-width:0;}
 .home-phase-marks{display:flex;gap:4px;flex:none;}
@@ -583,7 +589,9 @@
 @container(max-width:300px){.home-genui .portfolio-work-browser .canvas-project-list{grid-template-columns:minmax(0,1fr);}}
 .experience-autocomplete li{font-size:var(--size-s);line-height:var(--line-s);}
 
-/* Keep the editable surface stationary as only the result shell grows. */
+/* The open composer shares the answer's inset. Idle stays a measured field. */
+.home-genui-window.has-results .home-genui-composer,.home-genui-window.has-guidance .home-genui-composer{width:100%;}
+.home-genui-window.has-results .home-genui-composer form,.home-genui-window.has-guidance .home-genui-composer form,.home-genui-window.has-results .home-request-reveal,.home-genui-window.has-guidance .home-request-reveal{padding-inline:0;}
 .home-genui-composer{width:min(544px,calc(100cqw - 2 * var(--window-padding)));}
 .home-genui-window .home-genui-composer form{padding-inline:var(--space-m);}
 .home-genui .home-genui-preview .home-preview-trigger{color:var(--neutral-8);}
@@ -592,17 +600,26 @@
   .home-genui-window{padding-inline:var(--space-xs);}
   .home-genui-composer{width:calc(100cqw - 2 * var(--space-xs));max-width:100%;}
   .home-genui-window .home-genui-composer form{padding-inline:var(--space-xxs);}
+  .home-genui-window.has-results .home-genui-composer form,.home-genui-window.has-guidance .home-genui-composer form,.home-genui-window.has-results .home-request-reveal,.home-genui-window.has-guidance .home-request-reveal{padding-inline:var(--space-xxs);}
 
   .home-genui .home-clear-footer{display:flex;}
   .home-genui-window.has-results{padding-inline:var(--space-xs);}
 }
 
-@media(max-width:390px){.home-genui-composer .home-query-field{flex-basis:100%;}.home-genui-composer form>.home-submit{margin-left:auto;}}
+@media(max-width:390px){.home-request-reveal{padding-inline:var(--space-xxs);}}
 
 @media(max-width:390px){
   .has-results .home-genui-reveal-content,.home-genui-reveal-content{width:calc(100cqw - 2 * var(--space-xs));}
   .home-genui-stage,.home-pending-view{padding-inline:var(--space-xxs);}
 }
-@media(min-width:391px) and (max-width:767px){
-  .home-genui-stage .portfolio-career{width:min(512px,calc(100cqw - 2 * var(--window-padding) - 2 * var(--space-m)));max-width:100%;margin-inline:auto;}
+
+/* Narrow project tabs stay one row. They share the row when the labels fit,
+   and otherwise scroll, with a fade only on an edge that still has more. */
+@container(max-width:420px){
+  .home-genui .portfolio-tabs{display:flex;flex-wrap:nowrap;width:100%;max-width:100%;overflow-x:auto;scrollbar-width:none;scroll-padding-inline:16px;gap:2px;mask-image:none;}
+  .home-genui .portfolio-tabs::-webkit-scrollbar{display:none;}
+  .home-genui .portfolio-tabs button{flex:1 1 auto;min-width:max-content;min-height:44px;padding:0 8px;font-size:var(--size-xs);white-space:nowrap;}
+  .home-genui .portfolio-tabs[data-overflow="true"]:not([data-end="true"]){mask-image:linear-gradient(to right,#000 calc(100% - 16px),transparent);}
+  .home-genui .portfolio-tabs[data-scrolled="true"][data-overflow="true"]:not([data-end="true"]){mask-image:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 16px),transparent);}
+  .home-genui .portfolio-tabs[data-scrolled="true"][data-end="true"]{mask-image:linear-gradient(to right,transparent,#000 16px);}
 }

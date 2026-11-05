@@ -783,6 +783,68 @@ test('Stop and a failed answer keep the question and offer retry',async({page})=
   await expect(page.getByRole('button',{name:'Retry'})).toBeVisible();
 });
 
+test('the committed question is not selected, and the first keystroke replaces it',async({page})=>{
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
+  expect(await input.evaluate((el:HTMLTextAreaElement)=>el.selectionEnd-el.selectionStart)).toBe(0);
+  await input.press('A');
+  await expect(input).toHaveValue('A');
+});
+
+for(const width of [320,375])test(`project facets stay on one row at ${width} and answer arrow keys`,async({page})=>{
+  await page.setViewportSize({width,height:812});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Taiwan teaching');await input.press('Escape');await input.press('Enter');
+  const tabs=page.getByRole('group',{name:'Explore project'});
+  await expect(tabs).toBeVisible();
+  const metrics=await tabs.evaluate(el=>{
+    const buttons=[...el.querySelectorAll('button')];
+    const root=el.getBoundingClientRect();
+    const clipped=buttons.filter(button=>{const box=button.getBoundingClientRect();return box.left<root.left-1||box.right>root.right+1;}).map(button=>button.textContent);
+    return {rows:new Set(buttons.map(button=>Math.round(button.getBoundingClientRect().top))).size,height:root.height,overflow:el.scrollWidth>el.clientWidth+1,clipped};
+  });
+  expect(metrics.rows).toBe(1);
+  expect(metrics.height).toBeLessThan(64);
+  if(width>=375)expect(metrics.clipped).toEqual([]);
+  await tabs.evaluate(el=>{el.scrollLeft=el.scrollWidth;});
+  expect(await tabs.evaluate(el=>{
+    const last=[...el.querySelectorAll('button')].at(-1)!.getBoundingClientRect();
+    const root=el.getBoundingClientRect();
+    return last.left>=root.left-1&&last.right<=root.right+1;
+  })).toBe(true);
+  await tabs.getByRole('button',{name:'Contribution'}).focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(tabs.getByRole('button',{name:'Process'})).toHaveAttribute('aria-pressed','true');
+});
+
+test('a matched follow-up keeps the previous answer settled until the next one arrives',async({page})=>{
+  let release:()=>void=()=>{};
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:true}});return;}
+    await gate;
+    const request=route.request().postDataJSON();
+    await route.fulfill({contentType:'application/x-ndjson',body:JSON.stringify({type:'composition',composition:request.proposed,revision:request.revision,contentVersion:request.contentVersion,partial:false})+'\n'}).catch(()=>{});
+  });
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
+  await input.fill('How can I contact Isaac?');await input.press('Escape');await input.press('Enter');
+  await expect(page.locator('.home-genui-stage')).toHaveAttribute('data-settled','true');
+  await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
+  release();
+  await expect(page.getByRole('link',{name:'Email'})).toBeVisible();
+});
+
 test('a provider failure keeps the question and offers retry',async({page})=>{
   await page.route('**/api/compose',async route=>{
     if(route.request().method()==='GET'){await route.fulfill({json:{configured:true}});return;}
