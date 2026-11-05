@@ -2,11 +2,25 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import Logo from "@/components/Logo";
+import { Link, useLocation } from "react-router-dom";
 import SearchTrigger from "@/components/SearchOverlay";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { useSiteChrome } from "@/lib/siteChrome";
+import { projectItems } from "@/lib/siteContent";
+
+function useBreadcrumb() {
+  const { pathname } = useLocation();
+  const crumbs: { label: string; to: string }[] = [];
+  if (pathname === "/work" || pathname.startsWith("/projects/")) crumbs.push({ label: "Work", to: "/work" });
+  if (pathname.startsWith("/projects/")) {
+    const id = decodeURIComponent(pathname.split("/")[2] ?? "");
+    const title = projectItems.find(project => project.id === id)?.title;
+    if (title) crumbs.push({ label: title, to: pathname });
+  } else if (pathname === "/about") crumbs.push({ label: "About", to: "/about" });
+  else if (pathname === "/writing" || pathname.startsWith("/writing/")) crumbs.push({ label: "Writing", to: "/writing" });
+  else if (pathname === "/photos/map") crumbs.push({ label: "Photo Map", to: "/photos/map" });
+  return crumbs;
+}
 
 export interface SiteHeaderProps {
   open: boolean;
@@ -19,6 +33,7 @@ export interface SiteHeaderProps {
 
 export const SiteHeaderSurface = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }: SiteHeaderProps) => {
   const navigationMotion = useNavigationMotion(open);
+  const crumbs = useBreadcrumb();
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -32,9 +47,16 @@ export const SiteHeaderSurface = ({ open, onToggle, searchOpen, onSearchOpen, on
     <a className="site-skip-link" href="#main-content" onClick={event=>{event.preventDefault();const main=document.querySelector<HTMLElement>('main');if(main){main.id='main-content';main.tabIndex=-1;main.focus();main.scrollIntoView({block:'start'});}}}>Skip to content</a>
     <div className={`site-header-scrim${scrolled ? ' is-scrolled' : ''}`} aria-hidden="true" />
     <div className="site-header-xray fixed left-0 top-0 z-[60] flex items-center gap-1 px-6 py-4">
-      <Link to="/" state={open ? { sidebarOpen: true } : undefined} className="site-home-link" aria-label="IIS home">
-        <Logo />
-      </Link>
+      <nav className="site-crumbs" aria-label="Breadcrumb">
+        <Link to="/" state={open ? { sidebarOpen: true } : undefined} className="site-home-link" aria-label="IIS home">IIS</Link>
+        {crumbs.map((crumb, index) => {
+          const current = index === crumbs.length - 1;
+          return <span className="site-crumb" key={crumb.to}>
+            <span className="site-crumb-sep" aria-hidden="true">/</span>
+            {current ? <span className="site-crumb-current" aria-current="page">{crumb.label}</span> : <Link to={crumb.to}>{crumb.label}</Link>}
+          </span>;
+        })}
+      </nav>
       <motion.button
         onClick={onToggle}
         className="site-nav-toggle-xray flex h-5 w-5 items-center justify-center"

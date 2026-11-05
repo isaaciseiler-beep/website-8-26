@@ -42,15 +42,15 @@ describe('route handoff', () => {
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Work index' })).toBeInTheDocument());
   });
 
-  it('keeps navigation live instead of snapshotting forward and back', async () => {
-    const start = vi.fn();
+  it('crossfades route changes with the View Transitions API', async () => {
+    const start = vi.fn((callback: () => void) => { callback(); return { ready: Promise.resolve(), finished: Promise.resolve() }; });
     Object.defineProperty(document, 'startViewTransition', { configurable: true, value: start });
     render(<Harness />);
     fireEvent.click(screen.getByRole('link', { name: 'Work' }));
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Work index' })).toBeInTheDocument());
     fireEvent.click(screen.getByRole('button', { name: 'Browser back' }));
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument());
-    expect(start).not.toHaveBeenCalled();
+    expect(start).toHaveBeenCalledTimes(2);
   });
 });
 

@@ -16,8 +16,9 @@ export default function SiteChromeProvider({ children }: { children: ReactNode }
       set(registration);
       return () => {
         // A destination registers in the same commit that the old page leaves.
-        // Never remove its chrome while cleaning up the previous registration.
-        queueMicrotask(() => set(current => current === registration ? null : current));
+        // Wait past the view-transition snapshot so this cleanup cannot drop the
+        // chrome before that registration, or before the page-ready close.
+        requestAnimationFrame(() => set(current => current === registration ? null : current));
       };
     };
     return { sidebar: register(setSidebar), header: register(setHeader) };

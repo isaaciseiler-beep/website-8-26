@@ -13,6 +13,23 @@ import { representativeProjectImage } from '@/components/canvas/projectVisual';
 import { responsiveProjectImageProps } from '@/lib/responsiveProjectImages';
 
 const projects = orderProjectItemsForWork(projectItems).filter(project => !hiddenProjectIds.has(project.id));
+
+function markWorkHero(event: { currentTarget: HTMLAnchorElement }) {
+  document.querySelectorAll<HTMLElement>('[data-work-hero]').forEach(node => {
+    node.style.viewTransitionName = '';
+    delete node.dataset.workHero;
+  });
+  const thumb = event.currentTarget.querySelector<HTMLElement>('.work-index-thumb');
+  const rowImage = thumb?.querySelector('img');
+  const thumbVisible = Boolean(thumb && getComputedStyle(thumb).display !== 'none');
+  const preview = document.querySelector<HTMLImageElement>('.work-preview img');
+  if (!thumbVisible && preview && rowImage) preview.src = rowImage.currentSrc || rowImage.src;
+  const source = thumbVisible ? rowImage ?? thumb : preview;
+  if (source instanceof HTMLElement) {
+    source.dataset.workHero = 'true';
+    source.style.viewTransitionName = 'work-hero';
+  }
+}
 const typeLabel: Record<ProjectItem['source'], string> = {
   RESEARCH: 'Research',
   WORK: 'Work',
@@ -61,6 +78,7 @@ export default function WorkPage() {
                       aria-current={project.id === active?.id ? 'true' : undefined}
                       onMouseEnter={() => setActiveId(project.id)}
                       onFocus={() => setActiveId(project.id)}
+                      onClick={markWorkHero}
                     >
                       <span className="work-index-thumb" aria-hidden="true"><img src={representativeProjectImage(project).src} alt="" /></span>
                       <span className="work-index-copy">

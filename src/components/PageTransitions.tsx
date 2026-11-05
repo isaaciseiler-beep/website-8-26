@@ -1,10 +1,10 @@
 import { Suspense, startTransition, useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { flushSync } from 'react-dom';
 import { useLocation, useNavigationType, type Location } from 'react-router-dom';
 import { motionReduced, useMotionPreference } from '@/hooks/useMotionPreference';
 import { saveNavigationPosition } from '@/lib/navigationScroll';
 import { RouteNavigationContext } from '@/lib/routeNavigation';
 import { warmRoute } from '@/lib/routePreload';
-import { MOTION_DURATION, MOTION_EASE_NAVIGATION } from '@/lib/motion';
 import ScrollManager from './ScrollManager';
 import RouteLoader from './RouteLoader';
 
@@ -26,11 +26,15 @@ export default function PageTransitions({ children }: { children: (location: Loc
     if (ticket !== serial.current) return;
     window.dispatchEvent(new CustomEvent('site-page-ready'));
     if (motionReduced() || !scene.current?.animate) return;
+    if (typeof document.startViewTransition === 'function') return;
     animation.current?.cancel();
-    animation.current = scene.current.animate([{ opacity: 0.72 }, { opacity: 1 }], {
-      duration: MOTION_DURATION.panel * 1000,
-      easing: `cubic-bezier(${MOTION_EASE_NAVIGATION.join(',')})`,
-    });
+    const styles = getComputedStyle(document.documentElement);
+    const easing = styles.getPropertyValue('--explore-ease').trim() || 'ease';
+    const duration = Number.parseFloat(styles.getPropertyValue('--explore-open')) || 200;
+    animation.current = scene.current.animate(
+      [{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }],
+      { duration, easing },
+    );
   }, []);
 
   useEffect(() => { if (reduced) animation.current?.cancel(); }, [reduced]);
@@ -54,9 +58,35 @@ export default function PageTransitions({ children }: { children: (location: Loc
       if (cancelled || ticket !== serial.current) return;
       saveNavigationPosition(current.current.location);
       const next: Frame = { location: requested, restoring, arrival: ticket };
-      // Suspense retains the outgoing page until the destination commits. No
-      // viewport snapshot can freeze the sidebar or cover its closing motion.
-      startTransition(() => setFrame(() => ticket === serial.current ? next : current.current));
+      const apply = () => { if (ticket === serial.current) setFrame(next); };
+      const start = (document as Document & {
+        startViewTransition?: (callback: () => void) => { ready: Promise<void>; finished: Promise<void> };
+      }).startViewTransition;
+      // The header keeps its own view-transition name, so the snapshot crossfades the page only.
+      if (!motionReduced() && typeof start === 'function') {
+        let focused: HTMLElement | null = null;
+        const remember = () => {
+          const active = document.activeElement;
+          if (active instanceof HTMLElement && active.closest('main')) focused = active;
+        };
+        const keepFocus = (event?: Event) => {
+          const target = event?.target;
+          if (target instanceof Element && !target.closest('.site-header-xray, .site-search-xray, .site-header-scrim')) {
+            remember();
+            return;
+          }
+          if (!focused?.isConnected || document.activeElement === focused) return;
+          if (focused.closest('main')) focused.focus({ preventScroll: true });
+        };
+        const transition = start.call(document, () => {
+          flushSync(apply);
+          remember();
+        });
+        document.addEventListener('focusin', keepFocus, true);
+        const stop = () => document.removeEventListener('focusin', keepFocus, true);
+        void transition.finished?.finally(() => { keepFocus(); window.setTimeout(stop, 400); });
+        window.setTimeout(stop, 2000);
+      } else startTransition(apply);
     });
     return () => { cancelled = true; };
   }, [requested, navigationType]);

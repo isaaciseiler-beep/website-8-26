@@ -142,6 +142,53 @@ for(const reducedMotion of ['reduce','no-preference'] as const)test(`About keeps
   await expect(chip).toHaveClass(/is-open/);
 });
 
+test('the about display has no leading whitespace or double spaces', async ({ page }) => {
+  const paragraph = page.locator('.about-display');
+  for (const width of [320, 375, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/about');
+    for (let step = 0; step < 6; step++) {
+      const problem = await paragraph.evaluate(el => {
+        const text = el.textContent ?? '';
+        if (text.includes('  ')) return 'double space in textContent';
+        const lines = (el as HTMLElement).innerText.split('\n');
+        const leading = lines.find(line => line.length > 0 && /^\s/.test(line));
+        if (leading) return `line starts with whitespace: ${JSON.stringify(leading.slice(0, 12))}`;
+        const range = document.createRange();
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        const chars: { ch: string; x: number; y: number; w: number }[] = [];
+        let node: Node | null;
+        while ((node = walker.nextNode())) {
+          const parent = node.parentElement;
+          if (!parent || parent.closest('[aria-hidden="true"], .sr-only')) continue;
+          const value = node.textContent ?? '';
+          for (let i = 0; i < value.length; i++) {
+            range.setStart(node, i);
+            range.setEnd(node, i + 1);
+            const box = range.getClientRects()[0];
+            if (!box || box.width < 0.5) continue;
+            chars.push({ ch: value[i], x: box.x, y: box.y, w: box.width });
+          }
+        }
+        const groups = new Map<number, typeof chars>();
+        for (const item of chars) {
+          const key = Math.round(item.y);
+          const existing = [...groups.keys()].find(candidate => Math.abs(candidate - key) <= 2);
+          const bucket = existing ?? key;
+          groups.set(bucket, [...(groups.get(bucket) ?? []), item]);
+        }
+        for (const line of groups.values()) {
+          line.sort((a, b) => a.x - b.x);
+          if (line[0] && /\s/.test(line[0].ch)) return `line box starts with ${JSON.stringify(line[0].ch)}`;
+        }
+        return '';
+      });
+      expect(problem, `${width} after ${step}`).toBe('');
+      await page.locator('.about-cycle').click();
+    }
+  }
+});
+
 test('cycling the area chip does not move the words that follow',async({page})=>{
   await page.setViewportSize({width:1280,height:800});
   await page.goto('/about');
@@ -166,6 +213,23 @@ test('the about paragraph stays inside its measure through a full cycle',async({
       await page.locator('.about-cycle').click();
     }
   }
+});
+
+test('work rows use a square thumbnail at 375 and one meta case', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/work');
+  const thumb = page.locator('.work-index-thumb').first();
+  await expect(thumb).toBeVisible();
+  const box = await thumb.boundingBox();
+  expect(box?.width ?? 0).toBeGreaterThanOrEqual(56);
+  expect(box?.width ?? 0).toBeLessThanOrEqual(64);
+  expect(Math.abs((box?.width ?? 0) - (box?.height ?? 0))).toBeLessThan(1);
+  expect(await page.locator('.work-preview').evaluate(el => getComputedStyle(el).display)).toBe('none');
+  const year = (await page.locator('.work-index-year').first().innerText()).trim();
+  expect(year).toMatch(/^\d{4}$/);
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await expect(page.locator('.work-preview figcaption')).toHaveCSS('text-transform', 'none');
+  await expect(page.locator('.work-index-type').first()).toHaveCSS('text-transform', 'none');
 });
 
 test('a work row swaps the anchored preview without moving the index',async({page})=>{

@@ -335,4 +335,16 @@ describe("homepage generative interface", () => {
     await act(async () => { fireEvent.submit(input.closest("form")!); });
     expect(screen.getByRole("combobox", { name: "Project" })).toBeInTheDocument();
   });
+
+  it('uses the question as the widen skeleton title and keeps bars for the body', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => success({ configured: false })));
+    mount();
+    const input = screen.getByRole('textbox', { name: 'Explore' });
+    fireEvent.change(input, { target: { value: 'Compare California and Washington' } });
+    await act(async () => { fireEvent.submit(input.closest('form')!); });
+    const title = document.querySelector('.home-widen-skeleton .home-skeleton-question');
+    expect(title?.textContent).toBe('Compare California and Washington');
+    expect(document.querySelector('.home-widen-skeleton .home-skeleton-title')).toBeNull();
+    expect(document.querySelector('.home-widen-skeleton .home-skeleton')?.querySelector('span, .home-skeleton-split')).not.toBeNull();
+  });
 });

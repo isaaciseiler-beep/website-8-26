@@ -38,10 +38,11 @@
   .photo-hover-label, .album-photo-tile img, .photo-album-gallery .photo-tile img { transition: none; transform: none; }
 }
 .home-statement { width: min(100%, 18em); margin: 96px auto 4px; padding-inline: 24px; text-align: center; font-size: clamp(32px, 4vw, 56px); font-weight: 500; line-height: 1.08; letter-spacing: -.03em; text-wrap: balance; }
-.home-hero-chip { display: inline-flex; align-items: center; gap: .2em; padding: 0 .28em; border: 0; border-radius: 999px; background: hsl(var(--foreground) / .05); box-shadow: inset 0 0 0 1px hsl(var(--foreground) / .22); color: inherit; font: inherit; letter-spacing: inherit; line-height: 1; white-space: nowrap; vertical-align: baseline; cursor: pointer; }
-.home-hero-chip:hover,.home-hero-chip:focus-visible { background: hsl(var(--foreground) / .12); }
+html:not(.skull) .home-statement .home-hero-chip { display: inline-block; padding: 0.02em 0.28em; border: 1px solid hsl(var(--foreground) / .18); border-color: hsl(var(--foreground) / .18) !important; border-radius: 999px; background: transparent; box-shadow: none; color: inherit; font: inherit; font-weight: inherit; letter-spacing: inherit; line-height: inherit; white-space: nowrap; vertical-align: baseline; cursor: pointer; min-height: 0; min-width: 0; }
+html:not(.skull) .home-statement .home-hero-chip svg { display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.1em; vertical-align: -0.08em; }
+html:not(.skull) .home-statement .home-hero-chip:hover, html:not(.skull) .home-statement .home-hero-chip:focus-visible { background: hsl(var(--foreground) / .06); opacity: 1; }
 .home-hero-chip:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-.photo-home-exploration .home-genui { padding-top: 8px; min-height: 0; }
+.photo-home-exploration .home-genui { padding-top: 8px; padding-bottom: 16px; min-height: 0; }
 .photo-tile { background: hsl(var(--foreground) / .08); }
 
 /* Quiet album navigation shares the header icons' outline weight. */

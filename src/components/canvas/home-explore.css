@@ -502,6 +502,7 @@
 .home-skeleton>span{display:block;height:var(--line-s);border-radius:var(--radius-s);background:var(--neutral-4);}
 .home-skeleton .is-short{width:62%;}
 .home-skeleton-title{height:28px;width:46%;}
+.home-skeleton-question{margin:0;max-width:22ch;font-size:var(--size-title);line-height:var(--line-title);letter-spacing:var(--tracking-s);font-weight:var(--weight-medium);color:hsl(var(--foreground));}
 .home-skeleton-figure{height:160px;}
 .home-skeleton-split{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-s);height:140px;background:transparent;}
 .home-skeleton-split i{display:block;border-radius:var(--radius-s);background:var(--neutral-4);}

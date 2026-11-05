@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import SiteHeader from '@/components/SiteHeader';
@@ -55,6 +55,15 @@ describe('portfolio navigation and recovery', () => {
     expect(screen.getByRole('combobox', { name: 'Search query' })).toBe(input);
     expect(input).toHaveValue('Taiwan');
     expect(input.closest('form')).not.toHaveAttribute('inert');
+  });
+
+  it('reads the header as a breadcrumb for the current project', () => {
+    render(<MemoryRouter initialEntries={['/projects/artificial-intelligence-in-state-government-index']}><SiteHeader open={false} onToggle={() => {}} /></MemoryRouter>);
+    const crumbs = screen.getByRole('navigation', { name: 'Breadcrumb' });
+    expect(crumbs).toHaveTextContent('IIS');
+    expect(within(crumbs).getByRole('link', { name: 'Work' })).toHaveAttribute('href', '/work');
+    expect(within(crumbs).getByText('Mapping the Rise of AI Across State Government')).toHaveAttribute('aria-current', 'page');
+    expect(document.querySelector('.site-header-xray')).toBeInTheDocument();
   });
 
   it('exposes a Home recovery link within the normal site shell', () => {
