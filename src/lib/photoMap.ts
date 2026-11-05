@@ -1,4 +1,5 @@
 import { R2_BASE, albums, albumPhotos, coverFor, type Album } from "@/lib/photoAlbums";
+import { normalizePlaceName } from "@/lib/photoMapLayout";
 
 export type PhotoMapEntryKind = "album" | "photo";
 
@@ -100,7 +101,27 @@ const albumMapEntries: PhotoMapEntry[] = albums
   }))
   .filter((entry) => Boolean(entry.coordinates));
 
-export const photoMapEntries: PhotoMapEntry[] = [...albumMapEntries, ...standalonePhotoEntries];
+/** One pin per place. The standalone Washington photograph belongs on the D.C. album pin. */
+function mergeSamePlace(entries: PhotoMapEntry[]): PhotoMapEntry[] {
+  const merged: PhotoMapEntry[] = [];
+  for (const entry of entries) {
+    const key = normalizePlaceName(entry.location);
+    const index = merged.findIndex(item => normalizePlaceName(item.location) === key);
+    if (index < 0) {
+      merged.push({ ...entry, images: [...entry.images] });
+      continue;
+    }
+    const current = merged[index];
+    const album = current.kind === 'album' ? current : entry.kind === 'album' ? entry : current;
+    const extra = album === current ? entry : current;
+    const images = [...album.images];
+    for (const image of extra.images) if (!images.includes(image)) images.push(image);
+    merged[index] = { ...album, images };
+  }
+  return merged;
+}
+
+export const photoMapEntries: PhotoMapEntry[] = mergeSamePlace([...albumMapEntries, ...standalonePhotoEntries]);
 
 export const photoMapInitialView = {
   center: [105, 26] as [number, number],
