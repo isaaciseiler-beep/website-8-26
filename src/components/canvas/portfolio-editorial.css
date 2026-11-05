@@ -2,7 +2,7 @@
    a reading edge, confident real media, and controls with a clear purpose. */
 .home-genui .portfolio-project-heading{position:relative;width:fit-content;max-width:100%;margin:0 0 var(--space-l);border-radius:var(--radius-s);}
 .home-genui .portfolio-project-heading:focus-within{outline:none;border-radius:0;box-shadow:inset 0 -2px 0 currentColor;}
-.home-genui .portfolio-project-heading>.portfolio-project-title{display:block;width:fit-content;max-width:100%;margin:0;font-size:var(--answer-title-size,var(--size-xl));line-height:var(--answer-title-line,1.15);letter-spacing:var(--tracking-xs);font-weight:var(--weight-medium);}
+.home-genui .portfolio-project-heading>.portfolio-project-title{display:block;width:fit-content;max-width:100%;margin:0;font-size:var(--size-title,var(--size-xl));line-height:var(--line-title,1.15);letter-spacing:var(--tracking-xs);font-weight:var(--weight-medium);}
 .home-genui .portfolio-project-title>svg{display:inline-block;width:.72em;height:.72em;margin-inline-start:.2em;vertical-align:-.12em;}
 .home-genui .portfolio-project-heading>.portfolio-project-native{position:absolute;inset:0;width:100%;height:100%;max-width:100%;opacity:0;cursor:pointer;}
 .home-genui .portfolio-workbench-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-s) var(--space-l);margin-bottom:var(--space-l);}
@@ -140,7 +140,7 @@
 }
 @media(max-width:640px){
   .home-genui .portfolio-project-heading{margin-block:0 var(--space-l);}
-  .home-genui .portfolio-project-heading>.portfolio-project-title{font-size:var(--answer-title-size,var(--size-xl));line-height:var(--answer-title-line,1.15);}
+  .home-genui .portfolio-project-heading>.portfolio-project-title{font-size:var(--size-title,var(--size-xl));line-height:var(--line-title,1.15);}
   .home-genui .portfolio-workbench-reader>.portfolio-direct-answer{font-size:var(--size-m);line-height:var(--line-m);margin-bottom:var(--space-m);}
   .home-genui .portfolio-comparison-media select,.home-genui .portfolio-comparison-name{font-size:var(--size-m);line-height:var(--line-m);}
   .home-genui .portfolio-comparison>.portfolio-deck,.home-genui .portfolio-connections>.portfolio-connection-insight{font-size:var(--size-m);line-height:var(--line-m);}

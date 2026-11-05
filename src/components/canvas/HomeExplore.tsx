@@ -247,16 +247,18 @@ export default function HomeExplore() {
     if(reveal&&content&&Math.abs(reveal.getBoundingClientRect().height-content.getBoundingClientRect().height)>1)return;
     pendingReadingState.current=null;restoreReadingState(results,saved);
   };
+  const headerClearance=()=>[...document.querySelectorAll('.site-home-link, .site-nav-toggle-xray, .site-search-icon')].reduce((max,el)=>Math.max(max,el.getBoundingClientRect().bottom),56)+12;
   const revealStart=()=>{
     const node=composerRef.current;
-    if(node&&node.getBoundingClientRect().top<48)node.scrollIntoView({block:'start',behavior:reduceMotion?'auto':'smooth'});
+    if(node&&node.getBoundingClientRect().top<headerClearance())node.scrollIntoView({block:'start',behavior:reduceMotion?'auto':'smooth'});
   };
   const placeAnswer=()=>{
     if(userScrolledDuringWait.current||window.innerWidth>767)return;
-    const title=resultsRef.current?.querySelector('h2:not(.sr-only), h3');
-    if(!title)return;
-    const delta=title.getBoundingClientRect().top-80;
-    if(Math.abs(delta)<12)return;
+    const composer=composerRef.current;
+    if(!composer)return;
+    const clearance=headerClearance();
+    const delta=composer.getBoundingClientRect().top-clearance;
+    if(Math.abs(delta)<8)return;
     placingAnswer.current=true;
     window.scrollTo({top:Math.max(0,window.scrollY+delta),behavior:reduceMotion?'auto':'smooth'});
     window.setTimeout(()=>{placingAnswer.current=false;},reduceMotion?0:700);

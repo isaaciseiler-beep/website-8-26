@@ -868,6 +868,50 @@ test('a matched follow-up keeps the previous answer settled until the next one a
   await expect(page.getByRole('link',{name:'Email'})).toBeVisible();
 });
 
+async function headerClearsExplore(page: import('@playwright/test').Page){
+  expect(await page.evaluate(()=>{
+    const header=[...document.querySelectorAll('.site-home-link, .site-nav-toggle-xray, .site-search-icon')].map(el=>el.getBoundingClientRect()).filter(box=>box.width>0&&box.height>0);
+    const content=[...document.querySelectorAll('.home-genui-composer, .home-genui-stage, #home-explore, .home-submit')].map(el=>el.getBoundingClientRect()).filter(box=>box.width>0&&box.height>0&&box.bottom>0&&box.top<innerHeight);
+    const hit=(a:DOMRect,b:DOMRect)=>a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+    return header.some(icon=>content.some(block=>hit(icon,block)));
+  })).toBe(false);
+}
+
+for(const width of [320,375,390])test(`header icons stay clear of Explore after submit and follow-up at ${width}`,async({page})=>{
+  await page.setViewportSize({width,height:812});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Give me a brief on the Taiwan project');
+  await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible();
+  await page.waitForTimeout(800);
+  await headerClearsExplore(page);
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('heading',{name:'AI in state government'})).toBeVisible();
+  await page.waitForTimeout(800);
+  await headerClearsExplore(page);
+});
+
+test('a scrolled page fades in the header scrim on About, Work, a project, and photos',async({page})=>{
+  for(const path of ['/about','/work','/projects/openai-product-testing-and-feedback']){
+    await page.goto(path);
+    await expect(page.locator('.site-header-scrim')).toBeAttached();
+    await expect(page.locator('.site-header-scrim')).not.toHaveClass(/is-scrolled/);
+    await page.evaluate(()=>window.scrollTo(0,240));
+    await expect(page.locator('.site-header-scrim')).toHaveClass(/is-scrolled/);
+    await page.evaluate(()=>window.scrollTo(0,0));
+    await expect(page.locator('.site-header-scrim')).not.toHaveClass(/is-scrolled/);
+  }
+  await page.goto('/#photo-gallery');
+  await expect(page.locator('#photo-gallery')).toBeVisible();
+  await expect(page.locator('.site-header-scrim')).toHaveClass(/is-scrolled/);
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await expect(page.locator('.site-header-scrim')).not.toHaveClass(/is-scrolled/);
+});
+
 test('the layout review harness does not render in the production build',async({page})=>{
   await page.goto('/?layouts');
   await expect(page.getByRole('textbox',{name:'Explore',exact:true})).toBeVisible();
@@ -885,7 +929,11 @@ test('a phone answer title lands below the header and back, forward, and reload 
   await input.press('Escape');await input.press('Enter');
   const title=page.getByRole('heading',{name:'AI in state government'});
   await expect(title).toBeVisible();
-  await expect.poll(async()=>Math.abs((await title.boundingBox())!.y-80)).toBeLessThan(16);
+  await expect.poll(async()=>{
+    const composer=(await page.locator('.home-genui-composer').boundingBox())!;
+    const header=(await page.locator('.site-home-link').boundingBox())!;
+    return composer.y-(header.y+header.height);
+  }).toBeGreaterThan(8);
   await input.fill('Who is Isaac?');await input.press('Escape');
   await page.evaluate(()=>window.scrollTo(0,640));
   await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(500);

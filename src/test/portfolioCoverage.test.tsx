@@ -8,6 +8,7 @@ import { findPublishedProject } from '@/lib/portfolioRetrieval';
 import { hiddenProjectIds } from '@/lib/siteContent';
 import { applyPortfolioAction, createPortableView, encodeView, decodeView } from '@/lib/portfolioView';
 import { portfolioSectionQuestions } from './fixtures/portfolioSectionQuestions';
+import { sentenceCaseHeading } from '@/lib/sentenceHeading';
 
 afterEach(cleanup);
 const compose = (question: string) => composeLocal(question, resolveCanvasPlan(question, initialPlan(), 1));
@@ -33,7 +34,7 @@ describe('published work beyond the default projects', () => {
     if (composition.blocks[0].focus === 'evidence') {
       for(const link of expected.links??[])expect(screen.getByRole('link',{name:link.label})).toBeVisible();
     } else {
-      const label = id === 'senior-thesis-local-journalism' && section === 1 ? 'Research themes & outputs' : expected.heading;
+      const label = sentenceCaseHeading(id === 'senior-thesis-local-journalism' && section === 1 ? 'Research themes & outputs' : expected.heading);
       expect(screen.getByRole('heading', { level: 3, name: label })).toBeVisible();
     }
     expect(reconcileComposition(question, composition, composition)?.blocks[0].section).toBe(section);
@@ -45,7 +46,7 @@ describe('published work beyond the default projects', () => {
     render(<ProjectStory block={{ ...blankBlock('story'), focus: 'evidence', layout: 'project-evidence', projectIds: [project.id] }} onChange={() => {}} />);
     const explorer = screen.getByRole('region', { name: 'Project explorer' });
     for (const section of project.sections) {
-      expect(within(explorer).getByText(section.heading, { selector: 'summary' })).toBeInTheDocument();
+      expect(within(explorer).getByText(sentenceCaseHeading(section.heading), { selector: 'summary' })).toBeInTheDocument();
       for (const link of section.links ?? []) expect(within(explorer).getByRole('link', { name: link.label, hidden: true })).toHaveAttribute('href', link.href);
     }
   });

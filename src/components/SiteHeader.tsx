@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
@@ -18,10 +19,18 @@ export interface SiteHeaderProps {
 
 export const SiteHeaderSurface = ({ open, onToggle, searchOpen, onSearchOpen, onSearchClose }: SiteHeaderProps) => {
   const navigationMotion = useNavigationMotion(open);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   // Blend against the actual page, outside route transforms and isolated panels.
   // Keep search results outside this blend layer so their text is not inverted.
   return createPortal(<>
     <a className="site-skip-link" href="#main-content" onClick={event=>{event.preventDefault();const main=document.querySelector<HTMLElement>('main');if(main){main.id='main-content';main.tabIndex=-1;main.focus();main.scrollIntoView({block:'start'});}}}>Skip to content</a>
+    <div className={`site-header-scrim${scrolled ? ' is-scrolled' : ''}`} aria-hidden="true" />
     <div className="site-header-xray fixed left-0 top-0 z-[60] flex items-center gap-1 px-6 py-4">
       <Link to="/" state={open ? { sidebarOpen: true } : undefined} className="site-home-link" aria-label="IIS home">
         <Logo />
