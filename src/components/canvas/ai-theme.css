@@ -27,6 +27,8 @@
   --line-xs: 16px;
   --size-xxl: 48px;
   --line-xxl: 52px;
+  --size-caption: 13px;
+  --line-caption: 18px;
   --size-echo: 20px;
   --line-echo: 28px;
   --size-title: clamp(28px, 1.4vw + 22px, 36px);

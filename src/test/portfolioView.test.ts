@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT_VERSION } from '@/lib/canvas';
 import { POLICY_ID, TAIWAN_ID } from '@/lib/genui';
-import { applyPortfolioAction, changeHistory, createPortableView, decodeView, encodeView, portfolioActionForRequest, readPortableView, travelHistory, viewUrl } from '@/lib/portfolioView';
+import { applyPortfolioAction, changeHistory, createPortableView, decodeView, encodeView, exploreShareMetadata, portfolioActionForRequest, readPortableView, travelHistory, viewUrl } from '@/lib/portfolioView';
 
 const story = () => applyPortfolioAction(null, { type: 'open_project', projectId: TAIWAN_ID, focus: 'process' });
 describe('portable portfolio views', () => {
@@ -75,5 +75,12 @@ describe('portable portfolio views', () => {
     expect(portfolioActionForRequest('Remove the second view', next)).toEqual({ type: 'remove_module', index: 1 });
     expect(portfolioActionForRequest('Add something about photography', original)).toBeNull();
     expect(portfolioActionForRequest('Tell me about Taiwan', original)).toBeNull();
+  });
+  it('names a shared answer from its title and question', () => {
+    const view = createPortableView(story().composition);
+    const shared = exploreShareMetadata('?q=How+did+Isaac+help+teachers+in+Taiwan%3F', `#view=${encodeView(view)}`);
+    expect(shared?.title).toBe('Leading AI Literacy Efforts in Taiwan · Isaac Seiler');
+    expect(shared?.description).toBe('How did Isaac help teachers in Taiwan?');
+    expect(exploreShareMetadata('', '#view=not-a-view')).toBeNull();
   });
 });

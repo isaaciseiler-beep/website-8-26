@@ -23,6 +23,7 @@ import './explore-journey.css';
 import { AI_LAYOUTS, type LayoutId } from '@/lib/layouts';
 import { applyPortfolioAction, createPortableView, decodeView, portfolioActionForRequest, travelHistory, viewPlan, viewTitle, viewUrl } from '@/lib/portfolioView';
 import { registerPortfolioTools, type BrowserToolRegistry } from '@/lib/portfolioWebMcp';
+import { metadataForPath } from '@/lib/seo';
 import { SITE_URL } from '@/lib/site';
 import { beginExplorationMetric } from '@/lib/explorationMetrics';
 import { analyzePortfolioRequest } from '@/lib/portfolioRequestAnalysis';
@@ -191,6 +192,8 @@ export default function HomeExplore() {
   const [history,setHistory]=useState<View[]>(restored?.history??[]);
   const [future,setFuture]=useState<View[]>(restored?.future??[]);
   const [shareStatus,setShareStatus]=useState<'idle'|'copied'|'failed'>('idle');
+  const placeOnRestore=useRef(false);
+  useEffect(()=>{if(shareStatus==='idle')return;const timer=window.setTimeout(()=>setShareStatus('idle'),2400);return()=>window.clearTimeout(timer);},[shareStatus]);
   const [linkError,setLinkError]=useState('');
   // Per-history-entry, memory-only and bounded; drafts never enter the URL or provider calls.
   useLayoutEffect(()=>{
@@ -253,7 +256,9 @@ export default function HomeExplore() {
     if(node&&node.getBoundingClientRect().top<headerClearance())node.scrollIntoView({block:'start',behavior:reduceMotion?'auto':'smooth'});
   };
   const placeAnswer=()=>{
-    if(userScrolledDuringWait.current||window.innerWidth>767)return;
+    const openingShared=placeOnRestore.current;
+    placeOnRestore.current=false;
+    if(userScrolledDuringWait.current||(window.innerWidth>767&&!openingShared))return;
     const composer=composerRef.current;
     if(!composer)return;
     const clearance=headerClearance();
@@ -307,7 +312,9 @@ export default function HomeExplore() {
       try {
         const saved=decodeView(encoded);const title=new URLSearchParams(window.location.search).get('q')?.slice(0,500)||viewTitle(saved);setQuery(title);setLinkError('');
         const stored=window.history.state?.exploreScroll;
-        pendingScroll.current=typeof stored==='number'?stored:readExploreScroll();
+        const scroll=typeof stored==='number'?stored:readExploreScroll();
+        if(typeof scroll==='number')pendingScroll.current=scroll;
+        else if(event?.type!=='popstate')placeOnRestore.current=true;
         update({query:title,plan:viewPlan(saved,revision.current),composition:saved.composition,generation:{status:'authored'}});
       } catch {update(null);setQuery('');setLinkError('This shared view is unavailable. You can start a new exploration.');}
     };
@@ -500,6 +507,19 @@ export default function HomeExplore() {
   const clarification=guidance==='ambiguous'?analyzePortfolioRequest(query):undefined;
   const guidanceChoices=recoveryQuestions.length?recoveryQuestions.map(item=>({label:item.text,prompt:item.text})):[{label:'Explore the work',prompt:'Explore all projects'},{label:'AI in government',prompt:'How did Isaac research AI in government?'},{label:'Career & experience',prompt:'Explore Isaac’s career'}];
   const titleFor=(item:View)=>viewTitle(createPortableView(item.composition));
+  useEffect(()=>{
+    const album=albums.find(item=>item.folder===new URLSearchParams(window.location.search).get('album'));
+    const base=metadataForPath('/');
+    const title=view?`${titleFor(view)} · Isaac Seiler`:album?`${album.location} · Photos · Isaac Seiler`:base.title;
+    const description=view?.query||base.description;
+    document.title=title;
+    const set=(selector:string,value:string)=>document.head.querySelector(selector)?.setAttribute('content',value);
+    set('meta[name="description"]',description);
+    set('meta[property="og:title"]',title);
+    set('meta[property="og:description"]',description);
+    set('meta[name="twitter:title"]',title);
+    set('meta[name="twitter:description"]',description);
+  },[view]);
   let feedbackUrl=SITE_URL;
   if(view)try{feedbackUrl=viewUrl(createPortableView(view.composition),SITE_URL);}catch{/* A bounded fallback remains available even if a view cannot be shared. */}
   const recessActive=composerHovered||explorationFocused||Boolean(view||guidance)||busy;
@@ -540,7 +560,7 @@ export default function HomeExplore() {
               {view&&future.length>0&&!view.returnToExploration&&<button aria-label="Next exploration" title={`Forward to ${titleFor(future[0])}`} onClick={()=>navigateHistory('forward')}><span>Forward</span><ArrowRight size={14} aria-hidden="true"/></button>}
               {view&&<ExplorationHistory items={history.map(item=>({title:titleFor(item),question:item.query}))} onSelect={selectHistory}/>}
               {view&&<button type="button" onClick={()=>{cancel();setQuery('');input.current?.focus({preventScroll:true});setAutocompleteOpen(true);}}>Ask a follow-up<ArrowUp size={14} aria-hidden="true"/></button>}
-              {view&&<button className="home-share-view" aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
+              {view&&<button className={`home-share-view${shareStatus==='copied'?' is-copied':''}`} aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
               {narrow&&(view||guidance)&&<button type="button" className="home-clear-footer home-quiet-action" onClick={clear}>Clear exploration</button>}
 
             </div>

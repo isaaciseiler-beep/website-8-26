@@ -166,6 +166,19 @@ export function decodeView(encoded: string): PortableView {
   } catch { throw new Error('This shared view is invalid or belongs to an older content version.'); }
 }
 
+/** A shared answer keeps its title and question in the document head. */
+export function exploreShareMetadata(search: string, hash: string): { title: string; description: string } | null {
+  const encoded = new URLSearchParams(hash.replace(/^#/, '')).get('view');
+  if (!encoded) return null;
+  try {
+    const title = viewTitle(decodeView(encoded));
+    const question = new URLSearchParams(search).get('q')?.trim().slice(0, 160);
+    return { title: `${title} · Isaac Seiler`, description: question || title };
+  } catch {
+    return null;
+  }
+}
+
 export function viewUrl(view: PortableView, base: string): string {
   const url = new URL('/', base);
   url.hash = `view=${encodeView(view)}`;

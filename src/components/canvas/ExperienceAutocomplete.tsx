@@ -105,7 +105,6 @@ export default function ExperienceAutocomplete({context,committedValue,onEscape,
           {shortcuts.map((item,index)=><div key={item.id} id={`${id}-${item.id}`} role="option" aria-selected={active===items.length+index} onClick={()=>select(item.text)}>{item.label}</div>)}
         </li>}
       </ul>
-      <p className="experience-keyboard-hint" aria-hidden="true">↵ to ask · shift + ↵ for a new line · esc to close</p>
     </SuggestionPanel>}</AnimatePresence>
     <span className="sr-only" aria-live="polite" aria-atomic="true">{visible?`${options.length} suggestions available.`:''}</span>
   </>;
