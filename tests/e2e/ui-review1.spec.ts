@@ -129,4 +129,28 @@ for(const reducedMotion of ['reduce','no-preference'] as const)test(`About keeps
   const cycle=page.locator('.about-cycle');await cycle.focus();await cycle.press('Enter');await expect(page.getByRole('button',{name:'public policy. Show next'})).toBeFocused();await cycle.press('Shift+Enter');await expect(cycle).toBeFocused();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   if(reducedMotion==='reduce')expect(await paragraph.evaluate(el=>el.getAnimations({subtree:true}).length)).toBe(0);
+  const before=await paragraph.boundingBox();
+  const chip=page.locator('.about-display .about-chip').first();
+  await chip.locator('a').focus();
+  await expect(chip.locator('.about-preview')).toBeVisible();
+  const after=await paragraph.boundingBox();
+  expect(Math.abs((after?.height??0)-(before?.height??0))).toBeLessThan(1);
+  await page.setViewportSize({width:375,height:812});
+  await chip.locator('a').dispatchEvent('pointerdown',{pointerType:'touch',bubbles:true});
+  await chip.locator('a').click();
+  await expect(page).toHaveURL(/\/about\/?$/);
+  await expect(chip).toHaveClass(/is-open/);
+});
+
+test('a work row swaps the anchored preview without moving the index',async({page})=>{
+  await page.setViewportSize({width:1280,height:800});
+  await page.goto('/work');
+  const index=page.locator('.work-index');
+  const before=await index.evaluate(el=>el.getBoundingClientRect().height);
+  const row=page.locator('.work-index a').nth(2);
+  await row.hover();
+  await expect(page.locator('.work-preview img')).toBeVisible();
+  expect(await index.evaluate(el=>el.getBoundingClientRect().height)).toBe(before);
+  await row.focus();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

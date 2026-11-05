@@ -1,5 +1,5 @@
 import { useSidebarState } from "@/lib/siteChrome";
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import './about-page.css';
 import { motion } from 'framer-motion';
@@ -9,10 +9,33 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useNavigationMotion } from '@/hooks/useMotionPreference';
 import { PROFILE_SUMMARY } from '@/lib/siteIdentity.mjs';
 import { albums, coverFor } from '@/lib/photoAlbums';
+import { experienceEntries } from '@/lib/experience';
+import { hiddenProjectIds, projectItems } from '@/lib/siteContent';
 
 const AREAS = ['AI', 'public policy', 'education', 'research', 'journalism', 'communications'] as const;
 const AREA_PHRASE = 'AI, public policy, education, research, journalism, and communications';
 const seattleCover = coverFor(albums.find(album => album.folder === 'washington-state')!);
+const publishedCount = projectItems.filter(project => !hiddenProjectIds.has(project.id)).length;
+const roleFor = (id: string) => experienceEntries.find(entry => entry.id === id || entry.projectIds.includes(id));
+const projectImage = (id: string) => projectItems.find(project => project.id === id)?.image ?? '';
+
+function PreviewChip({ to, children, detail, image }: { to: string; children: ReactNode; detail: string; image?: string }) {
+  const chip = useRef<HTMLSpanElement>(null);
+  return (
+    <span ref={chip} className="about-chip" onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.classList.remove('is-open'); }}>
+      <Link className="about-pill" to={to} onPointerDown={event => {
+        if (event.pointerType !== 'touch' || chip.current?.classList.contains('is-open')) return;
+        chip.current?.classList.add('is-open');
+        chip.current?.setAttribute('data-hold', 'true');
+      }} onClick={event => {
+        if (chip.current?.getAttribute('data-hold') !== 'true') return;
+        chip.current.removeAttribute('data-hold');
+        event.preventDefault();
+      }}>{children}</Link>
+      <span className="about-preview" aria-hidden="true">{image ? <img src={image} alt="" /> : null}<span>{detail}</span></span>
+    </span>
+  );
+}
 
 function WorkAreas() {
   const [index, setIndex] = useState(0);
@@ -47,15 +70,14 @@ function DisplayParagraph() {
     <p className="about-display">
       {parts.map((part, index) => {
         if (part === 'Seattle-based') {
-          return (
-            <Link key={index} className="about-pill" to="/?album=washington-state"><img className="about-pill-thumb" src={seattleCover} alt="" />{part}</Link>
-          );
+          return <PreviewChip key={index} to="/?album=washington-state" image={seattleCover} detail="Washington"><img className="about-pill-thumb" src={seattleCover} alt="" />{part}</PreviewChip>;
         }
         if (part === AREA_PHRASE) return <WorkAreas key={index} />;
-        if (part === 'Summation') return <Link key={index} className="about-pill" to="/work">{part}</Link>;
+        if (part === 'Summation') return <PreviewChip key={index} to="/work" detail={`${roleFor('summation-ai')?.role ?? 'Marketing and communications'} · ${roleFor('summation-ai')?.period ?? ''} · ${publishedCount} projects`}>{part}</PreviewChip>;
         if (part === 'enterprise,') {
+          const role = roleFor('boehringer-cares-foundation-rebrand-strategy-shift');
           return (
-            <span key={index} className="about-phrase"><Link className="about-pill" to="/projects/boehringer-cares-foundation-rebrand-strategy-shift">enterprise,</Link></span>
+            <span key={index} className="about-phrase"><PreviewChip to="/projects/boehringer-cares-foundation-rebrand-strategy-shift" image={projectImage('boehringer-cares-foundation-rebrand-strategy-shift')} detail={`${role?.organization ?? 'Boehringer Ingelheim'} · ${role?.period ?? ''}`}>enterprise,</PreviewChip></span>
           );
         }
         return part;
@@ -86,8 +108,8 @@ export default function AboutPage() {
           <p id="about-cycle-hint" className="sr-only">Some phrases are links. The area of work button cycles on Enter or Space; Shift plus Enter goes back.</p>
           <DisplayParagraph />
           <div className="about-body space-y-6 text-lg leading-relaxed">
-            <p>Previously, Isaac helped build a <Link to="/projects/congressional-office-setup-100-day-report">congressional office</Link> and managed communications for a Member of Congress, led AI literacy work with educators in <Link to="/projects/fulbright-focus-group-sponsored-by-openai">Taiwan</Link> with support from OpenAI, and researched how AI and digital platforms affect <Link to="/projects/senior-thesis-local-journalism">journalism</Link>.</p>
-            <p>He is a Fulbright and Truman Scholar and a member of OpenAI’s <Link to="/projects/openai-product-testing-and-feedback">ChatGPT Lab</Link>.</p>
+            <p>Previously, Isaac helped build a <PreviewChip to="/projects/congressional-office-setup-100-day-report" detail={`${roleFor('congressional-office-setup-100-day-report')?.role ?? 'Communications'} · ${roleFor('congressional-office-setup-100-day-report')?.period ?? ''}`}>congressional office</PreviewChip> and managed communications for a Member of Congress, led AI literacy work with educators in <PreviewChip to="/projects/fulbright-focus-group-sponsored-by-openai" image={projectImage('fulbright-focus-group-sponsored-by-openai')} detail={`${roleFor('fulbright-focus-group-sponsored-by-openai')?.organization ?? 'Fulbright Taiwan'} · ${roleFor('fulbright-focus-group-sponsored-by-openai')?.period ?? ''}`}>Taiwan</PreviewChip> with support from OpenAI, and researched how AI and digital platforms affect <Link className="site-link" to="/projects/senior-thesis-local-journalism">journalism</Link>.</p>
+            <p>He is a Fulbright and Truman Scholar and a member of OpenAI’s <Link className="site-link" to="/projects/openai-product-testing-and-feedback">ChatGPT Lab</Link>.</p>
           </div>
         </article>
       </motion.main>

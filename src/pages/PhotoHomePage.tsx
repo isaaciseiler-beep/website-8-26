@@ -280,6 +280,7 @@ const PhotoHomePage = () => {
                 transition={{ duration: reduceMotion ? 0 : MOTION_DURATION.fast, ease: EASE }}
                 className="photos-shell photo-overview-shell"
               >
+                <p className="photo-gallery-label site-meta"><span>Photographs</span><span>{filtered.length}</span></p>
                 <div id="photo-gallery" className="site-corner photo-album-gallery">
                   {filtered.map((album, i) => (
                     <motion.div

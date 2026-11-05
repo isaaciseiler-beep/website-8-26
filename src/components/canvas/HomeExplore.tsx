@@ -289,7 +289,18 @@ export default function HomeExplore() {
     const top=pendingScroll.current;
     pendingScroll.current=null;
     restoredScroll.current=true;
-    window.scrollTo({top,behavior:'instant' as ScrollBehavior});
+    // The answer's height is still opening, so a tall page can clamp this
+    // scroll. Reapply until the document can hold the saved place.
+    let frames=0;
+    let raf=0;
+    const apply=()=>{
+      const max=Math.max(0,document.documentElement.scrollHeight-window.innerHeight);
+      window.scrollTo({top:Math.min(top,max),behavior:'instant' as ScrollBehavior});
+      if(max+1>=top||frames++>45)return;
+      raf=requestAnimationFrame(apply);
+    };
+    apply();
+    return()=>cancelAnimationFrame(raf);
   },[view]);
   useEffect(()=>{
     if(!view||busy||placedQuery.current===view.query)return;

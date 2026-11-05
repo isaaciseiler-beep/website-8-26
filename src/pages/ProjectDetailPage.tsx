@@ -327,7 +327,7 @@ const ProjectDetailPage = () => {
 
           <div className="article-shell">
             <div>
-              <div className="article-meta">
+              <div className="article-meta site-meta">
                 <span>{project.year}</span>
                 <span data-dot aria-hidden="true" />
                 <span>{sourceLabel[project.source] ?? project.source}</span>
@@ -339,7 +339,7 @@ const ProjectDetailPage = () => {
               {!project.hideSummary && <p className="article-subtitle">{project.summary}</p>}
 
               {!project.hideHero && (
-                <div className="article-hero aspect-[16/9]">
+                <div className="article-hero site-media aspect-[16/9]">
                   <img
                     src={project.image}
                     {...responsiveProjectImageProps(project.image, '(max-width: 820px) calc(100vw - 48px), 772px')}

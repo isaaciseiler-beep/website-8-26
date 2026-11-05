@@ -3902,14 +3902,29 @@ img[data-image-reveal="true"] {
   margin-inline: auto;
 }
 
-.article-meta {
+.site-meta,.article-meta {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 8px 14px;
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 12px;
-  letter-spacing: 0.02em;
-  margin-bottom: 18px;
+  line-height: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--foreground) / .68);
+}
+.article-meta { margin-bottom: 18px; }
+.site-link { text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; text-decoration-color: transparent; transition: text-decoration-color var(--explore-suggestion) var(--explore-ease); }
+.site-link:hover,.site-link:focus-visible { text-decoration-color: currentColor; }
+.site-media { overflow: hidden; border-radius: var(--site-corner-radius); background: hsl(var(--foreground) / .08); }
+.site-media img { transition: transform var(--motion-reveal) var(--motion-ease); }
+.site-media:hover img,.site-media:focus-visible img,.site-media:focus-within img { transform: scale(1.015); }
+@media (prefers-reduced-motion: reduce) {
+  .site-link,.site-media img { transition: none; }
+  .site-media:hover img,.site-media:focus-visible img,.site-media:focus-within img { transform: none; }
 }
 
 .article-meta > span:not([data-dot]) {
@@ -5726,6 +5741,7 @@ body::-webkit-scrollbar,
   padding-left: max(24px, env(safe-area-inset-left));
   padding-right: max(24px, env(safe-area-inset-right));
 }
+.photo-gallery-label { margin: 72px 0 20px; }
 .site-header-scrim {
   position: fixed;
   z-index: 55;
@@ -5739,7 +5755,7 @@ body::-webkit-scrollbar,
   box-shadow: inset 0 -1px 0 hsl(var(--foreground) / .12);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--motion-fast) var(--motion-ease);
+  transition: opacity var(--explore-open) var(--explore-ease);
 }
 .site-header-scrim.is-scrolled { opacity: 1; pointer-events: auto; }
 @media (prefers-reduced-motion: reduce) { .site-header-scrim { transition: none; } }
