@@ -7,7 +7,9 @@ import { flushSync } from 'react-dom';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { ArrowUp, ArrowLeft, ArrowRight, Link, Check, LoaderCircle, X } from 'lucide-react';
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
-import { isPhotographyRequest, explorationGuidance, isLocalCompositionRefinement, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
+import { explorationGuidance, isLocalCompositionRefinement, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
+import { photoDestinations, photoRedirectCopy, shouldResolveWithoutModel, type PhotoDestination } from '@/lib/photoRequest';
+import PhotoRedirect from './PhotoRedirect';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
 import ExploreHelp from './ExploreHelp';
 import { suggestExperiencePrompts } from '@/lib/experiencePrompts';
@@ -33,7 +35,8 @@ function returnLabel(view:View):string {
   const block=view.composition.blocks[0];
   return block.kind==='collection'?'Back to projects':block.kind==='comparison'?'Back to comparison':block.kind==='benchmark'?'Back to benchmark':block.answerId==='connections'?'Back to connections':'Back to experience';
 }
-type SavedExploration = {readingState?:ExplorationReadingState;query:string;view:View|null;guidance:'welcome'|'unmatched'|'ambiguous'|'help'|null;history:View[];future:View[]};
+type Guidance = 'welcome'|'unmatched'|'ambiguous'|'help'|'photos'|null;
+type SavedExploration = {readingState?:ExplorationReadingState;query:string;view:View|null;guidance:Guidance;history:View[];future:View[]};
 const entryExplorations = new Map<string, SavedExploration>();
 function ExplorationReveal({children,restored=false,initialReadingState,onSettled,contentRevision}:{children:ReactNode;restored?:boolean;initialReadingState?:ExplorationReadingState|null;onSettled?:()=>void;contentRevision:number}) {
   const present=useIsPresent();
@@ -80,7 +83,7 @@ export default function HomeExplore() {
   const [query,setQuery]=useState(restored?.query??'');
   const [autocompleteOpen,setAutocompleteOpen]=useState(false);
   const [immediateDismiss,setImmediateDismiss]=useState(false);
-  const [guidance,setGuidance]=useState<'welcome'|'unmatched'|'ambiguous'|'help'|null>(restored?.guidance??null);
+  const [guidance,setGuidance]=useState<Guidance>(restored?.guidance??null);
   const [composing,setComposing]=useState(false);
   const [view,setView]=useState<View|null>(restored?.view??null);
   const [heldExpanded,setHeldExpanded]=useState(Boolean(restored?.view));
@@ -171,6 +174,7 @@ export default function HomeExplore() {
   const pendingQuery=useRef<string|null>(null);
   const pendingPrevious=useRef<View|null>(null);
   const input=useRef<HTMLTextAreaElement>(null);
+  const quietFocus=useRef(false);
   const llmConfigured=useRef(false);
   const update=useCallback((next:View|null)=>{
     const previous=current.current;
@@ -179,7 +183,7 @@ export default function HomeExplore() {
     current.current=next;setView(next);setShareStatus('idle');
   },[]);
   const cancel=useCallback(()=>{controller.current?.abort();pendingReadingState.current=null;requestMetric.current?.timing.finish('cancelled');pendingQuery.current=null;setBusy(false);setRequestNotice('');if(current.current?.generation.status==='composing')update({...current.current,generation:{status:'authored'}});return ++revision.current;},[update]);
-  const stopUpdating=()=>{const previous=pendingPrevious.current;cancel();if(!current.current&&previous){setQuery(previous.query);update(previous);}setRequestNotice('Stopped updating.');};
+  const stopUpdating=()=>{const previous=pendingPrevious.current;cancel();if(!current.current&&previous){setQuery(previous.query);update(previous);}setRequestNotice('Stopped updating.');quietFocus.current=true;input.current?.focus({preventScroll:true});};
   const withReadingState=(previous:View):View=>resultsRef.current?{...previous,readingState:captureReadingState(resultsRef.current)}:previous;
   const remember=(previous:View)=>{const saved=withReadingState(previous);setHistory(h=>[...h.slice(-19),saved]);setFuture([]);};
   const restoreReadingPosition=()=>{
@@ -199,6 +203,8 @@ export default function HomeExplore() {
       if(event?.type==='hashchange'&&browserUrl.current===window.location.href)return;
       browserUrl.current=window.location.href;
       const encoded=new URLSearchParams(window.location.hash.slice(1)).get('view');
+      const question=new URLSearchParams(window.location.search).get('q')?.slice(0,500)??'';
+      if(!encoded&&photoDestinations(question)){wasShared=false;cancel();setGuidance('photos');setQuery(question);setHistory([]);setFuture([]);setLinkError('');update(null);return;}
       if(!encoded){if((wasShared||event?.type==='popstate')&&!window.location.hash){cancel();setGuidance(null);update(null);setQuery('');setHistory([]);setFuture([]);setLinkError('');}wasShared=false;return;}
       wasShared=true;
       cancel();setGuidance(null);setHistory([]);setFuture([]);
@@ -236,6 +242,13 @@ export default function HomeExplore() {
     if(replace)window.history.replaceState(state,'',url);
     else window.history.pushState({...state,idx:(state.idx??0)+1},'',url);
   };
+  const publishQuestion=(text:string)=>{
+    const url=new URL(window.location.href);
+    url.searchParams.set('q',text);url.hash='';
+    browserUrl.current=url.href;
+    const state=window.history.state??{};
+    window.history.pushState({...state,idx:(state.idx??0)+1},'',url);
+  };
   async function resolve(text:string,rev:number,allowModel=false){
     const timing=beginExplorationMetric(current.current&&isLocalCompositionRefinement(text,current.current.composition)?'refinement':'question');
     requestMetric.current={revision:rev,timing};
@@ -247,7 +260,9 @@ export default function HomeExplore() {
     const context=current.current;
     setGuidance(null);
     const fallback=resolveCanvasPlan(text,context?.plan??initialPlan(),rev,context?.composition);
-    if(isPhotographyRequest(text,fallback)){setBusy(false);return;}
+    const photos:PhotoDestination[]|null=photoDestinations(text);
+    if(photos){if(context)remember(context);setGuidance('photos');update(null);setBusy(false);setRequestNotice('');publishQuestion(text);return;}
+    if(shouldResolveWithoutModel(text,fallback.layout)){if(context)remember(context);setGuidance('unmatched');update(null);setBusy(false);setRequestNotice('');return;}
     if(context)remember(context);
     if(analyzePortfolioRequest(text,{projectIds:context?.composition.blocks.flatMap(block=>block.projectIds),task:context?.composition.blocks[0]?.kind==='comparison'?'comparison':undefined}).kind==='ambiguous'){setGuidance('ambiguous');update(null);setBusy(false);return;}
     if(context){
@@ -372,6 +387,7 @@ export default function HomeExplore() {
   };
   const suggestionContext=view?{projectIds:view.composition.blocks.flatMap(block=>block.projectIds),kind:view.composition.blocks[0]?.kind,focus:view.composition.blocks[0]?.focus,answerId:view.composition.blocks[0]?.answerId,angle:view.composition.blocks[0]?.angle,section:view.composition.blocks[0]?.section,question:view.query,visitedQuestions:history.slice(-8).map(item=>item.query)}:undefined;
   const nextQuestions=view?suggestExperiencePrompts('',2,suggestionContext):[];
+  const photoGuide=guidance==='photos'?photoDestinations(query):null;
   const recoveryQuestions=guidance==='unmatched'?suggestExperiencePrompts(query,3):[];
   const clarification=guidance==='ambiguous'?analyzePortfolioRequest(query):undefined;
   const guidanceChoices=recoveryQuestions.length?recoveryQuestions.map(item=>({label:item.text,prompt:item.text})):[{label:'Explore the work',prompt:'Explore all projects'},{label:'AI in government',prompt:'How did Isaac research AI in government?'},{label:'Career & experience',prompt:'Explore Isaac’s career'}];
@@ -388,19 +404,19 @@ export default function HomeExplore() {
       {reviewMode&&<div className="canvas-review"><label htmlFor="layout-review">Layout review · {AI_LAYOUTS.length} authored views</label><select id="layout-review" value={reviewLayout} onChange={e=>{const id=e.target.value as LayoutId;setReviewLayout(id);cancel();const recipe=AI_LAYOUTS.find(l=>l.id===id)!;setQuery(recipe.prompt);update({query:recipe.prompt,plan:resolveCanvasPlan(recipe.prompt,initialPlan(),revision.current),composition:presetComposition(id),generation:{status:'authored'}});}}>{AI_LAYOUTS.map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></div>}<div ref={composerRef} className="home-genui-composer">
 
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
-        <ExperienceAutocomplete context={suggestionContext} inputRef={input} committedValue={committedQuery} onEscape={view||guidance||busy?clear:undefined} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
+        <ExperienceAutocomplete context={suggestionContext} inputRef={input} committedValue={committedQuery} quietFocus={quietFocus} onEscape={view||guidance||busy?clear:undefined} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
         {(query.trim()||view||guidance)&&<>{!(narrow&&(view||guidance))&&<button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration" title="Clear exploration"><X size={16}/></button>}<button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
       </form>{(busy||view||guidance||requestNotice)&&<div className="home-request-reveal"><div className="home-request-state">{progressText&&<span>{progressText}</span>}{busy&&<button type="button" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button>}</div></div>}</div>
       {busy&&!view&&!guidance&&<div className="home-pending-view" aria-label="Preparing exploration"><div className="home-pending-lines" aria-hidden="true"><span/><span/><span/></div>{waiting&&<div className="home-pending-alternatives"><p>You can explore a starting point while this view is prepared.</p><button type="button" onClick={()=>submit('Explore all projects')}>Browse work<ArrowRight size={14} aria-hidden="true"/></button><button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>}</div>}
       {!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&!busy&&<div className="home-idle-actions">
         {cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();pendingReadingState.current=cleared.view?.readingState??cleared.readingState??null;setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <div className="home-genui-preview"><button type="button" className="home-preview-trigger" onClick={showHelp}>How to explore</button></div>}
       </div>}
-      <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?progressText:requestNotice|| (guidance==='help'?'How to explore is ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':'')}</span>
+      <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':busy?progressText:requestNotice|| (guidance==='photos'&&photoGuide?photoRedirectCopy(photoGuide):guidance==='help'?'How to explore is ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':'')}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} initialReadingState={pendingReadingState.current} onSettled={restoreReadingPosition}>
           <div ref={resultsRef} className="home-genui-stage" aria-label="Exploration results" aria-busy={busy} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
-            {guidance==='help'?<ExploreHelp onSubmit={submit}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
+            {guidance==='help'?<ExploreHelp onSubmit={submit}/>:photoGuide?<PhotoRedirect destinations={photoGuide}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>
               <div>{guidance==='ambiguous'?clarification?.choices.map(item=><button type="button" key={item.projectId} onClick={()=>chooseSubject(item.projectId)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>):guidanceChoices.map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>
             </div>:view&&<>

@@ -122,8 +122,10 @@ describe("homepage generative interface", () => {
     const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Show Japan photos'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
-    expect(screen.queryByText(/Photography lives/)).not.toBeInTheDocument();
-    expect(screen.queryByRole('link',{name:'gallery below'})).not.toBeInTheDocument();
+    expect(screen.getByRole('region',{name:'Photographs'})).toBeInTheDocument();
+    expect(screen.getByRole('link',{name:/Japan/})).toHaveAttribute('href','/?album=Japan');
+    expect(screen.getByRole('link',{name:/Photo Map/})).toHaveAttribute('href','/photos/map');
+    expect(screen.getByRole('link',{name:/All photographs/})).toHaveAttribute('href','/#photo-gallery');
     expect(screen.queryByRole('region',{name:'Photo explorer'})).not.toBeInTheDocument();
     expect(fetcher).toHaveBeenCalledTimes(1);
   });
@@ -177,6 +179,7 @@ describe("homepage generative interface", () => {
     expect(screen.getByRole('status')).toHaveTextContent('Still preparing your view');
     fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
     expect(screen.getByRole('status')).toHaveTextContent('Stopped updating.');
+    expect(input).toHaveFocus();
     expect(screen.queryByLabelText('Preparing exploration')).not.toBeInTheDocument();
     await act(async()=>{deliver(success({plan:localPlan('contact',initialPlan(),[],1)}));});
     expect(screen.queryByRole('region',{name:'Contact'})).not.toBeInTheDocument();

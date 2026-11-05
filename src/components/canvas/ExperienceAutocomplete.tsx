@@ -1,5 +1,5 @@
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
-import { useId, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
+import { useId, useLayoutEffect, useRef, useState, type MutableRefObject, type ReactNode, type RefObject } from 'react';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { suggestExperiencePrompts, type SuggestionContext } from '@/lib/experiencePrompts';
@@ -14,8 +14,8 @@ function SuggestionPanel({children}:{children:ReactNode}) {
     variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.base:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.exit}}})}}
     transition={{height:{duration:reduced?0:.32,ease:[.22,1,.36,1]},opacity:{duration:reduced ? 0 : present ? 0.2 : 0.1}}} onPointerDown={e=>e.preventDefault()}>{children}</motion.div>;
 }
-type Props={context?:SuggestionContext;committedValue?:string;onEscape?:()=>void;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
-export default function ExperienceAutocomplete({context,committedValue,onEscape,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){
+type Props={context?:SuggestionContext;committedValue?:string;onEscape?:()=>void;quietFocus?:MutableRefObject<boolean>;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
+export default function ExperienceAutocomplete({context,committedValue,onEscape,quietFocus,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){
   const id=useId();
   const selectOnClick=useRef(false);
   const selectedCommit=useRef<string>();
@@ -61,9 +61,9 @@ export default function ExperienceAutocomplete({context,committedValue,onEscape,
     <label className="sr-only" htmlFor="home-explore">Explore</label>
     <motion.div className="home-query-field" initial={false} animate={{height}} transition={{duration:reduced?0:MOTION_DURATION.fast,ease:MOTION_EASE_ENTER}}>
     <span ref={measure} className="home-question-measure" aria-hidden="true">{value||'Ask about Isaac’s work'}{'\u200b'}</span>
-    <textarea ref={inputRef} id="home-explore" rows={1} enterKeyHint="search" aria-describedby={`${id}-instructions`} aria-autocomplete="list" aria-haspopup="listbox" aria-controls={visible?id:undefined} aria-activedescendant={visible&&options[active]?`${id}-${options[active].id}`:undefined} autoComplete="off" spellCheck={false} placeholder="Ask about Isaac’s work" value={value} maxLength={500}
+    <textarea ref={inputRef} id="home-explore" rows={1} enterKeyHint="search" aria-describedby={`${id}-instructions`} aria-autocomplete="list" aria-haspopup="listbox" aria-expanded={visible} aria-controls={visible?id:undefined} aria-activedescendant={visible&&options[active]?`${id}-${options[active].id}`:undefined} autoComplete="off" spellCheck={false} placeholder="Ask about Isaac’s work" value={value} maxLength={500}
       onPointerDown={()=>{selectOnClick.current=Boolean(committedValue&&value===committedValue&&(document.activeElement!==inputRef.current||selectedCommit.current!==committedValue));}}
-      onFocus={()=>{toggle(true);if(committedValue&&value===committedValue){inputRef.current?.select();selectedCommit.current=committedValue;}}} onClick={()=>{toggle(true);if(selectOnClick.current){inputRef.current?.select();selectedCommit.current=committedValue;selectOnClick.current=false;}}} onBlur={()=>{toggle(false);finishComposition();}}
+      onFocus={()=>{if(quietFocus?.current)quietFocus.current=false;else toggle(true);if(committedValue&&value===committedValue){inputRef.current?.select();selectedCommit.current=committedValue;}}} onClick={()=>{toggle(true);if(selectOnClick.current){inputRef.current?.select();selectedCommit.current=committedValue;selectOnClick.current=false;}}} onBlur={()=>{toggle(false);finishComposition();}}
       onChange={e=>{setActive(-1);toggle(true);onChange(e.target.value);}}
       onCompositionStart={()=>{composition.current=true;setComposing(true);setActive(-1);onCompositionStart();}}
       onCompositionEnd={finishComposition}

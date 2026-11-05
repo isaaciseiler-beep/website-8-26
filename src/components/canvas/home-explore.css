@@ -59,13 +59,14 @@
 .home-request-reveal{overflow:hidden;display:flow-root;}
 .home-entry p{margin:0;color:var(--neutral-8);}
 .home-entry>div{display:flex;flex-wrap:wrap;gap:var(--space-xs);margin-top:var(--space-m);}
-.home-entry button{display:inline-flex;align-items:center;gap:var(--space-xs);padding:var(--space-s);background:var(--neutral-3);font-size:var(--size-xs);}
+.home-entry button,.home-entry a{display:inline-flex;align-items:center;gap:var(--space-xs);min-height:44px;padding:var(--space-s);background:var(--neutral-3);font-size:var(--size-xs);border-radius:var(--radius-s);}
 .home-draft-hint{font-size:var(--size-xs);color:var(--neutral-7);margin-top:var(--space-xs);}
 .home-submit-spinner{animation:home-submit-spin 1s linear infinite;}
 @keyframes home-submit-spin{to{transform:rotate(360deg);}}
 .home-genui-stage{width:100%;min-width:0;margin-top:var(--space-xs);overflow:visible;}
 .home-genui-tools{display:flex;align-items:center;justify-content:space-between;gap:var(--space-s);margin-top:var(--space-l);}
 .home-genui-tools button{display:flex;align-items:center;gap:var(--space-xs);padding:var(--space-xs) 0;}
+.home-genui-tools button:hover span,.home-genui-tools button:focus-visible span{text-decoration:underline;text-underline-offset:3px;}
 .home-genui-tools.is-empty{height:0;margin:0;}
 .home-genui-status{margin-left:auto;font-size:var(--size-xs);line-height:var(--line-xs);color:var(--neutral-7);}
 .home-genui-stage h2{font-size:var(--size-l);line-height:var(--line-l);letter-spacing:var(--tracking-s);font-weight:var(--weight-medium);overflow-wrap:anywhere;max-width:720px;}
