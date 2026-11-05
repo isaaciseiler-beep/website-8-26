@@ -1,16 +1,19 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { albums } from "@/lib/canvas";
+import { exploreShareMetadata } from "@/lib/portfolioView";
 import { metadataForPath } from "@/lib/seo";
 
 // Keep client-side navigation consistent with the prebuilt entry documents.
 export default function SiteMetadata() {
-  const { pathname, search } = useLocation();
+  const { pathname, search, hash } = useLocation();
   useEffect(() => {
     const metadata = metadataForPath(pathname);
+    const shared = pathname === '/' ? exploreShareMetadata(search, hash) : null;
     const album=pathname==='/'?albums.find(item=>item.folder===new URLSearchParams(search).get('album')):undefined;
     const known=metadata.robots.startsWith('index,')||['/classic','/experience/arcade','/fulbrightmap','/strike-tracker','/projects/adaptive-portfolio'].includes(pathname);
-    document.title = album?`${album.location} · Photos · Isaac Seiler`:pathname==='/photos/music'?'Music · Isaac Seiler':!known&&pathname!=='/'?'Not found · Isaac Seiler':metadata.title;
+    const description = shared?.description ?? metadata.description;
+    document.title = shared?.title ?? (album?`${album.location} · Photos · Isaac Seiler`:pathname==='/photos/music'?'Music · Isaac Seiler':!known&&pathname!=='/'?'Not found · Isaac Seiler':metadata.title);
     const meta = (attribute: "name" | "property" | "itemprop", key: string, content: string) => {
       let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
       if (!element) {
@@ -30,11 +33,12 @@ export default function SiteMetadata() {
       if (type) element.type = type;
       element.href = href;
     };
-    meta("name", "description", metadata.description);
+    meta("name", "description", description);
     for (const bot of ["robots", "googlebot", "bingbot"]) meta("name", bot, metadata.robots);
-    for (const [key, value] of Object.entries({ "og:title": metadata.title, "og:description": metadata.description, "og:url": metadata.canonical, "og:type": "website", "og:image": metadata.image, "og:image:url": metadata.image, "og:image:secure_url": metadata.image, "og:image:alt": metadata.title })) meta("property", key, value);
-    for (const [key, value] of Object.entries({ "twitter:title": metadata.title, "twitter:description": metadata.description, "twitter:image": metadata.image, "twitter:image:alt": metadata.title })) meta("name", key, value);
-    for (const [key, value] of Object.entries({ name: metadata.title, description: metadata.description, image: metadata.image })) meta("itemprop", key, value);
+    const title = document.title;
+    for (const [key, value] of Object.entries({ "og:title": title, "og:description": description, "og:url": metadata.canonical, "og:type": "website", "og:image": metadata.image, "og:image:url": metadata.image, "og:image:secure_url": metadata.image, "og:image:alt": title })) meta("property", key, value);
+    for (const [key, value] of Object.entries({ "twitter:title": title, "twitter:description": description, "twitter:image": metadata.image, "twitter:image:alt": title })) meta("name", key, value);
+    for (const [key, value] of Object.entries({ name: title, description, image: metadata.image })) meta("itemprop", key, value);
     // Image dimensions vary by project; don't carry a previous route's dimensions.
     for (const key of ["og:image:width", "og:image:height", "og:image:type"]) document.head.querySelector(`meta[property="${key}"]`)?.remove();
     link('link[rel="canonical"]', "canonical", metadata.canonical);
@@ -46,6 +50,6 @@ export default function SiteMetadata() {
     script.dataset.siteStructuredData = "";
     script.textContent = JSON.stringify(metadata.structuredData).replaceAll("<", "\\u003c");
     document.head.append(script);
-  }, [pathname, search]);
+  }, [pathname, search, hash]);
   return null;
 }

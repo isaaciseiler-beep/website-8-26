@@ -46,7 +46,7 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     await page.screenshot({ path: info.outputPath('comparison.png') });
     await page.getByRole('combobox', { name: 'Benchmark measure' }).selectOption('preparednessScore');
     await expect(page.getByRole('article', { name: 'California score' })).toContainText('75.0');
-    await page.getByRole('button', { name: 'Clear exploration' }).click();
+    await page.getByRole('button', { name: 'Start over' }).click();
     if(reducedMotion==='no-preference') {
       await expect(page.locator('.home-genui-reveal')).toHaveAttribute('aria-hidden','true');
       await expect(page.locator('.home-genui-reveal')).toHaveAttribute('inert','');
@@ -69,16 +69,18 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     await contained();
     // Preference changes apply without a reload.
     await page.emulateMedia({ reducedMotion: reducedMotion === 'reduce' ? 'no-preference' : 'reduce' });
-    await page.getByRole('button', { name: 'Clear exploration' }).click();
+    await page.getByRole('button', { name: 'Start over' }).click();
     await expect(page.locator('.home-genui-stage')).toHaveCount(0);
     await page.getByRole('button', { name: 'Toggle menu', exact: true }).click();
-    await page.getByRole('link', { name: 'Work', exact: true }).or(page.getByRole('button', { name: 'Work', exact: true })).click();
+    await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Work', exact: true }).click();
     await page.waitForURL('**/work');
-    await expect(page.locator('.work-grid')).toBeVisible();
-    // Enter keyboard modality: programmatic focus after a mouse click is not :focus-visible.
+    await expect(page.locator('.work-index')).toBeVisible();
     await page.keyboard.press('Tab');
-    await page.locator('.work-story a').first().focus();
-    await expect(page.locator('.work-story-caption').first()).toHaveCSS('opacity', '1');
+    const row = page.locator('.work-index a').nth(1);
+    const before = await page.locator('.work-index').evaluate(el => el.getBoundingClientRect().height);
+    await row.focus();
+    await expect(page.locator('.work-preview img, .work-index-thumb img').filter({ visible: true }).first()).toBeVisible();
+    expect(await page.locator('.work-index').evaluate(el => el.getBoundingClientRect().height)).toBe(before);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     expect(errors).toEqual([]);
   });

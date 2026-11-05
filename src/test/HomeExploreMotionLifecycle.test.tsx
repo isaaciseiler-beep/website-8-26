@@ -68,7 +68,7 @@ describe('Explore motion preserves an immediately usable interface', () => {
     reduced = false;
     mount(); await submit('Taiwan teaching');
     await waitFor(() => expect(parseFloat(reveal().style.height)).toBeGreaterThan(100));
-    fireEvent.click(screen.getByRole('button', { name: 'Clear exploration' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start over' }));
     expect(reveal()).toHaveAttribute('data-state', 'closing');
     expect(reveal()).toHaveAttribute('aria-hidden', 'true');
     expect(reveal()).toHaveAttribute('inert');
@@ -86,7 +86,7 @@ describe('Explore motion preserves an immediately usable interface', () => {
   it('restores selected controls after a completed fold and Undo clear', async () => {
     mount(); await submit('Compare Michigan and California');
     fireEvent.change(screen.getByRole('combobox', { name: 'Benchmark measure' }), { target: { value: 'preparednessScore' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Clear exploration' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start over' }));
     const undo = await screen.findByRole('button', { name: 'Undo clear' });
     fireEvent.click(undo);
     expect(screen.getByRole('combobox', { name: 'Benchmark measure' })).toHaveValue('preparednessScore');
@@ -115,7 +115,7 @@ describe('Explore motion preserves an immediately usable interface', () => {
     reduced = false;
     mount(); await submit('Taiwan teaching');
     await act(async () => { reduced = true; preferenceListeners.forEach(notify => notify()); });
-    fireEvent.click(screen.getByRole('button', { name: 'Clear exploration' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start over' }));
     await waitFor(() => expect(document.querySelector('.home-genui-stage')).not.toBeInTheDocument());
     await submit('Explore Isaac’s career');
     expect(screen.getByRole('region', { name: 'Role explorer' })).toBeVisible();
@@ -140,7 +140,7 @@ describe('Explore motion preserves an immediately usable interface', () => {
     reduced = false;
     mount(); await submit('Taiwan teaching');
     await waitFor(() => expect(parseFloat(reveal().style.height)).toBeGreaterThan(100));
-    const further = () => screen.getByText('Explore further', { selector: 'summary' }).closest('details')!;
+    const further = () => screen.getByText('More questions', { selector: 'summary' }).closest('details')!;
     further().open = true;
     await submit('How can I contact Isaac?');
     fireEvent.click(screen.getByRole('button', { name: 'Previous exploration' }));

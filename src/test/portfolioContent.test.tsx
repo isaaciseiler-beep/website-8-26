@@ -35,7 +35,7 @@ describe('published evidence discovery', () => {
     render(<Story initial={{ ...blankBlock('story'), projectIds: [TAIWAN_ID] }} />);
     fireEvent.click(screen.getByRole('button', { name: 'Evidence' }));
     fireEvent.change(screen.getByRole('searchbox', { name: 'Find in this project' }), { target: { value: ' QUESTIONS    participants ' } });
-    expect(screen.getByText('Delivering What We Learned to a Broader Audience')).toBeVisible();
+    expect(screen.getByText('Delivering what we learned to a broader audience')).toBeVisible();
     expect(screen.queryByText('No matching evidence in this project.')).not.toBeInTheDocument();
   });
   it('keeps original program materials available in a collapsed Sources disclosure', () => {

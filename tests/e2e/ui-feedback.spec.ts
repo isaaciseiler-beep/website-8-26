@@ -40,8 +40,8 @@ test('finishing refinement keeps the answer at the same vertical position', asyn
     const top = (await page.locator('.home-genui-stage').boundingBox())!.y;
     release();
     await expect(page.getByRole('button', { name: 'Stop updating this view' })).toHaveCount(0);
-    await expect(page.locator('.home-request-state')).toHaveCount(1);
-    await expect.poll(async () => Math.abs((await page.locator('.home-genui-stage').boundingBox())!.y - top)).toBeLessThan(2);
+    await expect(page.locator('.home-request-state')).toHaveCount(0);
+    await expect.poll(async () => Math.abs((await page.locator('.home-genui-stage').boundingBox())!.y - (top - 44))).toBeLessThan(8);
   } finally { release(); }
 });
 

@@ -8,6 +8,7 @@ import { PublishedSources } from '@/components/canvas/PublishedSources';
 import { blankBlock, composeLocal, resolveCanvasPlan, type CanvasBlock } from '@/lib/genui';
 import { evidenceForSection } from '@/lib/portfolioEvidenceRegistry';
 import { publicProjects, initialPlan } from '@/lib/canvas';
+import { hiddenProjectIds, orderProjectItemsForWork, projectItems } from '@/lib/siteContent';
 import { representativeProjectImage } from '@/components/canvas/projectVisual';
 const congress='congressional-office-setup-100-day-report';
 const brand='boehringer-cares-foundation-rebrand-strategy-shift';
@@ -33,6 +34,8 @@ describe('answer reading and evidence provenance',()=>{
     const taiwan=publicProjects.find(project=>project.id==='fulbright-focus-group-sponsored-by-openai')!;
     const lab=publicProjects.find(project=>project.id==='openai-product-testing-and-feedback')!;
     expect(taiwan.image).toBe(lab.image); // The misleading legacy-cover collision.
+    const workImages = orderProjectItemsForWork(projectItems).filter(project => !hiddenProjectIds.has(project.id)).map(project => representativeProjectImage(project).src);
+    expect(new Set(workImages).size).toBe(workImages.length);
     const taiwanImage=representativeProjectImage(taiwan),labImage=representativeProjectImage(lab);
     expect(taiwanImage.src).not.toBe(labImage.src);
     expect(taiwanImage.alt).toMatch(/presenting.*Taiwan/);
@@ -91,7 +94,7 @@ describe('answer reading and evidence provenance',()=>{
     fireEvent.change(products,{target:{value:'0'}});
     expect(screen.getByRole('button',{name:'Role'})).toHaveAttribute('aria-pressed','true');
     expect(screen.getByText(/first ChatGPT Lab cohort/)).toBeVisible();
-    expect(screen.getByRole('button',{name:'Explore the products'})).toBeVisible();
+    expect(screen.getByRole('button',{name:'The products'})).toBeVisible();
   });
   it('opens the reviewed Atlas poster directly and retains the local cover fallback without losing the selected product',()=>{
     const lab=publicProjects.find(project=>project.id==='openai-product-testing-and-feedback')!;

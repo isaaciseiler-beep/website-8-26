@@ -2,7 +2,6 @@ import { useSidebarState } from "@/lib/siteChrome";
 import PageNotice from "@/components/PageNotice";
 import { motionReduced, useMotionPreference } from "@/hooks/useMotionPreference";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
-import RouteLoader from "@/components/RouteLoader";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -13,6 +12,7 @@ import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import { useTheme } from "@/components/ThemeProvider";
 import { photoMapEntries, photoMapInitialView, type PhotoMapEntry } from "@/lib/photoMap";
+import { clusterScreenPoints, globeZoomForShortSide, markerOutsideGlobe } from "@/lib/photoMapLayout";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getMapboxToken } from "@/lib/mapboxToken";
 import { MOTION_DURATION, MOTION_EASE, MOTION_EASE_ENTER } from "@/lib/motion";
@@ -103,10 +103,11 @@ const getLightMapPalette = (): MapPalette => {
 const getMapPalette = (): MapPalette =>
   document.documentElement.classList.contains("dark") ? darkMapPalette : getLightMapPalette();
 
-const defaultMapView = (isMobile: boolean) => ({
-  ...photoMapInitialView,
+const defaultMapView = (isMobile: boolean, shortSide = isMobile ? 375 : 800) => ({
   center: (isMobile ? [105, 18] : photoMapInitialView.center) as [number, number],
-  zoom: isMobile ? 0.48 : photoMapInitialView.zoom,
+  zoom: globeZoomForShortSide(shortSide),
+  pitch: photoMapInitialView.pitch,
+  bearing: photoMapInitialView.bearing,
 });
 
 const addWorldGeographyLayers = (map: MapboxMap, palette: MapPalette) => {
@@ -237,6 +238,9 @@ const PhotoMapPage = () => {
   const mapboxRef = useRef<MapboxGL | null>(null);
   const markerEntriesRef = useRef<Map<string, MarkerEntry>>(new Map());
   const mapLoadedRef = useRef(false);
+  const clusterLayerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
+  const openFromKeyboard = useRef(false);
   const selectedLocationOffsetRef = useRef<() => [number, number]>(() => [0, 0]);
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useSidebarState();
@@ -265,6 +269,11 @@ const PhotoMapPage = () => {
     window.addEventListener('keydown', dismiss);
     return () => window.removeEventListener('keydown', dismiss);
   }, [activeEntryId, closeEntry]);
+  useEffect(() => {
+    if (!activeEntryId || !openFromKeyboard.current) return;
+    openFromKeyboard.current = false;
+    cardRef.current?.querySelector<HTMLElement>('.photo-map-panel-title')?.focus();
+  }, [activeEntryId]);
 
   const selectedLocationOffset = useCallback(() => {
     if (isMobile) return [0, -(MOBILE_PANEL_HEIGHT / 2)] as [number, number];
@@ -296,7 +305,8 @@ const PhotoMapPage = () => {
           return;
         }
 
-        const initialView = defaultMapView(isMobile);
+        const shortSide = Math.min(containerRef.current.clientWidth, containerRef.current.clientHeight);
+        const initialView = defaultMapView(isMobile, shortSide || undefined);
         const map = new mapbox.Map({
           container: containerRef.current,
           style: MONOCHROME_MAP_STYLE,
@@ -313,6 +323,7 @@ const PhotoMapPage = () => {
 
         mapRef.current = map;
         map.addControl(new mapbox.AttributionControl({ compact: true }), "bottom-right");
+        map.addControl(new mapbox.NavigationControl({ showCompass: false }), "top-left");
 
         const handleLoad = () => {
           mapLoadedRef.current = true;
@@ -360,7 +371,7 @@ const PhotoMapPage = () => {
     if (!mapReady || !mapRef.current) return;
 
     const map = mapRef.current;
-    const view = defaultMapView(isMobile);
+    const view = defaultMapView(isMobile, Math.min(map.getContainer().clientWidth, map.getContainer().clientHeight));
 
     const settle = window.setTimeout(() => {
       map.resize();
@@ -403,16 +414,17 @@ const PhotoMapPage = () => {
       if (entries.has(entry.id)) return;
 
       const root = document.createElement("div");
-      root.className = "relative h-0 w-0";
+      root.className = "photo-map-marker-anchor";
 
       const button = document.createElement("button");
       button.type = "button";
-      button.className =
-        "photo-map-marker group absolute -left-4 -top-4 h-8 w-8 overflow-hidden rounded-full border border-[hsl(var(--image-scrim)/0.34)] bg-[#e2e8f4] shadow-[0_8px_22px_rgba(18,24,34,0.22)] transition-[transform,border-color,box-shadow,filter] duration-200 hover:scale-110 hover:border-[hsl(var(--image-scrim)/0.62)] hover:shadow-[0_12px_30px_rgba(18,24,34,0.3)] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--image-scrim)/0.28)] sm:-left-[18px] sm:-top-[18px] sm:h-9 sm:w-9 sm:shadow-[0_9px_24px_rgba(18,24,34,0.24)]";
+      button.className = "photo-map-marker";
+      button.tabIndex = -1;
       button.setAttribute("aria-label", `Open ${entry.location} photos`);
-      button.style.backgroundImage = `linear-gradient(rgba(244,247,254,0.02), rgba(0,0,0,0.18)), url("${entry.coverImage}")`;
-      button.style.backgroundSize = "cover";
-      button.style.backgroundPosition = "center";
+      const face = document.createElement("span");
+      face.className = "photo-map-marker-face";
+      face.style.backgroundImage = `linear-gradient(rgba(244,247,254,0.02), rgba(0,0,0,0.18)), url("${entry.coverImage}")`;
+      button.appendChild(face);
 
       button.addEventListener("pointerdown", stopMarkerEvent);
       button.addEventListener("mousedown", stopMarkerEvent);
@@ -426,6 +438,7 @@ const PhotoMapPage = () => {
       button.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
+        openFromKeyboard.current = event.detail === 0;
         setActiveEntryId(entry.id);
         map.easeTo({
           center: entry.coordinates as LngLatLike,
@@ -448,16 +461,84 @@ const PhotoMapPage = () => {
   useEffect(() => {
     markerEntriesRef.current.forEach(({ element }, id) => {
       const isActive = id === activeEntryId;
-      element.classList.toggle("scale-125", isActive);
-      element.classList.toggle("border-[hsl(var(--highlight))]", isActive);
-      element.classList.toggle("ring-2", isActive);
-      element.classList.toggle("ring-[hsl(var(--highlight))]/60", isActive);
-      element.classList.toggle("grayscale-0", isActive);
-      element.style.zIndex = isActive ? "5" : "1";
+      element.classList.toggle("is-active", isActive);
       element.setAttribute('aria-pressed', String(isActive));
       if (element.parentElement) element.parentElement.style.zIndex = isActive ? '5' : '1';
     });
   }, [activeEntryId]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    const layer = clusterLayerRef.current;
+    if (!mapReady || !map || !layer) return;
+    const buttons = new Map<string, HTMLButtonElement>();
+    let frame = 0;
+    const apply = () => {
+      const zoom = map.getZoom();
+      const width = map.getContainer().clientWidth;
+      const height = map.getContainer().clientHeight;
+      const points = photoMapEntries.map(entry => {
+        const point = map.project(entry.coordinates);
+        const anchor = markerEntriesRef.current.get(entry.id)?.element.parentElement;
+        const occluded = anchor ? Number.parseFloat(anchor.style.opacity || "1") === 0 : false;
+        return { id: entry.id, x: point.x, y: point.y, hidden: occluded || markerOutsideGlobe(point.x, point.y, width, height, zoom) };
+      });
+      const layout = zoom < 2.8
+        ? clusterScreenPoints(points, 44)
+        : { singles: points.filter(point => !point.hidden).map(point => point.id), clusters: [] };
+      const visible = new Set(layout.singles);
+      markerEntriesRef.current.forEach((record, id) => {
+        const show = visible.has(id);
+        record.element.tabIndex = show ? 0 : -1;
+        if (show) record.element.removeAttribute("aria-hidden");
+        else record.element.setAttribute("aria-hidden", "true");
+        record.element.style.visibility = show ? "visible" : "hidden";
+      });
+      const seen = new Set<string>();
+      for (const cluster of layout.clusters) {
+        seen.add(cluster.id);
+        let button = buttons.get(cluster.id);
+        if (!button) {
+          button = document.createElement("button");
+          button.type = "button";
+          button.className = "photo-map-cluster";
+          const members = cluster.memberIds;
+          button.addEventListener("click", event => {
+            event.preventDefault();
+            event.stopPropagation();
+            const places = photoMapEntries.filter(entry => members.includes(entry.id));
+            const mapbox = mapboxRef.current;
+            if (!mapbox || !places.length) return;
+            setActiveEntryId(null);
+            const bounds = new mapbox.LngLatBounds(places[0].coordinates, places[0].coordinates);
+            places.forEach(entry => bounds.extend(entry.coordinates));
+            map.fitBounds(bounds, { padding: 80, maxZoom: 4.5, duration: motionReduced() ? 0 : 680, essential: false });
+          });
+          buttons.set(cluster.id, button);
+          layer.appendChild(button);
+        }
+        button.textContent = String(cluster.memberIds.length);
+        button.setAttribute("aria-label", `${cluster.memberIds.length} nearby places. Zoom in`);
+        button.style.transform = `translate(${cluster.x}px, ${cluster.y}px) translate(-50%, -50%)`;
+      }
+      for (const [id, button] of buttons) {
+        if (seen.has(id)) continue;
+        button.remove();
+        buttons.delete(id);
+      }
+    };
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(apply);
+    };
+    map.on("render", schedule);
+    schedule();
+    return () => {
+      map.off("render", schedule);
+      cancelAnimationFrame(frame);
+      buttons.forEach(button => button.remove());
+    };
+  }, [mapReady]);
 
   const albumHref = (entry: PhotoMapEntry) =>
     entry.albumFolder ? `/?album=${encodeURIComponent(entry.albumFolder)}` : "/#photo-gallery";
@@ -492,19 +573,28 @@ const PhotoMapPage = () => {
         className="relative h-[100svh] w-full overflow-hidden bg-background will-change-transform"
       >
         <section className="relative h-full overflow-hidden bg-background">
-          <div ref={containerRef} className="photo-map-shell h-full w-full" />
+          <div ref={containerRef} className={`photo-map-shell h-full w-full${activeEntry ? " has-card" : ""}`} />
+          <div ref={clusterLayerRef} className="photo-map-clusters" />
 
           {mapError ? (
-            <div role="status" className="absolute inset-0 flex items-center justify-center bg-background p-6 text-center">
+            <div role="status" className="absolute inset-0 z-[4] flex items-center justify-center bg-background p-6 text-center">
               <p>{mapError}</p>
             </div>
-          ) : !mapReady ? <RouteLoader overlay /> : null}
+          ) : (
+            <div className={`photo-map-loading${mapReady ? " is-done" : ""}`}>
+              <div className="photo-map-loading-globe" aria-hidden="true" />
+              {!mapReady && <p role="status">Loading map…</p>}
+            </div>
+          )}
 
           <section className="pointer-events-none absolute inset-x-0 bottom-0 right-0 z-[70] flex justify-end p-3 sm:bottom-0 sm:left-auto sm:top-14 sm:w-[382px] sm:p-4">
             <AnimatePresence mode="wait">
               {activeEntry ? (
                 <motion.article
                   key={activeEntry.id}
+                  ref={cardRef}
+                  role="region"
+                  aria-label={`${activeEntry.location} photos`}
                   className="site-corner group/photo-panel pointer-events-auto relative flex h-[40svh] min-h-[260px] w-full overflow-hidden border border-white/18 bg-[hsl(var(--image-scrim))] text-white shadow-2xl shadow-black/45 sm:h-full sm:max-w-[350px]"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -521,7 +611,7 @@ const PhotoMapPage = () => {
                   <div className="relative z-10 flex min-h-0 flex-1 flex-col justify-end p-4 sm:p-5">
                     <button
                       type="button"
-                      className="mb-4 text-left sm:mb-6"
+                      className="photo-map-panel-title mb-4 text-left sm:mb-6"
                       onClick={() => openEntry(activeEntry)}
                       aria-label={hasAlbum(activeEntry) ? `Open ${activeEntry.location} album` : `${activeEntry.location} album not available`}
                     >

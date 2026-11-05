@@ -12,7 +12,7 @@ export default function ExploreHelp({onSubmit}:{onSubmit:(question:string)=>void
   const reveal=(index:number)=>({initial:{opacity:reduced?1:0},animate:{opacity:1},transition:{duration:reduced?0:MOTION_DURATION.base,delay:reduced?0:.12+index*.09,ease:MOTION_EASE_ENTER}});
   const body=['My feedback:','','Question I tried:','','What I expected:','','What happened:','','Page: '+window.location.href].join('\n');
   const href=`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Portfolio feedback')}&body=${encodeURIComponent(body)}`;
-  return <article className="home-explore-help" aria-label="How to explore">
+  return <article className="home-explore-help" aria-label="Tips">
     <motion.div {...reveal(0)}>
       <h2>Start with a little curiosity.</h2>
       <p className="home-help-lead">Ask about Isaac’s work, or start here.</p>

@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { resolveAnswerPlan, type EvidenceRecord } from '@/lib/portfolioEvidenceRegistry';
 import type { CanvasBlock } from '@/lib/genui';
 import { PublishedSources } from './PublishedSources';
+import { sentenceCaseHeading } from '@/lib/sentenceHeading';
 
 const labels: Record<string,string> = {
   contribution: 'Isaac’s contribution', process: 'Approach', decisions: 'Decisions',
@@ -70,7 +71,7 @@ export function ProjectAnswer({block,onChange,title}:{block:CanvasBlock;onChange
       const limited=group.facets.filter(facet=>facet.status==='limited'&&!(facet.kind==='limits'&&facet.evidence.some(record=>record.kind==='qualification')));
       const unavailable=group.facets.some(facet=>facet.status==='unavailable');
       return <section className="portfolio-answer-facet" key={`${kinds.join(':')}:${index}`} aria-label={heading} data-answer-facets={kinds.join(' ')} data-answer-statuses={group.facets.map(facet=>`${facet.kind}:${facet.status}`).join(' ')}>
-        <h3>{heading}</h3>
+        <h3>{sentenceCaseHeading(heading)}</h3>
         {unavailable?<p>The published material does not establish this part of the answer.</p>:<>
           {lead.map(record=><Passage key={record.id} evidence={record}/>)}
           {rest.length>0&&<details className="portfolio-supporting-passage"><summary>Read more supporting evidence</summary>{rest.map(record=><Passage key={record.id} evidence={record}/>)}</details>}
@@ -79,6 +80,6 @@ export function ProjectAnswer({block,onChange,title}:{block:CanvasBlock;onChange
         </>}
       </section>;
     })}
-    <details className="portfolio-answer-context"><summary>Read in context</summary><div>{[...new Map(facets.flatMap(facet=>facet.sections).map(section=>[section.sectionId,section])).values()].map(section=><button className="portfolio-inline-action" key={section.sectionId} onClick={()=>onChange({...block,focus:'evidence',layout:'project-evidence',section:section.sectionIndex,expanded:true,answerPlan:undefined,search:undefined,angle:undefined,paragraphIndices:undefined})}>{section.heading}<ArrowUpRight size={14} aria-hidden="true"/></button>)}<button className="portfolio-inline-action" onClick={()=>onChange({...block,focus:'evidence',layout:'project-evidence',expanded:false,answerPlan:undefined,search:undefined,angle:undefined,paragraphIndices:undefined})}>Explore all published evidence<ArrowUpRight size={14} aria-hidden="true"/></button></div></details>
+    <details className="portfolio-answer-context"><summary>Read in context</summary><div>{[...new Map(facets.flatMap(facet=>facet.sections).map(section=>[section.sectionId,section])).values()].map(section=><button className="portfolio-inline-action" key={section.sectionId} onClick={()=>onChange({...block,focus:'evidence',layout:'project-evidence',section:section.sectionIndex,expanded:true,answerPlan:undefined,search:undefined,angle:undefined,paragraphIndices:undefined})}>{sentenceCaseHeading(section.heading)}<ArrowUpRight size={14} aria-hidden="true"/></button>)}<button className="portfolio-inline-action" onClick={()=>onChange({...block,focus:'evidence',layout:'project-evidence',expanded:false,answerPlan:undefined,search:undefined,angle:undefined,paragraphIndices:undefined})}>Explore all published evidence<ArrowUpRight size={14} aria-hidden="true"/></button></div></details>
   </div>;
 }

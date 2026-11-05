@@ -55,8 +55,8 @@ it('reaches both shortcuts with arrows and recovers when composition ends by blu
   const submit=vi.fn();render(<Harness submit={submit}/>);const input=screen.getByRole('textbox');
   fireEvent.focus(input);
   for(let index=0;index<5;index++)fireEvent.keyDown(input,{key:'ArrowDown'});
-  expect(screen.getByRole('option',{name:'How to explore'})).toHaveAttribute('aria-selected','true');
-  fireEvent.keyDown(input,{key:'Enter'});expect(submit).toHaveBeenLastCalledWith('How to explore');
+  expect(screen.getByRole('option',{name:'Tips'})).toHaveAttribute('aria-selected','true');
+  fireEvent.keyDown(input,{key:'Enter'});expect(submit).toHaveBeenLastCalledWith('Tips');
   fireEvent.focus(input);
   fireEvent.compositionStart(input);fireEvent.blur(input);fireEvent.focus(input);
   fireEvent.keyDown(input,{key:'ArrowUp'});

@@ -4,7 +4,6 @@ import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPrefer
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
 import { type ComponentType, type ReactNode, type RefObject, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import BackArrow from "@/components/BackArrow";
 import Bot from "lucide-react/dist/esm/icons/bot.js";
 import FileText from "lucide-react/dist/esm/icons/file-text.js";
 import Newspaper from "lucide-react/dist/esm/icons/newspaper.js";
@@ -221,7 +220,7 @@ const RevealSection = ({
 
 const SeniorThesisLocalJournalismPage = () => {
   const navigate = useNavigate();
-  const { back: backToWork, label: backLabel } = useProjectReturn();
+  const { back: backToWork } = useProjectReturn();
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
@@ -268,11 +267,9 @@ const SeniorThesisLocalJournalismPage = () => {
           <section className="relative bg-background">
             <div className="px-6 pt-28">
               <div className="content-measure">
-                <BackArrow onClick={backToWork} label={backLabel} />
-
-                <div className="article-meta mt-10">
+                <div className="article-meta site-meta">
+                  <button type="button" className="article-return" onClick={backToWork}>Work</button>
                   <span>2025</span>
-                  <span data-dot aria-hidden="true" />
                   <span>Research</span>
                 </div>
 

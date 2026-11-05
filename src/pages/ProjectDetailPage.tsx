@@ -323,13 +323,11 @@ const ProjectDetailPage = () => {
           className="pt-28 pb-24 px-6 content-measure"
           initial={false}
         >
-          <BackArrow onClick={backToWork} label={backLabel} className="mb-10" />
-
           <div className="article-shell">
             <div>
-              <div className="article-meta">
+              <div className="article-meta site-meta">
+                <button type="button" className="article-return" onClick={backToWork}>Work</button>
                 <span>{project.year}</span>
-                <span data-dot aria-hidden="true" />
                 <span>{sourceLabel[project.source] ?? project.source}</span>
               </div>
 
@@ -339,7 +337,7 @@ const ProjectDetailPage = () => {
               {!project.hideSummary && <p className="article-subtitle">{project.summary}</p>}
 
               {!project.hideHero && (
-                <div className="article-hero aspect-[16/9]">
+                <div className="article-hero site-media aspect-[16/9]">
                   <img
                     src={project.image}
                     {...responsiveProjectImageProps(project.image, '(max-width: 820px) calc(100vw - 48px), 772px')}

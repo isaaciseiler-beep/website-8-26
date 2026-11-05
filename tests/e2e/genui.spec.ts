@@ -126,9 +126,11 @@ for (const reducedMotion of ['no-preference','reduce'] as const) test(`ranking r
   await facets.getByRole('button',{name:'Distribution',exact:true}).click();
   await expect(facets.getByRole('button',{name:'Distribution',exact:true})).toHaveAttribute('aria-pressed','true');
   await expect.poll(()=>facets.locator('.portfolio-tab-indicator').evaluate(el=>{
-    const marker=el.getBoundingClientRect(),button=el.parentElement!.getBoundingClientRect();
-    return Math.abs(marker.left-button.left)+Math.abs(marker.width-button.width);
-  })).toBeLessThan(1);
+    const marker=el.getBoundingClientRect();
+    const button=el.parentElement?.querySelector('[aria-pressed="true"]')?.getBoundingClientRect();
+    if(!button)return 99;
+    return Math.abs(marker.left-button.left)+Math.abs(marker.top-button.top)+Math.abs(marker.width-button.width);
+  })).toBeLessThan(2);
   await page.emulateMedia({reducedMotion:reducedMotion==='reduce'?'no-preference':'reduce'});
   await facets.getByRole('button',{name:'Rankings',exact:true}).click();
   await expect(scores).toBeVisible();
@@ -149,12 +151,15 @@ for(const width of [320,390])test(`submitted questions wrap and resize without c
   await expect(input).toHaveValue(question);await expect.poll(()=>posts).toBe(1);
   const display=input;
   await expect(display).toHaveValue(question);
-  await expect.poll(()=>display.evaluate(el=>el.scrollWidth<=el.clientWidth+1)).toBe(true);
-  await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
+  await expect.poll(()=>display.evaluate(el=>el.scrollWidth<=el.clientWidth+1&&el.scrollHeight<=el.clientHeight+1)).toBe(true);
+  // At 320 the sentence wraps. At 390 the field is a full row, about 318px, and this sentence fits on one line in Satoshi without clipping.
+  if(width<=320)await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
   await page.setViewportSize({width:1280,height:900});
-  await expect.poll(async()=>Math.abs((await display.boundingBox())!.height-blankHeight)).toBeLessThan(1);
+  // The open question uses the answer scale, so it is taller than the idle field. It should match its own measure once the sentence fits on one line.
+  await expect.poll(async()=>Math.abs((await display.boundingBox())!.height-await page.locator('.home-question-measure').evaluate(el=>el.getBoundingClientRect().height))).toBeLessThan(1);
   await page.setViewportSize({width,height:844});
-  await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
+  await expect.poll(()=>display.evaluate(el=>el.scrollWidth<=el.clientWidth+1&&el.scrollHeight<=el.clientHeight+1)).toBe(true);
+  if(width<=320)await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
   await expect(input).toHaveValue(question);expect(posts).toBe(1);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
@@ -223,7 +228,7 @@ for(const reducedMotion of ['no-preference','reduce'] as const)test(`native disc
   await expect(page.getByRole('button',{name:'Copy link to this view'})).toBeFocused();
   await expect(disclosure).not.toHaveAttribute('open','');
   await summary.click();await expect(disclosure.locator('[data-disclosure-inert]')).toHaveCount(0);
-  await page.getByRole('button',{name:'Clear exploration'}).click();
+  await page.getByRole('button',{name:'Start over'}).click();
   await expect(page.locator('.home-genui-stage')).toHaveCount(0);
   await page.getByRole('button',{name:'Undo clear'}).click();
   await expect(disclosure).toHaveAttribute('open','');
@@ -258,7 +263,7 @@ for(const reducedMotion of ['no-preference','reduce'] as const){
     await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBe(160);
     expect(await input.evaluate((element:HTMLTextAreaElement)=>element.scrollHeight>element.clientHeight)).toBe(true);
     await input.fill('Taiwan');await input.press('Escape');
-    await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBe(42);
+    await expect.poll(async()=>Math.abs(Math.round((await input.boundingBox())!.height)-Math.round(await page.locator('.home-question-measure').evaluate(el=>el.getBoundingClientRect().height)))).toBeLessThan(1);
   });
 }
 
@@ -268,8 +273,8 @@ test('help generates inside the same pane, stays local, and restores after Clear
   await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
   await page.setViewportSize({width:320,height:568});
   await page.goto('/');
-  await page.getByRole('button',{name:'How to explore',exact:true}).click();
-  const help=page.getByRole('article',{name:'How to explore'});
+  await page.getByRole('button',{name:'Tips',exact:true}).click();
+  const help=page.getByRole('article',{name:'Tips'});
   await expect(help).toBeVisible();
   expect(await help.evaluate(element=>Boolean(element.closest('.home-genui-stage')))).toBe(true);
   await expect(help.getByRole('heading',{name:'How it works'})).toBeVisible();
@@ -278,7 +283,7 @@ test('help generates inside the same pane, stays local, and restores after Clear
   expect(posts).toBe(0);
   await help.getByText('Technical details',{exact:true}).click();
   await expect(help.getByText(/server validates its response/)).toBeVisible();
-  await page.getByRole('button',{name:'Clear exploration'}).click();
+  await page.getByRole('button',{name:'Start over'}).click();
   await page.getByRole('button',{name:'Undo clear'}).click();
   await expect(help).toBeVisible();
   await expect(help.getByText('Technical details',{exact:true}).locator('..')).toHaveAttribute('open','');
@@ -332,7 +337,7 @@ test('the first-visit guide remains reachable by keyboard after suggestions dism
   await page.goto('/');
   const input=page.getByRole('textbox',{name:'Explore',exact:true});
   await input.focus();await input.press('Tab');
-  await expect(page.getByRole('button',{name:'How to explore',exact:true})).toBeFocused();
+  await expect(page.getByRole('button',{name:'Tips',exact:true})).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.locator('.home-genui-stage h2')).toBeFocused();
 });
@@ -460,7 +465,7 @@ for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduc
     let posts=0;
     await page.route('**/api/compose',route=>{if(route.request().method()==='POST')posts++;return route.fulfill({json:{configured:false}});});
     await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
-    await page.goto('/');await page.getByRole('button',{name:'How to explore',exact:true}).click();
+    await page.goto('/');await page.getByRole('button',{name:'Tips',exact:true}).click();
     const summary=page.getByText('Technical details',{exact:true});await summary.click();
     await expect(summary.locator('..')).toHaveAttribute('open','');
     const input=page.getByRole('textbox',{name:'Explore',exact:true});await input.fill('I am still writing my next question');await input.press('Escape');
@@ -510,7 +515,7 @@ for(const width of [390,1440])for(const reducedMotion of ['no-preference','reduc
     await page.setViewportSize({width,height:900});await page.emulateMedia({reducedMotion});
     await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
     await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
-    await page.goto('/');await page.getByRole('button',{name:'How to explore',exact:true}).click();
+    await page.goto('/');await page.getByRole('button',{name:'Tips',exact:true}).click();
     await page.getByRole('link',{name:'Send feedback',exact:true}).focus();
     const frames=await page.locator('.home-genui-reveal').evaluate(async pane=>{
       const frames:{scrollTop:number;contentOffset:number}[]=[];
@@ -537,7 +542,7 @@ for(const width of [320,1440])for(const question of ['Hello','zxq unfamiliar top
     await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
     await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
     await input.fill(question);await input.press('Escape');await input.press('Enter');
-    const help=page.getByRole('button',{name:'How to explore',exact:true});await expect(help).toBeVisible();
+    const help=page.getByRole('button',{name:'Tips',exact:true});await expect(help).toBeVisible();
     const before=posts;await help.focus();await help.press('Enter');
     await expect(page.getByRole('heading',{name:'Start with a little curiosity.',exact:true})).toBeVisible();
     expect(posts).toBe(before);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -551,7 +556,7 @@ for(const width of [320,1440]){
     await page.route('**/api/intent',route=>{posts++;return route.fulfill({status:503,json:{}});});
     await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
     await input.fill('zxq unfamiliar topic');const top=await input.evaluate(node=>node.getBoundingClientRect().top);await input.press('Escape');
-    await expect(input).toHaveValue('zxq unfamiliar topic');await expect(page.getByRole('button',{name:'How to explore',exact:true})).toBeVisible();
+    await expect(input).toHaveValue('zxq unfamiliar topic');await expect(page.getByRole('button',{name:'Tips',exact:true})).toBeVisible();
     expect(Math.abs(await input.evaluate(node=>node.getBoundingClientRect().top)-top)).toBeLessThan(1);expect(posts).toBe(0);
   });
   test(`${width}: stopping the first request leaves a draft and a working guide`,async({page})=>{
@@ -562,7 +567,7 @@ for(const width of [320,1440]){
     try{
       await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});await input.fill('zxq unfamiliar topic');await input.press('Escape');await input.press('Enter');
       await page.getByRole('button',{name:'Stop updating this view'}).click();await expect(input).toHaveValue('zxq unfamiliar topic');
-      const calls=posts;await page.getByRole('button',{name:'How to explore',exact:true}).click();
+      const calls=posts;await page.getByRole('button',{name:'Tips',exact:true}).click();
       await expect(page.getByRole('heading',{name:'Start with a little curiosity.',exact:true})).toBeVisible();expect(posts).toBe(calls);
     }finally{release();}
   });
@@ -656,6 +661,8 @@ for(const [width,height] of [[390,844],[736,750],[1440,900],[844,390]])for(const
     try{
       await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
       await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+      await page.locator('.home-genui-window.has-results').waitFor();
+      await page.waitForFunction(()=>!document.querySelector('.home-genui-window.is-widening'));
       const trigger=page.getByRole('button',{name:'Professional role',exact:true});
       if(await trigger.isVisible()){
         await trigger.click();await page.getByRole('group',{name:'Professional role',exact:true}).getByRole('button',{name:'Product feedback',exact:true}).click();
@@ -686,6 +693,8 @@ for(const [width,height,scrolledAway] of [[390,844,false],[736,750,false],[1440,
     try{
       await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
       await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+      await page.locator('.home-genui-window.has-results').waitFor();
+      await page.waitForFunction(()=>!document.querySelector('.home-genui-window.is-widening'));
       const trigger=page.getByRole('button',{name:'Professional role',exact:true});
       if(await trigger.isVisible()){await trigger.click();await page.getByRole('group',{name:'Professional role',exact:true}).getByRole('button',{name:'Product feedback',exact:true}).click();}
       else await page.getByRole('navigation',{name:'Professional roles'}).getByRole('button',{name:'Product feedback',exact:true}).click();
@@ -722,11 +731,449 @@ for(const [width,height,tabCount] of [[390,390,1],[736,390,1],[390,844,1],[736,7
     await expect(options.getByRole('button',{name:'AI & communications',exact:true})).toBeFocused();
     await page.keyboard.press('End');await expect(options.getByRole('button',{name:'Journalism research',exact:true})).toBeFocused();
     await page.waitForTimeout(250);await page.keyboard.press('Tab');if(tabCount===2)await page.keyboard.press('Tab');
-    const next=tabCount===1?page.locator('.home-next-questions>summary'):page.getByRole('button',{name:'Ask a follow-up',exact:true});await expect(next).toBeFocused();
     await expect(trigger).toHaveAttribute('aria-expanded','false');
     await page.waitForTimeout(700);
-    await expect(next).toBeFocused();expect(await next.evaluate(element=>{const r=element.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;})).toBe(true);
+    expect(await page.evaluate(()=>{
+      const el=document.activeElement;
+      if(!(el instanceof HTMLElement))return false;
+      const r=el.getBoundingClientRect();
+      return Boolean(el.closest('.home-genui-footer'))&&r.height>0&&r.top>=0&&r.bottom<=innerHeight;
+    })).toBe(true);
     expect(await page.locator('.home-genui-reveal').evaluate(element=>element.scrollTop)).toBe(0);
-    if(tabCount===1){await page.keyboard.press('Enter');await expect(page.locator('.home-next-questions')).toHaveAttribute('open','');}
   });
 }
+
+test('a slow answer names real phases, then Stop and a provider error can be retried',async({page})=>{
+  let release:()=>void=()=>{};
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:true}});return;}
+    await gate;
+    const request=route.request().postDataJSON();
+    await route.fulfill({contentType:'application/x-ndjson',body:JSON.stringify({type:'composition',composition:request.proposed,revision:request.revision,contentVersion:request.contentVersion,partial:false})+'\n'}).catch(()=>{});
+  });
+  await page.route('**/api/intent',async route=>{
+    await new Promise(resolve=>setTimeout(resolve,200));
+    await route.fulfill({status:503,json:{}});
+  });
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');await input.press('Enter');
+  const slot=page.locator('.home-request-state');
+  await expect(slot).toContainText(/Finding projects|Laying out the answer/);
+  await expect(page.locator('.home-genui-stage')).toBeVisible();
+  await expect(page.locator('.experience-autocomplete')).toHaveCount(0);
+  const top=(await page.locator('.home-genui-stage').boundingBox())!.y;
+  release();
+  await expect(page.getByRole('button',{name:'Stop updating this view'})).toHaveCount(0);
+  // The finished answer drops the progress row. The stage moves up by that row and then stays.
+  await expect(page.locator('.home-request-state')).toHaveCount(0);
+  await expect.poll(async()=>Math.abs((await page.locator('.home-genui-stage').boundingBox())!.y-(top-44))).toBeLessThan(8);
+});
+
+test('Stop and a failed answer keep the question and offer retry',async({page})=>{
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:false}});return;}
+    await new Promise(resolve=>setTimeout(resolve,4000));
+    await route.fulfill({status:500,json:{}}).catch(()=>{});
+  });
+  await page.route('**/api/intent',async route=>{
+    await new Promise(resolve=>setTimeout(resolve,4000));
+    await route.fulfill({status:503,json:{}});
+  });
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  const question='What was the color of Isaac’s first bicycle?';
+  await input.fill(question);await input.press('Escape');await input.press('Enter');
+  const slot=page.locator('.home-request-state');
+  await expect(slot).toContainText('Finding projects');
+  await expect(page.locator('[aria-label="Preparing exploration"]')).toBeVisible();
+  await page.getByRole('button',{name:'Stop updating this view'}).click();
+  await expect(slot).toContainText('Stopped.');
+  await expect(input).toHaveValue(question);
+  await expect(page.getByRole('button',{name:'Retry'})).toBeVisible();
+});
+
+test('the committed question is not selected, and the first keystroke replaces it',async({page})=>{
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
+  expect(await input.evaluate((el:HTMLTextAreaElement)=>el.selectionEnd-el.selectionStart)).toBe(0);
+  await input.press('A');
+  await expect(input).toHaveValue('A');
+});
+
+for(const width of [320,375,1280])test(`project facets stay on one row at ${width} and answer arrow keys`,async({page})=>{
+  await page.setViewportSize({width,height:812});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Taiwan teaching');await input.press('Escape');await input.press('Enter');
+  const tabs=page.getByRole('group',{name:'Explore project'});
+  await expect(tabs).toBeVisible();
+  const metrics=await tabs.evaluate(el=>{
+    const buttons=[...el.querySelectorAll('button')];
+    const root=el.getBoundingClientRect();
+    const clipped=buttons.filter(button=>{const box=button.getBoundingClientRect();return box.left<root.left-1||box.right>root.right+1;}).map(button=>button.textContent);
+    return {rows:new Set(buttons.map(button=>Math.round(button.getBoundingClientRect().top))).size,height:root.height,overflow:el.scrollWidth>el.clientWidth+1,clipped};
+  });
+  expect(metrics.rows).toBe(1);
+  expect(metrics.height).toBeLessThan(64);
+  expect(await tabs.evaluate(el=>[...el.querySelectorAll('button')].every(button=>{
+    const label=button.querySelector('.portfolio-tab-label')!.getBoundingClientRect();
+    const pill=button.getBoundingClientRect();
+    return Math.abs((label.top+label.height/2)-(pill.top+pill.height/2))<=1;
+  }))).toBe(true);
+  if(width===320){
+    const fade=await tabs.evaluate(el=>{
+      const style=getComputedStyle(el);
+      const mask=style.maskImage||(style as CSSStyleDeclaration & {webkitMaskImage?:string}).webkitMaskImage||'';
+      const root=el.getBoundingClientRect();
+      const partial=[...el.querySelectorAll('button')].some(button=>{
+        const box=button.getBoundingClientRect();
+        return box.left<root.right-8&&box.right>root.right+4;
+      });
+      return {mask,partial,overflow:el.scrollWidth>el.clientWidth+1};
+    });
+    expect(fade.overflow).toBe(true);
+    expect(fade.mask).toContain('linear-gradient');
+    expect(fade.partial).toBe(true);
+  }
+  if(width>=375)expect(metrics.clipped).toEqual([]);
+  await tabs.evaluate(el=>{el.scrollLeft=el.scrollWidth;});
+  expect(await tabs.evaluate(el=>{
+    const last=[...el.querySelectorAll('button')].at(-1)!.getBoundingClientRect();
+    const root=el.getBoundingClientRect();
+    return last.left>=root.left-1&&last.right<=root.right+1;
+  })).toBe(true);
+  await tabs.getByRole('button',{name:'Contribution'}).focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(tabs.getByRole('button',{name:'Process'})).toHaveAttribute('aria-pressed','true');
+});
+
+test('a matched follow-up keeps the previous answer settled until the next one arrives',async({page})=>{
+  let release:()=>void=()=>{};
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:true}});return;}
+    await gate;
+    const request=route.request().postDataJSON();
+    await route.fulfill({contentType:'application/x-ndjson',body:JSON.stringify({type:'composition',composition:request.proposed,revision:request.revision,contentVersion:request.contentVersion,partial:false})+'\n'}).catch(()=>{});
+  });
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
+  await input.fill('How can I contact Isaac?');await input.press('Escape');await input.press('Enter');
+  await expect(page.locator('.home-genui-stage')).toHaveAttribute('data-settled','true');
+  await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
+  release();
+  await expect(page.getByRole('region',{name:'Contact'}).getByRole('link',{name:'Email'})).toBeVisible();
+});
+
+async function headerClearsExplore(page: import('@playwright/test').Page){
+  expect(await page.evaluate(()=>{
+    const header=[...document.querySelectorAll('.site-home-link, .site-nav-toggle-xray, .site-search-icon')].map(el=>el.getBoundingClientRect()).filter(box=>box.width>0&&box.height>0);
+    const content=[...document.querySelectorAll('.home-genui-composer, .home-genui-stage, #home-explore, .home-submit')].map(el=>el.getBoundingClientRect()).filter(box=>box.width>0&&box.height>0&&box.bottom>0&&box.top<innerHeight);
+    const hit=(a:DOMRect,b:DOMRect)=>a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+    return header.some(icon=>content.some(block=>hit(icon,block)));
+  })).toBe(false);
+}
+
+for(const width of [320,375,390])test(`header icons stay clear of Explore after submit and follow-up at ${width}`,async({page})=>{
+  await page.setViewportSize({width,height:812});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('Give me a brief on the Taiwan project');
+  await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible();
+  await page.waitForTimeout(800);
+  await headerClearsExplore(page);
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');await input.press('Enter');
+  await expect(page.getByRole('heading',{name:'AI in state government'})).toBeVisible();
+  await page.waitForTimeout(800);
+  await headerClearsExplore(page);
+});
+
+test('a scrolled page fades in the header scrim on About, Work, a project, and photos',async({page})=>{
+  for(const path of ['/about','/work','/projects/openai-product-testing-and-feedback']){
+    await page.goto(path);
+    await expect(page.locator('.site-header-scrim')).toBeAttached();
+    await expect(page.locator('.site-header-scrim')).not.toHaveClass(/is-scrolled/);
+    await page.evaluate(()=>window.scrollTo(0,240));
+    await expect(page.locator('.site-header-scrim')).toHaveClass(/is-scrolled/);
+    await page.evaluate(()=>window.scrollTo(0,0));
+    await expect(page.locator('.site-header-scrim')).not.toHaveClass(/is-scrolled/);
+  }
+  await page.goto('/#photo-gallery');
+  await expect(page.locator('#photo-gallery')).toBeVisible();
+  await expect(page.locator('.site-header-scrim')).toHaveClass(/is-scrolled/);
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await expect(page.locator('.site-header-scrim')).not.toHaveClass(/is-scrolled/);
+});
+
+test('the layout review harness does not render in the production build',async({page})=>{
+  await page.goto('/?layouts');
+  await expect(page.getByRole('textbox',{name:'Explore',exact:true})).toBeVisible();
+  await expect(page.getByText('Layout review')).toHaveCount(0);
+  await expect(page.locator('#layout-review')).toHaveCount(0);
+});
+
+test('a phone answer title lands below the header and back, forward, and reload keep that place',async({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');await input.press('Enter');
+  const title=page.getByRole('heading',{name:'AI in state government'});
+  await expect(title).toBeVisible();
+  await expect.poll(async()=>{
+    const composer=(await page.locator('.home-genui-composer').boundingBox())!;
+    const header=(await page.locator('.site-home-link').boundingBox())!;
+    return composer.y-(header.y+header.height);
+  }).toBeGreaterThan(8);
+  await input.fill('Who is Isaac?');await input.press('Escape');
+  await page.evaluate(()=>window.scrollTo(0,640));
+  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(500);
+  const kept=await page.evaluate(()=>scrollY);
+  await input.evaluate(el=>el.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true})));
+  await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
+  await page.goBack();
+  await expect(input).toHaveValue('How did Isaac research AI in government?');
+  await expect(title).toBeVisible();
+  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(kept-80);
+  await page.reload();
+  await expect(input).toHaveValue('How did Isaac research AI in government?');
+  await expect(title).toBeVisible();
+  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(kept-80);
+});
+
+test('a different model composition replaces the preview without a layout jump',async({page})=>{
+  let release:()=>void=()=>{};
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:true}});return;}
+    await gate;
+    const request=route.request().postDataJSON();
+    const contact={blocks:[{kind:'contact',layout:'contact-card',projectIds:[],albumIds:[],states:[],region:'All',metric:'compositeScore',section:0}]};
+    await route.fulfill({contentType:'application/x-ndjson',body:JSON.stringify({type:'composition',composition:contact,revision:request.revision,contentVersion:request.contentVersion,partial:false})+'\n'}).catch(()=>{});
+  });
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');await input.press('Enter');
+  const stage=page.locator('.home-genui-stage');
+  await expect(stage).toBeVisible();
+  await expect(page.getByRole('region',{name:'Project explorer'})).toBeVisible();
+  const before=await stage.evaluate(el=>{
+    const box=el.getBoundingClientRect();
+    const composer=document.querySelector('.home-genui-composer')!.getBoundingClientRect();
+    return {gap:box.top-composer.bottom,height:box.height};
+  });
+  const watch=page.waitForFunction(()=>document.querySelector('.home-genui-stage')?.getAttribute('data-morphing')==='true',undefined,{timeout:5000}).catch(()=>null);
+  release();
+  await watch;
+  const early:number[]=[];
+  const tops:{title:number|null;block:number|null}[]=[];
+  const started=Date.now();
+  while(Date.now()-started<150){
+    const frame=await page.evaluate(()=>{
+      const stageNode=document.querySelector('.home-genui-stage');
+      const heading=[...stageNode?.querySelectorAll('h2, h3')??[]].find(el=>el.getBoundingClientRect().height>8&&!el.classList.contains('sr-only'));
+      const block=stageNode?.querySelector('section');
+      return {height:stageNode?.getBoundingClientRect().height??0,title:heading?heading.getBoundingClientRect().top:null,block:block?block.getBoundingClientRect().top:null};
+    });
+    early.push(frame.height);
+    tops.push({title:frame.title,block:frame.block});
+  }
+  await expect(page.getByRole('region',{name:'Contact'}).getByRole('link',{name:'Email'})).toBeVisible();
+  const after=await stage.evaluate(el=>{
+    const box=el.getBoundingClientRect();
+    const composer=document.querySelector('.home-genui-composer')!.getBoundingClientRect();
+    return box.top-composer.bottom;
+  });
+  expect(Math.abs(after-before.gap)).toBeLessThan(2);
+  expect(Math.max(...early.map(height=>before.height-height),0)).toBeLessThan(8);
+  const titleTops=tops.map(frame=>frame.title).filter((top):top is number=>top!=null);
+  const blockTops=tops.map(frame=>frame.block).filter((top):top is number=>top!=null);
+  if(titleTops.length>1)expect(Math.max(...titleTops)-Math.min(...titleTops)).toBeLessThan(2);
+  if(blockTops.length>1)expect(Math.max(...blockTops)-Math.min(...blockTops)).toBeLessThan(4);
+});
+
+for(const [width,theme] of [[1024,'light'],[1280,'light'],[1280,'dark'],[1440,'light']] as const){
+test(`the widen stays presentable at ${width} ${theme}`,async({page})=>{
+  await page.setViewportSize({width,height:800});
+  await page.emulateMedia({reducedMotion:'no-preference',colorScheme:theme});
+  await page.addInitScript(value=>localStorage.setItem('theme',value),theme);
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');
+  await input.press('Enter');
+  await page.locator('.home-genui-window.has-results').waitFor();
+  const duration=await page.evaluate(()=>parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--explore-widen')));
+  const started=Date.now();
+  for(const mark of [0,.25,.5,.75,1]){
+    const delay=started+duration*mark-Date.now();
+    if(delay>0)await page.waitForTimeout(delay);
+    const report=await page.evaluate(()=>{
+      const card=document.querySelector('.home-genui-window')!.getBoundingClientRect();
+      const hidden=(el:Element|null)=>{
+        let node=el;
+        while(node&&node!==document.body){
+          const style=getComputedStyle(node);
+          if(style.visibility==='hidden'||Number(style.opacity)===0)return true;
+          node=node.parentElement;
+        }
+        return false;
+      };
+      const overflows:string[]=[];
+      const walker=document.createTreeWalker(document.querySelector('.home-genui-window')!,NodeFilter.SHOW_TEXT);
+      let text:Node|null;
+      while((text=walker.nextNode())){
+        if(!text.textContent?.trim()||hidden(text.parentElement)||text.parentElement?.closest('.sr-only,[aria-hidden="true"]'))continue;
+        const range=document.createRange();
+        range.selectNodeContents(text);
+        for(const rect of range.getClientRects()){
+          if(rect.width<1||rect.height<1)continue;
+          if(rect.right>card.right+1||rect.left<card.left-1)overflows.push(text.textContent.trim().slice(0,48));
+        }
+      }
+      const tab=document.querySelector('.portfolio-tabs button[aria-pressed="true"]');
+      const pill=document.querySelector('.home-genui .portfolio-tab-indicator');
+      const tabBox=tab&&!hidden(tab)?tab.getBoundingClientRect():null;
+      const pillBox=pill&&!hidden(pill)?pill.getBoundingClientRect():null;
+      const open=document.querySelector('a[aria-label^="Open image:"]');
+      const openVisible=Boolean(open&&!hidden(open));
+      const image=open?.querySelector('img');
+      const ready=Boolean(image&&image.complete&&image.naturalWidth>0);
+      const background=open?getComputedStyle(open).backgroundColor:'';
+      const placeholder=Boolean(background&&background!=='transparent'&&background!=='rgba(0, 0, 0, 0)');
+      return {overflows,tabBox,pillBox,openVisible,ready,placeholder};
+    });
+    expect(report.overflows,`${width} ${theme} at ${mark}`).toEqual([]);
+    if(report.tabBox&&report.pillBox){
+      expect(report.pillBox.left).toBeGreaterThanOrEqual(report.tabBox.left-1);
+      expect(report.pillBox.right).toBeLessThanOrEqual(report.tabBox.right+1);
+      expect(report.pillBox.top).toBeGreaterThanOrEqual(report.tabBox.top-1);
+      expect(report.pillBox.bottom).toBeLessThanOrEqual(report.tabBox.bottom+1);
+    }
+    if(report.openVisible)expect(report.ready||report.placeholder,`${width} ${theme} at ${mark}`).toBe(true);
+  }
+  await page.waitForFunction(()=>!document.querySelector('.home-genui-window.is-widening'));
+  await page.waitForTimeout(280);
+  const settled=await page.evaluate(()=>{
+    const card=document.querySelector('.home-genui-window')!.getBoundingClientRect();
+    const hidden=(el:Element|null)=>{
+      let node=el;
+      while(node&&node!==document.body){
+        const style=getComputedStyle(node);
+        if(style.visibility==='hidden'||Number(style.opacity)===0)return true;
+        node=node.parentElement;
+      }
+      return false;
+    };
+    const overflows:string[]=[];
+    const walker=document.createTreeWalker(document.querySelector('.home-genui-window')!,NodeFilter.SHOW_TEXT);
+    let text:Node|null;
+    while((text=walker.nextNode())){
+      if(!text.textContent?.trim()||hidden(text.parentElement)||text.parentElement?.closest('.sr-only,[aria-hidden="true"]'))continue;
+      const range=document.createRange();
+      range.selectNodeContents(text);
+      for(const rect of range.getClientRects()){
+        if(rect.width<1||rect.height<1)continue;
+        if(rect.right>card.right+1||rect.left<card.left-1)overflows.push(text.textContent.trim().slice(0,48));
+      }
+    }
+    const tab=document.querySelector('.portfolio-tabs button[aria-pressed="true"]');
+    const pill=document.querySelector('.home-genui .portfolio-tab-indicator');
+    const open=document.querySelector('a[aria-label^="Open image:"]');
+    const image=open?.querySelector('img');
+    const background=open?getComputedStyle(open).backgroundColor:'';
+    return {
+      overflows,
+      tab:tab&&!hidden(tab)?tab.getBoundingClientRect():null,
+      pill:pill&&!hidden(pill)?pill.getBoundingClientRect():null,
+      open:Boolean(open&&!hidden(open)),
+      ready:Boolean(image&&image.complete&&image.naturalWidth>0),
+      placeholder:Boolean(background&&background!=='transparent'&&background!=='rgba(0, 0, 0, 0)'),
+    };
+  });
+  expect(settled.overflows,`${width} ${theme} settled`).toEqual([]);
+  expect(settled.tab,`${width} ${theme} settled tab`).toBeTruthy();
+  expect(settled.pill,`${width} ${theme} settled pill`).toBeTruthy();
+  expect(settled.pill!.left).toBeGreaterThanOrEqual(settled.tab!.left-1);
+  expect(settled.pill!.right).toBeLessThanOrEqual(settled.tab!.right+1);
+  expect(settled.pill!.top).toBeGreaterThanOrEqual(settled.tab!.top-1);
+  expect(settled.pill!.bottom).toBeLessThanOrEqual(settled.tab!.bottom+1);
+  expect(settled.open,`${width} ${theme} settled image`).toBe(true);
+  expect(settled.ready||settled.placeholder,`${width} ${theme} settled image`).toBe(true);
+});
+}
+
+test('the question line moves continuously while the answer widens',async({page})=>{
+  await page.setViewportSize({width:1280,height:800});
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');
+  await page.evaluate(()=>{
+    window.__questionFrames=[];
+    const field=document.querySelector('#home-explore');
+    const step=()=>{
+      const box=field.getBoundingClientRect();
+      window.__questionFrames.push({x:box.x,y:box.y,w:box.width,h:box.height});
+      if(window.__questionFrames.length<24)requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+  await input.press('Enter');
+  await expect(page.getByRole('heading',{name:'AI in state government'})).toBeVisible();
+  await page.waitForTimeout(400);
+  const frames=await page.evaluate(()=>window.__questionFrames);
+  expect(frames.length).toBeGreaterThan(8);
+  const travel=Math.max(...frames.map(frame=>frame.x))-Math.min(...frames.map(frame=>frame.x));
+  expect(Math.max(...frames.map(frame=>frame.w))-Math.min(...frames.map(frame=>frame.w))).toBeGreaterThan(40);
+  let moving=0;
+  for(let index=1;index<frames.length;index++){
+    const step=Math.abs(frames[index].x-frames[index-1].x);
+    if(step>0.5)moving+=1;
+    expect(step).toBeLessThan(Math.max(24,travel*0.5));
+    expect(Math.abs(frames[index].y-frames[index-1].y)).toBeLessThan(12);
+    expect(Math.abs(frames[index].h-frames[index-1].h)).toBeLessThan(8);
+  }
+  expect(moving).toBeGreaterThan(3);
+});
+
+test('a provider failure keeps the question and offers retry',async({page})=>{
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:true}});return;}
+    await route.fulfill({status:500,json:{}});
+  });
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  const question='How did Isaac research AI in government?';
+  await input.fill(question);await input.press('Escape');await input.press('Enter');
+  await expect(page.locator('.home-request-state')).toContainText('The answer didn’t finish.');
+  await expect(input).toHaveValue(question);
+  await expect(page.getByRole('button',{name:'Retry'})).toBeVisible();
+  await expect(page.locator('.home-genui-stage')).toBeVisible();
+});

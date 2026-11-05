@@ -1,5 +1,4 @@
 import { useSidebarState } from "@/lib/siteChrome";
-import BackArrow from "@/components/BackArrow";
 import useProjectReturn from "@/hooks/useProjectReturn";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useNavigationMotion } from "@/hooks/useMotionPreference";
@@ -444,7 +443,7 @@ const ResourceTooltip = ({ active, payload }: ResourceTooltipProps) => {
 const AIStateGovernmentIndexPage = () => {
   const reduced = useReducedMotion();
   const navigate = useNavigate();
-  const { back: backToWork, label: backLabel } = useProjectReturn();
+  const { back: backToWork } = useProjectReturn();
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
@@ -552,11 +551,9 @@ const AIStateGovernmentIndexPage = () => {
           <section className="relative bg-background">
             <div className="px-6 pt-28">
               <div className="content-measure">
-                <BackArrow onClick={backToWork} label={backLabel} />
-
-                <div className="article-meta mt-10">
+                <div className="article-meta site-meta">
+                  <button type="button" className="article-return" onClick={backToWork}>Work</button>
                   <span>2025</span>
-                  <span data-dot aria-hidden="true" />
                   <span>Research</span>
                 </div>
 
@@ -571,16 +568,17 @@ const AIStateGovernmentIndexPage = () => {
                   credit="Utah state capitol building. Credit: Lonely Planet"
                   creditId="utah-image-credit"
                   eager
+                  flush
                   src={HERO_IMAGE}
                 />
               </div>
             </div>
 
-            <div className="relative z-20 bg-background px-6 py-10">
+            <div className="relative z-20 bg-background px-6 pb-10 pt-8 sm:pt-10">
               <div className="content-measure grid gap-10">
                 <TextReveal>
                   <div className="space-y-5">
-                    <p className="w-full text-xl leading-relaxed text-foreground/72 sm:text-2xl">
+                    <p className="w-full text-[16px] leading-[1.55] text-foreground sm:text-[17px]">
                       This index translates the GenAI hype cycle into a public-evidence benchmark for state and
                       territory governments: who has guidance, training, pilots, governance structures, public roadmaps,
                       and enough transparency for constituents to see what is actually happening.

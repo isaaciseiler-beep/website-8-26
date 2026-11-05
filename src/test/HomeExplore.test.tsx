@@ -3,6 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomeExplore from "@/components/canvas/HomeExplore";
 import { initialPlan, localPlan, CONTENT_VERSION } from "@/lib/canvas";
+import { EXPLORE_MS } from "@/lib/exploreProgress";
 
 const success = (data: unknown) => ({ ok: true, json: async () => data });
 const mount = () => render(<MemoryRouter><HomeExplore /></MemoryRouter>);
@@ -41,6 +42,7 @@ describe("homepage generative interface", () => {
     fireEvent.change(screen.getByRole('searchbox',{name:'Find a project'}),{target:{value:'Taiwan'}});
     const project=within(screen.getByRole('region',{name:'Work explorer'})).getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/});
     act(()=>project.focus());fireEvent.click(project);
+    await act(async()=>{vi.advanceTimersByTime(EXPLORE_MS.widen);});
     expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toHaveFocus();
     fireEvent.click(screen.getByRole('button',{name:'Process'}));
     const back=screen.getByRole('button',{name:'Back to projects'});
@@ -122,8 +124,10 @@ describe("homepage generative interface", () => {
     const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Show Japan photos'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
-    expect(screen.queryByText(/Photography lives/)).not.toBeInTheDocument();
-    expect(screen.queryByRole('link',{name:'gallery below'})).not.toBeInTheDocument();
+    expect(screen.getByRole('region',{name:'Photographs'})).toBeInTheDocument();
+    expect(screen.getByRole('link',{name:/Japan/})).toHaveAttribute('href','/?album=Japan');
+    expect(screen.getByRole('link',{name:/Photo Map/})).toHaveAttribute('href','/photos/map');
+    expect(screen.getByRole('link',{name:/All photographs/})).toHaveAttribute('href','/#photo-gallery');
     expect(screen.queryByRole('region',{name:'Photo explorer'})).not.toBeInTheDocument();
     expect(fetcher).toHaveBeenCalledTimes(1);
   });
@@ -138,7 +142,7 @@ describe("homepage generative interface", () => {
     fireEvent.change(input,{target:{value:'Taiwan teaching'}});
     await act(async()=>{fireEvent.submit(input.closest('form')!);});
     const status=screen.getByRole('status');
-    expect(status).toHaveTextContent('Finding a view');
+    expect(status).toHaveTextContent('Finding projects');
     expect(status.closest('[aria-busy="true"]')).toBeNull();
     fireEvent.change(input,{target:{value:'a different question'}});
     expect(status).toBeEmptyDOMElement();
@@ -152,8 +156,9 @@ describe("homepage generative interface", () => {
     act(()=>input.focus());
     fireEvent.change(input,{target:{value:'Taiwan teaching'}});
     await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
-    expect(input.selectionStart).toBe(0);
-    expect(input.selectionEnd).toBe('Taiwan teaching'.length);
+    expect(input.selectionEnd-input.selectionStart).toBe(0);
+    fireEvent.change(input,{target:{value:'Taiwan teachingA'}});
+    expect(input).toHaveValue('A');
     fireEvent.click(screen.getByRole('button',{name:'Ask a follow-up'}));
     expect(input).toHaveValue('');
     expect(input).toHaveFocus();
@@ -174,16 +179,39 @@ describe("homepage generative interface", () => {
     expect(screen.getByLabelText('Preparing exploration')).toBeInTheDocument();
     await act(async()=>{vi.advanceTimersByTime(3000);});
     expect(screen.getByRole('button',{name:'Browse work'})).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent('Still preparing your view');
+    expect(screen.getByRole('status')).toHaveTextContent('Finding projects');
     fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
-    expect(screen.getByRole('status')).toHaveTextContent('Stopped updating.');
+    expect(screen.getByRole('status')).toHaveTextContent('Stopped.');
+    expect(screen.getByRole('button',{name:'Retry'})).toBeInTheDocument();
+    expect(input).toHaveFocus();
     expect(screen.queryByLabelText('Preparing exploration')).not.toBeInTheDocument();
     await act(async()=>{deliver(success({plan:localPlan('contact',initialPlan(),[],1)}));});
     expect(screen.queryByRole('region',{name:'Contact'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
   });
 
-  it('retains the progress slot when an authored preview finishes and avoids a full loading spinner over content',async()=>{
+  it('retries the question currently in the box after a stopped follow-up',async()=>{
+    const drafts:string[]=[];
+    vi.stubGlobal('fetch',vi.fn(async(_url:string,options?:RequestInit)=>{
+      if(!options?.body)return success({configured:false});
+      const request=JSON.parse(String(options.body));
+      drafts.push(request.draft);
+      if(request.draft==='zxq follow up')return new Promise(()=>{});
+      return success({plan:localPlan(request.draft,request.current,[],request.revision),needsComposition:false});
+    }));
+    mount();
+    const input=screen.getByRole('textbox',{name:'Explore'});
+    fireEvent.change(input,{target:{value:'How can I contact Isaac?'}});
+    await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
+    fireEvent.change(input,{target:{value:'zxq follow up'}});
+    await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
+    fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
+    expect(input).toHaveValue('How can I contact Isaac?');
+    await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Retry'}));});
+    expect(drafts.at(-1)).toBe('How can I contact Isaac?');
+  });
+
+  it('removes the progress slot once an authored preview has nothing left to announce',async()=>{
     let deliver:(value:unknown)=>void=()=>{};
     vi.stubGlobal('fetch',vi.fn(async(_url:string,options?:RequestInit)=>{
       if(!options?.body)return success({configured:false});
@@ -197,8 +225,7 @@ describe("homepage generative interface", () => {
     expect(slot).not.toBeNull();
     expect(document.querySelector('.home-submit-spinner')).toBeNull();
     await act(async()=>{deliver(success({plan:localPlan('Taiwan teaching',initialPlan(),[],2),needsComposition:false}));});
-    expect(document.querySelector('.home-request-state')).toBe(slot);
-    expect(slot).toBeEmptyDOMElement();
+    expect(document.querySelector('.home-request-state')).toBeNull();
     expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
   });
 
@@ -213,7 +240,8 @@ describe("homepage generative interface", () => {
     const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:'Taiwan teaching'}});
     await act(async()=>{fireEvent.keyDown(input,{key:'Enter'});});
-    expect(document.querySelector('.home-request-state')).toHaveTextContent('Couldn’t finish updating. You can keep exploring this view.');
+    expect(document.querySelector('.home-request-state')).toHaveTextContent('The answer didn’t finish.');
+    expect(screen.getByRole('button',{name:'Retry'})).toBeInTheDocument();
     expect(screen.getByRole('region',{name:'Project explorer'})).toBeInTheDocument();
     expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
   });
@@ -232,7 +260,7 @@ describe("homepage generative interface", () => {
       if(change==='manual control')fireEvent.click(screen.getByRole('button',{name:'Evidence'}));
       else if(change==='draft edit')fireEvent.change(input,{target:{value:'unfinished question'}});
       else{
-        fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
+        fireEvent.click(screen.getByRole('button',{name:'Start over'}));
         fireEvent.change(input,{target:{value:'Explore Isaac’s career'}});
         await act(async()=>{fireEvent.submit(input.closest('form')!);});
       }
@@ -281,7 +309,7 @@ describe("homepage generative interface", () => {
     expect(fetcher).toHaveBeenCalledTimes(2);
     fireEvent.change(input, { target: { value: "" } });
     expect(screen.getByRole("link", { name: "Email" })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
+    fireEvent.click(screen.getByRole('button',{name:'Start over'}));
     await act(async () => { vi.advanceTimersByTime(1000); });
     expect(screen.queryByRole("link", { name: /Email/ })).not.toBeInTheDocument();
     expect(input).toHaveFocus();
@@ -306,5 +334,18 @@ describe("homepage generative interface", () => {
     fireEvent.change(input, { target: { value: "tell me more about the first" } });
     await act(async () => { fireEvent.submit(input.closest("form")!); });
     expect(screen.getByRole("combobox", { name: "Project" })).toBeInTheDocument();
+  });
+
+  it('uses the question as the widen skeleton title and keeps bars for the body', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => success({ configured: false })));
+    mount();
+    const input = screen.getByRole('textbox', { name: 'Explore' });
+    fireEvent.change(input, { target: { value: 'Compare California and Washington' } });
+    await act(async () => { fireEvent.submit(input.closest('form')!); });
+    const title = document.querySelector('.home-widen-skeleton .home-skeleton-question');
+    const heading = document.querySelector('.home-genui-reveal h2:not(.sr-only), .home-genui-stage h2:not(.sr-only)');
+    expect(title?.textContent).toBe(heading?.textContent);
+    expect(document.querySelector('.home-widen-skeleton .home-skeleton-title')).toBeNull();
+    expect(document.querySelector('.home-widen-skeleton .home-skeleton')?.querySelector('span, .home-skeleton-split')).not.toBeNull();
   });
 });

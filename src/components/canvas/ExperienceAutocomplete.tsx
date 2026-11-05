@@ -1,8 +1,9 @@
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
-import { useId, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
+import { useId, useLayoutEffect, useRef, useState, type MutableRefObject, type ReactNode, type RefObject } from 'react';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { suggestExperiencePrompts, type SuggestionContext } from '@/lib/experiencePrompts';
+import { EXPLORE_EASE, EXPLORE_MS } from '@/lib/exploreProgress';
 import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 
 function SuggestionPanel({children}:{children:ReactNode}) {
@@ -11,19 +12,19 @@ function SuggestionPanel({children}:{children:ReactNode}) {
     initial={{opacity:0,height:0}} animate={{opacity:1,height:'auto'}} exit="closed"
     // A committed suggestion becomes a result in the same surface. Dismiss its
     // semantics immediately, but let its space fold as the result opens below.
-    variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced?0:committed?MOTION_DURATION.base:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER},opacity:{duration:reduced?0:MOTION_DURATION.exit}}})}}
-    transition={{height:{duration:reduced?0:.32,ease:[.22,1,.36,1]},opacity:{duration:reduced ? 0 : present ? 0.2 : 0.1}}} onPointerDown={e=>e.preventDefault()}>{children}</motion.div>;
+    variants={{closed:(committed:boolean)=>({opacity:0,height:0,transition:{height:{duration:reduced||committed?0:EXPLORE_MS.suggestion/1000,ease:EXPLORE_EASE},opacity:{duration:reduced||committed?0:MOTION_DURATION.exit}}})}}
+    transition={{height:{duration:reduced?0:EXPLORE_MS.suggestion/1000,ease:EXPLORE_EASE},opacity:{duration:reduced?0:present?EXPLORE_MS.suggestion/1000:EXPLORE_MS.clear/1000,ease:EXPLORE_EASE}}} onPointerDown={e=>e.preventDefault()}>{children}</motion.div>;
 }
-type Props={context?:SuggestionContext;committedValue?:string;onEscape?:()=>void;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
-export default function ExperienceAutocomplete({context,committedValue,onEscape,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){
+type Props={context?:SuggestionContext;committedValue?:string;onEscape?:()=>void;quietFocus?:MutableRefObject<boolean>;value:string;open:boolean;immediateDismiss?:boolean;inputRef:RefObject<HTMLTextAreaElement>;onChange:(value:string)=>void;onSubmit:(value:string)=>void;onOpenChange:(open:boolean)=>void;onCompositionStart:()=>void;onCompositionEnd:()=>void};
+export default function ExperienceAutocomplete({context,committedValue,onEscape,quietFocus,value,open,immediateDismiss=false,inputRef,onChange,onSubmit,onOpenChange,onCompositionStart,onCompositionEnd}:Props){
   const id=useId();
-  const selectOnClick=useRef(false);
-  const selectedCommit=useRef<string>();
+  const replaceOnType=useRef(false);
   const [active,setActive]=useState(-1);
   const reduced=useReducedMotion();
   const measure=useRef<HTMLSpanElement>(null);
   const list=useRef<HTMLUListElement>(null);
   const [height,setHeight]=useState(42);
+  useLayoutEffect(()=>{replaceOnType.current=Boolean(committedValue&&value===committedValue);},[committedValue,value]);
   useLayoutEffect(()=>{
     const node=measure.current;if(!node)return;
     let frame=0;const resize=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const next=Math.max(42,Math.min(160,node.getBoundingClientRect().height));setHeight(previous=>Math.abs(previous-next)<.5?previous:next);});};
@@ -33,7 +34,7 @@ export default function ExperienceAutocomplete({context,committedValue,onEscape,
   const [composing,setComposing]=useState(false);
   const composition=useRef(false);
   const items=suggestExperiencePrompts(value,4,context);
-  const shortcuts=!value.trim()&&!context?[{id:'help',text:'How to explore',label:'How to explore'},{id:'browse',text:'Explore all projects',label:'Browse work'}]:[];
+  const shortcuts=!value.trim()&&!context?[{id:'help',text:'Tips',label:'Tips'},{id:'browse',text:'Explore all projects',label:'Browse work'}]:[];
   const options=[...items,...shortcuts];
   const visible=open&&!composing&&options.length>0;
   useLayoutEffect(()=>{
@@ -61,15 +62,32 @@ export default function ExperienceAutocomplete({context,committedValue,onEscape,
     <label className="sr-only" htmlFor="home-explore">Explore</label>
     <motion.div className="home-query-field" initial={false} animate={{height}} transition={{duration:reduced?0:MOTION_DURATION.fast,ease:MOTION_EASE_ENTER}}>
     <span ref={measure} className="home-question-measure" aria-hidden="true">{value||'Ask about Isaac’s work'}{'\u200b'}</span>
-    <textarea ref={inputRef} id="home-explore" rows={1} enterKeyHint="search" aria-describedby={`${id}-instructions`} aria-autocomplete="list" aria-haspopup="listbox" aria-controls={visible?id:undefined} aria-activedescendant={visible&&options[active]?`${id}-${options[active].id}`:undefined} autoComplete="off" spellCheck={false} placeholder="Ask about Isaac’s work" value={value} maxLength={500}
-      onPointerDown={()=>{selectOnClick.current=Boolean(committedValue&&value===committedValue&&(document.activeElement!==inputRef.current||selectedCommit.current!==committedValue));}}
-      onFocus={()=>{toggle(true);if(committedValue&&value===committedValue){inputRef.current?.select();selectedCommit.current=committedValue;}}} onClick={()=>{toggle(true);if(selectOnClick.current){inputRef.current?.select();selectedCommit.current=committedValue;selectOnClick.current=false;}}} onBlur={()=>{toggle(false);finishComposition();}}
-      onChange={e=>{setActive(-1);toggle(true);onChange(e.target.value);}}
+    <textarea ref={inputRef} id="home-explore" rows={1} enterKeyHint="search" aria-describedby={`${id}-instructions`} aria-autocomplete="list" aria-haspopup="listbox" aria-expanded={visible} aria-controls={visible?id:undefined} aria-activedescendant={visible&&options[active]?`${id}-${options[active].id}`:undefined} autoComplete="off" spellCheck={false} placeholder="Ask about Isaac’s work" value={value} maxLength={500}
+      onFocus={()=>{if(quietFocus?.current)quietFocus.current=false;else toggle(true);}} onClick={()=>toggle(true)} onBlur={()=>{toggle(false);finishComposition();}}
+      onBeforeInput={event=>{
+        const native=event.nativeEvent;
+        if(!replaceOnType.current||!native.inputType?.startsWith('insert'))return;
+        event.preventDefault();
+        replaceOnType.current=false;
+        if(native.data!=null)onChange(native.data);
+      }}
+      onChange={e=>{
+        setActive(-1);toggle(true);
+        const next=e.target.value;
+        if(replaceOnType.current&&committedValue&&next!==committedValue&&next.includes(committedValue)){
+          replaceOnType.current=false;
+          onChange(next.replace(committedValue,''));
+          return;
+        }
+        replaceOnType.current=false;
+        onChange(next);
+      }}
       onCompositionStart={()=>{composition.current=true;setComposing(true);setActive(-1);onCompositionStart();}}
       onCompositionEnd={finishComposition}
       onKeyDown={e=>{
         if(composition.current||e.nativeEvent.isComposing||e.keyCode===229)return;
 
+        if(e.key.startsWith('Arrow'))replaceOnType.current=false;
         if(e.key==='Escape'){if(visible){e.preventDefault();e.stopPropagation();toggle(false);}else{toggle(false);if(onEscape){e.preventDefault();e.stopPropagation();onEscape();}}}
         else if(e.altKey&&e.key==='ArrowDown'&&options.length){e.preventDefault();toggle(true);setActive(0);}
         else if(visible&&!e.shiftKey&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&(e.key==='ArrowDown'||e.key==='ArrowUp')&&options.length){e.preventDefault();setActive(index=>e.key==='ArrowDown'?(index+1)%options.length:index<=0?options.length-1:index-1);}
@@ -87,7 +105,6 @@ export default function ExperienceAutocomplete({context,committedValue,onEscape,
           {shortcuts.map((item,index)=><div key={item.id} id={`${id}-${item.id}`} role="option" aria-selected={active===items.length+index} onClick={()=>select(item.text)}>{item.label}</div>)}
         </li>}
       </ul>
-      <p className="experience-keyboard-hint" aria-hidden="true">↵ to ask · shift + ↵ for a new line · esc to close</p>
     </SuggestionPanel>}</AnimatePresence>
     <span className="sr-only" aria-live="polite" aria-atomic="true">{visible?`${options.length} suggestions available.`:''}</span>
   </>;

@@ -42,15 +42,15 @@ describe('route handoff', () => {
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Work index' })).toBeInTheDocument());
   });
 
-  it('keeps navigation live instead of snapshotting forward and back', async () => {
-    const start = vi.fn();
+  it('crossfades route changes with the View Transitions API', async () => {
+    const start = vi.fn((callback: () => void) => { callback(); return { ready: Promise.resolve(), finished: Promise.resolve() }; });
     Object.defineProperty(document, 'startViewTransition', { configurable: true, value: start });
     render(<Harness />);
     fireEvent.click(screen.getByRole('link', { name: 'Work' }));
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Work index' })).toBeInTheDocument());
     fireEvent.click(screen.getByRole('button', { name: 'Browser back' }));
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument());
-    expect(start).not.toHaveBeenCalled();
+    expect(start).toHaveBeenCalledTimes(2);
   });
 });
 
@@ -172,7 +172,7 @@ it('restores an expanded help explanation and draft when returning to the same h
     <Route path="/" element={<main><HomeExplore/><Link to="/writing">Open writing</Link></main>}/>
     <Route path="/writing" element={<Page name="Writing page"/>}/>
   </Routes>}</PageTransitions></MemoryRouter>);
-  fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
+  fireEvent.click(screen.getByRole('button',{name:'Tips'}));
   const technical=screen.getByText('Technical details',{exact:true}).closest('details')!;
   technical.open=true;
   fireEvent.change(screen.getByRole('textbox',{name:'Explore'}),{target:{value:'My next question is still a draft'}});

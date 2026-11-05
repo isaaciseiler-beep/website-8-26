@@ -22,7 +22,9 @@
 }
 .photo-tile { position: relative; overflow: hidden; isolation: isolate; background:hsl(var(--muted)); }
 .album-photo-tile img { width: 100%; height: 100%; object-fit: cover; }
-.photo-hover-label { position: absolute; inset: auto 0 0; padding: 16px; text-align: left; color: white; font-size: 12px; font-weight: 400; line-height: 1.4; pointer-events: none; opacity: 0; transition: opacity var(--motion-fast) var(--motion-ease); z-index: 1; }
+.photo-album-gallery .photo-tile img { transition: transform var(--motion-reveal) var(--motion-ease), opacity var(--motion-base) var(--motion-ease); }
+@media (hover: hover) { .photo-album-gallery .photo-tile:hover img { transform: scale(1.03); } }
+.photo-hover-label { position: absolute; inset: auto 0 0; padding: 16px; text-align: left; color: white; font-size: 13px; font-weight: 400; line-height: 1.4; letter-spacing: .02em; pointer-events: none; opacity: 0; transition: opacity var(--explore-suggestion) var(--explore-ease); z-index: 1; }
 .photo-hover-label::before { content: ''; position: absolute; inset: -32px 0 0; z-index: -1; background: linear-gradient(transparent, rgb(0 0 0 / .55)); }
 .photo-tile:focus-visible .photo-hover-label { opacity: 1; transform: translateY(0); }
 .album-photo-tile:focus-visible { outline: 2px solid white; outline-offset: -4px; }
@@ -33,8 +35,20 @@
   .photo-hover-label { padding: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .photo-hover-label, .album-photo-tile img { transition: none; transform: none; }
+  .photo-hover-label, .album-photo-tile img, .photo-album-gallery .photo-tile img { transition: none; transform: none; }
 }
+.home-statement { width: min(100%, 18em); margin: 96px auto 4px; padding-inline: 24px; text-align: center; font-size: clamp(32px, 4vw, 56px); font-weight: 500; line-height: 1.08; letter-spacing: -.03em; text-wrap: balance; }
+html:not(.skull) .home-statement .home-hero-chip { display: inline-block; padding: 0.02em 0.28em; border: 1px solid hsl(var(--foreground) / .18); border-color: hsl(var(--foreground) / .18) !important; border-radius: 999px; background: transparent; box-shadow: none; color: inherit; font: inherit; font-weight: inherit; letter-spacing: inherit; line-height: inherit; white-space: nowrap; vertical-align: baseline; cursor: pointer; min-height: 0; min-width: 0; }
+html:not(.skull) .home-statement .home-hero-chip svg { display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.1em; vertical-align: -0.08em; }
+html:not(.skull) .home-statement .home-hero-chip:hover, html:not(.skull) .home-statement .home-hero-chip:focus-visible { background: hsl(var(--foreground) / .06); opacity: 1; }
+.home-hero-glue { white-space: nowrap; }
+.home-hero-chip:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+@media (max-width: 720px) {
+  html:not(.skull) .home-statement .home-hero-chip { display: inline; padding: 0; border: 0 !important; border-radius: 0; background: transparent; white-space: normal; text-decoration: underline dotted; text-underline-offset: 0.16em; text-decoration-thickness: 1px; }
+  html:not(.skull) .home-statement .home-hero-chip:hover, html:not(.skull) .home-statement .home-hero-chip:focus-visible { background: transparent; }
+}
+.photo-home-exploration .home-genui { padding-top: 8px; padding-bottom: 16px; min-height: 0; }
+.photo-tile { background: hsl(var(--foreground) / .08); }
 
 /* Quiet album navigation shares the header icons' outline weight. */
 .album-photo-header { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(20px, 3vw, 30px); }

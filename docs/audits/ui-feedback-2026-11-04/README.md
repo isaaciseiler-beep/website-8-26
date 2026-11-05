@@ -68,3 +68,29 @@ Local review: http://127.0.0.1:8086/.
 - `explore-mobile-light.png`
 
 Images illustrate the local authored UI, not live provider output.
+
+## Follow-up pass
+
+The Codex pass above was re-checked rather than treated as finished. Incoming tree: `npm run typecheck` passed, and `npm test` passed 1,096 tests in 71 files. This pass then replaced the pieces that were partial.
+
+Kept, because the behavior is covered and matches the site rules: stationary composer width, the mounted progress slot, spinner only before a view exists, Stop’s “Stopped updating.” copy, `?q=` plus `#view` history, Share restoring the visitor’s question, search combobox arrows, the skip link and portaled header, odd-album end tile, lightbox frame/counter/disabled ends, and the flat Explore field (no focus ring; that conflicts with AGENTS.md / GUI.md). The Explore textarea also does not get `role="combobox"`; AGENTS.md requires it to stay a textbox. `aria-expanded` was added.
+
+Replaced:
+
+- Photography questions no longer return silently. A local panel names the matching album, the gallery, and the Photo Map, and does not call a model. Album data stays out of provider prompts.
+- Obvious keyboard mash and clearly off-topic questions such as weather resolve to starting points without waiting on a provider. Ordinary unknown sentences still do.
+- Stop returns focus to the field without opening suggestions.
+- The About display sentence keeps one cycling control that moves through the existing list, so the words are not duplicated. Seattle carries a small photograph. Commas sit with their words. Reduced motion does not animate the control.
+- The Photo Map shows an immediate “Loading map…” globe, hides occluded and clustered markers from the tab order, draws a focus ring, merges the two Washington, D.C. pins, clusters nearby pins at world zoom, opens a larger globe, keeps attribution clear of the card, and gives markers a 44px hit target. Zoom controls are the site-styled Mapbox pair.
+- The lightbox follows a horizontal finger and changes photographs past a 50px threshold. A downward swipe closes it.
+
+Mapbox and provider keys are not in this environment, so the map was not exercised against live tiles and answers were local or mocked. Swipe was verified with Playwright pointer input, not a physical phone.
+
+Verification on this tree after the changes:
+
+- `npm run typecheck` passed.
+- `npm test` passed 1,110 tests in 73 files (1,096 on the incoming tree).
+- `npm run build` passed. `public/feed.xml` lastBuildDate churn was restored and is not part of the diff.
+- `npm run test:e2e -- tests/e2e/ui-review1.spec.ts tests/e2e/ui-feedback.spec.ts --workers=1` passed 22 tests, including the new photo-question and lightbox-swipe checks and zero-delay typing at 320–1280.
+- `npm run test:e2e -- tests/e2e/motion.spec.ts --workers=1` passed 13 tests.
+- `npm run test:e2e -- tests/e2e/genui.spec.ts --workers=2` passed 105. The footer Clear control is no longer clipped, and Tab after “Explore further” reaches “Ask a follow-up” then Share. At 390px the Atlas question fits on one line without clipping, so that case no longer demands a second line.

@@ -45,7 +45,7 @@ export default function BenchmarkExplorer({block,onChange}:{block:CanvasBlock;on
       <p>Isaac’s public-information benchmark of AI adoption across U.S. states and territories · August 2025 snapshot.</p>
       <div className="benchmark-study-actions">
         <button className="portfolio-inline-action" aria-label="Explore Isaac’s research" onClick={()=>onChange({...blankBlock('story'),projectIds:[researchProjectId],focus:'role',layout:'project-brief',section:0})}>Isaac’s research<ArrowUpRight size={15} aria-hidden="true"/></button>
-        {benchmarkSource&&<><a href={benchmarkSource.href} target="_blank" rel="noreferrer" aria-label={benchmarkSource.label} aria-describedby={sourceDescription}>Source data<ArrowUpRight size={14} aria-hidden="true"/></a><span id={sourceDescription} className="sr-only">Opens in a new tab.</span></>}
+        {benchmarkSource&&<><a id={`${sourceDescription}-source-1`} data-answer-source href={benchmarkSource.href} target="_blank" rel="noreferrer" aria-label={benchmarkSource.label} aria-describedby={sourceDescription}>Source data<ArrowUpRight size={14} aria-hidden="true"/></a><span id={sourceDescription} className="sr-only">Opens in a new tab.</span></>}
       </div>
     </div>
     {!selected.length&&layout!=='benchmark-criteria'&&<PortfolioFacets label="Explore benchmark" choices={[{value:'benchmark-ranking',label:'Rankings'},{value:'benchmark-regions',label:'Regions'},{value:'benchmark-distribution',label:'Distribution'}] as const} value={layout} onChange={layout=>onChange({...block,layout,band:null})}/>}

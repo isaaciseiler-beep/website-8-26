@@ -20,7 +20,7 @@ describe('Explore as the primary site interface',()=>{
     const input=screen.getByRole('textbox',{name:'Explore'});
     fireEvent.change(input,{target:{value:question}});
     const escape=new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true});fireEvent(input,escape);
-    expect(input).toHaveValue(question);expect(screen.getByRole('button',{name:'How to explore'})).toBeVisible();
+    expect(input).toHaveValue(question);expect(screen.getByRole('button',{name:'Tips'})).toBeVisible();
     expect(fetcher).toHaveBeenCalledTimes(1);
     if(question.startsWith('zxq'))expect(escape.defaultPrevented).toBe(false);
   });
@@ -33,7 +33,7 @@ describe('Explore as the primary site interface',()=>{
     vi.stubGlobal('fetch',fetcher);mount();await submit('zxq unfamiliar topic');
     fireEvent.click(screen.getByRole('button',{name:'Stop updating this view'}));
     expect(signal?.aborted).toBe(true);expect(screen.getByRole('textbox',{name:'Explore'})).toHaveValue('zxq unfamiliar topic');
-    const calls=fetcher.mock.calls.length;fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
+    const calls=fetcher.mock.calls.length;fireEvent.click(screen.getByRole('button',{name:'Tips'}));
     await waitFor(()=>expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeVisible());
     await act(async()=>{finish(success({guidance:'unmatched'}));});
     expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeVisible();expect(fetcher).toHaveBeenCalledTimes(calls);
@@ -41,7 +41,7 @@ describe('Explore as the primary site interface',()=>{
   it.each(['Hello','zxq unfamiliar topic'])('keeps local Help reachable after guidance for %s',async question=>{
     const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
     await submit(question);
-    const help=screen.getByRole('button',{name:'How to explore'}),calls=fetcher.mock.calls.length;
+    const help=screen.getByRole('button',{name:'Tips'}),calls=fetcher.mock.calls.length;
     fireEvent.click(help);
     await waitFor(()=>expect(screen.getByRole('heading',{name:'Start with a little curiosity.'})).toBeVisible());
     expect(fetcher).toHaveBeenCalledTimes(calls);
@@ -75,8 +75,9 @@ describe('Explore as the primary site interface',()=>{
     await submit('How can I contact Isaac?');
     expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
     await submit('zxq unfamiliar topic');
-    expect(screen.queryByRole('region',{name:'Contact'})).not.toBeInTheDocument();
-    expect(screen.getByText('Finding a view…',{selector:'.home-request-state span'})).toBeVisible();
+    expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
+    expect(document.querySelector('.home-genui-stage')).toHaveAttribute('data-settled','true');
+    expect(screen.getByText('Finding projects',{selector:'.home-request-state span'})).toBeVisible();
     const calls=fetcher.mock.calls.length;
     await act(async()=>{fireEvent.submit(screen.getByRole('textbox',{name:'Explore'}).closest('form')!);});
     expect(fetcher).toHaveBeenCalledTimes(calls);
@@ -156,21 +157,21 @@ describe('Explore as the primary site interface',()=>{
   });
 });
 
-it('answers How to explore in the main pane locally, with a working first question and return path',async()=>{
+it('answers Tips in the main pane locally, with a working first question and return path',async()=>{
   const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
   await submit('Taiwan teaching');
   const calls=fetcher.mock.calls.length;
-  fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
-  fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
-  expect(screen.getByRole('article',{name:'How to explore'}).closest('.home-genui-stage')).not.toBeNull();
+  fireEvent.click(screen.getByText('More questions',{selector:'summary'}));
+  fireEvent.click(screen.getByRole('button',{name:'Tips'}));
+  expect(screen.getByRole('article',{name:'Tips'}).closest('.home-genui-stage')).not.toBeNull();
   expect(screen.getByRole('heading',{name:'How it works'})).toBeInTheDocument();
   expect(screen.getByRole('heading',{name:'Help make this better'})).toBeInTheDocument();
   expect(screen.getByRole('link',{name:'Send feedback'})).toHaveAttribute('href',expect.stringContaining('mailto:'));
   expect(fetcher).toHaveBeenCalledTimes(calls);
   fireEvent.click(screen.getByRole('button',{name:'Previous exploration'}));
   expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeInTheDocument();
-  fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
-  fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
+  fireEvent.click(screen.getByText('More questions',{selector:'summary'}));
+  fireEvent.click(screen.getByRole('button',{name:'Tips'}));
   await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Who is Isaac?'}));});
   expect(screen.getByRole('region',{name:'Role explorer'})).toBeInTheDocument();
 });
@@ -178,11 +179,11 @@ it('answers How to explore in the main pane locally, with a working first questi
 it('recognizes a help question without sending a provider request and restores it after Clear',async()=>{
   const fetcher=vi.fn(async()=>success({configured:true}));vi.stubGlobal('fetch',fetcher);mount();
   await submit('How does this work?');
-  expect(screen.getByRole('article',{name:'How to explore'})).toBeInTheDocument();
+  expect(screen.getByRole('article',{name:'Tips'})).toBeInTheDocument();
   expect(fetcher).toHaveBeenCalledTimes(1);
-  fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
+  fireEvent.click(screen.getByRole('button',{name:'Start over'}));
   fireEvent.click(await screen.findByRole('button',{name:'Undo clear'}));
-  expect(screen.getByRole('article',{name:'How to explore'})).toBeInTheDocument();
+  expect(screen.getByRole('article',{name:'Tips'})).toBeInTheDocument();
   expect(fetcher).toHaveBeenCalledTimes(1);
 });
 
@@ -190,7 +191,7 @@ it('keeps Undo after an empty Enter and can recover a cleared unanswered draft',
   vi.stubGlobal('fetch',vi.fn(async()=>success({configured:false})));mount();
   const input=screen.getByRole('textbox',{name:'Explore'});
   fireEvent.change(input,{target:{value:'A question I have not submitted'}});
-  fireEvent.click(screen.getByRole('button',{name:'Clear exploration'}));
+  fireEvent.click(screen.getByRole('button',{name:'Start over'}));
   fireEvent.keyDown(input,{key:'Enter'});
   fireEvent.click(await screen.findByRole('button',{name:'Undo clear'}));
   expect(input).toHaveValue('A question I have not submitted');
