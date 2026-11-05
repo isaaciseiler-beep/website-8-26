@@ -28,12 +28,12 @@
 .home-genui .home-follow-row svg{width:14px;height:14px;margin-top:3px;flex:none;}
 .home-genui .home-follow-row:hover,.home-genui .home-follow-row:focus-visible{background:transparent;opacity:.72;}
 .home-genui-footer .home-next-questions{margin:0;}
-.home-genui-footer .home-next-questions>summary,.home-genui-footer .home-answer-feedback>summary,.home-genui-footer .home-journey-history>summary{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:40px;padding:0;font-size:var(--size-s);line-height:var(--line-s);font-weight:var(--weight-medium);}
+.home-genui-stage .home-genui-footer .home-next-questions>summary,.home-genui-stage .home-genui-footer .home-answer-feedback>summary,.home-genui-stage .home-genui-footer .home-journey-history>summary{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:40px;padding:0;font-size:var(--size-s);line-height:var(--line-s);font-weight:var(--weight-regular);}
 .home-genui-footer .home-next-questions>summary:after,.home-genui-footer .home-answer-feedback>summary:after,.home-genui-footer .home-journey-history>summary:after{content:none;}
 .home-genui-footer .home-next-questions>summary svg,.home-genui-footer .home-answer-feedback>summary svg{width:14px;height:14px;flex:none;transition:transform var(--explore-open) var(--explore-ease);}
 .home-genui-footer .home-next-questions[open]>summary svg,.home-genui-footer .home-answer-feedback[open]>summary svg{transform:rotate(180deg);}
 .home-genui-footer>.home-genui-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:var(--space-xs) var(--space-m);margin:0;min-width:0;}
-.home-genui-footer>.home-genui-tools>button,.home-genui-footer .home-journey-history>summary{font-size:var(--size-s);line-height:var(--line-s);min-height:40px;padding:0;font-weight:var(--weight-regular);}
+.home-genui-footer>.home-genui-tools>button,.home-genui-footer .home-journey-history>summary{display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--size-s);line-height:var(--line-s);min-height:40px;padding:0;font-weight:var(--weight-regular);}
 .home-genui-footer>.home-genui-tools .home-share-view{margin-left:0;}
 .home-genui-footer .home-genui-tools button svg{width:14px;height:14px;flex:none;}
 .home-footer-secondary{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-xs) var(--space-m);}

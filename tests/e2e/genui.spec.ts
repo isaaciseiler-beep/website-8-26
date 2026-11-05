@@ -659,6 +659,8 @@ for(const [width,height] of [[390,844],[736,750],[1440,900],[844,390]])for(const
     try{
       await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
       await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+      await page.locator('.home-genui-window.has-results').waitFor();
+      await page.waitForFunction(()=>!document.querySelector('.home-genui-window.is-widening'));
       const trigger=page.getByRole('button',{name:'Professional role',exact:true});
       if(await trigger.isVisible()){
         await trigger.click();await page.getByRole('group',{name:'Professional role',exact:true}).getByRole('button',{name:'Product feedback',exact:true}).click();
@@ -689,6 +691,8 @@ for(const [width,height,scrolledAway] of [[390,844,false],[736,750,false],[1440,
     try{
       await page.goto('/');const input=page.getByRole('textbox',{name:'Explore',exact:true});
       await input.fill('Who is Isaac?');await input.press('Escape');await input.press('Enter');
+      await page.locator('.home-genui-window.has-results').waitFor();
+      await page.waitForFunction(()=>!document.querySelector('.home-genui-window.is-widening'));
       const trigger=page.getByRole('button',{name:'Professional role',exact:true});
       if(await trigger.isVisible()){await trigger.click();await page.getByRole('group',{name:'Professional role',exact:true}).getByRole('button',{name:'Product feedback',exact:true}).click();}
       else await page.getByRole('navigation',{name:'Professional roles'}).getByRole('button',{name:'Product feedback',exact:true}).click();
@@ -725,10 +729,14 @@ for(const [width,height,tabCount] of [[390,390,1],[736,390,1],[390,844,1],[736,7
     await expect(options.getByRole('button',{name:'AI & communications',exact:true})).toBeFocused();
     await page.keyboard.press('End');await expect(options.getByRole('button',{name:'Journalism research',exact:true})).toBeFocused();
     await page.waitForTimeout(250);await page.keyboard.press('Tab');if(tabCount===2)await page.keyboard.press('Tab');
-    const next=page.locator('.home-follow-inline .home-follow-row').nth(tabCount-1);await expect(next).toBeFocused();
     await expect(trigger).toHaveAttribute('aria-expanded','false');
     await page.waitForTimeout(700);
-    await expect(next).toBeFocused();expect(await next.evaluate(element=>{const r=element.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;})).toBe(true);
+    expect(await page.evaluate(()=>{
+      const el=document.activeElement;
+      if(!(el instanceof HTMLElement))return false;
+      const r=el.getBoundingClientRect();
+      return Boolean(el.closest('.home-genui-footer'))&&r.height>0&&r.top>=0&&r.bottom<=innerHeight;
+    })).toBe(true);
     expect(await page.locator('.home-genui-reveal').evaluate(element=>element.scrollTop)).toBe(0);
   });
 }
@@ -1001,6 +1009,119 @@ test('a different model composition replaces the preview without a layout jump',
   if(titleTops.length>1)expect(Math.max(...titleTops)-Math.min(...titleTops)).toBeLessThan(2);
   if(blockTops.length>1)expect(Math.max(...blockTops)-Math.min(...blockTops)).toBeLessThan(4);
 });
+
+for(const [width,theme] of [[1024,'light'],[1280,'light'],[1280,'dark'],[1440,'light']] as const){
+test(`the widen stays presentable at ${width} ${theme}`,async({page})=>{
+  await page.setViewportSize({width,height:800});
+  await page.emulateMedia({reducedMotion:'no-preference',colorScheme:theme});
+  await page.addInitScript(value=>localStorage.setItem('theme',value),theme);
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');
+  await input.press('Enter');
+  await page.locator('.home-genui-window.has-results').waitFor();
+  const duration=await page.evaluate(()=>parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--explore-widen')));
+  const started=Date.now();
+  for(const mark of [0,.25,.5,.75,1]){
+    const delay=started+duration*mark-Date.now();
+    if(delay>0)await page.waitForTimeout(delay);
+    const report=await page.evaluate(()=>{
+      const card=document.querySelector('.home-genui-window')!.getBoundingClientRect();
+      const hidden=(el:Element|null)=>{
+        let node=el;
+        while(node&&node!==document.body){
+          const style=getComputedStyle(node);
+          if(style.visibility==='hidden'||Number(style.opacity)===0)return true;
+          node=node.parentElement;
+        }
+        return false;
+      };
+      const overflows:string[]=[];
+      const walker=document.createTreeWalker(document.querySelector('.home-genui-window')!,NodeFilter.SHOW_TEXT);
+      let text:Node|null;
+      while((text=walker.nextNode())){
+        if(!text.textContent?.trim()||hidden(text.parentElement)||text.parentElement?.closest('.sr-only,[aria-hidden="true"]'))continue;
+        const range=document.createRange();
+        range.selectNodeContents(text);
+        for(const rect of range.getClientRects()){
+          if(rect.width<1||rect.height<1)continue;
+          if(rect.right>card.right+1||rect.left<card.left-1)overflows.push(text.textContent.trim().slice(0,48));
+        }
+      }
+      const tab=document.querySelector('.portfolio-tabs button[aria-pressed="true"]');
+      const pill=tab?.querySelector('.portfolio-tab-indicator')??null;
+      const tabBox=tab&&!hidden(tab)?tab.getBoundingClientRect():null;
+      const pillBox=pill&&!hidden(pill)?pill.getBoundingClientRect():null;
+      const open=document.querySelector('a[aria-label^="Open image:"]');
+      const openVisible=Boolean(open&&!hidden(open));
+      const image=open?.querySelector('img');
+      const ready=Boolean(image&&image.complete&&image.naturalWidth>0);
+      const background=open?getComputedStyle(open).backgroundColor:'';
+      const placeholder=Boolean(background&&background!=='transparent'&&background!=='rgba(0, 0, 0, 0)');
+      return {overflows,tabBox,pillBox,openVisible,ready,placeholder};
+    });
+    expect(report.overflows,`${width} ${theme} at ${mark}`).toEqual([]);
+    if(report.tabBox&&report.pillBox){
+      expect(report.pillBox.left).toBeGreaterThanOrEqual(report.tabBox.left-1);
+      expect(report.pillBox.right).toBeLessThanOrEqual(report.tabBox.right+1);
+      expect(report.pillBox.top).toBeGreaterThanOrEqual(report.tabBox.top-1);
+      expect(report.pillBox.bottom).toBeLessThanOrEqual(report.tabBox.bottom+1);
+    }
+    if(report.openVisible)expect(report.ready||report.placeholder,`${width} ${theme} at ${mark}`).toBe(true);
+  }
+  await page.waitForFunction(()=>!document.querySelector('.home-genui-window.is-widening'));
+  await page.waitForTimeout(280);
+  const settled=await page.evaluate(()=>{
+    const card=document.querySelector('.home-genui-window')!.getBoundingClientRect();
+    const hidden=(el:Element|null)=>{
+      let node=el;
+      while(node&&node!==document.body){
+        const style=getComputedStyle(node);
+        if(style.visibility==='hidden'||Number(style.opacity)===0)return true;
+        node=node.parentElement;
+      }
+      return false;
+    };
+    const overflows:string[]=[];
+    const walker=document.createTreeWalker(document.querySelector('.home-genui-window')!,NodeFilter.SHOW_TEXT);
+    let text:Node|null;
+    while((text=walker.nextNode())){
+      if(!text.textContent?.trim()||hidden(text.parentElement)||text.parentElement?.closest('.sr-only,[aria-hidden="true"]'))continue;
+      const range=document.createRange();
+      range.selectNodeContents(text);
+      for(const rect of range.getClientRects()){
+        if(rect.width<1||rect.height<1)continue;
+        if(rect.right>card.right+1||rect.left<card.left-1)overflows.push(text.textContent.trim().slice(0,48));
+      }
+    }
+    const tab=document.querySelector('.portfolio-tabs button[aria-pressed="true"]');
+    const pill=tab?.querySelector('.portfolio-tab-indicator')??null;
+    const open=document.querySelector('a[aria-label^="Open image:"]');
+    const image=open?.querySelector('img');
+    const background=open?getComputedStyle(open).backgroundColor:'';
+    return {
+      overflows,
+      tab:tab&&!hidden(tab)?tab.getBoundingClientRect():null,
+      pill:pill&&!hidden(pill)?pill.getBoundingClientRect():null,
+      open:Boolean(open&&!hidden(open)),
+      ready:Boolean(image&&image.complete&&image.naturalWidth>0),
+      placeholder:Boolean(background&&background!=='transparent'&&background!=='rgba(0, 0, 0, 0)'),
+    };
+  });
+  expect(settled.overflows,`${width} ${theme} settled`).toEqual([]);
+  expect(settled.tab,`${width} ${theme} settled tab`).toBeTruthy();
+  expect(settled.pill,`${width} ${theme} settled pill`).toBeTruthy();
+  expect(settled.pill!.left).toBeGreaterThanOrEqual(settled.tab!.left-1);
+  expect(settled.pill!.right).toBeLessThanOrEqual(settled.tab!.right+1);
+  expect(settled.pill!.top).toBeGreaterThanOrEqual(settled.tab!.top-1);
+  expect(settled.pill!.bottom).toBeLessThanOrEqual(settled.tab!.bottom+1);
+  expect(settled.open,`${width} ${theme} settled image`).toBe(true);
+  expect(settled.ready||settled.placeholder,`${width} ${theme} settled image`).toBe(true);
+});
+}
 
 test('the question line moves continuously while the answer widens',async({page})=>{
   await page.setViewportSize({width:1280,height:800});

@@ -3,6 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomeExplore from "@/components/canvas/HomeExplore";
 import { initialPlan, localPlan, CONTENT_VERSION } from "@/lib/canvas";
+import { EXPLORE_MS } from "@/lib/exploreProgress";
 
 const success = (data: unknown) => ({ ok: true, json: async () => data });
 const mount = () => render(<MemoryRouter><HomeExplore /></MemoryRouter>);
@@ -41,6 +42,7 @@ describe("homepage generative interface", () => {
     fireEvent.change(screen.getByRole('searchbox',{name:'Find a project'}),{target:{value:'Taiwan'}});
     const project=within(screen.getByRole('region',{name:'Work explorer'})).getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/});
     act(()=>project.focus());fireEvent.click(project);
+    await act(async()=>{vi.advanceTimersByTime(EXPLORE_MS.widen);});
     expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toHaveFocus();
     fireEvent.click(screen.getByRole('button',{name:'Process'}));
     const back=screen.getByRole('button',{name:'Back to projects'});

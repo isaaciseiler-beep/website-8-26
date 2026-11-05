@@ -47,12 +47,14 @@ function returnLabel(view:View):string {
 type Guidance = 'welcome'|'unmatched'|'ambiguous'|'help'|'photos'|null;
 type SavedExploration = {readingState?:ExplorationReadingState;query:string;view:View|null;guidance:Guidance;history:View[];future:View[]};
 const entryExplorations = new Map<string, SavedExploration>();
-function ExplorationReveal({children,restored=false,initialReadingState,onSettled,contentRevision}:{children:ReactNode;restored?:boolean;initialReadingState?:ExplorationReadingState|null;onSettled?:()=>void;contentRevision:number}) {
+function ExplorationReveal({children,restored=false,initialReadingState,onSettled,contentRevision,initialPace='settle'}:{children:ReactNode;restored?:boolean;initialReadingState?:ExplorationReadingState|null;onSettled?:()=>void;contentRevision:number;initialPace?:'widen'|'settle'}) {
   const present=useIsPresent();
   const reduceMotion=useReducedMotion();
   const content=useRef<HTMLDivElement>(null);
   const initialReading=useRef(initialReadingState);
   const disclosure=useDisclosureMotion(content,contentRevision,reduceMotion);
+  const pace=useRef(initialPace);
+  const widen=pace.current==='widen'&&!reduceMotion;
   const [height,setHeight]=useState<number|null>(null);
   useLayoutEffect(()=>{
     const node=content.current;if(!node)return;
@@ -71,7 +73,7 @@ function ExplorationReveal({children,restored=false,initialReadingState,onSettle
   },[]);
   return <motion.div className="home-genui-reveal" data-state={present?'open':'closing'} aria-hidden={!present} {...(!present?{inert:''}:{})}
     initial={restored?false:{height:0,opacity:1}} animate={{height:present&&disclosure.following?'auto':height??(restored?'auto':0),opacity:1}} exit={{height:0,opacity:0}}
-    onAnimationComplete={onSettled} transition={{height:{duration:reduceMotion||present&&disclosure.following?0:present?MOTION_DURATION.reveal:MOTION_DURATION.panel,ease:MOTION_EASE_ENTER},opacity:{duration:reduceMotion?0:present?MOTION_DURATION.base:MOTION_DURATION.exit,delay:reduceMotion||present?0:MOTION_DURATION.panel-MOTION_DURATION.exit,ease:MOTION_EASE_ENTER}}}>
+    onAnimationComplete={onSettled} transition={{height:{duration:reduceMotion||present&&disclosure.following?0:present?widen?EXPLORE_MS.widen/1000:MOTION_DURATION.reveal:MOTION_DURATION.panel,ease:widen&&present?[0.33,0,0.2,1]:MOTION_EASE_ENTER},opacity:{duration:reduceMotion?0:present?MOTION_DURATION.base:MOTION_DURATION.exit,delay:reduceMotion||present?0:MOTION_DURATION.panel-MOTION_DURATION.exit,ease:MOTION_EASE_ENTER}}}>
     <div ref={content} className="home-genui-reveal-content" onClickCapture={disclosure.onClickCapture}>{children}</div>
   </motion.div>;
 }
@@ -116,12 +118,16 @@ export default function HomeExplore() {
     timer=setTimeout(releaseFoldedPane,reduceMotion?0:(MOTION_DURATION.panel+MOTION_DURATION.exit)*1000);
     return()=>clearTimeout(timer);
   },[view,guidance,heldExpanded,reduceMotion]);
+  const [widening,setWidening]=useState(false);
+  const openedFromIdle=useRef(true);
   useLayoutEffect(()=>{
     if(view&&requestMetric.current?.revision===revision.current)requestMetric.current.timing.contentCommitted();
     if(pendingReadingState.current&&resultsRef.current)restoreReadingState(resultsRef.current,pendingReadingState.current,false);
     const pending=pendingResultFocus.current;
     const results=resultsRef.current;
     if(!pending||!results||(!view&&guidance!=='help'))return;
+    const reveal=results.closest('.home-genui-reveal');
+    if(widening||(reveal&&getComputedStyle(reveal).visibility==='hidden'))return;
     pendingResultFocus.current=null;
     const target=pending.kind==='project'
       ?[...results.querySelectorAll<HTMLButtonElement>('[data-project-id]')].find(button=>button.dataset.projectId===pending.id)
@@ -129,7 +135,7 @@ export default function HomeExplore() {
     const heading=results.querySelector<HTMLElement>('h2');
     if(!target&&heading)heading.tabIndex=-1;
     (target??heading)?.focus({preventScroll:true});
-  },[view,guidance]);
+  },[view,guidance,widening]);
   // Once the surface opens, keep its width through a guidance response and the
   // entire vertical exit. A new request can reverse that exit without a pinch.
   useEffect(()=>{if(view||guidance==='help')setHeldExpanded(true);},[view,guidance]);
@@ -158,12 +164,22 @@ export default function HomeExplore() {
     const timer=window.setTimeout(()=>setWaiting(true),3000);
     return()=>{window.removeEventListener('scroll',onScroll);window.clearTimeout(timer);};
   },[busy]);
+  const shellOpen=Boolean(view||guidance);
+  const startWiden=shellOpen&&openedFromIdle.current&&!reduceMotion;
+  if(!shellOpen){openedFromIdle.current=true;if(widening)setWidening(false);}
+  else if(openedFromIdle.current){openedFromIdle.current=false;if(!reduceMotion&&!widening)setWidening(true);}
+  const conceal=widening||startWiden;
   useEffect(()=>{
-    if(!view)return;
+    if(!widening)return;
+    const timer=window.setTimeout(()=>setWidening(false),EXPLORE_MS.widen);
+    return()=>window.clearTimeout(timer);
+  },[widening]);
+  useEffect(()=>{
+    if(!view||widening)return;
     setArriving(true);
     const timer=window.setTimeout(()=>setArriving(false),EXPLORE_MS.answer);
     return()=>window.clearTimeout(timer);
-  },[view?.query,view?.generation.status]);
+  },[view?.query,view?.generation.status,widening]);
   useLayoutEffect(()=>{
     if(morphHold==null)return;
     const node=resultsRef.current;
@@ -528,7 +544,7 @@ export default function HomeExplore() {
   const progressText=phase==='idle'?requestNotice:EXPLORE_PHASE_LABEL[phase];
   const showSkeleton=busy&&!view&&!guidance&&(phase==='finding'||phase==='layout'||phase==='reading');
   return <section id="home-genui" className={`home-genui photos-shell${!view?' is-idle':''}`} aria-label="Interactive exploration">
-    <div className={`home-genui-window${view||heldExpanded||guidance==='help'?' has-results':guidance?' has-guidance':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
+    <div className={`home-genui-window${view||heldExpanded||guidance==='help'?' has-results':guidance?' has-guidance':''}${conceal?' is-widening':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
       <motion.div className="home-window-depth" aria-hidden="true" initial={false} animate={{opacity:recessActive ? .18 : 0}} transition={{duration:reduceMotion?0:.3,ease:[.22,1,.36,1]}}/>
 
 
@@ -545,7 +561,7 @@ export default function HomeExplore() {
       <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':phase!=='idle'||busy?progressText:requestNotice|| (guidance==='photos'&&photoGuide?photoRedirectCopy(photoGuide):guidance==='help'?'Tips are ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':'')}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
-        {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} initialReadingState={pendingReadingState.current} onSettled={restoreReadingPosition}>
+        {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} initialReadingState={pendingReadingState.current} onSettled={restoreReadingPosition} initialPace={conceal?'widen':'settle'}>
           <div ref={resultsRef} className={`home-genui-stage${settled?' is-settled':''}${arriving?' is-arriving':''}${morphHold!=null?' is-morphing':''}`} aria-label="Exploration results" aria-busy={busy} data-settled={settled?'true':undefined} data-morphing={morphHold!=null?'true':undefined} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
             {guidance==='help'?<ExploreHelp onSubmit={submit}/>:photoGuide?<PhotoRedirect destinations={photoGuide}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>
@@ -557,10 +573,10 @@ export default function HomeExplore() {
             {view&&inlineFollowUps.length>0&&<div className="home-follow-inline">{inlineFollowUps.map(item=><button className="home-follow-row" key={item.id} type="button" onClick={()=>submit(item.text)}><span>{item.text}</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button>)}</div>}
             {view&&<details className="home-next-questions"><summary>More questions<ChevronDown size={14} strokeWidth={1.75} aria-hidden="true"/></summary><div>{extraFollowUps.map(item=><button className="home-follow-row" key={item.id} type="button" onClick={()=>submit(item.text)}><span>{item.text}</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button>)}<button className="home-follow-row" type="button" onClick={showHelp}><span>Tips</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button></div></details>}
             <div className={`home-genui-tools${!view&&!history.length&&!guidance?' is-empty':''}`}>
-              {view&&<button type="button" onClick={()=>{cancel();setQuery('');input.current?.focus({preventScroll:true});setAutocompleteOpen(true);}}><ArrowUp size={14} strokeWidth={1.75} aria-hidden="true"/><span>Ask a follow-up</span></button>}
-              {view&&<button className={`home-share-view${shareStatus==='copied'?' is-copied':''}`} aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14} strokeWidth={1.75}/>:<Link size={14} strokeWidth={1.75}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
-              {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={returnLabel(view.returnToExploration)} onClick={backToExploration}><ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true"/><span>{returnLabel(view.returnToExploration)}</span></button>}
-              {(view||guidance)&&history.length>0&&!view?.returnToExploration&&<button aria-label="Previous exploration" title={`Back to ${titleFor(history[history.length-1])}`} onClick={()=>navigateHistory('back')}><ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true"/><span>Back</span></button>}
+              {view&&<button type="button" onClick={()=>{cancel();setQuery('');input.current?.focus({preventScroll:true});setAutocompleteOpen(true);}}><span>Ask a follow-up</span><ArrowUp size={14} strokeWidth={1.75} aria-hidden="true"/></button>}
+              {view&&<button className={`home-share-view${shareStatus==='copied'?' is-copied':''}`} aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}><span>{shareStatus==='copied'?'Copied':'Share'}</span>{shareStatus==='copied'?<Check size={14} strokeWidth={1.75}/>:<Link size={14} strokeWidth={1.75}/>}</button>}
+              {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={returnLabel(view.returnToExploration)} onClick={backToExploration}><span>{returnLabel(view.returnToExploration)}</span><ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true"/></button>}
+              {(view||guidance)&&history.length>0&&!view?.returnToExploration&&<button aria-label="Previous exploration" title={`Back to ${titleFor(history[history.length-1])}`} onClick={()=>navigateHistory('back')}><span>Back</span><ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true"/></button>}
               {view&&future.length>0&&!view.returnToExploration&&<button aria-label="Next exploration" title={`Forward to ${titleFor(future[0])}`} onClick={()=>navigateHistory('forward')}><span>Forward</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button>}
               {view&&<ExplorationHistory items={history.map(item=>({title:titleFor(item),question:item.query}))} onSelect={selectHistory}/>}
             </div>

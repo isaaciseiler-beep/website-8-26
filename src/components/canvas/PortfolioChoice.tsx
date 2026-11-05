@@ -46,6 +46,10 @@ export function PortfolioChoice({ label, value, choices, onChange }: {
   const selected = choices.findIndex(choice => choice.value === value);
   const focusChoice = (index: number) => requestAnimationFrame(() => options.current[index]?.focus());
   useLayoutEffect(() => {
+    if (!open) return;
+    options.current[Math.max(0, selected)]?.focus();
+  }, [open]);
+  useLayoutEffect(() => {
     const button = trigger.current;
     if (button !== document.activeElement || !button) return;
     const rect = button.getBoundingClientRect();

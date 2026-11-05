@@ -2,6 +2,7 @@
 export const EXPLORE_EASE = [0.23, 1, 0.32, 1] as const;
 export const EXPLORE_MS = {
   open: 200,
+  widen: 300,
   suggestion: 180,
   submit: 180,
   answer: 220,

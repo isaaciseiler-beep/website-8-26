@@ -6,7 +6,7 @@
 }
 .home-genui{--window-padding:var(--space-xl);--explore-open-width:1120px;--composer-min-height:60px;--rest-height:max(220px,calc(70svh + 1px));--radius-shell:var(--site-corner-radius);--radius-inset:max(0px,calc(var(--site-corner-radius) - var(--space-xxs)));--tab-height:40px;container-type:inline-size;min-height:var(--rest-height);padding-top:112px;padding-bottom:var(--space-xxl);position:relative;color:hsl(var(--foreground));font-family:var(--font-ui);font-size:var(--size-s);line-height:var(--line-s);letter-spacing:var(--tracking-l);text-wrap:pretty;}
 .home-genui *{font-family:inherit;box-sizing:border-box;}
-.home-genui-window{--explore-width:608px;width:var(--explore-width);max-width:100%;padding:var(--window-padding);margin-inline:auto;position:relative;border-radius:var(--radius-xl);transition:--explore-width var(--explore-open) var(--explore-ease),background-color var(--explore-open) var(--explore-ease);}
+.home-genui-window{--explore-width:608px;width:var(--explore-width);max-width:100%;padding:var(--window-padding);margin-inline:auto;position:relative;border-radius:var(--radius-xl);transition:--explore-width var(--explore-widen) var(--explore-widen-ease),background-color var(--explore-widen) var(--explore-widen-ease);}
 .home-genui-window.has-results{--explore-width:var(--explore-open-width);border-radius:var(--radius-xl);background:var(--panel-well-bg);padding:var(--window-padding);}
 .home-genui-window.has-guidance{background:var(--panel-well-bg);}
 .home-genui-window:not(.has-results):not(.has-guidance) .home-window-depth{inset:var(--window-padding);border-radius:var(--radius-s);}
@@ -31,17 +31,30 @@
 .home-genui-composer textarea::selection{background:hsl(var(--foreground) / .14);color:inherit;}
 .home-genui-composer textarea::placeholder{color:var(--neutral-7);opacity:1;}
 .home-genui-composer form>.home-clear,.home-genui-composer form>.home-submit{align-self:flex-end;}
-.home-genui button{font:inherit;font-weight:var(--weight-medium);line-height:var(--line-s);padding:var(--space-s) var(--space-l);border:0;border-radius:var(--radius-s);transition:background var(--motion-duration) var(--motion-easing),transform var(--motion-duration) var(--motion-easing);}
+.home-genui button{font:inherit;font-weight:var(--weight-medium);line-height:var(--line-s);padding:var(--space-s) var(--space-l);border:0;border-radius:var(--radius-s);transition:background var(--explore-suggestion) var(--explore-ease),opacity var(--explore-suggestion) var(--explore-ease);}
 .home-genui button:disabled{color:var(--neutral-6);cursor:not-allowed;}
-.home-genui button:not(:disabled):active{transform:translateY(1px);}
-.home-genui button:not(:disabled):hover{background:var(--neutral-3-transparent);}
+.home-genui button:not(:disabled):active{opacity:.55;}
+.home-genui button:not(:disabled):hover{background:transparent;opacity:.72;}
 .home-genui :focus-visible{outline:2px solid var(--neutral-10);outline-offset:var(--space-xxs);}
+.home-genui a:focus-visible{outline:2px solid var(--neutral-10);outline-offset:var(--space-xxs);}
+.home-genui a:not([aria-label^="Open image:"]):hover{opacity:.72;}
+.home-genui a:not([aria-label^="Open image:"]):active{opacity:.55;}
+.home-genui .portfolio-inline-action:hover,.home-genui .portfolio-inline-action:focus-visible,.home-genui .home-follow-row:hover,.home-genui .home-follow-row:focus-visible,.home-genui-footer button:hover,.home-genui-footer button:focus-visible,.home-genui-footer summary:hover,.home-genui-footer summary:focus-visible{background:transparent;opacity:.72;}
+.home-genui .portfolio-tabs button:hover,.home-genui .portfolio-tabs button:focus-visible{background:transparent;opacity:.72;}
+.home-genui .portfolio-tabs button[aria-pressed=true]:hover,.home-genui .portfolio-tabs button[aria-pressed=true]:active,.home-genui .portfolio-tabs button[aria-pressed=true]:focus-visible{opacity:1;text-decoration:underline;text-underline-offset:3px;}
+.home-genui button:disabled:not(.home-submit){opacity:.45;}
 .home-genui input:focus,.home-genui textarea:focus{outline:none;box-shadow:none;}
 .home-genui-composer button{display:grid;place-items:center;padding:var(--space-s);flex-shrink:0;}
 .home-genui .home-submit,.home-genui .canvas-primary{background:var(--neutral-10);color:var(--neutral-1);}
 .home-genui .home-submit:hover,.home-genui .canvas-primary:hover{background:var(--neutral-10);}
 .home-genui button.home-submit:not(:disabled):hover,.home-genui button.canvas-primary:not(:disabled):hover{background:var(--neutral-10);color:var(--neutral-1);}
 .home-genui .home-submit:disabled,.home-genui .home-submit.is-quiet:disabled{background:transparent;color:hsl(var(--foreground) / .55);box-shadow:inset 0 0 0 1px hsl(var(--foreground) / .2);}
+.home-genui summary:hover,.home-genui summary:focus-visible,.home-genui select:hover{opacity:.72;}
+.home-genui summary:active,.home-genui select:active,.home-genui button.home-quiet-action:active{opacity:.55;}
+.home-genui a.portfolio-project-native:hover,.home-genui a.portfolio-project-native:active,.home-genui a.portfolio-project-native:focus-visible{opacity:0;outline:none;}
+.home-genui .portfolio-project-heading:hover{outline:none;border-radius:0;box-shadow:inset 0 -2px 0 currentColor;}
+.home-genui a[aria-label^="Open image:"]:hover{filter:brightness(.97);}
+.home-genui a[aria-label^="Open image:"]:active{filter:brightness(.92);}
 .home-genui .home-clear{color:var(--neutral-7);}
 .home-genui-preview{position:relative;text-align:center;min-width:0;max-width:100%;}
 .home-genui .home-genui-preview .home-preview-trigger{display:inline-flex;align-items:center;gap:var(--space-xxs);max-width:100%;min-height:40px;padding:var(--space-xs) var(--space-s);border-radius:var(--radius-s);background:transparent;color:var(--neutral-7);font-size:var(--size-s);line-height:var(--line-s);font-weight:var(--weight-regular);}
@@ -56,11 +69,13 @@
 /* Focusing a lower control during expansion must not scroll all evidence
    inside the reveal. Retain normal page scrolling and the same height clip. */
 .home-genui-reveal{overflow:hidden;overflow:clip;display:flow-root;}
-/* The shell may be midway between compact and open. Its contents already lay
-   out at the destination width, so opening uncovers a crisp, settled page
-   instead of rewrapping every paragraph and chasing its height each frame. */
+/* While the shell widens, the answer stays hidden and already laid out at its
+   open width, so the card's height target is the final one. It fades in after. */
 .home-genui-reveal-content{display:flow-root;width:calc(min(608px,100cqw) - 2 * var(--window-padding));}
 .has-results .home-genui-reveal-content{width:calc(min(var(--explore-open-width),100cqw) - 2 * var(--window-padding));}
+.home-genui-window.is-widening .home-genui-reveal{opacity:0!important;visibility:hidden;}
+.home-genui-window.is-widening .portfolio-tab-indicator,
+.home-genui-window.is-widening .portfolio-workbench-visual a{transform:none!important;}
 .home-request-reveal{overflow:hidden;display:flow-root;}
 .home-entry p{margin:0;color:var(--neutral-8);}
 .home-entry>div{display:flex;flex-wrap:wrap;gap:var(--space-xs);margin-top:var(--space-m);}
