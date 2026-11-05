@@ -1,6 +1,11 @@
 import { useId } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import type { ProjectLink } from '@/lib/siteContent';
+
+function sourceDomain(href: string) {
+  try { return new URL(href, 'https://seiler.page').hostname.replace(/^www\./, ''); }
+  catch { return ''; }
+}
 
 /** One consistent source trail: authored link labels, contextual disclosure,
  * and a shared new-tab description without changing the link's useful name. */
@@ -8,11 +13,17 @@ export function PublishedSources({ links, context, open = false }: { links: Proj
   const description = useId();
   const unique = [...new Map(links.map(link => [link.href, link])).values()];
   if (!unique.length) return null;
-  const contents = <div>
+  const contents = <>
     <span className="sr-only" id={description}>Opens in a new tab.</span>
-    {unique.map(link => <a key={link.href} href={link.href} target="_blank" rel="noreferrer" aria-describedby={description}>{link.label}<ArrowUpRight size={14} aria-hidden="true" /></a>)}
-  </div>;
+    <ul>
+      {unique.map(link => <li key={link.href}><a href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} aria-describedby={description}>
+        <span className="portfolio-source-copy"><span className="portfolio-source-title">{link.label}</span><span className="portfolio-source-domain" aria-hidden="true">{sourceDomain(link.href)}</span></span>
+        <ArrowUpRight size={16} aria-hidden="true" />
+      </a></li>)}
+    </ul>
+  </>;
+  const summary = <summary>Sources<span className="sr-only"> for {context}</span><ChevronDown size={16} aria-hidden="true" /></summary>;
   return open
     ? <div className="portfolio-sources canvas-sources is-requested" role="group" aria-label={`Sources for ${context}`}>{contents}</div>
-    : <details className="portfolio-sources canvas-sources"><summary>Sources<span className="sr-only"> for {context}</span></summary>{contents}</details>;
+    : <details className="portfolio-sources canvas-sources">{summary}{contents}</details>;
 }

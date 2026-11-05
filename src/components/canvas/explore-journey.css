@@ -29,7 +29,7 @@
 .home-genui-footer:has(.home-answer-feedback[open]){grid-template-columns:minmax(0,1fr);}
 .home-genui-footer>.home-answer-feedback[open]{grid-column:1/-1;width:100%;padding-top:var(--space-s);}
 .home-genui-footer .home-next-questions>div{gap:var(--space-zero);padding-bottom:var(--space-m);}
-.home-genui .home-genui-footer .home-next-questions button{font-size:var(--size-s);line-height:var(--line-s);padding-inline:0;}
+.home-genui .home-genui-footer .home-next-questions button{min-height:40px;font-size:var(--size-s);line-height:var(--line-s);padding-inline:0;}
 .home-genui-footer .home-journey-history>summary{min-height:40px;padding-block:var(--space-xs);align-items:center;}
 .home-genui-footer .home-journey-history[open]{flex:1 1 100%;}
 .home-genui-footer .home-journey-history ol{padding-inline-start:0;list-style:none;}

@@ -133,6 +133,7 @@ export default function HomeExplore() {
   const [settled,setSettled]=useState(false);
   const [pendingLayout,setPendingLayout]=useState('empty');
   const [arriving,setArriving]=useState(false);
+  const [morphHold,setMorphHold]=useState<number|null>(null);
   const [waiting,setWaiting]=useState(false);
   const [requestNotice,setRequestNotice]=useState('');
   const followUpBase=useRef<View|null>(null);
@@ -149,6 +150,21 @@ export default function HomeExplore() {
     const timer=window.setTimeout(()=>setArriving(false),EXPLORE_MS.answer);
     return()=>window.clearTimeout(timer);
   },[view?.query,view?.generation.status]);
+  useLayoutEffect(()=>{
+    if(morphHold==null)return;
+    const node=resultsRef.current;
+    if(!node)return;
+    node.style.minHeight=`${morphHold}px`;
+    const styles=getComputedStyle(node);
+    const pad=(parseFloat(styles.paddingTop)||0)+(parseFloat(styles.paddingBottom)||0);
+    const gap=parseFloat(styles.rowGap)||parseFloat(styles.gap)||0;
+    const content=[...node.children].reduce((sum,child)=>sum+(child as HTMLElement).getBoundingClientRect().height,0);
+    const target=Math.ceil(content+pad+gap*Math.max(0,node.childElementCount-1));
+    const hold=reduceMotion?0:EXPLORE_MS.answer;
+    const release=window.setTimeout(()=>{node.style.minHeight=`${target}px`;},hold);
+    const done=window.setTimeout(()=>{node.style.minHeight='';setMorphHold(null);},hold+hold+40);
+    return()=>{window.clearTimeout(release);window.clearTimeout(done);};
+  },[morphHold,view,reduceMotion]);
   // Enter commits the question; subsequent typing starts a fresh follow-up.
   // Keep the native element mounted and allow deliberate caret edits afterward.
   const committedQuery=view?.query;
@@ -297,7 +313,12 @@ export default function HomeExplore() {
     const simpleRefinement=Boolean(context&&isLocalCompositionRefinement(text,context.composition));
     const live=()=>!abort.signal.aborted&&revision.current===rev;
     let next:View={plan:fallback,composition:composeLocal(text,fallback,context?.composition),query:text,generation:{status:'authored'}};
-    const commitView=(incoming:View)=>{followUpBase.current=null;setSettled(false);update(incoming);if(context){const node=resultsRef.current;if(node)node.scrollIntoView({block:'nearest',behavior:reduceMotion?'auto':'smooth'});}};
+    const compositionSignature=(composition:Composition)=>composition.blocks.map(block=>[block.kind,block.layout??'',block.projectIds.join(','),block.focus??'',block.section,block.answerId??'',block.connectionId??''].join(':')).join('|');
+    const commitView=(incoming:View)=>{
+      const previous=current.current;
+      if(previous&&resultsRef.current&&compositionSignature(previous.composition)!==compositionSignature(incoming.composition))setMorphHold(resultsRef.current.getBoundingClientRect().height);
+      followUpBase.current=null;setSettled(false);update(incoming);if(context){const node=resultsRef.current;if(node)node.scrollIntoView({block:'nearest',behavior:reduceMotion?'auto':'smooth'});}
+    };
     if(simpleRefinement){if(fallback.layout!=='empty')commitView(next);setBusy(false);setPhase('idle');return;}
     if(context){followUpBase.current=context;setSettled(true);}
     else if(fallback.layout!=='empty')commitView(next);
@@ -439,7 +460,7 @@ export default function HomeExplore() {
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} initialReadingState={pendingReadingState.current} onSettled={restoreReadingPosition}>
-          <div ref={resultsRef} className={`home-genui-stage${settled?' is-settled':''}${arriving?' is-arriving':''}`} aria-label="Exploration results" aria-busy={busy} data-settled={settled?'true':undefined} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
+          <div ref={resultsRef} className={`home-genui-stage${settled?' is-settled':''}${arriving?' is-arriving':''}${morphHold!=null?' is-morphing':''}`} aria-label="Exploration results" aria-busy={busy} data-settled={settled?'true':undefined} data-morphing={morphHold!=null?'true':undefined} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
             {guidance==='help'?<ExploreHelp onSubmit={submit}/>:photoGuide?<PhotoRedirect destinations={photoGuide}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>
               <div>{guidance==='ambiguous'?clarification?.choices.map(item=><button type="button" key={item.projectId} onClick={()=>chooseSubject(item.projectId)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>):guidanceChoices.map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>

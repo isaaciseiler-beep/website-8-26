@@ -153,7 +153,8 @@ for(const width of [320,390])test(`submitted questions wrap and resize without c
   // At 320 the sentence wraps. At 390 the field is a full row, about 318px, and this sentence fits on one line in Satoshi without clipping.
   if(width<=320)await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
   await page.setViewportSize({width:1280,height:900});
-  await expect.poll(async()=>Math.abs((await display.boundingBox())!.height-blankHeight)).toBeLessThan(1);
+  // The open question uses the answer scale, so it is taller than the idle field. It should match its own measure once the sentence fits on one line.
+  await expect.poll(async()=>Math.abs((await display.boundingBox())!.height-await page.locator('.home-question-measure').evaluate(el=>el.getBoundingClientRect().height))).toBeLessThan(1);
   await page.setViewportSize({width,height:844});
   await expect.poll(()=>display.evaluate(el=>el.scrollWidth<=el.clientWidth+1&&el.scrollHeight<=el.clientHeight+1)).toBe(true);
   if(width<=320)await expect.poll(async()=>(await display.boundingBox())!.height).toBeGreaterThan(blankHeight);
@@ -260,7 +261,7 @@ for(const reducedMotion of ['no-preference','reduce'] as const){
     await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBe(160);
     expect(await input.evaluate((element:HTMLTextAreaElement)=>element.scrollHeight>element.clientHeight)).toBe(true);
     await input.fill('Taiwan');await input.press('Escape');
-    await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBe(42);
+    await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBe(48);
   });
 }
 
@@ -795,7 +796,7 @@ test('the committed question is not selected, and the first keystroke replaces i
   await expect(input).toHaveValue('A');
 });
 
-for(const width of [320,375])test(`project facets stay on one row at ${width} and answer arrow keys`,async({page})=>{
+for(const width of [320,375,1280])test(`project facets stay on one row at ${width} and answer arrow keys`,async({page})=>{
   await page.setViewportSize({width,height:812});
   await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
   await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
@@ -812,6 +813,26 @@ for(const width of [320,375])test(`project facets stay on one row at ${width} an
   });
   expect(metrics.rows).toBe(1);
   expect(metrics.height).toBeLessThan(64);
+  expect(await tabs.evaluate(el=>[...el.querySelectorAll('button')].every(button=>{
+    const label=button.querySelector('.portfolio-tab-label')!.getBoundingClientRect();
+    const pill=button.getBoundingClientRect();
+    return Math.abs((label.top+label.height/2)-(pill.top+pill.height/2))<=1;
+  }))).toBe(true);
+  if(width===320){
+    const fade=await tabs.evaluate(el=>{
+      const style=getComputedStyle(el);
+      const mask=style.maskImage||(style as CSSStyleDeclaration & {webkitMaskImage?:string}).webkitMaskImage||'';
+      const root=el.getBoundingClientRect();
+      const partial=[...el.querySelectorAll('button')].some(button=>{
+        const box=button.getBoundingClientRect();
+        return box.left<root.right-8&&box.right>root.right+4;
+      });
+      return {mask,partial,overflow:el.scrollWidth>el.clientWidth+1};
+    });
+    expect(fade.overflow).toBe(true);
+    expect(fade.mask).toContain('linear-gradient');
+    expect(fade.partial).toBe(true);
+  }
   if(width>=375)expect(metrics.clipped).toEqual([]);
   await tabs.evaluate(el=>{el.scrollLeft=el.scrollWidth;});
   expect(await tabs.evaluate(el=>{
@@ -843,6 +864,47 @@ test('a matched follow-up keeps the previous answer settled until the next one a
   await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
   release();
   await expect(page.getByRole('link',{name:'Email'})).toBeVisible();
+});
+
+test('a different model composition replaces the preview without a layout jump',async({page})=>{
+  let release:()=>void=()=>{};
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  await page.route('**/api/compose',async route=>{
+    if(route.request().method()==='GET'){await route.fulfill({json:{configured:true}});return;}
+    await gate;
+    const request=route.request().postDataJSON();
+    const contact={blocks:[{kind:'contact',layout:'contact-card',projectIds:[],albumIds:[],states:[],region:'All',metric:'compositeScore',section:0}]};
+    await route.fulfill({contentType:'application/x-ndjson',body:JSON.stringify({type:'composition',composition:contact,revision:request.revision,contentVersion:request.contentVersion,partial:false})+'\n'}).catch(()=>{});
+  });
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');await input.press('Enter');
+  const stage=page.locator('.home-genui-stage');
+  await expect(stage).toBeVisible();
+  await expect(page.getByRole('region',{name:'Project explorer'})).toBeVisible();
+  const before=await stage.evaluate(el=>{
+    const box=el.getBoundingClientRect();
+    const composer=document.querySelector('.home-genui-composer')!.getBoundingClientRect();
+    return {gap:box.top-composer.bottom,height:box.height};
+  });
+  const watch=page.waitForFunction(()=>document.querySelector('.home-genui-stage')?.getAttribute('data-morphing')==='true',undefined,{timeout:5000}).catch(()=>null);
+  release();
+  await watch;
+  const early:number[]=[];
+  const started=Date.now();
+  while(Date.now()-started<150){
+    early.push(await stage.evaluate(el=>el.getBoundingClientRect().height));
+  }
+  await expect(page.getByRole('link',{name:'Email'})).toBeVisible();
+  const after=await stage.evaluate(el=>{
+    const box=el.getBoundingClientRect();
+    const composer=document.querySelector('.home-genui-composer')!.getBoundingClientRect();
+    return box.top-composer.bottom;
+  });
+  expect(Math.abs(after-before.gap)).toBeLessThan(2);
+  expect(Math.max(...early.map(height=>before.height-height),0)).toBeLessThan(8);
 });
 
 test('a provider failure keeps the question and offers retry',async({page})=>{
