@@ -124,9 +124,11 @@ test('odd album ends in a pair and mobile lightbox has wide frame and stable end
 
 for(const reducedMotion of ['reduce','no-preference'] as const)test(`About keeps its copy and supports cycling at narrow widths: ${reducedMotion}`,async({page})=>{
   await page.emulateMedia({reducedMotion});await page.setViewportSize({width:320,height:900});await page.goto('/about');
-  const paragraph=page.locator('.about-display');expect((await paragraph.innerText()).replace(/\s+/g,' ')).toBe('Isaac Seiler is a Seattle-based tech generalist with experience across AI ▾. He leads marketing and communications at Summation and has worked across government, enterprise, and international education.');
+  const paragraph=page.locator('.about-display');expect((await paragraph.innerText()).replace(/\s+/g,' ')).toMatch(/across AI\s*\+5 ▾\s*\.\s*He leads marketing and communications at Summation/);
   await expect(page.locator('.about-article').locator('a,button')).toHaveCount(8);
-  const cycle=page.locator('.about-cycle');await cycle.focus();await cycle.press('Enter');await expect(page.getByRole('button',{name:'public policy. Show next'})).toBeFocused();await cycle.press('Shift+Enter');await expect(cycle).toBeFocused();
+  const cycle=page.locator('.about-cycle');await cycle.focus();await cycle.press('Enter');await expect(cycle).toHaveAttribute('aria-expanded','true');
+  for (const area of ['AI','public policy','education','research','journalism','communications']) await expect(page.locator('#about-area-list')).toContainText(area);
+  await cycle.press('Escape');await expect(cycle).toHaveAttribute('aria-expanded','false');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   if(reducedMotion==='reduce')expect(await paragraph.evaluate(el=>el.getAnimations({subtree:true}).length)).toBe(0);
   const before=await paragraph.boundingBox();
@@ -147,7 +149,7 @@ test('the about display has no leading whitespace or double spaces', async ({ pa
   for (const width of [320, 375, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/about');
-    for (let step = 0; step < 6; step++) {
+    for (let step = 0; step < 1; step++) {
       const problem = await paragraph.evaluate(el => {
         const text = el.textContent ?? '';
         if (text.includes('  ')) return 'double space in textContent';
@@ -192,14 +194,16 @@ test('the area chip stays one line, shares its line, and has no empty interior',
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/about');
     await expect(page.locator('.about-display')).toBeVisible();
-    for (let step = 0; step < areas.length; step++) {
+    for (let step = 0; step < 1; step++) {
       const report = await page.evaluate(() => {
         const paragraph = document.querySelector('.about-display') as HTMLElement;
         const chip = paragraph.querySelector('.about-cycle') as HTMLElement;
-        const value = chip.querySelector('.about-cycle-value:not(.is-idle)') as HTMLElement;
+        const value = chip.querySelector('.about-cycle-value') as HTMLElement;
+        const caret = chip.querySelector('.about-cycle-caret') as HTMLElement;
         const line = parseFloat(getComputedStyle(paragraph).lineHeight);
         const chipBox = chip.getBoundingClientRect();
         const valueBox = value.getBoundingClientRect();
+        const caretBox = caret.getBoundingClientRect();
         const range = document.createRange();
         const walker = document.createTreeWalker(paragraph, NodeFilter.SHOW_TEXT);
         let node: Node | null;
@@ -221,7 +225,7 @@ test('the area chip stays one line, shares its line, and has no empty interior',
         return {
           height: chipBox.height,
           limit: line * 1.15,
-          slack: chipBox.width - valueBox.width,
+          slack: chipBox.width - (valueBox.width + caretBox.width),
           shares,
           text: value.textContent,
         };
@@ -287,12 +291,59 @@ test('the about paragraph stays inside its measure through a full cycle',async({
   const paragraph=page.locator('.about-display');
   for(const width of [320,375,768,1280,1920]){
     await page.setViewportSize({width,height:900});
-    for(let step=0;step<6;step++){
+    for(let step=0;step<2;step++){
       const fit=await paragraph.evaluate(el=>el.scrollWidth<=el.clientWidth+1);
       expect(fit,`${width} after ${step}`).toBe(true);
       await page.locator('.about-cycle').click();
     }
   }
+});
+
+test('a shorter answer keeps the first body block from jumping up', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.route('**/api/compose', route => route.fulfill({ json: { configured: false } }));
+  await page.route('**/api/intent', route => route.fulfill({ status: 503, json: {} }));
+  await page.goto('/');
+  const input = page.getByRole('textbox', { name: 'Explore', exact: true });
+  await input.fill('Compare California and Washington');
+  await input.press('Escape');
+  await input.press('Enter');
+  await expect(page.getByRole('heading', { name: 'Government comparison', exact: true })).toBeVisible();
+  const before = await page.locator('.home-genui-stage p').first().boundingBox();
+  await input.fill('How can I contact Isaac?');
+  await input.press('Enter');
+  await expect(page.getByRole('region', { name: 'Contact' })).toBeVisible();
+  const samples: number[] = [];
+  for (let frame = 0; frame < 5; frame++) {
+    samples.push((await page.locator('.portfolio-contact a').first().boundingBox())?.y ?? 0);
+    await page.waitForTimeout(40);
+  }
+  expect(Math.max(...samples) - Math.min(...samples)).toBeLessThan(6);
+  expect(samples[0]).toBeGreaterThan((before?.y ?? 0) - 48);
+});
+
+test('the skeleton title matches the answer title', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.route('**/api/compose', route => route.fulfill({ json: { configured: false } }));
+  await page.route('**/api/intent', route => route.fulfill({ status: 503, json: {} }));
+  await page.goto('/');
+  const input = page.getByRole('textbox', { name: 'Explore', exact: true });
+  await input.fill('Compare California and Washington');
+  await input.press('Escape');
+  const seen = page.waitForFunction(() => {
+    const skeleton = document.querySelector('.home-skeleton-question')?.textContent?.trim();
+    const heading = document.querySelector('.home-genui-reveal h2:not(.sr-only)')?.textContent?.trim();
+    return skeleton && heading && skeleton === heading ? skeleton : '';
+  });
+  await input.press('Enter');
+  const skeleton = await (await seen).jsonValue();
+  const heading = page.getByRole('heading', { name: String(skeleton), exact: true });
+  await expect(heading).toBeVisible();
+  const first = await heading.boundingBox();
+  await page.waitForTimeout(180);
+  const second = await heading.boundingBox();
+  expect(Math.abs((first?.y ?? 0) - (second?.y ?? 0))).toBeLessThan(2);
+  expect(Math.abs((first?.height ?? 0) - (second?.height ?? 0))).toBeLessThan(2);
 });
 
 test('work rows use a square thumbnail at 375 and one meta case', async ({ page }) => {

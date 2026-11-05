@@ -568,16 +568,17 @@ const AIStateGovernmentIndexPage = () => {
                   credit="Utah state capitol building. Credit: Lonely Planet"
                   creditId="utah-image-credit"
                   eager
+                  flush
                   src={HERO_IMAGE}
                 />
               </div>
             </div>
 
-            <div className="relative z-20 bg-background px-6 py-10">
+            <div className="relative z-20 bg-background px-6 pb-10 pt-8 sm:pt-10">
               <div className="content-measure grid gap-10">
                 <TextReveal>
                   <div className="space-y-5">
-                    <p className="w-full text-xl leading-relaxed text-foreground/72 sm:text-2xl">
+                    <p className="w-full text-[16px] leading-[1.55] text-foreground sm:text-[17px]">
                       This index translates the GenAI hype cycle into a public-evidence benchmark for state and
                       territory governments: who has guidance, training, pilots, governance structures, public roadmaps,
                       and enough transparency for constituents to see what is actually happening.

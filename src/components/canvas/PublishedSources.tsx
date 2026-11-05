@@ -16,7 +16,8 @@ export function PublishedSources({ links, context, open = false }: { links: Proj
   const contents = <>
     <span className="sr-only" id={description}>Opens in a new tab.</span>
     <ul>
-      {unique.map(link => <li key={link.href}><a href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} aria-describedby={description}>
+      {unique.map((link, index) => <li key={link.href} id={`${description}-source-${index + 1}`}><a href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} aria-describedby={description}>
+        <sup className="portfolio-source-index" aria-hidden="true">{index + 1}</sup>
         <span className="portfolio-source-copy"><span className="portfolio-source-title">{link.label}</span><span className="portfolio-source-domain" aria-hidden="true">{sourceDomain(link.href)}</span></span>
         <ArrowUpRight size={16} aria-hidden="true" />
       </a></li>)}

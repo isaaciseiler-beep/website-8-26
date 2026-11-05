@@ -3981,7 +3981,7 @@ img[data-image-reveal="true"] {
   overflow: hidden;
   border-radius: var(--site-corner-radius);
   background: hsl(var(--foreground) / 0.04);
-  margin-bottom: 56px;
+  margin-bottom: 40px;
 }
 
 .article-hero img {
@@ -4007,9 +4007,16 @@ img[data-image-reveal="true"] {
 
 .article-body p,
 .article-body li {
-  font-size: 1.02rem;
-  line-height: 1.75;
-  color: hsl(var(--foreground) / 0.72);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+}
+@media (max-width: 700px) {
+  .article-subtitle { font-size: 17px; line-height: 1.55; margin-bottom: 32px; }
+  .article-hero { margin-bottom: 32px; }
+  .article-topper { margin-bottom: 32px; font-size: 17px; }
+  .article-body { gap: 32px; }
+  .article-body p, .article-body li { font-size: 16px; line-height: 1.55; }
 }
 
 .article-body p {

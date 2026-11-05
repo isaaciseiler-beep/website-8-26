@@ -17,7 +17,7 @@ import { suggestExperiencePrompts } from '@/lib/experiencePrompts';
 import { EXPLORE_MS, EXPLORE_PHASE_LABEL, phaseMark, type ExplorePhase } from '@/lib/exploreProgress';
 import AnswerSkeleton from './AnswerSkeleton';
 import { captureReadingState, restoreReadingState, type ExplorationReadingState } from '@/lib/explorationReadingState';
-import { ExplorationFeedback, ExplorationHistory } from './ExplorationJourneyTools';
+import { AnswerDocumentMeta, ExplorationFeedback, ExplorationHistory } from './ExplorationJourneyTools';
 import ExplorationCanvas, { type GenerationInfo } from './ExplorationCanvas';
 import './home-explore.css';
 import './explore-journey.css';
@@ -63,18 +63,32 @@ function ExplorationReveal({children,restored=false,initialReadingState,onSettle
     // does not briefly clip to its closed height and then expand again.
     if(initialReading.current)restoreReadingState(node,initialReading.current,false);
     let frame=0;
+    let release=0;
+    const pending= { value: null as number | null };
     const measure=()=>{
       const measured=node.getBoundingClientRect().height;
-      // Subpixel wrapping and image decoding can notify repeatedly. Keep one
-      // final-width target rather than restarting the fold for rounding noise.
-      setHeight(previous=>previous!==null&&Math.abs(previous-measured)<.5?previous:measured);
+      setHeight(previous=>{
+        const widening = Boolean(node.closest('.home-genui-window')?.classList.contains('is-widening'));
+        if (pending.value != null) { pending.value = measured; return previous; }
+        if (!widening && previous != null && measured < previous - 4) {
+          pending.value = measured;
+          window.clearTimeout(release);
+          release = window.setTimeout(() => {
+            const next = pending.value;
+            pending.value = null;
+            if (next != null) setHeight(next);
+          }, reduceMotion ? 0 : 80);
+          return previous;
+        }
+        return previous!==null&&Math.abs(previous-measured)<.5?previous:measured;
+      });
     };
     measure();const observer=new ResizeObserver(()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(measure);});observer.observe(node);
-    return()=>{observer.disconnect();cancelAnimationFrame(frame);};
+    return()=>{observer.disconnect();cancelAnimationFrame(frame);window.clearTimeout(release);};
   },[]);
   return <motion.div className="home-genui-reveal" data-state={present?'open':'closing'} aria-hidden={!present} {...(!present?{inert:''}:{})}
     initial={restored?false:{height:0,opacity:1}} animate={{height:present&&disclosure.following?'auto':height??(restored?'auto':0),opacity:1}} exit={{height:0,opacity:0}}
-    onAnimationComplete={onSettled} transition={{height:{duration:reduceMotion||present&&disclosure.following?0:present?widen?EXPLORE_MS.widen/1000:MOTION_DURATION.reveal:MOTION_DURATION.panel,ease:widen&&present?[0.33,0,0.2,1]:MOTION_EASE_ENTER},opacity:{duration:reduceMotion?0:present?MOTION_DURATION.base:MOTION_DURATION.exit,delay:reduceMotion||present?0:MOTION_DURATION.panel-MOTION_DURATION.exit,ease:MOTION_EASE_ENTER}}}>
+    onAnimationComplete={onSettled} transition={{height:{duration:reduceMotion||present&&disclosure.following?0:present?widen?EXPLORE_MS.widen/1000:.28:MOTION_DURATION.panel,ease:widen&&present?[0.33,0,0.2,1]:[0.23,1,0.32,1]},opacity:{duration:reduceMotion?0:present?MOTION_DURATION.base:MOTION_DURATION.exit,delay:reduceMotion||present?0:MOTION_DURATION.panel-MOTION_DURATION.exit,ease:MOTION_EASE_ENTER}}}>
     <div ref={content} className="home-genui-reveal-content" onClickCapture={disclosure.onClickCapture}>{children}</div>
   </motion.div>;
 }
@@ -539,6 +553,12 @@ export default function HomeExplore() {
   const clarification=guidance==='ambiguous'?analyzePortfolioRequest(query):undefined;
   const guidanceChoices=recoveryQuestions.length?recoveryQuestions.map(item=>({label:item.text,prompt:item.text})):[{label:'Explore the work',prompt:'Explore all projects'},{label:'AI in government',prompt:'How did Isaac research AI in government?'},{label:'Career & experience',prompt:'Explore Isaac’s career'}];
   const titleFor=(item:View)=>viewTitle(createPortableView(item.composition));
+  useLayoutEffect(()=>{
+    if(!conceal)return;
+    const heading=document.querySelector('.home-genui-reveal h2:not(.sr-only)');
+    const slot=document.querySelector('.home-skeleton-question');
+    if(heading&&slot&&heading.textContent&&slot.textContent!==heading.textContent)slot.textContent=heading.textContent;
+  },[conceal,view]);
   useEffect(()=>{
     const album=albums.find(item=>item.folder===new URLSearchParams(window.location.search).get('album'));
     const base=metadataForPath('/');
@@ -560,6 +580,7 @@ export default function HomeExplore() {
   return <section id="home-genui" className={`home-genui photos-shell${!view?' is-idle':''}`} aria-label="Interactive exploration">
     <p className="home-statement">Isaac Seiler is a <RouterLink className="home-hero-chip" to="/?album=washington-state"><MapPin strokeWidth={1.75} aria-hidden="true" />Seattle{'\u2011'}based</RouterLink> tech generalist working on <button type="button" className="home-hero-chip" onClick={() => submit('How did Isaac research AI in government?')}>AI in <span className="home-hero-glue">government{'\u2060'}.</span></button></p>
     <div className={`home-genui-window${view||heldExpanded||guidance==='help'?' has-results':guidance?' has-guidance':''}${conceal?' is-widening':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
+      {view&&<div className="home-session"><ExplorationHistory items={[...history.map(item=>({title:titleFor(item),question:item.query,current:false})),{title:titleFor(view),question:view.query,current:true}]} onSelect={selectHistory}/></div>}
       <motion.div className="home-window-depth" aria-hidden="true" initial={false} animate={{opacity:recessActive ? .18 : 0}} transition={{duration:reduceMotion?0:.3,ease:[.22,1,.36,1]}}/>
 
 
@@ -570,13 +591,14 @@ export default function HomeExplore() {
         {query.trim()&&!view&&!guidance&&<button className="home-clear" type="button" onClick={clear} aria-label="Start over" title="Start over"><X size={16} strokeWidth={1.75}/></button>}<button className={`home-submit${query.trim()?'':' is-quiet'}`} type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={16} strokeWidth={1.75} className="home-submit-spinner"/>:<ArrowUp size={16} strokeWidth={1.75}/>}</button>
         {!view&&!heldExpanded&&!guidance&&!busy&&<div className="home-idle-actions" style={autocompleteOpen?{visibility:'hidden'}:undefined}>{cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();pendingReadingState.current=cleared.view?.readingState??cleared.readingState??null;setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <div className="home-genui-preview"><button type="button" className="home-preview-trigger" onClick={showHelp}>Tips</button></div>}</div>}
       </form>{(Boolean(progressText)||busy||phase==='stopped'||phase==='error')&&<div className="home-request-reveal"><div className="home-request-state" data-phase={phase}>{progressText&&<span className="home-phase">{(phase==='finding'||phase==='layout')&&<span className="home-phase-marks" aria-hidden="true">{(['finding','layout'] as const).map(step=><i key={step} data-state={phaseMark(phase,step)} />)}</span>}{progressText}</span>}{busy&&<button type="button" className="home-quiet-action" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button>}{(phase==='stopped'||phase==='error')&&<button type="button" className="home-quiet-action" onClick={retryExploration}>Retry</button>}</div></div>}</div>
-      {conceal&&<div className="home-widen-skeleton" aria-hidden="true"><AnswerSkeleton layout={view?.plan.layout||pendingLayout} title={query.trim()||undefined}/></div>}
+      {conceal&&<div className="home-widen-skeleton" aria-hidden="true"><AnswerSkeleton layout={view?.plan.layout||pendingLayout} title={view?titleFor(view):query.trim()||undefined}/></div>}
       {showSkeleton&&<div className="home-pending-view" aria-label="Preparing exploration"><AnswerSkeleton layout={pendingLayout} title={query.trim()||undefined}/>{waiting&&<div className="home-pending-alternatives"><p>You can explore a starting point while this view is prepared.</p><button type="button" onClick={()=>submit('Explore all projects')}>Browse work<ArrowRight size={14} aria-hidden="true"/></button><button type="button" onClick={showHelp}>Tips<ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button></div>}</div>}
       <span role="status" aria-live="polite" aria-atomic="true" className="sr-only">{shareStatus==='failed'?'Could not copy the link. Check clipboard permissions.':shareStatus==='copied'?'Link copied.':phase!=='idle'||busy?progressText:requestNotice|| (guidance==='photos'&&photoGuide?photoRedirectCopy(photoGuide):guidance==='help'?'Tips are ready.':view?.generation.status==='unavailable'?'Interactive view · AI unavailable':'')}</span>
       {linkError&&<p className="home-draft-hint" role="status">{linkError}</p>}
       <AnimatePresence key={revealEpoch} initial={false} onExitComplete={()=>setHeldExpanded(false)}>
         {(view||guidance)&&<ExplorationReveal key="exploration-panel" contentRevision={view?.plan.revision??revision.current} restored={Boolean(restored?.view||restored?.guidance)} initialReadingState={pendingReadingState.current} onSettled={restoreReadingPosition} initialPace={conceal?'widen':'settle'}>
           <div ref={resultsRef} className={`home-genui-stage${settled?' is-settled':''}${arriving?' is-arriving':''}${morphHold!=null?' is-morphing':''}`} aria-label="Exploration results" aria-busy={busy} data-settled={settled?'true':undefined} data-morphing={morphHold!=null?'true':undefined} data-reading-restored={Boolean(view?.readingState)||view===restored?.view?'true':undefined}>
+            {view&&<AnswerDocumentMeta kind={view.composition.blocks[0]?.kind??'answer'} question={view.query}/>}
             {guidance==='help'?<ExploreHelp onSubmit={submit}/>:photoGuide?<PhotoRedirect destinations={photoGuide}/>:guidance?<div className="home-entry" aria-label="Choose a starting point">
               <p>{guidance==='welcome'?'Hi. What would you like to explore?':guidance==='ambiguous'?'Which work would you like to explore?':recoveryQuestions.length?'Did you mean one of these questions?':'There isn’t published material to answer that question. You can explore the work or try another question.'}</p>
               <div>{guidance==='ambiguous'?clarification?.choices.map(item=><button type="button" key={item.projectId} onClick={()=>chooseSubject(item.projectId)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>):guidanceChoices.map(item=><button type="button" key={item.label} onClick={()=>submit(item.prompt)}>{item.label}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={showHelp}>Tips<ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button></div>
@@ -588,11 +610,10 @@ export default function HomeExplore() {
             {view&&<details className="home-next-questions"><summary>More questions<ChevronDown size={14} strokeWidth={1.75} aria-hidden="true"/></summary><div>{extraFollowUps.map(item=><button className="home-follow-row" key={item.id} type="button" onClick={()=>submit(item.text)}><span>{item.text}</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button>)}<button className="home-follow-row" type="button" onClick={showHelp}><span>Tips</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button></div></details>}
             <div className={`home-genui-tools${!view&&!history.length&&!guidance?' is-empty':''}`}>
               {view&&<button type="button" onClick={()=>{cancel();setQuery('');input.current?.focus({preventScroll:true});setAutocompleteOpen(true);}}><span>Ask a follow-up</span><ArrowUp size={14} strokeWidth={1.75} aria-hidden="true"/></button>}
-              {view&&<button className={`home-share-view${shareStatus==='copied'?' is-copied':''}`} aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}><span>{shareStatus==='copied'?'Copied':'Share'}</span>{shareStatus==='copied'?<Check size={14} strokeWidth={1.75}/>:<Link size={14} strokeWidth={1.75}/>}</button>}
+              {view&&<button className={`home-share-view${shareStatus==='copied'?' is-copied':''}`} aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}><span>{shareStatus==='copied'?'Copied':'Copy link'}</span>{shareStatus==='copied'?<Check size={14} strokeWidth={1.75}/>:<Link size={14} strokeWidth={1.75}/>}</button>}
               {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={returnLabel(view.returnToExploration)} onClick={backToExploration}><span>{returnLabel(view.returnToExploration)}</span><ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true"/></button>}
               {(view||guidance)&&history.length>0&&!view?.returnToExploration&&<button aria-label="Previous exploration" title={`Back to ${titleFor(history[history.length-1])}`} onClick={()=>navigateHistory('back')}><span>Back</span><ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true"/></button>}
               {view&&future.length>0&&!view.returnToExploration&&<button aria-label="Next exploration" title={`Forward to ${titleFor(future[0])}`} onClick={()=>navigateHistory('forward')}><span>Forward</span><ArrowRight size={14} strokeWidth={1.75} aria-hidden="true"/></button>}
-              {view&&<ExplorationHistory items={history.map(item=>({title:titleFor(item),question:item.query}))} onSelect={selectHistory}/>}
             </div>
             {(view||guidance)&&<div className="home-footer-secondary">
               {view&&!busy&&<ExplorationFeedback key={view.query} title={titleFor(view)} question={view.query} url={feedbackUrl}/>}

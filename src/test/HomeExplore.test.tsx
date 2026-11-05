@@ -343,7 +343,8 @@ describe("homepage generative interface", () => {
     fireEvent.change(input, { target: { value: 'Compare California and Washington' } });
     await act(async () => { fireEvent.submit(input.closest('form')!); });
     const title = document.querySelector('.home-widen-skeleton .home-skeleton-question');
-    expect(title?.textContent).toBe('Compare California and Washington');
+    const heading = document.querySelector('.home-genui-reveal h2:not(.sr-only), .home-genui-stage h2:not(.sr-only)');
+    expect(title?.textContent).toBe(heading?.textContent);
     expect(document.querySelector('.home-widen-skeleton .home-skeleton-title')).toBeNull();
     expect(document.querySelector('.home-widen-skeleton .home-skeleton')?.querySelector('span, .home-skeleton-split')).not.toBeNull();
   });

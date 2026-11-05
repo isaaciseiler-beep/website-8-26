@@ -1,6 +1,5 @@
 import { useSidebarState } from "@/lib/siteChrome";
-import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
-import { motionReduced } from '@/hooks/useMotionPreference';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import './about-page.css';
 import { MapPin } from 'lucide-react';
@@ -57,43 +56,35 @@ function PreviewChip({ to, children, detail, image }: { to: string; children: Re
 }
 
 function WorkAreas() {
-  const [index, setIndex] = useState(0);
-  const [announcement, setAnnouncement] = useState('');
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const restoreFocus = useRef(false);
-  const widthRef = useRef<number | null>(null);
-  const move = (direction: number) => {
-    restoreFocus.current = document.activeElement === buttonRef.current;
-    const next = (index + AREAS.length + direction) % AREAS.length;
-    setAnnouncement(AREAS[next]);
-    setIndex(next);
-  };
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLSpanElement>(null);
   useLayoutEffect(() => {
-    const button = buttonRef.current;
-    if (restoreFocus.current) {
-      restoreFocus.current = false;
-      button?.focus();
-    }
-    if (!button) return;
-    const next = button.getBoundingClientRect().width;
-    const previous = widthRef.current;
-    widthRef.current = next;
-    if (previous == null || Math.abs(previous - next) < 0.5 || motionReduced()) return;
-    button.animate([{ width: `${previous}px` }, { width: `${next}px` }], {
-      duration: 180,
-      easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
-    });
-  }, [index]);
-  const label = AREAS[index];
-  return <>
-    <span className="sr-only" aria-live="polite">{announcement}</span>
-    <button ref={buttonRef} type="button" className="about-pill about-cycle" aria-label={`${label}. Show next`} onClick={event => { if (!event.shiftKey) move(1); }} onKeyDown={event => { if (event.shiftKey && event.key === 'Enter') { event.preventDefault(); move(-1); } }}>
-      <span className="about-cycle-stack">
-        {AREAS.map((area, areaIndex) => <span key={area} className={areaIndex === index ? 'about-cycle-value' : 'about-cycle-value is-idle'} aria-hidden={areaIndex === index ? undefined : true}>{area}</span>)}
-      </span>
-      <span className="about-cycle-caret" aria-hidden="true">▾.</span>
+    if (!open || !root.current) return;
+    const list = root.current.querySelector<HTMLElement>('.about-area-list');
+    const button = root.current.querySelector('button');
+    if (!list || !button) return;
+    const rect = button.getBoundingClientRect();
+    const width = list.offsetWidth || 220;
+    list.style.left = `${Math.max(12, Math.min(rect.left, window.innerWidth - width - 12))}px`;
+    list.style.top = `${rect.bottom + 8}px`;
+  }, [open]);
+  useEffect(() => {
+    if (!open) return;
+    const close = (event: PointerEvent) => { if (!root.current?.contains(event.target as Node)) setOpen(false); };
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setOpen(false); };
+    document.addEventListener('pointerdown', close);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', onKey); };
+  }, [open]);
+  return <span ref={root} className={`about-area${open ? ' is-open' : ''}`}>
+    <button type="button" className="about-pill about-cycle" aria-expanded={open} aria-controls="about-area-list" onClick={() => setOpen(value => !value)} onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); setOpen(false); } }}>
+      <span className="about-cycle-value">AI</span>
+      <span className="about-cycle-caret" aria-hidden="true">+5 ▾</span>
     </button>
-  </>;
+    <span id="about-area-list" className="about-area-list" role="region" aria-label="Areas of work" hidden={!open}>
+      <ul>{AREAS.map(area => <li key={area}>{area}</li>)}</ul>
+    </span>
+  </span>;
 }
 
 function DisplayParagraph() {
@@ -105,7 +96,7 @@ function DisplayParagraph() {
           return <PreviewChip key={index} to="/?album=washington-state" image={seattleCover} detail="Washington"><MapPin className="about-pill-mark" size={14} strokeWidth={1.75} aria-hidden="true" />{part}</PreviewChip>;
         }
         if (part.endsWith('across ') && parts[index + 1] === AREA_PHRASE) {
-          return <span key={index}>{part.slice(0, -'across '.length)}<span className="about-cycle-keep">across <WorkAreas /> </span></span>;
+          return <span key={index}>{part.slice(0, -'across '.length)}across <span className="about-cycle-keep"><WorkAreas />.</span> </span>;
         }
         if (part === AREA_PHRASE) return null;
         if (part.startsWith('. ')) return <span className="about-after" key={index}>{part.slice(2)}</span>;
@@ -141,9 +132,9 @@ export default function AboutPage() {
       >
         <article className="about-article mx-auto">
           <h1 className="mb-8 text-3xl font-medium tracking-tight">About</h1>
-          <p id="about-cycle-hint" className="sr-only">Some phrases are links. The area of work button cycles on Enter or Space; Shift plus Enter goes back.</p>
+          <p id="about-cycle-hint" className="sr-only">Some phrases are links. The areas button opens the full list: AI, public policy, education, research, journalism, and communications.</p>
           <DisplayParagraph />
-          <div className="about-body space-y-6 text-lg leading-relaxed">
+          <div className="about-body">
             <p>Previously, Isaac helped build a <PreviewChip to="/projects/congressional-office-setup-100-day-report" detail={`${roleFor('congressional-office-setup-100-day-report')?.role ?? 'Communications'} · ${roleFor('congressional-office-setup-100-day-report')?.period ?? ''}`}>congressional office</PreviewChip> and managed communications for a Member of Congress, led AI literacy work with educators in <PreviewChip to="/projects/fulbright-focus-group-sponsored-by-openai" image={projectImage('fulbright-focus-group-sponsored-by-openai')} detail={`${roleFor('fulbright-focus-group-sponsored-by-openai')?.organization ?? 'Fulbright Taiwan'} · ${roleFor('fulbright-focus-group-sponsored-by-openai')?.period ?? ''}`}>Taiwan</PreviewChip> with support from OpenAI, and researched how AI and digital platforms affect <Link className="site-link" to="/projects/senior-thesis-local-journalism">journalism</Link>.</p>
             <p>He is a Fulbright and Truman Scholar and a member of OpenAI’s <Link className="site-link" to="/projects/openai-product-testing-and-feedback">ChatGPT Lab</Link>.</p>
           </div>
