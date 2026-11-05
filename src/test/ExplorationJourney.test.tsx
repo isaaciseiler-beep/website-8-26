@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import HomeExplore from '@/components/canvas/HomeExplore';
@@ -62,8 +62,8 @@ describe('primary exploration journeys',()=>{
     vi.stubGlobal('fetch',vi.fn(async()=>response({configured:false})));
     render(<MemoryRouter><HomeExplore/></MemoryRouter>);
     await submit('Taiwan teaching');await submit('Boehringer rebrand');await submit('How can I contact Isaac?');
-    const history=screen.getByText('History',{selector:'summary'}).closest('details')!;
-    fireEvent.click(within(history).getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/,hidden:true}));
+    fireEvent.click(screen.getByRole('button',{name:/History/}));
+    fireEvent.click(screen.getByRole('menuitem',{name:'Taiwan teaching'}));
     expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible();
     fireEvent.click(screen.getByRole('button',{name:'Next exploration'}));
     expect(screen.getByRole('heading',{name:'Bringing Boehringer Cares to life'})).toBeVisible();

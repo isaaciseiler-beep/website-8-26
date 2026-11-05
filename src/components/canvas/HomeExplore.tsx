@@ -290,8 +290,14 @@ export default function HomeExplore() {
   const placeAnswer=()=>{
     const openingShared=placeOnRestore.current;
     placeOnRestore.current=false;
-    if(userScrolledDuringWait.current||(window.innerWidth>767&&!openingShared))return;
     const composer=composerRef.current;
+    if(userScrolledDuringWait.current||(window.innerWidth>767&&!openingShared)){
+      if(!composer)return;
+      const clearance=headerClearance();
+      const box=composer.getBoundingClientRect();
+      if(box.top<clearance&&box.bottom>clearance)window.scrollTo({top:Math.max(0,window.scrollY+box.top-clearance),behavior:reduceMotion?'auto':'smooth'});
+      return;
+    }
     if(!composer)return;
     const clearance=headerClearance();
     const delta=composer.getBoundingClientRect().top-clearance;
@@ -580,7 +586,6 @@ export default function HomeExplore() {
   return <section id="home-genui" className={`home-genui photos-shell${!view?' is-idle':''}`} aria-label="Interactive exploration">
     <p className="home-statement">Isaac Seiler is a <RouterLink className="home-hero-chip" to="/?album=washington-state"><MapPin strokeWidth={1.75} aria-hidden="true" />Seattle{'\u2011'}based</RouterLink> tech generalist working on <button type="button" className="home-hero-chip" onClick={() => submit('How did Isaac research AI in government?')}>AI in <span className="home-hero-glue">government{'\u2060'}.</span></button></p>
     <div className={`home-genui-window${view||heldExpanded||guidance==='help'?' has-results':guidance?' has-guidance':''}${conceal?' is-widening':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
-      {view&&<div className="home-session"><ExplorationHistory items={[...history.map(item=>({title:titleFor(item),question:item.query,current:false})),{title:titleFor(view),question:view.query,current:true}]} onSelect={selectHistory}/></div>}
       <motion.div className="home-window-depth" aria-hidden="true" initial={false} animate={{opacity:recessActive ? .18 : 0}} transition={{duration:reduceMotion?0:.3,ease:[.22,1,.36,1]}}/>
 
 
@@ -588,7 +593,7 @@ export default function HomeExplore() {
 
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
         <ExperienceAutocomplete context={suggestionContext} inputRef={input} committedValue={committedQuery} quietFocus={quietFocus} onEscape={view||guidance||busy?clear:undefined} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
-        {query.trim()&&!view&&!guidance&&<button className="home-clear" type="button" onClick={clear} aria-label="Start over" title="Start over"><X size={16} strokeWidth={1.75}/></button>}<button className={`home-submit${query.trim()?'':' is-quiet'}`} type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={16} strokeWidth={1.75} className="home-submit-spinner"/>:<ArrowUp size={16} strokeWidth={1.75}/>}</button>
+        {query.trim()&&!view&&!guidance&&<button className="home-clear" type="button" onClick={clear} aria-label="Start over" title="Start over"><X size={16} strokeWidth={1.75}/></button>}{view&&<ExplorationHistory items={[...history.map(item=>({title:titleFor(item),question:item.query,current:false})),{title:titleFor(view),question:view.query,current:true}]} onSelect={selectHistory}/>}<button className={`home-submit${!query.trim()||query.trim()===view?.query.trim()?' is-quiet':''}`} type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={16} strokeWidth={1.75} className="home-submit-spinner"/>:<ArrowUp size={16} strokeWidth={1.75}/>}</button>
         {!view&&!heldExpanded&&!guidance&&!busy&&<div className="home-idle-actions" style={autocompleteOpen?{visibility:'hidden'}:undefined}>{cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();pendingReadingState.current=cleared.view?.readingState??cleared.readingState??null;setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <div className="home-genui-preview"><button type="button" className="home-preview-trigger" onClick={showHelp}>Tips</button></div>}</div>}
       </form>{(Boolean(progressText)||busy||phase==='stopped'||phase==='error')&&<div className="home-request-reveal"><div className="home-request-state" data-phase={phase}>{progressText&&<span className="home-phase">{(phase==='finding'||phase==='layout')&&<span className="home-phase-marks" aria-hidden="true">{(['finding','layout'] as const).map(step=><i key={step} data-state={phaseMark(phase,step)} />)}</span>}{progressText}</span>}{busy&&<button type="button" className="home-quiet-action" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button>}{(phase==='stopped'||phase==='error')&&<button type="button" className="home-quiet-action" onClick={retryExploration}>Retry</button>}</div></div>}</div>
       {conceal&&<div className="home-widen-skeleton" aria-hidden="true"><AnswerSkeleton layout={view?.plan.layout||pendingLayout} title={view?titleFor(view):query.trim()||undefined}/></div>}

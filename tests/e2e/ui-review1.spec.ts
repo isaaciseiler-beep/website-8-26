@@ -57,8 +57,8 @@ for(const width of [320,375,390,768,1024,1280])test(`stationary composer, readab
   });
   expect(align.dx).toBeLessThan(2);
   expect(align.dy).toBeLessThan(6);
-  // At 320 the 24px site gutter and the 44px send button share the row, so the field is 200px.
-  if(width<=390)expect(align.width).toBeGreaterThanOrEqual(width===320?196:240);
+  // The history control sits beside Send. At 320 the gutters and those two buttons leave about 150px for the field.
+  if(width<=390)expect(align.width).toBeGreaterThanOrEqual(width===320?148:190);
   expect(errors).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 
@@ -124,11 +124,12 @@ test('odd album ends in a pair and mobile lightbox has wide frame and stable end
 
 for(const reducedMotion of ['reduce','no-preference'] as const)test(`About keeps its copy and supports cycling at narrow widths: ${reducedMotion}`,async({page})=>{
   await page.emulateMedia({reducedMotion});await page.setViewportSize({width:320,height:900});await page.goto('/about');
-  const paragraph=page.locator('.about-display');expect((await paragraph.innerText()).replace(/\s+/g,' ')).toMatch(/across AI\s*\+5 ▾\s*\.\s*He leads marketing and communications at Summation/);
+  const paragraph=page.locator('.about-display');expect((await paragraph.innerText()).replace(/\s+/g,' ')).toMatch(/across AI\s*▾\s*\.\s*He leads marketing and communications at Summation/);
   await expect(page.locator('.about-article').locator('a,button')).toHaveCount(8);
   const cycle=page.locator('.about-cycle');await cycle.focus();await cycle.press('Enter');await expect(cycle).toHaveAttribute('aria-expanded','true');
-  for (const area of ['AI','public policy','education','research','journalism','communications']) await expect(page.locator('#about-area-list')).toContainText(area);
-  await cycle.press('Escape');await expect(cycle).toHaveAttribute('aria-expanded','false');
+  await expect(paragraph).toContainText('AI, public policy, education, research, journalism, and communications');
+  await page.keyboard.press('Escape');await expect(cycle).toHaveAttribute('aria-expanded','false');
+  await paragraph.evaluate(async el => { await Promise.all(el.getAnimations({ subtree: true }).map(animation => animation.finished)); });
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   if(reducedMotion==='reduce')expect(await paragraph.evaluate(el=>el.getAnimations({subtree:true}).length)).toBe(0);
   const before=await paragraph.boundingBox();
@@ -361,6 +362,105 @@ test('work rows use a square thumbnail at 375 and one meta case', async ({ page 
   await page.setViewportSize({ width: 1280, height: 800 });
   await expect(page.locator('.work-preview figcaption')).toHaveCSS('text-transform', 'none');
   await expect(page.locator('.work-index-type').first()).toHaveCSS('text-transform', 'none');
+});
+
+async function exploreGeometry(page: import('@playwright/test').Page, label: string) {
+  const problem = await page.evaluate(() => {
+    const header = document.querySelector('.site-home-link')?.getBoundingClientRect();
+    const floor = (header?.bottom ?? 56) + 4;
+    const hit = (a?: DOMRect, b?: DOMRect) => Boolean(a && b && a.width > 1 && b.width > 1 && a.height > 1 && b.height > 1 && !(a.bottom <= b.top + 1 || a.top >= b.bottom - 1 || a.right <= b.left + 1 || a.left >= b.right - 1));
+    if (window.scrollY < 2) {
+      for (const el of document.querySelectorAll('.home-genui-composer textarea, .home-submit, .home-history-trigger, .answer-document-meta, .home-history-menu')) {
+        const box = el.getBoundingClientRect();
+        if (box.width < 2 || box.bottom < floor) continue;
+        if (box.top < floor) return `${el.className || el.tagName} sits under the header`;
+      }
+    }
+    const menu = document.querySelector('.home-history-menu')?.getBoundingClientRect();
+    const title = document.querySelector<HTMLElement>('.home-genui-composer textarea')?.getBoundingClientRect();
+    const heading = [...document.querySelectorAll<HTMLElement>('.home-genui-stage h2:not(.sr-only)')].find(el => el.getBoundingClientRect().height > 8)?.getBoundingClientRect();
+    if (hit(menu, title)) return 'history covers the question';
+    if (hit(menu, heading)) return 'history covers the answer title';
+    if (hit(document.querySelector('.home-submit')?.getBoundingClientRect(), document.querySelector('.home-history-trigger')?.getBoundingClientRect())) return 'history covers send';
+    return '';
+  });
+  expect(problem, label).toBe('');
+}
+
+test('explore controls stay clear of the title through the answer states', async ({ page }) => {
+  await page.route('**/api/compose', route => route.fulfill({ json: { configured: false } }));
+  await page.route('**/api/intent', route => route.fulfill({ status: 503, json: {} }));
+  for (const [width, height] of [[1280, 800], [375, 812]] as const) {
+    await page.setViewportSize({ width, height });
+    await page.goto('/');
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await exploreGeometry(page, `${width} idle`);
+    const input = page.getByRole('textbox', { name: 'Explore', exact: true });
+    await input.fill('Compare California and Washington');
+    await exploreGeometry(page, `${width} typing`);
+    await input.press('Escape');
+    await input.press('Enter');
+    await expect(page.getByRole('heading', { name: 'Government comparison', exact: true })).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await exploreGeometry(page, `${width} answered`);
+    await expect(page.locator('.home-submit')).toHaveClass(/is-quiet/);
+    await page.locator('.canvas-sources summary').first().click();
+    await exploreGeometry(page, `${width} sources`);
+    await input.fill('How can I contact Isaac?');
+    await expect(page.locator('.home-submit')).not.toHaveClass(/is-quiet/);
+    await exploreGeometry(page, `${width} follow-up`);
+    await input.press('Enter');
+    await expect(page.getByRole('region', { name: 'Contact' })).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(input).toHaveValue('How can I contact Isaac?');
+    await exploreGeometry(page, `${width} second`);
+    await page.getByRole('button', { name: /History/ }).click();
+    await expect(page.getByRole('menu', { name: 'History' })).toBeVisible();
+    await exploreGeometry(page, `${width} history`);
+    await expect(page.getByRole('menuitem', { name: 'How can I contact Isaac?' })).toBeFocused();
+    await page.keyboard.press('ArrowDown');
+    await expect(page.getByRole('menuitem', { name: 'Compare California and Washington' })).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('menu', { name: 'History' })).toHaveCount(0);
+  }
+});
+
+test('loading, stopped, and error states stay below the header', async ({ page }) => {
+  for (const [width, height] of [[1280, 800], [375, 812]] as const) {
+    await page.setViewportSize({ width, height });
+    await page.unrouteAll({ behavior: 'ignoreErrors' });
+    let release = () => {};
+    const gate = new Promise<void>(resolve => { release = resolve; });
+    await page.route('**/api/compose', async route => {
+      if (route.request().method() === 'GET') { await route.fulfill({ json: { configured: true } }); return; }
+      await gate;
+      if (!route.request().isNavigationRequest()) await route.fulfill({ status: 500, json: {} }).catch(() => {});
+    });
+    await page.route('**/api/intent', async route => { await gate; await route.fulfill({ status: 503, json: {} }).catch(() => {}); });
+    await page.goto('/');
+    const input = page.getByRole('textbox', { name: 'Explore', exact: true });
+    await input.fill('How did Isaac research AI in government?');
+    await input.press('Escape');
+    const pending = input.press('Enter');
+    await expect(page.getByRole('button', { name: 'Stop updating this view' })).toBeVisible();
+    await exploreGeometry(page, `${width} loading`);
+    await page.getByRole('button', { name: 'Stop updating this view' }).click();
+    await expect(page.getByRole('button', { name: 'Retry' })).toBeVisible();
+    await exploreGeometry(page, `${width} stopped`);
+    release();
+    await pending.catch(() => {});
+    await page.unrouteAll({ behavior: 'ignoreErrors' });
+    await page.route('**/api/compose', async route => {
+      if (route.request().method() === 'GET') { await route.fulfill({ json: { configured: true } }); return; }
+      await route.fulfill({ status: 500, json: {} });
+    });
+    await page.route('**/api/intent', route => route.fulfill({ status: 503, json: {} }));
+    await input.fill('Who is Isaac?');
+    await input.press('Enter');
+    await expect(page.getByRole('button', { name: 'Retry' })).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await exploreGeometry(page, `${width} error`);
+  }
 });
 
 test('a work row swaps the anchored preview without moving the index',async({page})=>{

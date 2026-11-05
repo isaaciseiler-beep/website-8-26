@@ -57,33 +57,31 @@ function PreviewChip({ to, children, detail, image }: { to: string; children: Re
 
 function WorkAreas() {
   const [open, setOpen] = useState(false);
-  const root = useRef<HTMLSpanElement>(null);
-  useLayoutEffect(() => {
-    if (!open || !root.current) return;
-    const list = root.current.querySelector<HTMLElement>('.about-area-list');
-    const button = root.current.querySelector('button');
-    if (!list || !button) return;
-    const rect = button.getBoundingClientRect();
-    const width = list.offsetWidth || 220;
-    list.style.left = `${Math.max(12, Math.min(rect.left, window.innerWidth - width - 12))}px`;
-    list.style.top = `${rect.bottom + 8}px`;
-  }, [open]);
+  const button = useRef<HTMLButtonElement>(null);
+  const toggle = () => {
+    const control = button.current;
+    const paragraph = control?.closest('.about-display') as HTMLElement | null;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fromHeight = paragraph?.getBoundingClientRect().height ?? 0;
+    setOpen(value => !value);
+    if (reduce || !paragraph) return;
+    requestAnimationFrame(() => {
+      const toHeight = paragraph.getBoundingClientRect().height;
+      if (Math.abs(toHeight - fromHeight) > 1) paragraph.animate([{ height: `${fromHeight}px` }, { height: `${toHeight}px` }], { duration: 280, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' });
+    });
+  };
   useEffect(() => {
     if (!open) return;
-    const close = (event: PointerEvent) => { if (!root.current?.contains(event.target as Node)) setOpen(false); };
     const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setOpen(false); };
-    document.addEventListener('pointerdown', close);
     document.addEventListener('keydown', onKey);
-    return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', onKey); };
+    return () => document.removeEventListener('keydown', onKey);
   }, [open]);
-  return <span ref={root} className={`about-area${open ? ' is-open' : ''}`}>
-    <button type="button" className="about-pill about-cycle" aria-expanded={open} aria-controls="about-area-list" onClick={() => setOpen(value => !value)} onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); setOpen(false); } }}>
-      <span className="about-cycle-value">AI</span>
-      <span className="about-cycle-caret" aria-hidden="true">+5 ▾</span>
+  return <span className={`about-area${open ? ' is-open' : ''}`}>
+    <button ref={button} type="button" className={`about-pill about-cycle${open ? ' is-open' : ''}`} aria-expanded={open} onClick={toggle}>
+      <span className="about-cycle-value" id={open ? 'about-area-list' : undefined}>{open ? `${AREA_PHRASE}.` : 'AI'}</span>
+      {open ? null : <span className="about-cycle-caret" aria-hidden="true">▾</span>}
     </button>
-    <span id="about-area-list" className="about-area-list" role="region" aria-label="Areas of work" hidden={!open}>
-      <ul>{AREAS.map(area => <li key={area}>{area}</li>)}</ul>
-    </span>
+    {open ? null : '.'}
   </span>;
 }
 
@@ -96,7 +94,7 @@ function DisplayParagraph() {
           return <PreviewChip key={index} to="/?album=washington-state" image={seattleCover} detail="Washington"><MapPin className="about-pill-mark" size={14} strokeWidth={1.75} aria-hidden="true" />{part}</PreviewChip>;
         }
         if (part.endsWith('across ') && parts[index + 1] === AREA_PHRASE) {
-          return <span key={index}>{part.slice(0, -'across '.length)}across <span className="about-cycle-keep"><WorkAreas />.</span> </span>;
+          return <span key={index}>{part.slice(0, -'across '.length)}across <span className="about-cycle-keep"><WorkAreas /></span> </span>;
         }
         if (part === AREA_PHRASE) return null;
         if (part.startsWith('. ')) return <span className="about-after" key={index}>{part.slice(2)}</span>;
@@ -132,7 +130,7 @@ export default function AboutPage() {
       >
         <article className="about-article mx-auto">
           <h1 className="mb-8 text-3xl font-medium tracking-tight">About</h1>
-          <p id="about-cycle-hint" className="sr-only">Some phrases are links. The areas button opens the full list: AI, public policy, education, research, journalism, and communications.</p>
+          <p id="about-cycle-hint" className="sr-only">Some phrases are links. The areas button expands to AI, public policy, education, research, journalism, and communications.</p>
           <DisplayParagraph />
           <div className="about-body">
             <p>Previously, Isaac helped build a <PreviewChip to="/projects/congressional-office-setup-100-day-report" detail={`${roleFor('congressional-office-setup-100-day-report')?.role ?? 'Communications'} · ${roleFor('congressional-office-setup-100-day-report')?.period ?? ''}`}>congressional office</PreviewChip> and managed communications for a Member of Congress, led AI literacy work with educators in <PreviewChip to="/projects/fulbright-focus-group-sponsored-by-openai" image={projectImage('fulbright-focus-group-sponsored-by-openai')} detail={`${roleFor('fulbright-focus-group-sponsored-by-openai')?.organization ?? 'Fulbright Taiwan'} · ${roleFor('fulbright-focus-group-sponsored-by-openai')?.period ?? ''}`}>Taiwan</PreviewChip> with support from OpenAI, and researched how AI and digital platforms affect <Link className="site-link" to="/projects/senior-thesis-local-journalism">journalism</Link>.</p>
