@@ -489,7 +489,7 @@
 .home-skeleton.is-lines{min-height:120px;}
 .home-genui-stage.is-settled .canvas-modules{opacity:.48;transition:opacity var(--explore-follow) var(--explore-ease);}
 .home-genui-stage.is-arriving .canvas-module,.home-genui-stage.is-morphing .canvas-module{animation:explore-in var(--explore-answer) var(--explore-ease) both;}
-.home-genui-stage.is-morphing{transition:min-height var(--explore-answer) var(--explore-ease);}
+.home-genui-stage.is-morphing{overflow-anchor:none;transition:none;}
 .home-genui-stage.is-arriving .canvas-module:nth-child(2){animation-delay:var(--explore-stagger);}
 .home-genui-stage.is-arriving .canvas-module:nth-child(3){animation-delay:calc(var(--explore-stagger) * 2);}
 @keyframes explore-in{from{opacity:0;}to{opacity:1;}}
@@ -638,5 +638,9 @@
   .home-genui .portfolio-tabs[data-scrolled="true"][data-end="true"]{mask-image:linear-gradient(to right,transparent,#000 40px);}
 }
 
+.home-genui{--answer-echo-size:20px;--answer-echo-line:28px;--answer-title-size:clamp(28px,1.4vw + 22px,36px);--answer-title-line:1.15;--answer-lead-size:clamp(20px,.35vw + 18px,24px);--answer-lead-line:1.45;}
+.home-genui-window.has-results .home-genui-stage{margin-top:var(--space-l);}
 .home-genui-window.has-results .home-question-measure,
-.home-genui-window.has-results .home-genui-composer .home-query-field>textarea{font-size:var(--size-l);line-height:var(--line-l);font-weight:var(--weight-medium);color:hsl(var(--foreground));}
+.home-genui-window.has-results .home-genui-composer .home-query-field>textarea{font-size:var(--answer-echo-size);line-height:var(--answer-echo-line);font-weight:var(--weight-regular);color:hsl(var(--foreground) / .78);}
+.home-genui-stage h2,.home-genui .portfolio-project-heading>.portfolio-project-title{font-size:var(--answer-title-size);line-height:var(--answer-title-line);}
+.home-genui-stage .portfolio-deck,.home-genui .portfolio-workbench-reader>.portfolio-direct-answer,.home-genui-stage .portfolio-answer{font-size:var(--answer-lead-size);line-height:var(--answer-lead-line);font-weight:var(--weight-regular);}

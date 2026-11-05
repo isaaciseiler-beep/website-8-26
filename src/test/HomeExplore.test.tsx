@@ -209,7 +209,7 @@ describe("homepage generative interface", () => {
     expect(drafts.at(-1)).toBe('How can I contact Isaac?');
   });
 
-  it('retains the progress slot when an authored preview finishes and avoids a full loading spinner over content',async()=>{
+  it('removes the progress slot once an authored preview has nothing left to announce',async()=>{
     let deliver:(value:unknown)=>void=()=>{};
     vi.stubGlobal('fetch',vi.fn(async(_url:string,options?:RequestInit)=>{
       if(!options?.body)return success({configured:false});
@@ -223,8 +223,7 @@ describe("homepage generative interface", () => {
     expect(slot).not.toBeNull();
     expect(document.querySelector('.home-submit-spinner')).toBeNull();
     await act(async()=>{deliver(success({plan:localPlan('Taiwan teaching',initialPlan(),[],2),needsComposition:false}));});
-    expect(document.querySelector('.home-request-state')).toBe(slot);
-    expect(slot).toBeEmptyDOMElement();
+    expect(document.querySelector('.home-request-state')).toBeNull();
     expect(screen.queryByRole('button',{name:'Stop updating this view'})).not.toBeInTheDocument();
   });
 

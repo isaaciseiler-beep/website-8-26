@@ -261,7 +261,7 @@ for(const reducedMotion of ['no-preference','reduce'] as const){
     await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBe(160);
     expect(await input.evaluate((element:HTMLTextAreaElement)=>element.scrollHeight>element.clientHeight)).toBe(true);
     await input.fill('Taiwan');await input.press('Escape');
-    await expect.poll(async()=>Math.round((await input.boundingBox())!.height)).toBe(48);
+    await expect.poll(async()=>Math.abs(Math.round((await input.boundingBox())!.height)-Math.round(await page.locator('.home-question-measure').evaluate(el=>el.getBoundingClientRect().height)))).toBeLessThan(1);
   });
 }
 
@@ -758,7 +758,9 @@ test('a slow answer names real phases, then Stop and a provider error can be ret
   const top=(await page.locator('.home-genui-stage').boundingBox())!.y;
   release();
   await expect(page.getByRole('button',{name:'Stop updating this view'})).toHaveCount(0);
-  await expect.poll(async()=>Math.abs((await page.locator('.home-genui-stage').boundingBox())!.y-top)).toBeLessThan(2);
+  // The finished answer drops the progress row. The stage moves up by that row and then stays.
+  await expect(page.locator('.home-request-state')).toHaveCount(0);
+  await expect.poll(async()=>Math.abs((await page.locator('.home-genui-stage').boundingBox())!.y-(top-44))).toBeLessThan(8);
 });
 
 test('Stop and a failed answer keep the question and offer retry',async({page})=>{
@@ -866,6 +868,40 @@ test('a matched follow-up keeps the previous answer settled until the next one a
   await expect(page.getByRole('link',{name:'Email'})).toBeVisible();
 });
 
+test('the layout review harness does not render in the production build',async({page})=>{
+  await page.goto('/?layouts');
+  await expect(page.getByRole('textbox',{name:'Explore',exact:true})).toBeVisible();
+  await expect(page.getByText('Layout review')).toHaveCount(0);
+  await expect(page.locator('#layout-review')).toHaveCount(0);
+});
+
+test('a phone answer title lands below the header and back, forward, and reload keep that place',async({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.route('**/api/compose',route=>route.fulfill({json:{configured:false}}));
+  await page.route('**/api/intent',route=>route.fulfill({status:503,json:{}}));
+  await page.goto('/');
+  const input=page.getByRole('textbox',{name:'Explore',exact:true});
+  await input.fill('How did Isaac research AI in government?');
+  await input.press('Escape');await input.press('Enter');
+  const title=page.getByRole('heading',{name:'AI in state government'});
+  await expect(title).toBeVisible();
+  await expect.poll(async()=>Math.abs((await title.boundingBox())!.y-80)).toBeLessThan(16);
+  await input.fill('Who is Isaac?');await input.press('Escape');
+  await page.evaluate(()=>window.scrollTo(0,640));
+  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(500);
+  const kept=await page.evaluate(()=>scrollY);
+  await input.evaluate(el=>el.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true})));
+  await expect(page.getByRole('region',{name:'Role explorer'})).toBeVisible();
+  await page.goBack();
+  await expect(input).toHaveValue('How did Isaac research AI in government?');
+  await expect(title).toBeVisible();
+  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(kept-80);
+  await page.reload();
+  await expect(input).toHaveValue('How did Isaac research AI in government?');
+  await expect(title).toBeVisible();
+  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(kept-80);
+});
+
 test('a different model composition replaces the preview without a layout jump',async({page})=>{
   let release:()=>void=()=>{};
   const gate=new Promise<void>(resolve=>{release=resolve;});
@@ -893,9 +929,17 @@ test('a different model composition replaces the preview without a layout jump',
   release();
   await watch;
   const early:number[]=[];
+  const tops:{title:number|null;block:number|null}[]=[];
   const started=Date.now();
   while(Date.now()-started<150){
-    early.push(await stage.evaluate(el=>el.getBoundingClientRect().height));
+    const frame=await page.evaluate(()=>{
+      const stageNode=document.querySelector('.home-genui-stage');
+      const heading=[...stageNode?.querySelectorAll('h2, h3')??[]].find(el=>el.getBoundingClientRect().height>8&&!el.classList.contains('sr-only'));
+      const block=stageNode?.querySelector('section');
+      return {height:stageNode?.getBoundingClientRect().height??0,title:heading?heading.getBoundingClientRect().top:null,block:block?block.getBoundingClientRect().top:null};
+    });
+    early.push(frame.height);
+    tops.push({title:frame.title,block:frame.block});
   }
   await expect(page.getByRole('link',{name:'Email'})).toBeVisible();
   const after=await stage.evaluate(el=>{
@@ -905,6 +949,10 @@ test('a different model composition replaces the preview without a layout jump',
   });
   expect(Math.abs(after-before.gap)).toBeLessThan(2);
   expect(Math.max(...early.map(height=>before.height-height),0)).toBeLessThan(8);
+  const titleTops=tops.map(frame=>frame.title).filter((top):top is number=>top!=null);
+  const blockTops=tops.map(frame=>frame.block).filter((top):top is number=>top!=null);
+  if(titleTops.length>1)expect(Math.max(...titleTops)-Math.min(...titleTops)).toBeLessThan(2);
+  if(blockTops.length>1)expect(Math.max(...blockTops)-Math.min(...blockTops)).toBeLessThan(4);
 });
 
 test('a provider failure keeps the question and offers retry',async({page})=>{

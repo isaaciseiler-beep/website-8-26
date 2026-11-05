@@ -51,9 +51,9 @@ for(const width of [320,375,390,768,1024,1280])test(`stationary composer, readab
   // One frame: the window is still widening, so separate bounding boxes drift apart.
   const align=await page.evaluate(()=>{
     const field=document.querySelector('#home-explore')!.getBoundingClientRect();
-    const status=document.querySelector('.home-request-state')!.getBoundingClientRect();
+    const status=document.querySelector('.home-request-state')?.getBoundingClientRect();
     const send=[...document.querySelectorAll('button')].find(button=>button.getAttribute('aria-label')==='Explore')!.getBoundingClientRect();
-    return {dx:Math.abs(field.x-status.x),dy:Math.abs(send.bottom-field.bottom),width:field.width};
+    return {dx:status?Math.abs(field.x-status.x):0,dy:Math.abs(send.bottom-field.bottom),width:field.width};
   });
   expect(align.dx).toBeLessThan(2);
   expect(align.dy).toBeLessThan(6);

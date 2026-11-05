@@ -28,6 +28,12 @@ import { beginExplorationMetric } from '@/lib/explorationMetrics';
 import { analyzePortfolioRequest } from '@/lib/portfolioRequestAnalysis';
 
 const reviewMode=import.meta.env.DEV&&new URLSearchParams(window.location.search).has('layouts');
+const exploreScrollKey=()=>`${window.location.pathname}${window.location.search}${window.location.hash}`;
+function readExploreScroll(){
+  try{const saved=JSON.parse(sessionStorage.getItem('explore-scroll')??'');if(saved?.key===exploreScrollKey()&&typeof saved.y==='number')return saved.y;}catch{/* A missing position simply opens at the top. */}
+  return null;
+}
+function writeExploreScroll(y:number){try{sessionStorage.setItem('explore-scroll',JSON.stringify({key:exploreScrollKey(),y}));}catch{/* Private mode can reject storage; the history entry still carries the position. */}}
 const layouts=new Set(['overview','work','detail','comparison','photos','mixed','architecture','contact','timeline','writing','empty']);
 function validIntentPlan(plan:Plan,revision:number):boolean {
   return Boolean(plan&&plan.revision===revision&&plan.contentVersion===CONTENT_VERSION&&layouts.has(plan.layout)&&['local','jev'].includes(plan.source)&&Array.isArray(plan.projectIds)&&plan.projectIds.length<=10&&plan.projectIds.every(id=>publicProjects.some(p=>p.id===id))&&Array.isArray(plan.albumIds)&&plan.albumIds.length<=16&&plan.albumIds.every(id=>albums.some(a=>a.folder===id)));
@@ -138,11 +144,18 @@ export default function HomeExplore() {
   const [requestNotice,setRequestNotice]=useState('');
   const followUpBase=useRef<View|null>(null);
   const stoppedDraft=useRef('');
+  const userScrolledDuringWait=useRef(false);
+  const placedQuery=useRef('');
+  const placingAnswer=useRef(false);
+  const pendingScroll=useRef<number|null>(null);
+  const restoredScroll=useRef(false);
   useEffect(()=>{
     setWaiting(false);
     if(!busy)return;
+    const onScroll=()=>{if(!placingAnswer.current)userScrolledDuringWait.current=true;};
+    window.addEventListener('scroll',onScroll,{passive:true});
     const timer=window.setTimeout(()=>setWaiting(true),3000);
-    return()=>window.clearTimeout(timer);
+    return()=>{window.removeEventListener('scroll',onScroll);window.clearTimeout(timer);};
   },[busy]);
   useEffect(()=>{
     if(!view)return;
@@ -155,15 +168,21 @@ export default function HomeExplore() {
     const node=resultsRef.current;
     if(!node)return;
     node.style.minHeight=`${morphHold}px`;
-    const styles=getComputedStyle(node);
-    const pad=(parseFloat(styles.paddingTop)||0)+(parseFloat(styles.paddingBottom)||0);
-    const gap=parseFloat(styles.rowGap)||parseFloat(styles.gap)||0;
-    const content=[...node.children].reduce((sum,child)=>sum+(child as HTMLElement).getBoundingClientRect().height,0);
-    const target=Math.ceil(content+pad+gap*Math.max(0,node.childElementCount-1));
     const hold=reduceMotion?0:EXPLORE_MS.answer;
-    const release=window.setTimeout(()=>{node.style.minHeight=`${target}px`;},hold);
-    const done=window.setTimeout(()=>{node.style.minHeight='';setMorphHold(null);},hold+hold+40);
-    return()=>{window.clearTimeout(release);window.clearTimeout(done);};
+    // Drop the extra height in one frame and pin the scroll position, so the
+    // title stays put and only the space below the answer changes.
+    const done=window.setTimeout(()=>{
+      const title=node.querySelector('h2, h3');
+      const before=title?.getBoundingClientRect().top;
+      const scroll=window.scrollY;
+      node.style.minHeight='';
+      if(before!=null&&title){
+        const drift=title.getBoundingClientRect().top-before;
+        if(Math.abs(drift)>.5)window.scrollBy(0,drift);
+      }else if(window.scrollY!==scroll)window.scrollTo({top:scroll,behavior:'instant' as ScrollBehavior});
+      setMorphHold(null);
+    },hold);
+    return()=>{window.clearTimeout(done);};
   },[morphHold,view,reduceMotion]);
   // Enter commits the question; subsequent typing starts a fresh follow-up.
   // Keep the native element mounted and allow deliberate caret edits afterward.
@@ -232,7 +251,46 @@ export default function HomeExplore() {
     const node=composerRef.current;
     if(node&&node.getBoundingClientRect().top<48)node.scrollIntoView({block:'start',behavior:reduceMotion?'auto':'smooth'});
   };
-  useEffect(()=>{if(reviewMode){const prompt=AI_LAYOUTS.find(l=>l.id==='benchmark-compare')!.prompt;setQuery(prompt);update({query:prompt,plan:resolveCanvasPlan(prompt,initialPlan(),0),composition:presetComposition('benchmark-compare'),generation:{status:'authored'}});}},[update]);
+  const placeAnswer=()=>{
+    if(userScrolledDuringWait.current||window.innerWidth>767)return;
+    const title=resultsRef.current?.querySelector('h2:not(.sr-only), h3');
+    if(!title)return;
+    const delta=title.getBoundingClientRect().top-80;
+    if(Math.abs(delta)<12)return;
+    placingAnswer.current=true;
+    window.scrollTo({top:Math.max(0,window.scrollY+delta),behavior:reduceMotion?'auto':'smooth'});
+    window.setTimeout(()=>{placingAnswer.current=false;},reduceMotion?0:700);
+  };
+  useLayoutEffect(()=>{
+    if(pendingScroll.current==null||!view)return;
+    const top=pendingScroll.current;
+    pendingScroll.current=null;
+    restoredScroll.current=true;
+    window.scrollTo({top,behavior:'instant' as ScrollBehavior});
+  },[view]);
+  useEffect(()=>{
+    if(!view||busy||placedQuery.current===view.query)return;
+    placedQuery.current=view.query;
+    if(restoredScroll.current){restoredScroll.current=false;return;}
+    if(userScrolledDuringWait.current)return;
+    placeAnswer();
+  },[view,busy]);
+  useEffect(()=>{
+    if(!view)return;
+    let frame=0;
+    const save=()=>{
+      cancelAnimationFrame(frame);
+      frame=requestAnimationFrame(()=>{
+        const state=window.history.state??{};
+        if(state.exploreScroll===window.scrollY)return;
+        window.history.replaceState({...state,exploreScroll:window.scrollY},'',window.location.href);
+        writeExploreScroll(window.scrollY);
+      });
+    };
+    window.addEventListener('scroll',save,{passive:true});
+    return()=>{cancelAnimationFrame(frame);window.removeEventListener('scroll',save);};
+  },[view]);
+  useEffect(()=>{if(!import.meta.env.DEV||!reviewMode)return;const prompt=AI_LAYOUTS.find(l=>l.id==='benchmark-compare')!.prompt;setQuery(prompt);update({query:prompt,plan:resolveCanvasPlan(prompt,initialPlan(),0),composition:presetComposition('benchmark-compare'),generation:{status:'authored'}});},[update]);
   useEffect(()=>{
     let wasShared=false;
     const restore=(event?:Event)=>{
@@ -246,6 +304,8 @@ export default function HomeExplore() {
       cancel();setGuidance(null);setHistory([]);setFuture([]);
       try {
         const saved=decodeView(encoded);const title=new URLSearchParams(window.location.search).get('q')?.slice(0,500)||viewTitle(saved);setQuery(title);setLinkError('');
+        const stored=window.history.state?.exploreScroll;
+        pendingScroll.current=typeof stored==='number'?stored:readExploreScroll();
         update({query:title,plan:viewPlan(saved,revision.current),composition:saved.composition,generation:{status:'authored'}});
       } catch {update(null);setQuery('');setLinkError('This shared view is unavailable. You can start a new exploration.');}
     };
@@ -274,9 +334,10 @@ export default function HomeExplore() {
     url.searchParams.delete('q');url.hash='';
     if(next){url.searchParams.set('q',next.query);url.hash=new URL(viewUrl(createPortableView(next.composition),window.location.origin)).hash;}
     browserUrl.current=url.href;
-    const state=window.history.state??{};
+    const state={...(window.history.state??{}),exploreScroll:window.scrollY};
     if(replace)window.history.replaceState(state,'',url);
     else window.history.pushState({...state,idx:(state.idx??0)+1},'',url);
+    writeExploreScroll(window.scrollY);
   };
   const publishQuestion=(text:string)=>{
     const url=new URL(window.location.href);
@@ -309,15 +370,16 @@ export default function HomeExplore() {
     const nextGuidance=explorationGuidance(text);
     if(nextGuidance){setGuidance(nextGuidance);update(null);setBusy(false);return;}
 
-    const abort=new AbortController();controller.current=abort;pendingQuery.current=text;pendingPrevious.current=context;setBusy(true);setPendingLayout(fallback.layout);setPhase('finding');
+    const abort=new AbortController();controller.current=abort;pendingQuery.current=text;pendingPrevious.current=context;userScrolledDuringWait.current=false;setBusy(true);setPendingLayout(fallback.layout);setPhase('finding');
     const simpleRefinement=Boolean(context&&isLocalCompositionRefinement(text,context.composition));
     const live=()=>!abort.signal.aborted&&revision.current===rev;
     let next:View={plan:fallback,composition:composeLocal(text,fallback,context?.composition),query:text,generation:{status:'authored'}};
     const compositionSignature=(composition:Composition)=>composition.blocks.map(block=>[block.kind,block.layout??'',block.projectIds.join(','),block.focus??'',block.section,block.answerId??'',block.connectionId??''].join(':')).join('|');
     const commitView=(incoming:View)=>{
       const previous=current.current;
-      if(previous&&resultsRef.current&&compositionSignature(previous.composition)!==compositionSignature(incoming.composition))setMorphHold(resultsRef.current.getBoundingClientRect().height);
-      followUpBase.current=null;setSettled(false);update(incoming);if(context){const node=resultsRef.current;if(node)node.scrollIntoView({block:'nearest',behavior:reduceMotion?'auto':'smooth'});}
+      const swapped=Boolean(previous&&compositionSignature(previous.composition)!==compositionSignature(incoming.composition));
+      if(swapped&&resultsRef.current)setMorphHold(resultsRef.current.getBoundingClientRect().height);
+      followUpBase.current=null;setSettled(false);update(incoming);
     };
     if(simpleRefinement){if(fallback.layout!=='empty')commitView(next);setBusy(false);setPhase('idle');return;}
     if(context){followUpBase.current=context;setSettled(true);}
@@ -369,7 +431,7 @@ export default function HomeExplore() {
     cancel();setCleared(null);setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);
     setQuery('How to explore');setGuidance('help');update(null);setHeldExpanded(true);revealStart();
   };
-  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;setCleared(null);pendingReadingState.current=null;if(/^(?:how (?:to explore|does this (?:work|site work))|help(?: me (?:explore|get started))?)\??$/i.test(text.trim())){showHelp();return;}const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
+  const submit=(text:string)=>{if(composing||!text.trim()||(busy&&pendingQuery.current===text.trim()))return;setCleared(null);pendingReadingState.current=null;if(current.current){const state={...(window.history.state??{}),exploreScroll:window.scrollY};window.history.replaceState(state,'',window.location.href);writeExploreScroll(window.scrollY);}if(/^(?:how (?:to explore|does this (?:work|site work))|help(?: me (?:explore|get started))?)\??$/i.test(text.trim())){showHelp();return;}const rev=cancel();setLinkError('');setImmediateDismiss(true);setAutocompleteOpen(false);setQuery(text.trim());void resolve(text.trim(),rev,true);};
   const navigateHistory=(direction:'back'|'forward')=>{
     if(direction==='back'?!history.length:!future.length)return;
     if(resultsRef.current?.contains(document.activeElement))pendingResultFocus.current={kind:'heading'};
@@ -446,12 +508,12 @@ export default function HomeExplore() {
       <motion.div className="home-window-depth" aria-hidden="true" initial={false} animate={{opacity:recessActive ? .18 : 0}} transition={{duration:reduceMotion?0:.3,ease:[.22,1,.36,1]}}/>
 
 
-      {reviewMode&&<div className="canvas-review"><label htmlFor="layout-review">Layout review · {AI_LAYOUTS.length} authored views</label><select id="layout-review" value={reviewLayout} onChange={e=>{const id=e.target.value as LayoutId;setReviewLayout(id);cancel();const recipe=AI_LAYOUTS.find(l=>l.id===id)!;setQuery(recipe.prompt);update({query:recipe.prompt,plan:resolveCanvasPlan(recipe.prompt,initialPlan(),revision.current),composition:presetComposition(id),generation:{status:'authored'}});}}>{AI_LAYOUTS.map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></div>}<div ref={composerRef} className="home-genui-composer">
+      {import.meta.env.DEV&&reviewMode?<div className="canvas-review"><label htmlFor="layout-review">Layout review · {AI_LAYOUTS.length} authored views</label><select id="layout-review" value={reviewLayout} onChange={e=>{const id=e.target.value as LayoutId;setReviewLayout(id);cancel();const recipe=AI_LAYOUTS.find(l=>l.id===id)!;setQuery(recipe.prompt);update({query:recipe.prompt,plan:resolveCanvasPlan(recipe.prompt,initialPlan(),revision.current),composition:presetComposition(id),generation:{status:'authored'}});}}>{AI_LAYOUTS.map(l=><option key={l.id} value={l.id}>{l.name}</option>)}</select></div>:null}<div ref={composerRef} className="home-genui-composer">
 
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
         <ExperienceAutocomplete context={suggestionContext} inputRef={input} committedValue={committedQuery} quietFocus={quietFocus} onEscape={view||guidance||busy?clear:undefined} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{setCleared(null);cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
         {(query.trim()||view||guidance)&&<>{!(narrow&&(view||guidance))&&<button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration" title="Clear exploration"><X size={16}/></button>}<button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" title="Explore" aria-busy={busy}>{busy&&!view?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
-      </form>{(busy||phase!=='idle'||view||guidance||requestNotice)&&<div className="home-request-reveal"><div className="home-request-state" data-phase={phase}>{progressText&&<span className="home-phase">{(phase==='finding'||phase==='layout')&&<span className="home-phase-marks" aria-hidden="true">{(['finding','layout'] as const).map(step=><i key={step} data-state={phaseMark(phase,step)} />)}</span>}{progressText}</span>}{busy&&<button type="button" className="home-quiet-action" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button>}{(phase==='stopped'||phase==='error')&&<button type="button" className="home-quiet-action" onClick={retryExploration}>Retry</button>}</div></div>}</div>
+      </form>{(Boolean(progressText)||busy||phase==='stopped'||phase==='error')&&<div className="home-request-reveal"><div className="home-request-state" data-phase={phase}>{progressText&&<span className="home-phase">{(phase==='finding'||phase==='layout')&&<span className="home-phase-marks" aria-hidden="true">{(['finding','layout'] as const).map(step=><i key={step} data-state={phaseMark(phase,step)} />)}</span>}{progressText}</span>}{busy&&<button type="button" className="home-quiet-action" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button>}{(phase==='stopped'||phase==='error')&&<button type="button" className="home-quiet-action" onClick={retryExploration}>Retry</button>}</div></div>}</div>
       {showSkeleton&&<div className="home-pending-view" aria-label="Preparing exploration"><AnswerSkeleton layout={pendingLayout}/>{waiting&&<div className="home-pending-alternatives"><p>You can explore a starting point while this view is prepared.</p><button type="button" onClick={()=>submit('Explore all projects')}>Browse work<ArrowRight size={14} aria-hidden="true"/></button><button type="button" onClick={showHelp}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div>}</div>}
       {!view&&!heldExpanded&&!guidance&&!autocompleteOpen&&!busy&&<div className="home-idle-actions">
         {cleared ? <button className="home-start-example" type="button" onClick={()=>{cancel();pendingReadingState.current=cleared.view?.readingState??cleared.readingState??null;setQuery(cleared.query);setHistory(cleared.history);setFuture(cleared.future);setGuidance(cleared.guidance);update(cleared.view);setCleared(null);input.current?.focus({preventScroll:true});}}>Undo clear</button> : <div className="home-genui-preview"><button type="button" className="home-preview-trigger" onClick={showHelp}>How to explore</button></div>}
