@@ -73,9 +73,11 @@ function WorkAreas() {
   }, [index]);
   const words = AREAS.map((label, areaIndex) => {
     const lead = areaIndex === 0 ? '' : areaIndex === AREAS.length - 1 ? ' and ' : ' ';
-    const text = `${label}${areaIndex === AREAS.length - 1 ? '' : ','}`;
-    if (areaIndex !== index) return <span key={label}>{lead}{text}</span>;
-    return <span key={label}>{lead}<button ref={buttonRef} type="button" className="about-pill about-cycle" aria-label={`${label}. Show next`} onClick={event => { if (!event.shiftKey) move(1); }} onKeyDown={event => { if (event.shiftKey && event.key === 'Enter') { event.preventDefault(); move(-1); } }}>{text}</button></span>;
+    const text = areaIndex === AREAS.length - 1 ? `${label}.` : `${label},`;
+    const word = areaIndex === index
+      ? <button ref={buttonRef} type="button" className="about-pill about-cycle about-word" aria-label={`${label}. Show next`} onClick={event => { if (!event.shiftKey) move(1); }} onKeyDown={event => { if (event.shiftKey && event.key === 'Enter') { event.preventDefault(); move(-1); } }}>{text}</button>
+      : <span className="about-word">{text}</span>;
+    return <span key={label}>{lead}<span className="about-cycle-stack"><span className="about-cycle-sizer about-word" aria-hidden="true">{text}</span>{word}</span></span>;
   });
   return <><span className="sr-only" aria-live="polite">{announcement}</span>{words}</>;
 }
@@ -89,6 +91,7 @@ function DisplayParagraph() {
           return <PreviewChip key={index} to="/?album=washington-state" image={seattleCover} detail="Washington"><MapPin className="about-pill-mark" size={14} strokeWidth={1.75} aria-hidden="true" />{part}</PreviewChip>;
         }
         if (part === AREA_PHRASE) return <WorkAreas key={index} />;
+        if (part.startsWith('. ')) return <span className="about-after" key={index}>{part.slice(1)}</span>;
         if (part === 'Summation') return <PreviewChip key={index} to="/work" detail={`${roleFor('summation-ai')?.role ?? 'Marketing and communications'} · ${roleFor('summation-ai')?.period ?? ''} · ${publishedCount} projects`}>{part}</PreviewChip>;
         if (part === 'enterprise,') {
           const role = roleFor('boehringer-cares-foundation-rebrand-strategy-shift');

@@ -37,6 +37,12 @@ const shuffleArray = <T,>(arr: T[]) => {
 const shuffledAlbums = shuffleArray(albums);
 const shuffledPhotos = new Map(albums.map(album => [album.folder, shuffleArray(albumPhotos(album))]));
 
+function albumGround(location: string) {
+  let hue = 0;
+  for (const char of location) hue = (hue * 33 + char.charCodeAt(0)) % 360;
+  return `hsl(${hue} 32% 38%)`;
+}
+
 const AlbumCover = ({ album }: { album: Album }) => {
   const [hovering, setHovering] = useState(false);
   const [flashIdx, setFlashIdx] = useState(-1);
@@ -73,6 +79,11 @@ const AlbumCover = ({ album }: { album: Album }) => {
   }, [hovering, reduced, visible, photoCount]);
 
   const cover = coverFor(album);
+  const coverRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const image = coverRef.current;
+    if (image?.complete && image.naturalWidth > 0) setCoverReady(true);
+  }, [cover]);
   const uniqueSrcs = [...new Set([cover, ...readyHoverPhotos])];
   const activeImage = !reduced && visible && hovering && flashIdx >= 0 ? readyHoverPhotos[flashIdx] ?? cover : cover;
   const prepareAlbum = () => {
@@ -85,6 +96,7 @@ const AlbumCover = ({ album }: { album: Album }) => {
       state={{ fromGallery: true }}
       aria-label={`Open ${album.location} album`}
       className="photo-tile relative cursor-pointer overflow-hidden group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+      style={{ background: albumGround(album.location) }}
       onPointerEnter={event => { if (event.pointerType !== "touch") { setHovering(true); prepareAlbum(); } }}
       onFocus={() => { setHovering(true); prepareAlbum(); }}
       onBlur={() => setHovering(false)}
@@ -95,6 +107,7 @@ const AlbumCover = ({ album }: { album: Album }) => {
         {uniqueSrcs.map((src) => (
           <img
             key={src}
+            ref={src === cover ? coverRef : undefined}
             src={src}
             data-primary-cover={src === cover ? "true" : undefined}
             alt=""
@@ -236,7 +249,7 @@ const PhotoHomePage = () => {
           className={home && !openAlbum ? "pb-0" : "pt-28 pb-0"}
           initial={false}
         >
-          {home && !openAlbum && <><h1 className="sr-only">Isaac Seiler</h1><p className="home-statement">Isaac Seiler is a Seattle-based tech generalist.</p><HomeExplore /></>}
+          {home && !openAlbum && <><h1 className="sr-only">Isaac Seiler</h1><HomeExplore /></>}
 
 
           <div className="photo-route-content">

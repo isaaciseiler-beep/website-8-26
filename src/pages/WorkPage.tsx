@@ -62,10 +62,15 @@ export default function WorkPage() {
                       onMouseEnter={() => setActiveId(project.id)}
                       onFocus={() => setActiveId(project.id)}
                     >
-                      <span className="work-index-title">{project.title}</span>
-                      <span className="work-index-year">{project.year || '—'}</span>
-                      <span className="work-index-who" title={who || undefined}>{who || '—'}</span>
-                      <span className="work-index-type">{typeLabel[project.source]}</span>
+                      <span className="work-index-thumb" aria-hidden="true"><img src={representativeProjectImage(project).src} alt="" /></span>
+                      <span className="work-index-copy">
+                        <span className="work-index-title">{project.title}</span>
+                        <span className="work-index-meta">
+                          <span className="work-index-year">{project.year || '—'}</span>
+                          <span className="work-index-who" title={who || undefined}>{who || '—'}</span>
+                          <span className="work-index-type">{typeLabel[project.source]}</span>
+                        </span>
+                      </span>
                     </Link>
                   </li>
                 );

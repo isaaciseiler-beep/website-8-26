@@ -79,7 +79,7 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     const row = page.locator('.work-index a').nth(1);
     const before = await page.locator('.work-index').evaluate(el => el.getBoundingClientRect().height);
     await row.focus();
-    await expect(page.locator('.work-preview img')).toBeVisible();
+    await expect(page.locator('.work-preview img, .work-index-thumb img').filter({ visible: true }).first()).toBeVisible();
     expect(await page.locator('.work-index').evaluate(el => el.getBoundingClientRect().height)).toBe(before);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     expect(errors).toEqual([]);

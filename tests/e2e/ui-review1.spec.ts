@@ -142,6 +142,19 @@ for(const reducedMotion of ['reduce','no-preference'] as const)test(`About keeps
   await expect(chip).toHaveClass(/is-open/);
 });
 
+test('cycling the area chip does not move the words that follow',async({page})=>{
+  await page.setViewportSize({width:1280,height:800});
+  await page.goto('/about');
+  const after=page.locator('.about-after');
+  const first=await after.boundingBox();
+  for(let step=0;step<6;step++){
+    await page.locator('.about-cycle').click();
+    const next=await after.boundingBox();
+    expect(Math.abs((next?.x??0)-(first?.x??0)),`x ${step}`).toBeLessThan(1);
+    expect(Math.abs((next?.y??0)-(first?.y??0)),`y ${step}`).toBeLessThan(1);
+  }
+});
+
 test('the about paragraph stays inside its measure through a full cycle',async({page})=>{
   await page.goto('/about');
   const paragraph=page.locator('.about-display');
