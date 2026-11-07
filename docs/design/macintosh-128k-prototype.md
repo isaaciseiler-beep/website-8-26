@@ -1,12 +1,6 @@
-# Macintosh device frame
+# Historical Macintosh 128K prototype — retired
 
-The active preview and default use the original Macintosh 128K isolated PNG, restored at the owner’s request. Its source is the owner’s `mac_128k_01-1351948931.jpg`; built-in ImageGen produced the front-facing reconstruction without the detached keyboard and mouse. It is an image-assisted reconstruction, not a measured factory photograph. The exact editing prompts are preserved below.
-
-`MacintoshFrame` places the existing native Explore editor and results inside one scrolling display. `src/lib/macintoshModels.ts` owns source-image dimensions, screen quads, and silhouette clips. The projective transform preserves native text and hit testing; model changes keep the mounted exploration tree. All frames share the Guided Tour blue palette and Satoshi controls. CRTs add restrained barrel distortion and phosphor texture; LCDs keep a planar glass reflection.
-
-The Computer selector retains optional model prototypes. The original Macintosh is selected for review. The G3 prototype was rejected as a final product photograph; the later Snow study is an inactive candidate under `docs/design/device-candidates/`. The G4 uses the owner’s supplied front-facing reference, edited to remove peripherals; see `docs/design/imac-g4-cutout.md`. The original Air uses a real transparent photograph. Credits and adaptation records are in `public/devices/ATTRIBUTION.md`.
-
-Screen width is normalized across desktop models while respecting available width and viewport height. Hardware remains in document flow so the rest of the cabinet can be seen by scrolling. Inside the display, native text stays at its actual size, controls retain accessible names and touch targets, and the interface uses its own scrolling viewport. Smooth silhouette clips exclude residual extraction pixels against light and dark backgrounds.
+This document records the earlier generated asset. It is no longer used or shipped. The current single-model frame uses a real, straight-on Macintosh SE photograph; see [macintosh-se-photographic-frame.md](macintosh-se-photographic-frame.md).
 
 ## Image generation prompts
 
