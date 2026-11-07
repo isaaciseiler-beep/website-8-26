@@ -131,6 +131,8 @@ export default function PhotoGlobeFooter() {
             map.on("render", updateVisibility);
             updateVisibility();
             markers.push(new mapbox.Marker({ element: anchor, anchor: "center", occludedOpacity: 0 }).setLngLat(entry.coordinates).addTo(map));
+            // Mapbox assigns role="img" to marker elements during construction.
+            anchor.setAttribute("role", "button");
           });
           setMapReady(true);
         });
