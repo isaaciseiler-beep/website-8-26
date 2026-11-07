@@ -46,15 +46,6 @@
       ]
     },
     {
-      "source": "/photos/map.md",
-      "headers": [
-        {
-          "key": "Link",
-          "value": "<https://seiler.page/photos/map>; rel=\"canonical\""
-        }
-      ]
-    },
-    {
       "source": "/projects/:project.md",
       "headers": [
         {
@@ -300,6 +291,16 @@
       "source": "/writing/a-place-for-questions",
       "destination": "/writing",
       "permanent": false
+    },
+    {
+      "source": "/photos/map",
+      "destination": "/#photo-globe",
+      "permanent": true
+    },
+    {
+      "source": "/photos/map.md",
+      "destination": "/#photo-globe",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -354,10 +355,6 @@
     {
       "source": "/mcp",
       "destination": "/api/mcp"
-    },
-    {
-      "source": "/photos/map",
-      "destination": "/photos/map/index.html"
     },
     {
       "source": "/photos/music",

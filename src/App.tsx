@@ -1,6 +1,5 @@
 import PageNotice from "@/components/PageNotice";
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
-import Footer from "@/components/Footer";
 import { Component, Suspense, lazy, type ComponentType, type ErrorInfo, useEffect, type ReactNode } from "react";
 import { MotionConfig } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
@@ -50,7 +49,6 @@ const lazyWithRetry = <T extends { default: ComponentType }>(
   });
 
 const ChatOrb = lazyWithRetry(() => import("@/components/ChatOrb"), "chat-orb");
-const PhotoMapPage = lazyWithRetry(() => import("./pages/PhotoMapPage.tsx"), "photo-map");
 const WorkPage = lazyWithRetry(() => import("./pages/WorkPage.tsx"), "work");
 const AboutPage = lazyWithRetry(() => import("./pages/AboutPage.tsx"), "about");
 const WritingPage = lazyWithRetry(() => import("./pages/WritingPage.tsx"), "writing");
@@ -134,7 +132,7 @@ const AnimatedRoutes = () => {
   const renderRoutes = (presented: typeof location) => (
     <RouteErrorBoundary
       resetKey={presented.pathname}
-      fallback={<RouteRenderErrorFallback isMap={presented.pathname === "/fulbrightmap" || presented.pathname === "/photos/map"} />}
+      fallback={<RouteRenderErrorFallback isMap={presented.pathname === "/fulbrightmap"} />}
     >
         <Routes location={presented}>
           <Route path="/" element={<Home />} />
@@ -143,7 +141,7 @@ const AnimatedRoutes = () => {
           <Route path="/projects/adaptive-portfolio" element={<CanvasDocuments kind="build" />} />
           <Route path="/photos" element={<Navigate to={{ pathname: "/", search: location.search, hash: location.search ? "" : "#photo-gallery" }} replace />} />
           <Route path="/photos/locations" element={<Navigate to={{ pathname: "/", search: location.search, hash: location.search ? "" : "#photo-gallery" }} replace />} />
-          <Route path="/photos/map" element={<PhotoMapPage />} />
+          <Route path="/photos/map" element={<Navigate to="/#photo-globe" replace />} />
           <Route path="/photos/music" element={<MusicPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/work" element={<WorkPage />} />
@@ -216,7 +214,6 @@ const AppShell = () => {
       <ImagePreloader />
       <SkullChrome />
       <SiteChromeProvider><AnimatedRoutes /></SiteChromeProvider>
-      <Footer />
       <ChatOrbGate />
     </BrowserRouter>
   );

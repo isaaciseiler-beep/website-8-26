@@ -1,0 +1,188 @@
+/* Photographic hardware, with a live plane matched to each camera angle. */
+.home-genui.home-genui-mac {
+  min-height: 0;
+  padding-top: 76px;
+  padding-bottom: var(--space-xxl);
+  overflow-anchor: none;
+}
+.macintosh-device { margin: 0; }
+.macintosh-model-picker {
+  display: flex; align-items: center; justify-content: center; gap: var(--space-s);
+  min-height: 32px; margin-bottom: var(--space-l); font-size: 12px; color: var(--neutral-7);
+}
+.macintosh-select-wrap { position: relative; display: inline-flex; align-items: center; color: var(--neutral-8); }
+.macintosh-select-wrap select {
+  appearance: none; border: 0; background: transparent; color: inherit; font: inherit;
+  padding: 7px 22px 7px 4px; border-radius: var(--site-corner-radius); cursor: pointer; max-width: 240px;
+}
+.macintosh-select-wrap select:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; }
+.macintosh-select-wrap svg { position: absolute; right: 3px; pointer-events: none; }
+.macintosh-select-wrap option { background: var(--neutral-1); color: var(--neutral-10); }
+.macintosh-model-status { position: absolute; margin-top: 50px; font-size: 11px; }
+.macintosh-photo-credit { font-size: 10px; color: var(--neutral-7); text-align: center; margin-top: var(--space-m); line-height: 1.5; }
+.macintosh-photo-credit a:hover { text-decoration: underline; }
+.macintosh-frame {
+  position: relative;
+  width: min(var(--mac-frame-max), 100%, calc((100svh - 180px) / var(--mac-screen-bottom-ratio)));
+  aspect-ratio: var(--mac-image-ratio);
+  margin-inline: auto;
+  isolation: isolate;
+  overflow-anchor: none;
+}
+.macintosh-frame::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 16%;
+  right: 16%;
+  top: 97%;
+  height: 1%;
+  border-radius: 50%;
+  background: #00000030;
+  filter: blur(clamp(2px,.6vw,7px));
+  pointer-events: none;
+}
+.macintosh-chassis {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  pointer-events: none;
+
+}
+.macintosh-optics { position: absolute; pointer-events: none; }
+.macintosh-screen {
+  position: absolute; left: 0; top: 0; overflow: hidden; isolation: isolate;
+  transform-origin: 0 0; border-radius: var(--mac-screen-radius);
+  background: var(--neutral-1);
+}
+.macintosh-device .macintosh-screen {
+  /* Intrinsic blue CRT palette, taken from the owner's Guided Tour photo.
+     It remains blue when the surrounding site switches between light/dark. */
+  --mac-cyan: #42d8ec;
+  --mac-ink: #07334e;
+  --foreground: 185 77% 88%;
+  --neutral-1: #07334e;
+  --neutral-1-transparent: #07334e33;
+  --neutral-2: #07557d;
+  --neutral-3: #09648b;
+  --neutral-3-transparent: #09648b55;
+  --neutral-4: #137b9d;
+  --neutral-4-transparent: #137b9d55;
+  --neutral-5: #2b9eb8;
+  --neutral-5-transparent: #2b9eb866;
+  --neutral-6: #70c9d7;
+  --neutral-7: #a6eaf0;
+  --neutral-7-transparent: #a6eaf033;
+  --neutral-8: #bceff3;
+  --neutral-8-transparent: #bceff333;
+  --neutral-9: #d3f6f6;
+  --neutral-10: #80e8f1;
+  --neutral-10-transparent: #80e8f133;
+  --panel-well-bg: var(--neutral-2);
+  color: hsl(var(--foreground));
+  background: radial-gradient(ellipse at 50% 45%,var(--neutral-3),var(--neutral-2) 72%);
+}
+.macintosh-screen-scroll {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--neutral-5) transparent;
+  scroll-padding-block: var(--space-m);
+  touch-action: pan-y pinch-zoom;
+  overflow-anchor: none;
+  background: inherit;
+  container-type: size;
+}
+.macintosh-glass {
+  position: absolute; z-index: 5; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(118deg,#e5f8ff12,transparent 42%,#0000000b);
+  box-shadow: inset 0 0 3px #00000044;
+}
+.macintosh-device[data-mac-display="crt"] .macintosh-glass {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 22px 5px #00172a99,inset 0 2px 4px #a7ffff70;
+  background:
+    repeating-linear-gradient(0deg,#001f4015 0px,#001f4015 1px,transparent 1px,transparent 3px),
+    repeating-linear-gradient(90deg,#78faff04 0px,#78faff08 1px,transparent 1px,transparent 3px),
+    linear-gradient(120deg,#a5ffff16,transparent 32%,transparent 74%,#2f90d01a),
+    radial-gradient(ellipse at 50% 48%,transparent 55%,#001c4133);
+}
+.macintosh-device[data-mac-display="crt"] .macintosh-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: .045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23grain)' d='M0 0h128v128H0z'/%3E%3C/svg%3E");
+}
+.home-genui-mac .home-genui-window,
+.home-genui-mac .home-genui-window:is(.has-results,.has-guidance,.is-folding) {
+  --window-padding: var(--space-l);
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: var(--window-padding);
+  border-radius: 0;
+  transition: none;
+}
+.home-genui-mac .home-genui-window:not(.has-results):not(.has-guidance) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.home-genui-mac .home-window-surface,
+.home-genui-mac .home-window-depth { display: none; }
+.home-genui-mac .home-genui-reveal-content,
+.home-genui-mac .has-results .home-genui-reveal-content { width: 100%; }
+.home-genui-mac .home-idle-actions {
+  position: static;
+  margin-top: var(--space-s);
+}
+.macintosh-device .home-genui-composer form {
+  padding-inline: var(--space-s);
+  background: var(--mac-cyan);
+  box-shadow: inset 0 0 0 1px #b4ffff80,0 0 9px #2bd6ec30;
+}
+.macintosh-device .home-genui-composer {
+  --foreground: 203 83% 17%;
+  --neutral-1: var(--mac-cyan);
+  --neutral-7: #12546e;
+  --neutral-8: var(--mac-ink);
+  --neutral-10: var(--mac-ink);
+  --neutral-4-transparent: #07557d1f;
+  color: var(--mac-ink);
+}
+.macintosh-device .home-query-field>textarea { text-shadow: 0 0 1px #07334e33; }
+.macintosh-device .home-genui-stage { text-shadow: 0 0 2px #8bffff24; }
+.macintosh-device .home-request-state { --neutral-8: var(--mac-cyan); color: var(--mac-cyan); }
+.home-genui-mac .home-composer-depth { display: none; }
+.home-genui-mac .experience-autocomplete ul {
+  max-height: max(88px,min(240px,calc(100cqh - 176px)));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.home-genui-mac .home-genui-stage { margin-top: var(--space-m); }
+.home-genui-mac .home-genui-footer { padding-bottom: var(--space-s); }
+@media(max-width:640px) {
+  .home-genui.home-genui-mac { padding-inline: var(--space-xs); padding-top: 80px; }
+  .home-genui-mac .home-genui-window,
+  .home-genui-mac .home-genui-window:is(.has-results,.has-guidance,.is-folding) { --window-padding: var(--space-m); }
+  .macintosh-device[data-mac-display="crt"] .macintosh-glass { box-shadow: inset 0 0 10px 2px #00172a99,inset 0 1px 2px #a7ffff70; }
+}
+/* Use the CRT's actual width, including desktop sidebar panes. Keep the draft
+   readable and touch controls full-size instead of shrinking the whole UI. */
+@container(max-width:360px) {
+  .home-genui-mac .home-query-field { flex-basis: 100%; }
+  .home-genui-mac .home-genui-composer form>.home-clear { margin-left: auto; }
+  .home-genui-mac .home-genui-composer form>.home-clear,
+  .home-genui-mac .home-genui-composer form>.home-submit { min-width: 44px; min-height: 44px; }
+  .home-genui-mac .experience-autocomplete { order: 2; }
+}

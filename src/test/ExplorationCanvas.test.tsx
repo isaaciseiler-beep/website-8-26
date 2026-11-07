@@ -86,8 +86,9 @@ describe('answer usefulness before expanding reading',()=>{
   it('keeps leadership examples and role choices aligned',()=>{
     render(<Harness initial={composeLocal('Which work best demonstrates Isaac’s leadership?',initialPlan())}/>);
     expect(screen.getByRole('heading',{name:'Leadership in practice'})).toBeVisible();
-    const roles=screen.getByRole('navigation',{name:'Professional roles'});
-    expect(within(roles).getAllByRole('button')).toHaveLength(3);
+    fireEvent.click(screen.getByRole('button',{name:'Professional role'}));
+    const roles=screen.getByRole('group',{name:'Professional role'});
+    expect(within(roles).getAllByRole('button')).toHaveLength(2);
     fireEvent.click(within(roles).getByRole('button',{name:'Teaching teams'}));
     expect(within(screen.getByRole('article')).getByText(/managed a teaching team of 12/)).toBeVisible();
   });
@@ -95,8 +96,9 @@ describe('answer usefulness before expanding reading',()=>{
     render(<Harness initial={composeLocal('Explore Isaac’s career',initialPlan())}/>);
     expect(screen.queryByPlaceholderText('Find a role or skill')).not.toBeInTheDocument();
     expect(screen.queryByText('Sources')).not.toBeInTheDocument();
-    const roles=screen.getByRole('navigation',{name:'Professional roles'});
-    expect(within(roles).getAllByRole('button')).toHaveLength(8);
+    fireEvent.click(screen.getByRole('button',{name:'Professional role'}));
+    const roles=screen.getByRole('group',{name:'Professional role'});
+    expect(within(roles).getAllByRole('button')).toHaveLength(7);
     fireEvent.click(within(roles).getByRole('button',{name:'Teaching in Taiwan'}));
     expect(screen.getByRole('heading',{name:'Fulbright Taiwan'})).toBeVisible();
     expect(screen.getByText(/Participant questions changed what he emphasized/)).toBeVisible();

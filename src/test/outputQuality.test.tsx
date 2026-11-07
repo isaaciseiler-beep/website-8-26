@@ -12,7 +12,7 @@ describe('visitor answer quality regressions',()=>{
     render(<CareerExplorer block={block} onChange={()=>{}}/>);
     expect(screen.getByRole('heading',{name:'Strengths across the work'})).toBeVisible();
     expect(screen.getByText(/clearest strengths.*research synthesis.*explaining complex ideas/)).toBeVisible();
-    expect(screen.getByRole('button',{name:'Research & policy'})).toHaveAttribute('aria-pressed','true');
+    expect(screen.getByRole('button',{name:'Professional role'})).toHaveAccessibleDescription('Research & policy');
   });
   it('connects multiple bodies of work before offering examples',()=>{
     render(<CareerExplorer block={compose('What connects all this work?').blocks[0]} onChange={()=>{}}/>);

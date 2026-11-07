@@ -740,7 +740,7 @@ const renderProjectFallback = (project) => `
           <ul>
             <li><a href="/about">About</a></li>
             <li><a href="/work">Work</a></li>
-            <li><a href="/photos/map">Photo Map</a></li>
+            <li><a href="/#photo-globe">Photographs</a></li>
           </ul>
         </section>
       </article>
@@ -767,7 +767,7 @@ const renderPageFallback = (page) => {
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/work">Work</a></li>
-          <li><a href="/photos/map">Photo Map</a></li>
+          <li><a href="/#photo-globe">Photographs</a></li>
         </ul>
       </section>
     </main>`;
@@ -968,7 +968,6 @@ const profileMarkdown = `# Isaac Seiler — Tech Generalist\n\nCanonical: ${SITE
 writeGeneratedPublicFile("index.md", profileMarkdown);
 writeGeneratedPublicFile("about.md", profileMarkdown);
 writeGeneratedPublicFile("work.md", `# Work by Isaac Seiler\n\nCanonical: ${SITE_URL}/work\n\n${topPageByPath.get("/work").description}\n\n${enrichedProjects.map((project) => `## ${project.title}\n\n${project.year} · ${project.source}\n\n${project.seoDescription}\n\n[Case study](${projectUrl(project)}) · [Full text](${projectUrl(project)}.md)`).join("\n\n")}\n`);
-writeGeneratedPublicFile("photos/map.md", `# Photo Map\n\nCanonical: ${SITE_URL}/photos/map\n\n${topPageByPath.get("/photos/map").description}\n`);
 writeGeneratedPublicFile("llms.txt", `# Isaac Seiler — Tech Generalist\n\n> ${PROFILE_SUMMARY}\n\nCanonical website: ${SITE_URL}/\n\n## Profile and evidence\n- [About Isaac Seiler](${SITE_URL}/about.md)\n- [Selected work](${SITE_URL}/work.md)\n- [Writing](${SITE_URL}/writing.md): Coming soon.\n- [Public profile JSON](${SITE_URL}/api/public/profile)\n- [Agent guide](${SITE_URL}/agents)\n- [Interactive MCP endpoint](${SITE_URL}/mcp): Streamable HTTP; approved view tools and an MCP App.\n\n## Projects\n${enrichedProjects.map((project) => `- [${project.title}](${projectUrl(project)}.md): ${project.seoDescription}`).join("\n")}\n\n## Attribution\nThe government AI benchmark is an August 2025 snapshot. OpenAI program participation, collaboration, and product feedback are distinct from employment. Project pages link to published evidence.\n`);
 enrichedProjects.forEach((project) => {
   const sections = (project.sections ?? []).map((section) => `## ${section.heading}\n\n${(section.paragraphs ?? []).join("\n\n")}\n\n${(section.bullets ?? []).map((bullet) => `- ${bullet}`).join("\n")}${section.stats?.length ? "\n\n" + section.stats.map(stat => `- ${stat.label}: ${stat.value}`).join("\n") : ""}\n\n${(section.links ?? []).map((link) => `- [${link.label}](${link.href})`).join("\n")}`).join("\n\n");

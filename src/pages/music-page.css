@@ -1,0 +1,89 @@
+.music-hourglass-page {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+.music-hourglass-shell { height: 100%; min-width: 0; }
+.music-hourglass-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: pan-x pinch-zoom;
+  outline: none;
+}
+.music-hourglass-frame:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: 72px 16px 16px;
+  border-radius: var(--site-corner-radius);
+  outline: 1px solid currentColor;
+  outline-offset: -1px;
+  opacity: .35;
+  pointer-events: none;
+}
+.music-hourglass-scene {
+  --music-cover-size: min(38vw, 38vh, 360px);
+  --music-center: 50%;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  user-select: none;
+}
+.music-hourglass-canvas { position: fixed; z-index: 61; display: block; pointer-events: none; }
+.music-hourglass-cover {
+  position: absolute;
+  top: 50%;
+  left: var(--music-center);
+  width: var(--music-cover-size);
+  height: var(--music-cover-size);
+  transform: translate(-50%, -50%);
+  border-radius: 0;
+  -webkit-user-drag: none;
+}
+.music-hourglass-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.music-hourglass-cover[data-rendered="true"] img { visibility: hidden; }
+.music-hourglass-cover:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+/* The optical layer draws the same square focus cue over the glass itself. */
+.music-hourglass-scene[data-optical="true"] .music-hourglass-cover[data-rendered="true"]:focus-visible { outline: none; }
+.music-hourglass-details {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--music-center) + var(--music-cover-size) / 2 + 40px);
+  right: 24px;
+  max-width: 260px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.music-hourglass-copy h2,
+.music-hourglass-copy p {
+  margin: 0;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.45;
+  letter-spacing: -.02em;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+.music-hourglass-copy p { margin-top: 4px; opacity: .58; }
+@media (max-width: 800px) {
+  .music-hourglass-details { left: calc(var(--music-center) + var(--music-cover-size) / 2 + 24px); }
+  .music-hourglass-copy h2,
+  .music-hourglass-copy p { font-size: 14px; }
+}
+@media (max-width: 599px) {
+  .music-hourglass-scene { --music-cover-size: min(42vw, 38vh, 360px); --music-center: 50%; }
+  .music-hourglass-details { left: calc(var(--music-center) + var(--music-cover-size) / 2 + 12px); right: 12px; }
+  .music-hourglass-copy h2,
+  .music-hourglass-copy p { font-size: 12px; line-height: 1.45; }
+}

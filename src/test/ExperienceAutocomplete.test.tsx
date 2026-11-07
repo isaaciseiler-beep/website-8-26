@@ -6,7 +6,7 @@ function Harness({submit}:{submit:(text:string)=>void}){
  const [value,setValue]=useState('');const [open,setOpen]=useState(false);const ref=useRef<HTMLTextAreaElement>(null);
  return <form onSubmit={e=>{e.preventDefault();submit(value);}}><ExperienceAutocomplete value={value} open={open} inputRef={ref} onChange={setValue} onSubmit={submit} onOpenChange={setOpen} onCompositionStart={()=>{}} onCompositionEnd={()=>{}}/></form>;
 }
-afterEach(cleanup);
+afterEach(()=>{cleanup();vi.restoreAllMocks();});
 describe('autocomplete interaction',()=>{
  it('keeps the draft intact, selects with arrows, and dismisses with Escape',()=>{
   const submit=vi.fn();render(<Harness submit={submit}/>);const input=screen.getByRole('textbox');
@@ -65,4 +65,24 @@ it('reaches both shortcuts with arrows and recovers when composition ends by blu
   fireEvent.keyDown(input,{key:'ArrowUp'});
   expect(screen.getByRole('option',{name:'Browse work'})).toHaveAttribute('aria-selected','true');
   fireEvent.keyDown(input,{key:'Enter'});expect(submit).toHaveBeenLastCalledWith('Explore all projects');
+});
+
+
+it('reveals a selected suggestion inside the CRT even when it already fits its own list',()=>{
+  const submit=vi.fn();render(<div data-exploration-scroll><Harness submit={submit}/></div>);
+  const input=screen.getByRole('textbox');fireEvent.focus(input);
+  const viewport=document.querySelector<HTMLElement>('[data-exploration-scroll]')!;
+  const list=screen.getByRole('listbox');
+  const row=screen.getAllByRole('option')[0];
+  vi.spyOn(viewport,'getBoundingClientRect').mockReturnValue({top:200,bottom:500} as DOMRect);
+  vi.spyOn(list,'getBoundingClientRect').mockReturnValue({top:450,bottom:600} as DOMRect);
+  vi.spyOn(row,'getBoundingClientRect').mockReturnValue({top:510,bottom:554} as DOMRect);
+  viewport.scrollTop=100;
+  const localScroll=vi.spyOn(viewport,'scrollTo');
+  const pageScroll=vi.spyOn(window,'scrollTo');
+  fireEvent.keyDown(input,{key:'ArrowDown'});
+  expect(localScroll).toHaveBeenCalledWith({top:154,behavior:'instant'});
+  expect(pageScroll).not.toHaveBeenCalled();
+  expect(input).toHaveValue('');
+  expect(submit).not.toHaveBeenCalled();
 });

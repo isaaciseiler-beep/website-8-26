@@ -34,7 +34,7 @@ describe('portfolio navigation and recovery', () => {
     render(<MemoryRouter initialEntries={['/work']}><ThemeProvider><Sidebar open onToggle={() => {}} onClose={() => {}} /></ThemeProvider></MemoryRouter>);
     expect(screen.getByRole('link', { name: 'Work' })).toHaveAttribute('href', '/work');
     expect(screen.getByRole('link', { name: 'Work' })).toHaveAttribute('aria-current', 'page');
-    expect(screen.getByRole('link', { name: 'Photo Map' })).not.toHaveAttribute('aria-current');
+    expect(screen.queryByRole('link', { name: 'Photo Map' })).not.toBeInTheDocument();
   });
 
   it('keeps the search glyph and entered results stable when a close is interrupted', async () => {

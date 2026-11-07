@@ -71,8 +71,8 @@ try{
    results.push({theme,width,case:'photo-request-no-provider',ok:true});
   }
   await page.goto(base+'/?album=Japan',{waitUntil:'domcontentloaded'});await contained();
-  await page.goto(base+'/photos/map',{waitUntil:'domcontentloaded'});await page.getByText(/Photo Map|Mapbox token missing/).first().waitFor();
-  results.push({theme,case:'album-and-photo-map',ok:true});
+  await page.goto(base+'/photos/map',{waitUntil:'domcontentloaded'});await page.locator('#photo-globe').waitFor();
+  results.push({theme,case:'album-and-photo-globe',ok:true});
   assert.deepEqual(errors,[]);await context.close();
  }
 }finally{await writeFile(`${output}/browser-results.json`,JSON.stringify({base,mode:'local authored routing; providers unconfigured',checks:results.length,results},null,2)+'\n');await browser.close();}

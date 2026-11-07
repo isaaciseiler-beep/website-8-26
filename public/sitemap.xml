@@ -57,16 +57,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://seiler.page/photos/map</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.82</priority>
-    <image:image>
-      <image:loc>https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Taiwan/14BC8F70-A1CE-4D79-8FBE-665B57EB131F_1_105_c.jpeg</image:loc>
-      <image:title>Photo Map</image:title>
-      <image:caption>Travel photography by Isaac Seiler, with albums from Taiwan, Japan, Hong Kong, Iceland, Australia, New Zealand, Portugal, Thailand, Vietnam, Korea, and more.</image:caption>
-    </image:image>
-  </url>
-  <url>
     <loc>https://seiler.page/projects/fulbright-focus-group-sponsored-by-openai</loc>
     <changefreq>monthly</changefreq>
     <priority>0.92</priority>

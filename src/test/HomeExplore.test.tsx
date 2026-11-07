@@ -4,6 +4,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import HomeExplore from "@/components/canvas/HomeExplore";
 import { initialPlan, localPlan, CONTENT_VERSION } from "@/lib/canvas";
 
+function openViewOptions(){const trigger=screen.getByLabelText('View options');if(!trigger.closest('details')!.open)fireEvent.click(trigger);}
+
 const success = (data: unknown) => ({ ok: true, json: async () => data });
 const mount = () => render(<MemoryRouter><HomeExplore /></MemoryRouter>);
 
@@ -154,7 +156,7 @@ describe("homepage generative interface", () => {
       mount();const input=screen.getByRole('textbox',{name:'Explore'});
       fireEvent.change(input,{target:{value:'Taiwan teaching'}});
       await act(async()=>{fireEvent.submit(input.closest('form')!);});
-      fireEvent.click(screen.getByRole('button',{name:'Copy link to this view'}));
+      openViewOptions();fireEvent.click(screen.getByRole('button',{name:'Copy link to this view'}));
       expect(writeText).toHaveBeenCalledTimes(1);
       if(change==='manual control')fireEvent.click(screen.getByRole('button',{name:'Evidence'}));
       else if(change==='draft edit')fireEvent.change(input,{target:{value:'unfinished question'}});
@@ -164,7 +166,7 @@ describe("homepage generative interface", () => {
         await act(async()=>{fireEvent.submit(input.closest('form')!);});
       }
       await act(async()=>{finish();});
-      expect(screen.getByRole('button',{name:'Copy link to this view'})).toBeInTheDocument();
+      openViewOptions();expect(screen.getByRole('button',{name:'Copy link to this view'})).toBeInTheDocument();
       expect(screen.queryByRole('button',{name:'Link copied'})).not.toBeInTheDocument();
       expect(screen.queryByText('Could not copy the link. Check clipboard permissions.')).not.toBeInTheDocument();
       cleanup();

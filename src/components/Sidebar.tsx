@@ -80,7 +80,6 @@ export const sitemapItems: SitemapItem[] = [
   { id: "about", label: "About", href: "/about" },
   { id: "projects", label: "Work", href: "/work" },
   { id: "writing", label: "Writing", href: "/writing" },
-  { id: "photos", label: "Photo Map", href: "/photos/map" },
   { id: "music", label: "Music", href: "/photos/music" },
 ];
 
@@ -118,7 +117,6 @@ export const SidebarSurface = ({ open, onToggle, onClose, onSearchOpen, activeSe
   const previousOpen = useRef(open);
   const close = useRef(onClose ?? onToggle);
   close.current = onClose ?? onToggle;
-  const isOnPhotos = location.pathname === "/photos" || location.pathname === "/photos/map";
   const isOnMusic = location.pathname === "/photos/music";
   const isOnProjects = location.pathname === "/work" || location.pathname.startsWith("/projects");
 
@@ -219,7 +217,6 @@ export const SidebarSurface = ({ open, onToggle, onClose, onSearchOpen, activeSe
 
   const isItemActive = (item: SitemapItem) => {
     if (location.pathname.startsWith("/writing") && item.id === "writing") return true;
-    if (isOnPhotos && item.id === "photos") return true;
     if (isOnMusic && item.id === "music") return true;
     if (isOnProjects && item.id === "projects") return true;
     if (activeSection && activeSection === item.id) return true;
@@ -227,7 +224,6 @@ export const SidebarSurface = ({ open, onToggle, onClose, onSearchOpen, activeSe
   };
 
   const isChildActive = (child: { id: string; href: string }) => {
-    if (location.pathname === "/photos/map" && child.id === "photo-map") return true;
     if (location.pathname === "/photos" && child.id === "portfolio") return true;
     if (isOnProjects && child.id === "project-archive") return true;
     return location.pathname === child.href;

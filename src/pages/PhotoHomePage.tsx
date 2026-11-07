@@ -8,6 +8,7 @@ import BackArrow from "@/components/BackArrow";
 import { Link, useSearchParams, useLocation, useNavigate } from "react-router-dom";
 import "./photo-home.css";
 import HomeExplore from "@/components/canvas/HomeExplore";
+import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import PhotoPreview from "@/components/PhotoPreview";
@@ -172,8 +173,11 @@ const PhotoHomePage = () => {
       if (!gallery) { setPhotosDominant(false); return; }
       const rect = gallery.getBoundingClientRect();
       const visibleHeight = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+      // Hand the bottom edge to the interactive globe once its controls enter.
+      const globeTop = document.getElementById("photo-globe")?.getBoundingClientRect().top;
+      const globeVisible = globeTop !== undefined && globeTop < window.innerHeight - 80;
       // Keep an active filter reachable even when it leaves fewer than one full row.
-      setPhotosDominant(window.scrollY > 0 && (visibleHeight / window.innerHeight > .5 || (filter !== "All" && visibleHeight > 0)));
+      setPhotosDominant(!globeVisible && window.scrollY > 0 && (visibleHeight / window.innerHeight > .5 || (filter !== "All" && visibleHeight > 0)));
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     const observer = new ResizeObserver(schedule);
@@ -293,9 +297,9 @@ const PhotoHomePage = () => {
             )}
           </div>
 
-          <div className="h-24" />
+          {openAlbum && <div className="h-24" />}
+          <Footer />
         </motion.main>
-
 
       </motion.div>
 

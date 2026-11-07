@@ -1,8 +1,9 @@
 import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPreference";
 import { useId, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CornerDownLeft } from 'lucide-react';
 import { suggestExperiencePrompts, type SuggestionContext } from '@/lib/experiencePrompts';
+import { scrollExplorationControlIntoView } from '@/lib/explorationReadingState';
 import { MOTION_DURATION, MOTION_EASE_ENTER, MOTION_EASE_EXPLORE } from '@/lib/motion';
 
 function SuggestionPanel({children}:{children:ReactNode}) {
@@ -51,9 +52,14 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
       const bounds=node.getBoundingClientRect(),row=selected.getBoundingClientRect();
       if(row.top<bounds.top)node.scrollTop+=row.top-bounds.top;
       else if(row.bottom>bounds.bottom)node.scrollTop+=row.bottom-bounds.bottom;
+      if(selected.closest('[data-exploration-scroll]'))scrollExplorationControlIntoView(selected);
     };
     reveal();
     const observer=new ResizeObserver(reveal);observer.observe(node);observer.observe(selected);
+    // The in-flow opening animation also moves rows whose own dimensions stay
+    // fixed. Track the form so a selected row remains inside a small CRT throughout.
+    const form=node.closest('form');
+    if(form&&node.closest('[data-exploration-scroll]'))observer.observe(form);
     return()=>observer.disconnect();
   },[active,visible]);
   const toggle=(next:boolean)=>{onOpenChange(next);if(!next)setActive(-1);};
@@ -85,7 +91,7 @@ export default function ExperienceAutocomplete({context,value,open,immediateDism
     <AnimatePresence initial={false} custom={immediateDismiss}>{visible&&<SuggestionPanel key="suggestions">
       <ul ref={list} id={id} role="listbox" aria-label="Suggested questions">
         {items.map((item,index)=><li id={`${id}-${item.id}`} key={item.id} role="option" aria-selected={active===index} onClick={()=>select(item.text)}>
-          <span>{item.text}</span><ArrowRight size={14} aria-hidden="true"/>
+          <span>{item.text}</span>{active===index?<CornerDownLeft size={14} aria-hidden="true"/>:<ArrowRight size={14} aria-hidden="true"/>}
         </li>)}
         {shortcuts.length>0&&<li role="presentation" className="home-autocomplete-shortcuts"><div role="group" aria-label="Other ways to explore">
           {shortcuts.map((item,index)=><div key={item.id} id={`${id}-${item.id}`} role="option" aria-selected={active===items.length+index} onClick={()=>select(item.text)}>{item.label}</div>)}

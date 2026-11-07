@@ -5,6 +5,8 @@ import HomeExplore from '@/components/canvas/HomeExplore';
 import { CONTENT_VERSION, initialPlan } from '@/lib/canvas';
 import { blankBlock, resolveCanvasPlan, TAIWAN_ID } from '@/lib/genui';
 
+function openViewOptions(){const trigger=screen.getByLabelText('View options');if(!trigger.closest('details')!.open)fireEvent.click(trigger);}
+
 const success=(data:unknown)=>({ok:true,json:async()=>data});
 const mount=()=>render(<MemoryRouter><HomeExplore/></MemoryRouter>);
 async function submit(text:string){
@@ -160,7 +162,7 @@ it('answers How to explore in the main pane locally, with a working first questi
   const fetcher=vi.fn(async()=>success({configured:false}));vi.stubGlobal('fetch',fetcher);mount();
   await submit('Taiwan teaching');
   const calls=fetcher.mock.calls.length;
-  fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
+  openViewOptions();fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
   fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
   expect(screen.getByRole('region',{name:'Explore guide'}).closest('.home-genui-stage')).not.toBeNull();
   fireEvent.click(screen.getByText('About answers & privacy',{selector:'summary'}));
@@ -168,7 +170,7 @@ it('answers How to explore in the main pane locally, with a working first questi
   expect(fetcher).toHaveBeenCalledTimes(calls);
   fireEvent.click(screen.getByRole('button',{name:'Previous exploration'}));
   expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeInTheDocument();
-  fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
+  openViewOptions();fireEvent.click(screen.getByText('Explore further',{selector:'summary'}));
   fireEvent.click(screen.getByRole('button',{name:'How to explore'}));
   await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Walk me through Isaac’s experience'}));});
   expect(screen.getByRole('region',{name:'Role explorer'})).toBeInTheDocument();
@@ -195,4 +197,14 @@ it('clears an unanswered draft without retaining an Undo state',async()=>{
   expect(screen.queryByRole('button',{name:'Undo clear'})).not.toBeInTheDocument();
   expect(screen.getByRole('button',{name:'How to explore'})).toBeInTheDocument();
   expect(input).toHaveValue('');
+});
+
+it('keeps secondary actions behind one view-options disclosure',async()=>{
+  vi.stubGlobal('fetch',vi.fn(async()=>success({configured:false})));mount();
+  await submit('Taiwan teaching');
+  expect(screen.getByRole('button',{name:'Copy link to this view'})).not.toBeVisible();
+  openViewOptions();
+  expect(screen.getByRole('button',{name:'Copy link to this view'})).toBeVisible();
+  fireEvent.click(screen.getByLabelText('View options'));
+  expect(screen.getByRole('button',{name:'Copy link to this view'})).not.toBeVisible();
 });

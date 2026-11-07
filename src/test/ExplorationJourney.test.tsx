@@ -8,6 +8,8 @@ import { beginExplorationMetric, recentExplorationMetrics } from '@/lib/explorat
 import { CONTENT_VERSION } from '@/lib/canvas';
 import { blankBlock, TAIWAN_ID } from '@/lib/genui';
 
+function openViewOptions(){const trigger=screen.getByLabelText('View options');if(!trigger.closest('details')!.open)fireEvent.click(trigger);}
+
 const response=(data:unknown)=>({ok:true,json:async()=>data});
 async function submit(text:string){const input=screen.getByRole('textbox',{name:'Explore'});fireEvent.change(input,{target:{value:text}});await act(async()=>{fireEvent.submit(input.closest('form')!);});}
 afterEach(()=>{cleanup();vi.unstubAllGlobals();vi.restoreAllMocks();});
@@ -65,9 +67,9 @@ describe('primary exploration journeys',()=>{
     const history=screen.getByText('History',{selector:'summary'}).closest('details')!;
     fireEvent.click(within(history).getByRole('button',{name:/Leading AI Literacy Efforts in Taiwan/,hidden:true}));
     expect(screen.getByRole('heading',{name:'AI literacy in Taiwan'})).toBeVisible();
-    fireEvent.click(screen.getByRole('button',{name:'Next exploration'}));
+    openViewOptions();fireEvent.click(screen.getByRole('button',{name:'Next exploration'}));
     expect(screen.getByRole('heading',{name:'Bringing Boehringer Cares to life'})).toBeVisible();
-    fireEvent.click(screen.getByRole('button',{name:'Next exploration'}));
+    openViewOptions();fireEvent.click(screen.getByRole('button',{name:'Next exploration'}));
     expect(screen.getByRole('region',{name:'Contact'})).toBeVisible();
   });
 

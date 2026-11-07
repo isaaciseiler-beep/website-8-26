@@ -2,6 +2,7 @@ import { useCallback, useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { MOTION_DURATION, MOTION_EASE_ENTER } from '@/lib/motion';
 import { useProjectVisualId } from '@/lib/projectVisualMotion';
+import { scrollExplorationControlIntoView } from '@/lib/explorationReadingState';
 import { PortfolioFacets } from './PortfolioFacets';
 import { PortfolioChoice } from './PortfolioChoice';
 import { ConnectionsExplorer } from './ConnectionsExplorer';
@@ -166,8 +167,7 @@ function focusedRoleControl(navigation: HTMLDivElement | null) {
 function keepFocusedRoleVisible(navigation: HTMLDivElement | null) {
   const focused=focusedRoleControl(navigation);
   if(!focused)return;
-  const rect=focused.getBoundingClientRect();
-  if(rect.top<0||rect.bottom>window.innerHeight)focused.scrollIntoView({block:'nearest'});
+  scrollExplorationControlIntoView(focused);
 }
 
 export function CareerExplorer({ block, onChange }: Props) {
@@ -194,8 +194,8 @@ export function CareerExplorer({ block, onChange }: Props) {
   return <section className={`portfolio-career${answer?' has-answer':''}`}  aria-label="Role explorer">
     <h2 className="sr-only">{answer?.title??(block.angle==='leadership'?'Leadership in practice':block.section===1?'Strengths across the work':block.section===2?'Public service':'Career & experience')}</h2>
     {answer&&<p className="portfolio-answer">{answer.answer}</p>}
-    {block.answerId!=='current'&&<div className="portfolio-career-explorer">
-      <div ref={roleNavigation} className="portfolio-career-nav">{record&&<ResolvedProjectImage key="role-visual" visual={representativeProjectImage(record.project)} onDisplayedChange={restoreRoleFocusAfterImageChange}>{(imageProps,displayed)=>{
+    {block.answerId!=='current'&&<div ref={roleNavigation} className={`portfolio-career-explorer${record?' has-visual':''}`}>
+      <div className="portfolio-career-nav"><div key="role-selector" className="portfolio-career-select"><PortfolioChoice label="Professional role" value={active?.id??''} choices={entries.map(entry=>({value:entry.id,label:careerPaths[entry.id]?.label??entry.organization}))} onChange={roleId=>onChange({...block,roleId,search:undefined})}/></div>{record&&<ResolvedProjectImage key="role-visual" visual={representativeProjectImage(record.project)} onDisplayedChange={restoreRoleFocusAfterImageChange}>{(imageProps,displayed)=>{
         const sizing=artifactImageStyles(displayed);
         return <figure className="portfolio-career-visual" data-presentation={displayed.presentation}>
           <a style={sizing?.frame} href={displayed.src} target="_blank" rel="noreferrer" aria-label={`Open image: ${displayed.alt}`}>
@@ -206,7 +206,7 @@ export function CareerExplorer({ block, onChange }: Props) {
             }}/>
           </a>{displayed.note&&<figcaption className="portfolio-image-note">{displayed.note}</figcaption>}
         </figure>;
-      }}</ResolvedProjectImage>}<div key="role-selector" className="portfolio-career-select"><PortfolioChoice label="Professional role" value={active?.id??''} choices={entries.map(entry=>({value:entry.id,label:careerPaths[entry.id]?.label??entry.organization}))} onChange={roleId=>onChange({...block,roleId,search:undefined})}/></div><nav key="role-navigation" aria-label="Professional roles">{entries.map(entry=><button key={entry.id} aria-pressed={active?.id===entry.id} onClick={()=>onChange({...block,roleId:entry.id,search:undefined})}><strong>{careerPaths[entry.id]?.label??entry.organization}</strong></button>)}</nav></div>
+      }}</ResolvedProjectImage>}</div>
       {active&&<article className="portfolio-career-detail"><h3>{active.organization}</h3><div className="portfolio-role-context"><p>{active.role} · {active.period}</p></div>{paragraphs.map(text=><p key={text}>{text}</p>)}{record&&<button className="portfolio-inline-action" onClick={()=>onChange({...blankBlock('story'),projectIds:[record.project.id],focus:'process',layout:'project-process',section:record.processSections[0]??0})}>Explore the work<ArrowUpRight size={15} aria-hidden="true"/></button>}</article>}
     </div>}
   </section>;

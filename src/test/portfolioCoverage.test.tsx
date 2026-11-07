@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { CareerExplorer, ProjectStory } from '@/components/canvas/PortfolioViews';
 import { composeLocal, resolveCanvasPlan, validateComposition, reconcileComposition, blankBlock } from '@/lib/genui';
 import { initialPlan, publicProjects } from '@/lib/canvas';
@@ -102,10 +102,13 @@ describe('published work beyond the default projects', () => {
     expect(next.blocks[0]).toMatchObject({kind:'story',projectIds:['openai-product-testing-and-feedback'],section:5,focus:'evidence',expanded:true});
   });
 
-  it('includes rebrand and journalism responsibilities in the general role explorer', () => {
+  it('includes rebrand and journalism responsibilities in the general role explorer', async () => {
     render(<CareerExplorer block={blankBlock('timeline')} onChange={()=>{}}/>);
-    expect(screen.getByRole('button',{name:'Brand & strategy'})).toBeVisible();
-    expect(screen.getByRole('button',{name:'Journalism research'})).toBeVisible();
+    fireEvent.click(screen.getByRole('button',{name:'Professional role'}));
+    await waitFor(() => {
+      expect(screen.getByRole('button',{name:'Brand & strategy'})).toBeVisible();
+      expect(screen.getByRole('button',{name:'Journalism research'})).toBeVisible();
+    });
   });
 
   it.each(portfolioSectionQuestions)('renders the selected source rather than a generic contribution: $projectId / $section', ({projectId,section,paragraphIndices}) => {

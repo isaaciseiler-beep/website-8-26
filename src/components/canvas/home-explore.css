@@ -1,7 +1,7 @@
 @import './ai-theme.css';
-.home-genui{--window-padding:var(--space-xl);--explore-open-width:1120px;--composer-min-height:60px;--rest-height:max(220px,calc(70svh + 1px));container-type:inline-size;min-height:var(--rest-height);padding-top:calc((var(--rest-height) - var(--composer-min-height))/2 - var(--window-padding));padding-bottom:var(--space-xxl);position:relative;color:hsl(var(--foreground));font-family:var(--font-ui);font-size:var(--size-s);line-height:var(--line-s);letter-spacing:var(--tracking-l);text-wrap:pretty;}
+.home-genui{--window-padding:var(--space-xl);--explore-closed-width:544px;--explore-open-width:1000px;--composer-min-height:60px;--rest-height:max(220px,calc(70svh + 1px));container-type:inline-size;min-height:var(--rest-height);padding-top:calc((var(--rest-height) - var(--composer-min-height))/2 - var(--window-padding));padding-bottom:var(--space-xxl);position:relative;color:hsl(var(--foreground));font-family:var(--font-ui);font-size:var(--size-s);line-height:var(--line-s);letter-spacing:var(--tracking-l);text-wrap:pretty;}
 .home-genui *{font-family:inherit;box-sizing:border-box;}
-.home-genui-window{width:min(608px,100%);padding:var(--window-padding);margin-inline:auto;position:relative;isolation:isolate;border-radius:var(--radius-xl);transition:width var(--motion-window-duration) var(--motion-window-easing);}
+.home-genui-window{width:min(var(--explore-closed-width),100%);padding:var(--window-padding);margin-inline:auto;position:relative;isolation:isolate;border-radius:var(--radius-xl);transition:width var(--motion-window-duration) var(--motion-window-easing);}
 .home-genui-window:not(.has-results){transition-duration:var(--motion-window-settle-duration);transition-timing-function:var(--motion-window-settle-easing);}
 .home-genui-window.has-results{width:min(var(--explore-open-width),100%);border-radius:var(--radius-xl);padding:var(--window-padding);}
 /* One continuous surface moves from the input bounds to the result frame.
@@ -10,7 +10,7 @@
 .has-results>.home-window-surface,.has-guidance>.home-window-surface{inset:0;background:var(--panel-well-bg);}
 /* All four surface edges and the content fold share one duration and curve.
    Keep outgoing text at its measured expanded width while the frame closes. */
-.home-genui-window.is-folding{width:min(608px,100%);transition-duration:var(--motion-window-fold-duration);transition-timing-function:var(--motion-window-fold-easing);}
+.home-genui-window.is-folding{width:min(var(--explore-closed-width),100%);transition-duration:var(--motion-window-fold-duration);transition-timing-function:var(--motion-window-fold-easing);}
 .is-folding>.home-window-surface{inset:var(--window-padding);background:var(--neutral-3);transition-duration:var(--motion-window-fold-duration);transition-timing-function:var(--motion-window-fold-easing);}
 .home-genui-window:not(.has-results)>.home-window-surface{transition-duration:var(--motion-window-settle-duration);transition-timing-function:var(--motion-window-settle-easing);}
 .home-genui-composer{width:100%;margin-inline:auto;position:relative;isolation:isolate;border-radius:var(--radius-s);scroll-margin-top:var(--space-xxl);}
@@ -60,7 +60,7 @@
 /* The shell may be midway between compact and open. Its contents already lay
    out at the destination width, so opening uncovers a crisp, settled page
    instead of rewrapping every paragraph and chasing its height each frame. */
-.home-genui-reveal-content{display:flow-root;width:calc(min(608px,100cqw) - 2 * var(--window-padding));}
+.home-genui-reveal-content{display:flow-root;width:calc(min(var(--explore-closed-width),100cqw) - 2 * var(--window-padding));}
 .has-results .home-genui-reveal-content{width:calc(min(var(--explore-open-width),100cqw) - 2 * var(--window-padding));}
 .home-request-reveal{overflow:hidden;display:flow-root;}
 .home-entry p{margin:0;color:var(--neutral-8);}
@@ -83,7 +83,7 @@
 .home-genui-stage option{color:hsl(var(--foreground));background:var(--neutral-1);}
 .home-genui-stage details summary{cursor:pointer;list-style:none;padding:var(--space-m) 0;font-weight:var(--weight-medium);color:hsl(var(--foreground));display:flex;gap:var(--space-xs);justify-content:space-between;}
 .home-genui-stage details summary:after{content:'+';color:var(--neutral-7);}
-.home-genui-stage details[open] summary:after{content:'−';}
+.home-genui-stage details[open]>summary:after{content:'−';}
 .home-genui-stage details summary::-webkit-details-marker{display:none;}
 .home-genui-stage details[open]{padding-bottom:var(--space-m);}
 .canvas-modules{display:grid;gap:var(--space-xxl);}

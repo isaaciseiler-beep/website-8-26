@@ -66,28 +66,6 @@ export const topLevelPages = [
     image: { url: projectCardImages.biCares },
     keywords: ["Isaac Seiler work", "Isaac Seiler projects", "communications", "research", "strategy"],
   },
-  {
-    path: "/photos/map",
-    navTitle: "Photo Map",
-    title: "Photo Map | Isaac Seiler",
-    description:
-      "Travel photography by Isaac Seiler, with albums from Taiwan, Japan, Hong Kong, Iceland, Australia, New Zealand, Portugal, Thailand, Vietnam, Korea, and more.",
-    sitelinkDescription:
-      "Travel photography albums from Taiwan, Japan, Hong Kong, Iceland, Australia, New Zealand, Portugal, and more.",
-    priority: "0.82",
-    changefreq: "weekly",
-    image: {
-      url: "https://pub-9c24f6ce599b4e09bac5241fc8f8beb0.r2.dev/Taiwan/14BC8F70-A1CE-4D79-8FBE-665B57EB131F_1_105_c.jpeg",
-      alt: "Taiwan travel photography by Isaac Seiler",
-    },
-    keywords: [
-      "Isaac Seiler photos",
-      "travel photography",
-      "Taiwan photography",
-      "Asia travel photos",
-      "photo portfolio",
-    ],
-  },
 ];
 
 export const projectSeo = {

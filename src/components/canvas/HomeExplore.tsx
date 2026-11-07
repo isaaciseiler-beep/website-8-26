@@ -5,17 +5,20 @@ import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPrefer
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
-import { ArrowUp, ArrowLeft, ArrowRight, Link, Check, LoaderCircle, X } from 'lucide-react';
+import { ArrowUp, ArrowLeft, ArrowRight, Link, Check, LoaderCircle, X, Ellipsis } from 'lucide-react';
 import { initialPlan, publicProjects, albums, CONTENT_VERSION, type Plan } from '@/lib/canvas';
 import { isPhotographyRequest, explorationGuidance, isLocalCompositionRefinement, composeLocal, resolveCanvasPlan, validateComposition, presetComposition, type Composition } from '@/lib/genui';
 import ExperienceAutocomplete from './ExperienceAutocomplete';
 import ExploreGuide from './ExploreGuide';
 import { suggestExperiencePrompts } from '@/lib/experiencePrompts';
-import { captureReadingState, restoreReadingState, type ExplorationReadingState } from '@/lib/explorationReadingState';
+import { captureReadingState, restoreReadingState, scrollExplorationControlIntoView, type ExplorationReadingState } from '@/lib/explorationReadingState';
 import { ExplorationFeedback, ExplorationHistory } from './ExplorationJourneyTools';
 import ExplorationCanvas, { type GenerationInfo } from './ExplorationCanvas';
+import MacintoshFrame from './MacintoshFrame';
 import './home-explore.css';
 import './explore-journey.css';
+import './explore-interface.css';
+import './macintosh-frame.css';
 import { AI_LAYOUTS, type LayoutId } from '@/lib/layouts';
 import { applyPortfolioAction, createPortableView, decodeView, portfolioActionForRequest, travelHistory, viewPlan, viewTitle, viewUrl } from '@/lib/portfolioView';
 import { registerPortfolioTools, type BrowserToolRegistry } from '@/lib/portfolioWebMcp';
@@ -57,8 +60,7 @@ function ExplorationReveal({children,restored=false,initialReadingState,onSettle
     if(content.current?.parentElement?.getAttribute('aria-hidden')==='true'||active!==focusedControl.current||!(active instanceof HTMLElement)||!content.current?.contains(active))return;
     // Native focus can scroll to a lower control before the growing page has
     // enough height. Keep that chosen control in view as the frame catches up.
-    const bounds=active.getBoundingClientRect();
-    if(bounds.top<0||bounds.bottom>window.innerHeight)active.scrollIntoView({block:'nearest'});
+    scrollExplorationControlIntoView(active);
   },[]);
   useLayoutEffect(()=>{
     const node=content.current;if(!node)return;
@@ -222,6 +224,8 @@ export default function HomeExplore() {
   };
   const revealStart=()=>{
     const node=composerRef.current;
+    const viewport=node?.closest<HTMLElement>('[data-exploration-scroll]');
+    if(viewport){viewport.scrollTo({top:0,behavior:reduceMotion?'instant':'smooth'});return;}
     if(node&&node.getBoundingClientRect().top<48)node.scrollIntoView({block:'start',behavior:reduceMotion?'auto':'smooth'});
   };
   useEffect(()=>{if(reviewMode){const prompt=AI_LAYOUTS.find(l=>l.id==='benchmark-compare')!.prompt;setQuery(prompt);update({query:prompt,plan:resolveCanvasPlan(prompt,initialPlan(),0),composition:presetComposition('benchmark-compare'),generation:{status:'authored'}});}},[update]);
@@ -405,7 +409,8 @@ export default function HomeExplore() {
   const expandedSurface=Boolean(view||heldExpanded||guidance);
   const folding=heldExpanded&&!view&&!guidance;
   const surfaceMotion=view||guidance?'open':folding?'folding':settling?'settling':'idle';
-  return <section id="home-genui" className={`home-genui photos-shell${!view?' is-idle':''}`} aria-label="Interactive exploration">
+  return <section id="home-genui" className={`home-genui home-genui-mac photos-shell${!view?' is-idle':''}`} aria-label="Interactive exploration">
+    <MacintoshFrame>
     <div ref={windowRef} data-motion={surfaceMotion} className={`home-genui-window${view||heldExpanded?' has-results':guidance?' has-guidance':''}${folding?' is-folding':''}${recessActive?' is-engaged':''}`} onPointerEnter={e=>{if(e.pointerType!=='touch')setComposerHovered(true);}} onPointerLeave={()=>setComposerHovered(false)} onFocusCapture={()=>setExplorationFocused(true)} onBlurCapture={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setExplorationFocused(false);}}>
       <div className="home-window-surface" aria-hidden="true"/>
       <motion.div className="home-window-depth" aria-hidden="true" initial={false} animate={{opacity:view||guidance ? .18 : 0}} transition={{duration:reduceMotion?0:MOTION_DURATION.fold,ease:MOTION_EASE_FOLD}}/>
@@ -416,7 +421,7 @@ export default function HomeExplore() {
         <form onSubmit={e=>{e.preventDefault();if(!composing&&query.trim())submit(query);}}>
         <motion.div className="home-composer-depth" aria-hidden="true" initial={false} animate={{opacity:!expandedSurface&&!settling&&recessActive ? .18 : 0}} transition={{duration:reduceMotion?0:MOTION_DURATION.base,ease:MOTION_EASE_ENTER}}/>
         <ExperienceAutocomplete context={suggestionContext} inputRef={input} value={query} open={autocompleteOpen} immediateDismiss={immediateDismiss} onOpenChange={open=>{if(open)setImmediateDismiss(false);setAutocompleteOpen(open);}} onSubmit={submit} onChange={value=>{cancel();setQuery(value);}} onCompositionStart={()=>{cancel();setComposing(true);}} onCompositionEnd={()=>{cancel();setComposing(false);}}/>
-        {(query.trim()||view||guidance)&&<><button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button><button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17}/>}</button></>}
+        {(query.trim()||view||guidance)&&<button className="home-clear" type="button" onClick={clear} aria-label="Clear exploration"><X size={16}/></button>}{(query.trim()||view||guidance)&&<button className="home-submit" type="submit" disabled={composing||!query.trim()} aria-label="Explore" aria-busy={busy}>{busy?<LoaderCircle size={17} className="home-submit-spinner"/>:<ArrowUp size={17} aria-hidden="true"/>}</button>}
       </form><AnimatePresence initial={false}>{busy&&<RequestProgress key="request-status"><div className="home-request-state"><span>{phase}</span><button type="button" onClick={stopUpdating} aria-label="Stop updating this view">Stop</button></div></RequestProgress>}</AnimatePresence></div>
       {!busy&&!view&&!heldExpanded&&!settling&&!guidance&&!autocompleteOpen&&<motion.div className="home-idle-actions" initial={{opacity:0}} animate={{opacity:1}} transition={{duration:reduceMotion?0:MOTION_DURATION.instant,ease:MOTION_EASE_ENTER}}>
         <button className="home-guide-trigger" type="button" onClick={openGuide}>How to explore</button>
@@ -433,21 +438,26 @@ export default function HomeExplore() {
               <ExplorationCanvas composition={view.composition} plan={view.plan} generation={view.generation} onChange={changeComposition}/>
             </>}
             <footer className="home-genui-footer">
-            {view&&nextQuestions.length>0&&<details className="home-next-questions"><summary>Explore further</summary><div>{nextQuestions.map(item=><button key={item.id} type="button" onClick={()=>submit(item.text)}>{item.text}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={openGuide}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div></details>}
             <div className={`home-genui-tools${!view&&!history.length?' is-empty':''}`}>
 
               {view?.returnToExploration&&view.composition.blocks.length===1&&view.composition.blocks[0].kind==='story'&&<button aria-label={returnLabel(view.returnToExploration)} onClick={backToExploration}><ArrowLeft size={14} aria-hidden="true"/><span>{returnLabel(view.returnToExploration)}</span></button>}
               {(view||guidance)&&history.length>0&&!view?.returnToExploration&&<button aria-label="Previous exploration" title={`Back to ${titleFor(history[history.length-1])}`} onClick={()=>navigateHistory('back')}><ArrowLeft size={14} aria-hidden="true"/><span>Back</span></button>}
+            </div>
+            {view&&<details className="home-view-options"><summary aria-label="View options"><Ellipsis size={18} aria-hidden="true"/></summary><div className="home-view-options-content">
+              <div className="home-view-option-actions">
               {view&&future.length>0&&!view.returnToExploration&&<button aria-label="Next exploration" title={`Forward to ${titleFor(future[0])}`} onClick={()=>navigateHistory('forward')}><span>Forward</span><ArrowRight size={14} aria-hidden="true"/></button>}
               {view&&<button className="home-share-view" aria-label={shareStatus==='copied'?'Link copied':'Copy link to this view'} onClick={()=>void shareView()}>{shareStatus==='copied'?<Check size={14}/>:<Link size={14}/>}<span>{shareStatus==='copied'?'Copied':'Share'}</span></button>}
 
-            </div>
+              </div>
+            {view&&nextQuestions.length>0&&<details className="home-next-questions"><summary>Explore further</summary><div>{nextQuestions.map(item=><button key={item.id} type="button" onClick={()=>submit(item.text)}>{item.text}<ArrowRight size={14} aria-hidden="true"/></button>)}<button type="button" onClick={openGuide}>How to explore<ArrowRight size={14} aria-hidden="true"/></button></div></details>}
+            {view&&<ExplorationHistory items={history.map(item=>({title:titleFor(item),question:item.query}))} onSelect={selectHistory}/>}
             {view&&!busy&&<ExplorationFeedback key={view.query} title={titleFor(view)} question={view.query} url={feedbackUrl}/>}
-              {view&&<ExplorationHistory items={history.map(item=>({title:titleFor(item),question:item.query}))} onSelect={selectHistory}/>}
+            </div></details>}
             </footer>
           </div>
         </ExplorationReveal>}
       </AnimatePresence>
     </div>
+    </MacintoshFrame>
   </section>;
 }
