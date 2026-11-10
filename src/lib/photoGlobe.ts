@@ -24,13 +24,11 @@ export function projectPhotoLocation(coordinates: [number, number], view: GlobeV
   return { x: (x + 1) * 50, y: (1 - y) * 50, visible: z > 0.08 && y > 1 - PHOTO_GLOBE_VISIBLE_FRACTION * 2 };
 }
 
-/** Cropping a large sphere on a narrow screen must also remove hidden keyboard targets. */
-export function isPhotoGlobePinVisible(point: ReturnType<typeof projectPhotoLocation>, diameter: number, width: number) {
-  if (!point.visible || diameter <= 0 || width <= 0) return false;
-  const x = (point.x / 100 - 0.5) * diameter + width / 2;
-  const y = point.y / 100 * diameter;
-  const radius = 22;
-  return x >= radius && x <= width - radius && y >= radius && y <= diameter * PHOTO_GLOBE_VISIBLE_FRACTION - radius;
+/** Fade the visible orb while its full hit area still fits in the crop. */
+export function photoGlobePinOpacity(x: number, y: number, diameter: number, width: number) {
+  const screenX = x + (width - diameter) / 2;
+  const clearance = Math.min(screenX, width - screenX, y, diameter * PHOTO_GLOBE_VISIBLE_FRACTION - y) - 22;
+  return Math.max(0, Math.min(1, clearance / 16));
 }
 
 export function globeViewForLocation(coordinates: [number, number]): GlobeView {

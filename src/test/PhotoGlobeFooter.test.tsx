@@ -43,11 +43,11 @@ describe("photo globe keyboard focus", () => {
     expect(fireEvent.keyDown(globe, { key: "Home" })).toBe(false);
   });
 
-  it("shows the selected location in the toolbar and navigates only through its album link", async () => {
+  it("shows the selected location as the globe title and opens its album through the title", async () => {
     vi.stubGlobal("IntersectionObserver", NearbyObserver);
     vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(650);
     render(<MemoryRouter><PhotoGlobeFooter /><RouteProbe /></MemoryRouter>);
-    expect(screen.getByText("Explore places")).toBeVisible();
+    expect(screen.getByText("Explore places", { selector: "[aria-live]" })).toBeVisible();
     expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
     expect(screen.queryByText("Drag to explore")).not.toBeInTheDocument();
 

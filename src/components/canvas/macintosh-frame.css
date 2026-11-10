@@ -2,15 +2,13 @@
 .home-genui.home-genui-mac {
   min-height: 0;
   padding-top: 76px;
-  padding-bottom: calc(var(--space-xxl) + var(--space-l));
+  padding-bottom: calc(var(--space-xxl) + var(--space-xl) + var(--space-l));
   overflow-anchor: none;
 }
 .macintosh-device { margin: 0; }
-.macintosh-photo-credit { font-size: var(--size-xxs); color: var(--neutral-7); text-align: center; margin-top: var(--space-m); line-height: 1.5; }
-.macintosh-photo-credit a:hover { text-decoration: underline; }
 .macintosh-frame {
   position: relative;
-  width: min(var(--mac-frame-max), 100%, calc((100svh - 136px) / var(--mac-screen-bottom-ratio)));
+  width: var(--mac-frame-width);
   aspect-ratio: var(--mac-image-ratio);
   margin-inline: auto;
   isolation: isolate;
@@ -152,7 +150,8 @@
 .home-genui-mac .home-genui-stage { margin-top: var(--space-m); }
 .home-genui-mac .home-genui-footer { padding-bottom: var(--space-s); }
 @media(max-width:640px) {
-  .home-genui.home-genui-mac { padding-inline: var(--space-xs); padding-top: 80px; }
+  .home-genui.home-genui-mac, .photo-strip.photos-shell { padding-inline: var(--space-xs, 8px); }
+  .home-genui.home-genui-mac { padding-top: 80px; }
   .home-genui-mac .home-genui-window,
   .home-genui-mac .home-genui-window:is(.has-results,.has-guidance,.is-folding) { --window-padding: var(--space-m); }
   .macintosh-device[data-mac-display="crt"] .macintosh-glass { box-shadow: inset 0 0 10px 2px #00172a99,inset 0 1px 2px #a7ffff70; }

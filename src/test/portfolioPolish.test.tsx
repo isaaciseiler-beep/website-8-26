@@ -31,9 +31,10 @@ describe('portfolio navigation and recovery', () => {
   });
 
   it('offers real destination links and marks the current route', () => {
-    render(<MemoryRouter initialEntries={['/work']}><ThemeProvider><Sidebar open onToggle={() => {}} onClose={() => {}} /></ThemeProvider></MemoryRouter>);
-    expect(screen.getByRole('link', { name: 'Work' })).toHaveAttribute('href', '/work');
-    expect(screen.getByRole('link', { name: 'Work' })).toHaveAttribute('aria-current', 'page');
+    render(<MemoryRouter initialEntries={['/photos']}><ThemeProvider><Sidebar open onToggle={() => {}} onClose={() => {}} /></ThemeProvider></MemoryRouter>);
+    expect(screen.getByRole('link', { name: 'Photos' })).toHaveAttribute('href', '/photos');
+    expect(screen.getByRole('link', { name: 'Photos' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.queryByRole('link', { name: 'Work' })).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Photo Map' })).not.toBeInTheDocument();
   });
 

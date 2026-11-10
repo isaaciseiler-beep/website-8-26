@@ -42,7 +42,7 @@ export default function WorkPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Sidebar open={sidebarOpen} onToggle={toggleSidebar} onClose={() => setSidebarOpen(false)} onSearchOpen={openSearch} activeSection="projects" showToggle={false} />
+      <Sidebar open={sidebarOpen} onToggle={toggleSidebar} onClose={() => setSidebarOpen(false)} onSearchOpen={openSearch} showToggle={false} />
       <motion.div
         animate={{ marginLeft: sidebarOpen && !isMobile ? 200 : 0, marginRight: searchOpen && !isMobile ? 200 : 0, width: offset ? 'calc(100% - 200px)' : '100%' }}
         transition={navigationMotion}

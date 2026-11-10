@@ -130,7 +130,7 @@ it.each([1280, 768, 767, 390])('retains a desktop sidebar and reveals the destin
     setItem: (key: string, value: string) => values.set(key, value),
   } });
   let release!: () => void;
-  warm.mockImplementation(path => path === '/work' ? new Promise<void>(resolve => { release = resolve; }) : Promise.resolve());
+  warm.mockImplementation(path => path === '/photos' ? new Promise<void>(resolve => { release = resolve; }) : Promise.resolve());
   function WithChrome({ name }: { name: string }) {
     const [open, setOpen] = useSidebarState();
     return <>
@@ -140,12 +140,12 @@ it.each([1280, 768, 767, 390])('retains a desktop sidebar and reveals the destin
     </>;
   }
   render(<MemoryRouter><ThemeProvider><SiteChromeProvider><PageTransitions>{location => <Routes location={location}>
-    <Route path="/" element={<WithChrome key="home" name="Home" />} /><Route path="/work" element={<WithChrome key="destination" name="Destination" />} />
+    <Route path="/" element={<WithChrome key="home" name="Home" />} /><Route path="/photos" element={<WithChrome key="destination" name="Destination" />} />
   </Routes>}</PageTransitions></SiteChromeProvider></ThemeProvider></MemoryRouter>);
   const header = screen.getByRole('button', { name: 'Toggle menu' });
   fireEvent.click(header);
   const sidebar = screen.getByRole('navigation', { name: 'Main navigation' });
-  fireEvent.click(screen.getByRole('link', { name: 'Work' }));
+  fireEvent.click(screen.getByRole('link', { name: 'Photos' }));
   expect(screen.getByRole('heading', { name: 'Home' })).toBeVisible();
   expect(sidebar).not.toHaveAttribute('inert');
   expect(sidebar).toBeInTheDocument();

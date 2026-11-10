@@ -1,5 +1,5 @@
 import { useId, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { macintoshSE, screenProjection } from '@/lib/macintoshModels';
+import { macintoshFrameWidth, macintoshSE, screenProjection } from '@/lib/macintoshModels';
 
 // Static optics bow the outer CRT by just a few pixels.
 const barrelField = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">${Array.from({length:25*25},(_,index)=>{
@@ -24,13 +24,10 @@ export default function MacintoshFrame({ children }: { children: ReactNode }) {
     return()=>observer.disconnect();
   },[]);
   const projection=screenProjection(device,frameWidth);
-  const screenBottom=Math.max(...device.screen.map(point=>point[1]));
-  const screenWidth=(Math.hypot(device.screen[1][0]-device.screen[0][0],device.screen[1][1]-device.screen[0][1])+Math.hypot(device.screen[2][0]-device.screen[3][0],device.screen[2][1]-device.screen[3][1]))/2;
   const geometry={
     '--mac-image-ratio': `${device.crop.width} / ${device.crop.height}`,
     '--mac-screen-radius':device.radius,
-    '--mac-frame-max':`${Math.min(1120,620*device.crop.width/screenWidth)}px`,
-    '--mac-screen-bottom-ratio':((screenBottom-device.crop.y)/device.crop.width).toFixed(5),
+    '--mac-frame-width':macintoshFrameWidth,
   } as CSSProperties;
   return <figure className="macintosh-device" data-mac-display={device.display.kind}>
     <div ref={frame} className="macintosh-frame" data-mac-model={device.id} style={geometry}>
@@ -54,6 +51,6 @@ export default function MacintoshFrame({ children }: { children: ReactNode }) {
         </div>
       </div>
     </div>
-    <figcaption className="macintosh-photo-credit">Photo: <a href={device.source} target="_blank" rel="noreferrer">{device.credit}</a><span className="sr-only">. Original Macintosh SE photograph, isolated with an SVG crop; display replaced with the interactive portfolio.</span></figcaption>
+    <figcaption className="sr-only">Original Macintosh SE photograph with an interactive display.</figcaption>
   </figure>;
 }

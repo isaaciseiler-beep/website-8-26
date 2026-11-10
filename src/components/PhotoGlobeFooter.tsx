@@ -1,10 +1,11 @@
-import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from "react";
+import { lazy, Suspense, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import type { Map as MapboxMap, Marker as MapboxMarker } from "mapbox-gl";
 import { photoMapEntries } from "@/lib/photoMap";
 import { getMapboxToken } from "@/lib/mapboxToken";
-import { PHOTO_GLOBE_INITIAL_VIEW, PHOTO_GLOBE_VISIBLE_FRACTION, isPhotoGlobePinVisible, normalizeGlobeView, projectPhotoLocation, rotatePhotoGlobe, type GlobeView } from "@/lib/photoGlobe";
+import { PHOTO_GLOBE_INITIAL_VIEW, PHOTO_GLOBE_VISIBLE_FRACTION, normalizeGlobeView, photoGlobePinOpacity, projectPhotoLocation, rotatePhotoGlobe, type GlobeView } from "@/lib/photoGlobe";
+import { motionReduced } from "@/hooks/useMotionPreference";
 import { useTheme } from "@/components/ThemeProvider";
 import "./photo-globe-footer.css";
 
@@ -12,7 +13,51 @@ const NativeSatelliteGlobe = lazy(() => import("./NativeSatelliteGlobe"));
 const locations = photoMapEntries.filter(entry => Boolean(entry.albumFolder));
 const albumHref = (folder: string) => `/photos?album=${encodeURIComponent(folder)}`;
 
+type GlobeDrag = {
+  originX: number;
+  originY: number;
+  x: number;
+  y: number;
+  time: number;
+  velocityX: number;
+  velocityY: number;
+  diameter: number;
+  view: GlobeView;
+};
+
+// Encode a spherical projection in the red and green displacement channels.
+const lensGrid = 25;
+const lensCells = Array.from({ length: lensGrid ** 2 }, (_, index) => {
+  const x = index % lensGrid;
+  const y = Math.floor(index / lensGrid);
+  const dx = (2 * x + 1) / lensGrid - 1;
+  const dy = (2 * y + 1) / lensGrid - 1;
+  const radius = Math.hypot(dx, dy);
+  const sampleRadius = Math.asin(Math.min(radius, 1)) / (Math.PI / 2);
+  const bend = radius > 0 && radius < 1 ? 1 - sampleRadius / radius : 0;
+  const red = Math.round(127.5 - 127.5 * dx * bend);
+  const green = Math.round(127.5 - 127.5 * dy * bend);
+  return `<rect x="${x}" y="${y}" width="1.025" height="1.025" fill="rgb(${red},${green},128)"/>`;
+}).join("");
+const lensField = `data:image/svg+xml,${encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${lensGrid}" height="${lensGrid}">${lensCells}</svg>`
+)}`;
+
+function measureMapboxHorizon(map: MapboxMap, diameter: number) {
+  const center = diameter / 2;
+  let sky = 0;
+  let surface = center;
+  // The globe has a fixed zoom and pitch. Find the crest after each resize.
+  while (surface - sky > 0.5) {
+    const y = (sky + surface) / 2;
+    if (map.isPointOnSurface([center, y])) surface = y;
+    else sky = y;
+  }
+  return surface;
+}
+
 export default function PhotoGlobeFooter() {
+  const lensId = `photo-globe-lens-${useId().replace(/:/g, "")}`;
   const footer = useRef<HTMLElement>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapboxMap | null>(null);
@@ -22,11 +67,13 @@ export default function PhotoGlobeFooter() {
   const pendingFrame = useRef<number | null>(null);
   const [mapReady, setMapReady] = useState(false);
   const [view, setView] = useState<GlobeView>(PHOTO_GLOBE_INITIAL_VIEW);
+  const currentView = useRef(view);
+  const coastFrame = useRef<number | null>(null);
   const [selected, setSelected] = useState("");
   const selectedRef = useRef(selected);
   selectedRef.current = selected;
   const [mapFailed, setMapFailed] = useState(false);
-  const drag = useRef<{ x: number; y: number; diameter: number; view: GlobeView } | null>(null);
+  const drag = useRef<GlobeDrag | null>(null);
   const location = useLocation();
   const { resolvedTheme } = useTheme();
   const token = getMapboxToken();
@@ -41,7 +88,11 @@ export default function PhotoGlobeFooter() {
     const observer = new ResizeObserver(measure);
     if (footer.current) observer.observe(footer.current);
     measure();
-    return () => { observer.disconnect(); if (pendingFrame.current !== null) cancelAnimationFrame(pendingFrame.current); };
+    return () => {
+      observer.disconnect();
+      if (pendingFrame.current !== null) cancelAnimationFrame(pendingFrame.current);
+      if (coastFrame.current !== null) cancelAnimationFrame(coastFrame.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -92,9 +143,14 @@ export default function PhotoGlobeFooter() {
         map.touchZoomRotate.disable();
         mapRef.current = map;
         map.addControl(new mapbox.AttributionControl({ compact: true }), "bottom-right");
+        const updateHorizon = () => {
+          const diameter = map.getContainer().clientWidth;
+          footer.current?.style.setProperty("--photo-globe-mapbox-horizon", `${measureMapboxHorizon(map, diameter)}px`);
+        };
         map.on("error", () => { if (!disposed && !map.loaded()) setMapFailed(true); });
         map.on("load", () => {
           if (disposed) return;
+          updateHorizon();
           for (const layer of map.getStyle().layers ?? []) {
             if (layer.type === "raster") map.setPaintProperty(layer.id, "raster-saturation", -1);
             if (layer.type === "symbol") map.setLayoutProperty(layer.id, "visibility", "none");
@@ -120,9 +176,10 @@ export default function PhotoGlobeFooter() {
               const pixel = map.project(entry.coordinates);
               const width = footer.current?.clientWidth ?? 0;
               const diameter = mapContainer.current?.clientWidth ?? 0;
-              const x = pixel.x + (width - diameter) / 2;
-              const visible = position.visible && x >= 22 && x <= width - 22 && pixel.y >= 22 && pixel.y <= diameter * PHOTO_GLOBE_VISIBLE_FRACTION - 22;
+              const opacity = position.visible ? photoGlobePinOpacity(pixel.x, pixel.y, diameter, width) : 0;
+              const visible = opacity > 0;
               anchor.style.visibility = visible ? "visible" : "hidden";
+              anchor.style.setProperty("--photo-globe-pin-opacity", String(opacity));
               anchor.tabIndex = visible ? 0 : -1;
               anchor.setAttribute("aria-hidden", String(!visible));
               anchor.classList.toggle("is-selected", selectedRef.current === entry.id);
@@ -144,6 +201,7 @@ export default function PhotoGlobeFooter() {
           map.setZoom(nextZoom);
           map.setMinZoom(nextZoom);
           map.setMaxZoom(nextZoom);
+          updateHorizon();
         });
         observer.observe(mapContainer.current);
       } catch { if (!disposed) setMapFailed(true); }
@@ -159,21 +217,67 @@ export default function PhotoGlobeFooter() {
     map.setFog({ color: background, "high-color": background, "space-color": background, "horizon-blend": 0.015, "star-intensity": 0 });
   }, [resolvedTheme, mapReady]);
 
+  const applyView = (next: GlobeView) => {
+    currentView.current = next;
+    setView(next);
+  };
+  const stopCoast = () => {
+    if (coastFrame.current !== null) cancelAnimationFrame(coastFrame.current);
+    coastFrame.current = null;
+  };
   const scheduleView = (next: GlobeView) => {
     pendingView.current = next;
     if (pendingFrame.current !== null) return;
     pendingFrame.current = requestAnimationFrame(() => {
       pendingFrame.current = null;
-      if (pendingView.current) setView(pendingView.current);
+      if (pendingView.current) applyView(pendingView.current);
       pendingView.current = null;
     });
   };
+  const releaseGlobe = (time: number) => {
+    const gesture = drag.current;
+    drag.current = null;
+    if (!gesture || time - gesture.time > 80 || motionReduced()) return;
+    const speed = Math.hypot(gesture.velocityX, gesture.velocityY);
+    if (speed < .16) return;
+    const distance = Math.min(speed * 72, gesture.diameter * .08);
+    const offsetX = gesture.x - gesture.originX;
+    const offsetY = gesture.y - gesture.originY;
+    const start = performance.now();
+    const coast = (now: number) => {
+      coastFrame.current = null;
+      if (motionReduced()) return;
+      const progress = Math.min(1, (now - start) / 240);
+      const travel = distance * (1 - (1 - progress) ** 3) / speed;
+      applyView(rotatePhotoGlobe(gesture.view, offsetX + gesture.velocityX * travel, offsetY + gesture.velocityY * travel, gesture.diameter));
+      if (progress < 1) coastFrame.current = requestAnimationFrame(coast);
+    };
+    coastFrame.current = requestAnimationFrame(coast);
+  };
   const active = locations.find(entry => entry.id === selected);
+  const title = active ? <>{active.location}<ArrowUpRight aria-hidden="true" /></> : "Explore places";
 
-  return <footer ref={footer} id="photo-globe" className="photo-globe-footer" aria-label="Photographs around the world">
+  return <footer ref={footer} id="photo-globe" className="photo-globe-footer" data-renderer={useMapbox && mapReady ? "mapbox" : "native"} aria-label="Photographs around the world"
+    style={{ "--photo-globe-pin-lens": `url(#${lensId})` } as CSSProperties}>
+    <svg className="photo-globe-optics" width="0" height="0" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id={lensId} x="0" y="0" width="100%" height="100%" primitiveUnits="objectBoundingBox" colorInterpolationFilters="sRGB">
+          <feImage href={lensField} x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="field" />
+          <feGaussianBlur in="field" stdDeviation=".022" result="smoothField" />
+          <feDisplacementMap in="SourceGraphic" in2="smoothField" scale="1" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
     <div className="photo-globe-toolbar">
-      <div className="photo-globe-location-control" aria-live="polite" aria-atomic="true">
-        {active ? <Link className="photo-globe-open" to={albumHref(active.albumFolder!)} aria-label={`Open ${active.location} album`}>{active.location}<ArrowUpRight size={16} aria-hidden="true" /></Link> : <span>Explore places</span>}
+      <div className="photo-globe-location-control">
+        <div className="photo-globe-title-sharp" aria-live="polite" aria-atomic="true">
+          {active ? <div key={active.id} className="photo-globe-title-arrive">
+            <Link className="photo-globe-open" to={albumHref(active.albumFolder!)} aria-label={`Open ${active.location} album`}>{title}</Link>
+          </div> : title}
+        </div>
+        <div className="photo-globe-title-soft" aria-hidden="true">
+          {active ? <div key={active.id} className="photo-globe-title-arrive">{title}</div> : title}
+        </div>
       </div>
       <span id="photo-globe-instructions" className="sr-only">Use arrow keys to rotate the globe. Home resets the view. Select a photograph to show its location above, then follow the location link to open its album.</span>
     </div>
@@ -182,34 +286,49 @@ export default function PhotoGlobeFooter() {
       onKeyDown={event => {
         if (event.target !== event.currentTarget || !["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home"].includes(event.key)) return;
         event.preventDefault();
+        stopCoast();
         if (pendingFrame.current !== null) cancelAnimationFrame(pendingFrame.current);
         pendingFrame.current = null;
         pendingView.current = null;
         const map = mapReady ? mapRef.current : null;
         const center = map?.getCenter();
-        const current = center ? { longitude: center.lng, latitude: center.lat } : view;
+        const current = center ? { longitude: center.lng, latitude: center.lat } : currentView.current;
         const next = event.key === "Home" ? PHOTO_GLOBE_INITIAL_VIEW : normalizeGlobeView({ longitude: current.longitude + (event.key === "ArrowLeft" ? -12 : event.key === "ArrowRight" ? 12 : 0), latitude: current.latitude + (event.key === "ArrowUp" ? 8 : event.key === "ArrowDown" ? -8 : 0) });
-        setView(next);
+        applyView(next);
         map?.jumpTo({ center: [next.longitude, next.latitude] });
       }}>
       <div className="photo-globe-world" ref={mapContainer} aria-label="Satellite photo globe" />
       {!useMapbox || !mapReady ? <div className="photo-globe-world photo-globe-native"
         onPointerDown={event => {
+          stopCoast();
           if (!event.isPrimary || event.button !== 0 || event.target instanceof Element && event.target.closest("button")) return;
-          drag.current = { x: event.clientX, y: event.clientY, diameter: event.currentTarget.clientWidth, view };
+          drag.current = {
+            originX: event.clientX, originY: event.clientY, x: event.clientX, y: event.clientY,
+            time: event.timeStamp, velocityX: 0, velocityY: 0,
+            diameter: event.currentTarget.clientWidth, view: pendingView.current ?? currentView.current,
+          };
           event.currentTarget.setPointerCapture(event.pointerId);
         }}
         onPointerMove={event => {
-          if (!drag.current) return;
-          scheduleView(rotatePhotoGlobe(drag.current.view, event.clientX - drag.current.x, event.clientY - drag.current.y, drag.current.diameter));
+          const gesture = drag.current;
+          if (!gesture || !event.isPrimary) return;
+          const elapsed = Math.max(8, event.timeStamp - gesture.time);
+          gesture.velocityX = (event.clientX - gesture.x) / elapsed;
+          gesture.velocityY = (event.clientY - gesture.y) / elapsed;
+          gesture.x = event.clientX;
+          gesture.y = event.clientY;
+          gesture.time = event.timeStamp;
+          scheduleView(rotatePhotoGlobe(gesture.view, gesture.x - gesture.originX, gesture.y - gesture.originY, gesture.diameter));
         }}
-        onPointerUp={() => { drag.current = null; }} onPointerCancel={() => { drag.current = null; }} onLostPointerCapture={() => { drag.current = null; }}>
+        onPointerUp={event => { if (event.isPrimary) releaseGlobe(event.timeStamp); }}
+        onPointerCancel={() => { drag.current = null; }} onLostPointerCapture={() => { drag.current = null; }}>
         {nearby ? <Suspense fallback={null}><NativeSatelliteGlobe view={view} /></Suspense> : null}
         <div className="photo-globe-pins">
           {nearby ? locations.map(entry => {
             const projected = projectPhotoLocation(entry.coordinates, view);
-            return <button key={entry.id} type="button" className={`photo-globe-pin${selected === entry.id ? " is-selected" : ""}`} aria-label={`Select ${entry.location}`} aria-pressed={selected === entry.id} onClick={() => setSelected(entry.id)}
-              style={{ left: `${projected.x}%`, top: `${projected.y}%`, display: isPhotoGlobePinVisible(projected, viewport.diameter, viewport.width) ? undefined : "none" }}>
+            const opacity = projected.visible ? photoGlobePinOpacity(projected.x * viewport.diameter / 100, projected.y * viewport.diameter / 100, viewport.diameter, viewport.width) : 0;
+            return <button key={entry.id} type="button" className={`photo-globe-pin${selected === entry.id ? " is-selected" : ""}`} aria-label={`Select ${entry.location}`} aria-pressed={selected === entry.id} onClick={() => { stopCoast(); setSelected(entry.id); }}
+              style={{ left: `${projected.x}%`, top: `${projected.y}%`, display: opacity > 0 ? undefined : "none", "--photo-globe-pin-opacity": opacity } as CSSProperties}>
               <span className="photo-globe-pin-image" style={{ backgroundImage: `url("${entry.coverImage}")` }} />
             </button>;
           }) : null}

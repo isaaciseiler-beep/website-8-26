@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { PHOTO_GLOBE_VISIBLE_FRACTION, photoGlobeRasterPlan, type GlobeView } from "@/lib/photoGlobe";
 
 type Props = { view: GlobeView };
@@ -6,7 +6,7 @@ type Props = { view: GlobeView };
 const VERTEX = `attribute vec2 a_position;
 void main() { gl_Position = vec4(a_position, 0.0, 1.0); }`;
 const FRAGMENT = `precision highp float;
-uniform sampler2D u_earth; uniform vec2 u_view; uniform vec2 u_resolution;
+uniform sampler2D u_earth; uniform vec2 u_view; uniform vec2 u_resolution; uniform float u_rim_width;
 void main() {
   // Pixel centers define one exact circle, including fractional viewport sizes.
   vec2 p = vec2(2.0 * gl_FragCoord.x / u_resolution.x - 1.0,
@@ -20,9 +20,8 @@ void main() {
   float latitude = asin(clamp(surface.y * cos(u_view.y) + z * sin(u_view.y), -1.0, 1.0));
   float longitude = atan(surface.x, z * cos(u_view.y) - surface.y * sin(u_view.y)) + u_view.x;
   vec2 uv = vec2(longitude / 6.28318530718 + 0.5, 0.5 - latitude / 3.14159265359);
-  // At the extreme horizon, many terrain texels collapse into one pixel.
-  // Prefilter only that four-device-pixel strip; retain full interior detail.
-  float horizonBias = 3.0 * (1.0 - smoothstep(0.0, 4.0, insidePixels));
+  // Prefilter the horizon in the same pass that draws the surface.
+  float horizonBias = 3.5 * (1.0 - smoothstep(0.0, u_rim_width, insidePixels));
   vec3 satellite = texture2D(u_earth, uv, horizonBias).rgb;
   float gray = dot(satellite, vec3(0.299, 0.587, 0.114));
   float light = 0.48 + 0.52 * max(0.0, dot(vec3(surface, z), normalize(vec3(-0.5, 0.7, 1.3))));
@@ -85,18 +84,20 @@ export default function NativeSatelliteGlobe({ view }: Props) {
     if (anisotropy) gl.texParameterf(gl.TEXTURE_2D, anisotropy.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, gl.getParameter(anisotropy.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
     const viewUniform = gl.getUniformLocation(program, "u_view");
     const resolutionUniform = gl.getUniformLocation(program, "u_resolution");
+    const rimWidthUniform = gl.getUniformLocation(program, "u_rim_width");
     const maxTexture = gl.getParameter(gl.MAX_TEXTURE_SIZE) as number;
     const maxViewport = gl.getParameter(gl.MAX_VIEWPORT_DIMS) as Int32Array;
     const maxFramebuffer = Math.min(gl.getParameter(gl.MAX_RENDERBUFFER_SIZE) as number, maxViewport[0], maxViewport[1] / PHOTO_GLOBE_VISIBLE_FRACTION);
     const connection = navigator as ConnectionNavigator;
-    const plan = () => photoGlobeRasterPlan(element.clientWidth, window.devicePixelRatio || 1, maxTexture, maxFramebuffer, (connection.deviceMemory ?? 8) <= 4, Boolean(connection.connection?.saveData));
+    const plan = (width = element.clientWidth) => photoGlobeRasterPlan(width, window.devicePixelRatio || 1, maxTexture, maxFramebuffer, (connection.deviceMemory ?? 8) <= 4, Boolean(connection.connection?.saveData));
     let ready = false;
     let loadedTextureWidth = 0;
     let requestedTextureWidth = 0;
     const pendingImages = new Set<HTMLImageElement>();
     const draw = (next: GlobeView) => {
       if (!ready || disposed || gl.isContextLost()) return;
-      const raster = plan();
+      const width = element.clientWidth;
+      const raster = plan(width);
       if (element.width !== raster.width || element.height !== raster.height) {
         element.width = raster.width;
         element.height = raster.height;
@@ -108,6 +109,7 @@ export default function NativeSatelliteGlobe({ view }: Props) {
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform2f(resolutionUniform, raster.width, raster.height);
       gl.uniform2f(viewUniform, next.longitude * Math.PI / 180, next.latitude * Math.PI / 180);
+      gl.uniform1f(rimWidthUniform, 14 * raster.width / Math.max(1, width));
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
     const loadTexture = () => {
@@ -156,7 +158,7 @@ export default function NativeSatelliteGlobe({ view }: Props) {
     };
   }, [contextGeneration]);
 
-  useEffect(() => { render.current?.(view); }, [view]);
+  useLayoutEffect(() => { render.current?.(view); }, [view]);
   return <div className="photo-globe-satellite-fallback" data-renderer={rendererReady ? "webgl" : "static"} style={{ backgroundPosition: `${50 - view.longitude / 3.6}% center` }} aria-hidden="true">
     <canvas ref={canvas} className="photo-globe-satellite" style={{ height: `${PHOTO_GLOBE_VISIBLE_FRACTION * 100}%` }} />
   </div>;

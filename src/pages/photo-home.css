@@ -21,7 +21,16 @@
   .album-photo-row > :only-child { aspect-ratio: var(--album-ratio); }
 }
 .photo-tile { position: relative; overflow: hidden; isolation: isolate; }
-.album-photo-tile img { width: 100%; height: 100%; object-fit: cover; }
+.album-photo-tile img { width: 100%; height: var(--album-edge-trim-height, 100%); object-fit: cover; }
+/* These two Washington State photographs need their bottom three source rows trimmed. */
+img:is(
+  [src$="/washington-state/7BE8EA00-0432-4CE4-BD5D-43C00FC31ADC_1_105_c.jpeg"],
+  [src$="/washington-state/C0499536-625B-47BE-B6D3-38CD853AEA17_1_105_c.jpeg"]
+) {
+  --album-edge-trim-height: calc(100% * 665 / 662);
+  --album-edge-trim-clip: inset(0 0 calc(100% * 3 / 665) 0 round var(--site-corner-radius));
+}
+.photo-preview-image { clip-path: var(--album-edge-trim-clip, none); }
 .photo-hover-label { position: absolute; inset: auto 0 0; padding: 16px; text-align: left; color: white; font-size: 12px; font-weight: 400; line-height: 1.4; pointer-events: none; opacity: 0; transition: opacity var(--motion-fast) var(--motion-ease); z-index: 1; }
 .photo-hover-label::before { content: ''; position: absolute; inset: -32px 0 0; z-index: -1; background: linear-gradient(transparent, rgb(0 0 0 / .55)); }
 .photo-tile:focus-visible .photo-hover-label { opacity: 1; transform: translateY(0); }

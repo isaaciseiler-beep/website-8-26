@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { globeViewForLocation, isPhotoGlobePinVisible, normalizeGlobeView, PHOTO_GLOBE_INITIAL_VIEW, projectPhotoLocation, rotatePhotoGlobe, photoGlobeRasterPlan } from "@/lib/photoGlobe";
+import { globeViewForLocation, normalizeGlobeView, PHOTO_GLOBE_INITIAL_VIEW, photoGlobePinOpacity, projectPhotoLocation, rotatePhotoGlobe, photoGlobeRasterPlan } from "@/lib/photoGlobe";
 import { photoMapEntries } from "@/lib/photoMap";
 
 describe("photo globe navigation", () => {
@@ -15,13 +15,15 @@ describe("photo globe navigation", () => {
   it("keeps selected album pins completely inside a narrow crop", () => {
     for (const entry of photoMapEntries.filter(item => item.albumFolder)) {
       const point = projectPhotoLocation(entry.coordinates, globeViewForLocation(entry.coordinates));
-      expect(isPhotoGlobePinVisible(point, 650, 320), entry.id).toBe(true);
+      expect(photoGlobePinOpacity(point.x * 6.5, point.y * 6.5, 650, 320), entry.id).toBe(1);
     }
   });
-  it("removes pins cropped by the mobile edges or footer baseline from interaction", () => {
-    expect(isPhotoGlobePinVisible({ x: 15, y: 22, visible: true }, 650, 320)).toBe(false);
-    expect(isPhotoGlobePinVisible({ x: 50, y: 39, visible: true }, 650, 320)).toBe(false);
-    expect(isPhotoGlobePinVisible({ x: 50, y: 20, visible: true }, 650, 320)).toBe(true);
+  it("fades pins as they approach the crop and hides their full hit area at the edge", () => {
+    expect(photoGlobePinOpacity(187, 130, 650, 320)).toBe(0);
+    expect(photoGlobePinOpacity(195, 130, 650, 320)).toBe(.5);
+    expect(photoGlobePinOpacity(325, 238, 650, 320)).toBe(0);
+    expect(photoGlobePinOpacity(325, 230, 650, 320)).toBe(.5);
+    expect(photoGlobePinOpacity(325, 130, 650, 320)).toBe(1);
   });
   it("rotates consistently across globe sizes and bounds the camera around the poles", () => {
     expect(rotatePhotoGlobe(PHOTO_GLOBE_INITIAL_VIEW, 65, 0, 650)).toEqual(rotatePhotoGlobe(PHOTO_GLOBE_INITIAL_VIEW, 160, 0, 1600));

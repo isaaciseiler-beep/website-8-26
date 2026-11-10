@@ -32,6 +32,22 @@ export const macintoshSE: MacintoshModel = {
   source: 'https://www.bukowskis.com/en/lots/977786-an-apple-computer-macintosh-se-model-m5011-apple-computer-inc-usa-1980s',
 };
 
+const { crop, screen } = macintoshSE;
+const screenWidth = (Math.hypot(screen[1][0] - screen[0][0], screen[1][1] - screen[0][1])
+  + Math.hypot(screen[2][0] - screen[3][0], screen[2][1] - screen[3][1])) / 2;
+const screenBottomRatio = ((Math.max(...screen.map(point => point[1])) - crop.y) / crop.width).toFixed(5);
+export const macintoshFrameWidth = `min(${Math.min(1120, 620 * crop.width / screenWidth)}px, 100%, calc((100svh - 136px) / ${screenBottomRatio}))`;
+
+// The photographed base spans x=661 to x=2328, with corners about 43 source pixels deep.
+const baseLeft = 661;
+const baseRight = 2328;
+const baseWidth = baseRight - baseLeft;
+export const macintoshBaseStyle = {
+  width: `calc(${macintoshFrameWidth} * ${baseWidth / crop.width})`,
+  translate: `${100 * ((baseLeft + baseRight) / 2 - crop.x - crop.width / 2) / baseWidth}%`,
+  '--strip-radius': `calc(100cqw * ${43 / baseWidth})`,
+};
+
 /** Solve the planar camera transform. CSS retains native hit testing and text. */
 export function screenProjection(device: MacintoshModel, frameWidth: number) {
   const { crop, screen, display } = device;

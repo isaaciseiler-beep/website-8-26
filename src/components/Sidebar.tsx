@@ -78,7 +78,6 @@ interface SitemapItem {
 
 export const sitemapItems: SitemapItem[] = [
   { id: "about", label: "About", href: "/about" },
-  { id: "projects", label: "Work", href: "/work" },
   { id: "writing", label: "Writing", href: "/writing" },
   { id: "photos", label: "Photos", href: "/photos" },
   { id: "music", label: "Music", href: "/photos/music" },
@@ -120,7 +119,6 @@ export const SidebarSurface = ({ open, onToggle, onClose, onSearchOpen, activeSe
   close.current = onClose ?? onToggle;
   const isOnPhotos = location.pathname === "/photos";
   const isOnMusic = location.pathname === "/photos/music";
-  const isOnProjects = location.pathname === "/work" || location.pathname.startsWith("/projects");
 
   useEffect(() => {
     const prepare = () => {
@@ -221,14 +219,12 @@ export const SidebarSurface = ({ open, onToggle, onClose, onSearchOpen, activeSe
     if (location.pathname.startsWith("/writing") && item.id === "writing") return true;
     if (isOnPhotos && item.id === "photos") return true;
     if (isOnMusic && item.id === "music") return true;
-    if (isOnProjects && item.id === "projects") return true;
     if (activeSection && activeSection === item.id) return true;
     return false;
   };
 
   const isChildActive = (child: { id: string; href: string }) => {
     if (location.pathname === "/photos" && child.id === "portfolio") return true;
-    if (isOnProjects && child.id === "project-archive") return true;
     return location.pathname === child.href;
   };
 
