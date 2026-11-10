@@ -24,9 +24,9 @@ describe('North American photo collections', () => {
     expect(album.photos.some(file => file.startsWith('750D9F5B'))).toBe(false);
     expect(album.photos.some(file => file.startsWith('F79A8B18'))).toBe(false);
   });
-  it('uses the homepage for public album destinations', () => {
+  it('uses the Photos page for public album destinations', () => {
     for (const doc of records.filter(doc => doc.type === 'album')) {
-      expect(new URL(doc.canonicalUrl).pathname).toBe('/');
+      expect(new URL(doc.canonicalUrl).pathname).toBe('/photos');
       expect(new URL(doc.canonicalUrl).searchParams.has('album')).toBe(true);
     }
   });

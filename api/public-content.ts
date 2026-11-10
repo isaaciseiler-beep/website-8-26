@@ -18,11 +18,11 @@ export function publicContent(path: string, params = new URLSearchParams()) {
     if (type) results=results.filter(r => r.type === type);
     return {status:200,data:{ ...version,items:results.slice(cursor,cursor+limit).map(({body,...r})=>r),nextCursor:cursor+limit<results.length ? String(cursor+limit) : null,total:results.length,filters:{query,type} }};
   }
-  if (path === "albums") return {status:200,data:{...version,items:albums.slice(cursor,cursor+limit).map(a=>({id:a.folder,title:a.location,continent:a.continent,count:a.photos.length,cover:albumPhotos(a)[0],canonicalUrl:`${SITE_URL}/?album=${encodeURIComponent(a.folder)}`})),nextCursor:cursor+limit<albums.length?String(cursor+limit):null}};
+  if (path === "albums") return {status:200,data:{...version,items:albums.slice(cursor,cursor+limit).map(a=>({id:a.folder,title:a.location,continent:a.continent,count:a.photos.length,cover:albumPhotos(a)[0],canonicalUrl:`${SITE_URL}/photos?album=${encodeURIComponent(a.folder)}`})),nextCursor:cursor+limit<albums.length?String(cursor+limit):null}};
   if (path.startsWith("albums/")) {
     const album=albums.find(a=>a.folder===path.slice(7));
     if (!album) return {status:404,data:{error:"Unknown album"}};
-    return {status:200,data:{...version,id:album.folder,title:album.location,canonicalUrl:`${SITE_URL}/?album=${encodeURIComponent(album.folder)}`,photos:albumPhotos(album).slice(cursor,cursor+limit).map((url,i)=>({id:`${album.folder}-${cursor+i+1}`,url,alt:`${album.location} collection, photograph ${cursor+i+1}`,position:cursor+i+1,date:null,location:null})),nextCursor:cursor+limit<album.photos.length?String(cursor+limit):null,total:album.photos.length}};
+    return {status:200,data:{...version,id:album.folder,title:album.location,canonicalUrl:`${SITE_URL}/photos?album=${encodeURIComponent(album.folder)}`,photos:albumPhotos(album).slice(cursor,cursor+limit).map((url,i)=>({id:`${album.folder}-${cursor+i+1}`,url,alt:`${album.location} collection, photograph ${cursor+i+1}`,position:cursor+i+1,date:null,location:null})),nextCursor:cursor+limit<album.photos.length?String(cursor+limit):null,total:album.photos.length}};
   }
   if (path.startsWith("content/")) { const record=records.find(r=>r.id===path.slice(8)); return record ? {status:200,data:{...version,...record}} : {status:404,data:{error:"Unknown content ID"}}; }
   return {status:404,data:{error:"Unknown public route"}};

@@ -184,7 +184,7 @@ const PhotoSection = () => {
   return (
     <section ref={previewRef} className="h-[calc(100svh-3.5rem)] w-full md:h-[calc(100svh-3.5rem)]">
       <Link
-        to="/#photo-gallery"
+        to="/photos"
         className="relative block h-full w-full cursor-pointer overflow-hidden bg-foreground/[0.05]"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}

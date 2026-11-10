@@ -30,8 +30,8 @@ try {
       await input.waitFor();
       await contained(`${width}x${height}-idle`);
       assert.equal(await input.evaluate(el => getComputedStyle(el).fontSize), '16px');
-      const galleryTop = await page.locator('#photo-gallery').evaluate(el => el.getBoundingClientRect().top);
-      assert(galleryTop >= height * .7 - 2, `Too much photography at ${width}x${height}: ${galleryTop}`);
+      const stripTop = await page.locator('.photo-strip').evaluate(el => el.getBoundingClientRect().top);
+      assert(stripTop >= height * .5 - 2, `Photo strip crowds Explore at ${width}x${height}: ${stripTop}`);
       for (const selector of ['.site-nav-toggle-xray', '.site-search-xray']) {
         const size = await page.locator(selector).boundingBox();
         assert(size.width >= 44 && size.height >= 44);

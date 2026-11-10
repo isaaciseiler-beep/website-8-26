@@ -49,6 +49,7 @@ const lazyWithRetry = <T extends { default: ComponentType }>(
   });
 
 const ChatOrb = lazyWithRetry(() => import("@/components/ChatOrb"), "chat-orb");
+const PhotosPage = lazyWithRetry(() => import("./pages/PhotosPage.tsx"), "photos");
 const WorkPage = lazyWithRetry(() => import("./pages/WorkPage.tsx"), "work");
 const AboutPage = lazyWithRetry(() => import("./pages/AboutPage.tsx"), "about");
 const WritingPage = lazyWithRetry(() => import("./pages/WritingPage.tsx"), "writing");
@@ -93,7 +94,7 @@ const RouteFallback = () => {
 
 
 const RouteRenderErrorFallback = ({ isMap }: { isMap: boolean }) => (
-  <PageNotice title={isMap ? "The map could not load" : "This page could not load"} href={isMap ? "/#photo-gallery" : "/work"} action={isMap ? "Browse photographs" : "Explore the work"} onRetry={() => window.location.reload()}>
+  <PageNotice title={isMap ? "The map could not load" : "This page could not load"} href={isMap ? "/photos" : "/work"} action={isMap ? "Browse photographs" : "Explore the work"} onRetry={() => window.location.reload()}>
     Something interrupted loading. You can try again or continue exploring.
   </PageNotice>
 );
@@ -139,9 +140,9 @@ const AnimatedRoutes = () => {
           <Route path="/classic" element={<Index />} />
           <Route path="/agents" element={<CanvasDocuments kind="agents" />} />
           <Route path="/projects/adaptive-portfolio" element={<CanvasDocuments kind="build" />} />
-          <Route path="/photos" element={<Navigate to={{ pathname: "/", search: location.search, hash: location.search ? "" : "#photo-gallery" }} replace />} />
-          <Route path="/photos/locations" element={<Navigate to={{ pathname: "/", search: location.search, hash: location.search ? "" : "#photo-gallery" }} replace />} />
-          <Route path="/photos/map" element={<Navigate to="/#photo-globe" replace />} />
+          <Route path="/photos" element={<PhotosPage />} />
+          <Route path="/photos/locations" element={<Navigate to={{ pathname: "/photos", search: location.search }} replace />} />
+          <Route path="/photos/map" element={<Navigate to="/photos#photo-globe" replace />} />
           <Route path="/photos/music" element={<MusicPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/work" element={<WorkPage />} />

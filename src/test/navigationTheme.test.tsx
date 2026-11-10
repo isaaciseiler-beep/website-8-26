@@ -37,8 +37,13 @@ describe("navigation and theme defaults", () => {
     expect(document.documentElement).not.toHaveClass("skull");
   });
 
-  it("keeps Music in the main navigation and retires the separate Photo Map page", () => {
-    expect(sitemapItems.find(item => item.id === "music")).toMatchObject({ label: "Music", href: "/photos/music" });
+  it("lists Photos then Music and retires the separate Photo Map page", () => {
+    const photosIndex = sitemapItems.findIndex((item) => item.id === "photos");
+    const [photos, music] = sitemapItems.slice(photosIndex, photosIndex + 2);
+
+    expect(photos).toMatchObject({ label: "Photos", href: "/photos" });
+    expect(photos.children).toBeUndefined();
+    expect(music).toMatchObject({ id: "music", label: "Music", href: "/photos/music" });
     expect(sitemapItems.some(item => item.href === "/photos/map")).toBe(false);
   });
 

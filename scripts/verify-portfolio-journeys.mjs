@@ -19,7 +19,7 @@ try{
   const project=page.locator('.work-story a').first();const href=await project.getAttribute('href');await project.focus();
   await expect(project.locator('.work-story-caption')).toHaveCSS('opacity','1');
   await project.press('Enter');await page.waitForURL('**'+href);await contained();record('menu → Work → keyboard project opening');
-  await page.goto(base,{waitUntil:'domcontentloaded'});
+  await page.goto(base+'/photos',{waitUntil:'domcontentloaded'});
   const album=page.getByRole('button',{name:/^Open .* album$/}).first();await album.scrollIntoViewIfNeeded();await album.click();await page.getByRole('button',{name:'All photos',exact:true}).waitFor();
   const photo=page.getByRole('button',{name:/^Open .* photograph 1$/});await photo.click();
   const modal=page.getByRole('dialog');

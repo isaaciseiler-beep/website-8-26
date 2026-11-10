@@ -70,7 +70,7 @@ try{
    await page.waitForTimeout(150);page.off('request',count);assert.equal(requests,0);
    results.push({theme,width,case:'photo-request-no-provider',ok:true});
   }
-  await page.goto(base+'/?album=Japan',{waitUntil:'domcontentloaded'});await contained();
+  await page.goto(base+'/photos?album=Japan',{waitUntil:'domcontentloaded'});await contained();
   await page.goto(base+'/photos/map',{waitUntil:'domcontentloaded'});await page.locator('#photo-globe').waitFor();
   results.push({theme,case:'album-and-photo-globe',ok:true});
   assert.deepEqual(errors,[]);await context.close();

@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 for (const width of [320, 1280]) test(`${width}: modal keyboard loops and Escape restore their opener`, async ({ page }) => {
   await page.setViewportSize({ width, height: 900 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/?album=Korea');
+  await page.goto('/photos?album=Korea');
   if (width === 320) {
     await page.getByRole('button', { name: 'Search', exact: true }).click();
     await expect(page.getByRole('textbox', { name: 'Search query' })).toBeFocused();
@@ -96,7 +96,7 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1280]) {
 
 test('a first photograph communicates loading and recovers from an unavailable image', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/?album=Korea');
+  await page.goto('/photos?album=Korea');
   const first = page.locator('.album-photo-tile').first();
   const src = await first.locator('img').getAttribute('src');
   expect(src).toBeTruthy();

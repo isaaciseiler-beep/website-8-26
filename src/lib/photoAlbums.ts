@@ -427,3 +427,59 @@ export const curatedPicks = albums.map((a) => ({
   location: a.location,
   url: coverFor(a),
 }));
+
+// Hand-picked strongest frames for the homepage strip, chosen from every album.
+// Resized copies live in public/photo-strip as NN-s.jpg (420px) and NN-l.jpg (1400px), in this order.
+const FEATURED: [folder: string, file: string, ratio: number][] = [
+  ["Australia", "32FF4002-49FB-44CA-8359-68014CC2BED2_1_102_o.jpeg", 1.499],
+  ["Australia", "8D85EC7A-2958-4742-A57E-091A02BD5578_1_102_o.jpeg", 1.499],
+  ["GranCanaria", "9F96FDA9-2B24-4527-ADD6-0637BAAB210A_1_105_c.jpeg", 1.5],
+  ["HongKong", "4770996E-87B7-400D-A982-E7B000868FFE_1_105_c.jpeg", 1.5],
+  ["HongKong", "hk.JPG", 1.499],
+  ["Iceland", "397AE8BE-DA75-400E-AD53-EDA94FF8609A_1_105_c.jpeg", 1.5],
+  ["Iceland", "8340C3C0-46E4-4E05-A76C-D5C7D755AF25_1_105_c.jpeg", 1.5],
+  ["Iceland", "CEE43906-E7A6-43CD-9F24-131C649FC92A_1_105_c.jpeg", 1.5],
+  ["Iceland", "EDE80FC3-8B5F-4493-9D91-D4ED4A8098FC_1_105_c.jpeg", 1.5],
+  ["Iceland", "image_3.JPG", 1.499],
+  ["Iceland", "image_49.JPG", 1.499],
+  ["Iceland", "image_51.JPG", 1.499],
+  ["Korea", "4974120B-C8FB-41B9-88FA-89FCB824378A_1_105_c.jpeg", 1.5],
+  ["Korea", "DCFCC257-C1FF-4C8C-B55C-409684F20A42_1_105_c.jpeg", 1.5],
+  ["NewZealand", "1EF095B1-0947-40C5-9364-3D552DD31D82_1_105_c.jpeg", 1.5],
+  ["NewZealand", "224E5E48-0638-4CAB-B34B-2C58CE18EB2D_1_105_c.jpeg", 1.5],
+  ["NewZealand", "77791024-F812-4097-9760-A88BFABD2E62_1_105_c.jpeg", 1.5],
+  ["NewZealand", "BB1DE711-AC5F-447C-9A13-82F170BF7E60_1_105_c.jpeg", 1.5],
+  ["NewZealand", "F39CEBF7-F371-4581-B535-DF7471B43362_1_105_c.jpeg", 1.5],
+  ["NewZealand", "image_34.JPG", 1.499],
+  ["NewZealand", "photo_77.JPG", 1.499],
+  ["Portugal", "2CB47B2E-5C03-41B4-8449-53077A18AD83_1_105_c.jpeg", 1.5],
+  ["Portugal", "CC340844-A006-4382-BAE2-4E095F3DBC05_1_105_c.jpeg", 1.5],
+  ["Portugal", "F083026A-7588-4F60-97F9-DD11C78F9E5D_1_105_c.jpeg", 1.5],
+  ["Taiwan", "6DFD57E6-CF70-4571-9455-60EE7A0FFBCC_1_105_c.jpeg", 1.5],
+  ["Taiwan", "D911954A-465E-4BAC-A6EC-4A31837E1A5A_1_105_c.jpeg", 1.5],
+  ["Taiwan", "image_124.JPG", 1.499],
+  ["Taiwan", "image_8.jpg", 1.777],
+  ["TaiwanStrait", "6113B4B7-FD9A-4737-B111-B58888DE32D8_1_105_c.jpeg", 1.5],
+  ["TaiwanStrait", "pic_22.JPG", 1.499],
+  ["Thailand", "50EB08B0-CE77-4DAF-B133-E52C47550CD4_1_102_o.jpeg", 1.499],
+  ["Thailand", "D4113293-1527-4DA7-ABDC-C17802541769_1_201_a.jpeg", 1.499],
+  ["Vietnam", "4ABE8E8C-0966-4ED6-BD8D-464389569B77_1_105_c.jpeg", 1.5],
+  ["kz-kyrgz", "1F1DCC54-4820-4B47-B0A7-AA8E26DEA42A_1_105_c.jpeg", 1.5],
+  ["kz-kyrgz", "54152F96-BC29-4D27-B968-0F66E29A8EBD_1_105_c.jpeg", 1.5],
+  ["kz-kyrgz", "B8D64A7A-15E3-451C-B292-7354F30CA834_1_105_c.jpeg", 1.5],
+  ["mongolia", "4B59D059-DAEE-483B-8CDD-971010279B5D_1_105_c.jpeg", 1.5],
+  ["mongolia", "5CA65493-F75A-44D2-87C7-C41A39F05D96_1_105_c.jpeg", 1.5],
+  ["mongolia", "CCA30A98-0658-4F31-9EA5-D5F15BD3E5F1_1_105_c.jpeg", 1.5],
+  ["washington-state", "917FE91C-7316-4180-B534-4DFC4508394A_1_105_c.jpeg", 1.775],
+  ["washington-state", "C0499536-625B-47BE-B6D3-38CD853AEA17_1_105_c.jpeg", 1.775],
+  ["washington-state", "C14F0CFB-9E10-46AF-9286-57D2D6A82034_1_105_c.jpeg", 1.5],
+  ["missouri", "image_84.JPG", 1.499],
+  ["washington-dc", "image_87.JPG", 1.499],
+];
+
+export const featuredPhotos = FEATURED.flatMap(([folder, file, ratio], index) => {
+  const album = albums.find((a) => a.folder === folder);
+  if (!album || !albumPhotoFiles(album).some((f) => f === file || f.endsWith(`/${file}`))) return [];
+  const id = String(index).padStart(2, "0");
+  return [{ folder, location: album.location, ratio, small: `/photo-strip/${id}-s.jpg`, large: `/photo-strip/${id}-l.jpg` }];
+});
