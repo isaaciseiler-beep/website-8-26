@@ -28,7 +28,7 @@
   z-index: 2;
   display: grid;
   align-items: end;
-  min-height: calc(var(--photo-globe-title-size) * 1.05);
+  min-height: calc(var(--photo-globe-title-size) * 1.11 + 6px + var(--photo-globe-title-overscan));
   margin-bottom: calc(-1 * (var(--photo-globe-horizon) + var(--photo-globe-title-overlap)));
   padding-inline: max(clamp(24px, 3cqw, 32px), env(safe-area-inset-left), env(safe-area-inset-right));
   text-align: center;

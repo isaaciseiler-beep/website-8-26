@@ -47,7 +47,7 @@ describe("photo globe keyboard focus", () => {
     vi.stubGlobal("IntersectionObserver", NearbyObserver);
     vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(650);
     render(<MemoryRouter><PhotoGlobeFooter /><RouteProbe /></MemoryRouter>);
-    expect(screen.getByText("Explore places", { selector: "[aria-live]" })).toBeVisible();
+    expect(document.querySelector(".photo-globe-location-control")).toHaveTextContent(/^$/);
     expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
     expect(screen.queryByText("Drag to explore")).not.toBeInTheDocument();
 
@@ -58,7 +58,6 @@ describe("photo globe keyboard focus", () => {
     expect(link).toHaveAttribute("href", "/photos?album=Taiwan");
     expect(link.querySelector("svg")).toHaveClass("lucide-arrow-up-right");
     expect(taiwan).toHaveAttribute("aria-pressed", "true");
-    expect(screen.queryByText("Explore places")).not.toBeInTheDocument();
     expect(screen.getByLabelText("Current route")).toHaveTextContent(/^\/$/);
 
     fireEvent.click(screen.getByRole("button", { name: "Select Korea" }));

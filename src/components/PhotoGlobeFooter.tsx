@@ -255,7 +255,7 @@ export default function PhotoGlobeFooter() {
     coastFrame.current = requestAnimationFrame(coast);
   };
   const active = locations.find(entry => entry.id === selected);
-  const title = active ? <>{active.location}<ArrowUpRight aria-hidden="true" /></> : "Explore places";
+  const title = active && <>{active.location}<ArrowUpRight aria-hidden="true" /></>;
 
   return <footer ref={footer} id="photo-globe" className="photo-globe-footer" data-renderer={useMapbox && mapReady ? "mapbox" : "native"} aria-label="Photographs around the world"
     style={{ "--photo-globe-pin-lens": `url(#${lensId})` } as CSSProperties}>
@@ -271,12 +271,12 @@ export default function PhotoGlobeFooter() {
     <div className="photo-globe-toolbar">
       <div className="photo-globe-location-control">
         <div className="photo-globe-title-sharp" aria-live="polite" aria-atomic="true">
-          {active ? <div key={active.id} className="photo-globe-title-arrive">
+          {active && <div key={active.id} className="photo-globe-title-arrive">
             <Link className="photo-globe-open" to={albumHref(active.albumFolder!)} aria-label={`Open ${active.location} album`}>{title}</Link>
-          </div> : title}
+          </div>}
         </div>
         <div className="photo-globe-title-soft" aria-hidden="true">
-          {active ? <div key={active.id} className="photo-globe-title-arrive">{title}</div> : title}
+          {active && <div key={active.id} className="photo-globe-title-arrive">{title}</div>}
         </div>
       </div>
       <span id="photo-globe-instructions" className="sr-only">Use arrow keys to rotate the globe. Home resets the view. Select a photograph to show its location above, then follow the location link to open its album.</span>

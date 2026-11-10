@@ -4,7 +4,7 @@ const routes = [
   { path: "/", text: /Summation/i },
   { path: "/work", text: /Mapping the Rise of AI/i },
   { path: "/photos", text: /Australia/i },
-  { path: "/photos/map", text: /Explore places/i },
+  { path: "/photos/map", text: /Use arrow keys to rotate the globe/i },
   { path: "/fulbrightmap", text: /New Taipei|Preparing the map|Add .*Mapbox/i },
   { path: "/experience/arcade", text: /Experience|Arcade|Start/i },
   { path: "/strike-tracker", text: /Strike Tracker/i },
@@ -32,7 +32,12 @@ test("opens the globe footer on both the homepage and Photos", async ({ page }) 
     const globe = page.getByRole("group", { name: "Photo globe" });
     await expect(globe).toBeInViewport();
     expect(new URL(page.url()).pathname).toBe(path);
-    await expect(globe.getByRole("button", { name: /^Select / }).first()).toBeVisible();
+    const title = page.locator(".photo-globe-location-control");
+    await expect(title).toHaveText("");
+    const top = await globe.evaluate(element => element.offsetTop);
+    await globe.getByRole("button", { name: /^Select / }).first().click();
+    await expect(title.getByRole("link", { name: /^Open .* album$/ })).toBeVisible();
+    expect(await globe.evaluate(element => element.offsetTop)).toBe(top);
   }
 });
 
