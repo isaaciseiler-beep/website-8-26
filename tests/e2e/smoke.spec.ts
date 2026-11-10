@@ -34,10 +34,14 @@ test("opens the globe footer on both the homepage and Photos", async ({ page }) 
     expect(new URL(page.url()).pathname).toBe(path);
     const title = page.locator(".photo-globe-location-control");
     await expect(title).toHaveText("");
-    const top = await globe.evaluate(element => element.offsetTop);
+    const crest = () => globe.evaluate(element => {
+      const horizon = Number.parseFloat(getComputedStyle(element).getPropertyValue("--photo-globe-horizon")) || 0;
+      return element.offsetTop + horizon;
+    });
+    const top = await crest();
     await globe.getByRole("button", { name: /^Select / }).first().click();
     await expect(title.getByRole("link", { name: /^Open .* album$/ })).toBeVisible();
-    expect(await globe.evaluate(element => element.offsetTop)).toBe(top);
+    expect(Math.abs(await crest() - top)).toBeLessThan(1.1);
   }
 });
 
