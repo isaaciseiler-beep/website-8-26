@@ -8,6 +8,7 @@ import { publicProfile } from "@/lib/canvas";
 import handler, { llmsText, markdown, publicContent } from "../../api/public-content";
 import type { ApiRequest, ApiResponse } from "../../server/http";
 import { getKnowledgeChunks } from "../../server/knowledge";
+import vercelConfig from "../../vercel.json";
 
 afterEach(cleanup);
 
@@ -38,6 +39,14 @@ describe("search and answer engine identity", () => {
     handler({ method: "GET", url: "/api/public-content?path=profile" } as ApiRequest, response as unknown as ApiResponse);
     expect(response.statusCode).toBe(200);
     expect(JSON.parse(output)).toMatchObject({ name: "Isaac Seiler", headline: "Tech generalist" });
+  });
+
+  it("serves the Photos route directly and points legacy map links to its globe", () => {
+    expect(vercelConfig.redirects.some(route => route.source === "/photos")).toBe(false);
+    expect(vercelConfig.rewrites).toContainEqual({ source: "/photos", destination: "/index.html" });
+    for (const source of ["/photos/map", "/photos/map.md"]) {
+      expect(vercelConfig.redirects).toContainEqual({ source, destination: "/photos#photo-globe", permanent: true });
+    }
   });
 
   it("updates the head on internal navigation without overwriting feed discovery", () => {

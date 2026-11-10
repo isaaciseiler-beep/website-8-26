@@ -178,11 +178,6 @@
       "permanent": true
     },
     {
-      "source": "/photos",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/projects/electric-vehicle-access-analysis",
       "destination": "/work",
       "permanent": true
@@ -294,12 +289,12 @@
     },
     {
       "source": "/photos/map",
-      "destination": "/#photo-globe",
+      "destination": "/photos#photo-globe",
       "permanent": true
     },
     {
       "source": "/photos/map.md",
-      "destination": "/#photo-globe",
+      "destination": "/photos#photo-globe",
       "permanent": true
     }
   ],
@@ -355,6 +350,14 @@
     {
       "source": "/mcp",
       "destination": "/api/mcp"
+    },
+    {
+      "source": "/photos",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/photos/locations",
+      "destination": "/index.html"
     },
     {
       "source": "/photos/music",
