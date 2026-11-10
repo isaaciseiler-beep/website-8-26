@@ -122,9 +122,6 @@ const SkullRouteFrame = ({ children, path }: { children: ReactNode; path: string
 
 const Home = () => {
   const { theme } = useTheme();
-  const { hash } = useLocation();
-  // Browsers may still have the old permanent map redirect cached.
-  if (hash === "#photo-globe") return <Navigate to="/photos#photo-globe" replace />;
   return theme === "skull" ? <Index /> : <AdaptiveHome />;
 };
 

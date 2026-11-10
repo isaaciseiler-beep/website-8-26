@@ -26,6 +26,16 @@ for (const route of routes) {
   });
 }
 
+test("opens the globe footer on both the homepage and Photos", async ({ page }) => {
+  for (const path of ["/", "/photos"]) {
+    await page.goto(`${path}#photo-globe`, { waitUntil: "domcontentloaded" });
+    const globe = page.getByRole("group", { name: "Photo globe" });
+    await expect(globe).toBeInViewport();
+    expect(new URL(page.url()).pathname).toBe(path);
+    await expect(globe.getByRole("button", { name: /^Select / }).first()).toBeVisible();
+  }
+});
+
 test("mobile Ask AI stays usable when the viewport contracts for a keyboard", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   let requestBody: { pageContext?: { route?: string; visibleText?: string } } | null = null;

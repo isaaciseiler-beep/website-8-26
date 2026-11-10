@@ -142,7 +142,7 @@ const LocationTabs = ({ filter, onSelect }: { filter: string; onSelect: (locatio
   </div>;
 };
 
-// The homepage carries Explore and the work strip; /photos carries the albums.
+// The homepage carries Explore and the photo strip. The Photos page carries the albums.
 const PhotoHomePage = ({ variant = "home" }: { variant?: "home" | "photos" }) => {
   const home = variant === "home";
   const location = useLocation();
@@ -297,7 +297,7 @@ const PhotoHomePage = ({ variant = "home" }: { variant?: "home" | "photos" }) =>
           </div>}
 
           {!home && openAlbum && <div className="h-24" />}
-          {!home && <Footer />}
+          {!openAlbum && <Footer />}
         </motion.main>
 
       </motion.div>
