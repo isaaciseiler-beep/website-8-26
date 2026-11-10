@@ -72,10 +72,8 @@ for (const theme of ['light', 'dark']) for (const width of [320, 1440]) for (con
     await page.getByRole('button', { name: 'Clear exploration' }).click();
     await expect(page.locator('.home-genui-stage')).toHaveCount(0);
     await page.getByRole('button', { name: 'Toggle menu', exact: true }).click();
-    await page.getByRole('link', { name: 'Photos', exact: true }).click();
-    await page.waitForURL('**/photos');
-    await expect(page.locator('.photo-album-gallery')).toBeVisible();
-    await page.goto('/work');
+    await page.getByRole('link', { name: 'Work', exact: true }).click();
+    await page.waitForURL('**/work');
     await expect(page.locator('.work-grid')).toBeVisible();
     // Enter keyboard modality: programmatic focus after a mouse click is not :focus-visible.
     await page.keyboard.press('Tab');

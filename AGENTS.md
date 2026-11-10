@@ -16,7 +16,7 @@ Photography is excluded from live AI routing, schemas, suggestions, and local re
 
 ## Visitor entry points
 
-Homepage suggestions must make sense before a visitor knows the projects. Introduce a subject (AI in government, teaching in Taiwan, career, public service) before specific comparisons or technical controls. Keep the input purpose explicit and examples short. `/work` is a dedicated editorial index with two images per row, alternating landscape/square and square/landscape. Hide the page heading and category tags; reveal title and year at the bottom left on hover or keyboard focus (visible on touch devices). Use existing content and known years; do not invent dates or reading times. Its images use `--site-corner-radius` and the site shell gutters, not the AI window radius.
+Homepage suggestions must make sense before a visitor knows the projects. Introduce a subject (AI in government, teaching in Taiwan, career, public service) before specific comparisons or technical controls. Keep the input purpose explicit and examples short. The sidebar’s Work link opens `/work`, an editorial index with two images per row, alternating landscape/square and square/landscape. Hide the page heading and category tags; reveal title and year at the bottom left on hover or keyboard focus (visible on touch devices). Use existing content and known years; do not invent dates or reading times. Its images use `--site-corner-radius` and the site shell gutters, not the AI window radius.
 
 ## Implementation map
 
