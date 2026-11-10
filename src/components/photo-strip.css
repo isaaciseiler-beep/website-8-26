@@ -1,0 +1,48 @@
+/* A tilted ribbon of stacked photographs; each shows only its leading edge until it lifts toward the viewer. */
+.photo-strip { --strip-motion: 820ms; --strip-wave: 700ms; --strip-ease: cubic-bezier(0.22, 1, 0.36, 1); position: relative; height: clamp(480px, 78vh, 820px); overflow: clip; perspective: 1600px; perspective-origin: 50% var(--strip-top); touch-action: pan-y; }
+/* The ribbon fades out where it leaves the section rather than being sliced by its edge. */
+.photo-strip { -webkit-mask-image: linear-gradient(transparent, #000 16%, #000 86%, transparent); mask-image: linear-gradient(transparent, #000 16%, #000 86%, transparent); }
+.photo-strip-plane { position: absolute; left: 50%; top: var(--strip-top); width: 0; height: 0; }
+/* The strip recedes a little while a photo faces the viewer. */
+.photo-strip-plane { transition: opacity var(--strip-motion) var(--strip-ease); }
+.photo-strip-plane.is-receded { opacity: .72; }
+.photo-strip-plane--lift, .photo-strip-plane--lift .photo-strip-track { transform-style: preserve-3d; pointer-events: none; }
+.photo-strip-plane--lift { z-index: 1; }
+.photo-strip-track { position: absolute; left: 0; top: calc(var(--strip-card-height) / -2); height: var(--strip-card-height); will-change: transform; }
+.photo-strip-track::before { content: ''; position: absolute; inset: 0; border-radius: var(--site-corner-radius); box-shadow: 0 60px 70px -30px rgb(0 0 0 / .18); pointer-events: none; }
+
+/* Neighbours ripple outward from the lifted photo, each a beat after the one nearer to it. */
+.photo-strip-card { position: absolute; top: 0; width: var(--strip-card-width); height: var(--strip-card-height); overflow: hidden; border-radius: var(--site-corner-radius); background: hsl(var(--muted)); box-shadow: -1px 0 0 rgb(255 255 255 / .55), 0 3px 0 hsl(var(--border)); pointer-events: none; transition: transform var(--strip-wave) var(--strip-ease) var(--wave-delay, 0ms), opacity 0s; }
+.photo-strip-card img, .photo-strip-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; }
+.photo-strip-card img { opacity: 0; transition: opacity 400ms var(--motion-ease); }
+.photo-strip-card img.is-loaded { opacity: 1; }
+/* Opacity, not visibility, so a keyboard-focused card keeps focus while its photo is lifted. */
+.photo-strip-card.is-away { opacity: 0; }
+
+.photo-strip-hits { position: absolute; inset: 0; z-index: 100000; }
+.photo-strip-hit { position: absolute; top: 0; width: var(--strip-step); height: var(--strip-card-height); }
+
+/* The lifted photo keeps its final size; transform and clip-path carry it between the strip and the viewer. */
+.photo-strip-lift { position: absolute; top: 0; transform-origin: 0 0; backface-visibility: hidden; pointer-events: none; transition: transform var(--strip-motion) var(--strip-ease), opacity 240ms var(--motion-ease); }
+.photo-strip-lift.is-yielding { opacity: 0; }
+.photo-strip-lift.is-up { pointer-events: auto; }
+.photo-strip-photo { position: absolute; inset: 0; overflow: hidden; background: hsl(var(--muted)); transition: clip-path var(--strip-motion) var(--strip-ease); }
+/* The shadow arrives once the photo has nearly squared up, so it never shows around the narrower crop in flight. */
+.photo-strip-shadow { position: absolute; inset: 0; border-radius: var(--site-corner-radius); box-shadow: 0 50px 90px -40px rgb(0 0 0 / .45), 0 14px 28px -16px rgb(0 0 0 / .2); opacity: 0; transition: opacity 200ms var(--motion-ease); }
+.photo-strip-lift.is-up .photo-strip-shadow { opacity: 1; transition: opacity 520ms var(--motion-ease) 260ms; }
+/* Drawn over the photo; an outline on the clipped element would paint beneath its images. */
+.photo-strip-lift.is-focused .photo-strip-photo::after { content: ''; position: absolute; inset: 6px; border: 2px solid white; border-radius: calc(var(--site-corner-radius) - 4px); pointer-events: none; }
+.photo-strip-large { opacity: 0; transition: opacity 360ms var(--motion-ease); }
+.photo-strip-large.is-loaded { opacity: 1; }
+.photo-strip-label { position: absolute; inset: auto 0 0; padding: 16px; color: white; font-size: 12px; line-height: 1.4; opacity: 0; transition: opacity 200ms var(--motion-ease); }
+.photo-strip-label::before { content: ''; position: absolute; inset: -32px 0 0; z-index: -1; background: linear-gradient(transparent, rgb(0 0 0 / .5)); }
+.photo-strip-lift.is-up .photo-strip-label { opacity: 1; transition: opacity 320ms var(--motion-ease) 360ms; }
+
+.dark .photo-strip-track::before { box-shadow: 0 60px 70px -30px rgb(0 0 0 / .6); }
+.dark .photo-strip-card { box-shadow: -1px 0 0 rgb(0 0 0 / .6), 0 3px 0 hsl(var(--border)); }
+.dark .photo-strip-shadow { box-shadow: 0 50px 90px -40px rgb(0 0 0 / .8), 0 14px 28px -16px rgb(0 0 0 / .5); }
+
+@media (max-width: 700px) {
+  .photo-strip { height: 64svh; min-height: 460px; }
+}
+.photo-strip.is-reduced :is(.photo-strip-plane, .photo-strip-card, .photo-strip-card img, .photo-strip-lift, .photo-strip-photo, .photo-strip-shadow, .photo-strip-large, .photo-strip-label) { transition: none; }

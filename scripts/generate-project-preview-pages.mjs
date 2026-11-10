@@ -740,7 +740,7 @@ const renderProjectFallback = (project) => `
           <ul>
             <li><a href="/about">About</a></li>
             <li><a href="/work">Work</a></li>
-            <li><a href="/#photo-globe">Photographs</a></li>
+            <li><a href="/photos">Photographs</a></li>
           </ul>
         </section>
       </article>
@@ -767,7 +767,7 @@ const renderPageFallback = (page) => {
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/work">Work</a></li>
-          <li><a href="/#photo-globe">Photographs</a></li>
+          <li><a href="/photos">Photographs</a></li>
         </ul>
       </section>
     </main>`;

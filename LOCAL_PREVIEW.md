@@ -2,7 +2,8 @@
 
 The canonical website is https://seiler.page; this checkout is `isaaciseiler-beep/website-8-26`. Run `npm ci` then `npm run dev -- --host 127.0.0.1 --port 8080` (choose an unused port when needed).
 
-- `/`: adaptive canvas and permanent photographic gallery.
+- `/`: adaptive canvas and the photo strip.
+- `/photos`: photo albums (`/photos?album=…`).
 - `/classic`: previous homepage for comparison and rollback.
 - `/about`, `/work`, `/photos`, and all existing project routes remain available.
 - `/projects/adaptive-portfolio`: implementation notes and outstanding release gates.
@@ -46,4 +47,4 @@ Vite development middleware supplies public representations and MCP locally. Pro
 
 The original 16 album records and project source copy remain authoritative. Individual photo dates/GPS/scene tags are not inferred. Public content version identifies this preview; it is not a fabricated historical review date.
 
-Photo navigation now lives in the two-column homepage gallery and `/photos/map`. Legacy `/photos?album=...` URLs redirect to `/?album=...`. British Columbia has four verified uploads and an album-level pin near Whistler; Washington State matches the bucket’s eleven current images. Both appear under North America. A Mapbox public token is required to render the globe locally.
+Photo navigation lives on `/photos`: the album gallery with the photo globe as its footer. Legacy `/?album=...` and `/photos/map` URLs redirect there. British Columbia has four verified uploads and an album-level pin near Whistler; Washington State matches the bucket’s eleven current images. Both appear under North America. A Mapbox public token is required to render the globe locally.

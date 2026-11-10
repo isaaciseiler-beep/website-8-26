@@ -4,7 +4,7 @@ const routes = [
   { path: "/", text: /Summation/i },
   { path: "/work", text: /Mapping the Rise of AI/i },
   { path: "/photos", text: /Australia/i },
-  { path: "/photos/map", text: /Photo Map|Add .*Mapbox/i },
+  { path: "/photos/map", text: /Explore places/i },
   { path: "/fulbrightmap", text: /New Taipei|Preparing the map|Add .*Mapbox/i },
   { path: "/experience/arcade", text: /Experience|Arcade|Start/i },
   { path: "/strike-tracker", text: /Strike Tracker/i },

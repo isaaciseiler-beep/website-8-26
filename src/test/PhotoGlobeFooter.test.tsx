@@ -55,7 +55,7 @@ describe("photo globe keyboard focus", () => {
     fireEvent.click(taiwan);
     const link = screen.getByRole("link", { name: "Open Taiwan album" });
     expect(link).toHaveTextContent("Taiwan");
-    expect(link).toHaveAttribute("href", "/?album=Taiwan");
+    expect(link).toHaveAttribute("href", "/photos?album=Taiwan");
     expect(link.querySelector("svg")).toHaveClass("lucide-arrow-up-right");
     expect(taiwan).toHaveAttribute("aria-pressed", "true");
     expect(screen.queryByText("Explore places")).not.toBeInTheDocument();
@@ -65,6 +65,6 @@ describe("photo globe keyboard focus", () => {
     expect(taiwan).toHaveAttribute("aria-pressed", "false");
     expect(screen.queryByRole("link", { name: "Open Taiwan album" })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("link", { name: "Open Korea album" }));
-    expect(screen.getByLabelText("Current route")).toHaveTextContent("/?album=Korea");
+    expect(screen.getByLabelText("Current route")).toHaveTextContent("/photos?album=Korea");
   });
 });

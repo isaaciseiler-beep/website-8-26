@@ -13,7 +13,7 @@ try{
  assert(await page.getByText(/Second, the program reinforced my belief/).isVisible());
  await page.locator('.canvas-sources>summary').click();
  assert.equal(await page.getByText('Development diagnostics').count(),0);assert.equal(await page.getByText('Adjust view',{exact:true}).count(),0);assert(await page.locator('.canvas-sources a').count()>0);
- await page.goto(preview+'/?album=Japan',{waitUntil:'domcontentloaded'});
+ await page.goto(preview+'/photos?album=Japan',{waitUntil:'domcontentloaded'});
  const photo=page.getByRole('button',{name:/^Open .* photograph 1$/});await photo.click();await page.getByRole('dialog').waitFor();await page.keyboard.press('Escape');await page.getByRole('dialog').waitFor({state:'hidden'});
  console.log('Production: shared section, both lessons, citations, clean footer and accessible photo viewer passed.');
 }finally{await browser.close();}

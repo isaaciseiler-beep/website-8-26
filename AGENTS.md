@@ -2,7 +2,7 @@
 
 ## Product direction
 
-Keep the homepage quiet: the original header and sidebar, one centered Explore input, and a photographic gallery with small location labels revealed on hover or keyboard focus. On the initial frame, photography occupies no more than 30% of the viewport. Results stay inside one expanding AI window and use normal page scrolling. The gallery location ticker appears when photography occupies most of the viewport.
+Keep the homepage quiet: the original header and sidebar, one centered Explore input framed in the photographed Macintosh SE, and below it the photo strip, a tilted ribbon of stacked photographs (modeled on devouringdetails.com Mantras) using the hand-picked `featuredPhotos`. Each photo shows only its leading edge; on hover, focus, or a first tap its neighbours part left and right in a tapering wave and the photo turns front-on at the centre with its location label, and a click opens its album. Moving along the ribbon (even beneath the lifted photo) flips through photos after a short dwell; resting on the photo keeps it; leaving both lets it settle. Touch users can swipe the ribbon sideways with momentum. The strip drifts slowly, stops while engaged, eases back in when released, pauses offscreen, and stays still under reduced motion. Strip images are local resized copies in `public/photo-strip` (420px strip, 1400px lifted); never load the R2 originals there. Results stay inside one expanding AI window and use normal page scrolling. Photo albums live on `/photos`, whose footer is the photo globe (`PhotoGlobeFooter`); the location ticker stays available until the globe's controls come into view. `/photos/map` redirects to `/photos#photo-globe`.
 
 Interactive views are the main experience. Articles and external links belong in collapsed Sources or an explicitly requested reading view. Avoid automatic project lists, introductory marketing copy, repeated headings, repeated scores, nested cards, unnecessary controls, or persistent labels over photographs.
 
@@ -12,7 +12,7 @@ For UI work, follow GUI.md and the supplied graphical-ui, graphical-convert, and
 
 Theme tokens are scoped to `.home-genui` in `src/components/canvas/ai-theme.css`; composition styles live in `home-explore.css`. Prefer spacing and typography over additional filled containers. Keep real keyboard focus visible, reduced-motion support, native labels, and accessible names on icon buttons. Keep the assistant focused on Isaac’s background, professional experience, project responsibilities, process, and published outcomes. Classroom utilities are excluded from live schemas, routing, suggestions, and provider output. Taiwan teaching requests open the actual project story.
 
-Photography is excluded from live AI routing, schemas, suggestions, and local results. Keep the permanent homepage gallery and Photo Map functional. The gallery uses two columns in narrow panes and three when its available width is at least 960px. The sidebar links directly to Photo Map; /photos redirects to the homepage and preserves album query links. Photo requests in Explore should not trigger a model call or display a photography notice. Never add album data back to provider prompts.
+Photography is excluded from live AI routing, schemas, suggestions, and local results. Keep the `/photos` gallery and photo globe functional. The gallery uses two columns in narrow panes and three when its available width is at least 960px. The sidebar links to Photos; the separate Photo Map page is retired. Album links use `/photos?album=…`; legacy `/?album=…` links redirect there. Photo requests in Explore should not trigger a model call or display a photography notice. Never add album data back to provider prompts.
 
 ## Visitor entry points
 
@@ -20,7 +20,8 @@ Homepage suggestions must make sense before a visitor knows the projects. Introd
 
 ## Implementation map
 
-- `src/pages/PhotoHomePage.tsx`, `src/lib/photoAlbums.ts`, `src/lib/photoMap.ts`: homepage albums, North America filtering, and map placement.
+- `src/components/PhotoStrip.tsx`, `photo-strip.css`: homepage photo strip. The strip plane is flattened; lifted photos render in a separate preserve-3d layer whose transform inverts the plane tilt. Static hit slots, hit-tested once per frame with `elementsFromPoint`, plus a short intent delay keep hover calm. The lifted element keeps its final size and animates only transform and clip-path, settling on the plane at whole pixels so it renders 1:1.
+- `src/pages/PhotoHomePage.tsx` (`variant="home" | "photos"`), `PhotosPage.tsx`, `src/lib/photoAlbums.ts`, `src/lib/photoMap.ts`: homepage shell, `/photos` albums and globe footer, North America filtering, and map placement.
 - `src/pages/WorkPage.tsx`, `src/pages/work-page.css`: editorial Work index.
 - `src/lib/layouts.ts`: the 16 live portfolio layout IDs, names, prompts, and kinds.
 - `src/lib/genui.ts`: bounded schema, local composition, layout selection, reference validation.

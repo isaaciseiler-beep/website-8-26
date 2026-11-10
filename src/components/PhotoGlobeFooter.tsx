@@ -10,7 +10,7 @@ import "./photo-globe-footer.css";
 
 const NativeSatelliteGlobe = lazy(() => import("./NativeSatelliteGlobe"));
 const locations = photoMapEntries.filter(entry => Boolean(entry.albumFolder));
-const albumHref = (folder: string) => `/?album=${encodeURIComponent(folder)}`;
+const albumHref = (folder: string) => `/photos?album=${encodeURIComponent(folder)}`;
 
 export default function PhotoGlobeFooter() {
   const footer = useRef<HTMLElement>(null);

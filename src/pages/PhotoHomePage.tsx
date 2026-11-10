@@ -5,13 +5,14 @@ import { useMotionPreference as useReducedMotion } from "@/hooks/useMotionPrefer
 import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackArrow from "@/components/BackArrow";
-import { Link, useSearchParams, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useSearchParams, useLocation, useNavigate } from "react-router-dom";
 import "./photo-home.css";
 import HomeExplore from "@/components/canvas/HomeExplore";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import PhotoPreview from "@/components/PhotoPreview";
+import PhotoStrip from "@/components/PhotoStrip";
 import { preloadImage, preloadImages, isLowDataConnection } from "@/lib/imagePreload";
 import { albums, albumPhotos, coverFor, type Album, type Continent } from "@/lib/photoAlbums";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -81,7 +82,7 @@ const AlbumCover = ({ album }: { album: Album }) => {
 
   return (
     <Link
-      to={`/?album=${encodeURIComponent(album.folder)}`}
+      to={`/photos?album=${encodeURIComponent(album.folder)}`}
       state={{ fromGallery: true }}
       aria-label={`Open ${album.location} album`}
       className="photo-tile relative cursor-pointer overflow-hidden group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
@@ -141,8 +142,9 @@ const LocationTabs = ({ filter, onSelect }: { filter: string; onSelect: (locatio
   </div>;
 };
 
-const PhotoHomePage = () => {
-  const home = true;
+// The homepage carries Explore and the work strip; /photos carries the albums.
+const PhotoHomePage = ({ variant = "home" }: { variant?: "home" | "photos" }) => {
+  const home = variant === "home";
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -150,12 +152,12 @@ const PhotoHomePage = () => {
   const mainRef = useRef<HTMLElement>(null);
   const filterScrollFrame = useRef(0);
   useEffect(() => () => cancelAnimationFrame(filterScrollFrame.current), []);
-  const [photosDominant, setPhotosDominant] = useState(false);
   const [filter, setFilter] = useState("All");
   const openAlbum = albums.find(album => album.folder === searchParams.get("album"))?.location ?? null;
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
   const [sidebarOpen, setSidebarOpen] = useSidebarState();
   const [searchOpen, setSearchOpen] = useState(false);
+  const [globeVisible, setGlobeVisible] = useState(false);
   const navigationMotion = useNavigationMotion(sidebarOpen || searchOpen);
   const isMobile = useIsMobile();
 
@@ -164,20 +166,14 @@ const PhotoHomePage = () => {
   const currentAlbumPhotos = useMemo(() => (currentAlbum ? shuffledPhotos.get(currentAlbum.folder) ?? [] : []), [currentAlbum]);
   const previewImages = currentAlbumPhotos;
 
+  // Hand the bottom edge to the interactive globe once its controls enter.
   useEffect(() => {
-    if (!home || openAlbum) return;
+    if (home) return;
     let frame = 0;
     const update = () => {
       frame = 0;
-      const gallery = document.getElementById("photo-gallery");
-      if (!gallery) { setPhotosDominant(false); return; }
-      const rect = gallery.getBoundingClientRect();
-      const visibleHeight = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
-      // Hand the bottom edge to the interactive globe once its controls enter.
       const globeTop = document.getElementById("photo-globe")?.getBoundingClientRect().top;
-      const globeVisible = globeTop !== undefined && globeTop < window.innerHeight - 80;
-      // Keep an active filter reachable even when it leaves fewer than one full row.
-      setPhotosDominant(!globeVisible && window.scrollY > 0 && (visibleHeight / window.innerHeight > .5 || (filter !== "All" && visibleHeight > 0)));
+      setGlobeVisible(globeTop !== undefined && globeTop < window.innerHeight - 80);
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     const observer = new ResizeObserver(schedule);
@@ -186,11 +182,11 @@ const PhotoHomePage = () => {
     window.addEventListener("resize", schedule);
     schedule();
     return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); };
-  }, [home, openAlbum, filter]);
+  }, [home]);
 
   const selectLocation = (location: string) => {
     setFilter(location);
-    if (home) {
+    if (window.scrollY > 0) {
       cancelAnimationFrame(filterScrollFrame.current);
       filterScrollFrame.current = requestAnimationFrame(() => {
         const gallery = document.getElementById("photo-gallery");
@@ -212,8 +208,11 @@ const PhotoHomePage = () => {
     setSearchOpen(true);
   };
 
+  // Album links used to live on the homepage.
+  if (home && searchParams.has("album")) return <Navigate to={{ pathname: "/photos", search: location.search }} replace />;
+
   return (
-    <div className={`relative min-h-screen bg-background text-foreground overflow-x-clip${home && !openAlbum ? " photo-home-exploration" : ""}`}>
+    <div className={`relative min-h-screen bg-background text-foreground overflow-x-clip${home ? " photo-home-exploration" : ""}`}>
       <Sidebar
         open={sidebarOpen}
         onToggle={handleSidebarToggle}
@@ -237,13 +236,12 @@ const PhotoHomePage = () => {
       >
         <motion.main
           ref={mainRef}
-          className={home && !openAlbum ? "pb-0" : "pt-28 pb-0"}
+          className={home ? "pb-0" : "pt-28 pb-0"}
           initial={false}
         >
-          {home && !openAlbum && <><h1 className="sr-only">Isaac Seiler</h1><HomeExplore /></>}
+          {home && <><h1 className="sr-only">Isaac Seiler</h1><HomeExplore /><PhotoStrip /></>}
 
-
-          <div className="photo-route-content">
+          {!home && <div className="photo-route-content">
             {openAlbum && currentAlbum ? (
               <motion.div
                 key={`album-${openAlbum}`}
@@ -277,12 +275,13 @@ const PhotoHomePage = () => {
               </motion.div>
             ) : (
               <motion.div
-                key={home ? "overview" : `overview-${filter}`}
-                style={home ? { minHeight: `calc(100svh - ${GALLERY_SCROLL_OFFSET}px)` } : undefined}
+                key="overview"
+                style={{ minHeight: `calc(100svh - ${GALLERY_SCROLL_OFFSET}px)` }}
                 initial={false}
                 transition={{ duration: reduceMotion ? 0 : MOTION_DURATION.fast, ease: EASE }}
                 className="photos-shell photo-overview-shell"
               >
+                <h1 className="sr-only">Photos</h1>
                 <div id="photo-gallery" className="site-corner photo-album-gallery">
                   {filtered.map((album, i) => (
                     <motion.div
@@ -295,16 +294,16 @@ const PhotoHomePage = () => {
                 </div>
               </motion.div>
             )}
-          </div>
+          </div>}
 
-          {openAlbum && <div className="h-24" />}
-          <Footer />
+          {!home && openAlbum && <div className="h-24" />}
+          {!home && <Footer />}
         </motion.main>
 
       </motion.div>
 
       <AnimatePresence>
-        {home && !openAlbum && photosDominant && !sidebarOpen && !searchOpen && previewIdx === null && <motion.div
+        {!home && !openAlbum && !globeVisible && !sidebarOpen && !searchOpen && previewIdx === null && <motion.div
           className="photo-location-ticker"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
