@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import BackArrow from "@/components/BackArrow";
 import { Link, Navigate, useSearchParams, useLocation, useNavigate } from "react-router-dom";
 import "./photo-home.css";
-import HomeExplore from "@/components/canvas/HomeExplore";
+import HomeProgressCover from "@/components/canvas/HomeProgressCover";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
@@ -239,7 +239,7 @@ const PhotoHomePage = ({ variant = "home" }: { variant?: "home" | "photos" }) =>
           className={home ? "pb-0" : "pt-28 pb-0"}
           initial={false}
         >
-          {home && <><h1 className="sr-only">Isaac Seiler</h1><HomeExplore /><PhotoStrip /></>}
+          {home && <><h1 className="sr-only">Isaac Seiler</h1><HomeProgressCover /><PhotoStrip /></>}
 
           {!home && <div className="photo-route-content">
             {openAlbum && currentAlbum ? (

@@ -65,7 +65,7 @@ const evidence = [
   {
     org: "OpenAI",
     role: "ChatGPT Lab",
-    proof: "Test new ChatGPT products and give structured feedback to product and go-to-market teams; contributed to 100 Chats.",
+    proof: "Tested new ChatGPT products and gave structured feedback to product and go-to-market teams; contributed to 100 Chats.",
   },
   {
     org: "Fulbright Taiwan",

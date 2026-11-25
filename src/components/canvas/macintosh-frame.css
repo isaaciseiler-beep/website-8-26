@@ -6,6 +6,23 @@
   overflow-anchor: none;
 }
 .macintosh-device { margin: 0; }
+.macintosh-progress {
+  min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--space-l); padding: var(--space-l); text-align: center;
+}
+.macintosh-progress p { max-width: 24ch; font-size: var(--size-l); line-height: var(--line-l); text-wrap: pretty; }
+.macintosh-progress a {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+  padding: var(--space-s) var(--space-l); border-radius: var(--site-corner-radius);
+  background: var(--mac-cyan); color: var(--mac-ink); font-size: var(--size-s); font-weight: var(--weight-medium);
+}
+.macintosh-progress a:hover { background: var(--neutral-10); }
+.macintosh-progress a:focus-visible { outline: 2px solid var(--mac-cyan); outline-offset: 4px; }
+.macintosh-boot { position: absolute; inset: 0; background: #000; }
+.macintosh-boot-screen { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+/* Match the monochrome startup even beneath the photographed blue glass. */
+.macintosh-screen:has(.macintosh-boot) { background: #000; }
+.macintosh-screen:has(.macintosh-boot) .macintosh-glass-photo { opacity: 0; }
 .macintosh-frame {
   position: relative;
   width: var(--mac-frame-width);

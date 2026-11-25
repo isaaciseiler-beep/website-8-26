@@ -605,10 +605,10 @@ export const projectItems: ProjectItem[] = [
     id: "openai-product-testing-and-feedback",
     title: "Helping Shape OpenAI's Products Before Launch",
     source: "PROJECT",
-    year: "2025–Present",
+    year: "2025 cohort",
     summary:
       "Inside my work with OpenAI's first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.",
-    image: projectImg.chatLab,
+    image: `${PROJECT_IMG_BASE}/chatgpt-100-chats.jpg`,
     hideHero: true,
     sections: [
       {

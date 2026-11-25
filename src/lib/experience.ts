@@ -79,10 +79,10 @@ export const experienceEntries: ExperienceEntry[] = [
     organization: "OpenAI",
     organizationUrl: "https://openai.com/",
     role: "ChatGPT Lab",
-    period: "Mar 2025-Present",
+    period: "First cohort (joined Mar 2025)",
     image: "/experience/oai.jpg",
     paragraphs: [
-      "I'm part of the first cohort of OpenAI's ChatGPT Lab, where I test products before launch and share structured feedback with product and go-to-market teams.",
+      "I was part of the first cohort of OpenAI's ChatGPT Lab, where I tested products before launch and shared structured feedback with product and go-to-market teams.",
       "I contributed to the 100 Chats book and tested Study Mode, Pulse, Atlas, and Group Chats, with my work appearing in public launch stories and student campaigns.",
       "I also worked with Hillary Bush and other OpenAI leaders to bring a student and early-career perspective into product and go-to-market conversations.",
     ],

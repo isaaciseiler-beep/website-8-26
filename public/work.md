@@ -54,7 +54,7 @@ A student-led philanthropy process by Isaac Seiler's WashU team evaluating and s
 
 ## Helping Shape OpenAI's Products Before Launch
 
-2025–Present · PROJECT
+2025 cohort · PROJECT
 
 Inside my work with OpenAI's first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.
 

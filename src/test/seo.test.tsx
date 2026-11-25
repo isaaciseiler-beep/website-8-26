@@ -15,11 +15,11 @@ afterEach(cleanup);
 describe("search and answer engine identity", () => {
   it("uses the same grounded positioning in metadata, public retrieval, and assistant evidence", () => {
     expect(SITE_URL).toBe("https://seiler.page");
-    expect(metadataForPath("/").title).toBe("Isaac Seiler | Tech Generalist");
-    expect(publicProfile.summary).toContain("tech generalist");
+    expect(metadataForPath("/").title).toBe("Isaac Seiler | Generalist");
+    expect(publicProfile.summary).toContain("generalist");
     expect(getKnowledgeChunks().find(chunk => chunk.id === "bio")?.content).toBe(publicProfile.summary);
-    expect(publicContent("profile").data).toMatchObject({ headline: "Tech generalist", canonicalUrl: "https://seiler.page/about" });
-    expect(markdown("/about")).toContain("tech generalist");
+    expect(publicContent("profile").data).toMatchObject({ headline: "Generalist", canonicalUrl: "https://seiler.page/about" });
+    expect(markdown("/about")).toContain("generalist");
     expect(llmsText()).toContain("August 2025 snapshot");
   });
 
@@ -38,7 +38,7 @@ describe("search and answer engine identity", () => {
     const response = { statusCode: 0, setHeader() {}, end(value = "") { output += value; } };
     handler({ method: "GET", url: "/api/public-content?path=profile" } as ApiRequest, response as unknown as ApiResponse);
     expect(response.statusCode).toBe(200);
-    expect(JSON.parse(output)).toMatchObject({ name: "Isaac Seiler", headline: "Tech generalist" });
+    expect(JSON.parse(output)).toMatchObject({ name: "Isaac Seiler", headline: "Generalist" });
   });
 
   it("serves the Photos route directly and points legacy map links to its globe", () => {
@@ -57,7 +57,7 @@ describe("search and answer engine identity", () => {
     document.head.append(feed);
     render(<MemoryRouter><SiteMetadata /><Link to="/about">About</Link><Link to="/work">Work</Link></MemoryRouter>);
     fireEvent.click(screen.getByRole("link", { name: "About" }));
-    expect(document.title).toBe("About Isaac Seiler | Tech Generalist");
+    expect(document.title).toBe("About Isaac Seiler | Generalist");
     expect(document.head.querySelector('link[rel="canonical"]')?.getAttribute("href")).toBe("https://seiler.page/about");
     expect(document.head.querySelector('link[type="text/markdown"]')?.getAttribute("href")).toBe("https://seiler.page/about.md");
     fireEvent.click(screen.getByRole("link", { name: "Work" }));

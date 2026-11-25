@@ -29,7 +29,7 @@ export default function AboutPage() {
           <div className="space-y-6 text-lg leading-relaxed">
             <p>{PROFILE_SUMMARY}</p>
             <p>Previously, Isaac helped build a congressional office and managed communications for a Member of Congress, led AI literacy work with educators in Taiwan with support from OpenAI, and researched how AI and digital platforms affect journalism.</p>
-            <p>He is a Fulbright and Truman Scholar and a member of OpenAI’s ChatGPT Lab.</p>
+            <p>He is a Fulbright and Truman Scholar and was a member of the first cohort of OpenAI’s ChatGPT Lab.</p>
           </div>
         </article>
       </motion.main>

@@ -51,7 +51,7 @@ const PROFILE_CHUNKS: KnowledgeChunk[] = [
     url: "/about",
     metadata: {
       kind: "profile",
-      role: "Tech generalist",
+      role: "Generalist",
       skills: ["strategy", "communications", "research", "writing", "AI fluency", "visual communication"],
       tags: ["biography", "about", "current", "Seattle"],
       limitations: ["Do not infer job-search status or private biographical details."],

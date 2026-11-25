@@ -1,7 +1,7 @@
 # Helping Shape OpenAI's Products Before Launch
 
 Canonical: https://seiler.page/projects/openai-product-testing-and-feedback
-Year: 2025–Present
+Year: 2025 cohort
 Author: Isaac Seiler
 
 Inside my work with OpenAI's first ChatGPT Lab: testing products before release, pressure-testing student use cases, contributing to launch campaigns, and turning 100 real workflows into a published book.

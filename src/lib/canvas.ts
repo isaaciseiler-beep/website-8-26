@@ -6,7 +6,7 @@ import { namedProjects } from './portfolioIntent.js';
 
 export const CONTENT_VERSION = "canvas-2026-11-02-v15";
 export const publicProjects = projectItems.filter(p => !hiddenProjectIds.has(p.id));
-export const publicProfile = { id: "isaac-seiler", name: "Isaac Seiler", headline: "Tech generalist", description: SITE_DESCRIPTION, summary: PROFILE_SUMMARY, expertise: PROFILE_EXPERTISE, bio: bioLines, location: "Seattle", canonicalUrl: `${SITE_URL}/about`, links: { contact: CONTACT_MAILTO, linkedin: LINKEDIN_URL, github: GITHUB_URL }, contentVersion: CONTENT_VERSION };
+export const publicProfile = { id: "isaac-seiler", name: "Isaac Seiler", headline: "Generalist", description: SITE_DESCRIPTION, summary: PROFILE_SUMMARY, expertise: PROFILE_EXPERTISE, bio: bioLines, location: "Seattle", canonicalUrl: `${SITE_URL}/about`, links: { contact: CONTACT_MAILTO, linkedin: LINKEDIN_URL, github: GITHUB_URL }, contentVersion: CONTENT_VERSION };
 export const projectSources = (id: string) => publicProjects.find(p => p.id === id)?.sections.flatMap(s => s.links ?? []) ?? [];
 export const records = [
   ...publicProjects.map(p => ({ id: p.id, type: "project", title: p.title, summary: p.summary, year: p.year, image: p.image, canonicalUrl: `${SITE_URL}/projects/${p.id}`, body: p.sections.map(s => [s.heading, ...(s.paragraphs ?? []), ...(s.bullets ?? []), ...(s.stats ?? []).map(stat => `${stat.label}: ${stat.value}`)].join("\n\n")).join("\n\n"), sources: projectSources(p.id), contentVersion: CONTENT_VERSION })),

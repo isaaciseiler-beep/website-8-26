@@ -2,7 +2,7 @@ Isaac Seiler
 Resume
 
 Profile
-Lead marketing and communications at Summation, a decision-grade AI company in the Seattle area. Work at the intersection of AI, emerging technology, communications, operations, policy research, and the systems people use every day. Fulbright Scholar, Truman Scholar, Rhodes Scholarship finalist, WashU graduate, and member of OpenAI's ChatGPT Lab.
+Lead marketing and communications at Summation, a decision-grade AI company in the Seattle area. Work at the intersection of AI, emerging technology, communications, operations, policy research, and the systems people use every day. Fulbright Scholar, Truman Scholar, Rhodes Scholarship finalist, WashU graduate, and former member of OpenAI's ChatGPT Lab.
 
 Experience
 
@@ -28,7 +28,7 @@ State AI Adoption Index | 2025
 Focus: AI policy research, data systems, partner mapping, strategy support.
 
 OpenAI
-ChatGPT Lab | 2025-Present
+ChatGPT Lab | First cohort (joined 2025)
 - Joined the first cohort of OpenAI's ChatGPT Lab, testing new ChatGPT products and sharing structured feedback with product and go-to-market teams.
 - Co-authored a book featuring 100 uses for ChatGPT, focused on practical workflows and real user behavior.
 Focus: product feedback, GTM insight, AI education, user behavior, early testing.

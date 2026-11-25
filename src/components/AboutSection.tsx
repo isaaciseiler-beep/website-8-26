@@ -103,7 +103,7 @@ const AboutSection = ({ revealEnabled = true }: AboutSectionProps) => {
 
           <div className="about-lede-copy">
             <p ref={introRef} className="about-lede-intro">
-              I'm a tech generalist working across AI, policy, education, research, and communications. I lead marketing and communications at{" "}
+              I'm a generalist working across AI, policy, education, research, and communications. I lead marketing and communications at{" "}
               <a
                 href="https://summation.com"
                 target="_blank"

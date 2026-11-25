@@ -13,7 +13,7 @@ for (const route of routes) {
   const scripts = [...html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];
   assert.equal(scripts.length, 1, `One structured graph: ${route}`);
   const graph = JSON.parse(scripts[0][1])["@graph"];
-  assert.ok(graph.find(node => node["@type"] === "Person")?.description.includes("tech generalist"));
+  assert.ok(graph.find(node => node["@type"] === "Person")?.description.includes("generalist"));
   if (route === "/about") assert.equal(graph.find(node => node["@type"] === "ProfilePage")?.mainEntity["@id"], `${SITE_URL}/#person`);
   assert.equal((html.match(/<noscript/g) ?? []).length, 1, `One route-specific fallback: ${route}`);
   assert.ok(html.includes('type="application/rss+xml"'), `Feed discovery: ${route}`);
