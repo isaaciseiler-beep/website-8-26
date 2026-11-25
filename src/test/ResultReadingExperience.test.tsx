@@ -29,10 +29,11 @@ describe('answer reading and evidence provenance',()=>{
     expect(within(table).getAllByRole('rowheader').map(row=>row.textContent)).toEqual(['Approach','Work in practice']);
     expect(within(table).getAllByRole('cell').filter(cell=>cell.textContent)).toHaveLength(4);
   });
-  it('distinguishes Taiwan from the ChatGPT Lab using their actual published media rather than their shared legacy cover',()=>{
+  it('keeps Taiwan and ChatGPT Lab covers distinct and uses their published media in comparisons',()=>{
     const taiwan=publicProjects.find(project=>project.id==='fulbright-focus-group-sponsored-by-openai')!;
     const lab=publicProjects.find(project=>project.id==='openai-product-testing-and-feedback')!;
-    expect(taiwan.image).toBe(lab.image); // The misleading legacy-cover collision.
+    expect(taiwan.image).not.toBe(lab.image);
+    expect(lab.image).toBe('/project-images/chatgpt-100-chats.jpg');
     const taiwanImage=representativeProjectImage(taiwan),labImage=representativeProjectImage(lab);
     expect(taiwanImage.src).not.toBe(labImage.src);
     expect(taiwanImage.alt).toMatch(/presenting.*Taiwan/);
